@@ -1,0 +1,24 @@
+# Environment & Secrets
+.env
+.env.local
+*.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Node / Frontend
+node_modules/
+dist/
+.next/
+out/
+build/
+*.log
+
+# System / OS
+.DS_Store
+Thumbs.db
