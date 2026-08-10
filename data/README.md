@@ -1,21 +1,59 @@
 # BILLSzuka — Data directory
 
-Pliki CSV z rekordami firm. Każdy kraj ma 2 pliki (A i B), każdy z identycznym schematem kolumn.
+Pliki CSV z rekordami firm. Każdy kraj ma swój folder z 2 plikami CSV (A i B) + dziennikiem `.md`. Dodatkowo istnieje `master.csv` w katalogu głównym — agregat wszystkich wpisów ze wszystkich krajów. Relacje między firmami trzymane są **oddzielnie** w `relationships.csv`.
 
 ## Pliki
 
 ```
-catalog-A-{KOD}.csv   # firmy z nabijarkami (kategorie A1-A6)
-catalog-B-{KOD}.csv   # firmy branżowe bez nabijarek (kategorie B1-B9)
+data/
+├── master.csv                    # agregat — źródło prawdy dla analizy/BI
+├── audit-log.md                  # historia weryfikacji
+├── relationships.csv             # krawędzie grafu relacji (korporacyjne + łańcuch dostaw)
+├── relationships-audit.md        # historia weryfikacji relacji
+├── verification/                 # raporty weryfikacji
+├── Polska/                       # PL
+│   ├── PL.md                     # dziennik badawczy
+│   ├── catalog-A-PL.csv          # firmy z nabijarkami (kategorie A1-A6)
+│   └── catalog-B-PL.csv          # firmy branżowe bez nabijarek (B1-B9)
+├── Czechy/                       # CZ (catalog-A-CZ.csv + catalog-B-CZ.csv + CZ.md)
+├── Bułgaria/                     # BG
+├── Chorwacja/                    # HR
+├── Estonia/                      # EE
+├── Francja/                      # FR
+├── Litwa/                        # LT
+├── Łotwa/                        # LV
+├── Mołdawia/                     # MD
+├── Rumunia/                      # RO
+├── Słowacja/                     # SK
+└── Słowenia/                     # SI
 ```
 
-Kody krajów: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
+Foldery nazwane po polsku (Polska, Czechy…) — kody ISO w nazwach plików CSV (PL, CZ, BG, HR, EE, FR, LT, LV, MD, RO, SK, SI).
+
+## master.csv + relationships.csv
+
+`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id_unikalne` w formacie `{KOD}-{A|B}-{REGION_KOD}-{NNN}`. Przebudowa po każdej edycji per-kraj (komenda w `skills/verify-data/SKILL.md`).
+
+`data/relationships.csv` = graf relacji (krawędzie). Schemat: `from_id,to_id,relation_type,direction,evidence,verified_date,notes`. Patrz DZIENNIK.md → Relacje.
+
+Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
+Kody regionów per kraj: patrz DZIENNIK.md → REGION (16 PL, pozostałe kraje na bieżąco).
+
+`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id_unikalne` w formacie `{KOD}-{A|B}-{REGION_KOD}-{NNN}`. Przebudowa po każdej edycji per-kraj (komenda w `skills/verify-data/SKILL.md`).
+
+Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
+Kody regionów per kraj: patrz DZIENNIK.md → REGION (16 PL, pozostałe kraje na bieżąco).
 
 ## Schemat kolumn (unifikowany A i B)
 
 | Kolumna | Typ | Opis |
 |---|---|---|
-| `id_unikalne` | str | Wewnętrzne ID, np. `PL-A-001`, `CZ-B-012` |
+| `region_kod` | 2-liter | Kod regionu w ID (np. `WP`, `PR`, `KA`). Patrz DZIENNIK.md → REGION. |
+| `region_nazwa` | str | Lokalna nazwa regionu (np. `wielkopolskie`, `Hlavní město Praha`) |
+| `region_typ` | str | Typ jednostki adm. (np. `województwo`, `kraj`, `apskritis`) |
+| `related_to` | str | ID firm powiązanych po przecinku (sister firms, sukcesja, pokolenie). |
+| `rok_zalozenia` | YYYY | Rok rejestracji (KRS/CEIDG). Wiek = bieżący rok − rok. |
+| `id_unikalne` | str | `{KOD}-{A\|B}-{REGION_KOD}-{NNN}`, np. `PL-A-WP-001`, `CZ-B-PR-012` |
 | `kategoria` | enum | A1-A6 lub B1-B9 |
 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
 | `kraj` | ISO2 | Dwuliterowy kod |
@@ -30,11 +68,11 @@ Kody krajów: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 | `linkedin` | URL | Profil firmy |
 | `facebook` | URL | Strona firmy |
 | `instagram` | URL | Profil firmy |
-| `tier` | enum | exclusive / authorized / reseller / retailer / marketplace |
+| `tier` | enum | `wyłączność` / `autoryzowany` / `reseller` / `detalista` / `marketplace` / `producent` / `hurtownik` |
 | `marki_nabijarki` | list | A: lista marek (PowerMatic, Hawk, Topomat, GM, Turbomatic, inne) |
 | `marka_wlasna_oem` | str | A: nazwa marki własnej (lub puste) |
 | `sourcing` | enum | Chiny / Europa / Polska / mix |
-| `wolumen` | enum | mały / średni / duży |
+| `wolumen` | enum | mały / średni / duży (progi per `rynek_skala`) |
 | `confidence_wolumen` | enum | 🟢 / 🟡 / 🔴 |
 | `kanal_sprzedaży` | enum | B2B only / sklep stacjonarny / marketplace / własny e-commerce / mix |
 | `powinowactwo_nabijarki` | int 1-5 | B: tylko (puste w A) |
@@ -44,8 +82,9 @@ Kody krajów: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 | `email_decydent` | str | Bezpośredni email jeśli inny niż firmowy |
 | `zrodlo_danych` | str | CEIDG, KRS, Facebook grupa X, OLX, targi Y, recenzja Z, link |
 | `data_weryfikacji` | date | YYYY-MM-DD |
-| `flagi` | list | Kombinacja 🔴/🟡/🟢/🐋/💎/✅/🔍 |
+| `flagi` | list | Kombinacja 🔴/🟡/🟢/🐋/💎/✅/🔍 (+ flagi weryfikacji) |
 | `notatki` | str | Dowolne obserwacje |
+| `rynek_skala` | enum | Auto: `duży` (PL/CZ/FR) / `średni` (RO/BG/HR/SI/SK) / `mały` (LT/LV/EE/MD). Kalibruje progi wolumenu. |
 
 ## Konwencje
 

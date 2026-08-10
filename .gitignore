@@ -22,3 +22,12 @@ build/
 # System / OS
 .DS_Store
 Thumbs.db
+._*        # AppleDouble metadata (macOS)
+
+# BILLSzuka verify state (machine-local, regenerated on each run)
+data/.verify-state/
+
+# BILLSzuka derived data (regenerate from per-country CSVs)
+data/master.csv
+data/relationships.csv
+data/relationships-audit.md

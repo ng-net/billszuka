@@ -270,20 +270,39 @@ export default function App() {
           {activeTab === 'analytics' && (
             <div>
               <h2 style={{ fontSize: '18px', marginBottom: '16px' }}>Visual Analytics: {selectedDataset}</h2>
-              <div style={{ backgroundColor: '#0f172a', padding: '20px', borderRadius: '12px', border: '1px solid #1e293b', height: '400px' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={tableData.data}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                    <XAxis dataKey={tableData.columns[0] || 'id'} stroke="#94a3b8" />
-                    <YAxis stroke="#94a3b8" />
-                    <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }} />
-                    <Legend />
-                    <Bar dataKey="Amount_USD" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              {(() => {
+                // Detect numeric columns dynamically
+                const numericCols = tableData.columns.filter(col =>
+                  tableData.data.some(row => !isNaN(parseFloat(row[col])) && row[col] !== '')
+                ).slice(0, 3);
+                const xKey = tableData.columns[0] || 'id';
+                const COLORS = ['#3b82f6', '#22d3ee', '#a78bfa'];
+                return numericCols.length > 0 ? (
+                  <div style={{ backgroundColor: '#0f172a', padding: '20px', borderRadius: '12px', border: '1px solid #1e293b', height: '400px' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={tableData.data.slice(0, 50)}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis dataKey={xKey} stroke="#94a3b8" tick={{ fontSize: 11 }} />
+                        <YAxis stroke="#94a3b8" />
+                        <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }} />
+                        <Legend />
+                        {numericCols.map((col, i) => (
+                          <Bar key={col} dataKey={col} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
+                        ))}
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <div style={{ backgroundColor: '#0f172a', padding: '40px', borderRadius: '12px', border: '1px solid #1e293b', textAlign: 'center', color: '#64748b' }}>
+                    <BarChart2 size={48} style={{ margin: '0 auto 12px' }} />
+                    <p>No numeric columns found in <strong>{selectedDataset}</strong>.</p>
+                    <p style={{ fontSize: '13px' }}>Select a dataset with numeric fields to visualise.</p>
+                  </div>
+                );
+              })()}
             </div>
           )}
+
 
           {/* TAB 3: GEMINI CHAT ASSISTANT */}
           {activeTab === 'chat' && (

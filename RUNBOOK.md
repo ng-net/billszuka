@@ -383,3 +383,349 @@ with urllib.request.urlopen(req) as r:
 
 - 2026-08-10: v1 — iteracja 1, 30 firm z listy, 5 OK + 4 ZŁY + 5 FABRYKAT + 11 DO_WERYFIKACJI
 - Kolejne iteracje: dodaj nowe kraje, fix gaps, dodaj nowe API
+
+---
+
+## 🧰 TOOLBOX PER KRAJ (3-4 źródła na kraj)
+
+> **Zasada:** każdy kraj = minimum 3-4 źródła: **rejestr podstawowy** + **rejestr finansowy** + **upadłości** + **VAT/tax**.
+> Cross-country universals (VIES, OpenCorporates, OpenSanctions, GLEIF) działają wszędzie.
+
+### 🇵🇱 POLSKA (priorytet)
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | KRS API (MS) | `https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}` | Pełny odpis: zarząd, wspólnicy, kapitał, PKD, adres, historia (free, no auth, 20/min) |
+| 2 | REGON API (BIR1.1) | `api.stat.gov.pl/Home/RegonApi` | NIP/REGON/KRS → dane firmy, PKD, forma prawna (USER_KEY) |
+| 3 | CEIDG v3 | `dane.biznes.gov.pl/api/ceidg/v3/firmy?nazwa=X` | JDG: NIP, REGON, adres, PKD, status (Bearer token) |
+| 4 | Przeglądarka DF KRS | `ekrs.ms.gov.pl/rdf/pd/search_df?Krs={KRS}` | Sprawozdania finansowe .xml (bilans + RZiS) |
+
+Plus: wyszukiwarka-krs.ms.gov.pl (search by name), KRZ (upadłości), biała lista VAT, KRZ.
+
+**Automatyzacja:** `tools/krs_search.py --nip 5140361901 --financials`
+
+### 🇨🇿 CZECHY
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **ARES** (Ministerstvo Financí) | `ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}` | IČO → nazwa, adres, NACE, DIČ, **finanční údaje** (bilans!) |
+| 2 | Živnostenský rejstřík (RZP) | `rzp.cz` | Živnosti (JDG), koncesje |
+| 3 | Insolvenční rejstřík (ISIR) | `isir.justice.cz` | Upadłości, restrukturyzacja |
+| 4 | Obchodní rejstřík | `or.justice.cz` | Spółki — odpis .pdf, zmiany statutu |
+
+### 🇸🇰 SŁOWACJA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | Obchodný register (ORSR) | `orsr.sk/hladaj_subjekt.asp` | Odpis OR, zarząd, kapitał |
+| 2 | **Register účtovných závierok (RUZ)** | `registeruz.sk` | Roczne sprawozdania .xml |
+| 3 | Živnostenský register (ŽRSR) | `zrsr.sk` | Živnosti (JDG) |
+| 4 | Finančná správa | `financnasprava.sk` | Status VAT/DIČ |
+
+### 🇷🇴 RUMUNIA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **Termene.ro** | `termene.ro` | CUI, bilans .pdf, dłużnicy, powiązania (free) |
+| 2 | ListaFirme.ro | `listafirme.ro` | Aggregator darmowy: CUI, adres, Cifra afaceri |
+| 3 | ANAF | `anaf.ro` | Status TVA, bilanț |
+| 4 | Buletinul Procedurilor de Insolvență | `bpi.just.ro` | Upadłości |
+
+### 🇱🇹 LITWA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **rekvizitai.vz.lt** | `rekvizitai.vz.lt` | Įmonės kodas, PVM, adres, vadovas, **bilans**, powiązania |
+| 2 | Registrų centras (JAR) | `registrucentras.lt` | Pełne dane JAR |
+| 3 | VMI | `vmi.lt` | Status PVM |
+| 4 | Nemokumo registras | `registrucentras.lt/nemokumoregistras` | Upadłości |
+
+### 🇱🇻 ŁOTWA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | info.ur.gov.lv (UR) | `info.ur.gov.lv` | Reģistrācijas nr, PVN, adrese |
+| 2 | **Lursoft** (free preview) | `lursoft.lv` | Aggregator: bilans, powiązania, ryzyko |
+| 3 | VID (tax) | `vid.gov.lv` | Status PVN |
+| 4 | Maksātnespējas reģistrs (UR) | `ur.gov.lv/lv/maksatnespejas-regis…` | Upadłości |
+
+### 🇪🇪 ESTONIA ⭐ (najlepszy w regionie)
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **e-Äriregister** | `ariregister.rik.ee` | Pełne dane, e-aadress, kapitał, **bilans**, EMTA status |
+| 2 | EMTA (tax) | `emta.ee` | Status KM (VAT), konta |
+| 3 | Finantsinspektsioon | `fi.ee` | Licencje finansowe |
+| 4 | (e-Äriregister wystarcza) | — | — |
+
+### 🇫🇷 FRANCJA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **annuaire-entreprises.data.gouv.fr** | `annuaire-entreprises.data.gouv.fr` | SIREN/SIRET, dirigeants, **bilans** (oficjalne, darmowe) |
+| 2 | Bodacc | `bodacc.fr` | Annonces légales, upadłości, likwidacja |
+| 3 | INPI | `inpi.fr` | Marki, patenty |
+| 4 | Societe.com (ograniczony) | `societe.com` | SIREN, dirigeants, publikacje |
+
+### 🇲🇩 MOŁDAWIA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | Camera Înregistrării de Stat | `cis.gov.md` | IDNO, statut, adresă |
+| 2 | Serviciul Fiscal de Stat (SFS) | `sfs.md` | Status TVA |
+
+### 🇧🇬 BUŁGARIA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **portal.justice.bg** | `portal.justice.bg` | EIK, status, zarząd, **bilans .pdf** |
+| 2 | Registry Agency | `public.registryagency.bg` | Upadłości |
+| 3 | НАП (tax) | `nap.bg` | Status DDS (VAT) |
+
+### 🇸🇮 SŁOWENIA ⭐ (drugi najlepszy po PL)
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | **AJPES** | `ajpes.si` | Matična + **bilans + RZiS** w jednym miejscu |
+| 2 | FURS (tax) | `furs.si` | Status DDV (VAT) |
+| 3 | (AJPES wystarcza) | — | — |
+
+### 🇭🇷 CHORWACJA
+
+| # | Źródło | URL | Co daje |
+|---|---|---|---|
+| 1 | Sudski registar | `sudreg.pravosudje.hr` | OIB, MBS, zarząd |
+| 2 | **FINA** | `fina.hr` | Roczne sprawozdania .xml |
+| 3 | Porezna uprava (tax) | `porezna-uprava.hr` | Status PDV |
+| 4 | Stečajni registar (Sudski registar) | `sudreg.pravosudje.hr` | Upadłości |
+
+---
+
+### 🌍 CROSS-COUNTRY UNIVERSALS
+
+| Narzędzie | URL | Co daje |
+|---|---|---|
+| **VIES** | `ec.europa.eu/taxation_customs/vies/` | Walidacja VAT-EU (27 krajów) |
+| **OpenCorporates** | `opencorporates.com` | ~200/m free, mirror 100+ rejestrów |
+| **OpenSanctions** | `opensanctions.org` | Listy sankcyjne EU/ONZ/US/UK |
+| **GLEIF** | `gleif.org` | LEI lookup globalny |
+| **Wikidata** | `wikidata.org` | Linked open data, cross-references |
+| **EU Open Data Portal** | `data.europa.eu` | Oficjalne dane EU |
+| **DuckDuckGo / Brave** | — | Search by name, all languages |
+
+---
+
+### 🎯 PRIORYTET PO PL (TOP 3 do rozważenia)
+
+1. **🇸🇮 SI (AJPES)** — jedno źródło daje pełen pakiet: dane + bilans + RZiS
+2. **🇪🇪 EE (e-Äriregister)** — najlepszy cyfrowy rejestr w regionie
+3. **🇨🇿 CZ (ARES + VIES)** — blisko PL, duży rynek, ARES daje finanční údaje bez paid
+
+**Zasada ogólna:** rejestr + VIES + sankcje = minimum verification pack. Większość krajów ma te 3 za darmo.
+
+---
+
+## 📚 DOKUMENTY FINANSOWE I REJESTRY — DOSTĘP PER KRAJ
+
+Lista dokumentów które powinniśmy mieć dostęp do weryfikacji firm per kraj. Bez tych źródeł verification = "wiarygodne tylko na podstawie tego co firma sama o sobie mówi".
+
+### 🔑 Kluczowe źródła ogólne (wszystkie kraje EU)
+
+| Źródło | Co daje | Dostęp |
+|---|---|---|
+| **VIES** (VAT Information Exchange System) | Walidacja VAT-EU (aktywny/nieaktywny) | http://ec.europa.eu/taxation_customs/vies/ — bezpłatny |
+| **EU Open Data Portal** | Listy sankcyjne EU, dane korporacyjne | https://data.europa.eu/ |
+| **OpenCorporates** | Agregator globalny (mirror wielu rejestrów) | https://opencorporates.com/ — bezpłatny z limitem |
+| **NORSK / World-Bank** | Listy sankcyjne globalne | https://www.opensanctions.org/ — open data |
+
+### 🇵🇱 POLSKA — kompletna lista
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **KRS** (Krajowy Rejestr Sądowy) — pełny odpis | https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS} | Pełny odpis: zarząd, wspólnicy, kapitał, PKD, adres, historia | ❌ brak (limit 20/min) |
+| **KRS — wyszukiwarka web** (search by name/NIP/REGON) | https://wyszukiwarka-krs.ms.gov.pl/ | Lista firm po nazwie, NIP, REGON, KRS | ❌ brak |
+| **REGON** (BIR1.1 GUS) | https://api.stat.gov.pl/Home/RegonApi | NIP/REGON/KRS → nazwa, adres, PKD, forma prawna, daty | ✅ USER_KEY (email) |
+| **CEIDG v3** (jednoosobowe) | https://dane.biznes.gov.pl/ | JDG: NIP, REGON, adres, PKD, status | ✅ Bearer token |
+| **Sprawozdania finansowe KRS** (.xml) | https://ekrs.ms.gov.pl/rdf/pd/search_df | Bilans + RZiS + Cash flow + zmiany kapitałów | ❌ brak (download XML) |
+| **Krajowy Rejestr Zadłużonych (KRZ)** | https://prs.ms.gov.pl/krz | Dłużnicy, postępowania upadłościowe | ❌ brak |
+| **Lista sankcyjna MSWiA** | https://www.gov.pl/web/mswia/lista-osob-i-podmiotow-objetych-sankcjami | Osoby/podmioty z sankcjami | ❌ brak |
+| **Wykaz podatników VAT (biała lista)** | https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka | Status VAT, rachunki bankowe | ❌ brak |
+| **Rejestr podmiotów tytoniowych (KAS)** | https://www.gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych | Legalni pośrednicy tytoniowi PL | ❌ brak |
+| **Rejestr.io API** (paid) | https://rejestr.io/api | Search by name + bilans (.xml) | ✅ 0.5 zł/dokument |
+| **Aleo.com** | https://aleo.com | KRS, bilans, powiązania | ❌ free z limitem |
+| **Panoramafirm.pl** | https://panoramafirm.pl | Dane rejestrowe, PKD, linki | ❌ brak |
+| **KRS-online.com.pl** (paid) | https://krs-online.com.pl | KRS + bilans | ✅ płatny |
+
+**Automatyzacja PL (gotowe):**
+```bash
+# 1. NIP → REGON → KRS
+python3 tools/krs_search.py --nip 5140361901
+# 2. KRS → pełny odpis (po znalezieniu KRS)
+python3 tools/krs_search.py --krs 0001074645
+# 3. KRS → URL do sprawozdań finansowych
+python3 tools/krs_search.py --krs 0001074645 --financials
+```
+
+### 🇨🇿 CZECHY
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **ARES** (Ministerstvo Financí) | https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO} | IČO → nazwa, adres, NACE, DIČ, forma prawna | ❌ brak |
+| **ARES search by name** | https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty?obchodniJmeno={name} | Lista IČO po nazwie | ❌ brak |
+| **Obchodní rejstřík** (justice.cz) | https://or.justice.cz | Odpis z OR (.pdf), zmiany statutu, likwidacja | ❌ brak |
+| **Živnostenský rejstřík (RZP)** | https://www.rzp.cz | Živnosti (JDG), koncesje | ❌ brak |
+| **Insolvenční rejstřík (ISIR)** | https://isir.justice.cz | Upadłości, restrukturyzacja | ❌ brak |
+| **Registr ekonomických subjektů** | https://www.statnipokladna.cz | Subwencje z budżetu publicznego | ❌ brak |
+| **ARES finanční data** | https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}/financni-udaje | Bilans, RZiS, turnover (nielimitowane) | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇸🇰 SŁOWACJA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **Obchodný register (ORSR)** | https://orsr.sk/hladaj_subjekt.asp | Odpis OR, zarząd, kapitał | ❌ brak |
+| **Živnostenský register (ŽRSR)** | https://www.zrsr.sk | Živnosti (JDG) | ❌ brak |
+| **Register účtovných závierok (RUZ)** | https://www.registeruz.sk | Roczne sprawozdania finansowe (.xml) | ❌ brak |
+| **Finančná správa** | https://www.financnasprava.sk | Status VAT, DIČ | ❌ brak |
+| **Obchodný register Vestník** | https://www.justice.gov.sk | Ogłoszenia o likwidacji, upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇷🇴 RUMUNIA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **ONRC** (Registrul Comerțului) | https://www.onrc.ro | Odpis z RC (.pdf, 8 lei/opłata) | ✅ paid (8 lei/odpis) |
+| **ListaFirme.ro** | https://listafirme.ro | Aggregator: CUI, adres, Cifra afaceri | ❌ brak |
+| **Termene.ro** | https://termene.ro | CUI, bilans (.pdf), powiązania | ❌ brak |
+| **Confidas.ro** | https://confidas.ro | KYC, ryzyko, finansowe | ❌ brak |
+| **ANAF** (tax) | https://www.anaf.ro | Status TVA, bilanț | ❌ brak |
+| **Buletinul Procedurilor de Insolvență** | https://bpi.just.ro | Upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇱🇹 LITWA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **JAR** (Juridinių asmenų registras) | https://rekvizitai.vz.lt | Įmonės kodas, PVM, adres, vadovas | ❌ brak |
+| **Registrų centras** | https://www.registrucentras.lt | Pełne dane, finansowe | ❌ brak |
+| **JAR finansiniai ataskaitos** | https://rekvizitai.vz.lt/company/{kodas}/financials | Bilans, RZiS | ❌ brak |
+| **VMI** (tax) | https://www.vmi.lt | Status PVM | ❌ brak |
+| **Nemokumo registras** | https://www.registrucentras.lt/nemokumoregistras | Upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇱🇻 ŁOTWA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **UR** (Uzņēmumu reģistrs) | https://info.ur.gov.lv | Reģistrācijas nr, PVN, adrese | ❌ brak |
+| **Lursoft** | https://lursoft.lv | Agregator: bilans, powiązania, ryzyko | ❌ brak |
+| **DataMe.lv** | https://datame.lv | Roczne sprawozdania (.pdf) | ❌ brak |
+| **VID** (tax) | https://www.vid.gov.lv | Status PVN | ❌ brak |
+| **Maksātnespējas reģistrs** | https://www.ur.gov.lv/lv/maksatnespejas-regis… | Upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇪🇪 ESTONIA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **e-Äriregister** (najlepszy w regionie!) | https://ariregister.rik.ee | Pełne dane, e-aadress, kapitał, EMTA status | ❌ brak |
+| **EMTA** (tax) | https://www.emta.ee | Status KM (VAT), konta | ❌ brak |
+| **Finantsinspektsioon** | https://www.fi.ee | Licencje finansowe | ❌ brak |
+| **e-Äriregister financial reports** | https://ariregister.rik.ee/est?kood={KM}&tegevusala=EMTAK | Bilans (konsolidowany) | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇫🇷 FRANCJA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **Pappers.fr** ⭐ | https://pappers.fr/api | SIREN, dirigeants, bilans, status | ✅ paid (ale świetne) |
+| **Societe.com** | https://www.societe.com | SIREN, dirigeants, publikacje | ❌ free z limitem |
+| **Infogreffe (RCS)** | https://www.infogreffe.fr | Odpis z RCS (.pdf, paid) | ✅ paid |
+| **INPI** (własność intelektualna) | https://www.inpi.fr | Marki, patenty | ❌ brak |
+| **Bodacc** (annonces légales) | https://www.bodacc.fr | Ogłoszenia prawne, upadłości, likwidacja | ❌ brak |
+| **Service-public.fr** | https://annuaire-entreprises.data.gouv.fr | Dane rejestrowe SIREN/SIRET | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇲🇩 MOŁDAWIA (poza UE)
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **Camera Înregistrării de Stat** | https://www.cis.gov.md | IDNO, statut, adresă | ❌ brak |
+| **Serviciul Fiscal de Stat** | https://www.sfs.md | Status TVA | ❌ brak |
+
+### 🇧🇬 BUŁGARIA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **Търговски регистър** (portal.justice.bg) | https://portal.justice.bg | EIK, status, zarząd | ❌ brak |
+| **НАП** (tax) | https://www.nap.bg | Status DDS (VAT) | ❌ brak |
+| **Търговски регистър финансови отчети** | https://portal.justice.bg | Bilans (.pdf) | ❌ brak |
+| **Регистър на несъстоятелностите** | https://public.registryagency.bg | Upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇸🇮 SŁOWENIA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **AJPES** ⭐ | https://www.ajpes.si | Matična + **pełne bilansy** w jednym miejscu | ❌ brak |
+| **FURS** (tax) | https://www.furs.si | Status DDV (VAT) | ❌ brak |
+| **AJPES finančni podatki** | https://www.ajpes.si/prs/rezultati.asp?podrobno=true | Bilans + RZiS (.pdf, .xml) | ❌ brak |
+| **Insolvenčni register** | https://www.ajpes.si/Register | Upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+### 🇭🇷 CHORWACJA
+
+| Dokument | URL | Co dostaje | Auth |
+|---|---|---|---|
+| **Sudski registar** | https://sudreg.pravosudje.hr | OIB, MBS, zarząd | ❌ brak |
+| **Porezna uprava** | https://www.porezna-uprava.hr | Status PDV (VAT) | ❌ brak |
+| **FINA** (finansowe) | https://www.fina.hr | Roczne sprawozdania (.xml) | ❌ brak |
+| **Stečajni registar** | https://sudreg.pravosudje.hr | Upadłości | ❌ brak |
+| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
+
+---
+
+### 📋 Cross-country — minimalny pakiet do weryfikacji
+
+Aby zweryfikować firmę w dowolnym kraju na poziomie **minimum godnym zaufania**, potrzebujesz:
+
+1. **Rejestr podstawowy** (każdy kraj ma) → nazwa, adres, forma prawna, status (aktywny/wykreślony)
+2. **Rejestr finansowy** (AJPES, ARES, EKRS, Lursoft, Pappers, etc.) → obroty, zysk, zatrudnienie, kapitał
+3. **VIES** → status VAT-EU (aktywny = nie jest karany)
+4. **Rejestr upadłości** (ISIR, KRZ, Maksātnespējas, etc.) → czy nie w upadłości
+5. **Lista sankcyjna** (UE/ONZ) → czy nie jest na czarnej liście
+
+**Bez tych 5 źródeł = verification = "dane niepotwierdzone" ⚠️**
+
+---
+
+### 🔧 Pipeline weryfikacji per kraj (proponowany)
+
+```
+1. Firma w CSV (NIP/IČO/CUI/SIREN/IDNO/OIB itp.)
+         ↓
+2. Sprawdź rejestr podstawowy → status, adres, forma prawna
+         ↓
+3. Sprawdź VIES → VAT aktywny?
+         ↓
+4. Sprawdź rejestr upadłości → czy nie w postępowaniu?
+         ↓
+5. Sprawdź rejestr finansowy → obroty, zatrudnienie (opcjonalnie)
+         ↓
+6. Jeśli wszystko OK → flaga ✅ FROZEN
+   Jeśli czegoś brak → flaga ⚠️ DO-WERYFIKACJI
+```
+
+**Stan na 2026-08-10:** narzędzia PL (KRS, REGON) zautomatyzowane (`tools/krs_search.py`). Inne kraje = manual przez `verify_api.py` + RUNBOOK recipes.
+
+---
+
+## 📋 NOTATKI: BRAKUJĄCE API
+
+Nie mamy jeszcze integracji z:
+- **rejestr.io API** (PL, paid 0.5 zł/dok) — dałby sprawozdania finansowe automatycznie
+- **Pappers.fr API** (FR, paid) — najlepsze źródło dla FR
+- **AJPES API** (SI, free!) — warto zautomatyzować, bo bilansy są w jednym miejscu
+- **Lursoft API** (LV, paid) — alternatywa dla UR
+
+Gdyby mieć budżet 100-200 PLN/mies. → rejestr.io + Pappers = pełna weryfikacja PL + FR.

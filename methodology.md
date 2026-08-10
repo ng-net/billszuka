@@ -1,185 +1,422 @@
 # BILLSzuka — Methodology Reference
 
-B2B research on PowerMatic / Hawk rolling machines market. Dla: BILLS Sp. z o.o. (Ostrzeszów) — exclusive PM distributor PL + CEE.
+> **B2B research na PowerMatic + Hawk.** Dla: BILLS Sp. z o.o. (Ostrzeszów) — exclusive PM distributor PL + CEE.
+>
+> **Ten plik jest kanonicznym reference.** Reguły, schematy, definicje. Zmienia się rzadko.
+> **Kronologiczny log:** `DZIENNIK.md`. **Strategiczne odkrycia:** `INTEL.md`.
 
 ---
 
-## ZASADA DOKUMENTACJI — GDZIE CO ZAPISYWAĆ
+## 📋 Spis treści
 
-Po każdym researchu / scrape / search: jeśli znalazłem coś wartego zapisania → zapisuję od razu, zanim przejdę dalej.
+| # | Sekcja | Opis |
+|---|---|---|
+| 1 | [Kontekst projektu](#1-kontekst) | Co, dla kogo, dlaczego |
+| 2 | [Zasady dokumentacji](#2-zasady) | INTEL vs DZIENNIK vs methodology vs per-kraj |
+| 3 | [Katalog A — Firmy z nabijarkami](#3-katalog-a) | Kategoryzacja A1-A6 + flagi konkurencji |
+| 4 | [Katalog B — Branża tytoniowa (cross-sell)](#4-katalog-b) | Kategoryzacja B1-B9 + powinowactwo |
+| 5 | [Tier i Wolumen](#5-tier-wolumen) | Definicje + heurystyki estymacji |
+| 6 | [Rejestry i API per kraj](#6-rejestry) | 12 krajów: NIP/IČO/CUI/SIREN itp. |
+| 7 | [Marketplace per kraj](#7-marketplace) | Allegro, Heureka, eMAG, Skelbiu, etc. |
+| 8 | [Regulacje per kraj](#8-regulacje) | Reżim tytoniowy, e-papierosy, CBD |
+| 9 | [Kolejność geograficzna](#9-kolejnosc) | PL → CZ → ... → MD |
+| 10 | [Schemat CSV (zunifikowany)](#10-schemat-csv) | 38 kolumn, A i B razem |
+| 11 | [Cele ilościowe](#11-cele) | Targety per kraj |
+| 12 | [Struktura plików](#12-struktura) | Co gdzie żyje |
+| 13 | [3 słabe punkty metodologii](#13-slabe-punkty) | Zastrzeżenia + naprawa |
+| 14 | [Dane pomocnicze od użytkownika](#14-dane-pomocnicze) | Co user może dostarczyć |
+| 15 | [Checklist przed pierwszym dostarczeniem](#15-checklist) | Gotowość do produkcji |
+
+---
+
+## 1. Kontekst projektu
+
+**Cel końcowy:** 3-5 nowych umów dystrybucyjnych PowerMatic / Hawk w PL lub CEE w ciągu 12 miesięcy. **Umowa = podpisana, nie rozmowa.**
+
+**Cel pośredni:** ≥50 zweryfikowanych firm PL w katalogach A+B. Każda z: pełnym adresem, kontaktem, decydentem, statusem (FROZEN).
+
+**Zakres pierwszej fali:** głęboki PL (12 krajów docelowo, ale PL = fundament).
+
+**Stack technologiczny:** CEIDG v3, KRS API, REGON API, ARES, VIES, OpenRouter (LLM), 5+ OSINT skills.
+
+**Output:** Excel/Google Sheets + CSV (dual).
+
+---
+
+## 2. Zasady dokumentacji
+
+### 11 Metod Pozyskiwania Leadów (Framework Wyszukiwania B2B)
+
+| Poziom | Nazwa Metody | Opis i Wskazówki Wykonawcze |
+|---|---|---|
+| **L0** | **Pre-flight: walidacja identyfikatorów** | **WYMAGANE przed każdym L1-L11.** NIP checksum (mod 11) + KRS/CEIDG API name-match. Eliminuje FABRYKATY (halucynowane NIP-y LLM-ów które wskazują na inne firmy). Patrz: "L0 Szczegóły" poniżej. |
+| **L1** | **Ogólne wyszukiwanie sieciowe** | Przeszukiwanie fraz ze `SŁOWNIK-{KOD}.md` w Google, DuckDuckGo i Brave z dopiskami B2B (`hurtownia`, `dystrybutor`, `cennik`). Operatory `site:linkedin.com/in`, `inurl:oferta`, `intitle:"nabijarka"`. |
+| **L2** | **Marketplace'e i Agregatory** | Skanowanie kont sprzedawców na platformach e-commerce (Allegro REST API, Ceneo, OLX, InPost Buy, Heureka, eMAG, Leboncoin, Marktplaats, Gumtree, Bolha). Allegro API = NIP + sprzedaż + opinie. Patrz: "L2 Allegro API". |
+| **L3** | **Skanowanie Rejestrów Państwowych** | Wyszukiwanie po PKD (46.35.Z, 46.69.Z, 46.43.Z, **47.26.Z detal tytoniowy, 47.11.Z sklepy convenience**) oraz słowach kluczowych w CEIDG, KRS, ARES, VIES, REGON. Dla sp.j. (brak publicznego KRS) → CEIDG po NIP-ach wspólników. Patrz: "L3 Google Maps". |
+| **L4** | **Analiza Działań Celnych i Regulacyjnych** | Kod CN 8479 89 97 90 (maszyny specjalne), **Biała Lista VAT** (status VAT active), **BDO** (rejestr wprowadzających produkty), **KAS Rejestr Pośredników Tytoniowych**, orzeczenia WSA/NSA, decyzje celne. Trzy bezpłatne źródła twardych danych. |
+| **L5** | **Skanowanie Domen DNS i WHOIS** | Generowanie nazw domen (`nabijarki*`, `powermatic*`, `tabak*`) + WHOIS + **Certificate Transparency (crt.sh)** dla sub-domen znanych marek. |
+| **L6** | **Targi i Wydarzenia Branżowe (2024–2026)** | Listy wystawców: InterTabac (Dortmund, wrzesień), World Vape Show (kwiecień), Eurocis, Tobacco Plus Expo USA, Vapexpo, targi FMCG. Scraping katalogów wystawców + NIP z wizytówek. |
+| **L7** | **Bez-kontowy OSINT w Social Media** | Grupy FB, Instagram, TikTok, Reddit (`r/ukrainetobacco`, `r/electronic_cigarette`), **YouTube komentarze pod recenzjami "PowerMatic recenzja" — kupujący ujawniają sklepy**, Wykop, Vinted. Patrz: "L7 YouTube scraping". |
+| **L8** | **Katalogi Firm i Bazy Branżowe** | Aleo, PKT.pl, Panorama Firm, Bizraport, Firmy.cz, Kompass, **nipgo.pl** (3M PL, freemium), **Veritor** (10 EU rejestrów, KYB), **ENTIA** (5.5M EU firm MCP). |
+| **L9** | **Skauting i Ekstrakcja przez LLM** | OpenRouter API (DeepSeek, Gemini, Claude). **WYMAGA L0 pre-flight + multi-LLM cross-check**: każdy NIP/KRS generowany przez 2+ modele; odrzuć jeśli się różnią. Patrz: "L9 LLM safety". |
+| **L10** | **EUIPO Trademark Search** | Wyszukiwanie właścicieli znaków towarowych w EUIPO (`euipo.europa.eu/eSearch`). Weryfikacja kto faktycznie jest właścicielem "PowerMatic"/"Hawk" w EU + łańcuch licencji. |
+| **L11** | **Zamówienia Publiczne (BZP / TED)** | Kto dostarczał wyroby tytoniowe do instytucji publicznych: **BZP PL** (`ezamowienia.gov.pl`), **TED EU** (`ted.europa.eu`). Filtruj po CPV 15800000-6 (diverse food products) i 39200000-4 (furnishing). |
+
+---
+
+#### L0 — Szczegóły: Pre-flight walidacja
+
+**Kiedy:** PRZED każdym L1-L11 (a także po L9). Zawsze, gdy pojawia się NIP/KRS z nowego źródła.
+
+**Dlaczego:** LLM (Gemini/Claude/DeepSeek) generuje NIP-y z poprawnym checksum i KRS-y istniejące w rejestrze — ale wskazujące na **zupełnie inne firmy**. Przykład: "HURTOWNIA PAPIEROSÓW CYGARO" = KRS 0000123456 → realnie to **RODENSTOCK POLSKA** (optyka). KRS API zwraca sukces (HTTP 200) dla każdego istniejącego KRS bez weryfikacji nazwy.
+
+**Kod (Python):**
+
+```python
+# NIP checksum (mod 11)
+def validate_nip(nip):
+    nip = str(nip).replace("PL", "").replace(" ", "")
+    weights = [6, 5, 7, 2, 3, 4, 5, 6, 7]
+    s = sum(int(nip[i]) * weights[i] for i in range(9))
+    return s % 11 == int(nip[9])
+
+# KRS name match
+def krs_name_match(krs, expected_name, fuzzy=True):
+    url = f"https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{krs}"
+    data = json.loads(urllib.request.urlopen(url).read())
+    api_name = data["odpis"]["dane"]["dzial1"]["danePodmiotu"]["nazwa"]
+    if fuzzy:
+        return api_name[:8].lower() in expected_name.lower() or expected_name[:8].lower() in api_name.lower()
+    return api_name == expected_name
+```
+
+**Defense in depth (3 warstwy):**
+1. **NIP checksum (mod 11)** — instant, 30ms, eliminuje 100% losowo generowanych NIP-ów
+2. **KRS/CEIDG API + name-match** — dla każdego KRS, 200ms, eliminuje FABRYKATY
+3. **Multi-LLM cross-check** — dla danych z LLM, 5-10s, eliminuje halucynacje modeli
+
+---
+
+#### L2 — Allegro REST API
+
+**Setup:** OAuth2 client credentials flow. Rejestracja: https://apps.developer.allegro.pl
+
+**Co daje (per sprzedawca):**
+- `seller.login` → nazwa + NIP firmy
+- `feedbackCount` + `positiveCount` → wolumen (proxy)
+- `superSeller` → jakość
+- `category.id` → asortyment
+
+**Przykład endpointu:**
+```
+GET https://api.allegro.pl/sellers/{sellerId}/summary
+Authorization: Bearer {access_token}
+Accept: application/vnd.allegro.public.v1+json
+```
+
+**Workflow:** szukaj "powermatic" / "nabijarka" → dla każdego offer → GET seller info → NIP → CEIDG/KRS. **NIE trzeba scrapować Allegro UI** — API oficjalne, darmowe, 9000 req/h.
+
+**Inne marketplace'y z API:**
+- OLX: brak oficjalnego API, scraping
+- Ceneo: brak API, scraping (ale mirror w rankingu Ceneo)
+- Heureka.cz: brak API
+- Amazon Seller Central: API dla zarejestrowanych sellerów
+- eBay: Finding API (publiczny, darmowy)
+
+---
+
+#### L3 — Google Maps API (Places API - Text Search New)
+
+**Setup:** Google Cloud Console → Places API → Text Search. Wymaga billing ale ma $200/mies. free tier.
+
+**Przykład:**
+```python
+import googlemaps
+gmaps = googlemaps.Client(key="AIza...")
+results = gmaps.places(query="sklep tytoniowy hurtownia Warszawa", language="pl")
+for r in results.get("results", []):
+    print(r["name"], r["formatted_address"], r.get("rating"), r.get("user_ratings_total"))
+```
+
+**Co daje:** nazwa, adres, telefon, WWW, **rating (4.8+ = quality signal)**, liczba opinii, godziny otwarcia, kategorie Google.
+
+**Koszt:** $32 per 1000 requests. Dla 100 miast × 1 query = 100 req = $3.20. Tani.
+
+---
+
+#### L4 — Bezpłatne źródła twardych danych
+
+| Źródło | URL | Co daje |
+|---|---|---|
+| **Biała Lista VAT** | https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka | Status VAT active/zwolniony/wykreślony + rachunki bankowe |
+| **BDO** | https://rejestr-bdo.mos.gov.pl | Rejestr podmiotów wprowadzających produkty (wymagane dla importerów) |
+| **KAS Rejestr Pośredników Tytoniowych** | https://www.gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych | **Tylko w PL** — firmy z koncesją na obrót suszem tytoniowym. **TOP discovery source** |
+| **CEIDG v3 API** | https://dane.biznes.gov.pl | JDG z pełnymi danymi (wymaga token z .env) |
+
+---
+
+#### L7 — YouTube komentarze (real leads)
+
+**Dlaczego:** Pod każdą recenzją "PowerMatic recenzja" / "nabijarka test" kupujący piszą "kupiłem w [sklep]" / "polecam [firma]". To **real leads**, nie deklaratywne listy z katalogów.
+
+**Tools:**
+- `yt-dlp` (CLI) — pobiera komentarze jako JSON
+- Apify YouTube Comments Scraper — gotowy actor
+
+**Przykład:**
+```bash
+yt-dlp --skip-download --write-comments --print-json "https://www.youtube.com/watch?v=XXX" | jq '.comments'
+```
+
+**Następnie:** regex extract URL-ów i nazw sklepów → cross-check z L8/L3.
+
+---
+
+#### L9 — LLM safety (multi-LLM cross-check)
+
+**Wymóg:** każdy NIP/KRS wygenerowany przez LLM musi przejść:
+
+1. **L0 NIP checksum** (instant, eliminuje 70% halucynacji)
+2. **L0 KRS name-match** (200ms, eliminuje 95% reszty)
+3. **Multi-LLM consensus:** jeśli to samo pytanie do 2+ LLM-ów daje 2 różne NIP-y → odrzuć, szukaj w źródle
+
+**Workflow:**
+```python
+# Bad: jedno LLM
+nip = openrouter_call("Find NIP for X Sp. z o.o. in Poland", model="deepseek")
+
+# Good: multi-LLM + consensus
+def consensus_nip(name, country, models=["deepseek", "gemini", "claude"]):
+    answers = {m: openrouter_call(name, country, model=m) for m in models}
+    # Cross-check: 2/3 muszą się zgodzić
+    from collections import Counter
+    counter = Counter(answers.values())
+    top = counter.most_common(1)[0]
+    if top[1] >= 2:
+        return top[0]  # consensus
+    return None  # no consensus → reject
+```
+
+**Bonus:** użyj `o1-preview` lub `claude-opus-4` jako "arbitra" gdy mniejsze modele się nie zgadzają.
+
+---
+
+#### L10 — EUIPO Trademark Search
+
+**URL:** https://euipo.europa.eu/eSearch (oficjalne, bezpłatne)
+
+**Workflow:**
+1. Szukaj "PowerMatic" / "Hawk" / "Topomat" / "Turbomatic" w EUIPO
+2. Pobierz właściciela znaku
+3. Sprawdź status (active/lapsed/pending)
+4. Cross-check z właścicielem marki w naszej ofercie (BILLS exclusive PL+CEE)
+
+**Dlaczego:** EUIPO jest single source of truth dla EU trademarks. Kto jest właścicielem znaku w EU = kto ma prawo go dystrybuować. Jeśli ktoś w naszym katalogu A deklaruje PowerMatic ale EUIPO pokazuje że znak jest własnością innej firmy → **prawdopodobnie szara strefa**.
+
+---
+
+#### L11 — Zamówienia Publiczne (BZP / TED)
+
+**BZP PL:** https://ezamowienia.gov.pl — polskie zamówienia publiczne
+**TED EU:** https://ted.europa.eu — cała UE
+
+**Filtr:**
+- CPV 15800000-6 (diverse food products) — tytoń
+- CPV 39200000-4 (furnishing) — akcesoria
+- CPV 30100000-0 (office machinery) — maszynki
+
+**Co daje:** twardy evidence kto dostarczał wyroby tytoniowe do instytucji publicznych (szpitale, więzienia, wojsko). Małe wolumeny ale **weryfikowalne referencje**.
+
+**Format danych:** CPV + NIP wykonawcy + wartość umowy + data.
+
+---
+
+### Gdzie co zapisywać
 
 | Plik | Co tam trafia |
 |---|---|
-| **INTEL.md** | Strategiczne odkrycia — partnerzy 🐋, błędy w danych (zły KRS!), zmiany priorytetów, ryzykowni konkurenci, newsy z rynku |
-| **DZIENNIK.md** | Postęp prac, struktura projektu, metodologia, pytania do klienta, feedback |
+| **methodology.md** ⭐ kanoniczny | Reguły, schematy, definicje (tier, wolumen, flagi, CSV, rejestry) |
+| **INTEL.md** | Strategiczne odkrycia: partnerzy 🐋, ryzyka, newsy, narzędzia, realne dane rynkowe |
+| **DZIENNIK.md** | Postęp prac, decyzje, pytania, feedback, schema changes |
+| **`data/{Kraj}/{KOD}.md`** | Dziennik badawczy per kraj: znalezione firmy, niespodzianki, czerwone flagi, gemy, wnioski |
+| **`data/{Kraj}/SŁOWNIK-{KOD}.md`** | Frazy do Google/DuckDuckGo/Brave + wolumeny (lokalne + EN + site: filtry + social) |
+| **`data/{Kraj}/catalog-{A\|B}-{KOD}.csv`** | Dane firm (katalog A i B osobno) |
+| **`data/audit-log.md`** | Historia weryfikacji (per uruchomienie verify_run) |
 
-**Prosta reguła:**
-- Intel → coś, co zmienia strategię lub jest kluczową wiedzą na przyszłość
-- Dziennik → reszta (praca, struktura, pytania, feedback)
+**Reguły:**
+- Po każdym researchu / scrape / search: jeśli coś warte zapisania → natychmiast do pliku
+- Intel = strategic / zmienia decyzje
+- Dziennik = reszta (praca, pytania, feedback)
+- Jeśli nie wiesz gdzie → dziennik
 
-Jeśli nie wiesz gdzie coś wrzucić → dziennik.
+### Struktura folderu kraju
+
+```
+data/{Kraj}/                          # np. data/Polska/, data/Czechy/
+├── {KOD}.md                          # dziennik badawczy (free-form)
+├── SŁOWNIK-{KOD}.md            # słownik fraz + wolumeny
+├── catalog-A-{KOD}.csv              # firmy z nabijarkami
+└── catalog-B-{KOD}.csv              # branża tytoniowa bez nabijarek
+```
+
+Foldery nazwane po polsku (Polska, Czechy, Bułgaria…). Kody ISO w nazwach plików (PL, CZ, BG, …).
 
 ---
 
-## KATALOG A — Firmy z nabijarkami w ofercie
+## 3. Katalog A — Firmy z nabijarkami
 
 ### Oś główna: relacja z marką
 
 | Kod | Kategoria | Znaczenie dla BILLS |
 |---|---|---|
-| A1 | Tylko PowerMatic | Sub-dystrybutorzy / autoryzowani resellerzy BILLS |
-| A2 | Tylko Hawk | Potencjalny kanał dla Hawk (osobna marka do zbudowania) |
-| A3 | PowerMatic + Hawk | Najcenniejsi — sprawdzeni w branży, znają oba produkty |
-| A4 | Multi-brand z PM/Hawk | Resellerzy wielu marek (Topomat, GM, Turbomatic + PM/Hawk) |
-| A5 | Własna marka / OEM z Chin | **Konkurencja cenowa** — prywatne marki importerów |
-| A6 | Multi-brand bez PM/Hawk | Kandydaci do pozyskania — znają kanał, nie mają jeszcze naszych marek |
-
-**A5 zostaje w katalogu** (nie usuwam konkurencji). W kalkulacjach oznaczam flagą.
+| **A1** | Tylko PowerMatic | Sub-dystrybutorzy / autoryzowani resellerzy BILLS |
+| **A2** | Tylko Hawk | Potencjalny kanał dla Hawk (osobna marka do zbudowania) |
+| **A3** | PowerMatic + Hawk | Najcenniejsi — sprawdzeni w branży, znają oba produkty |
+| **A4** | Multi-brand z PM/Hawk | Resellerzy wielu marek (Topomat, GM, Turbomatic + PM/Hawk) |
+| **A5** | Własna marka / OEM z Chin | **Konkurencja cenowa** — prywatne marki importerów (zostaje w katalogu) |
+| **A6** | Multi-brand bez PM/Hawk | Kandydaci do pozyskania — znają kanał, nie mają jeszcze naszych marek |
 
 ### Oś uzupełniająca: typ relacji konkurencyjnej
 
 | Flaga | Typ | Przykład |
 |---|---|---|
 | 🔴 **KONK-BEZPOŚREDNI** | Sprzedaje dokładnie ten sam produkt (klon 1:1 z Chin) | Topomat, Turbomatic, GM, Luxfux (część asortymentu) |
-| 🟡 **KONK-POŚREDNI** | Nabijarki, ale w innej półce cenowej / innym mechanizmie | Ręczne injektory, tanie injektory no-name |
-| 🟢 **PARTNER** | Nie jest konkurentem, może być kanałem | Sklep tytoniowy, hurtownia wielobranżowa |
-| 🐋 **BIG FISH** | Najgrubsza ryba w danym kraju — wymaga osobnej strategii | Sieci sklepów, hurtownie ogólnokrajowe |
-| 💎 **GEM** | Firma, którą trudno znaleźć w internecie — znaleziona innym kanałem (targi, FB grupa, OLX, papierosy papierowe, opakowanie z numerem seryjnym) | Jednoosobowe działalności, małe sklepy bez WWW |
-| ✅ **BILLS-LIKE** | Profil firmy podobny do BILLS (import + dystrybucja + serwis) | Kandydat do benchmarku lub partnerstwa |
+| 🟡 **KONK-POŚREDNI** | Nabijarki, ale innej półce cenowej / mechanizmie | Ręczne injektory, tanie injektory no-name |
+| 🟢 **PARTNER** | Nie konkurentem, może być kanałem | Sklep tytoniowy, hurtownia wielobranżowa |
+| 🐋 **BIG FISH** | Najgrubsza ryba w danym kraju | Sieci sklepów, hurtownie ogólnokrajowe |
+| 💎 **GEM** | Off-internet — FB grupa, targi, OLX, opakowanie z numerem seryjnym | Jednoosobowe JDG, małe sklepy bez WWW |
+| ✅ **BILLS-LIKE** | Profil firmy podobny do BILLS (import + dystrybucja + serwis) | Benchmark lub partnerstwo |
 
-### Relacja z marką — podejście do weryfikacji
+### Flagi weryfikacji relacji z marką
 
-**Nie dostaję listy firm w umowach z BILLS.** To znaczy, że dla większości rekordów **nie jestem w stanie zweryfikować czy firma faktycznie ma kanał autoryzowany, czy importuje prywatnie z innego źródła (szara strefa).**
-
-Domyślnie traktuję to jako **niezweryfikowane** — flaga `🔍` w kolumnie `flagi`. To nie jest "wpis niepewny" — to **uczciwe przyznanie, że nie wiem**.
-
-**Flagi weryfikacji (tylko gdy znalazłem pośrednie dowody):**
+> **Domyślnie: 🔍 (niezweryfikowane).** Nie wiem czy firma faktycznie ma dostęp do PM/Hawk przez BILLS. Flagi weryfikacji wstawiam **tylko** z twardymi dowodami.
 
 | Flaga | Znaczenie | Skąd to wiem |
 |---|---|---|
-| 📋 ORG-CEL | Pojawiło się w dokumentach organów celnych (KAS, analogi zagraniczne) | Jawne rejestry, publikacje, wyroki, kontrole |
-| 🧾 FV-PDF | Faktura/CMR/Packing list w PDF znaleziona publicznie | FB grupy, Allegro opinie, case studies, posty |
-| 📦 OPAKOWANIE | Numer seryjny / plomba na opakowaniu wskazuje na konkretny kanał | Zdjęcia produktu, recenzje, reklamacje |
-| 🗣️ DEKLARACJA | Firma sama publicznie deklaruje że jest autoryzowana | Strona www, LinkedIn, komunikat prasowy |
-| 📜 KONTRAKT | Zewnętrzna informacja o umowie dystrybucyjnej | Wywiad, case study, raport branżowy |
+| 📋 ORG-CEL | Pojawiło się w dokumentach organów celnych | KAS, WSA, jawne rejestry |
+| 🧾 FV-PDF | Faktura/CMR/Packing list publicznie | FB grupy, Allegro opinie, case studies |
+| 📦 OPAKOWANIE | Numer seryjny / plomba wskazuje na kanał | Zdjęcia produktu, recenzje |
+| 🗣️ DEKLARACJA | Firma deklaruje autoryzację | Strona www, LinkedIn, komunikat |
+| 📜 KONTRAKT | Zewnętrzna informacja o umowie | Wywiad, case study, raport |
 
-**Brak flagi = domyślnie niezweryfikowane** (nie wpisuję nic, flaga `🔍` jest też OK gdy chcę podkreślić).
+**Kiedy stosować:**
+- Lista "kto ma dostęp do PM/Hawk przez BILLS" → filtry tylko flagi weryfikacji
+- Lista "kto handluje podobnym asortymentem" → bez filtra
+- Konkurent — marka nie ma znaczenia, liczy się profil
 
-**Kiedy to ma znaczenie:**
-- Gdy buduję listę "kto faktycznie ma dostęp do PM/Hawk przez BILLS" → filtry tylko flagi weryfikacji
-- Gdy buduję listę "kto handluje podobnym asortymentem" → bez filtra, bo marka nie ma znaczenia
-- Gdy konkurent — marka nie ma znaczenia, liczy się profil firmy
+### Status weryfikacji (FROZEN / DO-WERYFIKACJI / FABRYKAT)
 
-**Jak szukać dowodów:**
-- **Organy celne**: KAS publikuje dane o kontrolach, wyroki WSA. Mało publiczne, ale tam gdzie są — twarde dane
-- **PDF-y faktów**: firmy z BG/CEE często wrzucają faktury na FB (case study, reklamacja), tam widać cały łańcuch
-- **Numery seryjne PM**: każda maszyna ma plombę z numerem — w zdjęciach/opiniach widać. Można zmapować na "dystrybuowane przez..."
-- **LinkedIn**: w opisach stanowisk ludzie piszą "exclusive distributor of..." — twarde dane
+Każdy wpis w CSV ma jeden z trzech statusów w `flagi`:
 
-### Flagi podsumowanie (finalna lista)
-
-| Flaga | Znaczenie |
-|---|---|
-| 🔴 | Konkurent bezpośredni |
-| 🟡 | Konkurent pośredni |
-| 🟢 | Partner potencjalny |
-| 🐋 | Big fish |
-| 💎 | Gem (off-internet) |
-| ✅ | BILLS-like profil (import+dystrybucja+serwis) |
-| 🔍 | Niezweryfikowana relacja z marką (default) |
-| 📋 ORG-CEL | Zweryfikowane przez organy celne |
-| 🧾 FV-PDF | Zweryfikowane przez fakturę PDF |
-| 📦 OPAKOWANIE | Zweryfikowane przez numer seryjny |
-| 🗣️ DEKLARACJA | Zweryfikowane przez deklarację firmy |
-| 📜 KONTRAKT | Zweryfikowane przez zewnętrzne info o umowie |
-
-Przykład kombinacji: `🟢📦` (partner + zweryfikowany numerem seryjnym), `🔴🔍` (konkurent + relacja nieznana)
-
----
-
-## KATALOG B — Branża tytoniowa BEZ nabijarek (cross-sell pool)
-
-### Powinowactwo z nabijarkami (nowa oś!)
-
-Skala **1-5**, gdzie 5 = klient niemal na pewno kupi nabijarkę przy okazji, 1 = marginalny overlap.
-
-| Kod | Specjalizacja | Powinowactwo | Uzasadnienie |
-|---|---|---|---|
-| B1 | Tytoń liście / tytoń do skręcania | **5** | Klient już kupuje surowiec — nabijarka to naturalny upsell |
-| B2 | Bibułki papierosowe | **5** | Top-of-mind dla palaczy skręcających, łatwy cross-sell |
-| B3 | Filtry / gilzy | **5** | j.w. — klient już jest w kategorii |
-| B4 | Akcesoria (zapalniczki, popielniczki, fajki, cygarniczki) | **3** | Te same sklepy, ale klient fajczarski to inna demografia |
-| B5 | Shisha / hookah | **2** | Inny segment, ale **shared retail channel** (sklepy tytoniowe) — overlap handlowy, nie kliencki |
-| B6 | E-papierosy / vape | **2** | Inna technologia, ale shared retail channel. Uwaga: regulacje coraz bardziej rozbieżne |
-| B7 | Saszetki nikotynowe (snus / pouches) | **2** | Rosnący segment, shared channel. Klient raczej nie skręca |
-| B8 | Pełne hurtownie tytoniowe | **5** | **Najwyższy priorytet** — mają wszystko poza nabijarkami, znają klienta |
-| B9 | CBD / konopie / susz | **4** | **Wysoki overlap kliencki** — susz = joint = potrzebuje akcesoriów. W wielu krajach ten sam profil sklepu. Specyficzne regulacje! |
-
-**Kryterium: overlap kliencki, nie kanałowy.** CBD/susz ma overlap kliencki (ktoś kto kupuje susz, skręca jointy), ale overlap kanałowy jest mniejszy (specjalistyczne sklepy CBD).
-
-**Wyjątek B5 (shisha) i B6 (vape) — shared channel mocny, ale klienci się nie pokrywają.** Traktuję to osobno.
-
----
-
-## TIER (definicje — krótkie, do tooltipa)
-
-| Tier | Co to | Jak rozpoznać |
+| Status | Znaczenie | Jak stwierdzić |
 |---|---|---|
-| **Exclusive** | Wyłączność na kraj/region, umowa z producentem/głównym dystrybutorem | "Jedyny autoryzowany dystrybutor na...", faktury bezpośrednio, plombowe numery |
-| **Authorized** | Wybrany partner z umową, bez wyłączności terytorialnej, wsparcie serwisowe | "Autoryzowany sprzedawca", karta gwarancyjna w ich nazwie |
-| **Reseller** | Hurtowo kupuje od dystrybutora lub sam importuje, bez umowy, miesza marki | Brak oznaczenia "oficjalny", własna polityka cenowa |
-| **Retailer** | Sklep detaliczny (online lub stacjonarny), wąska marża, asortyment 5-50 sztuk | Brak logistyki hurtowej |
-| **Marketplace** | Allegro/Amazon/eBay/OLX, często dropshipping lub jednoosobowa skala | Konto z >5k opinii, brak magazynu |
+| ✅ FROZEN | Firma zweryfikowana 2 niezależnymi źródłami | 2-tool check (web_search + whois/registry) przeszedł, name match OK |
+| ✅ FROZEN (API) | Weryfikacja przez oficjalne API | KRS API / CEIDG API / ARES / VIES + name match OK |
+| ⚠️ DO-WERYFIKACJI | Weryfikacja niepełna, brak 2. źródła | Tylko 1 źródło, lub brak danych |
+| 🔴 FABRYKAT | Wpis halucynowany lub błędny | KRS API → inna firma, NIP checksum fail, web_search nie potwierdza |
 
-Granica płynna. Marketplace z 10k maszyn/rok = de facto reseller.
+**🔴 FABRYKAT — sygnały ostrzegawcze:**
+- LLM (Gemini, DeepSeek) generuje poprawne NIP/KRS które wskazują na zupełnie inne firmy
+- KRS API zwraca sukces dla każdego istniejącego KRS, niezależnie od nazwy w CSV
+- NIP checksum przechodzi dla poprawnie skonstruowanych (ale halucynowanych) numerów
+- **Jedyna sensowna ochrona: name match + 2 niezależne źródła**
+
+**Procedura FROZEN (2-tool check):**
+1. **Web search** — `"<firma>" "<miasto>" tobacco wholesale verify` (albo odpowiednik w lokalnym języku)
+2. **Whois** — `whois -h <TLD-server> <domain>` (jeśli firma ma www)
+3. **Registry API** (opcjonalnie) — KRS / CEIDG / ARES / VIES, ale zawsze **name match** weryfikacją
+4. **PASS × 2** → FROZEN. **Mismatch** → FABRYKAT (delete).
+
+Szczegóły w `tools/VERIFICATION-PATTERN.md`.
 
 ---
 
-## VOLUME (heurystyki)
+## 4. Katalog B — Branża tytoniowa (cross-sell)
 
-### Sygnały (od najmocniejszych)
+### Powinowactwo z nabijarkami (skala 1-5)
+
+> 5 = klient niemal na pewno kupi nabijarkę. 1 = marginalny overlap.
+
+| Kod | Specjalizacja | Pow. | Uzasadnienie |
+|---|---|---|---|
+| **B1** | Tytoń liście / tytoń do skręcania | 5 | Klient kupuje surowiec → nabijarka = upsell |
+| **B2** | Bibułki papierosowe | 5 | Top-of-mind palaczy skręcających |
+| **B3** | Filtry / gilzy | 5 | Klient już w kategorii |
+| **B4** | Akcesoria (zapalniczki, popielniczki, fajki, cygarniczki) | 3 | Te same sklepy, inna demografia |
+| **B5** | Shisha / hookah | 2 | Shared retail channel, ale klienci się nie pokrywają |
+| **B6** | E-papierosy / vape | 2 | Shared channel, ale rozbieżne regulacje |
+| **B7** | Saszetki nikotynowe (snus / pouches) | 2 | Rosnący segment, klient raczej nie skręca |
+| **B8** | Pełne hurtownie tytoniowe | **5** | **Najwyższy priorytet** — mają wszystko poza nabijarkami |
+| **B9** | CBD / konopie / susz | 4 | Wysoki overlap kliencki (jointy z suszu) |
+
+**Kryterium: overlap kliencki, nie kanałowy.**
+
+---
+
+## 5. Tier i Wolumen
+
+### TIER — typ relacji handlowej
+
+| Tier | Co to znaczy | Jak rozpoznać | Typowa skala PL |
+|---|---|---|---|
+| **Exclusive** | Wyłączność na kraj/region, umowa z producentem | "Jedyny autoryzowany dystrybutor na...", faktury bezpośrednio, plombowe numery | 1-2 per kraj |
+| **Authorized** | Partner z umową, bez wyłączności terytorialnej | "Autoryzowany sprzedawca", karta gwarancyjna w ich nazwie | 5-15 per kraj |
+| **Reseller** | Hurtowo kupuje lub sam importuje, bez umowy | Brak oznaczenia "oficjalny", własna polityka cenowa | 30-100 per kraj |
+| **Retailer** | Sklep detaliczny, wąska marża, 5-50 sztuk | Brak logistyki hurtowej | Setki per kraj |
+| **Marketplace** | Allegro/Amazon/eBay/OLX, często dropshipping | Konto >5k opinii, brak magazynu | Tysiące per kraj |
+
+> **Granica płynna.** Marketplace z 10k maszyn/rok = de facto reseller.
+
+### WOLUMEN — heurystyki estymacji
+
+**Sygnały mocne (od najłatwiejszego):**
 1. **Opinie Allegro/Amazon** — opinie × ~20 = przybliżona sprzedaż roczna
 2. **Pracownicy (KRS/CEIDG)** — 1-2 = mały, 5-20 = średni, 50+ = duży
 3. **Powierzchnia magazynu** (Google Maps, wizytówki)
 4. **Asortyment** — wąski z dużą rotacją vs szeroki z wolną
 5. **Ceny** — 25-35% poniżej katalogu = hurt, +5% = detal
-6. **Certyfikaty dealerskie / obecność na targach** → zwykle wyższy tier
+6. **Certyfikaty dealerskie / targi** → zwykle wyższy tier
 7. **Flota pojazdów** widoczna na wizytówce
 8. **Własna marka** → prawie zawsze duży wolumen
 
-### Progi
+**Progi (kalibrowane na rynek niszowy, nie ogólny):**
 
-| Kategoria | Miesięcznie | Rocznie |
-|---|---|---|
-| Mały | <50 szt | <600 szt |
-| Średni | 50-500 szt | 600-6000 szt |
-| Duży | 500+ szt | 6000+ szt |
+| Skala rynku | Kraje | Mały/m-c | Średni/m-c | Duży/m-c |
+|---|---|---|---|---|
+| **duży** | PL, CZ, FR | <50 | 50-500 | 500+ |
+| **średni** | RO, BG, HR, SI, SK | <20 | 20-200 | 200+ |
+| **mały** | LT, LV, EE, MD | <5 | 5-50 | 50+ |
 
-### Zastrzeżenie ważne ⚠️
+**Skala rynku wypełnia się automatycznie po `kraj`** — nie wpisuj ręcznie.
 
-Progi kalibrowane na rynek ogólny. **Rynek nabijarek to nisza** — nawet "duży" gracz w PL to ~200-500szt/m. **Próg 500+ to naprawdę największe hurtownie.** Patrz słabe punkty #1.
+> **⚠️ Zastrzeżenie:** Rynek nabijarek to nisza. Nawet "duży" gracz w PL to realnie 200-500 szt/m. Progi 500+ to naprawdę największe hurtownie ogólnopolskie (BILLS, Sanitex, Topomat).
 
-### Confidence indicator (dodane!)
-
-Przy każdym wpisie wolumenu oznaczam pewność estymacji:
-- 🟢 wysoka — mam twarde dane (opinie, faktury, deklaracje)
-- 🟡 średnia — synekury pośrednie (pracownicy, asortyment, ceny)
+**Confidence indicator:**
+- 🟢 wysoka — twarde dane (opinie Allegro, faktury, deklaracje)
+- 🟡 średnia — sygnały pośrednie (pracownicy, asortyment, ceny)
 - 🔴 niska — zgadywanie, brak sygnałów
+
+Format: `duży 🟢`, `mały 🔴`, itd.
 
 ---
 
-## CEIDG i rejestry per kraj
+## 6. Rejestry i API per kraj
 
-### Polska
-- **NIP** (10 cyfr) — tax ID
-- **KRS** (Krajowy Rejestr Sądowy) — spółki
-- **CEIDG** — jednoosobowe działalności. **API: https://dane.biznes.gov.pl/api/ceidg/v2** (wymaga tokena). Publiczna wersja: https://www.ceidg.gov.pl — wyszukiwarka bez tokena
+### 🇵🇱 POLSKA
 
-#### CEIDG API — token i wzorzec skryptu
+| Rejestr | URL API | Co dostaje | Auth |
+|---|---|---|---|
+| **NIP** (10 cyfr) | — | tax ID | — |
+| **KRS** (spółki) | `https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}` | Pełny odpis: zarząd, wspólnicy, kapitał, PKD, adres, historia | ❌ brak (limit 20/min) |
+| **KRS wyszukiwarka** | `https://wyszukiwarka-krs.ms.gov.pl/` | Search by name/NIP/REGON | ❌ brak |
+| **CEIDG v3** (JDG) | `https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nazwa=X&status=AKTYWNY` | NIP, REGON, adres, status, PKD | ✅ Bearer token (`CEIDG_API_TOKEN`) |
+| **REGON** (BIR1.1, GUS) | `https://api.stat.gov.pl/Home/RegonApi` | NIP/REGON/KRS → nazwa, adres, PKD, forma prawna, daty | ✅ USER_KEY (`REGON_API_KEY`) |
+| **Przeglądarka DF** | `https://ekrs.ms.gov.pl/rdf/pd/search_df?Krs={KRS}` | Sprawozdania finansowe .xml | ❌ brak |
+| **KRZ** (Krajowy Rejestr Zadłużonych) | `https://prs.ms.gov.pl/krz` | Dłużnicy, upadłości | ❌ brak |
+| **Biała lista VAT** | `https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka` | Status VAT, rachunki | ❌ brak |
+| **PKD** | — | Kody działalności (46.35Z hurt tytoniowy, 47.11Z sklepy) | — |
 
-Token: **`CEIDG_API_TOKEN`** w pliku `.env` w tym samym folderze co skrypt (nie trzymać w commicie — jest w `.gitignore`).
-
-**Standardowy wzorzec ładowania tokena (Python):**
+**Wzorzec ładowania tokena (Python):**
 ```python
 import os
 
@@ -193,311 +430,408 @@ with open(ENV_PATH) as f:
 TOKEN = os.environ.get("CEIDG_API_TOKEN")
 ```
 
-**Public endpoint** (bez tokena, rate-limited): `https://dane.biznes.gov.pl/api/ceidg/v2/firmy?name=<nazwa>`
-**Autoryzowany endpoint**: `https://dane.biznes.gov.pl/api/ceidg/v2/firmy?name=<nazwa>` z `Authorization: Bearer <TOKEN>` w nagłówku.
-- **REGON** — statystyczny numer podmiotu
-- **PKD** — kody działalności (46.35Z = hurt handlu wyrobami tytoniowymi, 46.17Z = pośrednictwo w handlu, 47.11Z = sklepy)
-
-### Czechy 🇨🇿
-- **IČO** (8 cyfr) — numer identyfikacyjny
-- **DIČ** —税owy (CZ + IČO)
-- **OR** (Obchodní rejstřík) — spółki, https://or.justice.cz
-- **ŽR** (Živnostenský rejstřík) — jednoosobowe, https://www.rzp.cz/cgi-bin/aps_cacheWEB.sh
-- **ARES** (Administrativní registr ekonomických subjektů) — baza ministerialna, https://ares.gov.cz
-
-### Słowacja 🇸🇰
-- **IČO**, **IČ DPH** (SK + IČO)
-- **ORSR** (Obchodný register SR) — https://orsr.sk
-- **ŽRSR** (Živnostenský register) — jednoosobowe, https://www.zrsr.sk
-- **Finančná správa** — VAT/TPD
-
-### Rumunia 🇷🇴
-- **CUI** (Cod Unic de Înregistrare) / **CIF** — tax ID
-- **ONRC** (Registrul Comerțului) — https://www.onrc.ro
-- **ANAF** — tax office, https://www.anaf.ro
-- Rejestr jednoosobowych: PFA w ONRC
-
-### Litwa 🇱🇹
-- **VMN** (kodas) / **PVM** (VAT, LT + 9 lub 12 cyfr)
-- **JAR** (Juridinių asmenų registras) — https://rekvizitai.vz.lt, https://www.registrucentras.lt
-- Jednoosobowe: MB (mažoji bendrija) też w JAR
-
-### Łotwa 🇱🇻
-- **PVN** (VAT, LV + 11 cyfr)
-- **UR** (Uzņēmumu reģistrs) — https://info.ur.gov.lv
-- **VID** — tax office
-
-### Estonia 🇪🇪
-- **KM** (VAT, EE + 9 cyfr)
-- **e-Äriregister** (e-Business Register) — https://ariregister.rik.ee — **najlepszy w regionie, otwarty**
-- **EMTA** — tax office
-
-### Francja 🇫🇷
-- **SIREN** (9 cyfr) / **SIRET** (14 cyfr z adresem) — firm ID
-- **TVA intracommunautaire** (FR + 2 cyfry + SIREN)
-- **RCS** (Registre du Commerce et des Sociétés) — spółki
-- **INPI** — własność intelektualna, marki
-- **Societe.com**, **Pappers.fr** — agregatory (lepsze niż oficjalne strony)
-- **Douanes** — cło/akcyza tytoniowa
-
-### Mołdawia 🇲🇩
-- **IDNO** (13 cyfr) — firm ID
-- **Camera Înregistrării de Stat** — rejestr, https://www.cis.gov.md
-- **TVA** (MD + IDNO)
-- **Serviciul Vamal** — cło
-
-### Bułgaria 🇧🇬
-- **EIK** (9 cyfr) / **DDS** (VAT, BG + EIK)
-- **Търговски регистър** — https://portal.justice.bg
-- **НАП** (НАционална агенция за приходите) — tax
-
-### Słowenia 🇸🇮
-- **ID za DDV** (VAT, SI + 8 cyfr)
-- **AJPES** (Agencija za javnopravne evidence) — https://www.ajpes.si
-- **FURS** — tax
-
-### Chorwacja 🇭🇷
-- **OIB** (11 cyfr) — osobisty/firmowy
-- **Sudski registar** — https://sudreg.pravosudje.hr
-- **Porezna uprava** — tax, https://www.porezna-uprava.hr
+**Chain automatyczny (NIP/REGON → KRS):**
+```bash
+python3 tools/krs_search.py --nip 5140361901 --financials
+```
 
 ---
 
-## MARKETPLACES per kraj
+### 🇨🇿 CZECHY
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **IČO** (8 cyfr) | — | — |
+| **DIČ** | — | CZ + IČO |
+| **ARES** | `https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}` | ❌ |
+| **ARES finanční údaje** | `…/ekonomicke-subjekty/{ICO}/financni-udaje` | ❌ |
+| **OR** (Obchodní rejstřík) | `https://or.justice.cz` | ❌ |
+| **ŽR** (Živnostenský rejstřík) | `https://www.rzp.cz` | ❌ |
+| **ISIR** (upadłości) | `https://isir.justice.cz` | ❌ |
+
+---
+
+### 🇸🇰 SŁOWACJA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **IČO**, **IČ DPH** | — | — |
+| **ORSR** | `https://orsr.sk/hladaj_subjekt.asp` | ❌ |
+| **ŽRSR** | `https://www.zrsr.sk` | ❌ |
+| **RUZ** (sprawozdania) | `https://www.registeruz.sk` | ❌ |
+| **Finančná správa** | `https://www.financnasprava.sk` | ❌ |
+
+---
+
+### 🇷🇴 RUMUNIA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **CUI/CIF** (tax ID) | — | — |
+| **ONRC** | `https://www.onrc.ro` | ✅ paid (8 lei/odpis) |
+| **ANAF** (tax) | `https://www.anaf.ro` | ❌ |
+| **PFA** (JDG) | ONRC | — |
+| **ListaFirme** (aggregator) | `https://listafirme.ro` | ❌ |
+| **Termene** (finansowe) | `https://termene.ro` | ❌ |
+
+---
+
+### 🇱🇹 LITWA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **VMN** (kodas) / **PVM** (VAT) | — | — |
+| **JAR** | `https://rekvizitai.vz.lt`, `https://www.registrucentras.lt` | ❌ |
+| **MB** (JDG) | też w JAR | — |
+| **VMI** (tax) | `https://www.vmi.lt` | ❌ |
+
+---
+
+### 🇱🇻 ŁOTWA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **PVN** (VAT) | — | — |
+| **UR** | `https://info.ur.gov.lv` | ❌ |
+| **VID** (tax) | `https://www.vid.gov.lv` | ❌ |
+| **Lursoft** (aggregator) | `https://lursoft.lv` | ❌ |
+
+---
+
+### 🇪🇪 ESTONIA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **KM** (VAT) | — | — |
+| **e-Äriregister** ⭐ | `https://ariregister.rik.ee` | ❌ (najlepszy w regionie) |
+| **EMTA** (tax) | `https://www.emta.ee` | ❌ |
+
+---
+
+### 🇫🇷 FRANCJA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **SIREN** (9 cyfr) / **SIRET** (14 cyfr) | — | — |
+| **TVA** | — | FR + 2 cyfry + SIREN |
+| **RCS** (Infogreffe) | `https://www.infogreffe.fr` | ✅ paid |
+| **INPI** (marki) | `https://www.inpi.fr` | ❌ |
+| **Pappers.fr** ⭐ | `https://pappers.fr/api` | ✅ paid (najlepsze FR) |
+| **Societe.com** | `https://www.societe.com` | ❌ (z limitem) |
+| **Bodacc** (annonces) | `https://www.bodacc.fr` | ❌ |
+| **Douanes** (cło) | — | — |
+
+---
+
+### 🇲🇩 MOŁDAWIA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **IDNO** (13 cyfr) | — | — |
+| **Camera Înregistrării de Stat** | `https://www.cis.gov.md` | ❌ |
+| **TVA** | — | MD + IDNO |
+| **Serviciul Vamal** (cło) | — | — |
+
+---
+
+### 🇧🇬 BUŁGARIA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **EIK** (9 cyfr) / **DDS** (VAT) | — | — |
+| **Търговски регистър** | `https://portal.justice.bg` | ❌ |
+| **НАП** (tax) | `https://www.nap.bg` | ❌ |
+
+---
+
+### 🇸🇮 SŁOWENIA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **ID za DDV** (VAT) | — | — |
+| **AJPES** ⭐ | `https://www.ajpes.si` | ❌ (dane + bilans + RZiS w jednym miejscu) |
+| **FURS** (tax) | `https://www.furs.si` | ❌ |
+
+---
+
+### 🇭🇷 CHORWACJA
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **OIB** (11 cyfr) | — | — |
+| **Sudski registar** | `https://sudreg.pravosudje.hr` | ❌ |
+| **Porezna uprava** (tax) | `https://www.porezna-uprava.hr` | ❌ |
+
+---
+
+## 7. Marketplace per kraj
 
 | Kraj | Główne | Drugorzędne | Notatki |
 |---|---|---|---|
-| 🇵🇱 PL | **Allegro** | OLX, Ceneo, Kaufland, **InPost Buy** (nowy), Erli | Allegro = must-have. InPost Buy rośnie szybko |
+| 🇵🇱 PL | **Allegro** | OLX, Ceneo, Kaufland, **InPost Buy**, Erli | Allegro = must-have. InPost Buy rośnie szybko |
 | 🇨🇿 CZ | **Heureka**, Zboží.cz, Aukro | Bazoš, Alza | Heureka = porównywarki, Aukro = aukcje |
-| 🇸🇰 SK | **Heureka.sk**, Bazoš | Mall.sk, Alza | Mały rynek, ale Heureka daje dobre dane o cenach |
-| 🇷🇴 RO | **eMAG**, OLX | Okazii, Cel.ro | eMAG = Amazon regionu, OLX = główne ogłoszenia |
-| 🇱🇹 LT | **Skelbiu.lt** | Vinted, Aruodas | Skelbiu = główne ogłoszenia |
-| 🇱🇻 LV | **SS.lv** | Vinted | Rynek mały, SS.lv dominuje |
+| 🇸🇰 SK | **Heureka.sk**, Bazoš | Mall.sk, Alza | Mały rynek, Heureka daje dobre dane o cenach |
+| 🇷🇴 RO | **eMAG**, OLX | Okazii, Cel.ro | eMAG = Amazon regionu, OLX = ogłoszenia |
+| 🇱🇹 LT | **Skelbiu.lt** | Vinted, Aruodas | Skelbiu = ogłoszenia |
+| 🇱🇻 LV | **SS.lv** | Vinted | Mały rynek, SS.lv dominuje |
 | 🇪🇪 EE | **Osta.ee** | Vinted | Estonka scena bardzo cyfrowa |
-| 🇫🇷 FR | **Leboncoin** (gigant!), Rakuten, Cdiscount | Vinted, Amazon.fr | Leboncoin = must-have, format ogłoszeń |
+| 🇫🇷 FR | **Leboncoin**, Rakuten, Cdiscount | Vinted, Amazon.fr | Leboncoin = must-have |
 | 🇲🇩 MD | **999.md**, OLX | — | Mały rynek, 999.md to lokalny portal |
 | 🇧🇬 BG | **OLX**, Bazar.bg | — | OLX dominuje, Bazar.bg dla produktów |
-| 🇸🇮 SI | **Bolha.com** (wiodący), Mimovrste, Ceneje | — | Bolha = OLX Slovenii, Mimovrste = porównywarki |
-| 🇭🇷 HR | **Njuškalo** (gigant!), Index Oglasi | — | Njuškalo = must-have |
+| 🇸🇮 SI | **Bolha.com**, Mimovrste, Ceneje | — | Bolha = OLX Slovenii |
+| 🇭🇷 HR | **Njuškalo**, Index Oglasi | — | Njuškalo = must-have |
 
 ---
 
-## REGULACJE — per kraj (stan wiedzy: 2024-2025, do weryfikacji)
+## 8. Regulacje per kraj
+
+> Stan wiedzy: 2024-2025, do weryfikacji.
 
 | Kraj | Reżim tytoniowy | E-papierosy | CBD/susz | Nabijarki | Uwagi |
 |---|---|---|---|---|---|
-| 🇵🇱 PL | Akcyza, zakaz reklamy, ograniczenia sprzedaży | Legalne, ograniczenia smakowe dyskutowane | Susz legalny z limitem THC, CBD w szarej strefie | Bez ograniczeń jako urządzenie | Sprawdzić akcyzę od 2025 |
-| 🇨🇿 CZ | Akcyza, ograniczenia reklamy | Legalne, ograniczenia smakowe w drodze | CBD legalne, susz nielegalny | Bez ograniczeń | Otwarty rynek, łatwy start |
-| 🇸🇰 SK | j.w. EU | Legalne, regulacje smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Mały rynek, mniejsza skala |
-| 🇷🇴 RO | **Plain packaging od 2020** | Surowe ograniczenia smakowe, e-papierosy mocno regulowane | CBD w szarej strefi | Bez ograniczeń jako urządzenie | Trudny rynek, antynikotynowe lobby |
+| 🇵🇱 PL | Akcyza, zakaz reklamy | Legalne, smakowe dyskutowane | Susz legalny z limitem THC, CBD w szarej strefie | Bez ograniczeń | Sprawdzić akcyzę od 2025 |
+| 🇨🇿 CZ | Akcyza, ograniczenia reklamy | Legalne, smakowe w drodze | CBD legalne, susz nielegalny | Bez ograniczeń | Otwarty rynek |
+| 🇸🇰 SK | j.w. EU | Legalne, smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Mały rynek |
+| 🇷🇴 RO | **Plain packaging od 2020** | Surowe ograniczenia smakowe | CBD w szarej strefi | Bez ograniczeń | Trudny rynek, antynikotynowe lobby |
 | 🇱🇹 LT | Akcyza EU | **Zakaz smakowych liquidów od 2023** | CBD legalne, susz nielegalny | Bez ograniczeń | Surowe podejście |
 | 🇱🇻 LV | Akcyza EU | Legalne, ograniczenia | CBD legalne, susz nielegalny | Bez ograniczeń | Umiarkowane |
-| 🇪🇪 EE | Akcyza EU | Legalne, smakowe dyskutowane | CBD legalne, susz nielegalny | Bez ograniczeń | Cyfrowo zaawansowany, mały rynek |
-| 🇫🇷 FR | **Plain packaging od 2017** | Legalne, mocno ograniczone smakowe | CBD legalny, susz nielegalny | Bez ograniczeń | **Wysokie akcyzy, surowe podejście** |
-| 🇲🇩 MD | Poza UE, własne reguły | Liberalne | Liberalne | Bez ograniczeń | Szansa na szary rynek |
-| 🇧🇬 BG | Akcyza EU | Legalne, regulacje smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Rynek otwarty |
-| 🇸🇮 SI | Akcyza EU | Legalne, ograniczenia smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Mały rynek |
-| 🇭🇷 HR | Akcyza EU | Legalne, ograniczenia smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Rosnący rynek, wstęp do Bałkanów |
+| 🇪🇪 EE | Akcyza EU | Legalne, smakowe dyskutowane | CBD legalne, susz nielegalny | Bez ograniczeń | Cyfrowo zaawansowany |
+| 🇫🇷 FR | **Plain packaging od 2017** | Legalne, mocno ograniczone | CBD legalny, susz nielegalny | Bez ograniczeń | Wysokie akcyzy, surowe |
+| 🇲🇩 MD | Poza UE, własne | Liberalne | Liberalne | Bez ograniczeń | Szansa na szary rynek |
+| 🇧🇬 BG | Akcyza EU | Legalne, smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Rynek otwarty |
+| 🇸🇮 SI | Akcyza EU | Legalne, ograniczenia | CBD legalne, susz nielegalny | Bez ograniczeń | Mały rynek |
+| 🇭🇷 HR | Akcyza EU | Legalne, ograniczenia | CBD legalne, susz nielegalny | Bez ograniczeń | Wstęp do Bałkanów |
 
 **Ryzyka regulacyjne:**
-- **Wysokie**: 🇫🇷 FR, 🇷🇴 RO, 🇱🇹 LT (trudne rynki dla dystrybucji maszyn, ale też klienci szukający alternatyw)
-- **Średnie**: 🇵🇱 PL, 🇱🇻 LV, 🇸🇰 SK (standardowe EU)
-- **Niskie**: 🇨🇿 CZ, 🇧🇬 BG, 🇸🇮 SI, 🇭🇷 HR, 🇪🇪 EE (stosunkowo otwarte)
-- **Specjalne**: 🇲🇩 MD (szara strefa, poza UE — uwaga na cło i akcyzę)
+- 🔴 **Wysokie**: FR, RO, LT (trudne rynki dystrybucji maszyn)
+- 🟡 **Średnie**: PL, LV, SK (standardowe EU)
+- 🟢 **Niskie**: CZ, BG, SI, HR, EE (otwarte)
+- ⚠️ **Specjalne**: MD (szara strefa, poza UE — uwaga na cło i akcyzę)
 
 ---
 
-## KOLEJNOŚĆ GEOGRAFICZNA (zaktualizowana)
+## 9. Kolejność geograficzna
 
 1. 🇵🇱 **Polska** — fundament
-2. 🇨🇿 **Czechy** — blisko, podobna kultura
+2. 🇨🇿 **Czechy** — blisko, szybki ROI
 3. 🇸🇰 **Słowacja** — szybki
-4. 🇭🇷 **Chorwacja** — wstęp do Bałkanów, rośnie
+4. 🇭🇷 **Chorwacja** — wstęp do Bałkanów
 5. 🇧🇬 **Bułgaria** — otwarty
 6. 🇸🇮 **Słowenia** — mały, ale łatwy
-7. 🇷🇴 **Rumunia** — **wymaga strategii**, wysokie regulacje ale duży rynek
-8. 🇪🇪 **Estonia** — cyfrowa, mała, ale ciekawa
+7. 🇷🇴 **Rumunia** — wymaga strategii (duży, trudne regulacje)
+8. 🇪🇪 **Estonia** — cyfrowa, mała
 9. 🇱🇻 **Łotwa** — mała
 10. 🇱🇹 **Litwa** — surowa
-11. 🇫🇷 **Francja** — **wymaga strategii**, najtrudniejsza
+11. 🇫🇷 **Francja** — wymaga strategii (najtrudniejsza, ale największy potencjał)
 12. 🇲🇩 **Mołdawia** — specyficzna, poza EU
 
 ---
 
-## DZIENNIK UWAG PER KRAJ
+## 10. Schemat CSV (zunifikowany)
 
-Będę prowadził plik `data/countries/{KOD}.md` dla każdego kraju z:
-- Czego się dowiedziałem
-- Źródła (CEIDG, KRS, targi, FB, OLX, etc.)
-- Niespodzianki (np. "znalazłem 3 hurtownie w Pradze, których nie ma w Google")
-- Czerwone flagi (np. "ta firma wygląda jak dystrybutor ale to jeden człowiek w mieszkaniu")
-- Gemy 💎 (off-internet)
-- Big fish 🐋
+Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 38 kolumn. Pola specyficzne dla A lub B są puste w rekordach drugiego katalogu.
 
----
+### Kolumny (38)
 
-## 3 SŁABE PUNKTY METODOLOGII
+| # | Kolumna | Typ | Opis |
+|---|---|---|---|
+| 1 | `id_unikalne` | str | `{KOD}-{A\|B}-{REGION_KOD}-{NNN}`, np. `PL-A-WP-001` |
+| 2 | `kategoria` | enum | A1-A6 lub B1-B9 |
+| 3 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
+| 4 | `kraj` | ISO2 | Dwuliterowy kod |
+| 5 | `miasto` | str | |
+| 6 | `adres` | str | Ulica + numer + kod |
+| 7 | `nip_vat` | str | Lokalny odpowiednik NIP |
+| 8 | `rejestr_id` | str | KRS / IČO / ONRC / OIB |
+| 9 | `www` | str | URL lub `brak` |
+| 10 | `kanal_zamiennik` | str | Co mają zamiast WWW: FB, OLX, Allegro shop, Google |
+| 11 | `email` | str | Główny kontakt |
+| 12 | `telefon` | str | Z numerem kierunkowym |
+| 13 | `linkedin` | URL | Profil firmy |
+| 14 | `facebook` | URL | Strona firmy |
+| 15 | `instagram` | URL | Profil firmy |
+| 16 | `tiktok` | URL | Profil firmy (TikTok) |
+| 17 | `tier` | enum | `wyłączność` / `autoryzowany` / `reseller` / `detalista` / `marketplace` / `producent` / `hurtownik` |
+| 18 | `marki_nabijarki` | list | A: PowerMatic, Hawk, Topomat, GM, Turbomatic |
+| 19 | `marka_wlasna_oem` | str | A: nazwa marki własnej |
+| 20 | `sourcing` | enum | Chiny / Europa / Polska / mix |
+| 21 | `wolumen` | enum | mały / średni / duży |
+| 22 | `confidence_wolumen` | enum | 🟢 / 🟡 / 🔴 |
+| 23 | `kanal_sprzedaży` | enum | B2B only / sklep stacjonarny / marketplace / własny e-commerce / mix |
+| 24 | `powinowactwo_nabijarki` | 1-5 | B: tylko (puste w A) |
+| 25 | `cross_sell_potential` | enum | B: wysoki / średni / niski |
+| 26 | `decydent` | str | Imię i nazwisko |
+| 27 | `stanowisko` | str | CEO / właściciel / dyrektor |
+| 28 | `email_decydent` | str | Bezpośredni email (jeśli inny) |
+| 29 | `zrodlo_danych` | str | CEIDG, KRS, FB grupa X, OLX, targi Y, recenzja Z |
+| 30 | `data_weryfikacji` | date | YYYY-MM-DD |
+| 31 | `flagi` | list | Kombinacja 🔴/🟡/🟢/🐋/💎/✅/🔍 + flagi weryfikacji |
+| 32 | `notatki` | str | Dowolne obserwacje |
+| 33 | `region_kod` | 2-liter | Kod regionu w ID |
+| 34 | `region_nazwa` | str | Lokalna nazwa regionu |
+| 35 | `region_typ` | str | Typ jednostki adm. (województwo, kraj, apskritis) |
+| 36 | `related_to` | str | ID firm powiązanych (sister firms, sukcesja) |
+| 37 | `rok_zalozenia` | YYYY | Rok rejestracji |
+| 38 | `rynek_skala` | enum | duży / średni / mały (auto po `kraj`) |
 
-### 1. Progi wolumenowe kalibrowane na rynek ogólny, nie niszowy
+### Konwencje wartości
 
-Nabijarki to nie pasta do zębów. Nawet **"duży" gracz w PL to 200-500 szt/m**. Moje progi 50/500/5000 są przeskalowane — przez to wszystko w PL wychodzi "mały". 
+- **kategoria**: A1, A2, A3, A4, A5, A6, B1, B2, …, B9
+- **flagi**: wieloznakowe, np. `🔴💎` (konkurent+gem), `🟢📦` (partner+zweryfikowany numerem seryjnym)
+- **wolumen + confidence**: np. `mały 🟡`, `duży 🟢`
+- **rynek_skala**: duży (PL/CZ/FR) / średni (RO/BG/HR/SI/SK) / mały (LT/LV/EE/MD)
+- **CSV**: UTF-8 z BOM (polskie znaki w Excelu), separator przecinek, cudzysłów `"…"` gdy przecinek, linie LF, daty YYYY-MM-DD
 
-**Co zrobić:** dodać drugą skalę "rynek niszowy" (np. <20 / 20-100 / 100+ dla PL), trzymać obie. Albo: zrobić benchmark — poprosić Cię o 2-3 znanych dystrybutorów i wstecznie oszacować ich wolumen, żeby skalibrować.
+### Kody regionów PL (16 województw)
 
-### 2. Atrybucja marek w Katalogu A jest nieweryfikowalna
+| Kod | Nazwa | Kod | Nazwa |
+|---|---|---|---|
+| DS | dolnośląskie | LU | lubelskie |
+| KP | kujawsko-pomorskie | LB | lubuskie |
+| LD | łódzkie | MA | małopolskie |
+| MZ | mazowieckie | OP | opolskie |
+| PK | podkarpackie | PD | podlaskie |
+| PM | pomorskie | SL | śląskie |
+| SW | świętokrzyskie | WN | warmińsko-mazurskie |
+| WP | wielkopolskie | ZP | zachodniopomorskie |
 
-Sklep może deklarować PowerMatic, ale sprzedawać go symbolicznie. Albo importować 5 sztuk prywatnie. Nie mam sposobu na potwierdzenie **realnej** relacji z marką — mogę liczyć deklaracje, nie kontrakty. 
+> `SW` (nie SK — bo SK to Słowacja). Brak regionu → `XX` (placeholder).
 
-**Ryzyko:** przeszacowuję kanał PowerMatic, niedoszacowuję szarą strefę. Ktoś kto realnie jest dużym graczem PM, może u mnie wyglądać jak mały marketplace seller.
+### Wypełnianie
 
-**Co zrobić:** Przyjąć podejście "domyślnie niezweryfikowane" — większość rekordów dostaje `🔍` lub nie ma flagi weryfikacyjnej. Flagi weryfikacyjne (📋 ORG-CEL, 🧾 FV-PDF, 📦 OPAKOWANIE, 🗣️ DEKLARACJA, 📜 KONTRAKT) wstawiam **tylko** gdy faktycznie znalazłem pośrednie dowody. NIE stosuję ✅ POTWIERDZONE bo nie mam dostępu do listy umów BILLS. To uczciwe — lepiej powiedzieć "nie wiem" niż udawać pewność.
-
-### 3. Powinowactwo w Katalogu B to moja hipoteza, nie dane
-
-Mówię "CBD/susz = 4" bo logicznie wygląda na wysoki overlap. Ale nie mam danych — być może w praktyce sklepy CBD w Czechach to zupełnie inny segment niż zakładam. Vape może mieć wyższy overlap kanałowy niż myślę.
-
-**Co zrobić:** po zebraniu ~20-30 rekordów z B, zrobić **retrospektywną walidację** — sprawdzić czy faktycznie firmy z B1-B3 mają nabijarki w ofercie (albo w komentarzach, social media, zamówieniach). To skalibruje skalę 1-5. Bez tego to educated guess.
-
----
-
-## STRUKTURA PLIKÓW
-
-```
-/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/
-├── methodology.md          # ten plik
-├── README.md               # legenda kolumn CSV, szybki start
-├── data/
-│   ├── catalog-A-pl.csv    # PL firmy z nabijarkami
-│   ├── catalog-B-pl.csv    # PL firmy branżowe bez nabijarek
-│   ├── catalog-A-cz.csv
-│   ├── catalog-B-cz.csv
-│   └── ...
-├── data/countries/
-│   ├── PL.md               # dziennik per kraj
-│   ├── CZ.md
-│   └── ...
-└── assets/
-    └── (opcjonalnie: wykresy, mapy)
-```
-
----
-
-## UNIFIKOWANY SCHEMAT CSV (A i B — te same kolumny)
-
-Każdy plik `data/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw kolumn. Pola specyficzne dla A lub B są puste w rekordach drugiego katalogu.
-
-```
-id_unikalne              # wewnętrzne ID, np. PL-A-001
-kategoria                # A1-A6 lub B1-B9
-nazwa_firmy
-kraj
-miasto
-adres
-nip_vat                  # NIP / IČO+DIČ / CUI / SIREN / IDNO / OIB itp.
-rejestr_id               # KRS / IČO / ONRC / OIB itp.
-www                      # pełny URL lub "brak"
-kanal_zamiennik          # co mają zamiast WWW (FB page, OLX, Allegro shop, wizytówka Google)
-email
-telefon
-linkedin
-facebook
-instagram
-tier                     # exclusive / authorized / reseller / retailer / marketplace
-marki_nabijarki          # A: PowerMatic, Hawk, Topomat, GM, Turbomatic, inne (lista)
-marka_wlasna_oem         # A: tak/nie + nazwa marki własnej
-sourcing                 # Chiny / Europa / Polska producent / mix
-wolumen                  # mały / średni / duży
-confidence_wolumen       # 🟢/🟡/🔴
-kanal_sprzedaży          # B2B only / sklep stacjonarny / marketplace / własny e-commerce / mix
-powinowactwo_nabijarki   # B: 1-5 (puste dla A)
-cross_sell_potential     # B: wysoki/średni/niski (puste dla A)
-decydent
-stanowisko
-email_decydent
-zrodlo_danych            # CEIDG, KRS, Facebook grupa X, OLX, targi Y, recenzja Z, itp.
-data_weryfikacji         # YYYY-MM-DD
-flagi                    # 🔴/🟡/🟢/🐋/💎/✅/🔍 w kombinacji
-notatki
-```
-
-**Konwencje wartości:**
-- **kategoria**: A1, A2, A3, A4, A5, A6, B1, B2, B3, B4, B5, B6, B7, B8, B9
-- **flagi**: wieloznakowe, np. `🔴💎` (konkurent+gem) lub `🟢📦` (partner+zweryfikowany numerem seryjnym)
-- **wolumen + confidence**: np. `mały 🟡` lub `duży 🟢`
-- **pola opcjonalne** (A-only / B-only) → puste w rekordach drugiego katalogu
+- **Minimum**: `id_unikalne`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
+- **Pełne**: wszystkie kolumny + źródła zweryfikowane + flagi
+- **Częściowe**: kluczowe kolumny + notatka co jeszcze trzeba
 
 ---
 
-## CELE ILOŚCIOWE (targets per kraj i katalog)
+## 11. Cele ilościowe
 
-**Filozofia:** mniej rekordów z polami wypełnionymi > więcej rekordów z dziurami. Każdy rekord musi mieć: nazwę, kraj, miasto, kontakt (email LUB tel LUB link). Reszta progresywnie.
+**Filozofia:** mniej rekordów z polami wypełnionymi > więcej rekordów z dziurami. Każdy rekord musi mieć: nazwę, kraj, miasto, kontakt (email LUB tel LUB link).
 
 ### Katalog A (firmy z nabijarkami)
 
-| Kraj | Target A | Priorytet | Uwagi |
+| Kraj | Target | Priorytet | Uwagi |
 |---|---|---|---|
-| 🇵🇱 PL | **40-60** | ⭐⭐⭐ | Fundament, najgłębszy research, pełne dane |
-| 🇨🇿 CZ | **20-30** | ⭐⭐⭐ | Blisko, łatwy ROI, drugi pełny research |
-| 🇸🇰 SK | 5-10 | ⭐ | Mały rynek, prawdopodobnie pokrycie z CZ |
-| 🇭🇷 HR | 8-12 | ⭐ | Rosnący, dobra szansa |
-| 🇧🇬 BG | 8-12 | ⭐ | Otwarty rynek |
+| 🇵🇱 PL | **40-60** | ⭐⭐⭐ | Fundament, najgłębszy research |
+| 🇨🇿 CZ | **20-30** | ⭐⭐⭐ | Drugi pełny research |
+| 🇸🇰 SK | 5-10 | ⭐ | Pokrycie z CZ |
+| 🇭🇷 HR | 8-12 | ⭐ | Rosnący |
+| 🇧🇬 BG | 8-12 | ⭐ | Otwarty |
 | 🇸🇮 SI | 3-6 | ⭐ | Bardzo mały |
-| 🇷🇴 RO | 10-15 | ⭐⭐ | Duży, trudne regulacje — wymaga selekcji |
+| 🇷🇴 RO | 10-15 | ⭐⭐ | Duży, trudne regulacje |
 | 🇪🇪 EE | 3-5 | ⭐ | Mały, zdigitalizowany |
 | 🇱🇻 LV | 2-4 | ⭐ | Pokrycie z LT/EE |
-| 🇱🇹 LT | 3-5 | ⭐ | Surowy rynek |
-| 🇫🇷 FR | 15-25 | ⭐⭐ | Najtrudniejszy, ale największy potencjał |
+| 🇱🇹 LT | 3-5 | ⭐ | Surowy |
+| 🇫🇷 FR | 15-25 | ⭐⭐ | Najtrudniejszy, największy potencjał |
 | 🇲🇩 MD | 5-10 | ⭐ | Specyficzny, poza EU |
 
-**Cel łączny Katalog A: ~120-200 firm** w pierwszej fali (PL + CZ szczegółowo, reszta selektywnie).
+**Cel łączny A: ~120-200 firm** w pierwszej fali.
 
-### Katalog B (branża tytoniowa bez nabijarek)
+### Katalog B (cross-sell pool)
 
-| Kraj | Target B | Priorytet | Uwagi |
-|---|---|---|---|
-| 🇵🇱 PL | **20-30** | ⭐⭐⭐ | Hurtownie tytoniowe, dilerzy, sklepy, CBD — pełne dane |
-| 🇨🇿 CZ | 10-15 | ⭐⭐ | Drugi pełny research |
-| 🇸🇰 SK | 3-6 | ⭐ | Pokrycie z CZ |
-| 🇭🇷 HR | 5-8 | ⭐ | |
-| 🇧🇬 BG | 5-8 | ⭐ | |
-| 🇸🇮 SI | 2-4 | ⭐ | |
-| 🇷🇴 RO | 8-12 | ⭐⭐ | Duży rynek hurtowy |
-| 🇪🇪 EE | 2-3 | ⭐ | |
-| 🇱🇻 LV | 2-3 | ⭐ | |
-| 🇱🇹 LT | 2-4 | ⭐ | |
-| 🇫🇷 FR | 10-15 | ⭐⭐ | CBD-legalny, duży rynek |
-| 🇲🇩 MD | 3-5 | ⭐ | Specyficzny |
+| Kraj | Target | Priorytet |
+|---|---|---|
+| 🇵🇱 PL | **20-30** | ⭐⭐⭐ |
+| 🇨🇿 CZ | 10-15 | ⭐⭐ |
+| 🇸🇰 SK | 3-6 | ⭐ |
+| 🇭🇷 HR | 5-8 | ⭐ |
+| 🇧🇬 BG | 5-8 | ⭐ |
+| 🇸🇮 SI | 2-4 | ⭐ |
+| 🇷🇴 RO | 8-12 | ⭐⭐ |
+| 🇪🇪 EE | 2-3 | ⭐ |
+| 🇱🇻 LV | 2-3 | ⭐ |
+| 🇱🇹 LT | 2-4 | ⭐ |
+| 🇫🇷 FR | 10-15 | ⭐⭐ |
+| 🇲🇩 MD | 3-5 | ⭐ |
 
-**Cel łączny Katalog B: ~70-110 firm**.
+**Cel łączny B: ~70-110 firm.**
 
 ### Łączny target: ~190-310 firm
 
-To dużo. Realistyczny timeline:
+**Timeline realistyczny:**
 - **Fala 1 (ten tydzień)**: PL A (40-60) + PL B (20-30) = 60-90
 - **Fala 2 (następny tydzień)**: CZ A (20-30) + CZ B (10-15) = 30-45
 - **Fala 3+**: pozostałe kraje, selektywnie
 
 ---
 
-## CHECKLIST PRZED PIERWSZYM DOSTARCZENIEM
+## 12. Struktura plików
 
-- [x] Methodology zaktualizowana
-- [x] 12 country journals utworzonych
-- [x] 3 weak points udokumentowane
-- [x] Unified CSV schema zdefiniowany
-- [x] Cele ilościowe per kraj ustalone
-- [x] 24 stub CSV (12 × 2) utworzone
-- [x] Podejście do weryfikacji relacji z marką zmienione (domyślnie 🔍, flagi weryfikacji rzadko)
-- [ ] User zatwierdza schemat
-- [ ] User daje scope (głęboki PL vs szerokie miotły)
-- [ ] User dostarcza token CEIDG lub potwierdza publiczną wersję
-- [ ] User weryfikuje prognozowane progi wolumenowe (benchmark na 2-3 znanych firmach)
-- [ ] User zatwierdza powinowactwo w Katalogu B
-- [ ] User dostarcza dane pomocnicze (patrz sekcja poniżej)
+```
+/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/
+├── methodology.md               # ten plik (kanoniczny)
+├── INTEL.md                     # strategiczne odkrycia
+├── DZIENNIK.md                  # postęp, pytania, feedback
+├── RUNBOOK.md                   # per-country recipes + dokumenty finansowe
+├── .env                         # sekrety (gitignored)
+├── .env.example                 # template
+├── .gitignore                   # `._*`, derived data, .verify-state
+├── data/
+│   ├── Polska/
+│   │   ├── PL.md                # dziennik badawczy
+│   │   ├── SŁOWNIK-{KOD}.md
+│   │   ├── catalog-A-PL.csv
+│   │   └── catalog-B-PL.csv
+│   ├── Czechy/                  # j.w.
+│   ├── Bułgaria/
+│   ├── Estonia/
+│   ├── Francja/
+│   ├── Chorwacja/
+│   ├── Litwa/
+│   ├── Łotwa/
+│   ├── Mołdawia/
+│   ├── Rumunia/
+│   ├── Słowacja/
+│   ├── Słowenia/
+│   ├── audit-log.md
+│   └── verification/            # raporty weryfikacji
+├── skills/
+│   └── verify-data/             # skill weryfikacji FROZEN/DO-WERYFIKACJI
+├── tools/
+│   ├── verify_api.py            # live API verification (KRS, CEIDG, ARES, VIES)
+│   ├── verify_run.py            # batch verification + audit log
+│   ├── krs_search.py            # PL KRS lookup chain (NIP/REGON → KRS)
+│   ├── vies_verify.py           # EU VIES VAT validation
+│   ├── verify_lead.py           # 2-tool check (web_search + whois + registry)
+│   ├── fix_data_quality.py      # clean NIP/KRS, fill regions
+│   ├── scrapers_registry.py     # web scrapers for non-API countries (SK/RO/LT/FR/EE/SI/HR)
+│   ├── orchestrate_9_levels.py  # master orchestrator for 9 lead-gen methods
+│   ├── test_9_levels.py         # tests for orchestrator
+│   ├── extract_intel.py         # automatic walkthrough & insight extraction
+│   ├── VERIFICATION-PATTERN.md  # 2-tool protocol documentation
+│   └── run_verify_cron.sh
+├── frontend/                    # Vite + React (App.jsx, App.css, src/)
+└── design/                      # design files
+```
 
 ---
 
-## DANE POMOCNICZE KTÓRE USER MOŻE DOSTARCZYĆ
+## 13. 3 słabe punkty metodologii
+
+### 1. Progi wolumenowe kalibrowane na rynek ogólny, nie niszowy
+
+Nabijarki to nie pasta do zębów. Nawet "duży" gracz w PL to 200-500 szt/m. Progi 50/500/5000 są przeskalowane.
+
+**Naprawa:** benchmark — poprosić użytkownika o 2-3 znanych dystrybutorów i wstecznie oszacować ich wolumen. Dodana jest też skala `rynek_skala` (duży/średni/mały per kraj) z automatyczną kalibracją progów.
+
+### 2. Atrybucja marek w Katalogu A jest nieweryfikowalna
+
+Sklep może deklarować PowerMatic, ale sprzedawać go symbolicznie lub importować 5 sztuk prywatnie. Nie mam sposobu na potwierdzenie **realnej** relacji z marką.
+
+**Ryzyko:** przeszacowuję kanał PowerMatic, niedoszacowuję szarą strefę.
+
+**Naprawa:** podejście "domyślnie niezweryfikowane" — flaga `🔍` w kolumnie flagi. Flagi weryfikacji (📋 ORG-CEL, 🧾 FV-PDF, 📦 OPAKOWANIE, 🗣️ DEKLARACJA, 📜 KONTRAKT) wstawiam **tylko** z twardymi dowodami. NIE stosuję ✅ POTWIERDZONE bo nie mam dostępu do listy umów BILLS. Uczciwe — lepiej powiedzieć "nie wiem" niż udawać pewność.
+
+### 3. Powinowactwo w Katalogu B to moja hipoteza, nie dane
+
+Mówię "CBD/susz = 4" bo logicznie tak wygląda. Ale nie mam danych.
+
+**Naprawa:** po zebraniu ~20-30 rekordów B, retrospektywna walidacja — sprawdzić czy firmy z B1-B3 faktycznie mają/mogą mieć nabijarki. To skalibruje skalę 1-5. Bez tego to educated guess.
+
+---
+
+## 14. Dane pomocnicze od użytkownika
 
 Żeby poprawić jakość researchu, mogę wykorzystać:
 
@@ -506,7 +840,29 @@ To dużo. Realistyczny timeline:
 - **Listę 2-3 znanych dystrybutorów** — do kalibracji progów wolumenowych
 - **Listę 5-10 sklepów które pytały o nabijarki / kupiły cross-sell** — do kalibracji powinowactwa B
 - **Dane z KAS** (jeśli są) — twarde info o importach prywatnych
-- **Dostęp do panelu hurtowego BILLS** (hurt@bills.pl) — lista obecnych klientów hurtowych (nawet bez kwot, tylko NIP + nazwa) — to daje benchmark tier
-- **Dokumenty PDF faktur/CMR** (zanonimizowane) — do analizy łańcuchów dostaw
-- **Zdjęcia opakowań z numerami seryjnymi** — do mapowania kanałów
-- **Twoje notatki z targów / wizyt u klientów** — bezcenny "off-internet" kontekst
+- **Dostęp do panelu hurtowego BILLS** (hurt@bills.pl) — lista obecnych klientów hurtowych (nawet bez kwot, tylko NIP + nazwa) — benchmark tier
+- **Dokumenty PDF faktur/CMR** (zanonimizowane) — analiza łańcuchów dostaw
+- **Zdjęcia opakowań z numerami seryjnymi** — mapowanie kanałów
+- **Notatki z targów / wizyt u klientów** — bezcenny "off-internet" kontekst
+
+---
+
+## 15. Checklist przed pierwszym dostarczeniem
+
+- [x] Methodology zaktualizowana
+- [x] 12 country journals utworzonych
+- [x] 3 słabe punkty udokumentowane
+- [x] Unified CSV schema zdefiniowany (38 kolumn)
+- [x] Cele ilościowe per kraj ustalone
+- [x] 24 stub CSV (12 × 2) utworzone
+- [x] Podejście do weryfikacji relacji z marką zmienione (domyślnie 🔍)
+- [x] KRS automation chain zbudowany (`tools/krs_search.py`)
+- [x] Skill weryfikacji `skills/verify-data/SKILL.md`
+- [x] Słowniki wyszukiwania per kraj (11) z wolumenami `szac.`
+- [x] Lista dokumentów finansowych per kraj w RUNBOOK.md
+- [ ] User zatwierdza schemat
+- [ ] User daje scope (głęboki PL vs szerokie miotły) — **CONFIRMED: głęboki PL**
+- [ ] User dostarcza token CEIDG — **CONFIRMED**
+- [ ] User weryfikuje prognozowane progi wolumenowe (benchmark na 2-3 znanych firmach)
+- [ ] User zatwierdza powinowactwo w Katalogu B
+- [ ] User dostarcza dane pomocnicze (patrz sekcja 14)
