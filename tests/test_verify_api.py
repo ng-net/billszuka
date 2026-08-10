@@ -334,6 +334,34 @@ class TestNameSimilarity:
         assert ok is False
         assert score < 0.8
 
+    def test_loose_diacritics_typo_match(self):
+        """CSV typo 'ODPOWIEDZIALNOSCIA' (no Ą) vs API 'ODPOWIEDZIALNOŚCIĄ'
+        must still match (loose mode strips diacritics). Real BILLS regression
+        case — false positive DO-W if strict."""
+        ok, score, _ = verify_api.name_similarity(
+            "BILLS SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ",
+            "BILLS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        )
+        assert ok is True
+        assert score == 1.0
+
+    def test_loose_legal_form_variants_match(self):
+        """Loose mode regex tolerates 'SP. Z.O.O.' vs 'SP. Z O.O.' and
+        'SPOL. S R.O.' vs 'SPOL. S R. O.'"""
+        ok, score, _ = verify_api.name_similarity(
+            "ACME SP. Z.O.O.", "ACME sp. z o.o."
+        )
+        assert ok is True
+        assert score == 1.0
+
+    def test_strict_mode_catches_diacritic_difference(self):
+        """Strict normalize (loose=False) does NOT strip diacritics —
+        reserved for non-Jaccard uses (e.g. KRS exact lookup)."""
+        # This documents the difference but we use loose in name_similarity
+        strict = verify_api.normalize("BILLS SPÓŁKA", loose=False)
+        loose = verify_api.normalize("BILLS SPÓŁKA", loose=True)
+        assert strict != loose  # they differ (loose strips diacritics)
+
 
 # ---------------------------------------------------------------------------
 # EU_MEMBER_STATES constant
@@ -763,4 +791,163 @@ class TestVerifyEeRow:
         }
         status, _ = verify_api.verify_ee_row(row)
         assert status == "FROZEN"
+
+
+# ---------------------------------------------------------------------------
+# verify_lt_row() — Lithuanian JAR (data.gov.lt SAU API) (mocked)
+# ---------------------------------------------------------------------------
+
+class TestVerifyLtRow:
+    """Tests for the Lithuanian JAR code path in verify_lt_row."""
+
+    def _good_result(self, **overrides):
+        base = {
+            "found": True,
+            "ja_kodas": 110443493,
+            "name": 'UAB "SANITEX"',
+            "reg_data": "1992-11-12",
+            "isreg_data": None,  # active
+            "forma_uuid": "5c444113-5081-4d88-b94d-782c0779bb89",
+            "statusas_uuid": "5ef6b364-a5ff-47fb-8600-ff859214ef85",
+            "stat_data": "2025-05-30",
+            "source_url": "https://get.data.gov.lt/...?ja_kodas=110443493",
+            "error": None,
+        }
+        base.update(overrides)
+        return base
+
+    def test_ja_kodas_match_returns_frozen(self, monkeypatch):
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", lambda c: self._good_result())
+        monkeypatch.setattr(
+            verify_api, "lt_jar_resolve_forma_status",
+            lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
+        )
+        row = {
+            "nazwa_firmy": 'UAB "SANITEX"',
+            "nip_vat": "LT110443493",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == "FROZEN"
+        assert "110443493" in reason
+        assert "1992-11-12" in reason
+
+    def test_no_ja_kodas_returns_pending_api(self, monkeypatch):
+        # No JAR code in rejestr_id → name search not available
+        def fail(c):
+            raise AssertionError("lt_jar_lookup should not be called")
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", fail)
+        row = {
+            "nazwa_firmy": "UAB Tabakininkas",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == verify_api.PENDING_API
+        assert "name search" in reason.lower() or "brak" in reason.lower()
+
+    def test_invalid_ja_kodas_returns_doweryfikacji(self, monkeypatch):
+        monkeypatch.setattr(
+            verify_api, "lt_jar_lookup",
+            lambda c: {"found": False, "error": "brak wyników dla ja_kodas=999999999"},
+        )
+        row = {
+            "nazwa_firmy": "UAB FAKE",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "JAR 999999999",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "999999999" in reason
+
+    def test_deregistered_company_returns_doweryfikacji(self, monkeypatch):
+        monkeypatch.setattr(
+            verify_api, "lt_jar_lookup",
+            lambda c: self._good_result(isreg_data="2020-01-15"),
+        )
+        row = {
+            "nazwa_firmy": 'UAB "SANITEX"',
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "wyrejestrowana" in reason.lower() or "isreg" in reason.lower()
+
+    def test_bankrupt_company_returns_doweryfikacji(self, monkeypatch):
+        # statusas_kodas=5 = Bankrutuojantis (going bankrupt)
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", lambda c: self._good_result())
+        monkeypatch.setattr(
+            verify_api, "lt_jar_resolve_forma_status",
+            lambda f, s: ("Uždaroji akcinė bendrovė", "Bankrutuojantis", 310, 5),
+        )
+        row = {
+            "nazwa_firmy": 'UAB "SANITEX"',
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "bankrut" in reason.lower() or "likwid" in reason.lower()
+
+    def test_name_mismatch_returns_doweryfikacji(self, monkeypatch):
+        # CSV "UAB ACME" vs API "UAB \"SANITEX\"" — no token overlap
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", lambda c: self._good_result())
+        monkeypatch.setattr(
+            verify_api, "lt_jar_resolve_forma_status",
+            lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
+        )
+        row = {
+            "nazwa_firmy": "UAB ACME WHOLESALE",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "mismatch" in reason.lower() or "pavadinimas" in reason.lower()
+
+    def test_legal_form_tokens_stripped_for_match(self, monkeypatch):
+        # CSV: 'UAB "SANITEX"', API: 'UAB "SANITEX"' — exact match
+        # CSV: "SANITEX" (just name) vs API: 'UAB "SANITEX"' — match after UAB stripped
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", lambda c: self._good_result())
+        monkeypatch.setattr(
+            verify_api, "lt_jar_resolve_forma_status",
+            lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
+        )
+        row = {
+            "nazwa_firmy": "SANITEX",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, _ = verify_api.verify_lt_row(row)
+        assert status == "FROZEN"
+
+    def test_module_unavailable(self, monkeypatch):
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", None)
+        row = {
+            "nazwa_firmy": "UAB",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        assert status == verify_api.PENDING_API
+        assert "niedostępny" in reason.lower()
+
+    def test_pvm_mismatch_does_not_fail(self, monkeypatch):
+        # CSV PVM LT999999999 ≠ expected LT110443493 — not a verification
+        # failure (PVMs can differ for non-LT branches); reason should note it
+        monkeypatch.setattr(verify_api, "lt_jar_lookup", lambda c: self._good_result())
+        monkeypatch.setattr(
+            verify_api, "lt_jar_resolve_forma_status",
+            lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
+        )
+        row = {
+            "nazwa_firmy": 'UAB "SANITEX"',
+            "nip_vat": "LT999999999",
+            "rejestr_id": "JAR 110443493",
+        }
+        status, reason = verify_api.verify_lt_row(row)
+        # PVM mismatch is informational, not a verification failure
+        assert status == "FROZEN"
+        assert "999999999" in reason
 

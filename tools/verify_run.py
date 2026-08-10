@@ -76,17 +76,19 @@ OFFICIAL_SOURCE_TOKENS = [
     "krs api", "krs.gov", "ceidg", "vies", "kas", "regon",
     "ares", "orsr", "rekvizitai", "ajpes",
     "ariregister",
+    "jar",  # Lithuanian Juridinių asmenų registras via data.gov.lt SAU API
 ]
 COUNTRY_API = {
     "PL": "ceidg",  # CEIDG + KRS
     "CZ": "ares",   # ARES
     "FR": "recherche-entreprises",  # recherche-entreprises.api.gouv.fr (rich: name + dirigeants)
     "EE": "ariregister",  # e-Äriregister: autocomplete JSON + detail HTML (rich: KMKR + EMTAK)
+    "LT": "jar",    # Lithuanian JAR via data.gov.lt SAU / spinta (rich: ja_kodas, reg_data, forma, statusas)
     # All other EU countries fall through to VIES (in verify_api.py
     # dispatcher), which covers all 27 member states. Country-specific
-    # registries (ORSR SK, Rekvizitai LT, AJPES SI, etc.) can be added
-    # here as primary and VIES becomes the fallback.
-    "SK": "vies", "LT": "vies", "LV": "vies", "BG": "vies",
+    # registries (ORSR SK, AJPES SI, etc.) can be added here as primary
+    # and VIES becomes the fallback.
+    "SK": "vies", "LV": "vies", "BG": "vies",
     "HR": "vies", "RO": "vies", "SI": "vies",
     # MD (Moldova) is non-EU → PENDING_API in verify_api.py
 }
@@ -282,8 +284,12 @@ def regenerate_master() -> tuple[bool, int]:
     # the regen, it just lands in a sensible spot until you add it to
     # COUNTRY_ORDER + methodology.md.
     country_dirs: list[Path] = []
+    # Skip hidden dirs (.*) AND explicit "data housekeeping" dirs that
+    # contain snapshot/backup CSVs which would explode the master.csv
+    # count (e.g. 145 → 3603 rows from `data/backups/` snapshots).
+    SKIP_DIRS = {".snapshots", ".verify-state", "backups", "verification"}
     for sub in DATA.iterdir():
-        if not sub.is_dir() or sub.name.startswith("."):
+        if not sub.is_dir() or sub.name in SKIP_DIRS or sub.name.startswith("."):
             continue
         country_dirs.append(sub)
 

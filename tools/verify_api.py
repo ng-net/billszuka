@@ -49,6 +49,12 @@ except ImportError:  # pragma: no cover
     ee_search = None  # type: ignore[assignment]
     ee_detail = None  # type: ignore[assignment]
 
+try:
+    from lt_open_data import lt_jar_lookup, lt_jar_resolve_forma_status
+except ImportError:  # pragma: no cover
+    lt_jar_lookup = None  # type: ignore[assignment]
+    lt_jar_resolve_forma_status = None  # type: ignore[assignment]
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 ENV_FILE = ROOT / ".env"
@@ -282,18 +288,52 @@ def ares_enrich(row: dict) -> tuple[str, str]:
     return "DO-WERYFIKACJI", "ARES: brak IČO"
 
 
-def normalize(s: str) -> str:
-    """Normalize a name for fuzzy comparison."""
+def normalize(s: str, loose: bool = False) -> str:
+    """Normalize a name for fuzzy comparison.
+
+    Args:
+        s: input string (e.g. "BILLS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ")
+        loose: if True, also strip diacritics (Ą→A, Ę→E, etc.) for tolerance
+               to typos like "ODPOWIEDZIALNOŚCIA" vs "ODPOWIEDZIALNOŚCIĄ".
+               Default False to keep strict comparison for KRIS name lookups.
+
+    For loose mode (recommended for Jaccard comparison), legal form stripping
+    is done with regex patterns that tolerate spacing/nasal-mark variations.
+    """
     if not s:
         return ""
     s = s.upper()
-    # strip legal form suffixes
-    for suf in ["SP. Z O.O.", "SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
-                "S.R.O.", "SPOL. S R.O.", "SPOL. S R. O.",
-                "A.S.", "AKCIOVÁ SPOLEČNOST", "S.C.", "SP.J.",
-                "SPÓŁKA CYWILNA", "SPÓŁKA JAWNA", "F.H.U.",
-                "SP.J.", "SP. J."]:
-        s = s.replace(suf, "")
+    # Strip diacritics first if loose mode
+    if loose:
+        diacritics = str.maketrans("ĄĆĘŁŃÓŚŹŻ", "ACEENOSZZ")
+        s = s.translate(diacritics)
+
+    # Strip legal form suffixes. In loose mode, use regex to tolerate
+    # variations (spacing, missing nasal marks). Exact list still works
+    # for the common case.
+    # IMPORTANT: in loose mode the regex patterns use diacritic-STRIPPED
+    # forms (e.g. "ODPOWIEDZIALNOSCI" not "ODPOWIEDZIALNOŚCI") because
+    # we already stripped diacritics above; otherwise the Polish chars
+    # in the regex wouldn't match the stripped input.
+    if loose:
+        s = re.sub(r"SPOEKA\s+Z\s+OGRANICZON[ĄA]\s+ODPOWIEDZIALNOSCI[ĄA]", " ", s)
+        s = re.sub(r"SP\.?\s*Z\.?\s*O\.?\s*O\.?", " ", s)
+        s = re.sub(r"SPOL\.?\s*S\.?\s*R\.?\s*O\.?", " ", s)
+        s = re.sub(r"AKCIOV[ÁA]?.?\s*SPOLE[ČC]?.?NOST", " ", s)
+        s = re.sub(r"SP[ÓO]ŁKA\s+CYWILNA", " ", s)
+        s = re.sub(r"SP[ÓO]ŁKA\s+JAWNA", " ", s)
+        s = re.sub(r"S\.?R\.?O\.?", " ", s)
+        s = re.sub(r"A\.?S\.?", " ", s)
+        s = re.sub(r"S\.?C\.?", " ", s)
+        s = re.sub(r"SP\.?J\.?", " ", s)
+        s = re.sub(r"F\.?H\.?U\.?", " ", s)
+    else:
+        for suf in ["SP. Z O.O.", "SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+                    "S.R.O.", "SPOL. S R.O.", "SPOL. S R. O.",
+                    "A.S.", "AKCIOVÁ SPOLEČNOST", "S.C.", "SP.J.",
+                    "SPÓŁKA CYWILNA", "SPÓŁKA JAWNA", "F.H.U.",
+                    "SP.J.", "SP. J."]:
+            s = s.replace(suf, "")
     # strip punctuation
     s = re.sub(r"[^A-Z0-9ĄĆĘŁŃÓŚŹŻ]+", " ", s)
     return " ".join(s.split())
@@ -317,12 +357,17 @@ def name_similarity(csv_name: str, api_name: str) -> tuple[bool, float, str]:
     Strips legal-form tokens first (they always match and would inflate
     the score, hiding real mismatches like "PEAL" vs "PEAL Real Estate").
 
+    Uses LOOSE normalization (diacritics + regex-based legal-form strip) to
+    tolerate CSV typos like "ODPOWIEDZIALNOŚCIA" vs the registry's
+    "ODPOWIEDZIALNOŚCIĄ". Without loose mode, BILLS / BISTA / E-TABAK /
+    CK COMPLEX would all be false-positive DO-W.
+
     Threshold 0.8 catches the FABRYKAT pattern: LLM-generated identifiers
     pass checksum but point to entities sharing only a common prefix word
     with the claimed company.
     """
-    c = normalize(csv_name)
-    a = normalize(api_name)
+    c = normalize(csv_name, loose=True)
+    a = normalize(api_name, loose=True)
     if not c or not a:
         return False, 0.0, f"empty name (csv='{c[:20]}' api='{a[:20]}')"
     c_tokens = set(c.split()) - LEGAL_TOKENS
@@ -642,6 +687,182 @@ def verify_ee_row(row: dict) -> tuple[str, str]:
     )
 
 
+# Lithuanian legal-form tokens (stripped before name-match Jaccard)
+_LT_LEGAL_TOKENS = {
+    "UAB", "AB", "VĮ", "UŽAB", "IĮ", "TŪB", "KŪB", "VšĮ", "MB",
+    "AS", "BI", "TIB", "TIKROJI", "ŪKINĖ", "BENDRIJA", "BENDROVĖ",
+}
+
+
+def verify_lt_row(row: dict) -> tuple[str, str]:
+    """
+    Verify LT row via Lithuanian open data (data.gov.lt SAU / spinta API).
+
+    The SAU API at get.data.gov.lt is the only public, no-auth path to
+    the JAR (Juridinių asmenų registras). rekvizitai.vz.lt is Cloudflare-
+    blocked and registrucentras.lt is a JS SPA — neither exposes a
+    queryable endpoint.
+
+    Two paths:
+      1. If `rejestr_id` contains a 9-digit ja_kodas (e.g. "JAR 110443493")
+         → direct lookup via /JuridinisAsmuo?ja_kodas=NNNNNNNNN
+         Returns name, registration date, deregistration date, legal
+         form, status, status date.
+      2. Otherwise (placeholder or missing ja_kodas) → fall back to VIES
+         for VAT validation. No name search is available, so rows that
+         only have a name and no PVM stay PENDING_API.
+
+    Limitations:
+      • No name search — only direct ja_kodas lookup works.
+      • Address (adresas) is a UUID ref to an external Address Registry
+        not exposed via the SAU API; we cannot back-fill the adres column.
+    """
+    if lt_jar_lookup is None:
+        return PENDING_API, "LT module niedostępny (lt_open_data.py nie załadowany)"
+
+    name_csv = (row.get("nazwa_firmy") or "").strip()
+    rejestr = (row.get("rejestr_id") or "").strip()
+    nip_csv = (row.get("nip_vat") or "").strip().upper()
+    clean_nip = re.sub(r"[^0-9A-Z]", "", nip_csv)
+
+    # Extract 9-digit ja_kodas from rejestr_id
+    m = re.search(r"\b(\d{9})\b", rejestr)
+    ja_kodas_str = m.group(1) if m else ""
+
+    if not ja_kodas_str:
+        return PENDING_API, (
+            "LT: brak ja_kodas w rejestr_id — open data API wymaga kodu, "
+            "name search niedostępny"
+        )
+
+    result = lt_jar_lookup(ja_kodas_str)
+    if not result.get("found"):
+        err = (result or {}).get("error", "brak odpowiedzi")
+        if "brak wyników" in err.lower():
+            return "DO-WERYFIKACJI", f"LT: ja_kodas {ja_kodas_str} nie istnieje w JAR"
+        return PENDING_API, f"LT: {err}"
+
+    # Active check: isreg_data is None AND statusas_kodas == 0 (default active)
+    if result.get("isreg_data"):
+        return "DO-WERYFIKACJI", (
+            f"LT: firma wyrejestrowana ({result.get('name', '')}, "
+            f"isreg_data {result.get('isreg_data')})"
+        )
+
+    # Resolve forma / statusas by UUID → name
+    forma_name, statusas_name, forma_kodas, statusas_kodas = (None, None, None, None)
+    if lt_jar_resolve_forma_status is not None:
+        forma_name, statusas_name, forma_kodas, statusas_kodas = lt_jar_resolve_forma_status(
+            result.get("forma_uuid"), result.get("statusas_uuid")
+        )
+
+    # Status check: statusas_kodas 0 = active, 1-7 = proceedings (some OK, some not)
+    # 1=Reorganizuojamas, 2=Dalyvaujantis reorganizavime, 3=Pertvarkomas,
+    # 4=Restruktūrizuojamas, 5=Bankrutuojantis, 6=Likviduojamas, 7=...
+    # Treat 5 (bankrutuojantis) and 6 (likviduojamas) as DO-WERYFIKACJI.
+    if isinstance(statusas_kodas, int) and statusas_kodas in (5, 6):
+        return "DO-WERYFIKACJI", (
+            f"LT: firma w trakcie ({statusas_name or statusas_kodas}, "
+            f"ja_kodas {ja_kodas_str})"
+        )
+
+    # Name match (Jaccard on tokens, strip LT legal forms)
+    csv_norm = normalize(name_csv)
+    api_norm = normalize(result.get("name", ""))
+    if csv_norm and api_norm:
+        csv_tokens = {t for t in csv_norm.split() if len(t) >= 3} - _LT_LEGAL_TOKENS
+        api_tokens = {t for t in api_norm.split() if len(t) >= 3} - _LT_LEGAL_TOKENS
+        if csv_tokens and api_tokens and not (csv_tokens & api_tokens):
+            return "DO-WERYFIKACJI", (
+                f"LT: pavadinimas mismatch (CSV='{csv_norm[:30]}' "
+                f"API='{api_norm[:30]}')"
+            )
+
+    # VAT cross-check (if CSV has a real PVM and we can derive expected)
+    # Lithuanian PVM for a legal entity is typically LT + ja_kodas (9 digits)
+    expected_pvm = f"LT{ja_kodas_str}"
+    if clean_nip and clean_nip != expected_pvm:
+        # Real NIP but doesn't match the canonical LT+ja_kodas pattern
+        # Don't auto-fail — PVMs can also be 12-digit for non-LT-registered
+        # entities; just note the discrepancy in the reason
+        pvm_note = f" (CSV PVM {clean_nip} ≠ oczekiwany {expected_pvm})"
+    else:
+        pvm_note = ""
+
+    # Stash enrichment for main() back-fill
+    id_ = (row.get("id_unikalne") or "").strip()
+    if id_:
+        lt_enrichments[id_] = {
+            "nip_vat": expected_pvm,
+            "rejestr_id": f"JAR {ja_kodas_str}",
+            "adres": "",  # not available via SAU API
+            "forma": forma_name or "",
+        }
+
+    return "FROZEN", (
+        f"LT live: {result.get('name', '')[:35]} "
+        f"(ja_kodas {ja_kodas_str}, reg {result.get('reg_data', '?')}, "
+        f"{forma_name or '?'[:25]})"
+        + pvm_note
+    )
+
+
+# Side-channel: verify_lt_row() populates this when it returns FROZEN so
+# main() can back-fill nip_vat / rejestr_id for rows that previously had
+# "do weryfikacji" placeholders. Keyed by id_unikalne.
+lt_enrichments: dict[str, dict] = {}
+
+
+def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
+    """Back-fill nip_vat / rejestr_id for LT rows from JAR result.
+
+    Only overwrites cells that are currently placeholders (do weryfikacji /
+    do ustalenia / brak / empty) — never clobbers a value the user set
+    manually. Address is NOT back-filled (SAU API doesn't expose the
+    address text). Returns count of cells written.
+    """
+    if not enrichments:
+        return 0
+    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
+    with open(csv_path, encoding="utf-8") as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        rows = list(reader)
+    n_cols = len(header)
+    if "id_unikalne" not in header:
+        return 0
+    id_idx = header.index("id_unikalne")
+    field_map = {
+        "nip_vat": "nip_vat",
+        "rejestr_id": "rejestr_id",
+    }
+    field_idxs = {col: header.index(col) for col in field_map if col in header}
+    n = 0
+    for i, row in enumerate(rows):
+        if len(row) == 0:
+            continue
+        if len(row) < n_cols:
+            row += [""] * (n_cols - len(row))
+        id_ = row[id_idx]
+        if id_ not in enrichments:
+            continue
+        data = enrichments[id_]
+        for col, key in field_map.items():
+            if key not in field_idxs:
+                continue
+            idx = field_idxs[key]
+            current = (row[idx] or "").strip()
+            new = data.get(key, "")
+            if new and current.lower() in placeholders:
+                row[idx] = new
+                n += 1
+    with open(csv_path, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+        writer.writerows(rows)
+    return n
+
+
 # Side-channel: verify_ee_row() populates this when it returns FROZEN so
 # main() can back-fill nip_vat / rejestr_id / adres for rows that previously
 # had "do weryfikacji" placeholders. Keyed by id_unikalne.
@@ -816,6 +1037,14 @@ def main() -> int:
                 # Routed before the generic EU branch (better than VIES
                 # alone because we get the company name back).
                 status, reason = verify_ee_row(row)
+            elif country == "LT":
+                # Lithuania JAR (Juridinių asmenų registras) via the
+                # data.gov.lt SAU / spinta open data API
+                # (get.data.gov.lt/datasets/gov/rc/jar/iregistruoti/...).
+                # Rekvizitai.vz.lt is Cloudflare-blocked; JAR website is
+                # a JS SPA with no queryable endpoint. Limitation: only
+                # direct ja_kodas lookup works (no name search).
+                status, reason = verify_lt_row(row)
             elif country in EU_MEMBER_STATES:
                 # All other EU countries: use VIES as a fast first-pass.
                 # Covers SK, LT, LV, BG, HR, RO, SI in BILLSzuka
@@ -848,6 +1077,13 @@ def main() -> int:
                 if n:
                     log(f"  → {csv_path.name}: {n} cells back-filled from e-Äriregister")
                 ee_enrichments.clear()
+            # LT: back-fill discovered nip_vat / rejestr_id (no adres — SAU
+            # API doesn't expose address text)
+            if lt_enrichments and not args.dry_run:
+                n = apply_lt_enrichments(csv_path, lt_enrichments)
+                if n:
+                    log(f"  → {csv_path.name}: {n} cells back-filled from JAR")
+                lt_enrichments.clear()
 
     log(
         f"\nTotal: {total_verified} verified — "

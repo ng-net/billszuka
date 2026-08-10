@@ -132,16 +132,41 @@ ONRC API wymaga opłaty (8 lei za odpis). Alternatywy:
 - ⚠️ Strong plain packaging — regulacje mogą wykluczać niektóre marki
 - ⚠️ ONRC paid API = ~8 lei per query
 
-### 🇱🇹 LITWA — rekvizitai.vz.lt
+### 🇱🇹 LITWA — data.gov.lt JAR (SAU API)
 
-```bash
-# Web search zazwyczaj wystarcza:
-web_search: "site:rekvizitai.vz.lt <FIRMA>"
-```
+**Automatyzacja (BILLSzuka):** `tools/lt_open_data.py` — queryuje oficjalne
+dane VĮ Registrų centras przez rządowy portal atvirų duomenų SAU / spinta
+(`get.data.gov.lt/datasets/gov/rc/jar/iregistruoti/JuridinisAsmuo?ja_kodas=XXX`).
+Routed przez `verify_lt_row()` w `tools/verify_api.py` (patrz `COUNTRY_API`
+w `tools/verify_run.py` → `"LT": "jar"`).
 
-Litwa ma **jar.lt** (JAR) ale web search jest szybszy. PVM kod = LT + 9 lub 12 cyfr.
+Dlaczego SAU, nie Rekvizitai:
+- **rekvizitai.vz.lt** (RUNBOOK rekomendacja) jest za Cloudflare i zwraca
+  403 na każdy nie-browser User-Agent
+- **registrucentras.lt** (JAR portal) to Drupal/JS SPA — wyniki renderowane
+  client-side, brak queryable endpoint
+- **atviras.jar.lt** timeout (>30s)
+- **data.gov.lt SAU** jedyny publiczny, no-auth, darmowy path z czystym JSON
 
-**Specjalny przypadek: Sanitex group** — LT/LV/EE mają sister firms pod jednym brandem.
+API uwagi:
+- Filtr tylko po `ja_kodas` (9 cyfr, np. 110443493 dla UAB SANITEX).
+  Brak name-search endpoint — wiersze z placeholder "do weryfikacji" w
+  nip_vat/rejestr_id → PENDING_API.
+- Adres (adresas) to UUID ref do zewnętrznego Address Registry niedostępnego
+  przez ten API → adres kolumna nie jest back-fillowana.
+- Legal form (forma) i status (statusas) zwracane jako UUID refs; trzeba
+  lookup przez `formos_statusai/Forma` i `formos_statusai/Statusas`.
+
+Live verification (LT, 2026-08-10 18:27):
+- 10 firm: **1 FROZEN** (UAB SANITEX, ja_kodas 110443493), **9 PENDING_API**
+  (wszystkie mają placeholder "do weryfikacji" w nip_vat i rejestr_id —
+  brak ja_kodas = brak ścieżki przez open data API)
+
+PVM (VAT) format: LT + 9 cyfr (firmy krajowe) lub LT + 12 cyfr (wewnętrzne).
+Canonical PVM dla UAB = LT + ja_kodas (np. UAB SANITEX = LT110443493).
+
+**Specjalny przypadek: Sanitex group** — LT/LV/EE mają sister firms pod
+jednym brandem (Baltic+Bulgaria).
 
 ### 🇱🇻 ŁOTWA — info.ur.gov.lv (web search)
 

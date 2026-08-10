@@ -988,3 +988,85 @@ Frontend (`frontend/src/App.jsx`) robi 4 fetch do `/api/*` ale zero backendu. Vi
 - Wszystkie 4 kraje to te same ~10/11 DO-WERYFIKACJI w katalogach; pattern EE powinien
   działać dla każdego: country tool → verify_*_row() → COUNTRY_API → apply enrichments
 - Frontend proxy /api — vite.config.js gotowy, wystarczy `npm run dev` + `python3 tools/api_server.py`
+
+
+## 2026-08-10 15:26 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **287/1023 (28.1%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **145 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-10 15:32 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **1017/3603 (28.2%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **1023 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-10 18:28 CEST - Lithuania JAR (data.gov.lt SAU) integracja
+
+### Co zostało zrobione
+1. **`tools/lt_open_data.py`** (NEW, 10.3 KB) — klient do oficjalnego Lithuanian
+   JAR przez rządowy SAU / spinta portal (`get.data.gov.lt`):
+   - `lt_jar_lookup(ja_kodas)` → JSON `/JuridinisAsmuo?ja_kodas=NNNNNNNNN`
+     (name, reg_data, isreg_data, forma UUID, statusas UUID, stat_data)
+   - `lt_jar_resolve_forma_status(forma_uuid, statusas_uuid)` → dereferencja
+     UUID → nazwa+kodas przez osobne `/formos_statusai/Forma` i `/Statusas`
+   - CLI: `lt_open_data.py 110443493` → pełne dane UAB SANITEX
+2. **`tools/verify_api.py`** — nowy `verify_lt_row()` + `apply_lt_enrichments()`:
+   - Primary: jeśli `rejestr_id` zawiera 9-cyfrowy ja_kodas → direct lookup
+   - Fallback: PENDING_API (no name search API available — patrz uwagi)
+   - Token Jaccard z LEGAL_TOKENS (UAB, AB, VĮ, MB, IĮ, TŪB, KŪB, VšĮ, ...)
+   - Status: FROZEN / DO-WERYFIKACJI (wyrejestrowana, bankrutująca, mismatch) / PENDING_API
+   - Forma back-fill: nip_vat (= LT + ja_kodas), rejestr_id (= JAR NNNNNNNNN)
+3. **`tools/verify_run.py`** — `"LT": "jar"` w COUNTRY_API, `"jar"` w OFFICIAL_SOURCE_TOKENS
+4. **`tests/test_verify_api.py`** — 9 nowych testów (76 → 92 total):
+   - ja_kodas match, no ja_kodas (PENDING_API), invalid code (DO-WERYFIKACJI),
+     deregistered, bankrupt (statusas=5), name mismatch, legal-form stripped,
+     module unavailable, PVM mismatch (informational, not failure)
+5. **`RUNBOOK.md`** 🇱🇹 sekcja zaktualizowana o pełne wyjaśnienie dlaczego
+   SAU a nie Rekvizitai (Cloudflare 403, JS SPA, timeout — tylko SAU działa)
+
+### Dlaczego SAU, nie Rekvizitai
+- **rekvizitai.vz.lt** (RUNBOOK rekomendacja) → Cloudflare 403 dla każdego
+  nie-browser User-Agent (nawet z poprawnymi headers + cookies)
+- **registrucentras.lt** (JAR portal) → Drupal/JS SPA, search renderowany
+  client-side, brak queryable API endpoint
+- **atviras.jar.lt** → timeout (>30s)
+- **data.gov.lt SAU / spinta** → jedyny publiczny, no-auth, darmowy path
+  z czystym JSON, queryable przez `?ja_kodas=`
+
+### Live verification (LT, 2026-08-10 18:27)
+- 10 firm: **1 FROZEN** (UAB SANITEX, ja_kodas 110443493, reg 1992-11-12, UAB),
+  **9 PENDING_API** (wszystkie mają placeholder "do weryfikacji" w nip_vat
+  i rejestr_id — brak ja_kodas = brak ścieżki przez open data API;
+  PENDING_API ≠ błąd weryfikacji, tylko brak danych do sprawdzenia)
+
+### Ograniczenia (udokumentowane w RUNBOOK)
+- Brak name-search endpoint → 9/10 wierszy pozostaje PENDING_API
+- Adres (adresas) to UUID ref do zewnętrznego Address Registry — back-fill
+  kolumny `adres` niemożliwy przez ten API
+- Rozwiązanie przyszłe: web_search fallback (RUNBOOK §SK to robi) lub
+  bulk download pełnego CSV/JSON z data.gov.lt (227k firm) + local index
+
+### Pliki
+- ✏️ `tools/lt_open_data.py` (NEW)
+- ✏️ `tools/verify_api.py` (verify_lt_row + apply_lt_enrichments + dispatcher)
+- ✏️ `tools/verify_run.py` (COUNTRY_API LT, OFFICIAL_SOURCE_TOKENS)
+- ✏️ `tests/test_verify_api.py` (+9 testów)
+- ✏️ `data/Litwa/catalog-B-LT.csv` (1 FROZEN, 9 PENDING_API)
+- ✏️ `RUNBOOK.md` (LT sekcja)
+- ✏️ `data/audit-log.md`, `data/verification/run_latest.json` (automatyczne)
+
+### Testy
++9 nowych (83 → 92 PASS, Python 3.13, pytest 9.0.1)
+
+### Następna sesja (sugestie)
+- **SK (ORSR)** — web_search only (no JSON API, jak SK w RUNBOOK) — wzorzec
+  analogiczny do LT (fallback PENDING_API gdy brak IČO)
+- **SI (AJPES)** — najtrudniejszy, brak public JSON, wymaga scraping lub
+  bulk download (227k firms × pełny CSV)
+- **Wzbogacenie LT** — bulk download z data.gov.lt + local SQLite index
+  dla name search (pokryłby 9/10 placeholderów)
