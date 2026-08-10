@@ -1,9 +1,735 @@
 {
-  "timestamp": "2026-08-10T12:00:47.511238+00:00",
+  "timestamp": "2026-08-10T13:09:54.328728+00:00",
   "added": 0,
-  "modified": 0,
-  "removed": 4,
-  "frozen": 0,
-  "do_weryfikacji": 0,
-  "results": []
+  "modified": 145,
+  "removed": 0,
+  "frozen": 40,
+  "do_weryfikacji": 105,
+  "results": [
+    {
+      "id": "BG-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-XX-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "BG-B-XX-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "HR-B-XX-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "HR-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "CZ-A-JM-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API), format NIP OK"
+    },
+    {
+      "id": "CZ-A-PK-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search), format NIP OK"
+    },
+    {
+      "id": "CZ-A-PR-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PR-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PR-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PR-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PR-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PR-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PR-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "CZ-B-PK-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "EE-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: sanitex.eu"
+    },
+    {
+      "id": "EE-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "EE-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "FR-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-KA-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK"
+    },
+    {
+      "id": "LT-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LT-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "MD-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "PL-A-WP-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK"
+    },
+    {
+      "id": "PL-A-MZ-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API + VIES), format NIP OK"
+    },
+    {
+      "id": "PL-A-KP-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API + VIES), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-019",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-015",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-018",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-016",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: rejestr_id"
+    },
+    {
+      "id": "PL-B-LB-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API + web search + VIES), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-014",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-DS-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: 2026-08-10"
+    },
+    {
+      "id": "PL-B-XX-055",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-020",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-MZ-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-021",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-LD-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-026",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-013",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-ZP-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK"
+    },
+    {
+      "id": "PL-B-PK-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-017",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-025",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-056",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-024",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-DS-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: 2026-08-10"
+    },
+    {
+      "id": "PL-B-ZP-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-022",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-012",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-B-XX-023",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "RO-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "RO-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SK-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "SI-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: sanitex.eu"
+    },
+    {
+      "id": "LV-B-XX-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-010",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-005",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "LV-B-XX-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    }
+  ]
 }

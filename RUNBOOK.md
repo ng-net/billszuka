@@ -486,6 +486,18 @@ Plus: wyszukiwarka-krs.ms.gov.pl (search by name), KRZ (upadłości), biała lis
 | 3 | Finantsinspektsioon | `fi.ee` | Licencje finansowe |
 | 4 | (e-Äriregister wystarcza) | — | — |
 
+**Automatyzacja (BILLSzuka):** `tools/ee_ariregister.py` — JSON autocomplete
+(`/est/api/autocomplete?q=<name>`) + detail HTML extraction (KMKR/VAT, EMTAK/NACE,
+capital, founded, status). Routed przez `verify_ee_row()` w `tools/verify_api.py`
+(patrz `COUNTRY_API` w `tools/verify_run.py` → `"EE": "ariregister"`).
+
+API uwagi:
+- Autocomplete NIE działa po KMKR/VAT (q=EE101376895 → []), tylko po nazwie.
+- Pojedyncze żądanie daje name, address, status, legal_form. Pełne dane (KMKR,
+  EMTAK, kapitał) wymagają detail page scrape.
+- 10/10 EE firm w katalogu zweryfikowane: 8 FROZEN, 2 DO-WERYFIKACJI (B2C
+  detal — CigarHouse.ee, Hinnapomm — brak osobnego wpisu jako hurtownia).
+
 ### 🇫🇷 FRANCJA
 
 | # | Źródło | URL | Co daje |

@@ -600,3 +600,167 @@ class TestVerifyFrRow:
         assert status == "FROZEN"
         assert "dirigeants" in reason
         assert "JEAN DUPONT" in reason
+
+
+# ---------------------------------------------------------------------------
+# verify_ee_row() — Estonian e-Äriregister (mocked)
+# ---------------------------------------------------------------------------
+
+class TestVerifyEeRow:
+    """Tests for the e-Äriregister code path in verify_ee_row."""
+
+    def _good_result(self, **overrides):
+        """Build a successful e-Äriregister result dict."""
+        base = {
+            "found": True,
+            "reg_code": "11931003",
+            "name": "Sanitex OÜ",
+            "historical_names": [],
+            "status": "R",
+            "legal_form": "5",
+            "legal_address": "Harju maakond, Rae vald, Rae küla, Graniidi tee 1",
+            "zip_code": "75310",
+            "kmkr": "EE101376895",
+            "emtak": "46.17",
+            "founded": "01.01.1991",
+            "capital_eur": 30000.0,
+            "url": "https://ariregister.rik.ee/est/company/11931003",
+            "error": None,
+        }
+        base.update(overrides)
+        return base
+
+    def test_reg_code_match_returns_frozen(self, monkeypatch):
+        monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result())
+        monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: self._good_result())
+        row = {
+            "nazwa_firmy": "Sanitex OÜ",
+            "nip_vat": "EE101376895",
+            "rejestr_id": "e-Äriregister 11931003",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == "FROZEN"
+        assert "11931003" in reason
+        assert "EE101376895" in reason
+
+    def test_name_search_match_returns_frozen(self, monkeypatch):
+        # No reg_code in rejestr_id → use name search
+        monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result(name="Nicorex Baltic OÜ"))
+        monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: {"found": False, "error": "skip"})
+        row = {
+            "nazwa_firmy": "Nicorex Baltic OÜ",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == "FROZEN"
+        assert "Nicorex" in reason
+
+    def test_name_mismatch_returns_doweryfikacji(self, monkeypatch):
+        monkeypatch.setattr(
+            verify_api, "ee_search",
+            lambda q: self._good_result(name="COMPLETELY DIFFERENT OÜ"),
+        )
+        row = {
+            "nazwa_firmy": "Sanitex OÜ",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "mismatch" in reason.lower() or "nimi" in reason.lower()
+
+    def test_kpmr_mismatch_returns_doweryfikacji(self, monkeypatch):
+        # CSV claims VAT EE999999999, but registry says EE101376895
+        monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result())
+        monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: self._good_result())
+        row = {
+            "nazwa_firmy": "Sanitex OÜ",
+            "nip_vat": "EE999999999",
+            "rejestr_id": "e-Äriregister 11931003",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "kmkr" in reason.lower() or "mismatch" in reason.lower()
+
+    def test_closed_company_returns_doweryfikacji(self, monkeypatch):
+        monkeypatch.setattr(
+            verify_api, "ee_search",
+            lambda q: self._good_result(status="K"),
+        )
+        row = {
+            "nazwa_firmy": "Sanitex OÜ",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "zamknięta" in reason.lower() or "kustutatud" in reason.lower()
+
+    def test_company_not_found_returns_doweryfikacji(self, monkeypatch):
+        monkeypatch.setattr(
+            verify_api, "ee_search",
+            lambda q: {"found": False, "error": "brak wyników dla 'FAKE'"},
+        )
+        row = {
+            "nazwa_firmy": "FAKE BALTIC OÜ",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "nie istnieje" in reason.lower()
+
+    def test_api_error_returns_pending_api(self, monkeypatch):
+        monkeypatch.setattr(
+            verify_api, "ee_search",
+            lambda q: {"found": False, "error": "connection: timeout"},
+        )
+        row = {
+            "nazwa_firmy": "Sanitex OÜ",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == verify_api.PENDING_API
+        assert "connection" in reason.lower()
+
+    def test_module_unavailable(self, monkeypatch):
+        monkeypatch.setattr(verify_api, "ee_search", None)
+        monkeypatch.setattr(verify_api, "ee_detail", None)
+        row = {
+            "nazwa_firmy": "Sanitex OÜ",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == verify_api.PENDING_API
+        assert "niedostępny" in reason.lower()
+
+    def test_no_name_no_rejestr_returns_pending_api(self, monkeypatch):
+        # Cannot search without a name hint and no reg_code
+        def fail(q, **kw):
+            raise AssertionError("ee_search should not be called")
+        monkeypatch.setattr(verify_api, "ee_search", fail)
+        monkeypatch.setattr(verify_api, "ee_detail", fail)
+        row = {
+            "nazwa_firmy": "",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, reason = verify_api.verify_ee_row(row)
+        assert status == verify_api.PENDING_API
+        assert "brak" in reason.lower()
+
+    def test_legal_form_tokens_stripped_for_match(self, monkeypatch):
+        # CSV: "Sanitex", API: "Sanitex OÜ" — should match (OÜ stripped)
+        monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result(name="Sanitex OÜ"))
+        monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: {"found": False, "error": "skip"})
+        row = {
+            "nazwa_firmy": "Sanitex",
+            "nip_vat": "do weryfikacji",
+            "rejestr_id": "do weryfikacji",
+        }
+        status, _ = verify_api.verify_ee_row(row)
+        assert status == "FROZEN"
+

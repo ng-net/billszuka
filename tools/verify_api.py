@@ -43,6 +43,12 @@ try:
 except ImportError:  # pragma: no cover
     fr_search = None  # type: ignore[assignment]
 
+try:
+    from ee_ariregister import ee_search, ee_detail
+except ImportError:  # pragma: no cover
+    ee_search = None  # type: ignore[assignment]
+    ee_detail = None  # type: ignore[assignment]
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 ENV_FILE = ROOT / ".env"
@@ -510,6 +516,188 @@ def verify_fr_row(row: dict) -> tuple[str, str]:
     )
 
 
+# Estonian legal-form tokens (stripped before name-match Jaccard)
+_EE_LEGAL_TOKENS = {
+    "OÜ", "AS", "FIE", "MTÜ", "SA", "TÜH", "ÜH", "UÜ",
+}
+
+
+def verify_ee_row(row: dict) -> tuple[str, str]:
+    """
+    Verify EE row via e-Äriregister (ariregister.rik.ee).
+
+    Two-step lookup:
+      1. If `rejestr_id` is a known reg_code (e-Äriregister NNNNNNNN, 7-8
+         digits) → fetch detail page directly.
+      2. Otherwise (or as a fallback) → search by company name via the
+         JSON autocomplete API. The first result is the most relevant.
+
+    The autocomplete API does NOT support lookup by VAT (q=EE101376895
+    returns []), so we always need a name hint. The `nip_vat` field is
+    validated separately via VIES in the dispatcher fallback.
+
+    Returns:
+      FROZEN  — name match + active status + KMKR matches NIP (if known)
+      DO-WERYFIKACJI — name mismatch, company closed, or FABRYKAT pattern
+      PENDING_API — network / API error (NOT a verification failure)
+    """
+    if ee_search is None and ee_detail is None:
+        return PENDING_API, "EE module niedostępny (ee_ariregister.py nie załadowany)"
+
+    name_csv = (row.get("nazwa_firmy") or "").strip()
+    rejestr = (row.get("rejestr_id") or "").strip()
+    nip_csv = (row.get("nip_vat") or "").strip().upper()
+    clean_nip = re.sub(r"[^0-9A-Z]", "", nip_csv)
+    # Extract numeric reg_code from "e-Äriregister 11931003" or "11931003"
+    m = re.search(r"(\d{7,8})", rejestr)
+    reg_code = m.group(1) if m else ""
+
+    # Primary path: if we have a reg_code, fetch detail directly (most
+    # reliable — bypasses name-search ambiguity).
+    result: dict | None = None
+    if reg_code and ee_detail is not None:
+        result = ee_detail(reg_code, name_hint=name_csv)
+        if not result.get("found"):
+            # Detail failed — fall through to name search
+            result = None
+        else:
+            # We need the name for the match — fetch autocomplete too if we
+            # have a name hint. The detail page doesn't expose the legal
+            # name in a stable way we can extract.
+            if ee_search is not None and name_csv:
+                ac = ee_search(name_csv)
+                if ac.get("found") and str(ac.get("reg_code")) == reg_code:
+                    result = {**ac, **result}  # merge
+
+    # Secondary path: name search
+    if result is None:
+        if not name_csv:
+            return PENDING_API, "EE: brak nazwy firmy i rejestr_id — nie ma czego szukać"
+        if ee_search is None:
+            return PENDING_API, "EE module niedostępny (ee_ariregister.py nie załadowany)"
+        result = ee_search(name_csv)
+        if not result.get("found"):
+            err = (result or {}).get("error", "brak odpowiedzi")
+            if "brak wyników" in err.lower():
+                return "DO-WERYFIKACJI", f"EE: firma '{name_csv[:30]}' nie istnieje w e-Äriregister"
+            return PENDING_API, f"EE: {err}"
+
+    # Active status check (Estonian status codes: R/L/K/N/S/P/M)
+    if result.get("status") in {"K", "P", "L"}:
+        return "DO-WERYFIKACJI", (
+            f"EE: firma zamknięta ({result.get('status_label', result.get('status'))}, "
+            f"reg {result.get('reg_code', '?')})"
+        )
+
+    # Name match (Jaccard on tokens, strip legal forms)
+    csv_norm = normalize(name_csv)
+    api_norm = normalize(result.get("name", ""))
+    if csv_norm and api_norm:
+        csv_tokens = {t for t in csv_norm.split() if len(t) >= 3} - _EE_LEGAL_TOKENS
+        api_tokens = {t for t in api_norm.split() if len(t) >= 3} - _EE_LEGAL_TOKENS
+        if csv_tokens and api_tokens and not (csv_tokens & api_tokens):
+            return "DO-WERYFIKACJI", (
+                f"EE: nimi mismatch (CSV='{csv_norm[:30]}' API='{api_norm[:30]}')"
+            )
+
+    # VAT cross-check (if CSV has NIP/VAT and API returned KMKR)
+    kmkr_api = (result.get("kmkr") or "").upper()
+    # Treat common placeholders as "no VAT known" — don't compare
+    nip_placeholders = {"", "BRAK", "BRAKDANYCH", "DOWERYFIKACJI", "DOUSTALENIA",
+                        "NA", "TODETERMINE", "TODO"}
+    has_real_nip = (
+        bool(clean_nip)
+        and clean_nip not in nip_placeholders
+        and any(c.isdigit() for c in clean_nip)
+    )
+    if has_real_nip and kmkr_api:
+        if clean_nip.startswith("EE") and clean_nip != kmkr_api:
+            return "DO-WERYFIKACJI", (
+                f"EE: KMKR mismatch (CSV NIP={clean_nip}, API KMKR={kmkr_api})"
+            )
+        if not clean_nip.startswith("EE"):
+            # Bare digits (e.g. "101376895") — compare to KMKR tail
+            if clean_nip != kmkr_api[2:]:
+                return "DO-WERYFIKACJI", (
+                    f"EE: KMKR mismatch (CSV NIP={clean_nip}, API KMKR={kmkr_api})"
+                )
+
+    nace = result.get("emtak", "")
+    address = result.get("legal_address", "")
+    # Stash enrichment so main() can back-fill nip_vat / rejestr_id / adres
+    # in the CSV for rows that previously had "do weryfikacji" placeholders.
+    id_ = (row.get("id_unikalne") or "").strip()
+    if id_:
+        ee_enrichments[id_] = {
+            "nip_vat": kmkr_api,
+            "rejestr_id": f"e-Äriregister {result.get('reg_code', '')}".strip(),
+            "adres": address,
+            "emtak": nace,
+        }
+    return "FROZEN", (
+        f"EE live: {result.get('name', '')[:35]} "
+        f"(reg {result.get('reg_code', '?')}, KMKR {kmkr_api or '?'}, "
+        f"NACE {nace or '?'})"
+        + (f", {address[:30]}" if address else "")
+    )
+
+
+# Side-channel: verify_ee_row() populates this when it returns FROZEN so
+# main() can back-fill nip_vat / rejestr_id / adres for rows that previously
+# had "do weryfikacji" placeholders. Keyed by id_unikalne.
+ee_enrichments: dict[str, dict] = {}
+
+
+def apply_ee_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
+    """Back-fill nip_vat / rejestr_id / adres for EE rows from API result.
+
+    Only overwrites cells that are currently placeholders (do weryfikacji /
+    do ustalenia / brak / empty) — never clobbers a value the user set
+    manually. Returns count of cells written.
+    """
+    if not enrichments:
+        return 0
+    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
+    with open(csv_path, encoding="utf-8") as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        rows = list(reader)
+    n_cols = len(header)
+    if "id_unikalne" not in header:
+        return 0
+    id_idx = header.index("id_unikalne")
+    field_map = {
+        "nip_vat": "nip_vat",
+        "rejestr_id": "rejestr_id",
+        "adres": "adres",
+    }
+    field_idxs = {col: header.index(col) for col in field_map if col in header}
+    n = 0
+    for i, row in enumerate(rows):
+        if len(row) == 0:
+            continue
+        if len(row) < n_cols:
+            row += [""] * (n_cols - len(row))
+        id_ = row[id_idx]
+        if id_ not in enrichments:
+            continue
+        data = enrichments[id_]
+        for col, key in field_map.items():
+            if key not in field_idxs:
+                continue
+            idx = field_idxs[key]
+            current = (row[idx] or "").strip()
+            new = data.get(key, "")
+            if new and current.lower() in placeholders:
+                row[idx] = new
+                n += 1
+    with open(csv_path, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+        writer.writerows(rows)
+    return n
+
+
 def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> int:
     """Update flagi column for verified rows. Returns count updated."""
     if not updates:
@@ -539,6 +727,7 @@ def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> in
             cleaned = re.sub(r"\(API\)", "", cleaned)                 # strip (API) tags first
             cleaned = re.sub(r"✅\s*FROZEN", "", cleaned)              # strip FROZEN
             cleaned = re.sub(r"⚠️?\s*DO-WERYFIKACJI", "", cleaned)    # strip DO-WERYFIKACJI
+            cleaned = re.sub(r"⏳\s*PENDING_API", "", cleaned)         # strip PENDING_API
             cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()         # collapse whitespace
             today = __import__('time').strftime('%Y-%m-%d')
             if status == "FROZEN":
@@ -584,7 +773,8 @@ def main() -> int:
 
     csv_files = sorted(p for p in DATA.glob("*/catalog-*.csv")
                        if p.is_file() and p.stat().st_size > 400
-                       and not p.parent.name.startswith("."))
+                       and not p.parent.name.startswith(".")
+                       and p.parent.name not in ("backups", "snapshots"))
 
     total_verified = 0
     total_frozen = 0
@@ -619,10 +809,17 @@ def main() -> int:
                 # company name + address + dirigeants back, not just VAT
                 # validity. Routed before the generic EU branch.
                 status, reason = verify_fr_row(row)
+            elif country == "EE":
+                # Estonia e-Äriregister (ariregister.rik.ee) — autocomplete
+                # JSON API + detail HTML. Rich data: name, address, KMKR
+                # (VAT), EMTAK (NACE), legal form, status, founded.
+                # Routed before the generic EU branch (better than VIES
+                # alone because we get the company name back).
+                status, reason = verify_ee_row(row)
             elif country in EU_MEMBER_STATES:
                 # All other EU countries: use VIES as a fast first-pass.
-                # Covers SK, LT, LV, EE, BG, HR, RO, SI in BILLSzuka
-                # scope (PL/CZ have their own registries; FR has richer API).
+                # Covers SK, LT, LV, BG, HR, RO, SI in BILLSzuka
+                # scope (PL/CZ/EE/FR have their own registries).
                 status, reason = verify_vies_row(row)
             else:
                 # Non-EU country (e.g. MD) without dedicated integration.
@@ -645,6 +842,12 @@ def main() -> int:
             n = update_row_status(csv_path, updates)
             if n:
                 log(f"  → {csv_path.name}: {n} rows updated")
+            # EE: back-fill discovered nip_vat / rejestr_id / adres
+            if ee_enrichments and not args.dry_run:
+                n = apply_ee_enrichments(csv_path, ee_enrichments)
+                if n:
+                    log(f"  → {csv_path.name}: {n} cells back-filled from e-Äriregister")
+                ee_enrichments.clear()
 
     log(
         f"\nTotal: {total_verified} verified — "

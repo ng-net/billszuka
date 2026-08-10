@@ -42,6 +42,14 @@ STATE_FILE = STATE_DIR / "row-hashes.json"
 AUDIT_LOG = DATA / "audit-log.md"
 MASTER_CSV = DATA / "master.csv"
 
+# Make `from tools.X import ...` work when this script is run directly
+# (i.e. `python3 tools/verify_run.py`). Without this, Python doesn't see
+# `tools` as a package because the script lives inside it. The try/except
+# blocks below would silently catch ImportError and the cron would log
+# "No module named 'tools'" while doing nothing — see git log for the
+# incident on 2026-08-10.
+sys.path.insert(0, str(ROOT))
+
 # Canonical country order for master.csv concatenation. Mirrors the
 # methodology.md sequence: PL → CZ → DE → SK → UK → Western EU → Scandinavia
 # → Balkans. DE / UK / Western EU / Scandinavia are not active yet, so
@@ -67,16 +75,18 @@ FROZEN_REQUIRED = ["nazwa_firmy", "nip_vat", "rejestr_id", "adres", "zrodlo_dany
 OFFICIAL_SOURCE_TOKENS = [
     "krs api", "krs.gov", "ceidg", "vies", "kas", "regon",
     "ares", "orsr", "rekvizitai", "ajpes",
+    "ariregister",
 ]
 COUNTRY_API = {
     "PL": "ceidg",  # CEIDG + KRS
     "CZ": "ares",   # ARES
     "FR": "recherche-entreprises",  # recherche-entreprises.api.gouv.fr (rich: name + dirigeants)
+    "EE": "ariregister",  # e-Äriregister: autocomplete JSON + detail HTML (rich: KMKR + EMTAK)
     # All other EU countries fall through to VIES (in verify_api.py
     # dispatcher), which covers all 27 member states. Country-specific
     # registries (ORSR SK, Rekvizitai LT, AJPES SI, etc.) can be added
     # here as primary and VIES becomes the fallback.
-    "SK": "vies", "LT": "vies", "LV": "vies", "EE": "vies", "BG": "vies",
+    "SK": "vies", "LT": "vies", "LV": "vies", "BG": "vies",
     "HR": "vies", "RO": "vies", "SI": "vies",
     # MD (Moldova) is non-EU → PENDING_API in verify_api.py
 }

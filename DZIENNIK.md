@@ -939,3 +939,52 @@ Frontend (`frontend/src/App.jsx`) robi 4 fetch do `/api/*` ale zero backendu. Vi
 
 1. Weryfikacja automatyczna: **40/145 (27.6%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **145 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-10 15:24 CEST - Estonia e-Äriregister integracja
+
+### Co zostało zrobione
+1. **`tools/ee_ariregister.py`** (NOWY, 9.4 KB) — klient do e-Äriregister:
+   - `ee_autocomplete(name)` → JSON `/est/api/autocomplete?q=<name>` (reg_code, name, address, status, legal_form)
+   - `ee_detail(reg_code, name_hint)` → HTML scrape (KMKR/VAT, EMTAK/NACE, kapitał, founded, status)
+   - `ee_search(name)` → end-to-end (autocomplete + detail)
+   - CLI: `python3 tools/ee_ariregister.py "Sanitex"`
+2. **`tools/verify_api.py`** — nowy `verify_ee_row()`:
+   - Primary path: jeśli `rejestr_id` ma 7-8 cyfr → detail lookup (najpewniejsze)
+   - Secondary path: name search przez autocomplete (gdy brak reg_code)
+   - Token Jaccard z LEGAL_TOKENS (OÜ, AS, FIE, MTÜ, SA, TÜH, ÜH, UÜ)
+   - KMKR cross-check jeśli CSV ma NIP
+   - FROZEN / DO-WERYFIKACJI / PENDING_API (network/registry miss)
+3. **`tools/verify_run.py`** — `"EE": "ariregister"` w COUNTRY_API, `"ariregister"` w OFFICIAL_SOURCE_TOKENS
+4. **`tools/verify_api.py` fix** — `data/backups/` i `data/snapshots/` teraz pomijane (były 7x re-przetwarzane)
+5. **`tools/verify_api.py` fix** — cleanup flagi regex teraz stripuje też `⏳ PENDING_API`
+6. **`tools/verify_api.py` back-fill** — `apply_ee_enrichments()` po update_row_status: 20 cells (NIP/rejestr_id/adres) z API dla EE firm z placeholder "do weryfikacji"
+7. **`tests/test_verify_api.py`** — 10 nowych testów (49 → 60 w tym pliku, 73 → 84 total):
+   - reg_code match, name search, name mismatch, KMKR mismatch, closed company,
+     not found, API error, module unavailable, no name no rejestr, legal-form stripped
+8. **`RUNBOOK.md`** 🇪🇪 sekcja zaktualizowana o `tools/ee_ariregister.py` + API uwagi
+
+### Live verification (EE, 2026-08-10 15:21)
+- 10 firm zweryfikowanych, **8 FROZEN, 2 DO-WERYFIKACJI, 0 PENDING_API**
+- 2 DO-WERYFIKACJI to B2C detal (CigarHouse.ee, Hinnapomm) — poprawnie rozpoznane
+  jako brak osobnego wpisu hurtowni w e-Äriregister
+- 20 cells back-filled (NIP/KMKR + rejestr_id + adres) dla 8 FROZEN
+
+### Pliki
+- ✏️ `tools/ee_ariregister.py` (NEW)
+- ✏️ `tools/verify_api.py` (verify_ee_row + apply_ee_enrichments + cleanup regex + backups exclude)
+- ✏️ `tools/verify_run.py` (COUNTRY_API EE, OFFICIAL_SOURCE_TOKENS)
+- ✏️ `tests/test_verify_api.py` (+10 testów)
+- ✏️ `data/Estonia/catalog-B-EE.csv` (8 FROZEN, 20 cells back-filled)
+- ✏️ `RUNBOOK.md` (EE sekcja)
+- ✏️ `data/audit-log.md`, `data/verification/run_latest.json` (automatyczne)
+
+### Testy
++10 nowych (73 → 84 PASS, Python 3.13, pytest 9.0.1)
+
+### Następna sesja (sugestie)
+- Rekvizitai (LT) — `rekvizitai.vz.lt` web search; jar.lt jako country-specific
+- ORSR (SK) — `orsr.sk` web search (no JSON API, jak w RUNBOOK §SK)
+- AJPES (SI) — bulk download lub scraping z sesją+CSRF (najtrudniejszy)
+- Wszystkie 4 kraje to te same ~10/11 DO-WERYFIKACJI w katalogach; pattern EE powinien
+  działać dla każdego: country tool → verify_*_row() → COUNTRY_API → apply enrichments
+- Frontend proxy /api — vite.config.js gotowy, wystarczy `npm run dev` + `python3 tools/api_server.py`
