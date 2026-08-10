@@ -79,3 +79,102 @@
 - Allegro: wyszukać "powermatic" → lista sprzedawców
 - Google Maps: "sklep tytoniowy" w dużych miastach
 - Bista Standard: https://www.intertabac.de/en/as-profil/bista-standard-sp-z-o-o-2/
+
+## Synteza 2026-08-10 — quality data + akcje
+
+### Stan katalogu BILLSzuka PL (zweryfikowany rdzeń)
+
+| Katalog | Rows | FROZEN | DOV | PENDING | QS avg | Email | Phone | WWW | Decydent |
+|---|---|---|---|---|---|---|---|---|---|
+| catalog-A-PL | 3 | 3/3 (100%) | 0 | 0 | 86.7 | 67% | 67% | 100% | 33% |
+| catalog-B-PL | 27 | 25/27 (93%) | 2 | 0 | 79.1 | 41% | 41% | 41% | 22% |
+
+**Werdykt:** Rdzeń zweryfikowany (28/30 FROZEN). 2 DO-WERYFIKACJI to real
+mismatches (jaccard <0.8 z ARES) — nie false-positives, tylko firmy których
+nazwa w CSV nie pasuje do nazwy w KRS/CEIDG. **Baza gotowa do outreachu
+dla 28 firm**, ale wymaga wzbogacenia o brakujące email/phone/www/decydent.
+
+### Szerszy bas leadów (do enrichementu)
+
+| Źródło | Rows | A1/A2 hot | B1/C nurturing | D excluded | NIP | KRS | Decydent |
+|---|---|---|---|---|---|---|---|
+| `BILLS-SMOKS-Research-2026/07-MASTER-Katalog-...` | 376 | 24 + 39 = **63** | 235 | 78 | 20% | 6% | 4% |
+| `Clients/Bills/Research/Polska/07-MASTER-...` | 218 | 40 + 60 = **100** | 118 | 0 | 16% | 7% | 0% |
+
+**Werdykt:** Pula 594 leadów; **163 hot** (A1+A2) z dwóch master katalogów.
+Ale prawie wszystkie wymagają enrichementu (NIP/KRS/decydent). To jest
+następna fala pracy — najpierw enrich A1/A2 (~163 firm), potem B1.
+
+### Akcje (instrukcje dla producenta / następna sesja)
+
+#### 🔴 P0 — outreach-ready (ten tydzień)
+- **A1. Outreach 28 FROZEN PL firm** z `catalog-A/B-PL.csv`. Wymagane
+  kolumny: nazwa, email (gdy ma), telefon (gdy ma), www, adres, decydent
+  (gdy ma). Owner: Marceli.
+- **A2. Investigate 2 DO-WERYFIKACJI** (jaccard mismatch na ARES) — to mogą
+  być albo nazwy z literówkami albo prawdziwe FABRYKAT. Sprawdzić ręcznie
+  KRS po nip_vat, poprawić `nazwa_firmy` albo usunąć wiersz.
+
+#### 🟡 P1 — enrichement (1-2 tygodnie)
+- **A3. Back-fill 16 BILLSzuka PL rows missing email/phone/www** —
+  uruchomić `tools/verify_lead.py` po tych wierszach (whois domeny →
+  email pattern; LinkedIn scrape → decydent). Wzorzec:
+  `python3 tools/verify_lead.py --country PL --rows catalog-B-PL.csv`.
+- **A4. Enrich 63 hot leads (A1+A2) z BILLS-SMOKS-Research** — przekonwertować
+  format tego mastera do BILLSzuka schema, uruchomić KRS/CEIDG lookup
+  po NIP (lub NIP discovery po nazwie przez CEIDG `nazwa`), potem
+  verify_api --country PL --all. Target: 30-50% powinno dojść do FROZEN
+  po enrichemencie.
+- **A5. Enrich 100 hot leads (A1+A2) z Research/Polska** — j.w. To są
+  hard-targets, wyższy conversion rate niż A4 (research był bardziej
+  focused). Sprawdzić czy nie ma overlap z BILLS-SMOKS-Research przed
+  dedupem.
+
+#### 🟢 P2 — schema i tooling (audyt 18:41)
+- **A6. (NOT for me — for producer)** Atomiczne CSV writes w 6 skryptach
+  (verify_api.py ×3, verify_run.py ×1, l0_preflight.py ×1,
+  fix_data_quality.py ×1, extract_intel.py ×1). Wzorzec: tmp → os.replace
+  (jak `regenerate_master()` w verify_run.py:387-397). Kill mid-write
+  obecnie może uciąć CSV i stracić dane.
+- **A7. (NOT for me — for producer)** `tools/verify_lead.py` jest
+  strukturalnie niekompletny — 2/3 tools zwracają zawsze PENDING.
+  Albo zaimplementować prawdziwy web_search backend albo zdowngradować
+  log line żeby nie wprowadzał w błąd. Checkpoint write też powinien
+  być atomiczny.
+- **A8. (NOT for me — for producer)** `l0_preflight.py:289` ma hardcoded
+  `"2026-08-10"` — zamienić na `datetime.now().strftime("%Y-%m-%d")`.
+  Po 2026-08-10 narzędzie będzie kłamać o dacie weryfikacji.
+- **A9. (NOT for me — for producer)** Hardcoded `/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka`
+  w `l0_preflight.py:37` + `run_verify_cron.sh:6` — zamienić na
+  `Path(__file__).resolve().parent.parent` (l0) i `$(dirname "$0")/..`
+  (cron). Inaczej nie przeniesiesz projektu na inny mount bez edycji.
+- **A10. (NOT for me — for producer)** Dead code w `l0_preflight.py`
+  (linie 267-268, 274-276, 329-333) — usunąć albo udokumentować dlaczego
+  zostawione.
+
+#### ⚪ P3 — nice to have
+- **A11. Cross-reference** BILLSzuka PL catalog z dwoma master katalogami —
+  dodać kolumnę `źródło` (BILLSzuka / BILLS-SMOKS-Research / Research/Polska)
+  żeby wiedzieć skąd każdy lead pochodzi.
+- **A12. Outreach 78 D-priority leads** (BILLS-SMOKS-Research) —
+  prawdopodobnie skip (stąd D), ale warto przejrzeć czy nie ma tam
+  hidden gems.
+- **A13. PL.md update po enrichemencie** — dodać sekcję "Firmy po
+  enrichemencie 2026-XX-XX" z nowymi FROZEN.
+
+### Statystyki na dziś (2026-08-10 18:55)
+
+- **BILLSzuka PL: 28/30 FROZEN** (93%), QS avg 79-87
+- **Master catalogs: 594 unverified** (163 hot, 235 nurture, 78 skip)
+- **Tests: 92 PASS** (verify + l0)
+- **Audit verdict: 6 issues, 2 P0 (data loss), 4 P2 (smell)** — see A6-A10
+
+### Cross-country context (dla porównania)
+
+| CC | Katalog | FROZEN | DOV | PENDING | Status |
+|---|---|---|---|---|---|
+| 🇵🇱 PL | 30 | 28 | 2 | 0 | Ready for outreach |
+| 🇨🇿 CZ | 7 | 6 | 1 | 0 | Almost done |
+| 🇪🇪 EE | 10 | 8 | 2 | 0 | Almost done |
+| 🇱🇹 LT | 10 | 1 | 0 | 9 | PENDING_API (no ja_kodas) |
+| 🇫🇷 FR | 11 | 0 | 0 | 11 | Needs re-verify with FR rich API |
