@@ -120,19 +120,33 @@ def normalize(s: str) -> str:
 
 
 def name_match(csv_name: str, api_name: str) -> tuple[bool, str]:
-    """Fuzzy match: returns (match, reason)."""
+    """Fuzzy match: returns (match, reason).
+
+    Token Jaccard similarity (same as tools/verify_api.py: name_similarity).
+    Strips legal-form tokens first (they always match and would inflate
+    the score, hiding real mismatches like "PEAL" vs "PEAL Real Estate").
+    Threshold 0.8 catches the FABRYKAT pattern: LLM-generated identifiers
+    pass checksum but point to entities sharing only a common prefix word
+    with the claimed company.
+    """
     c = normalize(csv_name)
     a = normalize(api_name)
     if not c or not a:
         return False, "empty name"
-    if c in a or a in c:
-        return True, "substring match"
-    # Token overlap fallback
-    c_tokens = set(c.split()) - {"SP", "ZOO", "OO", "SRO", "AS", "SC", "SPJ", "FHU"}
-    a_tokens = set(a.split())
-    if c_tokens and (c_tokens & a_tokens):
-        return True, f"token overlap ({c_tokens & a_tokens})"
-    return False, f"no match (CSV='{c[:30]}' API='{a[:30]}')"
+    legal = {"SP", "ZOO", "OO", "SRO", "AS", "SC", "SPJ", "FHU",
+             "SPOL", "POL", "KOM", "SA", "AG", "GMBH"}
+    c_tokens = set(c.split()) - legal
+    a_tokens = set(a.split()) - legal
+    if not c_tokens and not a_tokens:
+        return False, "no tokens after legal-form strip"
+    intersection = c_tokens & a_tokens
+    union = c_tokens | a_tokens
+    score = len(intersection) / len(union) if union else 0.0
+    if score >= 0.8:
+        return True, f"jaccard {score:.2f} (≥0.8)"
+    return False, (
+        f"jaccard {score:.2f} <0.8 (CSV='{c[:30]}' API='{a[:30]}')"
+    )
 
 
 def check_row(row: dict, country: str, token: str) -> dict:

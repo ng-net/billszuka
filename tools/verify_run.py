@@ -567,19 +567,27 @@ def main() -> int:
         log("🚀 Running live API verification & VIES validation...")
         try:
             from tools.verify_api import main as run_api_verify
-            sys.argv = ["verify_api.py", "--all"]
-            run_api_verify()
-        except Exception as e:
-            log(f"⚠️ Live API verification warning: {e}")
+        except ImportError as e:
+            log(f"❌ Live API verification skipped (import error): {e}")
+        else:
+            try:
+                sys.argv = ["verify_api.py", "--all"]
+                run_api_verify()
+            except Exception as e:
+                log(f"⚠️ Live API verification warning: {e}")
 
         # Run Data Auto-Cleaning & Quality Scoring
         log("🧹 Running Data Auto-Cleaning & Quality Scoring...")
         try:
             from tools.fix_data_quality import main as run_quality_scoring
-            sys.argv = ["fix_data_quality.py"]
-            run_quality_scoring()
-        except Exception as e:
-            log(f"⚠️ Quality scoring warning: {e}")
+        except ImportError as e:
+            log(f"❌ Quality scoring skipped (import error): {e}")
+        else:
+            try:
+                sys.argv = ["fix_data_quality.py"]
+                run_quality_scoring()
+            except Exception as e:
+                log(f"⚠️ Quality scoring warning: {e}")
 
         # Save metric report to data/verification/run_latest.json
         run_metric_dir = DATA / "verification"
@@ -600,10 +608,14 @@ def main() -> int:
         log("💡 Auto-extracting key insights into DZIENNIK.md & INTEL.md...")
         try:
             from tools.extract_intel import main as run_extract_intel
-            sys.argv = ["extract_intel.py", "--target", "both"]
-            run_extract_intel()
-        except Exception as e:
-            log(f"⚠️ Insight logging warning: {e}")
+        except ImportError as e:
+            log(f"❌ Insight logging skipped (import error): {e}")
+        else:
+            try:
+                sys.argv = ["extract_intel.py", "--target", "both"]
+                run_extract_intel()
+            except Exception as e:
+                log(f"⚠️ Insight logging warning: {e}")
     else:
         log("(dry-run — nothing written)")
 
