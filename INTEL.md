@@ -30,6 +30,8 @@
 | 🆔 | Dostępne integracje: Veritor, ENTIA, nipgo.pl, klucznicy/krs-fetcher, pawel-id/bir1 | Nowe możliwości |
 | ⚡ | Weryfikacja automatyczna: 16/143 (11.2%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 143 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 40/145 (27.6%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 145 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 

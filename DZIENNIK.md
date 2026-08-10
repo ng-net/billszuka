@@ -931,3 +931,11 @@ Frontend (`frontend/src/App.jsx`) robi 4 fetch do `/api/*` ale zero backendu. Vi
 - Auto-attach Jaccard do VIES path (nie tylko ARES) — sprawdzić czy też potrzebne
 - Frontend proxy /api — `npm run dev` + `python3 tools/api_server.py` działa (vite.config.js gotowy)
 - Postinstall hook dla clean_macos_metadata.sh w frontend/package.json (żeby nie wracały ._*)
+
+
+## 2026-08-10 15:09 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **40/145 (27.6%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **145 wierszy** we wszystkich katalogach regionalnych.
