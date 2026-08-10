@@ -7,6 +7,7 @@ Keep this under 40 lines.
 B2B research project for BILLS Sp. z o.o. (Ostrzeszów, PL). Goal: distribution partners
 for PowerMatic rolling machines + Hawk across PL first, then CZ/SK/UK/etc.
 Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
+Canonical remote: `github.com/ng-net/billszuka` (private). `marlink/BILLSzuka` is dead.
 
 ## Core files (don't read whole — read sections on demand)
 - `methodology.md` — how to research, A1-A6 / B1-B9 framework
@@ -24,6 +25,9 @@ Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
   Planner data. For real keyword research use Ahrefs / Senuto / Google Trends.
 - **Skip Germany** unless Marceli explicitly says otherwise. Order: PL → CZ → SK → UK →
   Western EU → Scandinavia → Balkans.
+- **CI workflow is untracked** (`.github/workflows/ci.yml` deleted from index, kept in
+  working tree). Reason: GitHub OAuth tokens lack `workflow` scope. Re-add after
+  Marceli grants the scope. File content is preserved.
 
 ## Memory rules
 - Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log). Don't let

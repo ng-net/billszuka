@@ -892,3 +892,42 @@ Frontend (`frontend/src/App.jsx`) robi 4 fetch do `/api/*` ale zero backendu. Vi
 - git add -A && git commit -m "Session 14:30 — #5 cleanup, #6 tests+CI, #4 VIES+FR, #1 FastAPI backend" && git push origin main
 
 ## Koniec sesji (final)
+
+## 2026-08-10 15:08 CEST - Push + remote correction + Jaccard FABRYKAT fix
+
+### Co zostało zrobione
+1. **Push 5 commitów na ng-net/billszuka** (canonical, prywatny, założony dziś 13:02)
+   - a950c85 Session 12:55 (L0 multi-country + lead loss audit)
+   - b31bfba Session 14:30 (AppleDouble cleanup + tests+CI + VIES + FR + FastAPI)
+   - b7df0a5 Per-country 9-level playbook + cron audit
+   - 155d51d ci.yml: temporarily untrack (workflow scope blocker — patrz niżej)
+   - 7e8a54e Jaccard name-match in verify_api
+2. **Remote switch:** `marlink/BILLSzuka` → `ng-net/billszuka` (gh account switch też zrobiony)
+3. **Workflow scope blocker:** oba tokeny (marlink i ng-net) mają `repo` ale **nie** `workflow`.
+   `.github/workflows/ci.yml` jest **untracked** (plik nadal w working tree, w razie potrzeby
+   re-track po dodaniu scope do tokena). Push działa, CI wstrzymane.
+4. **Jaccard FABRYKAT fix** w `tools/verify_api.py` + 11 testów w `tests/test_verify_api.py`
+   - Token Jaccard 0.8 + strip LEGAL_TOKENS (SP, ZOO, OO, SRO, AS, SC, SPJ, FHU, SPOL, POL, KOM, SA, AG, GMBH)
+   - Łapie `GECO, A.S.` vs `GECO KLEMPIZO s.r.o.` i `PEAL a.s.` vs `PEAL Real Estate s.r.o.`
+   - Stary `in` substring check je przepuszczał (FABRYKAT risk)
+5. **AppleDouble cleanup** — `tools/clean_macos_metadata.sh` odpalony, 2 pliki usunięte (audit-log + orchestrate)
+6. **Testy: 84 PASS** (15.5s, Python 3.13) — poprzednio 73. +11 nowych dla Jaccard.
+
+### Git status
+- Branch: main
+- Remote: github.com/ng-net/billszuka.git (PRIVATE, nowy kanał — `marlink/BILLSzuka` wyleciał)
+- Ahead/behind origin: 0 (clean)
+- 5 commitów wypchniętych, working tree clean
+- 1 plik untracked: `.github/workflows/ci.yml` (świadomie)
+
+### Otwarte sprawy
+- **Workflow scope** — Marceli musi dodać `workflow` do tokena, inaczej CI nigdy nie ruszy
+- **GH auth active** — `ng-net` (było `marlink`). Przy następnym push z innego konta, przelączyć: `gh auth switch --user marlink`
+- **AJPES (SI)** — następny rejestr, brak JSON API, wymaga scraping z sesją+CSRF albo bulk download
+- **Rekvizitai (LT), e-Äriregister (EE), ORSR (SK)** — country-specific (bogatsze niż VIES, jak FR)
+
+### Następna sesja (sugestie)
+- AJPES (SI) implementation: albo scraping albo bulk download (CSV/JSON z dnevni.rs / AJPES publikacji)
+- Auto-attach Jaccard do VIES path (nie tylko ARES) — sprawdzić czy też potrzebne
+- Frontend proxy /api — `npm run dev` + `python3 tools/api_server.py` działa (vite.config.js gotowy)
+- Postinstall hook dla clean_macos_metadata.sh w frontend/package.json (żeby nie wracały ._*)
