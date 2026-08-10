@@ -222,6 +222,118 @@ class TestVerifyCzRow:
         assert status == "DO-WERYFIKACJI"
         assert "mismatch" in reason.lower()
 
+    def test_ares_geco_klempizo_returns_doweryfikacji(self, monkeypatch):
+        """FABRYKAT case: IČO 60471484 is real 'GECO KLEMPIZO s.r.o.' — different
+        from 'GECO, a.s.' that the CSV claims. Token Jaccard must catch this
+        (substring 'in' check would NOT — see git history for the bug)."""
+        row = {
+            "nazwa_firmy": "GECO, A.S.",
+            "nip_vat": "CZ60471484",
+            "rejestr_id": "ARES IČO 60471484",
+        }
+        monkeypatch.setattr(
+            verify_api, "ares_lookup",
+            lambda ico: {"nazwa": "GECO KLEMPIZO s.r.o.", "ico": "60471484"},
+        )
+        status, reason = verify_api.verify_cz_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "mismatch" in reason.lower()
+        assert "jaccard" in reason.lower()
+
+    def test_ares_peal_real_estate_returns_doweryfikacji(self, monkeypatch):
+        """FABRYKAT case: IČO 07752211 is real 'PEAL Real Estate s.r.o.' —
+        different from 'PEAL a.s.' that the CSV claims. Real PEAL a.s. is
+        IČO 25775634. Substring 'in' would let 'PEAL' match 'PEAL Real Estate'."""
+        row = {
+            "nazwa_firmy": "PEAL A.S.",
+            "nip_vat": "CZ07752211",
+            "rejestr_id": "ARES IČO 07752211",
+        }
+        monkeypatch.setattr(
+            verify_api, "ares_lookup",
+            lambda ico: {"nazwa": "PEAL Real Estate s.r.o.", "ico": "07752211"},
+        )
+        status, reason = verify_api.verify_cz_row(row)
+        assert status == "DO-WERYFIKACJI"
+        assert "mismatch" in reason.lower()
+        assert "jaccard" in reason.lower()
+
+    def test_ares_legal_form_only_token_does_not_inflate(self, monkeypatch):
+        """Sanity: legal-form tokens (SP, AS, SRO...) must not inflate the
+        Jaccard score. Otherwise 'PEAL' vs 'PEAL Real Estate' could pass
+        if 'PEAL' shares token with another entity also having 'A.S.'."""
+        row = {
+            "nazwa_firmy": "ACME A.S.",
+            "nip_vat": "CZ12345678",
+            "rejestr_id": "ARES IČO 12345678",
+        }
+        monkeypatch.setattr(
+            verify_api, "ares_lookup",
+            lambda ico: {"nazwa": "TOTALLY DIFFERENT COMPANY A.S.", "ico": "12345678"},
+        )
+        status, _ = verify_api.verify_cz_row(row)
+        assert status == "DO-WERYFIKACJI"
+
+
+# ---------------------------------------------------------------------------
+# name_similarity() — token Jaccard unit tests
+# ---------------------------------------------------------------------------
+
+class TestNameSimilarity:
+    """Token Jaccard ≥ 0.8 — catches FABRYKAT pattern (shared prefix only)."""
+
+    def test_exact_match(self):
+        ok, score, _ = verify_api.name_similarity("ACME A.S.", "ACME a.s.")
+        assert ok is True
+        assert score == 1.0
+
+    def test_substring_match_fails_peal(self):
+        """PEAL vs PEAL Real Estate — substring check would pass (PEAL in PEAL Real Estate).
+        Jaccard should fail: only 1 of 3 tokens shared (1/3 = 0.33)."""
+        ok, score, _ = verify_api.name_similarity("PEAL a.s.", "PEAL Real Estate s.r.o.")
+        assert ok is False
+        assert score < 0.5
+
+    def test_substring_match_fails_geco(self):
+        """GECO vs GECO KLEMPIZO — Jaccard 1/2 = 0.5, fails 0.8 threshold."""
+        ok, score, _ = verify_api.name_similarity("GECO, a.s.", "GECO KLEMPIZO s.r.o.")
+        assert ok is False
+        assert score == 0.5
+
+    def test_legal_forms_stripped(self):
+        """Legal forms (SP ZOO, AS, SRO) should be stripped before comparison."""
+        ok, score, _ = verify_api.name_similarity(
+            "FORTIS-DB, SPOL. S R.O.", "FORTIS-DB, spol. s r.o."
+        )
+        assert ok is True
+        assert score == 1.0
+
+    def test_empty_name(self):
+        ok, score, _ = verify_api.name_similarity("", "ANYTHING")
+        assert ok is False
+        assert score == 0.0
+
+    def test_no_overlap(self):
+        ok, score, _ = verify_api.name_similarity("ACME", "FOO BAR BAZ")
+        assert ok is False
+        assert score == 0.0
+
+    def test_threshold_boundary_above(self):
+        """Jaccard = 5/6 = 0.83 → above 0.8 → match."""
+        ok, score, _ = verify_api.name_similarity(
+            "A B C D E", "A B C D E F"  # 5 of 6 shared
+        )
+        assert ok is True
+        assert score > 0.8
+
+    def test_threshold_boundary_below(self):
+        """Jaccard = 2/3 = 0.67 → below 0.8 → no match."""
+        ok, score, _ = verify_api.name_similarity(
+            "ACME POLSKA", "ACME OTHER STUFF"  # 1 of 3 shared
+        )
+        assert ok is False
+        assert score < 0.8
+
 
 # ---------------------------------------------------------------------------
 # EU_MEMBER_STATES constant

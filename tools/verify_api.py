@@ -293,6 +293,45 @@ def normalize(s: str) -> str:
     return " ".join(s.split())
 
 
+# Legal-form tokens stripped before Jaccard comparison.
+# They appear in both CSV and API names so they would inflate the
+# intersection and mask real mismatches (e.g. "PEAL" vs "PEAL Real Estate"
+# shares only "PEAL" — Jaccard 1/3, not 1.0).
+LEGAL_TOKENS = {"SP", "ZOO", "OO", "SRO", "AS", "SC", "SPJ", "FHU",
+                "SPOL", "POL", "KOM", "SA", "AG", "GMBH"}
+
+# Jaccard threshold for name match. 0.8 = require ~80% token overlap.
+# Below this, names are considered different entities (FABRYKAT risk).
+NAME_JACCARD_THRESHOLD = 0.8
+
+
+def name_similarity(csv_name: str, api_name: str) -> tuple[bool, float, str]:
+    """Token Jaccard similarity. Returns (is_match, score, reason).
+
+    Strips legal-form tokens first (they always match and would inflate
+    the score, hiding real mismatches like "PEAL" vs "PEAL Real Estate").
+
+    Threshold 0.8 catches the FABRYKAT pattern: LLM-generated identifiers
+    pass checksum but point to entities sharing only a common prefix word
+    with the claimed company.
+    """
+    c = normalize(csv_name)
+    a = normalize(api_name)
+    if not c or not a:
+        return False, 0.0, f"empty name (csv='{c[:20]}' api='{a[:20]}')"
+    c_tokens = set(c.split()) - LEGAL_TOKENS
+    a_tokens = set(a.split()) - LEGAL_TOKENS
+    if not c_tokens and not a_tokens:
+        return False, 0.0, "no tokens after legal-form strip"
+    intersection = c_tokens & a_tokens
+    union = c_tokens | a_tokens
+    jaccard = len(intersection) / len(union) if union else 0.0
+    is_match = jaccard >= NAME_JACCARD_THRESHOLD
+    reason = (f"jaccard={jaccard:.2f} ({len(intersection)}/{len(union)} tokens, "
+              f"csv='{c[:30]}' api='{a[:30]}')")
+    return is_match, jaccard, reason
+
+
 def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
     """Verify PL row via KRS (for sp. z o.o.) or CEIDG (for JDG)."""
     nip = (row.get("nip_vat") or "").strip()
@@ -304,11 +343,12 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
         krs = krs_match.group(1)
         result = krs_lookup(krs)
         if result and "error" not in result:
-            csv_nazwa = normalize(row.get("nazwa_firmy", ""))
-            api_nazwa = normalize(result.get("nazwa", ""))
-            if csv_nazwa and api_nazwa and csv_nazwa not in api_nazwa and api_nazwa not in csv_nazwa:
-                return "DO-WERYFIKACJI", f"KRS: nazwa mismatch (CSV='{csv_nazwa[:30]}' API='{api_nazwa[:30]}')"
-            return "FROZEN", f"KRS live: {result.get('nazwa', '')[:40]} (REGON {result.get('regon', '')})"
+            csv_nazwa = row.get("nazwa_firmy", "")
+            api_nazwa = result.get("nazwa", "")
+            ok, score, reason = name_similarity(csv_nazwa, api_nazwa)
+            if not ok:
+                return "DO-WERYFIKACJI", f"KRS: nazwa mismatch ({reason})"
+            return "FROZEN", f"KRS live: {api_nazwa[:40]} (REGON {result.get('regon', '')}, jaccard={score:.2f})"
         else:
             err = result.get("error", "brak") if result else "brak"
             return "DO-WERYFIKACJI", f"KRS({krs}): {err}"
@@ -352,10 +392,11 @@ def verify_cz_row(row: dict) -> tuple[str, str]:
     if not result or "error" in result:
         return "DO-WERYFIKACJI", f"ARES: {result.get('error', 'brak') if result else 'brak'}"
 
-    csv_nazwa = normalize(row.get("nazwa_firmy", ""))
-    api_nazwa = normalize(result.get("nazwa", ""))
-    if csv_nazwa and api_nazwa and csv_nazwa not in api_nazwa and api_nazwa not in csv_nazwa:
-        return "DO-WERYFIKACJI", f"ARES: nazwa mismatch (CSV='{csv_nazwa[:30]}' API='{api_nazwa[:30]}')"
+    csv_nazwa = row.get("nazwa_firmy", "")
+    api_nazwa = result.get("nazwa", "")
+    ok, score, reason = name_similarity(csv_nazwa, api_nazwa)
+    if not ok:
+        return "DO-WERYFIKACJI", f"ARES: nazwa mismatch ({reason})"
 
     return "FROZEN", f"ARES live: {result.get('nazwa', '')[:40]} (od {result.get('datum_vzniku', '?')})"
 
