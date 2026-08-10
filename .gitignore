@@ -27,6 +27,9 @@ Thumbs.db
 # BILLSzuka verify state (machine-local, regenerated on each run)
 data/.verify-state/
 
+# BILLSzuka enrichment run state (track which leads have been processed)
+data/.verify-state/enrichment-progress.json
+
 # BILLSzuka verify snapshots (intermediate per-run state, last 5 per file kept locally)
 data/.snapshots/*.csv
 
