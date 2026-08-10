@@ -46,7 +46,11 @@ ENV_FILE = ROOT / ".env"
 
 
 def _load_api_key() -> str:
-    """Read APOLLO_API from .env. Empty string if missing."""
+    """Read APOLLO_MCP_KEY or APOLLO_API from .env. Empty string if missing.
+
+    APOLLO_MCP_KEY is the newer name (Apollo MCP / MCP-scoped key).
+    APOLLO_API is the legacy name. We accept both for backward compat.
+    """
     if not ENV_FILE.exists():
         return ""
     for line in ENV_FILE.read_text().splitlines():
@@ -55,7 +59,7 @@ def _load_api_key() -> str:
             continue
         if "=" in line:
             k, v = line.split("=", 1)
-            if k.strip() == "APOLLO_API":
+            if k.strip() in ("APOLLO_MCP_KEY", "APOLLO_API"):
                 return v.strip().strip('"').strip("'")
     return ""
 
@@ -71,7 +75,7 @@ def _post(endpoint: str, payload: dict[str, Any], timeout: int = 15) -> dict[str
     """
     api_key = _load_api_key()
     if not api_key:
-        return {"error": "APOLLO_API not set in .env"}
+        return {"error": "APOLLO_MCP_KEY (or APOLLO_API) not set in .env"}
     # Note: do NOT include api_key in body — Apollo expects x-api-key header
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
