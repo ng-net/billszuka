@@ -27,6 +27,9 @@ Thumbs.db
 # BILLSzuka verify state (machine-local, regenerated on each run)
 data/.verify-state/
 
+# BILLSzuka verify snapshots (intermediate per-run state, last 5 per file kept locally)
+data/.snapshots/*.csv
+
 # BILLSzuka derived data (regenerate from per-country CSVs)
 data/master.csv
 data/relationships.csv

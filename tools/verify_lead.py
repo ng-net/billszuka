@@ -54,7 +54,7 @@ def log(msg: str) -> None:
     print(f"[{ts}] {msg}", file=sys.stderr)
 
 
-def load_country_leads(country_name: str) -> list:
+def load_country_leads(country_name: str) -> list[dict]:
     """Load all leads from a country's catalog-B (and catalog-A) CSVs."""
     leads = []
     for csv_path in DATA.glob(f"{country_name}/catalog-*.csv"):

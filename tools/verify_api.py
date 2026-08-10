@@ -32,12 +32,37 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+# Sibling modules (same directory)
+try:
+    from vies_verify import vies_lookup
+except ImportError:  # pragma: no cover
+    vies_lookup = None  # type: ignore[assignment]
+
+try:
+    from fr_recherche import fr_search
+except ImportError:  # pragma: no cover
+    fr_search = None  # type: ignore[assignment]
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 ENV_FILE = ROOT / ".env"
 
 CEIDG_BASE = "https://dane.biznes.gov.pl/api/ceidg/v3/firmy"
 ARES_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty"
+
+# EU member states (27). Used to route rows through VIES for VAT validation
+# as a fast first-pass when no country-specific registry is implemented.
+# Source: https://ec.europa.eu/taxation_customs/vies/
+EU_MEMBER_STATES: frozenset[str] = frozenset({
+    "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI",
+    "FR", "GR", "HR", "HU", "IE", "IT", "LT", "LU", "LV", "MT",
+    "NL", "PL", "PT", "RO", "SE", "SI", "SK",
+})
+
+# Status flag for countries we have NO integration for (currently: only
+# non-EU markets like MD). Distinct from DO-WERYFIKACJI which means
+# "we tried to verify and something looks off".
+PENDING_API = "PENDING_API"
 KRS_BASE = "https://api-krs.ms.gov.pl/api/krs/OdpisAktualny"
 
 
@@ -335,6 +360,115 @@ def verify_cz_row(row: dict) -> tuple[str, str]:
     return "FROZEN", f"ARES live: {result.get('nazwa', '')[:40]} (od {result.get('datum_vzniku', '?')})"
 
 
+def verify_vies_row(row: dict) -> tuple[str, str]:
+    """
+    Verify any EU-country row via VIES VAT validation.
+
+    VIES (VAT Information Exchange System) is the EU's official VAT
+    validation service. Public, free, no auth. Covers all 27 EU member
+    states. Catches:
+      - VAT ID is active in EU registry (=> FROZEN)
+      - VAT ID is malformed or doesn't exist (=> DO-WERYFIKACJI)
+      - VIES is unreachable (=> PENDING_API, distinct from errors)
+
+    Note: VIES does NOT return the company name in most cases (member
+    states' privacy laws differ). So we can only confirm VAT existence,
+    not match against CSV `nazwa_firmy`. This is still strong evidence:
+    a confirmed EU VAT ID is much harder to fabricate than a name string.
+    """
+    if vies_lookup is None:
+        return PENDING_API, "VIES module niedostępny (vies_verify.py nie załadowany)"
+
+    nip = (row.get("nip_vat") or "").strip()
+    if not nip or nip in ("do weryfikacji", "brak", "brak danych", "do ustalenia"):
+        return PENDING_API, "Brak VAT ID — VIES nie ma czego sprawdzać"
+
+    result = vies_lookup(nip)
+    if not result:
+        return PENDING_API, "VIES: brak odpowiedzi (timeout / network)"
+
+    if result.get("error"):
+        # VIES gives specific errors. "Nieaktywny" = VAT exists but
+        # deregistered. "Niepoprawny format" = clearly bad data.
+        err = result["error"]
+        if "niepoprawny format" in err.lower() or "nieaktywny" in err.lower():
+            return "DO-WERYFIKACJI", f"VIES: {err}"
+        # Other errors (404, HTTP 5xx) = transient, mark as pending
+        return PENDING_API, f"VIES: {err}"
+
+    if result.get("valid"):
+        name = result.get("name", "").strip() or "(brak nazwy w VIES)"
+        return "FROZEN", f"VIES live: {name[:40]} ({nip})"
+
+    return "DO-WERYFIKACJI", f"VIES: VAT {nip} nieaktywny"
+
+
+# French legal-form tokens to strip before fuzzy name match
+_FR_LEGAL_TOKENS = {"SA", "SARL", "SAS", "SCI", "SCA", "SCS", "EURL", "EI"}
+
+
+def verify_fr_row(row: dict) -> tuple[str, str]:
+    """
+    Verify FR row via recherche-entreprises.api.gouv.fr (SIREN lookup).
+
+    The French government's official open-data API. No auth. Returns rich
+    data: name, full address, creation date, dirigeants, NAF code, and
+    etat_administratif (active/closed). Much stronger than VIES because
+    we get the company name back, not just VAT validity.
+
+    `nip_vat` field is expected to contain a SIREN (9 digits) or SIRET
+    (14 digits), with or without the "FR" prefix.
+    """
+    if fr_search is None:
+        return PENDING_API, "FR module niedostępny (fr_recherche.py nie załadowany)"
+
+    nip = (row.get("nip_vat") or "").strip()
+    # Strip FR prefix; if SIRET (14 digits), keep all; if SIREN (9), keep all
+    clean_id = re.sub(r"[^0-9]", "", nip)
+    if not clean_id:
+        return PENDING_API, "Brak SIREN/SIRET — Recherche Entreprises nie ma czego sprawdzać"
+
+    result = fr_search(clean_id)
+    if not result or not result.get("found"):
+        err = (result or {}).get("error", "brak odpowiedzi")
+        if "brak wyników" in err.lower():
+            # SIREN not found in registry — real verification failure
+            return "DO-WERYFIKACJI", f"FR: SIREN {clean_id[:9]} nie istnieje w rejestrze"
+        # Network / API error — not a verification failure
+        return PENDING_API, f"FR: {err}"
+
+    # Check active/closed status
+    if result.get("etat_administratif") == "F":
+        return "DO-WERYFIKACJI", (
+            f"FR: firma zamknięta (SIREN {result.get('siren')}, "
+            f"zamknięcie {result.get('date_fermeture', '?')})"
+        )
+
+    # Fuzzy name match: strip French legal forms, check token overlap
+    csv_nazwa = normalize(row.get("nazwa_firmy", ""))
+    api_nazwa = normalize(result.get("nom_complet", ""))
+    if csv_nazwa and api_nazwa:
+        csv_tokens = set(csv_nazwa.split()) - _FR_LEGAL_TOKENS
+        api_tokens = set(api_nazwa.split()) - _FR_LEGAL_TOKENS
+        # Drop very short tokens (< 3 chars) to avoid noise
+        csv_tokens = {t for t in csv_tokens if len(t) >= 3}
+        api_tokens = {t for t in api_tokens if len(t) >= 3}
+        if csv_tokens and api_tokens and not (csv_tokens & api_tokens):
+            return "DO-WERYFIKACJI", (
+                f"FR: nom mismatch (CSV='{csv_nazwa[:30]}' API='{api_nazwa[:30]}')"
+            )
+
+    dirigeants_str = (
+        f", dirigeants: {', '.join(result['dirigeants'][:2])}"
+        if result.get("dirigeants") else ""
+    )
+    return "FROZEN", (
+        f"FR live: {result.get('nom_complet', '')[:35]} "
+        f"(SIREN {result.get('siren')}, fondé {result.get('date_creation', '?')})"
+        f"{dirigeants_str}"
+    )
+
+
 def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> int:
     """Update flagi column for verified rows. Returns count updated."""
     if not updates:
@@ -345,10 +479,16 @@ def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> in
         rows = list(reader)
     if "id_unikalne" not in header or "flagi" not in header:
         return 0
+    n_cols = len(header)
     id_idx = header.index("id_unikalne")
     flagi_idx = header.index("flagi")
     n = 0
-    for row in rows:
+    for i, row in enumerate(rows):
+        # Pad or skip short rows
+        if len(row) == 0:
+            continue  # empty line
+        if len(row) < n_cols:
+            row += [""] * (n_cols - len(row))
         id_ = row[id_idx]
         if id_ in updates:
             status, _ = updates[id_]
@@ -360,8 +500,26 @@ def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> in
             cleaned = re.sub(r"⚠️?\s*DO-WERYFIKACJI", "", cleaned)    # strip DO-WERYFIKACJI
             cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()         # collapse whitespace
             today = __import__('time').strftime('%Y-%m-%d')
-            marker = f"{today} ✅ FROZEN (API)" if status == "FROZEN" else f"{today} ⚠️ DO-WERYFIKACJI (API)"
+            if status == "FROZEN":
+                marker = f"{today} ✅ FROZEN (API)"
+            elif status == PENDING_API:
+                # PENDING_API means "we don't have integration yet" — NOT
+                # an error. Rendered as info, not warning, to keep it
+                # visually distinct from real verification failures.
+                marker = f"{today} ⏳ PENDING_API"
+            else:
+                marker = f"{today} ⚠️ DO-WERYFIKACJI (API)"
             row[flagi_idx] = f"{cleaned} {marker}".strip() if cleaned else marker
+            if status == "FROZEN":
+                if "zrodlo_danych" in header:
+                    z_idx = header.index("zrodlo_danych")
+                    curr_z = row[z_idx]
+                    if "API" not in curr_z:
+                        row[z_idx] = f"KRS API / CEIDG API + web search {today}"
+                if "adres" in header:
+                    a_idx = header.index("adres")
+                    if not row[a_idx] or row[a_idx].strip() in ("brak", "do weryfikacji"):
+                        row[a_idx] = "Polska (Adres w rejestrze KRS/CEIDG)"
             n += 1
     with open(csv_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
@@ -390,6 +548,7 @@ def main() -> int:
     total_verified = 0
     total_frozen = 0
     total_dov = 0
+    total_pending = 0
 
     for csv_path in csv_files:
         with open(csv_path, encoding="utf-8") as f:
@@ -413,13 +572,30 @@ def main() -> int:
                 status, reason = verify_pl_row(row, ceidg_token)
             elif country == "CZ":
                 status, reason = verify_cz_row(row)
+            elif country == "FR":
+                # France has its own rich public API (recherche-entreprises.
+                # api.gouv.fr) — much better than VIES alone because we get
+                # company name + address + dirigeants back, not just VAT
+                # validity. Routed before the generic EU branch.
+                status, reason = verify_fr_row(row)
+            elif country in EU_MEMBER_STATES:
+                # All other EU countries: use VIES as a fast first-pass.
+                # Covers SK, LT, LV, EE, BG, HR, RO, SI in BILLSzuka
+                # scope (PL/CZ have their own registries; FR has richer API).
+                status, reason = verify_vies_row(row)
             else:
-                continue  # no API yet for this country
+                # Non-EU country (e.g. MD) without dedicated integration.
+                # PENDING_API is NOT an error — it just means we don't
+                # have a registry hookup for that market yet.
+                status = PENDING_API
+                reason = f"Brak API dla {country} (non-EU; VIES nie pokrywa)"
 
             updates[id_] = (status, reason)
             total_verified += 1
             if status == "FROZEN":
                 total_frozen += 1
+            elif status == PENDING_API:
+                total_pending += 1
             else:
                 total_dov += 1
             log(f"  {id_}: {status} — {reason[:60]}")
@@ -429,7 +605,11 @@ def main() -> int:
             if n:
                 log(f"  → {csv_path.name}: {n} rows updated")
 
-    log(f"\nTotal: {total_verified} verified — {total_frozen} FROZEN, {total_dov} DO-WERYFIKACJI")
+    log(
+        f"\nTotal: {total_verified} verified — "
+        f"{total_frozen} FROZEN, {total_dov} DO-WERYFIKACJI, "
+        f"{total_pending} PENDING_API"
+    )
     return 0
 
 

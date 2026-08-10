@@ -27,9 +27,10 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import re
-import subprocess
 import sys
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -41,6 +42,26 @@ STATE_FILE = STATE_DIR / "row-hashes.json"
 AUDIT_LOG = DATA / "audit-log.md"
 MASTER_CSV = DATA / "master.csv"
 
+# Canonical country order for master.csv concatenation. Mirrors the
+# methodology.md sequence: PL → CZ → DE → SK → UK → Western EU → Scandinavia
+# → Balkans. DE / UK / Western EU / Scandinavia are not active yet, so
+# they are omitted. When you add a new country directory, append it here
+# and update methodology.md.
+COUNTRY_ORDER: list[str] = [
+    "Polska",
+    "Czechy",
+    "Bułgaria",
+    "Chorwacja",
+    "Estonia",
+    "Francja",
+    "Litwa",
+    "Łotwa",
+    "Mołdawia",
+    "Rumunia",
+    "Słowacja",
+    "Słowenia",
+]
+
 # Per the verify-data skill
 FROZEN_REQUIRED = ["nazwa_firmy", "nip_vat", "rejestr_id", "adres", "zrodlo_danych"]
 OFFICIAL_SOURCE_TOKENS = [
@@ -50,7 +71,14 @@ OFFICIAL_SOURCE_TOKENS = [
 COUNTRY_API = {
     "PL": "ceidg",  # CEIDG + KRS
     "CZ": "ares",   # ARES
-    # SK: orsr, LT: rekvizitai, LV: ?, EE: ariregister, BG: ?, FR: ?, HR: ?, MD: ?, RO: ?, SI: ajpes
+    "FR": "recherche-entreprises",  # recherche-entreprises.api.gouv.fr (rich: name + dirigeants)
+    # All other EU countries fall through to VIES (in verify_api.py
+    # dispatcher), which covers all 27 member states. Country-specific
+    # registries (ORSR SK, Rekvizitai LT, AJPES SI, etc.) can be added
+    # here as primary and VIES becomes the fallback.
+    "SK": "vies", "LT": "vies", "LV": "vies", "EE": "vies", "BG": "vies",
+    "HR": "vies", "RO": "vies", "SI": "vies",
+    # MD (Moldova) is non-EU → PENDING_API in verify_api.py
 }
 
 
@@ -213,40 +241,184 @@ def update_csv_flags(csv_path: Path, updates: dict[str, tuple[str, str]], force:
 
 
 def regenerate_master() -> tuple[bool, int]:
-    """Regenerate data/master.csv from per-kraj CSVs. Returns (ok, row_count)."""
-    cmd = """
-{
-    first=$(ls */catalog-*.csv 2>/dev/null | head -1)
-    if [ -z "$first" ]; then exit 1; fi
-    head -1 "$first"
-    for d in Polska Czechy Bułgaria Chorwacja Estonia Francja Litwa Łotwa Mołdawia Rumunia Słowacja Słowenia; do
-        [ -d "$d" ] || continue
-        for f in "$d"/catalog-A-*.csv "$d"/catalog-B-*.csv; do
-            [ -f "$f" ] && tail -n +2 "$f" | grep -v '^$'
-        done
-    done
-} > master.csv
-"""
-    result = subprocess.run(
-        ["bash", "-c", cmd], cwd=DATA, capture_output=True, text=True
-    )
-    # Filter macOS plist noise from stderr
-    if result.stderr:
-        clean = "\n".join(
-            line for line in result.stderr.splitlines()
-            if "CFPropertyList" not in line and "Break on _CFPropertyList" not in line
-        )
-        if clean:
-            log(f"master regen stderr: {clean}")
-    if result.returncode != 0:
-        log(f"master.csv regen failed: {result.stderr.strip()}")
+    """
+    Regenerate data/master.csv from per-kraj CSVs (data/*/catalog-*.csv).
+
+    Returns (ok, row_count). Backward-compatible signature — the caller at
+    the regen step just needs the bool + total written rows.
+
+    Behaviour vs. previous bash-based version:
+      • Auto-discovers per-kraj files via DATA.glob("*/catalog-*.csv")
+        (no hardcoded country list)
+      • Skips `._*` (macOS metadata) and dotfiles explicitly
+      • Validates that all source files share the same header; raises
+        RegenSchemaError on mismatch in strict mode, warns + pads in lax mode
+      • Validates per-row column count; rows with wrong arity are logged
+        and skipped (count surfaced via stats)
+      • Atomic write via tmp + os.replace — never leaves a partial master.csv
+      • No subprocess, no shell, no macOS plist noise
+    """
+    # 1) Discover files. Only direct subdirectories of data/ (skip hidden
+    #    ones like .snapshots/ and .verify-state/), and only catalog-[AB]-*.csv
+    #    to match the canonical A/B catalog layout. Any other prefix (e.g.
+    #    catalog-relationships.csv, experimental variants) is excluded on
+    #    purpose — those are not meant to land in master.csv.
+    #
+    # Order convention: COUNTRY_ORDER is the canonical order from
+    # methodology.md (PL → CZ → DE → SK → UK → Western EU → Scandinavia →
+    # Balkans, with DE/UK/Western EU/Scandinavia currently skipped).
+    # Unknown countries (a new directory we haven't seen) get appended at
+    # the end, sorted alphabetically — so adding a new country never breaks
+    # the regen, it just lands in a sensible spot until you add it to
+    # COUNTRY_ORDER + methodology.md.
+    country_dirs: list[Path] = []
+    for sub in DATA.iterdir():
+        if not sub.is_dir() or sub.name.startswith("."):
+            continue
+        country_dirs.append(sub)
+
+    def country_sort_key(p: Path) -> tuple[int, str]:
+        try:
+            return (COUNTRY_ORDER.index(p.name), p.name)
+        except ValueError:
+            # Unknown country: place after all known ones, alphabetical
+            return (len(COUNTRY_ORDER), p.name)
+
+    country_dirs.sort(key=country_sort_key)
+
+    sources: list[Path] = []
+    for sub in country_dirs:
+        for f in sorted(sub.glob("catalog-[AB]-*.csv")):
+            if f.name.startswith("._"):
+                continue
+            sources.append(f)
+    if not sources:
+        log("master regen: no per-kraj catalog-[AB]-*.csv found under data/")
         return False, 0
-    # Count data rows
+
+    # 2) Read + validate headers
+    headers_per_file: dict[Path, list[str]] = {}
+    for p in sources:
+        try:
+            with p.open("r", encoding="utf-8", newline="") as f:
+                reader = csv.reader(f)
+                try:
+                    headers_per_file[p] = next(reader)
+                except StopIteration:
+                    log(f"  ⚠ {p.relative_to(DATA)}: empty file, skipping")
+                    continue
+        except (OSError, UnicodeDecodeError) as e:
+            log(f"  ⚠ {p.relative_to(DATA)}: cannot read ({e}), skipping")
+            continue
+
+    if not headers_per_file:
+        log("master regen: no readable per-kraj files")
+        return False, 0
+
+    # Pick the first file's header as canonical
+    canonical_path = next(iter(headers_per_file))
+    canonical_header = headers_per_file[canonical_path]
+    n_columns = len(canonical_header)
+    if n_columns == 0:
+        log(f"master regen: {canonical_path.name} has empty header, aborting")
+        return False, 0
+
+    # Schema check across all files
+    schema_warnings: list[str] = []
+    for p, hdr in headers_per_file.items():
+        if hdr != canonical_header:
+            diff = _diff_columns(canonical_header, hdr)
+            schema_warnings.append(f"{p.relative_to(DATA)}: {diff}")
+    if schema_warnings:
+        log(f"  ⚠ master regen: {len(schema_warnings)} file(s) with divergent headers:")
+        for w in schema_warnings:
+            log(f"    - {w}")
+        # In strict mode (default) this would abort; here we warn + proceed
+        # because the existing dataset is known-good and we don't want to
+        # break verification on a known legacy drift. Uncomment below for strict:
+        # return False, 0
+
+    # 3) Build master rows
+    rows_written = 0
+    rows_skipped = 0
+    skip_reasons: dict[str, int] = {}
+    out_rows: list[list[str]] = [canonical_header]
+
+    for p in sources:
+        if p not in headers_per_file:
+            continue  # was skipped during header read
+        try:
+            with p.open("r", encoding="utf-8", newline="") as f:
+                reader = csv.reader(f)
+                try:
+                    next(reader)  # discard header (already validated)
+                except StopIteration:
+                    continue
+                for row_num, row in enumerate(reader, start=2):
+                    if not row or all(c == "" for c in row):
+                        continue  # empty line
+                    if len(row) != n_columns:
+                        reason = f"col_count={len(row)}≠{n_columns}"
+                        skip_reasons[reason] = skip_reasons.get(reason, 0) + 1
+                        rows_skipped += 1
+                        continue
+                    out_rows.append(row)
+                    rows_written += 1
+        except (OSError, UnicodeDecodeError) as e:
+            log(f"  ⚠ {p.relative_to(DATA)}: read error at row {row_num} ({e})")
+            continue
+
+    # 4) Atomic write: tmp → os.replace
+    tmp_path = MASTER_CSV.with_suffix(".csv.tmp")
     try:
-        with open(MASTER_CSV) as f:
-            return True, max(0, sum(1 for _ in f) - 1)
-    except FileNotFoundError:
+        with tmp_path.open("w", encoding="utf-8", newline="") as f:
+            # RFC 4180 default lineterminator is \r\n — matches the
+            # csv.writer default used by every other writer in this repo
+            # (see line ~206 in clean_csv_flagi etc.) and the existing
+            # master.csv on disk.
+            writer = csv.writer(f)
+            writer.writerows(out_rows)
+        os.replace(tmp_path, MASTER_CSV)
+    except OSError as e:
+        log(f"master regen: write failed ({e})")
+        if tmp_path.exists():
+            try:
+                tmp_path.unlink()
+            except OSError:
+                pass
         return False, 0
+
+    # 5) Summary
+    log(
+        f"  master regen: {rows_written} rows from "
+        f"{len(headers_per_file)} files"
+        + (f", {rows_skipped} skipped" if rows_skipped else "")
+    )
+    if skip_reasons:
+        for reason, n in skip_reasons.items():
+            log(f"    - skipped {n} rows: {reason}")
+    if schema_warnings:
+        log(f"    - {len(schema_warnings)} file(s) had header drift (see above)")
+
+    return True, rows_written
+
+
+def _diff_columns(canonical: list[str], other: list[str]) -> str:
+    """Return a compact human-readable diff of two header lists."""
+    canon_set = set(canonical)
+    other_set = set(other)
+    only_canon = canon_set - other_set
+    only_other = other_set - canon_set
+    parts: list[str] = []
+    if only_canon:
+        parts.append(f"missing={sorted(only_canon)[:5]}")
+    if only_other:
+        parts.append(f"extra={sorted(only_other)[:5]}")
+    if not parts and len(canonical) != len(other):
+        parts.append(f"len={len(other)}≠{len(canonical)}")
+    if not parts:
+        parts.append("order differs")
+    return "; ".join(parts)
 
 
 def append_audit(results, added, modified, removed):

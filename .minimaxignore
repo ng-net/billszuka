@@ -1,0 +1,65 @@
+# BILLSzuka .minimaxignore — exclude noise from context
+# This file is read by Mavis when working in BILLSzuka.
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.venv/
+
+# Test artifacts
+tests/__pycache__/
+tests/.pytest_cache/
+*.log
+.coverage
+
+# Bulk raw data — read on demand, never auto-included
+data/raw/
+data/.verify-state/
+data/master.csv
+data/relationships.csv
+data/relationships-audit.md
+
+# Per-country subdirs with raw CSVs are large — keep headers only
+# Mavis should glob specific files, not read whole dirs
+data/*/catalog-raw-*.csv
+data/*/raw-*.csv
+data/*/scrape-*.json
+
+# Build / generated
+dist/
+build/
+.next/
+out/
+
+# Media assets (large)
+assets/
+design/
+frontend/dist/
+frontend/node_modules/
+frontend/.next/
+
+# Tool state
+.tools-state/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+._*
+
+# Secrets — never include even on read
+.env
+.env.local
+*.key
+*.pem
+
+# Git
+.git/
+.github/
+
+# Mac metadata (AppleDouble)
+._*

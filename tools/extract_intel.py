@@ -100,7 +100,7 @@ def append_to_intel(insights: list[str]) -> None:
         print(f"✅ Updated TOP odkrycia table in INTEL.md")
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description="Extract insights from walkthrough and log to DZIENNIK/INTEL")
     parser.add_argument("--target", choices=["dziennik", "intel", "both"], default="both")
     parser.add_argument("--walkthrough", help="Path to walkthrough.md")

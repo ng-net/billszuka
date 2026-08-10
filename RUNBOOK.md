@@ -42,6 +42,14 @@ Wzorce (z przykładami):
 "site:rejestr.io" "<FIRMA>"                          # PL KRS aggregator
 ```
 
+**⚠️ NIE UŻYWAJ DuckDuckGo HTML scraping do production research.** `html.duckduckgo.com` blokuje niezautoryzowane boty i zwraca 14KB "you are a bot" landing page zamiast wyników. `tools/test_9_levels.py` (po fix z 2026-08-10) wykrywa to i raportuje jako `⚠️ SKIP` zamiast fałszywego `✅ PASS`.
+
+**Zalecane (w kolejności preferencji):**
+1. **Brave Search API** — `BRAVE_API_KEY` w `.env`. `tools/test_9_levels.py` automatycznie użyje Brave jeśli key jest obecny. Darmowy tier: 2000 queries/mies.
+2. **SerpAPI / Google CSE** — płatne, niezawodne. Dodaj `SERPAPI_KEY` lub `GOOGLE_CSE_KEY` + `GOOGLE_CSE_CX` i rozszerz `get_search_provider()` w `test_9_levels.py`.
+3. **Headless browser** (Playwright) z rate-limiting + user-agent rotation — w `skills/crawl4ai-skill` lub bezpośrednio. Wymaga większej infra.
+4. **Bezpośrednie scrape docelowych domen** (orzeczenia.nsa.gov.pl, aleo.com) — omijają ograniczenia wyszukiwarek, ale wymagają per-site parser.
+
 ### 4. Zainstalowane skille (do głębszego researchu)
 
 | Skill | Co robi | Kiedy używać |
@@ -256,6 +264,26 @@ OpenRouter 8B Llama kosztuje ~$0.0001/call. 100 batch = $0.01. Claude 3.5 Sonnet
 ### 8. Nie ufaj "PKD 46.35Z = hurtownia tytoniowa" na ślepo
 
 W CEIDG wiele osób dodaje PKD przy rejestracji bez realnej działalności. Wyszło 25 firm z PKD 46.35Z, ale żadna to realna hurtownia (wszystkie z dzisiejszą datą, nazwy z innych branż). **PKD to trop, nie potwierdzenie.**
+
+### 9. DDG HTML scraping = silent fail (2026-08-10)
+
+`https://html.duckduckgo.com/html/?q=...` blokuje boty bez JS/unauth headera. Zwraca 14KB "you are a bot" landing page (tytuł `DuckDuckGo`, brak `class="result__"`). Regex findall → 0 → **fałszywe `✅ Found 0 web results`**. Dotyczyło Levels 1, 2, 4, 6, 7, 8 w `tools/test_9_levels.py` przed fixem.
+
+**Fix:** `test_9_levels.py` ma teraz `is_ddg_blocked()` check + 3-state outcome (PASS/SKIP/FAIL). Użyj `BRAVE_API_KEY` w `.env` albo bezpośrednio scrapuj docelowe domeny (orzeczenia.nsa.gov.pl, aleo.com).
+
+### 10. macOS AppleDouble pollution na /Volumes/MC-BRAIN (2026-08-10)
+
+`/Volumes/MC-BRAIN` to sieciowy mount (SMB/NFS, nie APFS). Każdy `npm install`, `git pull`, `cp` powoduje że kernel zapisuje `._<filename>` shadow files obok prawdziwych plików. Zaśmiecają `ls`, psują wildcard w shellach, zaśmiecają `git status`. Po jednym `npm install` dla `frontend/` znalazłem **888 plików `._*` w `node_modules/` + 76 w `data/.snapshots/` = 1028 łącznie**.
+
+**Fix:**
+- `tools/clean_macos_metadata.sh` — kanoniczne narzędzie, woła `dot_clean` + drugi pass na osieroconych `._*` (które `dot_clean` czasem pomija). Idempotentny.
+- Uruchamiaj po każdym `npm install` na `/Volumes/MC-BRAIN` lub dodaj do post-install hook w `package.json`.
+- `.gitignore` już poprawnie ma `._*` — nic nie wejdzie do repo nawet jeśli zapomnisz wyczyścić.
+
+```bash
+tools/clean_macos_metadata.sh           # czyści cały root
+tools/clean_macos_metadata.sh frontend  # tylko frontend
+```
 
 ---
 
