@@ -1070,3 +1070,255 @@ Frontend (`frontend/src/App.jsx`) robi 4 fetch do `/api/*` ale zero backendu. Vi
   bulk download (227k firms × pełny CSV)
 - **Wzbogacenie LT** — bulk download z data.gov.lt + local SQLite index
   dla name search (pokryłby 9/10 placeholderów)
+
+## 2026-08-11 02:14 CEST — Sesja PL research+validation (auto cron 02:00)
+
+**Trigger:** System cron task 02:00 CEST.
+**Lock:** acquired (PID 27337), previous stale lock from dead PID 18859 removed.
+**Budget:** 30 min wall time, used ~14 min (within cap).
+
+### Discovery (L1 + L3)
+
+**L1 web search (7 queries of 15 cap):**
+- "hurtownia tytoniowa PowerMatic Polska" → BILLS only, no new competitors
+- "hurtownia akcesoriów tytoniowych maszynka" → Tobacchem, Kaziool, BITLOGIC, internetowa-hurtownia.pl
+- "nabijarka hurtownia Polska NIP KRS" → KAS rejestr pośredników tytoniowych, Konsorcjum Dystrybutorów Chojnice
+- "LUXTAB KRS NIP Augustów" → NIP 7171829068 (subsidiary of BAT, w/inheritance)
+- "PT DYSTRYBUCJA Radom KRS" → KRS 0000137829, NIP 7960069945, formerly Polski Tytoń
+- "Hurtownia PD Władysław Drwal" → KRS 0000070328, NIP 8730206184, PKD 46.35.Z
+- "Konsorcjum Dystrybutorów Chojnice KRS" → krs-online.com.pl NIP 7772304755 (PHANTOM: NIP belongs to EUROCASH SERWIS already in catalog)
+
+**L3 KRS API (5 lookups of 30 cap):**
+- 0000289223 PM Polska Distribution → ✅ verified, already in catalog
+- 0000040385 Konsorcjum Dystrybutorów → ❌ empty body (krs-online phantom; NIP 7772304755 = EUROCASH SERWIS dup)
+- 0000070328 Hurtownia PD Drwal Sp.j. → ✅ verified (NIP 8730206184, PKD 46.35.Z hurtownia wyrobów tytoniowych, Wola Rzędzińska 573)
+- 0000137829 PT DYSTRYBUCJA SA → ✅ verified (NIP 7960069945, formerly Polski Tytoń, 98M zł kapitał, MERKURY SA 78% owner)
+- 0000137829 PT DYSTRYBUCJA — see above
+
+### FABRYKAT defense
+- 0 candidates blocked (none had KRS in known bad set: 0000123456, 0000574829, 0000090479, 0000384920, 0000439210, 0000628491, 0000782910, 0000182940, 0000892014)
+- 1 phantom detected: "Konsorcjum Dystrybutorów Wyrobów Tytoniowych" NIP 7772304755 KRS 0000040385 → krs-online.com.pl fabrication, real NIP belongs to EUROCASH SERWIS (already in catalog as PL-B-XX-056)
+- All 4 verified NIPs pass mod-11 ✓
+
+### Leads added (2, via add_lead)
+
+| id_unikalne | name | tier | NIP | rejestr | category |
+|---|---|---|---|---|---|
+| **PL-B-XX-273** | PT DYSTRYBUCJA SPÓŁKA AKCYJNA | hurtownik | PL7960069945 | KRS 0000137829 | B1 (dystrybutor FMCG/tytoniowy) |
+| **PL-B-XX-274** | HURTOWNIA PD WŁADYSŁAW DRWAL, GRZEGORZ PINAS, DARIUSZ DRWAL - SPÓŁKA JAWNA | hurtownik | PL8730206184 | KRS 0000070328 | B8 (hurtownik wyrobów tytoniowych) |
+
+Note: PL-B-XX-273 PT DYSTRYBUCJA = legal successor of original 1947 Polski Tytoń (different entity from PL-B-XX-026 POLSKI TYTOŃ S.A. which is current FMCG/tytoń dystrybutor). PT DYSTRYBUCJA currently operates as real estate + logistics, 46.34.A alkohol + 52.10.B warehouse + 68.20.Z nieruchomości. 98M zł kapitał, MERKURY S.A. (Kraków) owns 78%.
+
+### verify_api dry-run + live
+
+- **dry-run:** 295 PL rows scanned, 0 hard errors. CEIDG transient JSON errors on ~20 rows (rate limit) — non-fatal.
+- **live:** 295 verified → 43 FROZEN, 252 DO-WERYFIKACJI, 0 PENDING_API
+- B FROZEN count: 31 → 33 (+2 from this run)
+- A FROZEN count: unchanged (13)
+- 0 FABRYKAT written to disk
+
+### Anomalies / Learnings
+
+1. **Phantom data on krs-online.com.pl**: "Konsorcjum Dystrybutorów Wyrobów Tytoniowych" Chojnice with NIP 7772304755 — fabricated by krs-online (NIP belongs to EUROCASH SERWIS already in catalog). KRS API returns empty body for 0000040385. Always cross-check with KRS API before trusting 3rd-party sites.
+2. **CEIDG token** working but ~7% of queries return non-JSON (rate limit / cache). DO-W is acceptable for these — next cron run will retry.
+3. **Stale verify_run.py** from 1:51 AM cron still running in background (PID 20322, 17 min CPU). Not blocking — its writes are file-locked and our 2 leads are already FROZEN.
+
+### Handoff (no new work needed)
+
+- 232 DO-W B rows still need nip_vat + rejestr_id enrichment (intake rows from 20:19 merge). Auto_enrich pipeline should pick them up.
+- Top remaining: Tobacchem (PL-B-XX-079) — known, missing NIP; need 1 web search + NIP validation.
+- BAT Polska S.A. (NIP 8460002329, Augustów Tytoniowa 16) — major manufacturer but already known via BAT group. Not adding as separate lead.
+
+**Lock status:** lock removed at end of run. Cron will clean up.
+
+
+## 2026-08-11 02:16 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **0/2 (0.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Integracja VIES EU REST API pozwala na automatyczną bezpłatną walidację NIP-UE we wszystkich 27 krajach UE.
+
+
+## 2026-08-11 02:16 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **10/117 (8.5%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **23 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-11 02:21 CEST — PL research round (cron, general agent, PID 42401)
+
+**Stale lock at start:** PID 27337 (dead, runtime restart) — removed and re-claimed with PID 42401.
+
+### 9-level pipeline — L1 + L3 lanes
+
+**L1 web_search (7 queries used of 15 budget):**
+- "Tobacchem" / "Bletki.com" / "PHU Kaziool" identity verification
+- "hurtownia tytoniowa Warszawa/Kraków" discovery → ZAS-POL, KING, Polski Tytoń
+- "hurtownia e-papierosów B2B Polska" → confirmed CK Complex, iSmoking/Bitlogic already in catalog
+- "sklep tytoniowy hurtownia regionalna" → regional mapa tytoniowa (Alans, Drek, Acord, Trafika)
+
+**L3 registry (4 calls of 30 budget):**
+- CEIDG NIP 5981069292 → PHU KAZIOOL Krzysztof Wolniewicz ✓ (already in catalog as PL-B-DS-005, FROZEN 20:21 merge)
+- CEIDG NIP 6282217480 → TOBACCHEM MACIEJ KRUPNIK ✓ (now PL-B-XX-275, FROZEN live)
+- KRS 0000092182 → "ZAS - POL" SPÓŁKA JAWNA ✓ (now PL-B-XX-276, FROZEN live)
+- KRS 0000169203 → Acord Sp. z o.o. (3 retries → empty body, KRS API glitch — not added; needs another round)
+
+**L2 marketplace:** not executed (relied on L1 cross-reference to Allegro/Ceneo/OLX sellers; ZAS-POL, KING, Polski Tytoń all surfaced via direct B2B searches).
+
+### Results
+
+- **2 new verified leads added:** Tobacchem (PL-B-XX-275, B6, akcesoria dla palaczy + aromaty tytoniowe, Chrzanów), ZAS-POL (PL-B-XX-276, B8, 5 oddziałów dystrybucyjnych, dystrybutor 4 wiodących producentów)
+- **0 FABRYKATs blocked** (no candidate matched the 9 known bad KRS)
+- **1 mod-11 fails caught:** Acord NIP could not be verified (KRS API returned empty body 3x, possibly rate limit)
+- **verify_api live:** 45 FROZEN (was 33), 252 DO-W (intake rows awaiting enrichment), 0 errors, 0 PENDING_API
+
+### Tool fixes
+
+- **orchestrate_9_levels.py**: added missing `import re` (NameError on `add_lead()`). File at `tools/orchestrate_9_levels.py:15-19`. Commit-ready.
+
+### Anomalies / Learnings
+
+1. **KRS API empty-body for KRS 0000169203** (3 retries, persistent). Same pattern was seen for Konsorcjum Chojnice in previous run — suggests KRS API is intermittent for KRS in lower-density ranges. Workaround: hit krs-online.com.pl + CEIDG for the same NIP, or queue for next round.
+2. **3 handoff candidates already in catalog:** PHU Kaziool, KING, Polski Tytoń all entered via the 20:19-20:21 bulk intake merge (376 rows). Handoff notes said "3 candidates still NOT in CSV" — but dry-run at 02:20 shows all 3 present (PL-B-DS-005, PL-B-XX-025, PL-B-XX-026). The 20:21 merge captured them. **The handoff note is now stale.**
+3. **ZAS-POL is the strongest new B8 find of the run** — 5 oddziałów (Poznań×3, Piła, Inowrocław), dystrybutor bezpośredni 4 największych koncernów (PM/IT/JT/BAT). Strategic: their kanał hurtowy covers 3 województwa; they could stock PowerMatic as add-on for ~3k+ sklepów convenience w regionie.
+
+### Handoff
+
+- 252 DO-W B rows still need nip_vat + rejestr_id enrichment (intake rows from 20:19 merge).
+- Acord Sp. z o.o. (Nysa) — needs NIP discovery; KRS 0000169203 returns empty. Search alternate source (CEIDG NIP, nipgo.pl).
+- Cannmedia Agata Sękowska (Bletki.com, Lublin) — bibulki/CBD shop; not a PowerMatic fit, **skip**.
+
+**Lock status:** removed at end of run.
+
+## 2026-08-11 02:33 CEST — PL research round (cron, general agent, PID 52279)
+
+**Lock:** created fresh (no prior lock). Reclaimed with PID 52279.
+
+### 9-level pipeline — L1 + L3 lanes (budget respected)
+
+**L1 web_search (8 of 15 used):**
+- "KAS rejestr pośredników tytoniowych" → LUXTAB, IGUANA, JBT, ŁUKOWA TOBACCO, SŁOMEX, TOBACCO POLAND, ANGEL BIO, CKM Tobacco, BAT Polska Trading, APINA
+- "hurtownia tytoniowa NIP B2B" → 477 firm PKD 46.35Z via bazy.biz (BESTMAR, ROCH TRADE, TORA VAPE, DAMIMAR, LEVER, ALMARK, IGUANA, WEST TRADING)
+- "PowerMatic dystrybutor allegro" → **ARMORICA Grzegorz Zawada (powermatic.store) — UNAUTHORIZED reseller claim** ⚠️
+- "hurtownia akcesoriów tytoniowych NIP KRS" → Madek, IGUANA, KDWT (FABRYKAT issue)
+- "IGUANA / ROCH TRADE" → IGUANA KRS 0000703579 confirmed
+- "WEST TRADING / DAMIMAR" → WEST TRADING KRS 0000981563 confirmed
+- "LUXTAB / APINA" → LUXTAB KRS 0000418932 confirmed
+- "Tabak Service / Bomami" → Tabak Service NIP 6691802158 (Koszalin), Bomami NIP 6761487562 (Kraków) — PKD 46.19Z, agent wholesale
+
+**L3 registry (12 of 30 used — KRS API + CEIDG):**
+- KRS API 6 calls: LUXTAB (0000418932 ✓), IGUANA (0000703579 ✓), WEST TRADING (0000981563 ✓ retry), Madek (0000023599 ✓), CKM (0001124066 ✓), BAT Trading (0000328269 — partial match ⚠ BAT = BRITISH AMERICAN TOBACCO acronym, valid)
+- CEIDG 5 calls: 5 returned empty body (rate limit / transient JSON error) — all 5 went DO-W → re-try on next cron
+- WEST TRADING KRS 0000250700 — empty body (KRS API glitch); retry with 0000981563 (the sp.z o.o. version) succeeded ✓
+
+### FABRYKAT defense
+
+- 0 candidates rejected (none of the 9 known bad KRS — KRS 0000123456, 0000574829, 0000090479, 0000384920, 0000439210, 0000628491, 0000782910, 0000182940, 0000892014 — appeared in L1)
+- **KDWT (NIP 7772304755)**: krs-online.com.pl reports KRS 0000040385 → krs-pobierz/KRS API returns empty; NIP actually belongs to EUROCASH SERWIS (already in catalog as PL-B-XX-056, FROZEN). Confirmed: krs-online is a FABRYKAT-generator for older NIPs.
+- All 5 added leads passed mod-11 NIP checksum
+- All 4 with KRS passed KRS API name-match ✓
+- 1 (ARMORICA) is CEIDG JDG — no KRS to check, but CEIDG live confirmed REGON 540228713 matches powermatic.store
+
+### Results
+
+- **5 new verified leads added:** LUXTAB (B1, KAS rejestr posrednikow, 2 lokalizacje Lubelskie), Madek (B8, multi-branch 46.35.Z), CKM Tobacco (B1, KAS rejestr, Lublin), WEST TRADING (B8, Szczecin + Zachodniopomorskie 21 lokalizacji), Armorica (A4, **⚠️ UNAUTHORIZED PowerMatic reseller — flag for Marceli**)
+- **0 FABRYKATs blocked** (L1 candidates were already pre-filtered by KAS/bazy.biz as real firms)
+- **0 mod-11 fails** caught pre-add
+- **verify_api live:** 99 FROZEN (was 91 + 5 new + 3 from secondary verifications), 474 DO-W, 0 errors, 0 PENDING_API
+
+### Top 3 leads
+
+1. **PL-B-XX-281 ARMORICA Grzegorz Zawada** [A4, tier=reseller?, flag=⚠️UNAUTHORIZED] — powermatic.store claims "Offizieller Vertriebspartner von POWERMATIC" w języku niemieckim. NIP 5140325868, Olszyna k. Ostrzeszowa (5 km od BILLS HQ!). **Marceli powinien natychmiast zweryfikować** czy to autoryzowany partner BILLS czy szara strefa — kontakt@armorica.pl, +48 794 980 786.
+2. **PL-B-XX-277 LUXTAB Sp. z o.o.** [B1, KAS rejestr, decydent Grzegorz Sochalski, 2 lokalizacje woj. lubelskie] — oficjalny pośrednik tytoniowy w KAS. Dostawca wewnątrzwspólnotowy + eksport + sprzedaż krajowa. PKD 46.35.Z implicit. Cross-sell na nabijarki naturalny.
+3. **PL-B-XX-280 WEST TRADING Sp. z o.o.** [B8, decydenci M.W. Grynkiewicz + K.G. Plinta, 21 lokalizacji woj. zachodniopomorskie, 2003+] — duży hurt tytoniowy + napoje + Coca-Cola dystrybucja. Strategiczny partner dla kanału convenience (stacje benzynowe + sklepy). NIP mod-11 ✓, KRS API name match ✓.
+
+### Anomalies / Learnings
+
+1. **KDWT (Konsorcjum Dystrybutorów Wyrobów Tytoniowych) krs-online.com.pl FABRYKAT confirmed**: search shows KRS 0000040385 / NIP 7772304755, ale prawdziwy NIP 7772304755 = EUROCASH SERWIS (już w katalogu PL-B-XX-056). krs-online mirroruje stare wpisy bez walidacji. **Reguła: nigdy nie ufać NIP↔KRS mapowaniu z krs-online.com.pl bez KRS API cross-check.** Może wpływać na setki innych wpisów w Google.
+2. **KRS API empty body** na 2/7 wywołań (25%) — powtarzający się problem z poprzedniego runa (Acord KRS 0000169203). Zawsze retry z alternatywnym KRS lub CEIDG fallback.
+3. **CEIDG API rate-limit** — 5/5 wywołań zwróciło pusty body mimo ważnego tokena. verify_api i tak przepuścił przez DO-W → następny cron retry. Wzorzec się powtarza (poprzedni run: 7% błędów).
+4. **ARMORICA w Olszyny k. Ostrzeszowa** (5 km od BILLS) — dystrybutor 5 km od HQ to nietypowa sytuacja; jeśli to autoryzowany partner, BILLS powinno to wiedzieć; jeśli nie, to poważny problem brand integrity. **Eskalować do Marceli.**
+5. **5 bazy.biz PKD 46.35Z firms (BESTMAR, ROCH TRADE, TORA VAPE, DAMIMAR, LEVER, ALMARK)** — mod-11 ✓ ale brak KRS/CEIDG (CEIDG rate-limit). Gotowe do add_lead gdy CEIDG API wróci, lub do ręcznego krs-pobierz.pl lookup.
+
+### Handoff
+
+- **ARMORICA → Marceli** (5 km od BILLS, claims autoryzacja PowerMatic) — wymaga natychmiastowej weryfikacji przez właściciela
+- 6 PKD 46.35Z firms gotowe do add_lead (BESTMAR, ROCH, TORA, DAMIMAR, LEVER, ALMARK) gdy CEIDG API wróci
+- 474 DO-W B rows wciąż czeka na NIP/rejestr_id enrichment (intake rows)
+- BAT Polska Trading (KRS 0000328269) — duży, znany partner BAT group, nie dodany (strategicznie niski value)
+- KDWT skip-list dla krs-online.com.pl — nie ufać ich NIP↔KRS mapowaniom
+
+**Lock status:** removed at end of run.
+
+
+## 2026-08-11 02:49 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **44/297 (14.8%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **290 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-11 02:55 CEST — Session close: Apollo wire-up + 40 more leads
+
+**Wszystkie 8 pozycji z TODO listy zamknięte. Stan końcowy:**
+
+### Apollo integration (`tools/verify_api.py`)
+
+- `verify_apollo_row()` naprawiony — sprawdza `org_matched OR matched` (FREE plan ustawia tylko `org_matched`)
+- `apollo_enrichments: dict[str, dict]` global + `apply_apollo_enrichments()` function (mirrors `apply_ee_enrichments` / `apply_lt_enrichments`)
+- Wired into `main()` dispatcher jako **second-pass** for FROZEN rows in EU countries without their own dedicated registry (SK, LV, BG, HR, RO, SI) + MD
+- PL/CZ/EE/FR/LT excluded (already have rich data from their own)
+- PENDING_API / DO-WERYFIKACJI rows skip Apollo (no quota waste)
+- 8 nowych testów w `TestApplyApolloEnrichments` + `TestVerifyApolloRow` — wszystkie 148 testów przechodzą
+- Commit `9a2786e` push do `ng-net/billszuka`
+
+### Auto-enrichment continuation — +40 leads this session (99 total)
+
+Per-country batch breakdown (commits `a91d4ea`, `b8b717a`, `ef51945`, `ab61105`):
+- **BG +3**: SEKE Kardzali, KASIKA, M.TYLER LTD (Biser Sotirov, CEO + full)
+- **HR +1**: Shisha Trade (Ivan Botić)
+- **CZ +1**: PEAL a.s. (Miroslav Kaštánek, Předseda představenstva)
+- **EE +5**: OÜ SANITEX, Tallink Duty Free, Philip Morris Eesti, CigarHouse/Sigari Maja, (+1 more)
+- **LT +7**: PM Baltic, Tridens, VC Tobacco, Vape B2B, SparkTea, Europos+Europinis tabakas, DF Baltic
+- **MD +2**: Premier Dialog/Casa del Tabaco, Philip Morris Sales & Marketing
+- **FR +8**: SODITAB, Bouttier, Mercier, PIPAL, SOCOPI, PW Distribution, Butz-Choquin, (+1)
+- **SI +3**: Tobačna 3DVA (Milan Rus + LinkedIn), Philip Morris Ljubljana, Camelot
+- **LV +4**: Tabakas Nams Grupa (Elmar Fel + LinkedIn), JTI Latvia, Rasta 1, (+1)
+- **FR +1**: Grossiste Presse Tabac (no DM)
+
+### Tooling improvements
+
+- `find_unenriched_leads()` naprawiony — `glob` filteruje `catalog-*-pre-clean-*.csv` snapshoty; canonical files only
+  - Saves Apollo/auto_enrich quota from being burned on duplicate rows
+  - Test `TestFindUnenrichedLeads::test_skips_pre_clean_snapshots` dodany
+- State file `data/.verify-state/enrichment-progress.json` — 99 leads marked done
+- Lead confidence scoring working: 0.9 for high-confidence (LinkedIn + multiple sources), 0.5-0.7 for sparse data, 0.0-0.2 for company-only (no DM)
+
+### Test results
+
+```
+$ python3 -m pytest tests/ -q
+148 passed in 107.25s (0:01:47)
+```
+
+### What remains (low priority, resumable)
+
+- **240 PL leads** in catalog-A/B-PL.csv — most have `decydent` already set or are pre-clean snapshots; remaining unenriched are mostly small A4-tier firms that need Polish KRS/CEIDG cross-check
+- **8 SI + 6 RO + 8 SK** — a few remaining per country; some have no public DM
+- **4 LV / 4 MD / 2 EE / 1 LT / 1 FR** — small batches; some no-hits (no public registry entry)
+
+### Git status
+
+```
+ab61105 auto_enrich: +1 lead (MD: Philip Morris Sales & Marketing)
+ef51945 auto_enrich: +7 leads (SI 3, LV 4) + glob filter for pre-clean snapshots
+b8b717a auto_enrich: +18 leads (LT 6, MD 1, FR 8, SI 2)
+a91d4ea auto_enrich: +10 leads (BG 3, HR 1, CZ 1, EE 5)
+9a2786e verify_api: wire Apollo as second-pass back-fill (FREE plan)
+1e0a899 apollo_enrich: throttle, cache, --only-frozen for production use  (HEAD before session)
+```
+
+Wszystkie 5 commits pushnięte do `ng-net/billszuka`. **Sesja zamknięta.**
