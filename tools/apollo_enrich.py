@@ -34,6 +34,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -242,24 +243,24 @@ def derive_domain(company: str, www: str = "") -> str:
 def enrich_csv_row(row: dict[str, str], timeout: int = 15) -> dict[str, Any]:
     """Enrich a single CSV row from data/{Kraj}/catalog-*.csv.
 
-    Uses:
-      - nip_vat → domain discovery (via company name heuristic)
-      - nazwa_firmy → apollo_match against decydent + stanowisko
-      - www → apollo_org (if not already a domain)
+    Uses Apollo's org enrich (FREE plan). People/match is NOT in the
+    free plan, so we skip decision-maker enrichment — that requires
+    a paid Apollo plan (or use a different tool like Hunter.io).
+
+    Back-fills: industry, employees, phone, linkedin, city, country.
+    Does NOT back-fill: email, decision-maker (need paid plan).
     """
     company = (row.get("nazwa_firmy") or "").strip()
     www = (row.get("www") or "").strip()
-    decydent = (row.get("decydent") or "").strip()
-    stanowisko = (row.get("stanowisko") or "").strip()
 
     domain = derive_domain(company, www)
 
     out: dict[str, Any] = {"company": company, "domain": domain, "matched": False}
 
-    # 1. Enrich company
+    # 1. Enrich company (works on Free plan)
     if domain:
         org = apollo_org(domain, timeout=timeout)
-        if not org.get("error") and org.get("organization"):
+        if org.get("organization"):
             o = org["organization"]
             out["industry"] = o.get("industry")
             out["employees"] = o.get("estimated_num_employees")
@@ -267,14 +268,29 @@ def enrich_csv_row(row: dict[str, str], timeout: int = 15) -> dict[str, Any]:
             out["linkedin"] = o.get("linkedin_url")
             out["city"] = o.get("city")
             out["country"] = o.get("country")
+            out["name_apollo"] = o.get("name")
+            out["employees_raw"] = o.get("estimated_num_employees")
             out["org_matched"] = True
+        elif org.get("error"):
+            err = org["error"]
+            if "403" in err:
+                out["org_error"] = "API key missing enrichment scope"
+            elif "404" in err or "Not Found" in err:
+                out["org_error"] = "endpoint not found"
+            else:
+                out["org_error"] = err
         else:
-            out["org_error"] = org.get("error")
+            # Empty response = not in Apollo's DB (domain unknown)
+            out["org_error"] = "not in Apollo DB"
 
-    # 2. Enrich decision-maker
-    if decydent and company:
+    # 2. Decision-maker enrichment — requires PAID plan, skip for now
+    # (left as future hook — when paid plan is enabled, set
+    # APOLLO_PAID_PLAN=1 in .env to enable this branch)
+    decydent = (row.get("decydent") or "").strip()
+    paid = os.environ.get("APOLLO_PAID_PLAN", "0") == "1"
+    if paid and decydent and company:
         match = apollo_match(decydent, company, domain=domain, timeout=timeout)
-        if not match.get("error") and match.get("person"):
+        if match.get("person"):
             p = match["person"]
             out["decydent_email"] = p.get("email")
             out["decydent_email_status"] = p.get("email_status")
@@ -288,27 +304,87 @@ def enrich_csv_row(row: dict[str, str], timeout: int = 15) -> dict[str, Any]:
             out["matched"] = True
         else:
             out["match_error"] = match.get("error")
+    else:
+        out["decydent_note"] = "skipped (Free plan, no people/match scope)"
 
     return out
 
 
-def bulk_enrich_csv(csv_path: Path, country: str = "", limit: int = 0, timeout: int = 15) -> list[dict[str, Any]]:
-    """Enrich every row in a BILLSzuka catalog CSV. Returns list of results."""
+def bulk_enrich_csv(
+    csv_path: Path,
+    country: str = "",
+    limit: int = 0,
+    timeout: int = 15,
+    throttle: float = 1.5,
+    only_frozen: bool = False,
+    cache_path: Path | None = None,
+) -> list[dict[str, Any]]:
+    """Enrich every row in a BILLSzuka catalog CSV. Returns list of results.
+
+    Honors Apollo rate limits (50/min, 200/hr, 600/day on Free plan)
+    via `throttle` seconds between calls (default 1.5s ≈ 40/min).
+
+    Args:
+      only_frozen: if True, skip rows that are DO-WERYFIKACJI / PENDING_API.
+        Useful when you only want to enrich the verified/ready-for-outreach
+        set (saves API quota on rows that may be removed).
+      cache_path: if set, load existing enrichment from this JSON file
+        and skip rows that already have Apollo data (rate-limit friendly
+        for re-runs).
+
+    Results always returned, even on rate limit (with org_error="HTTP 429").
+    """
     with open(csv_path, encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     if country:
         rows = [r for r in rows if (r.get("kraj") or "").upper() == country.upper()]
+    if only_frozen:
+        before = len(rows)
+        rows = [r for r in rows if "FROZEN" in (r.get("flagi") or "")]
+        print(f"  Filter: {before} → {len(rows)} (only FROZEN rows)", file=sys.stderr)
     if limit:
         rows = rows[:limit]
+
+    # Load cache
+    cache: dict[str, dict] = {}
+    if cache_path and cache_path.exists():
+        try:
+            cache = json.loads(cache_path.read_text())
+            print(f"  Cache: {len(cache)} existing enrichments", file=sys.stderr)
+        except json.JSONDecodeError:
+            pass
+
     results: list[dict[str, Any]] = []
+    matched = 0
+    skipped_cached = 0
     for i, row in enumerate(rows, 1):
         id_ = (row.get("id_unikalne") or "").strip()
         name = (row.get("nazwa_firmy") or "").strip()
+        # Skip if cached
+        if id_ in cache and cache[id_].get("org_matched"):
+            results.append({**cache[id_], "cached": True})
+            skipped_cached += 1
+            if cache[id_].get("org_matched"):
+                matched += 1
+            continue
         print(f"  [{i}/{len(rows)}] {id_} {name[:30]:30s}", file=sys.stderr)
         r = enrich_csv_row(row, timeout=timeout)
         r["id_unikalne"] = id_
         r["nazwa_firmy"] = name
+        if r.get("org_matched"):
+            matched += 1
         results.append(r)
+        cache[id_] = r
+        # Save cache incrementally (so kill mid-run preserves progress)
+        if cache_path:
+            cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2))
+        # Throttle
+        if throttle > 0 and i < len(rows):
+            time.sleep(throttle)
+    print(
+        f"\n  Matched {matched}/{len(rows)} in Apollo (skipped {skipped_cached} cached)",
+        file=sys.stderr,
+    )
     return results
 
 
@@ -380,10 +456,22 @@ def main() -> int:
         if "--limit" in sys.argv:
             i = sys.argv.index("--limit")
             limit = int(sys.argv[i + 1])
+        only_frozen = "--only-frozen" in sys.argv
+        throttle = 1.5
+        if "--throttle" in sys.argv:
+            i = sys.argv.index("--throttle")
+            throttle = float(sys.argv[i + 1])
+        cache = None
+        if "--cache" in sys.argv:
+            i = sys.argv.index("--cache")
+            cache = Path(sys.argv[i + 1])
         if not csv_path or not csv_path.exists():
             print(f"CSV not found: {csv_path}")
             return 1
-        results = bulk_enrich_csv(csv_path, country=country, limit=limit)
+        results = bulk_enrich_csv(
+            csv_path, country=country, limit=limit,
+            only_frozen=only_frozen, throttle=throttle, cache_path=cache,
+        )
         print(json.dumps(results, indent=2, ensure_ascii=False))
         return 0
     print(f"Unknown command: {cmd}")
