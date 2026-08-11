@@ -139,7 +139,7 @@ def enrich_from_search_results(name: str, city: str, country: str,
 
     try:
         raw = _call_openrouter(user_prompt, SYSTEM_PROMPT, model=model)
-    except (urllib.error.URLError, KeyError, TimeoutError) as e:
+    except (urllib.error.URLError, KeyError, TimeoutError, RuntimeError, OSError) as e:
         return {"_error": f"{type(e).__name__}: {e}"}
 
     # Strip markdown code fences if present
@@ -165,14 +165,17 @@ def enrich_from_search_results(name: str, city: str, country: str,
         # one as the primary; keep the rest as "_alternates" for review.
         if not data:
             return {}
-        primary = max(data, key=lambda d: d.get("confidence", 0) if isinstance(d, dict) else 0)
+        primary_idx, primary = max(
+            enumerate(data),
+            key=lambda kv: kv[1].get("confidence", 0) if isinstance(kv[1], dict) else 0,
+        )
         if not isinstance(primary, dict):
             return {"_error": f"unexpected list element: {primary}"}
         cleaned = {k: v for k, v in primary.items() if v and v != "null"}
         if len(data) > 1:
             cleaned["_alternates"] = [
                 {k: v for k, v in d.items() if v and v != "null"}
-                for d in data[1:] if isinstance(d, dict)
+                for i, d in enumerate(data) if i != primary_idx and isinstance(d, dict)
             ]
         return cleaned
     if not isinstance(data, dict):
@@ -196,6 +199,7 @@ def load_state() -> dict:
 
 def save_state(state: dict) -> None:
     STATE_DIR.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2))
 
 
@@ -220,7 +224,17 @@ def find_unenriched_leads() -> list[dict]:
             continue
         if sub.name in SKIP_DIRS:
             continue
+        # Only match canonical catalog files: catalog-A-XX.csv / catalog-B-XX.csv.
+        # Skip pre-clean snapshots, splits, intermediates (anything with a
+        # "-pre-clean-*" or extra suffix after the country code).
         for csv_path in sorted(sub.glob("catalog-[AB]-*.csv")):
+            stem = csv_path.stem  # e.g. "catalog-A-PL" or "catalog-A-PL-pre-clean-20260811_023054"
+            if not (stem.startswith("catalog-A-") or stem.startswith("catalog-B-")):
+                continue
+            # Canonical: "catalog-A-CC" or "catalog-B-CC" where CC is exactly 2 letters
+            tail = stem[len("catalog-A-"):] if stem.startswith("catalog-A-") else stem[len("catalog-B-"):]
+            if len(tail) != 2 or not tail.isalpha() or not tail.isupper():
+                continue
             if csv_path.name.startswith("._"):
                 continue
             with csv_path.open("r", encoding="utf-8", newline="") as f:
@@ -338,6 +352,11 @@ def update_csv_row(csv_path: str, row_id: str, fields: dict) -> bool:
 # ---------------------------------------------------------------------------
 
 def main() -> int:
+    return main_with_args(sys.argv[1:])
+
+
+def main_with_args(argv: list[str]) -> int:
+    """Testable entry point. argv is the arg list (without argv[0])."""
     ap = argparse.ArgumentParser(description="BILLSzuka lead enrichment (OpenRouter)")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
