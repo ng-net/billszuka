@@ -951,3 +951,140 @@ class TestVerifyLtRow:
         assert status == "FROZEN"
         assert "999999999" in reason
 
+
+
+# ---------------------------------------------------------------------------
+# apply_apollo_enrichments() — back-fill from Apollo org enrich
+# ---------------------------------------------------------------------------
+
+class TestApplyApolloEnrichments:
+    """apply_apollo_enrichments() writes only into placeholder cells."""
+
+    def test_no_enrichments_no_op(self, tmp_path):
+        csv_path = tmp_path / "catalog-B-SK.csv"
+        csv_path.write_text(
+            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "SK-1,Foo,,,Bratislava,\n"
+        )
+        assert verify_api.apply_apollo_enrichments(csv_path, {}) == 0
+        # File unchanged
+        assert "SK-1,Foo" in csv_path.read_text()
+
+    def test_backfills_placeholders(self, tmp_path):
+        csv_path = tmp_path / "catalog-B-SK.csv"
+        csv_path.write_text(
+            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "SK-1,Foo,do weryfikacji,brak,do ustalenia,n/a\n"
+        )
+        enrichments = {
+            "SK-1": {
+                "telefon": "+421 2 1234 5678",
+                "linkedin": "linkedin.com/company/foo",
+                "miasto": "Bratislava",
+                "email_decydent": "ceo@foo.sk",
+            }
+        }
+        n = verify_api.apply_apollo_enrichments(csv_path, enrichments)
+        assert n == 4
+        text = csv_path.read_text()
+        assert "+421 2 1234 5678" in text
+        assert "linkedin.com/company/foo" in text
+        assert "Bratislava" in text
+        assert "ceo@foo.sk" in text
+
+    def test_does_not_clobber_existing(self, tmp_path):
+        """If a cell already has real data, Apollo must NOT overwrite it."""
+        csv_path = tmp_path / "catalog-B-SK.csv"
+        csv_path.write_text(
+            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "SK-1,Foo,+421 911 000 000,linkedin.com/existing,Kosice,ceo@existing.sk\n"
+        )
+        enrichments = {
+            "SK-1": {
+                "telefon": "+421 2 1234 5678",
+                "linkedin": "linkedin.com/company/foo",
+                "miasto": "Bratislava",
+                "email_decydent": "ceo@foo.sk",
+            }
+        }
+        n = verify_api.apply_apollo_enrichments(csv_path, enrichments)
+        assert n == 0  # nothing written
+        text = csv_path.read_text()
+        # Originals preserved
+        assert "+421 911 000 000" in text
+        assert "linkedin.com/existing" in text
+        assert "Kosice" in text
+        assert "ceo@existing.sk" in text
+
+    def test_unknown_id_ignored(self, tmp_path):
+        csv_path = tmp_path / "catalog-B-SK.csv"
+        csv_path.write_text(
+            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "SK-1,Foo,brak,brak,brak,brak\n"
+        )
+        enrichments = {
+            "SK-NOT-EXIST": {"telefon": "+421 9", "linkedin": "x", "miasto": "y"},
+        }
+        n = verify_api.apply_apollo_enrichments(csv_path, enrichments)
+        assert n == 0
+        text = csv_path.read_text()
+        # All cells still placeholder
+        assert "Foo,brak,brak,brak,brak" in text
+
+
+# ---------------------------------------------------------------------------
+# verify_apollo_row() — second-pass back-fill via Apollo
+# ---------------------------------------------------------------------------
+
+class TestVerifyApolloRow:
+    """verify_apollo_row() routes Apollo org/people enrich into apollo_enrichments."""
+
+    def setup_method(self):
+        # Reset module-level enrichments dict before each test
+        verify_api.apollo_enrichments.clear()
+
+    def test_apollo_module_unavailable_returns_pending(self, monkeypatch):
+        monkeypatch.setattr(verify_api, "APOLLO_AVAILABLE", False)
+        monkeypatch.setattr(verify_api, "_apollo_enrich_row", None)
+        row = {"id_unikalne": "SK-1", "nazwa_firmy": "Foo s.r.o."}
+        status, reason = verify_api.verify_apollo_row(row)
+        assert status == verify_api.PENDING_API
+        assert "niedostępny" in reason.lower()
+
+    def test_org_match_populates_enrichments(self, monkeypatch):
+        def fake_enrich(row):
+            return {
+                "company": "Foo s.r.o.",
+                "domain": "foo.sk",
+                "matched": False,  # FREE plan: no people match
+                "org_matched": True,
+                "phone": "+421 2 123 4567",
+                "linkedin": "linkedin.com/company/foo",
+                "city": "Bratislava",
+            }
+        monkeypatch.setattr(verify_api, "_apollo_enrich_row", fake_enrich)
+        row = {"id_unikalne": "SK-1", "nazwa_firmy": "Foo s.r.o."}
+        status, reason = verify_api.verify_apollo_row(row)
+        assert status == "FROZEN"
+        assert "org enrich" in reason
+        assert verify_api.apollo_enrichments.get("SK-1") == {
+            "telefon": "+421 2 123 4567",
+            "linkedin": "linkedin.com/company/foo",
+            "miasto": "Bratislava",
+        }
+
+    def test_no_match_returns_pending(self, monkeypatch):
+        def fake_enrich(row):
+            return {"company": "X", "domain": "x", "matched": False, "org_matched": False, "org_error": "not in Apollo DB"}
+        monkeypatch.setattr(verify_api, "_apollo_enrich_row", fake_enrich)
+        row = {"id_unikalne": "PL-X", "nazwa_firmy": "X"}
+        status, reason = verify_api.verify_apollo_row(row)
+        assert status == verify_api.PENDING_API
+        assert "PL-X" not in verify_api.apollo_enrichments
+
+    def test_empty_company_returns_pending(self, monkeypatch):
+        monkeypatch.setattr(verify_api, "_apollo_enrich_row", lambda r: {"org_matched": True, "phone": "x"})
+        row = {"id_unikalne": "PL-X", "nazwa_firmy": ""}
+        status, reason = verify_api.verify_apollo_row(row)
+        assert status == verify_api.PENDING_API
+        assert "nazwy" in reason.lower() or "nazwa" in reason.lower()

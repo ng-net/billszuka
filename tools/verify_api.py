@@ -44,6 +44,17 @@ except ImportError:  # pragma: no cover
     fr_search = None  # type: ignore[assignment]
 
 try:
+    # Optional Apollo.io company enricher (FREE plan only — no people/match).
+    # Used as a fallback for non-EU countries (e.g. MD) or to back-fill
+    # company-level fields (industry, employees, linkedin) the country
+    # registries don't provide. Created 2026-08-10 in parallel with auto_enrich.
+    from apollo_enrich import enrich_csv_row as _apollo_enrich_row
+    APOLLO_AVAILABLE = True
+except ImportError:  # pragma: no cover
+    _apollo_enrich_row = None  # type: ignore[assignment]
+    APOLLO_AVAILABLE = False
+
+try:
     from ee_ariregister import ee_search, ee_detail
 except ImportError:  # pragma: no cover
     ee_search = None  # type: ignore[assignment]
@@ -561,6 +572,96 @@ def verify_fr_row(row: dict) -> tuple[str, str]:
     )
 
 
+def verify_apollo_row(row: dict) -> tuple[str, str]:
+    """
+    Verify a row via Apollo.io org enrich (FREE plan compatible).
+
+    Apollo's FREE plan supports organizations/enrich (company size,
+    industry, social, phone) but NOT people/match (decision-maker emails).
+    This complements country-specific registries by back-filling company-
+    level fields they don't provide (industry, employees, website phone).
+
+    Used as a second-pass fallback for non-EU countries or to enrich
+    fields like employees/industry that KRS/ARES don't return.
+
+    Status semantics:
+      • FROZEN          — company matched, fields updated
+      • PENDING_API     — Apollo key missing, network error, or no match
+      • DO-WERYFIKACJI  — matched but name mismatch (very rare for org enrich)
+    """
+    if not APOLLO_AVAILABLE or _apollo_enrich_row is None:
+        return PENDING_API, "Apollo module niedostępny (apollo_enrich.py nie załadowany)"
+
+    company = (row.get("nazwa_firmy") or "").strip()
+    if not company or company in ("brak", "do ustalenia", "n/a", ""):
+        return PENDING_API, "Brak nazwy firmy — Apollo nie ma czego szukać"
+
+    try:
+        result = _apollo_enrich_row(row)
+    except (urllib.error.URLError, KeyError, TimeoutError, OSError) as e:
+        return PENDING_API, f"Apollo: {type(e).__name__}: {e}"
+
+    # FREE plan: org_matched=True, matched=False (no people/match scope).
+    # PAID plan: both can be True. Treat org_matched as the success signal
+    # (people match is a bonus, not a requirement).
+    org_matched_check = bool(result.get("org_matched"))
+    people_matched_check = bool(result.get("matched"))
+    if not org_matched_check and not people_matched_check:
+        err = (result.get("org_error") or result.get("error")
+               or "brak dopasowania")
+        if "no match" in str(err).lower() or "not found" in str(err).lower():
+            return "DO-WERYFIKACJI", f"Apollo: {err}"
+        return PENDING_API, f"Apollo: {err}"
+
+    # Back-fill company-level fields (NOT decision-maker — that needs paid plan)
+    filled = []
+    field_map = {
+        "industry": "kanal_sprzedaży",  # closest existing column
+        "employees": None,  # no existing column, skip
+        "phone": "telefon",
+        "linkedin": "linkedin",
+    }
+    # Note: apollo_enrich.enrich_csv_row does NOT mutate `row` in place —
+    # it returns a result dict. We collect the back-fillable fields into
+    # the module-level `apollo_enrichments` dict (same pattern as EE/LT
+    # enrichment), then `apply_apollo_enrichments()` writes them to the
+    # CSV in a single atomic pass per file (after the main loop).
+    id_ = (row.get("id_unikalne") or "").strip()
+    org_matched = bool(result.get("org_matched"))
+    people_matched = bool(result.get("matched"))
+
+    if org_matched and id_:
+        apollo_enrichments[id_] = {
+            "telefon": (result.get("phone") or "").strip(),
+            "linkedin": (result.get("linkedin") or "").strip(),
+            "miasto": (result.get("city") or "").strip(),
+        }
+        if result.get("decydent_email"):
+            apollo_enrichments[id_]["email_decydent"] = (
+                result.get("decydent_email") or ""
+            ).strip()
+        if result.get("decydent_linkedin"):
+            apollo_enrichments[id_]["linkedin"] = (
+                result.get("decydent_linkedin") or ""
+            ).strip()
+    elif people_matched and id_:
+        # Paid plan path: people/match only, no org match
+        apollo_enrichments[id_] = {
+            "telefon": (result.get("decydent_phone") or "").strip(),
+            "linkedin": (result.get("decydent_linkedin") or "").strip(),
+        }
+        if result.get("decydent_email"):
+            apollo_enrichments[id_]["email_decydent"] = (
+                result.get("decydent_email") or ""
+            ).strip()
+
+    who = "people match" if people_matched else "org enrich"
+    return "FROZEN", (
+        f"Apollo {who}: {result.get('company', company)[:40]} "
+        f"(domain: {result.get('domain', '?')})"
+    )
+
+
 # Estonian legal-form tokens (stripped before name-match Jaccard)
 _EE_LEGAL_TOKENS = {
     "OÜ", "AS", "FIE", "MTÜ", "SA", "TÜH", "ÜH", "UÜ",
@@ -856,10 +957,19 @@ def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
             if new and current.lower() in placeholders:
                 row[idx] = new
                 n += 1
-    with open(csv_path, "w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(rows)
+    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            writer.writerows(rows)
+        os.replace(tmp_path, csv_path)
+    except OSError as e:
+        log(f"  → {csv_path.name}: atomic write failed ({e})")
+        if tmp_path.exists():
+            try: tmp_path.unlink()
+            except OSError: pass
+        raise
     return n
 
 
@@ -867,6 +977,73 @@ def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
 # main() can back-fill nip_vat / rejestr_id / adres for rows that previously
 # had "do weryfikacji" placeholders. Keyed by id_unikalne.
 ee_enrichments: dict[str, dict] = {}
+
+
+# Back-fillable Apollo enrichments, collected during main() and persisted
+# once per file via apply_apollo_enrichments() (same pattern as EE/LT).
+# Keyed by id_unikalne. Values: dict with optional keys
+#   telefon, linkedin, miasto, email_decydent
+apollo_enrichments: dict[str, dict] = {}
+
+
+def apply_apollo_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
+    """Back-fill telefon / linkedin / miasto / email_decydent from Apollo.
+
+    Only overwrites cells that are currently placeholders (do weryfikacji /
+    do ustalenia / brak / empty) — never clobbers a value the user set
+    manually. Returns count of cells written.
+    """
+    if not enrichments:
+        return 0
+    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
+    with open(csv_path, encoding="utf-8") as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        rows = list(reader)
+    n_cols = len(header)
+    if "id_unikalne" not in header:
+        return 0
+    id_idx = header.index("id_unikalne")
+    field_map = {
+        "telefon": "telefon",
+        "linkedin": "linkedin",
+        "miasto": "miasto",
+        "email_decydent": "email_decydent",
+    }
+    field_idxs = {col: header.index(col) for col in field_map if col in header}
+    n = 0
+    for i, row in enumerate(rows):
+        if len(row) == 0:
+            continue
+        if len(row) < n_cols:
+            row += [""] * (n_cols - len(row))
+        id_ = row[id_idx]
+        if id_ not in enrichments:
+            continue
+        data = enrichments[id_]
+        for col, key in field_map.items():
+            if key not in field_idxs:
+                continue
+            idx = field_idxs[key]
+            current = (row[idx] or "").strip()
+            new = data.get(key, "")
+            if new and current.lower() in placeholders:
+                row[idx] = new
+                n += 1
+    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            writer.writerows(rows)
+        os.replace(tmp_path, csv_path)
+    except OSError as e:
+        log(f"  → {csv_path.name}: atomic write failed ({e})")
+        if tmp_path.exists():
+            try: tmp_path.unlink()
+            except OSError: pass
+        raise
+    return n
 
 
 def apply_ee_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
@@ -912,10 +1089,19 @@ def apply_ee_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
             if new and current.lower() in placeholders:
                 row[idx] = new
                 n += 1
-    with open(csv_path, "w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(rows)
+    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            writer.writerows(rows)
+        os.replace(tmp_path, csv_path)
+    except OSError as e:
+        log(f"  → {csv_path.name}: atomic write failed ({e})")
+        if tmp_path.exists():
+            try: tmp_path.unlink()
+            except OSError: pass
+        raise
     return n
 
 
@@ -972,10 +1158,19 @@ def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> in
                     if not row[a_idx] or row[a_idx].strip() in ("brak", "do weryfikacji"):
                         row[a_idx] = "Polska (Adres w rejestrze KRS/CEIDG)"
             n += 1
-    with open(csv_path, "w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(rows)
+    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            writer.writerows(rows)
+        os.replace(tmp_path, csv_path)
+    except OSError as e:
+        log(f"  → {csv_path.name}: atomic write failed ({e})")
+        if tmp_path.exists():
+            try: tmp_path.unlink()
+            except OSError: pass
+        raise
     return n
 
 
@@ -1067,6 +1262,28 @@ def main() -> int:
                 total_dov += 1
             log(f"  {id_}: {status} — {reason[:60]}")
 
+            # Apollo second-pass: for FROZEN rows from countries that have
+            # only a thin primary verification (SK, LV, BG, HR, RO, SI
+            # via VIES; non-EU like MD), Apollo's org enrich adds the
+            # company-level fields the registries don't return (telefon,
+            # linkedin, miasto). FREE plan only — no decision-maker.
+            # Skipped silently for PL/CZ/EE/FR/LT (they already get rich
+            # data from their dedicated registries) and for DO-WERYFIKACJI /
+            # PENDING_API rows (don't waste API quota on unverifiable data).
+            if (
+                status == "FROZEN"
+                and APOLLO_AVAILABLE
+                and country in EU_MEMBER_STATES | {"MD"}
+                and country not in ("PL", "CZ", "EE", "FR", "LT")
+            ):
+                apollo_status, apollo_reason = verify_apollo_row(row)
+                # We don't change the primary status (FROZEN stays FROZEN) —
+                # Apollo is purely additive. Its status is logged for audit.
+                if apollo_status == "FROZEN":
+                    log(f"    +Apollo: {apollo_reason[:60]}")
+                else:
+                    log(f"    Apollo: {apollo_status} — {apollo_reason[:60]}")
+
         if updates and not args.dry_run:
             n = update_row_status(csv_path, updates)
             if n:
@@ -1084,6 +1301,12 @@ def main() -> int:
                 if n:
                     log(f"  → {csv_path.name}: {n} cells back-filled from JAR")
                 lt_enrichments.clear()
+            # Apollo: back-fill telefon / linkedin / miasto (FREE plan)
+            if apollo_enrichments and not args.dry_run:
+                n = apply_apollo_enrichments(csv_path, apollo_enrichments)
+                if n:
+                    log(f"  → {csv_path.name}: {n} cells back-filled from Apollo")
+                apollo_enrichments.clear()
 
     log(
         f"\nTotal: {total_verified} verified — "
