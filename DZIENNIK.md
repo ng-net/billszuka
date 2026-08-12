@@ -613,3 +613,21 @@ Wszystkie QS=95/100, FROZEN (gentle_search_cron + mi.government.bg public regist
 To są **🐋 TOP TARGETS** dla BILLS — bezpośredni dostęp do rynku maszyn RYO w BG.
 
 BG: 11 → 17 firm, schema 39 cols preserved.
+
+## 2026-08-12 14:24 CEST — Gentle search #2 (FR) — 3 leads (Powermatic dealer GOLD!)
+
+Web search wykrył **autoryzowanego dystrybutora Powermatic we Francji**:
+
+| ID | Firma | SIREN | Highlights |
+|---|---|---|---|
+| FR-B-IDF-006 | **PW DISTRIBUTION SAS** | 915392963 | 🐋 PR-LEVEL: dystrybutor Powermatic 5+ i 2+ we FR. Paris. ⚠️ societe.com oznacza 'Fermé' — wymaga ręcznej weryfikacji. |
+| FR-B-PAC-001 | **SPI D CLIC (SPI DISCOUNT)** | 791551732 | Grossiste exclusif Korona (slim + premium tubes). Stève PHAN gérant. La Farlède (Toulon). |
+| FR-B-PAC-002 | MAJOR SMOKER (majorsmoker.com) | do weryfikacji | E-commerce buraliste 700+ références, FR+BE. ⚠️ DO-WERYFIKACJI. |
+
+**Krytyczny finding:** PW DISTRIBUTION dystrybuuje Powermatic 5+ i Powermatic 2+ w FR. To może być:
+- (a) autoryzowany partner (kolizja z BILLS) lub
+- (b) szary import (kolizja)
+
+Marceli follow-up call wymagany do PW Distribution.
+
+FR: 26 → 29 firm, schema 36 cols preserved.

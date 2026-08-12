@@ -18826,3 +18826,18 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 
 ## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-042: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
 
+
+## 2026-08-12 14:22 — ee-cleanup-phase3-update: 5 NIP-fixed + re-verified (4 FROZEN, 1 DO-W)
+- 4 e-Äriregister matches (031 Ekspress, 033 Prisma, 038 BAT, 039 E-smoke) → FROZEN. 1 miss (043 CTB — spec reg_code 17046236 incorrect, actual reg 16686436 found via autocomplete) → DO-W.
+## 2026-08-12 14:22 — ee-cleanup-update EE-B-XX-031: NIP fixed, e-Äriregister re-verify → FROZEN
+## 2026-08-12 14:22 — ee-cleanup-update EE-B-XX-033: NIP fixed, e-Äriregister re-verify → FROZEN
+## 2026-08-12 14:22 — ee-cleanup-update EE-B-XX-038: NIP fixed, e-Äriregister re-verify → FROZEN
+## 2026-08-12 14:22 — ee-cleanup-update EE-B-XX-039: NIP fixed, e-Äriregister re-verify → FROZEN
+## 2026-08-12 14:22 — ee-cleanup-update EE-B-XX-043: NIP fixed, e-Äriregister re-verify → DO-W
+
+## 2026-08-12 14:22 — ee-cleanup-master-sync: EE rows 48 → 22
+- 26 deleted (21 FABRYKAT + 5 duplicates). 5 NIP-updated + re-verified (4 FROZEN, 1 DO-W). 0 desync.
+- catalog-A-EE: 18 → 0 data rows (file kept with header for schema stability).
+- catalog-B-EE: 30 → 22 data rows.
+- master.csv: 463 → 437 (EE 48 → 22). Total: 21 FROZEN, 1 DO-W (EE-B-XX-043 CTB — spec reg_code 17046236 incorrect, actual 16686436 per autocomplete, follow-up needed).
+- All 17 SACRED FROZEN (EE-B-XX-001..017) preserved untouched.
