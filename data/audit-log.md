@@ -18604,3 +18604,30 @@ Te bugi istniały **przed** dzisiejszym merge. Zalecane: ręczny fix w master PL
 ## 2026-08-12 13:10 — scope1-phaseA: deleted intake buffers + verification transients
 - 22 files removed (~600KB). Master + catalogs untouched. Pre-clean master: 234 unique PL IDs, 46 FROZEN.
 - Note (scope1-phaseB producer): spec premise was stale — observed current state at 13:10 is master 381 rows / 117 FROZEN, not 350/46. Catalog A/B and master are in lockstep for all 19 target IDs (no desync). See report to verifier.
+
+## 2026-08-12 13:55 — ee-promote-phase1: 18 A-tier firms added to catalog-A-EE.csv
+- New file created. Pre: catalog-A-EE had 0 rows. Post: 18 rows. Master EE: 17 → 17 (not yet synced).
+- Source: data/_intake/EE/validated.csv (31 firms, 18 with Priorytet A1/A2 + 2 from row 16/17 in B-tier promoted to A per spec).
+- IDs: EE-A-XX-001..018. Field mapping: Firma→nazwa_firmy, Segment→kategoria (A1/A2), Miasto→miasto, Region→region_nazwa, WWW→www, Email→email (first), NIP/VAT→nip_vat (EE-prefix preserved), Numer Rejestrowy→rejestr_id (e-Äriregister NNNNNNNN) + _reg_code (NNNNNNNN).
+- 18 rows: Veipland, Sanitex Eesti, Kaup24, R-Kiosk, Hortex, Baltic Smoke, Smokenation, TobaccoStore.ee, Kaupmees&KO, RYO Paper (tubakas.ee), Tubakas Tartu, Võru Tubakaservis, Valga Tubakatarvikud, Põlva Tubakapood, Elva Tubakakaubad, Tartu Tubakamasinad, Võru Vape&RYO, Valga Tubakas.
+
+## 2026-08-12 13:55 — ee-promote-phase2: 13 B-tier firms appended to catalog-B-EE.csv
+- Pre: 17 rows (13 FROZEN preserved, 4 DO-W preserved at EE-B-XX-009/015/016/017). Post: 30 rows.
+- 13 NEW firms (IDs EE-B-XX-031..043, IDs 019-030 reserved per spec). Source: validated.csv rows 9-15 + 18-23.
+- 0 NIP overlap with existing 17 (dedup verified). All 13 distinct.
+- 13 rows: AS Ekspress Grupp, Coop Eesti, Prisma Peremarket, E-Smoke Estonia, Nordic Smoke, Vapedin, Elektra-S, BAT Estonia, E-smoke OÜ, Vapesale24, Sigari Maja, A.J. Trade, CTB OÜ.
+
+## 2026-08-12 13:55 — ee-promote-spec-discrepancy: spec table says DO-W IDs are 015-018, but actual DO-W in catalog are 009, 015, 016, 017
+- Per spec hard-constraint #7 ("existing 17 keep their IDs") and #9 ("DO-W 015-018 keeps existing IDs"), producer used ACTUAL catalog DO-W IDs (009, 015, 016, 017) instead of spec's 015-018 table.
+- Spec table rows map by Firma/NIP to catalog rows: spec EE-B-XX-015 (AmeiZing) = catalog EE-B-XX-009; spec EE-B-XX-016 (Karisma) = catalog EE-B-XX-015; spec EE-B-XX-017 (Fazer) = catalog EE-B-XX-016; spec EE-B-XX-018 (Nordista) = catalog EE-B-XX-017.
+- This is a producer judgement call: keeping existing catalog IDs (no churn) trumps spec table (which appears off by 1 for AmeiZing, off by 6 for that row). Same 4 firms get re-verified either way; only ID labels differ.
+- Verifier to confirm interpretation.
+
+## 2026-08-12 13:58 — ee-promote-phase3: re-verified 4 DO-W firms → all upgraded to FROZEN
+- Note: spec said IDs 015-018 but actual DO-W in catalog are 009, 015, 016, 017. Re-verified the actual 4 (see discrepancy note above).
+- All 4 e-Äriregister lookups succeeded; KMKR matches; NIPs/reg_codes match. web_search confirms each is a real EE company.
+- **EE-B-XX-009 AmeiZing OÜ (Hinnapomm.ee)**: e-Äriregister reg 16512038, KMKR EE102501892, EMTAK 47.11 (non-specialized retail). Real — właściciel Hinnapomm.ee marketplace, B2B + retail. NOT tobacco-specific but FROZEN per spec rule (registry confirms).
+- **EE-B-XX-015 Karisma Food OÜ**: e-Äriregister reg 12111650, KMKR EE101452735, EMTAK 46.31 (fruit/veg wholesale). Real — food wholesale HoReCa, 100 pracowników, owned by OY TRANSMERI GROUP AB. NOT tobacco-specific but FROZEN.
+- **EE-B-XX-016 Fazer Eesti OÜ**: e-Äriregister reg 10057691, KMKR EE100068722, EMTAK 46.36 (sugar/sweets wholesale). Real — Fazer Group FI bakery, 83 pracowników, 25.8M EUR revenue 2023. NOT tobacco-specific but FROZEN.
+- **EE-B-XX-017 Nordista OÜ** 🐋: e-Äriregister reg 12711752, KMKR EE102273421, EMTAK 46.39 (food/bev/tobacco wholesale). **TOBACCO-RELEVANT!** GRUPA BALTIC: Nordista SIA (LV) + Nordista LT UAB (LT) + Stoic Trade OÜ + 70% Natty OÜ. 18.6M EUR revenue 2024, 100+ pracowników. Was DO-W "FMCG adjacent" — now confirmed as wholesale of food/bev/tobacco. FROZEN.
+- Result: 0/4 DO-W → 4/4 upgraded to FROZEN.

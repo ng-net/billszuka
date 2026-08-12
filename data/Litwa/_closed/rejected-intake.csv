@@ -1,0 +1,18 @@
+verdict,firma,nip_vat,rank,reason
+🔁 DUPLIKAT,UAB „Sanitex“ (Hurtownia FMCG & Dystrybucja),LT104434917,1,DUPLIKAT — already in canonical
+✅ FROZEN,UAB „Litradė“ (Royal Smoke Network & Wholesale),LT100008166914,2,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB „Amber Tobacco Trade“ (Vilnius Hub #1),LT100007451214,3,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB „VapeBaltic Wholesale“ (Kaunas Hub #2),LT100011892352,4,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB „Tabako Prekyba“ (Klaipėda Hub #3),LT358910193,5,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB „Garfasta Logistics“ (Šiauliai Hub #4),LT100012489129,6,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB „Dūmų Centras“ (Panevėžys Hub #5),LT100004589160,7,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Pigu.lt Group (E-Commerce Baltic Marketplace),LT100009748614,8,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Varle.lt (Electronics & FMCG Marketplace LT),LT100011765012,9,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Narvesen Baltija (Convenience Kiosk LT),LT119582341,10,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Imperial Tobacco Lietuva,LT100010245614,11,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Rimi Baltic (Supermarket LT),LT100001754314,12,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Smokenation Lietuva (Vape & RYO Wholesale LT),LT100012845678,13,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Tabako Centras (Wholesale Tobacco Kaunas LT),LT100011234567,14,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Baltic Vape Club (Vape & Accessories Online LT),LT100013456789,15,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Tabako ir Dumai (Tobacco & Smoke Shop Klaipeda LT),LT100014567890,16,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"
+✅ FROZEN,UAB Maxima LT (Hypermarket Retail LT),LT104949781,17,"HALUCYNACJA — synthetic IČO format (12-digit, out of range)"

@@ -1,0 +1,31 @@
+verdict,id_unikalne,firma,nip_vat,reason
+FROZEN,SK-A-BA-001,Smokeshop,,FROZEN (Marceli)
+HALUCYNACJA — synthetic IČO (templated),SK-A-BA-002,GGT a.s. (GGTabak),,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-A-TN-001,M+M Tabak s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-A-ZA-001,DL Lauko s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-A-KE-001,MEDIAPRESS Poprad,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-A-TN-002,BRESMAN s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-A-BA-003,Bratislava Smoke Hub,,PENDING_API — templated VIES
+FROZEN,SK-A-BA-004,DanCzek Bratislava s.r.o.,,FROZEN (VIES verified)
+HALUCYNACJA — synthetic IČO (templated),SK-A-BA-005,Smiaky.sk,,PENDING_API — templated VIES
+FROZEN,SK-A-NR-001,TifanTEX s.r.o.,,FROZEN (VIES verified)
+HALUCYNACJA — synthetic IČO (templated),SK-A-BA-006,BB Tobacco,,PENDING_API — templated VIES
+FROZEN,SK-A-BA-007,Tabak Invest Slovakia s.r.o.,,FROZEN (VIES verified)
+HALUCYNACJA — synthetic IČO (templated),SK-A-TT-001,Trnava Tobacco s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-A-PO-001,Poprad Tobacco,,PENDING_API — templated VIES
+FROZEN,SK-B-BA-001,GGT a.s. (GG Tabak),,FROZEN (Marceli)
+FROZEN,SK-B-BA-002,GECO s.r.o. (Slovakia),,FROZEN (Marceli)
+HALUCYNACJA — synthetic IČO (templated),SK-B-BA-003,Slovak Tabak Wholesale,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-NR-001,Nitra Tobacco s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-BA-004,Bratislava Vape,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-BA-005,Plynárenská Tabak,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-BA-006,Bavorska Tobacco,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-ZA-001,Zilina Smoke s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-TT-001,Trnava Smoke s.r.o.,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-PO-001,Poprad Vape,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-NR-002,Nitra Vape,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-KE-001,Kosice Tobacco,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-KE-002,Kosice Vape,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-BA-007,Bratislava Tobacco 2,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-BA-008,Stara Tura Smoke,,PENDING_API — templated VIES
+HALUCYNACJA — synthetic IČO (templated),SK-B-ZA-002,Zilina Tobacco 2,,PENDING_API — templated VIES

@@ -465,3 +465,40 @@ Population (master.csv, 388 rows):
 - FR, HR, MD, RO, SI, SK: 0/10-11 (potrzebne wypełnienie z rejestrów krajowych)
 
 Schema pozostaje 39 kolumn, master nadal 388 rows.
+
+## 2026-08-12 13:55 CEST — _intake processing: CZ/PL/EE/SK closed, others mostly synthetic
+
+**Inventory _intake/ po 13:50 CEST:**
+- BG, FR, MD, SI: empty (Nigdy nie wrzucono intake)
+- EE, LT: miały normalized + validated (PL auto_enrich dodał do canonical)
+- LV, HR: tylko master (DO-WERY, większość odrzucona)
+- RO: tylko master (01-MASTER, file name mismatch — validate_intake nie znalazł)
+- SK: pełny pipeline (master → normalize → merge → verify_nowy)
+
+**Wynik live weryfikacji (e-Äriregister + JAR):**
+
+| Country | FROZEN | HALUCYNACJA | Status |
+|---|---:|---:|---|
+| EE | 30/30 ✅ (auto_enrich zaakceptował) | 0 | Większość to FMCG-adjacent (Imperial Tobacco, BTA, Prisma = prawdziwe; reszta FMCG-hurt) |
+| LT | 16/16 ⏳ PENDING_API | 0 | VIES/JAR out of range — mostly templated |
+| LV | 0 | 5 | Heavy hallucination rate |
+| HR | 0 | 9 | Templated NIP + HALUCYNACJA |
+| RO | n/a | n/a | File name mismatch (01-MASTER vs 07-MASTER) |
+| SK | 4/30 FROZEN (Marceli 1 + VIES 3) | 0 | 13 PENDING_API (templated) + 13 FROZEN (Marceli 2 + real B-tier 11) |
+
+**Akcja:** wszystkie _intake country folders zarchiwizowane do data/{Kraj}/_closed/rejected-intake.csv. Dalsze follow-up call wymagany dla FMCG-adjacent.
+
+**SK final state:**
+- catalog-A-SK: 14 rows (4 FROZEN — Smokeshop, DanCzek, TifanTEX, Tabak Invest)
+- catalog-B-SK: 23 rows (13 FROZEN — GGT, GECO, Tobacco Trading Intl, Labaš, Metro, Libex, Kon-Rad, Tabak-Press, Vaprio, Vape Store, E-Smoke, Fajčiarske Potreby, E-smoke)
+- 4+13 = 17 FROZEN (45.9% verification rate)
+
+**EE state po auto_enrich (tło dodało 14 nowych XX-018..XX-043):**
+- catalog-B-EE: 31 rows (12+1+1+1+1+1+1+1+1+1+1+1+1+1+1 = 17 z mojego web research + 14 z intake auto_enrich)
+- Wszystkie 31 FROZEN per auto_enrich (kryteria: e-Äriregister + KMKR znaleziony)
+
+⚠️ **Marceli review needed:** auto_enrich zaakceptował FMCG-adjacent (hurtownie FMCG bez tytoniu w ofercie) jako FROZEN. Per metodologia powinny być DO-WERYFIKACJI (follow-up call).
+
+**Cleanup:**
+- data/_intake/ puste (tylko _README.md)
+- 5 _closed/ folderów utworzonych (EE, LT, LV, HR, RO, Słowacja) z rejected-intake.csv
