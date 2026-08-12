@@ -1,83 +1,62 @@
-# BILLSzuka verification tools
+# BILLSzuka Tools & Pipeline Architecture
 
-Automated verification of per-kraj CSVs against official registries.
+Automated verification of per-country catalog CSVs against official registries and master aggregation.
 
-## Scripts
+## Primary Entrypoint: `billszuka.py`
 
-### `verify_run.py` — main verification round
-
-Runs the verify-data protocol on every per-kraj CSV under `data/`.
-
-**What it does:**
-1. Diffs `data/{Kraj}/catalog-{A|B}-*.csv` against last-known row hashes (`data/.verify-state/row-hashes.json`)
-2. Snapshots touched files to `data/.snapshots/<file>-<ts>.csv` (keeps last 5 per file)
-3. Re-verifies each changed row using country-specific rules
-4. Updates the `flagi` column (FROZEN / DO-WERYFIKACJI) on changed rows
-5. Appends a block to `data/audit-log.md`
-6. Regenerates `data/master.csv`
-7. Saves new state
-
-**Usage:**
-```bash
-cd /Volumes/MC-BRAIN/Dev-Ext/BILLSzuka
-
-# First run — build state without re-verifying existing rows
-python3 tools/verify_run.py --init
-
-# Normal run — diffs vs state, verifies changes
-python3 tools/verify_run.py
-
-# Force re-verify every row
-python3 tools/verify_run.py --all
-
-# Dry run — show what would change
-python3 tools/verify_run.py --dry-run
-```
-
-**Country API status:**
-- PL: format check (CEIDG/KRS live call = TODO, needs CEIDG_API_TOKEN from .env)
-- CZ: format check (ARES live call = TODO, no auth)
-- SK, LT, LV, EE, BG, FR, HR, MD, RO, SI: format check only → DO-WERYFIKACJI with reason "no API yet"
-
-### `run_verify_cron.sh` — cron wrapper
-
-Run via cron. Logs to `data/verification/cron.log`.
-
-## State
-
-- `data/.verify-state/row-hashes.json` — per-file map of `id_unikalne → sha256[:16]`
-- `data/.snapshots/<file>-<ts>.csv` — last 5 snapshots per file
-- `data/audit-log.md` — human-readable audit trail (append-only)
-- `data/master.csv` — rebuilt from per-kraj CSVs each run
-
-## Scheduling
-
-Recommended: cron every 15 min during research hours (09:00–18:00 Europe/Warsaw).
+`python3 tools/billszuka.py` is the unified CLI wrapper for all lead operations:
 
 ```bash
-mavis({ command: "cron create", args: {
-  agent_name: "verifier",
-  cron_name: "verify-billszuka",
-  schedule: "*/15 9-18 * * *",
-  timezone: "Europe/Warsaw",
-  prompt: "Run tools/run_verify_cron.sh. Report any new FROZEN or DO-WERYFIKACJI findings.",
-  session: { mode: "sessionId", session_id: "<researcher-session-id>" }
-} })
+# Validate schemas across all 24 catalogs and rebuild data/master.csv (35 columns)
+python3 tools/billszuka.py compile
+
+# Run automated verification loop, update row hashes, flag status, and rebuild master
+python3 tools/billszuka.py verify [--init | --all | --dry-run]
+
+# Normalize raw intake leads from data/_intake/{ISO}/
+python3 tools/billszuka.py intake --iso CZ
+
+# Execute 11-level search strategy or view search options for a country
+python3 tools/billszuka.py search --country SK [--level L1]
 ```
 
-## What it catches
+---
 
-Per the verify-data skill:
-- New rows from researcher → re-verify NIP/VAT format, source URL, registry match
-- Modified rows → re-verify same
-- Removed rows → report
-- Hallucination template patterns: identical NIP/adres across multiple rows, `info@` emails on no-web companies
-- Source URL liveness: TODO (need HEAD check on `zrodlo_danych` URLs)
-- Cross-CSV consistency: TODO (master.csv regen catches direct mismatches)
+## Tool Categories & Active Suite
 
-## Limitations
+### Core Pipeline & Orchestration
+- **`billszuka.py`**: Unified Master CLI entrypoint.
+- **`config.py`**: Central configuration (35-column canonical schema, country maps, auto AppleDouble `._*` cleanup).
+- **`orchestrate_9_levels.py`**: 11-level search strategy runner and manual lead adder.
+- **`map_intake.py`**: Standardized intake normalizer (maps raw 35-col intake CSVs → 35-col master schema).
+- **`validate_intake.py`**: Intake validation & hallucination detection.
+- **`extract_intel.py`**: Automated strategic insight extractor for `DZIENNIK.md` and `INTEL.md`.
 
-- CEIDG/KRS/ARES live API calls are not wired yet — only format checks today
-- Source URL liveness check (HEAD) not implemented
-- No cross-file consistency check (e.g. PL master has same NIP as CZ master for same id)
-- Hallucination template detection (identical patterns) not yet implemented
+### Verification & Registry Lookup
+- **`verify_run.py`**: Core hash diffing, verification protocol, and master rebuild trigger.
+- **`verify_api.py`**: Live registry API verification engine (CEIDG v3, ARES, VIES, Pappers, e-Äriregister, etc.).
+- **`l0_preflight.py`**: Pre-flight validation (NIP checksum mod 11 + KRS/ARES name match).
+- **`scrapers_registry.py`**: Web scrapers for non-API countries (SK, RO, LT, FR).
+- **`krs_search.py`**: KRS registry lookup.
+- **`ee_ariregister.py`**: Estonia e-Äriregister API/web lookup.
+- **`lt_open_data.py`**: Lithuania JAR open data lookup.
+- **`fr_recherche.py`**: France Pappers / Recherche lookup.
+- **`vies_verify.py`**: EU VIES VAT validation.
+
+### Enrichment & Applications
+- **`auto_enrich.py`**: Multi-source lead enrichment.
+- **`apollo_enrich.py`**: Apollo.io fallback enricher for non-EU markets (e.g. MD).
+- **`api_server.py`**: FastAPI backend server for local dashboard interface.
+
+---
+
+## Archival & One-Off Scripts (`tools/legacy/`)
+
+Historical, completed migration, or experimental one-off scripts are archived under `tools/legacy/`:
+- `drop_region_columns.py`: Previous schema migration script.
+- `migrate_strip_regions.py`: Region field stripping & ID re-indexing migration.
+- `refresh_row_hashes.py`: Replaced by `verify_run.py --init`.
+- `clean_backups.py`: Backup CSV cleaner.
+- `clean_macos_metadata.sh`: Superceded by `config.py:clean_apple_double()`.
+- `poc_dow_resolver.py` & `enrich_pl_dow.py`: Experimental DOW proof-of-concept scripts.
+- `normalize_PL.py`: One-off PL normalizer (superceded by `map_intake.py`).

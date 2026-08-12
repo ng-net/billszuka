@@ -39,6 +39,9 @@
 | ⚡ | Weryfikacja automatyczna: 80/349 (22.9%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 349 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 | ✅ | **PL closure** — 65/235 (27.7%) PL firm FROZEN, research ZAMKNIĘTY 2026-08-12. Kolejny kraj: CZ. | Strategiczny |
+| ⚡ | Przetworzono 143 firmy w 12 krajach europejskich z automatyczną dedupikacją i jakościowym scoring... | Pipeline |
+| ⚡ | Dodano skrapowanie rejestrów SK (FinStat), RO (ListaFirme), LT (Rekvizitai) oraz FR (Pappers). | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 139/459 (30.3%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 
 ---
 

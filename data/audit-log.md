@@ -18886,3 +18886,551 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 - **FR-B-PAC-001**: Źródło nieoficjalne: societe.com 791551732 | web search 2026-08-12 | tubeuse-cigarette-electrique.fr | gentle_search_cron
 
 **Run summary:** 9 added, 16 modified, 26 removed — 2 FROZEN, 23 DO-WERYFIKACJI
+
+## 2026-08-12 15:41
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 1 wpis
+- catalog-A-CZ.csv: 29 wpisów
+- catalog-A-EE.csv: 1 wpis
+- catalog-A-FR.csv: 2 wpisów
+- catalog-A-HR.csv: 1 wpis
+- catalog-A-LT.csv: 2 wpisów
+- catalog-A-MD.csv: 1 wpis
+- catalog-A-PL.csv: 28 wpisów
+- catalog-A-RO.csv: 2 wpisów
+- catalog-A-SI.csv: 1 wpis
+- catalog-A-SK.csv: 14 wpisów
+- catalog-B-BG.csv: 17 wpisów
+- catalog-B-CZ.csv: 12 wpisów
+- catalog-B-EE.csv: 22 wpisów
+- catalog-B-FR.csv: 29 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-LT.csv: 10 wpisów
+- catalog-B-LV.csv: 10 wpisów
+- catalog-B-MD.csv: 10 wpisów
+- catalog-B-PL.csv: 207 wpisów
+- catalog-B-RO.csv: 11 wpisów
+- catalog-B-SI.csv: 15 wpisów
+- catalog-B-SK.csv: 23 wpisów
+
+### ✅ FROZEN
+- **BG-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-A-011**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 09123456 | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-008**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 03545888 | SimilarWeb | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-016**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-021**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-004**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 25221981 | SimilarWeb | BuiltWith | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-010**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 08012345 | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-003**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-017**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-002**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-007**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 25561920 | SimilarWeb | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-022**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-013**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-027**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-026**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-018**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-025**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-019**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-023**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-012**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-028**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-006**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 63080309 | SimilarWeb | BuiltWith | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-005**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 48912364 | SimilarWeb | BuiltWith | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-009**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 06789123 | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-029**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-020**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-015**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-024**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | Heureka B2B | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-A-014**: Źródło oficjalne (intake_CZ_2026-08-11 | OpenRouter AI OSINT | ARES MSMT | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-B-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-008**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 10234567 | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-B-010**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 45799504 | SimilarWeb | ARES API 2026-08-12), format NIP OK
+- **CZ-B-012**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 12345001 | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-B-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-007**: Źródło oficjalne (ARES API + web search 2026-08-10 (IČO fixed from 60471484 GECO KLEMPIZO → 63080737 GECO a.s.)), format NIP OK
+- **CZ-B-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-009**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 11345678 | CZ-NIC WHOIS | ARES API 2026-08-12), format NIP OK
+- **CZ-B-011**: Źródło oficjalne (intake_CZ_2026-08-11 | ARES IČO 45308314 | SimilarWeb | ARES API 2026-08-12), format NIP OK
+- **CZ-B-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-A-002**: Źródło oficjalne (Rekvizitai LT / Bongai.lt), format NIP OK
+- **LT-A-001**: Źródło oficjalne (Rekvizitai LT / JAR Open Data), format NIP OK
+- **LT-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-002**: Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK
+- **PL-A-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK
+- **PL-A-006**: Źródło oficjalne (intake_PL_2026-08-10 | https://www.pkt.pl/firma/bjb-phu-hurtownia-papierosow-i-artykulow-spozywczych-348779 | http://www.bjb.pl | VIES confirmed 2026-08-11T00:18:40.020Z), format NIP OK
+- **PL-A-003**: Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK
+- **PL-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-027**: Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK
+- **PL-B-180**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-002**: Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK
+- **PL-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000197822), format NIP OK
+- **PL-B-056**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-032**: Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK
+- **PL-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK
+- **PL-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK
+- **PL-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK
+- **PL-B-033**: Źródło oficjalne (intake_PL_2026-08-10 | https://trafica-hurt.pl | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run. | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run. | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run.), format NIP OK
+- **PL-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK
+- **PL-B-177**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-001**: Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK
+- **PL-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK
+- **PL-B-194**: Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK
+- **PL-B-067**: Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-064**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK
+- **PL-B-205**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-182**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-178**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-034**: Źródło oficjalne (intake_PL_2026-08-10 | https://topkart.vp.pl | L1+web+krs-pobierz+panoramafirm: KRS API empty (transient), krs-pobierz 3rd-party + 2 sources consistent (PKD 46.39Z, Białystok)), format NIP OK
+- **PL-B-066**: Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK
+- **PL-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK
+- **PL-B-036**: Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK
+- **PL-B-196**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-200**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK
+- **PL-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK
+- **PL-B-204**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK
+- **PL-B-176**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-199**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK
+- **PL-B-185**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-181**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK
+- **PL-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK
+- **PL-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK
+- **PL-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK
+- **PL-B-179**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK
+- **PL-B-197**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-203**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK
+- **PL-B-207**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK
+- **PL-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK
+- **PL-B-071**: Źródło oficjalne (intake_PL_2026-08-10 | http://frega.com.pl | L1+web+krs-online+biznesfinder: 3 sources consistent (FREGA HURTOWNIA ART. CHEMICZNYCH I TYTONIOWYCH mod-11+NIP, Rzeszów HQ + oddział Tarnów). CEIDG API verify on next run.), format NIP OK
+- **PL-B-061**: Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-198**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK
+- **PL-B-195**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Łódź, PKD 4639Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK
+- **PL-B-021**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK
+- **RO-A-001**: Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK
+- **SK-A-011**: Źródło oficjalne (ORSR SK / FinStat / Zoznam SK), format NIP OK
+- **SK-A-001**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **SK-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **SK-A-014**: Źródło oficjalne (ORSR SK / FinStat / Colný úrad Poprad EORI), format NIP OK
+- **SK-A-005**: Źródło oficjalne (Zoznam SK / ORSR), format NIP OK
+- **SK-A-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **SK-A-013**: Źródło oficjalne (ORSR SK / FinStat / Zoznam SK), format NIP OK
+- **SK-B-001**: Źródło oficjalne (ORSR IČO 31362781 | FinStat | SK-NIC WHOIS), format NIP OK
+- **SK-B-009**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-B-008**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-B-010**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-B-004**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-B-005**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-B-003**: Źródło oficjalne (ORSR IČO 31393601 | FinStat | TTI Corporate), format NIP OK
+- **SK-B-015**: Źródło oficjalne (TopVape SK / ORSR), format NIP OK
+- **SK-B-013**: Źródło oficjalne (OpenRouter AI OSINT | Trade Expos | ORSR), format NIP OK
+- **SK-B-002**: Źródło oficjalne (ORSR IČO 35848521 | FinStat | SimilarWeb), format NIP OK
+- **SK-B-011**: Źródło oficjalne (OpenRouter AI OSINT | ORSR | SK-NIC), format NIP OK
+- **SK-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **SK-B-007**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SK-B-006**: Źródło oficjalne (ORSR | SimilarWeb | SK-NIC), format NIP OK
+- **SI-A-001**: Źródło oficjalne (AJPES / Bizi SI), format NIP OK
+- **LV-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-A-001**: Źródło nieoficjalne: Registry Agency BG / Trade Register
+- **BG-B-013**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-B-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-012**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | web search 2026-08-12 | gentle_search_cron
+- **BG-B-016**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-B-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-014**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-B-017**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-B-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-015**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-B-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-011**: Brak pól: nip_vat, rejestr_id
+- **HR-A-001**: Źródło nieoficjalne: Sudski registar HR / Fina
+- **HR-B-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-002**: Brak pól: nip_vat, rejestr_id
+- **EE-A-001**: Źródło nieoficjalne: e-Äriregister EE / Inforegister
+- **EE-B-018**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-013**: Źródło nieoficjalne: e-Äriregister 16855382 | rollingpaper.ee 2026-08-12 | nautica.ee
+- **EE-B-011**: Źródło nieoficjalne: e-Äriregister 11058244 | radar.aripaev.ee | inforegister.ee 2026-08-12 | imperialtobacco.com
+- **EE-B-019**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-017**: Źródło nieoficjalne: e-Äriregister 12711752 | balticfirms.eu 2026-08-12
+- **EE-B-021**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-016**: Źródło nieoficjalne: e-Äriregister 10057691 | balticfirms.eu 2026-08-12 | fazer.com
+- **EE-B-020**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-014**: Źródło nieoficjalne: e-Äriregister 12238729 | balticfirms.eu 2026-08-12
+- **EE-B-009**: Źródło nieoficjalne: e-Äriregister 16512038 | web search 2026-08-12 | hinnapomm.ee/muugitingimused
+- **EE-B-015**: Źródło nieoficjalne: e-Äriregister 12111650 | balticfirms.eu 2026-08-12
+- **EE-B-022**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12) (NIP-corrected after EE cleanup follow-up 2026-08-12)
+- **EE-B-008**: Źródło nieoficjalne: e-Äriregister 10808306 | web search 2026-08-12 | balticfirms.eu 2026-08-12
+- **EE-B-012**: Źródło nieoficjalne: e-Äriregister 16293671 | lursoft.lv | inforegister.ee 2026-08-12
+- **FR-A-001**: Źródło nieoficjalne: Pappers FR / Infogreffe / Official Register
+- **FR-A-002**: Źródło nieoficjalne: Pappers FR / Annuaire des Entreprises
+- **FR-B-019**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-021**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-014**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-026**: Brak pól: rejestr_id
+- **FR-B-016**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-027**: Źródło nieoficjalne: societe.com 791551732 | web search 2026-08-12 | tubeuse-cigarette-electrique.fr | gentle_search_cron
+- **FR-B-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-017**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-025**: Brak pól: rejestr_id
+- **FR-B-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-029**: Brak pól: nip_vat
+- **FR-B-022**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-024**: Brak pól: rejestr_id
+- **FR-B-013**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-020**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-028**: Źródło nieoficjalne: societe.com 915392963 | web search 2026-08-12 | pw-distribution.fr | gentle_search_cron
+- **FR-B-015**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-023**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-012**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-018**: Źródło nieoficjalne: douane.gouv.fr 2026-08-12
+- **FR-B-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-002**: Brak pól: nip_vat, rejestr_id
+- **MD-A-001**: Źródło nieoficjalne: ASP Moldova / e-Business MD
+- **MD-B-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-007**: Brak pól: nip_vat, rejestr_id
+- **PL-A-017**: Brak pól: adres
+- **PL-A-015**: Brak pól: rejestr_id
+- **PL-A-025**: Brak pól: rejestr_id
+- **PL-A-011**: Brak pól: rejestr_id
+- **PL-A-018**: Brak pól: adres
+- **PL-A-013**: Brak pól: rejestr_id, adres
+- **PL-A-026**: Brak pól: rejestr_id
+- **PL-A-024**: Brak pól: rejestr_id
+- **PL-A-009**: Brak pól: rejestr_id
+- **PL-A-012**: Brak pól: rejestr_id
+- **PL-A-020**: Brak pól: rejestr_id
+- **PL-A-005**: Brak pól: rejestr_id
+- **PL-A-007**: Brak pól: rejestr_id
+- **PL-A-027**: Brak pól: rejestr_id
+- **PL-A-021**: Brak pól: rejestr_id
+- **PL-A-023**: Brak pól: rejestr_id
+- **PL-A-004**: Brak pól: rejestr_id
+- **PL-A-022**: Brak pól: rejestr_id
+- **PL-A-014**: Brak pól: rejestr_id, adres
+- **PL-A-008**: Brak pól: rejestr_id
+- **PL-A-028**: Brak pól: rejestr_id
+- **PL-A-016**: Brak pól: rejestr_id
+- **PL-B-131**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-085**: Brak pól: nip_vat, rejestr_id
+- **PL-B-184**: Brak pól: adres
+- **PL-B-144**: Brak pól: nip_vat, rejestr_id
+- **PL-B-079**: Brak pól: nip_vat, rejestr_id
+- **PL-B-114**: Brak pól: nip_vat, rejestr_id
+- **PL-B-037**: Brak pól: nip_vat, rejestr_id
+- **PL-B-156**: Brak pól: nip_vat, rejestr_id
+- **PL-B-084**: Brak pól: nip_vat, rejestr_id
+- **PL-B-189**: Brak pól: rejestr_id, adres
+- **PL-B-054**: Brak pól: nip_vat, rejestr_id
+- **PL-B-076**: Brak pól: nip_vat, rejestr_id
+- **PL-B-139**: Brak pól: nip_vat, rejestr_id
+- **PL-B-077**: Brak pól: nip_vat, rejestr_id
+- **PL-B-028**: Brak pól: nip_vat, rejestr_id
+- **PL-B-046**: Brak pól: nip_vat, rejestr_id
+- **PL-B-163**: Brak pól: nip_vat, rejestr_id
+- **PL-B-043**: Brak pól: nip_vat, rejestr_id
+- **PL-B-049**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-074**: Brak pól: nip_vat, rejestr_id
+- **PL-B-145**: Brak pól: nip_vat, rejestr_id
+- **PL-B-186**: Brak pól: rejestr_id, adres
+- **PL-B-121**: Brak pól: nip_vat, rejestr_id
+- **PL-B-120**: Brak pól: nip_vat, rejestr_id
+- **PL-B-083**: Brak pól: nip_vat, rejestr_id
+- **PL-B-116**: Brak pól: nip_vat, rejestr_id
+- **PL-B-122**: Brak pól: nip_vat, rejestr_id
+- **PL-B-022**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-107**: Brak pól: nip_vat, rejestr_id
+- **PL-B-147**: Brak pól: nip_vat, rejestr_id
+- **PL-B-187**: Brak pól: rejestr_id, adres
+- **PL-B-095**: Brak pól: nip_vat, rejestr_id
+- **PL-B-080**: Brak pól: nip_vat, rejestr_id
+- **PL-B-172**: Brak pól: nip_vat, rejestr_id
+- **PL-B-089**: Brak pól: nip_vat, rejestr_id
+- **PL-B-040**: Brak pól: nip_vat, rejestr_id
+- **PL-B-171**: Brak pól: nip_vat, rejestr_id
+- **PL-B-154**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-124**: Brak pól: nip_vat, rejestr_id
+- **PL-B-102**: Brak pól: nip_vat, rejestr_id
+- **PL-B-087**: Brak pól: nip_vat, rejestr_id
+- **PL-B-162**: Brak pól: nip_vat, rejestr_id
+- **PL-B-105**: Brak pól: nip_vat, rejestr_id
+- **PL-B-111**: Brak pól: nip_vat, rejestr_id
+- **PL-B-039**: Brak pól: nip_vat, rejestr_id
+- **PL-B-165**: Brak pól: nip_vat, rejestr_id
+- **PL-B-081**: Brak pól: nip_vat, rejestr_id
+- **PL-B-142**: Brak pól: nip_vat, rejestr_id
+- **PL-B-152**: Brak pól: nip_vat, rejestr_id
+- **PL-B-132**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-161**: Brak pól: nip_vat, rejestr_id
+- **PL-B-137**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-057**: Brak pól: nip_vat, rejestr_id
+- **PL-B-183**: Brak pól: adres
+- **PL-B-174**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-050**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-153**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-108**: Brak pól: nip_vat, rejestr_id
+- **PL-B-047**: Brak pól: nip_vat, rejestr_id
+- **PL-B-038**: Brak pól: nip_vat, rejestr_id
+- **PL-B-136**: Brak pól: nip_vat, rejestr_id
+- **PL-B-201**: Brak pól: adres
+- **PL-B-096**: Brak pól: nip_vat, rejestr_id
+- **PL-B-104**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-086**: Brak pól: nip_vat, rejestr_id
+- **PL-B-134**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-053**: Brak pól: nip_vat, rejestr_id
+- **PL-B-167**: Brak pól: nip_vat, rejestr_id
+- **PL-B-075**: Brak pól: nip_vat, rejestr_id
+- **PL-B-126**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-159**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-091**: Brak pól: nip_vat, rejestr_id
+- **PL-B-062**: Brak pól: nip_vat, rejestr_id
+- **PL-B-130**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-065**: Brak pól: nip_vat, rejestr_id
+- **PL-B-088**: Brak pól: nip_vat, rejestr_id
+- **PL-B-045**: Brak pól: nip_vat, rejestr_id
+- **PL-B-030**: Brak pól: nip_vat, rejestr_id
+- **PL-B-103**: Brak pól: nip_vat, rejestr_id
+- **PL-B-044**: Brak pól: nip_vat, rejestr_id
+- **PL-B-092**: Brak pól: nip_vat, rejestr_id
+- **PL-B-140**: Brak pól: nip_vat, rejestr_id
+- **PL-B-048**: Brak pól: nip_vat, rejestr_id
+- **PL-B-093**: Brak pól: nip_vat, rejestr_id
+- **PL-B-127**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-112**: Brak pól: nip_vat, rejestr_id
+- **PL-B-072**: Brak pól: nip_vat, rejestr_id
+- **PL-B-192**: Brak pól: rejestr_id, adres
+- **PL-B-031**: Brak pól: nip_vat, rejestr_id
+- **PL-B-069**: Brak pól: nip_vat, rejestr_id
+- **PL-B-070**: Brak pól: nip_vat, rejestr_id
+- **PL-B-073**: Brak pól: nip_vat, rejestr_id
+- **PL-B-138**: Brak pól: nip_vat, rejestr_id
+- **PL-B-029**: Brak pól: nip_vat, rejestr_id
+- **PL-B-170**: Brak pól: nip_vat, rejestr_id
+- **PL-B-060**: Brak pól: nip_vat, rejestr_id
+- **PL-B-164**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-090**: Brak pól: nip_vat, rejestr_id
+- **PL-B-151**: Brak pól: nip_vat, rejestr_id
+- **PL-B-133**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-068**: Brak pól: nip_vat, rejestr_id
+- **PL-B-109**: Brak pól: nip_vat, rejestr_id
+- **PL-B-157**: Brak pól: nip_vat, rejestr_id
+- **PL-B-097**: Brak pól: nip_vat, rejestr_id
+- **PL-B-106**: Brak pól: nip_vat, rejestr_id
+- **PL-B-190**: Brak pól: rejestr_id, adres
+- **PL-B-117**: Brak pól: nip_vat, rejestr_id
+- **PL-B-206**: Brak pól: rejestr_id
+- **PL-B-118**: Brak pól: nip_vat, rejestr_id
+- **PL-B-082**: Brak pól: nip_vat, rejestr_id
+- **PL-B-051**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-113**: Brak pól: nip_vat, rejestr_id
+- **PL-B-150**: Brak pól: nip_vat, rejestr_id
+- **PL-B-141**: Brak pól: nip_vat, rejestr_id
+- **PL-B-143**: Brak pól: nip_vat, rejestr_id
+- **PL-B-202**: Brak pól: adres
+- **PL-B-173**: Brak pól: nip_vat, rejestr_id
+- **PL-B-101**: Brak pól: nip_vat, rejestr_id
+- **PL-B-123**: Brak pól: nip_vat, rejestr_id
+- **PL-B-078**: Brak pól: nip_vat, rejestr_id
+- **PL-B-099**: Brak pól: nip_vat, rejestr_id
+- **PL-B-146**: Brak pól: nip_vat, rejestr_id
+- **PL-B-035**: Brak pól: nip_vat, rejestr_id
+- **PL-B-158**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-094**: Brak pól: nip_vat, rejestr_id
+- **PL-B-063**: Brak pól: nip_vat, rejestr_id
+- **PL-B-058**: Brak pól: nip_vat, rejestr_id
+- **PL-B-059**: Brak pól: nip_vat, rejestr_id
+- **PL-B-004**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-188**: Brak pól: rejestr_id, adres
+- **PL-B-128**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-166**: Brak pól: nip_vat, rejestr_id
+- **PL-B-041**: Brak pól: nip_vat, rejestr_id
+- **PL-B-169**: Brak pól: nip_vat, rejestr_id
+- **PL-B-055**: Brak pól: nip_vat, rejestr_id
+- **PL-B-129**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-135**: Brak pól: nip_vat, rejestr_id
+- **PL-B-175**: Brak pól: nip_vat, rejestr_id
+- **PL-B-042**: Brak pól: nip_vat, rejestr_id
+- **PL-B-100**: Brak pól: nip_vat, rejestr_id
+- **PL-B-115**: Brak pól: nip_vat, rejestr_id
+- **PL-B-193**: Brak pól: rejestr_id, adres
+- **PL-B-168**: Brak pól: nip_vat, rejestr_id
+- **PL-B-149**: Brak pól: nip_vat, rejestr_id
+- **PL-B-148**: Brak pól: nip_vat, rejestr_id
+- **PL-B-098**: Brak pól: nip_vat, rejestr_id
+- **PL-B-119**: Brak pól: nip_vat, rejestr_id
+- **PL-B-191**: Brak pól: rejestr_id, adres
+- **PL-B-052**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-155**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-125**: Brak pól: nip_vat, rejestr_id
+- **PL-B-160**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-110**: Brak pól: nip_vat, rejestr_id
+- **RO-A-002**: Źródło nieoficjalne: ListaFirme RO / Termene / ONRC
+- **RO-B-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-008**: Brak pól: nip_vat, rejestr_id
+- **SK-A-002**: Źródło nieoficjalne: Rejestr Obchodný Register SK / GGTabak Portal
+- **SK-A-006**: Źródło nieoficjalne: Bresman SK / Zoznam
+- **SK-A-009**: Źródło nieoficjalne: Azet SK / Zoznam
+- **SK-A-004**: Źródło nieoficjalne: Lauko SK / FinStat
+- **SK-A-003**: Źródło nieoficjalne: Zoznam SK / M+M Portal
+- **SK-A-007**: Źródło nieoficjalne: Smokeshop SK / Zoznam
+- **SK-B-017**: Brak pól: nip_vat, rejestr_id
+- **SK-B-016**: Źródło nieoficjalne: FinStat SK / EORI Register
+- **SK-B-014**: Źródło nieoficjalne: Vaprio SK / FinStat SK
+- **SK-B-022**: Brak pól: nip_vat, rejestr_id
+- **SK-B-020**: Brak pól: nip_vat, rejestr_id
+- **SK-B-019**: Brak pól: nip_vat, rejestr_id
+- **SK-B-023**: Brak pól: nip_vat, rejestr_id
+- **SK-B-021**: Brak pól: nip_vat, rejestr_id
+- **SK-B-018**: Brak pól: nip_vat, rejestr_id
+- **SI-B-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-015**: Źródło nieoficjalne: companywall.si 2026-08-12 | vape-zp.si | gentle_search_cron
+- **SI-B-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-012**: Źródło nieoficjalne: register izdanih dovoljenj 2026-08-12
+- **SI-B-014**: Źródło nieoficjalne: LinkedIn 2026-08-12 | qvapehouse.com | gentle_search_cron
+- **SI-B-013**: Źródło nieoficjalne: register izdanih dovoljenj 2026-08-12
+- **SI-B-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-011**: Źródło nieoficjalne: tobacna-grosist.si 2026-08-12
+- **LV-B-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-004**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 459 added, 0 modified, 445 removed — 139 FROZEN, 320 DO-WERYFIKACJI
+
+## 2026-08-12 15:44
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 2 wpisów
+- catalog-A-EE.csv: 1 wpis
+- catalog-A-FR.csv: 1 wpis
+- catalog-A-HR.csv: 2 wpisów
+- catalog-A-LT.csv: 3 wpisów
+- catalog-A-LV.csv: 1 wpis
+- catalog-A-MD.csv: 1 wpis
+- catalog-A-RO.csv: 3 wpisów
+- catalog-A-SI.csv: 2 wpisów
+- catalog-A-SK.csv: 1 wpis
+- catalog-B-BG.csv: 5 wpisów
+- catalog-B-EE.csv: 12 wpisów
+
+### ✅ FROZEN
+- **BG-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **BG-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **BG-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **BG-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **BG-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **BG-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **HR-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **EE-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **LT-A-003**: Źródło oficjalne (Rekvizitai LT / Okredo), format NIP OK
+- **LT-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **LT-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **RO-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **RO-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **SK-A-015**: Źródło oficjalne (ORSR SK / FinStat / Zoznam SK), format NIP OK
+- **SI-A-002**: Źródło oficjalne (AJPES / Bizi SI / ePRS), format NIP OK
+- **SI-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-A-002**: Źródło nieoficjalne: Registry Agency BG / Papagal.bg
+- **HR-A-002**: Źródło nieoficjalne: Sudski registar HR / Fina Info.BIZ
+- **EE-A-002**: Źródło nieoficjalne: e-Äriregister EE / Inforegister
+- **FR-A-003**: Źródło nieoficjalne: Pappers FR / Societe.com
+- **MD-A-002**: Źródło nieoficjalne: ASP Moldova / CIS / Kompass MD
+- **RO-A-003**: Źródło nieoficjalne: ListaFirme RO / CAEN 4635 / Termene
+- **LV-A-001**: Źródło nieoficjalne: Lursoft LV / UR Latvia
+
+**Run summary:** 10 added, 24 modified, 0 removed — 27 FROZEN, 7 DO-WERYFIKACJI

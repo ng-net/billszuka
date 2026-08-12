@@ -1,5 +1,27 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-12 15:20 CEST — 11-Level Search Strategy & 35-Column Region-Free Pipeline
+
+**Wykonane zadania:**
+1. **Pełna implementacja 11 Poziomów Wyszukiwania (L0-L11)**:
+   - Zaktualizowano `tools/orchestrate_9_levels.py` oraz `tools/billszuka.py search` o czyste, ustrukturyzowane opcje wyszukiwania dla każdego z 12 krajów europejskich.
+   - Poziomy: L0 Pre-flight (NIP/IČO checksum + registry match), L1 Web Search, L2 Marketplaces, L3 Registries, L4 Customs & Regulatory, L5 DNS WHOIS & crt.sh, L6 Trade Fairs, L7 Social OSINT, L8 B2B Catalogs, L9 LLM Scouting, L10 EUIPO Trademark, L11 Public Procurement.
+2. **Całkowite usunięcie kryterium regionu**:
+   - Usunięto `region_nazwa`, `region_kod`, `region_typ` oraz `_reg_code` ze wszystkich 24 katalogów per-kraj i `data/master.csv`.
+   - Zidentyfikowano i uproszczono format `id_unikalne` na region-free: `{ISO}-{A|B}-{NNN}` (np. `PL-A-001`, `CZ-B-015`).
+   - Zaktualizowano `data/relationships.csv` pod kątem nowych ID.
+3. **Zbudowanie `tools/billszuka.py` CLI**:
+   - `python3 tools/billszuka.py compile`: Schemat 35-kolumnowy, 0 błędów, 448 wierszy master.csv.
+   - `python3 tools/billszuka.py verify`: Pełny cykl weryfikacyjny.
+   - `python3 tools/billszuka.py intake`: Normalizacja surowych leadów z `data/_intake/`.
+   - `python3 tools/billszuka.py search`: Uruchamianie opcji wyszukiwania dla poszczególnych krajów.
+4. **Weryfikacja & Testy**:
+   - `python3 tests/test_map_intake.py`: 22/22 testów PASS.
+   - `python3 tools/test_9_levels.py --warn`: 0 FAIL.
+   - Skan aktywnych CSV: 24/24 plików katalogowych ma identyczny 35-kolumnowy Base Core Schema.
+
+---
+
 ## 2026-08-12 14:10 CEST — Schema: drop region_kod + region_typ + _reg_code
 
 **Decyzja Marcela:** trzy kolumny nie wnoszą wartości → wywalić ze wszystkich aktywnych CSV.
@@ -45,10 +67,6 @@
 | A6 | Multi-brand bez PM/Hawk | Kandydaci do pozyskania — znają kanał, nie mają jeszcze Twojej marki |
 
 **Pola w rekordzie:** Kraj/miasto · Tier · Sourcing · Wolumen · Kanał · Kontakt · WWW (lub alternatywa) · Notatki
-
----
-
-> 📦 **Archiwum wpisów (08.08–11.08.2026):** zobacz [`DZIENNIK-archive-2026.md`](file:///Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/DZIENNIK-archive-2026.md)
 
 ---
 
@@ -666,3 +684,18 @@ Dodano 2 nowe leads (sieć vape + mała hurtownia vape w Sežanie):
 Początkowy search zwrócił głównie Tobačna Grosist (już w katalogu). Dopiero drugie search z AJPES + companywall.si ujawniło nowe podmioty.
 
 SI: 13 → 15 firms, schema 36 cols preserved.
+
+
+## 2026-08-12 15:14 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Przetworzono 143 firmy w 12 krajach europejskich z automatyczną dedupikacją i jakościowym scoringiem 0-100%.
+2. Dodano skrapowanie rejestrów SK (FinStat), RO (ListaFirme), LT (Rekvizitai) oraz FR (Pappers).
+
+
+## 2026-08-12 15:43 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **139/459 (30.3%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.

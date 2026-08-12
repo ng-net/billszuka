@@ -50,26 +50,11 @@ MASTER_CSV = DATA / "master.csv"
 # "No module named 'tools'" while doing nothing — see git log for the
 # incident on 2026-08-10.
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tools"))
 
-# Canonical country order for master.csv concatenation. Mirrors the
-# methodology.md sequence: PL → CZ → DE → SK → UK → Western EU → Scandinavia
-# → Balkans. DE / UK / Western EU / Scandinavia are not active yet, so
-# they are omitted. When you add a new country directory, append it here
-# and update methodology.md.
-COUNTRY_ORDER: list[str] = [
-    "Polska",
-    "Czechy",
-    "Bułgaria",
-    "Chorwacja",
-    "Estonia",
-    "Francja",
-    "Litwa",
-    "Łotwa",
-    "Mołdawia",
-    "Rumunia",
-    "Słowacja",
-    "Słowenia",
-]
+from config import CANONICAL_SCHEMA, COUNTRY_MAP, COUNTRY_ORDER as CONF_COUNTRY_ORDER
+
+COUNTRY_ORDER: list[str] = [COUNTRY_MAP[iso] for iso in CONF_COUNTRY_ORDER]
 
 # Per the verify-data skill
 FROZEN_REQUIRED = ["nazwa_firmy", "nip_vat", "rejestr_id", "adres", "zrodlo_danych"]

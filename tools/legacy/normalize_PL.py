@@ -23,21 +23,12 @@ import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
 
-ROOT = Path("/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka")
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
 INTAKE = ROOT / "data/_intake/PL"
 SOURCE = INTAKE / "source.csv"
 
-# 37-col schema (kanoniczny)
-SCHEMA = [
-    "region_kod", "region_nazwa", "region_typ", "related_to", "rok_zalozenia",
-    "id_unikalne", "kategoria", "nazwa_firmy", "kraj", "miasto", "adres",
-    "nip_vat", "rejestr_id", "www", "kanal_zamiennik", "email", "telefon",
-    "linkedin", "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
-    "marka_wlasna_oem", "sourcing", "wolumen", "confidence_wolumen",
-    "kanal_sprzedaży", "powinowactwo_nabijarki", "cross_sell_potential",
-    "decydent", "stanowisko", "email_decydent", "zrodlo_danych",
-    "data_weryfikacji", "flagi", "notatki", "rynek_skala",
-]
+from config import CANONICAL_SCHEMA as SCHEMA, make_id
 
 # Województwo → region_kod (NUTS-2 zgodnie z decyzją: LB=lubuskie, LU=lubelskie)
 WOJ_TO_KOD = {
@@ -352,13 +343,11 @@ def normalize_row(r, idx):
 
 
 def assign_ids(rows_a, rows_b, existing_ids):
-    """Assign id_unikalne in format PL-A-{REGION}-{NNN} or PL-B-{REGION}-{NNN}."""
-    counters = defaultdict(int)
-    for r in rows_a + rows_b:
-        kod = r["region_kod"] or "XX"
-        cat = r["kategoria"][0]  # A or B
-        counters[(cat, kod)] += 1
-        r["id_unikalne"] = f"PL-{cat}-{kod}-{counters[(cat, kod)]:03d}"
+    """Assign id_unikalne in format PL-A-{NNN} or PL-B-{NNN}."""
+    for i, r in enumerate(rows_a, 1):
+        r["id_unikalne"] = f"PL-A-{i:03d}"
+    for i, r in enumerate(rows_b, 1):
+        r["id_unikalne"] = f"PL-B-{i:03d}"
 
 
 def dedupe(rows):

@@ -32,28 +32,19 @@ Foldery nazwane po polsku (Polska, Czechy…) — kody ISO w nazwach plików CSV
 
 ## master.csv + relationships.csv
 
-`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id_unikalne` w formacie `{KOD}-{A|B}-{REGION_KOD}-{NNN}`. Przebudowa po każdej edycji per-kraj (komenda w `skills/verify-data/SKILL.md`).
+`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id_unikalne` w formacie `{KOD}-{A|B}-{NNN}` (np. `PL-A-001`, `CZ-B-012`). Przebudowa po każdej edycji per-kraj (`python3 tools/billszuka.py compile`).
 
 `data/relationships.csv` = graf relacji (krawędzie). Schemat: `from_id,to_id,relation_type,direction,evidence,verified_date,notes`. Patrz DZIENNIK.md → Relacje.
 
 Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
-Kody regionów per kraj: patrz DZIENNIK.md → REGION (16 PL, pozostałe kraje na bieżąco).
 
-`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id_unikalne` w formacie `{KOD}-{A|B}-{REGION_KOD}-{NNN}`. Przebudowa po każdej edycji per-kraj (komenda w `skills/verify-data/SKILL.md`).
-
-Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
-Kody regionów per kraj: patrz DZIENNIK.md → REGION (16 PL, pozostałe kraje na bieżąco).
-
-## Schemat kolumn (unifikowany A i B)
+## Schemat kolumn (unifikowany A i B — 35 kolumn)
 
 | Kolumna | Typ | Opis |
 |---|---|---|
-| `region_kod` | 2-liter | Kod regionu w ID (np. `WP`, `PR`, `KA`). Patrz DZIENNIK.md → REGION. |
-| `region_nazwa` | str | Lokalna nazwa regionu (np. `wielkopolskie`, `Hlavní město Praha`) |
-| `region_typ` | str | Typ jednostki adm. (np. `województwo`, `kraj`, `apskritis`) |
 | `related_to` | str | ID firm powiązanych po przecinku (sister firms, sukcesja, pokolenie). |
 | `rok_zalozenia` | YYYY | Rok rejestracji (KRS/CEIDG). Wiek = bieżący rok − rok. |
-| `id_unikalne` | str | `{KOD}-{A\|B}-{REGION_KOD}-{NNN}`, np. `PL-A-WP-001`, `CZ-B-PR-012` |
+| `id_unikalne` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001`, `CZ-B-012` |
 | `kategoria` | enum | A1-A6 lub B1-B9 |
 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
 | `kraj` | ISO2 | Dwuliterowy kod |

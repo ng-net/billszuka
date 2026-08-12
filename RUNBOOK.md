@@ -6,6 +6,23 @@
 
 ---
 
+## ⚡ REKAPITULACJA POPRAWNEGO KOMENDU
+
+```bash
+# 1. Przebuduj master.csv ze wszystkich 24 katalogów (35 kolumn)
+python3 tools/billszuka.py compile
+
+# 2. Uruchom weryfikację API i aktualizację flag/hashy
+python3 tools/billszuka.py verify
+
+# 3. Normalizacja nowego intake z data/_intake/{ISO}/
+python3 tools/billszuka.py intake --iso CZ
+
+# 4. Wyświetl opcje i strategie wyszukiwania (L0-L11) dla danego kraju
+python3 tools/billszuka.py search --country SK [--level L1]
+python3 tools/orchestrate_9_levels.py --list
+```
+
 ## 🧰 TOOLBOX (co mam + jak używać)
 
 ### 1. Tokeny i sekrety (plik `.env`, gitignored)

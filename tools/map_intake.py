@@ -65,50 +65,16 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
 INTAKE = ROOT / "data" / "_intake"
 
-# Country → (intake subdir, catalog dir, ISO code, region code map)
-COUNTRY_MAP = {
-    "PL": ("PL", "Polska", "PL", {}),
-    "CZ": ("CZ", "Czechy", "CZ", {
-        "Hlavní město Praha": ("PR", "Hlavní město Praha"),
-        "Jihomoravský kraj": ("JM", "Jihomoravský kraj"),
-        "Moravskoslezský kraj": ("MS", "Moravskoslezský kraj"),
-        "Plzeňský kraj": ("PK", "Plzeňský kraj"),
-        "Ústecký kraj": ("US", "Ústecký kraj"),
-        "Středočeský kraj": ("SC", "Středočeský kraj"),
-        "Olomoucký kraj": ("OL", "Olomoucký kraj"),
-        "Zlínský kraj": ("ZL", "Zlínský kraj"),
-        "Jihočeský kraj": ("JC", "Jihočeský kraj"),
-        "Pardubický kraj": ("PD", "Pardubický kraj"),
-        "Královéhradecký kraj": ("KH", "Královéhradecký kraj"),
-        "Liberecký kraj": ("LB", "Liberecký kraj"),
-        "Karlovarský kraj": ("KV", "Karlovarský kraj"),
-        "Vysočina": ("VY", "Vysočina"),
-    }),
-    "EE": ("EE", "Estonia", "EE", {}),  # Estonia doesn't use regions
-    "LT": ("LT", "Litwa", "LT", {}),
-    "SK": ("SK", "Słowacja", "SK", {}),
-    "RO": ("RO", "Rumunia", "RO", {}),
-    "LV": ("LV", "Łotwa", "LV", {}),
-    "FR": ("FR", "Francja", "FR", {}),
-    "MD": ("MD", "Mołdawia", "MD", {}),
-    "BG": ("BG", "Bułgaria", "BG", {}),
-    "SI": ("SI", "Słowenia", "SI", {}),
-    "HR": ("HR", "Chorwacja", "HR", {}),
-}
+from config import CANONICAL_SCHEMA as MASTER_COLS, COUNTRY_MAP as CONF_COUNTRY_MAP, make_id
 
-# 37-column BILLSzuka master schema
-MASTER_COLS = [
-    "region_kod", "region_nazwa", "region_typ", "related_to", "rok_zalozenia",
-    "id_unikalne", "kategoria", "nazwa_firmy", "kraj", "miasto", "adres",
-    "nip_vat", "rejestr_id", "www", "kanal_zamiennik", "email", "telefon",
-    "linkedin", "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
-    "marka_wlasna_oem", "sourcing", "wolumen", "confidence_wolumen",
-    "kanal_sprzedaży", "powinowactwo_nabijarki", "cross_sell_potential",
-    "decydent", "stanowisko", "email_decydent", "zrodlo_danych",
-    "data_weryfikacji", "flagi", "notatki", "rynek_skala",
-]
+# Country → (intake subdir, catalog dir, ISO code)
+COUNTRY_MAP = {
+    iso: (iso, country_name, iso)
+    for iso, country_name in CONF_COUNTRY_MAP.items()
+}
 
 # BILLSzuka tier enum (from methodology)
 TIER_ENUM = {
@@ -227,28 +193,6 @@ def normalize_nip(nip: str) -> str:
     return extract_vat(nip) or ""
 
 
-def derive_region(iso: str, region_str: str) -> tuple[str, str, str]:
-    """Returns (region_kod, region_nazwa, region_typ)."""
-    region_str = (region_str or "").strip()
-    rmap = COUNTRY_MAP[iso][3]
-    if region_str in rmap:
-        return rmap[region_str][0], rmap[region_str][1], "kraj"
-    if not region_str:
-        return "XX", "nieznany", "nieznany"
-    # Fallback: first 2 chars as kod, full name
-    kod = region_str[:2].upper()
-    return kod, region_str, "nieznany"
-
-
-def make_id(iso: str, region_kod: str, rank: str) -> str:
-    """Generate BILLSzuka id_unikalne like CZ-B-PR-001."""
-    try:
-        n = int(rank)
-    except (ValueError, TypeError):
-        n = 0
-    return f"{iso}-B-{region_kod}-{n:03d}"
-
-
 def consolidate_notatki(parts: list[str], max_len: int = 500) -> str:
     """Join non-empty parts with ' | ' separator, truncate."""
     text = " | ".join(p for p in parts if p and p.strip())
@@ -257,8 +201,8 @@ def consolidate_notatki(parts: list[str], max_len: int = 500) -> str:
     return text
 
 
-def map_row(marcel_row: dict, iso: str, skip_hallucinations: bool = False) -> dict | None:
-    """Map one Marcel row to 37-col BILLSzuka row. Returns None if skipped."""
+def map_row(marcel_row: dict, iso: str, seq_num: int = 1, skip_hallucinations: bool = False) -> dict | None:
+    """Map one Marcel row to 35-col BILLSzuka row. Returns None if skipped."""
     # Skip hallucinations / dup if requested
     if skip_hallucinations:
         verdict = (marcel_row.get("_verdict") or "").strip()
@@ -287,14 +231,8 @@ def map_row(marcel_row: dict, iso: str, skip_hallucinations: bool = False) -> di
     out["rejestr_id"] = normalize_rejestr(marcel_row.get("Numer Rejestrowy") or "", iso)
     out["nip_vat"] = normalize_nip(marcel_row.get("NIP / VAT") or "")
 
-    # Region
-    region_kod, region_nazwa, region_typ = derive_region(iso, marcel_row.get("Region") or "")
-    out["region_kod"] = region_kod
-    out["region_nazwa"] = region_nazwa
-    out["region_typ"] = region_typ
-
     # ID
-    out["id_unikalne"] = make_id(iso, region_kod, marcel_row.get("Rank") or "0")
+    out["id_unikalne"] = make_id(iso, "B", seq_num)
 
     # Tier from Relacja (exact match, then substring match for compound labels)
     relacja = (marcel_row.get("Relacja") or "").strip()
