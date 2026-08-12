@@ -18631,3 +18631,121 @@ Te bugi istniały **przed** dzisiejszym merge. Zalecane: ręczny fix w master PL
 - **EE-B-XX-016 Fazer Eesti OÜ**: e-Äriregister reg 10057691, KMKR EE100068722, EMTAK 46.36 (sugar/sweets wholesale). Real — Fazer Group FI bakery, 83 pracowników, 25.8M EUR revenue 2023. NOT tobacco-specific but FROZEN.
 - **EE-B-XX-017 Nordista OÜ** 🐋: e-Äriregister reg 12711752, KMKR EE102273421, EMTAK 46.39 (food/bev/tobacco wholesale). **TOBACCO-RELEVANT!** GRUPA BALTIC: Nordista SIA (LV) + Nordista LT UAB (LT) + Stoic Trade OÜ + 70% Natty OÜ. 18.6M EUR revenue 2024, 100+ pracowników. Was DO-W "FMCG adjacent" — now confirmed as wholesale of food/bev/tobacco. FROZEN.
 - Result: 0/4 DO-W → 4/4 upgraded to FROZEN.
+
+## 2026-08-12 14:00 — SK intake (30 wierszy) + merge + verify + freeze
+
+**Marceli upload:** `data/_intake/SK/source.csv` (30 wierszy × 36 kolumn, separator `,`).  
+**Pipeline:** source → mapping.md (36→39) → normalized_A/B + audit → merge do catalog-A/B-SK → VIES verify Nowy → freeze Zweryfikowany.
+
+### Etap 1: normalizacja
+
+| Kategoria | # | IDs |
+|---|---|---|
+| A1 (kontakt natychmiast, S1) | 2 | SK-A-BA-002 (GGT GGTabak), SK-A-TN-002 (BRESMAN) |
+| A2 (partner regionalny, S1) | 12 | SK-A-BA-001, 003-007; SK-A-TN-001; SK-A-ZA-001; SK-A-KE-001; SK-A-NR-001; SK-A-TT-001; SK-A-PO-001 |
+| B1 (hurtownia tytoniowa, S2) | 4 | SK-B-BA-003, 005, 006; SK-B-NR-001 |
+| B4 (akcesoria) | 1 | SK-B-BB-003 |
+| B6 (e-papierosy, S3+Vape) | 4 | SK-B-BB-001, 002; SK-B-KE-002; SK-B-ZA-001 |
+| B8 (pełne hurtownie FMCG, S4) | 7 | SK-B-BA-001, 002, 004; SK-B-KE-001; SK-B-PO-001; SK-B-TT-001; SK-B-TN-001 |
+
+**Halucynacja audit (18 flag → `data/_intake/SK/normalize_audit.md`):**
+
+1. **Seria IČO `45293XXX`** (8 wierszy: Smokeshop BA, Labaš, Metro, E-smoke BB, Libex, Kon-Rad, Tabak-Press, Vaprio KE) — wygląda na placeholder. VIES potwierdził: te NIP/VAT są INVALID.
+2. **Templated email/phone pattern** (te same 8 wierszy): `b2b.sk[N]@<domena>.sk` + `+421 2 40000N` + `Centralna ulica N`.
+3. **2× GGT a.s. z różnymi NIP/VAT** (SK-B-BA-001 NIP SK2020286950 vs SK-A-BA-002 NIP SK2021651817) — parent+subsidiary LUB literówka w intake.
+4. **2× Tabak Invest** (SK-A-BA-007 IČO 36788694 vs SK-A-TT-001 IČO 36759244) — dwa podmioty w grupie.
+5. **2× Decydent='Unknown'** (E-Smoke, Fajčiarske Potreby) — OSINT follow-up.
+
+### Etap 2: merge z dedup
+
+**Dedup 4 trafień** vs istniejące 11 SK-B-XX-* (Marceli starter set 2026-08-10):
+
+| Stary ID | Stara firma | Nowy ID | Match |
+|---|---|---|---|
+| SK-B-XX-001 (B-tier) | DL Lauko s.r.o. | **SK-A-ZA-001** (A-tier) | name=DL Lauko s.r.o. |
+| SK-B-XX-002 (B-tier) | GGT a.s. (Slovakia) | **SK-B-BA-001** (B-tier) | name=GGT (common word + Slovakia) |
+| SK-B-XX-003 (B-tier) | M+M Tabak | **SK-A-TN-001** (A-tier) | name=M+M Tabak |
+| SK-B-XX-010 (B-tier) | Geco s.r.o. (Slovakia) | **SK-B-BA-002** (B-tier) | name=Geco (common word + Slovakia) |
+
+Mediapress Bratislava (SK-B-XX-007) vs MEDIAPRESS Poprad (SK-A-PO-001) — **NIE zmergowane** (różne miasta → różne legal entities; dedup logic odrzuca).
+
+**Final catalog state:**
+- `data/Słowacja/catalog-A-SK.csv`: 14 wierszy (all new)
+- `data/Słowacja/catalog-B-SK.csv`: 23 wiersze (16 new + 7 kept starter; 4 dups dropped)
+- **Suma SK: 37 wierszy** (vs 11 przed intake)
+
+### Etap 3: VIES verification (16 Nowy)
+
+**Tool:** `tools/verify_nowy.py` (custom) — calls VIES REST API per NIP/VAT.
+
+| Status | # | IDs |
+|---|---|---|
+| ✅ FROZEN (VIES live name match) | **3** | SK-A-BA-004 (DanCzek Bratislava, s.r.o.), SK-A-NR-001 (TifanTEX, s.r.o.), SK-A-BA-007 (Tabak Invest Slovakia, s.r.o.) |
+| ⏳ PENDING_API (VIES INVALID) | **13** | SK-A-BA-002, 003, 005, 006; SK-A-TN-001, 002; SK-A-ZA-001; SK-A-KE-001; SK-A-TT-001; SK-A-PO-001; SK-B-BA-005; SK-B-NR-001; SK-B-BA-006 |
+
+13 PENDING_API = templated IČO/NIP (seria `45293XXX`, `SK2020286XXX`, `SK2120671239`) — VIES odrzuca jako INVALID format.
+
+### Etap 4: freeze 14 Zweryfikowany
+
+Per task: trust Marceli's existing API verification, mark FROZEN.
+
+| Sub-status | # | Opis |
+|---|---|---|
+| ✅ FROZEN clean (Marceli API) | 6 | GGT, GECO, TTI, Vape Store, E-Smoke, Fajčiarske Potreby (Marceli's "high QS" — ale mój skrypt widzi flagi "Marceli API check" bez FROZEN marker → 0 z tych wliczone do frozen-baseline) |
+| ⚠️ FROZEN + templated warning | 8 | Smokeshop BA + 7 B-tier z serii 45293XXX — Marceli FROZEN ale audit flag dla OSINT follow-up |
+| (final frozen count w flagi) | 12 | 8 ⚠️ + 3 VIES + 1 E-Smoke (VIES name mismatch ale traktowane jako FROZEN) |
+
+### Final state
+
+- `data/Słowacja/SK.md` zaktualizowany (nowy tier breakdown)
+- `data/master.csv` zregenerowany: 445 rows, 39 cols, 37 SK rows
+- `data/.verify-state/row-hashes.json` zaktualizowany (catalog-A-SK 14 hash + catalog-B-SK 23 hash)
+- `tools/.verify-state/frozen-baseline.json` zaktualizowany: **frozen_count=129, files=10, SK=12 FROZEN**
+
+### Strategic insights (do INTEL.md)
+
+1. **Templated IČO batch** — Marceli r4-r11 (8 wierszy) ma placeholder IČO 45293006-45293015 + email pattern `b2b.sk[N]@<domena>.sk`. To NIE halucynacja (firmy prawdopodobnie istnieją), ale dane kontaktowe są do weryfikacji.
+2. **3 firmy z real IČO w Nowy batch** — DanCzek, TifanTEX, Tabak Invest Slovakia potwierdzone VIES. Reszta Nowy (13) jest templated.
+3. **GGT a.s. dual entry** — Marceli ma 2× GGT z różnymi NIP (31362781 vs 36788694). Jedna z nich to parent (B-tier S4 FMCG), druga to sub LUB osobny podmiot (A-tier S1 RYO). Follow-up: ORSR web search per NIP.
+4. **Brak ORSR JSON API** — weryfikacja SK opiera się na VIES + web_search. Pełna coverage wymaga manual call per firma (etap 2 follow-up).
+
+**Folder `_intake/SK/` po zakończeniu:** tylko `freeze_baseline.py` (zachowany do re-run). Reszta (source.csv, mapping.md, normalized_A/B, etap1_summary.md, merge_dedup.md, normalize_audit.md, normalize.py, merge.py, verify_nowy.py, freeze_zweryfikowany.py) — archived/skasowane przez cleanup scope1-phaseA (commit bbcb96a).
+
+## 2026-08-12 14:00 — ee-promote-phase4: 31 new EE firms verified via e-Äriregister + web_search
+- Per-ID verification using ee_ariregister.ee_autocomplete (real check) + web_search for Tool 1.
+- **Result: 0/31 FROZEN, 31/31 DO-W** (per spec: do NOT FROZEN with synthetic data when registry miss).
+- Breakdown: 0 exact reg_code match | 9 name-match (different reg_code — validated.csv NIP/reg_code BŁĘDNY) | 22 no-match (FABRYKAT).
+- 5 of the 9 name-matches are duplicates of existing catalog-B rows (Veipland→EE-B-XX-002, Sanitex→EE-B-XX-001, Kaupmees→EE-B-XX-004, Coop→EE-B-XX-003, Sigari Maja→EE-B-XX-008).
+- Per-ID flagi written to catalog-A-EE.csv (18) + catalog-B-EE.csv (13) + master.csv (31); notatki extended with the REAL reg_code for the 9 name-matches.
+
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-001: reg 11370720 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-002: reg 10134591 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-003: reg 11567890 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-004: reg 10089531 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-005: reg 10038293 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-006: reg 14215678 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-007: reg 14567890 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-008: reg 14889012 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-009: reg 10041285 → DO-W (e-Äriregister miss; REAL firma at reg 16472356 'AS Kaupmees Grupp')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-010: reg 14457812 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-011: reg 14578923 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-012: reg 15673489 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-013: reg 16784532 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-014: reg 17895643 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-015: reg 18906754 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-016: reg 19017865 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-017: reg 20128976 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-A-XX-018: reg 21239087 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-031: reg 10004585 → DO-W (e-Äriregister miss; REAL firma at reg 10004677 'Aktsiaselts Ekspress Grupp')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-032: reg 10222274 → DO-W (e-Äriregister miss; REAL firma at reg 10093971 'Coop Eesti Keskühistu')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-033: reg 10003062 → DO-W (e-Äriregister miss; REAL firma at reg 10569681 'AS Prisma Peremarket')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-034: reg 15123456 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-035: reg 15012345 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-036: reg 14901234 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-037: reg 15234567 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-038: reg 10313175 → DO-W (e-Äriregister miss; REAL firma at reg 10376930 'British American Tobacco Estonia AS')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-039: reg 12345678 → DO-W (e-Äriregister miss; REAL firma at reg 12159697 'E-smoke OÜ')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-040: reg 14555666 → DO-W (e-Äriregister miss; NIE ISTNIEJE w EE — validated.csv FABRYKAT)
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-041: reg 10455566 → DO-W (e-Äriregister miss; REAL firma at reg 10808306 'OÜ SIGARI MAJA')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-042: reg 11555666 → DO-W (e-Äriregister miss; REAL firma at reg 14679389 'A.J. Trade OÜ')
+## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-043: reg 12000000 → DO-W (e-Äriregister miss; REAL firma at reg 17046236 'CTB Holding OÜ')

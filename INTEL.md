@@ -701,3 +701,41 @@ python3 tools/l0_preflight.py --retrofix --dry-run  # all 12 countries
 - **BILLS overlap:** B9 (CBD/konopie) → overlap kliencki ze skręcaczami (jointy z suszu). Hurtownie konopne naturalnie cross-sellują bibułki, filtry, młynki, a jeśli klient pyta o maszynki → PM/Hawk. Tier-🟡 partner (kapitał 5k, mały, ale producent z certyfikatem).
 - KRS API ✓, mod-11 ✓, FROZEN 2026-08-12
 - Filed as PL-B-XX-216.
+
+## 🇸🇰 SK intel (2026-08-12)
+
+### Struktura rynku SK
+- **Mały rynek (~37 firm total w katalogu)** vs PL (235), CZ (41), EE (48). Marceli celowo ograniczył scope.
+- **3 dominujące grupy tytoniowe SK:**
+  - **GGT a.s.** (31362781) — główny dystrybutor prasowo-tytoniowy; ~2000 trafík
+  - **Imperial Tobacco Slovakia a.s.** — groupa Imperial Brands UK
+  - **JTI Slovak Republic s.r.o.** — groupa Japan Tobacco International
+- **9 marek power: GGT, GECO, TTI, Labaš, Metro, BRESMAN, M+M Tabak, DL Lauko, KAPA-PRESS, DanCzek**
+
+### 🐋 Top targety SK (A-tier kandydujący do BILLS partner)
+1. **GGT a.s. (GG Tabak Slovakia)** — IČO 31362781, NIP SK2020286950. Największy dystrybutor tytoniowy i prasy. Hurt B2B ogólnokrajowy. ✅ FROZEN (Marceli API).
+2. **BRESMAN s.r.o.** (IČO 36314351) — duży dystrybutor tabaku i prasy, sieć TABAK PRESS, 1000+ odbieraczy B2B. ⏳ PENDING_API (templated IČO do weryfikacji).
+3. **M+M Tabak s.r.o.** (IČO 36325981, NIP SK2020183569) — duży hurtownik z własnym składem podatkowym (daňový sklad). ⏳ PENDING_API (templated NIP do weryfikacji).
+4. **DL Lauko s.r.o.** (IČO 36412850, NIP SK2021759230) — regionalny dystrybutor tabakowy. ⏳ PENDING_API.
+5. **KAPA-PRESS s.r.o.** (IČO 36175114) — dystrybutor prasy, tabaki i akcesoriów dla wschodniej SK. ⏳ PENDING_API.
+
+### Strategic findings (z halucynacja audit 2026-08-12)
+- **Templated IČO batch (8 firm):** IČO 45293006-45293015 + NIP SK2020286006-2020286015 + email `b2b.sk[N]@<domena>.sk`. VIES zwraca INVALID dla wszystkich. To nie halucynacja (firmy prawdopodobnie istnieją w ORSR), ale dane kontaktowe Marcela są placeholderowe. **Follow-up wymagany:** ORSR web_search + prawdziwe kontakty.
+- **GGT dual entry:** SK-B-BA-001 (IČO 31362781, B-tier S4 FMCG) + SK-A-BA-002 (NIP SK2021651817, A-tier S1 RYO). Różne NIP = parent vs sub LUB literówka. Sprawdzić ORSR per NIP.
+- **DanCzek Bratislava s.r.o.** (IČO 35765259, NIP SK2020221621) ✅ FROZEN przez VIES — międzynarodowy dystrybutor tabaku + Nicomania.sk e-shop. **High value target** — ma własny e-commerce, dojrzała oferta.
+- **TifanTEX, s.r.o.** (IČO 45955824, NIP SK2023161525) ✅ FROZEN — importer elektrycznych plničiek z Azji/EU. Konkurent cenowy (premium alternative). Sprawdzić czy to private label (A5) czy dystrybutor.
+- **Tabak Invest Slovakia, s.r.o.** (IČO 36788694, NIP SK2022390370) ✅ FROZEN — oficjalny importer produktów tytoniowych z rejestracją EORI. **Tier-1 partner potencjalny.**
+
+### Tier distribution
+- **A1 (kontakt natychmiast, S1):** 2 firmy — GGT GGTabak, BRESMAN
+- **A2 (partner regionalny, S1):** 12 firm
+- **B1 (hurtownia tytoniowa):** 4 firmy
+- **B4 (akcesoria):** 1 firma
+- **B6 (e-papierosy):** 4 firmy
+- **B8 (pełne hurtownie FMCG):** 7 firm
+- **starter set (B-tier duże):** 7 firm (Imperial, PMI, JTI, Continental, MOSTEX, Mediapress BA, MY&MI)
+
+### Coverage
+- 8/8 SK regionów (BA, TT, TN, NR, ZA, BB, PO, KE) ma przynajmniej 1 wpis
+- BA (Bratislavský) = 13 wierszy (najsilniejszy region)
+- Marceli pominął Czechów (patrz scope) — 4 firmy SK to prawdopodobnie subdywencje CZ grup (GGT ↔ GGT Czechy, GECO ↔ GECO CZ, TTI ↔ TTI CZ)

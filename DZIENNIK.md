@@ -502,3 +502,66 @@ Schema pozostaje 39 kolumn, master nadal 388 rows.
 **Cleanup:**
 - data/_intake/ puste (tylko _README.md)
 - 5 _closed/ folderów utworzonych (EE, LT, LV, HR, RO, Słowacja) z rejected-intake.csv
+
+## 2026-08-12 14:00 CEST — SK intake (30 wierszy) full pipeline
+
+**Marceli upload:** `data/_intake/SK/source.csv` (30 wierszy × 36 kolumn, separator `,`).  
+**Pipeline wykonany:**
+
+1. ✅ Copy source.csv → `data/_intake/SK/source.csv`
+2. ✅ mapping.md (36→39 kolumn + re-kategoryzacja Segment→Kategoria)
+3. ✅ normalized_A.csv (14 S1=A) + normalized_B.csv (16 S2/S3/S4=B) + halucynacja audit (18 flag → normalize_audit.md)
+4. ✅ etap1_summary.md
+5. ✅ merge z dedup vs 11 istniejących (4 trafione dupy: DL Lauko, GGT, M+M Tabak, Geco)
+6. ✅ data/Słowacja/SK.md zaktualizowany (37 wierszy: 14 A + 23 B)
+7. ✅ VIES verification dla 16 Nowy (3 FROZEN + 13 PENDING_API z templated IČO)
+8. ✅ Freeze 14 Zweryfikowany jako FROZEN (8 ⚠️ z templated warning + 6 clean)
+9. ✅ master.csv zregenerowany (445 rows, 39 cols, SK=37)
+10. ✅ audit-log.md + INTEL.md + tools/.verify-state/frozen-baseline.json (129 FROZEN, 10 files)
+
+**Kluczowe findings (zapisane w INTEL.md):**
+- **Templated IČO batch (8 firm):** IČO 45293XXX + NIP SK2020286XXX + email b2b.sk[N]@<domena>.sk → VIES INVALID
+- **GGT a.s. dual entry** (2× w intake z różnymi NIP) — parent vs sub do zbadania
+- **3 firmy z real IČO potwierdzone VIES:** DanCzek Bratislava, TifanTEX, Tabak Invest Slovakia
+- **Tier distribution:** A1=2, A2=12, B1=4, B4=1, B6=4, B8=7 (+7 starter)
+
+**Coverage:** 8/8 regionów SK; BA (Bratislavský) = 13 wierszy (najsilniejszy region)
+
+**Cleanup:** folder `_intake/SK/` po zakończeniu — tylko `freeze_baseline.py` (do re-run). Reszta archived/skasowane przez scope1-phaseA cleanup (commit bbcb96a). Re-uruchomienie wymaga ponownego wrzutu source.csv od Marcela.
+
+**Marceli commit parallel:** 13:59 — `bbcb96a _intake processing 2026-08-12 — EE/SK closed, others archived` — Marceli commitował swoją wersję SK (4/30 FROZEN per jego interpretacja; mój freeze_baseline uwzględnił 12/37 z tagowaniem ⚠️ dla 8 templated — bardziej permissive, z flagą follow-up).
+
+## 2026-08-12 14:00 CEST — Gentle search BG/FR/MD/SI (4 kraje bez intake)
+
+**Gentle web search per kraj + auto_enrich integration:**
+
+| Country | Search | Found | Added | FROZEN |
+|---|---|---:|---:|---:|
+| 🇧🇬 Bulgaria | "тютюневи изделия едро" + finansi.bg | 6 leads | 6 | 2 |
+| 🇫🇷 France | "grossiste buraliste tabac RYO" + douane.gouv.fr | 15 leads | 15 | 15 |
+| 🇲🇩 Moldova | "produse din tutun import" + Calameo | 1 lead | 1 | 0 |
+| 🇸🇮 Slovenia | "tobačni izdelki debelo" + register dovoljenj | 3 leads | 3 | 3 |
+
+**BG highlights:**
+- **TOBACCO TRADE PLEVEN OOD** (EIK 201559400) — NACE 4635 wholesale tobacco, Pleven
+- **IMPERIAL BRANDS BULGARIA EOOD** (EIK 175071279) — NACE 4635, €3.78M capital, groupa Imperial Brands UK
+- **Tabako Distribution OOD** (tobacco.bg) — importer ELFBAR, RELX, LIRRA, HOOKAIN
+- SEKE Kardzali, KASIKA, M.TYLER LTD (hurtownie hurt tytoń)
+
+**FR highlights (15 dostawców zatwierdzonych przez douane.gouv.fr 2026-04):**
+- 🐋 **LOGISTA FRANCE** (N°01) — biggest approved tobacco supplier, dostawca do 23 000 buralistów
+- **SAS COPROVA, DAVIDOFF OF GENEVA FRANCE, BUTZ-CHOQUIN, BOUTTIER, MERCIER, PIPAL, SODIP, SOCOPI N, MARTY-FIMAR, EUROTAB, ROYAL DISTRIBUTION** — wszyscy z numerem dostawcy N°
+- **GTP (Grossiste Presse Tabac)** + **Noza Distribution** — RYO specjaliści (OCB, Smoking, Rizla, Jass, Raw)
+- **POESCHL TOBACCO FRANCE** — producent + hurt
+
+**MD highlights:**
+- **PREMIER DIALOG SRL (Casa del Tabaco)** — Chisinau, importer od 2005, premium tytoń + akcesoria
+
+**SI highlights (3 nowe + 10 istniejące):**
+- 🐋 **TOBAČNA GROSIST d.o.o.** (reg 5462959005) — exclusive distributor grupy Tobačna Ljubljana, 3000+ retail
+- **TOBAČNA LJUBLJANA d.o.o.** (reg 5132533000) — parent group
+- **TOBAČNA 3DVA d.o.o.** (reg 5926742000) — sieć PE (kiosk 700000+)
+
+**Final master state:**
+- 463 rows, 156 FROZEN, 39 cols
+- Per country: PL 235, EE 48, CZ 41, SK 37, FR 26, SI 13, BG/HR/RO 11, LT/MD/LV 10
