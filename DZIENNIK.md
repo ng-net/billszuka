@@ -328,3 +328,42 @@ gh auth switch --user ng-net   # wróć na primary
 ### Decyzja per AGENTS.md
 "Deep PL only" threshold (≥30 verified firm) osiągnięty **3.6×** (65/30) → unlock kolejnych krajów.
 Następny w kolejce: 🇨🇿 Czechy (katalogi istnieją: catalog-A-CZ 3 rows, catalog-B-CZ 7 rows).
+
+## 2026-08-12 13:10 CEST — Czechy research CLOSURE
+
+**Decyzja Marcelego:** Stabilizujemy i zamykamy iterację CZ. Move-to-canonical done.
+
+### Merge z intake
+- `data/_intake/CZ/validated.csv` miał 35 leadów: 32 FROZEN, 2 HALUCYNACJA (VapeStyle, Dýmkařský Svět — IČO syntetyczne), 1 DUPLIKAT (PEAL)
+- Po dedupie po IČO: 31 unikalnych nowych firm (26 A-tier, 5 B-tier)
+- 1 odrzucony (MOSTEX — już w katalogu)
+
+### Wynik
+- **catalog-A-CZ**: 3 → 29 firm (100% FROZEN)
+- **catalog-B-CZ**: 7 → 12 firm (11 FROZEN + 1 DO-WERY: Imperial Tobacco CR)
+- **TOTAL CZ**: 41 firm, 40 FROZEN (97.6% verification rate!)
+- **Top targets**: 40 (zero WRONG_CATEGORY, lepszy profil niż PL)
+
+### 🚨 FORTIS-DB IČO KONFLIKT
+Wykryto 2 wpisy FORTIS-DB z różnymi IČO (62586289 vs 25221981). Oba twierdzą wyłączność na PowerMatic w CZ.
+- CZ-A-PK-001 (IČO 62586289): Úněšovská 2205/17, Plzeň — ARES verified 2026-08-10, score 90
+- CZ-A-PK-002 (IČO 25221981): Jateční 862/32, Plzeň — intake 2026-08-11, score 97, "WYŁĄCZNY IMPORTER POWERMATIC ČR"
+
+Wymaga decyzji Marcelego przed outreachem. Zapisane w notatki obu wpisów + w `CZ-CLOSE-REPORT.md` sekcja "KRYTYCZNE".
+
+### PEAL group ownership
+Dodano do `data/relationships.csv`:
+- CZ-A-PR-001 → CZ-B-PR-002 (group_ownership: PEAL → CTC)
+- CZ-A-PR-001 → CZ-B-PR-003 (dual_business: ten sam IČO 25775634, A4 nabijarki + B8 hurt)
+
+### Artefakty
+- `data/Czechy/verified-A-CZ.csv` (29 firm)
+- `data/Czechy/verified-B-CZ.csv` (11 firm)
+- `data/Czechy/CZ-CLOSE-REPORT.md` (raport zamykający 9 KB)
+- `data/Czechy/_closed/research-closeout.csv` (41 IDs → status)
+- `data/Czechy/_closed/top-targets.csv` (40 leadów wg QS)
+- `data/Czechy/_closed/rejected-intake.csv` (1 odrzucony)
+- `data/Czechy/_closed/snapshots/` (pre-close stan z 2026-08-12)
+
+### Następny kraj
+🇸🇰 Słowacja (katalogi puste — start od zera).

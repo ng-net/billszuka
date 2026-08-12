@@ -348,6 +348,40 @@ Dodano kolumnę `tiktok` we wszystkich 24 per-kraj CSV, pozycja 21 (po instagram
 4. **POLSKA GRUPA TYTONIOWA** (wspólnicy zidentyfikowani)
 5. **TOBACCO OF POLAND** (Aleks Dudalski, dział handlowy)
 
+### Partnerzy CZ — Big Fish (TOP 5)
+
+> **Data:** 2026-08-12 13:10 CEST
+> **Status:** ✅ FROZEN (API) — poza FORTIS-DB (wymaga decyzji)
+
+| Tier | ID | Firma | Dlaczego 🐋 |
+|---|---|---|---|
+| reseller 🐋 | CZ-A-PR-001 | **PEAL A.S.** (IČO 25775634) | Dual-business A4+B8. 5 oddziałów, właściciel marki Don Pealo + główny udziałowiec CTC. |
+| hurt-group | CZ-B-PR-002 | **Czech Tobacco Corporation** (IČO 25283103) | Hurtownia tytoniowa, własność PEAL group. Edge: group_ownership. |
+| hurtownik | CZ-B-PR-005 | **Philip Morris ČR a.s.** | Fabio Costa, Managing Director. |
+| hurtownik | CZ-B-PR-006 | **British American Tobacco ČR s.r.o.** | Tomáš Tesař, manager. |
+| reseller | CZ-B-PR-007 | **GECO, a.s.** (IČO 63080737) | Libor Chrobok, CEO. Sieć trafik. |
+
+### 🚨 CZ FORTIS-DB IČO KONFLIKT (Marceli decision needed)
+
+2 wpisy FORTIS-DB z różnymi IČO. Oba twierdzą wyłączność na PowerMatic w CZ:
+
+| ID | IČO | Adres | Score |
+|---|---|---|---:|
+| CZ-A-PK-001 | CZ62586289 | Úněšovská 2205/17, Plzeň | 90 (ARES verified 2026-08-10) |
+| CZ-A-PK-002 | 25221981 | Jateční 862/32, Plzeň | 97 (intake 2026-08-11) |
+
+**Rekomendacja:** Live ARES check obu IČO + telefon do obu + sprawdzić czy to ta sama grupa kapitałowa (Moosmayr Holding GmbH ma 50% w 62586289 od 2024).
+
+### CZ market intel
+
+| Metryka | Wartość |
+|---|---|
+| Verification rate | 97.6% (40/41) — najwyższy w projekcie |
+| Top score (intake) | 97 (FORTIS-DB IČO 25221981) |
+| Brno cluster | 7 dużych hurtowni (Crescogroup, MK Tabak, Tabák-Kubík, Brno Tabák, RYO-Distribuce, TABÁK BRNO, TABÁK PLUS) — strategiczny hub |
+| Marketplace presence | Heureka Shopping (Ceneo CZ) — vendor onboarding channel |
+| CEE coverage | 4 firmy zasięg CZ+SK+DE (Olomouc, Zlín) |
+
 ---
 
 ## CHANGELOG
@@ -358,6 +392,7 @@ Dodano kolumnę `tiktok` we wszystkich 24 per-kraj CSV, pozycja 21 (po instagram
 | 2026-08-10 | Toolbox 3-4 per kraj dodany do RUNBOOK.md (kanoniczny reference) |
 | 2026-08-11 | **auto_enrich v1** — `tools/auto_enrich.py` (OpenRouter + web_search pipeline). 57/59 decydentów znalezionych (96.6% success). Kraje: BG, HR, CZ, PL, FR, RO, SK, EE, MD. Notable: Mila Marechkova (BAT BG), Anita Letica (PM HR), Fabio Costa (PM ČR), Libor Chrobok (GECO CEO), Mathilde GOFFARD (Logista FR), Carmina Fusté (PM RO), Gabriella Offeddu (JTI cluster). tools/apollo_enrich.py (parallel, 420 linii, REST wrapper). |
 | 2026-08-12 | **PL closure** — research na Polskę ZAMKNIĘTE. 65/235 (27.7%) FROZEN (API). Master.csv zsynchronizowany (234 PL IDs). Output: `verified-A-PL.csv` (14), `verified-B-PL.csv` (51), `top-targets.csv` (64 wg QS). Pre-close snapshot w `data/Polska/_closed/snapshots/`. Decision: unlock kolejne kraje (start z CZ). |
+| 2026-08-12 | **CZ closure** — research na Czechy ZAMKNIĘTE. 40/41 (97.6%) FROZEN. Merge z `data/_intake/CZ/validated.csv` (32 FROZEN → 31 nowych po dedupie). Output: `verified-A-CZ.csv` (29), `verified-B-CZ.csv` (11), `top-targets.csv` (40 wg QS). FORTIS-DB IČO KONFLIKT wykryty (62586289 vs 25221981) — blocker do rozstrzygnięcia. PEAL group ownership + dual_business edges dodane do relationships.csv. Decision: unlock SK. |
 
 ## Decydenty wg kraju (auto_enrich 2026-08-11)
 
