@@ -185,6 +185,17 @@ def ee_detail(reg_code: str, name_hint: str = "", timeout: int = 15) -> dict[str
         except ValueError:
             capital = 0.0
 
+    # Guard: if neither KMKR nor EMTAK was extracted, the page is not a real
+    # detail page — likely a 200-OK search/landing page due to slug mismatch
+    # or non-existent reg_code. Return found=False so callers don't get
+    # false positives.
+    if not kmkr and not emtak:
+        return {
+            "found": False,
+            "error": f"no KMKR/EMTAK extracted from page (reg {reg_code}, slug {slug!r})",
+            "source_url": url,
+        }
+
     return {
         "found": True,
         "kmkr": kmkr,

@@ -18841,3 +18841,48 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 - catalog-B-EE: 30 → 22 data rows.
 - master.csv: 463 → 437 (EE 48 → 22). Total: 21 FROZEN, 1 DO-W (EE-B-XX-043 CTB — spec reg_code 17046236 incorrect, actual 16686436 per autocomplete, follow-up needed).
 - All 17 SACRED FROZEN (EE-B-XX-001..017) preserved untouched.
+
+## 2026-08-12 14:33 — ee_detail-patch: fixed silent fake-success in ee_ariregister.py
+- Added empty-kmkr/emtak guard in `ee_detail()` (lines 188-197). Pre-patch: any successful HTTP GET returned `found=True` even for slug-mismatched or non-existent reg_codes. Post-patch: only pages with extracted KMKR or EMTAK return `found=True`.
+- 3/3 verification tests pass: (1) real reg 11370720 + wrong slug → found=False; (2) fake reg 99999999 → found=False; (3) real reg 10004677 + correct name → found=True with kmkr=EE100255836, emtak=69.20.
+- Public API preserved: `ee_autocomplete`, `ee_detail`, `ee_search` signatures unchanged. Return dict shape preserved (added `source_url` to the new found=False path for traceability; existing keys untouched).
+- Single-file scope: only `tools/ee_ariregister.py` modified. No callers (`verify_api.py`, `verify_lead.py`, `verify_run.py`, `api_server.py`) need changes — `verify_api.py` already checks `if not result.get("found")` and falls through to name search.
+- Optional URL improvement (use autocomplete's canonical URL in `ee_search()`) skipped: not strictly needed for the bug fix, refactor would expand scope.
+
+## 2026-08-12 14:34
+
+### Pliki sprawdzone
+- catalog-B-BG.csv: 17 wpisów
+- catalog-B-EE.csv: 5 wpisów
+- catalog-B-FR.csv: 3 wpisów
+
+### ✅ FROZEN
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-A-XX-002**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-A-XX-006**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-A-XX-004**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-A-XX-005**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-A-XX-001**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | web search 2026-08-12 | gentle_search_cron
+- **BG-A-XX-003**: Źródło nieoficjalne: mi.government.bg Public Register 2026-08-12 | gentle_search_cron
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-039**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-XX-031**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-XX-033**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-XX-043**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **EE-B-XX-038**: Źródło nieoficjalne: validated.csv → e-Äriregister (pending verify 2026-08-12)
+- **FR-B-IDF-006**: Źródło nieoficjalne: societe.com 915392963 | web search 2026-08-12 | pw-distribution.fr | gentle_search_cron
+- **FR-B-PAC-002**: Brak pól: nip_vat
+- **FR-B-PAC-001**: Źródło nieoficjalne: societe.com 791551732 | web search 2026-08-12 | tubeuse-cigarette-electrique.fr | gentle_search_cron
+
+**Run summary:** 9 added, 16 modified, 26 removed — 2 FROZEN, 23 DO-WERYFIKACJI

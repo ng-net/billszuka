@@ -653,3 +653,16 @@ FR: 26 → 29 firm, schema 36 cols preserved.
 
 **Working tree:** clean ✓
 **ng-net:** active ✓
+
+## 2026-08-12 14:36 CEST — Gentle search #4 (SI) — 2 vape leads
+
+Dodano 2 nowe leads (sieć vape + mała hurtownia vape w Sežanie):
+
+| ID | Firma | Miasto | Highlights |
+|---|---|---|---|
+| SI-B-MB-001 | **Q Vapehouse d.o.o.** | Maribor (sieć 5+ sklepów + e-commerce) | 11-50 pracowników, founded 2017, LinkedIn verified |
+| SI-B-SE-001 | **VAPE d.o.o.** | Sežana | Nina Gašperšič (direktor+lastnik), nina@vape-zp.si, +386 30 221 201, founded 2014 |
+
+Początkowy search zwrócił głównie Tobačna Grosist (już w katalogu). Dopiero drugie search z AJPES + companywall.si ujawniło nowe podmioty.
+
+SI: 13 → 15 firms, schema 36 cols preserved.
