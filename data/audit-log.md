@@ -19434,3 +19434,28 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 - **LV-A-001**: Źródło nieoficjalne: Lursoft LV / UR Latvia
 
 **Run summary:** 10 added, 24 modified, 0 removed — 27 FROZEN, 7 DO-WERYFIKACJI
+
+## 2026-08-12 15:54
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 1 wpis
+- catalog-A-HR.csv: 1 wpis
+- catalog-A-SI.csv: 1 wpis
+- catalog-B-RO.csv: 8 wpisów
+
+### ✅ FROZEN
+- **BG-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **HR-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **RO-B-001**: Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK
+- **RO-B-002**: Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK
+- **SI-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **RO-B-007**: Źródło nieoficjalne: ListaFirme RO / Website
+- **RO-B-005**: Źródło nieoficjalne: ListaFirme RO / ONRC
+- **RO-B-008**: Źródło nieoficjalne: ListaFirme RO / ONRC
+- **RO-B-010**: Źródło nieoficjalne: ListaFirme RO / Primonet.ro
+- **RO-B-004**: Źródło nieoficjalne: ListaFirme RO / ONRC
+- **RO-B-006**: Źródło nieoficjalne: ListaFirme RO / ONRC
+
+**Run summary:** 0 added, 11 modified, 9 removed — 5 FROZEN, 6 DO-WERYFIKACJI
