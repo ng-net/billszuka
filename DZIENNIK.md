@@ -1877,3 +1877,27 @@ OR git diff data/ od ostatniej weryfikacji (14 katalogów zmienionych).
 
 **Wektor ryzyka na przyszłość:**
 - Working tree (126 modified files) wciąż zawiera lokalne zmiany z sesji 2026-08-11 (np. modyfikacje `tools/auto_enrich.py`, katalogów, `DZIENNIK.md`). Marcel wybiera czy commitować czy odrzucić.
+
+
+## 2026-08-12 11:10 CEST — Repo mirror na design-mc/billszuka
+
+**ng-net/billszuka straciło dostęp** (marlink PAT bez uprawnień, ng-net account read-only service). Przeniesiono repo na `design-mc/billszuka` (prywatne, description zawiera info o crash recovery).
+
+**Akcje:**
+1. `gh repo create design-mc/billszuka --private` (active account = design-mc, ma `repo`+`workflow`)
+2. `git remote add design-mc https://github.com/design-mc/billszuka.git`
+3. `git push design-mc main` → 2 commits (63b0d6e + 6c72acf) wypushowane
+4. `git remote remove origin` + `git remote rename design-mc origin` → nowy canonical remote
+5. `git push origin main` → already up-to-date
+6. AGENTS.md zaktualizowany: "Canonical remote: github.com/design-mc/billszuka (private)"
+
+**Jeśli kiedyś Marcel odzyska dostęp do ng-net:**
+```bash
+# Dodaj ng-net z powrotem jako drugi remote (nie nadpisuj design-mc)
+git remote add ng-net-backup https://github.com/ng-net/billszuka.git
+git fetch ng-net-backup
+# Sprawdź czy historia się zgadza
+git log --oneline ng-net-backup/main | head -5
+# Jeśli tak — push mirror z powrotem
+git push ng-net-backup main
+```

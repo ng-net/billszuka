@@ -7,7 +7,7 @@ Keep this under 40 lines.
 B2B research project for BILLS Sp. z o.o. (Ostrzeszów, PL). Goal: distribution partners
 for PowerMatic rolling machines + Hawk across PL first, then CZ/SK/UK/etc.
 Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
-Canonical remote: `github.com/ng-net/billszuka` (private). `marlink/BILLSzuka` is dead.
+Canonical remote: `github.com/design-mc/billszuka` (private) — 2026-08-12 crash-recovery: ng-net/billszuka became inaccessible (marlink PAT had no access; ng-net account is read-only service). Mirror kept on design-mc. `marlink/BILLSzuka` is dead.
 
 ## Core files (don't read whole — read sections on demand)
 - `methodology.md` — how to research, A1-A6 / B1-B9 framework
