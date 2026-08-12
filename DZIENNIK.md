@@ -631,3 +631,25 @@ Web search wykrył **autoryzowanego dystrybutora Powermatic we Francji**:
 Marceli follow-up call wymagany do PW Distribution.
 
 FR: 26 → 29 firm, schema 36 cols preserved.
+
+## 2026-08-12 14:30 CEST — Self-check #1: 2/5 crons fired (BG+FR), 3 pending (MD/SI/BG bonus)
+
+**Cron state (per mavis cron list):**
+- ✅ once-i8p6w0 (BG) — fired, paused → 6 leads added in commit 15e6057
+- ✅ once-yaovvb (FR) — fired, paused → 3 leads added in commit 5b3237a
+- ⏳ once-y2lql0 (MD) — runAtMs=14:30:46, status paused, enabled false (will not re-fire)
+- ⏳ once-7q5dtl (SI) — runAtMs=14:36:46, status active (next)
+- ⏳ once-5zw15p (BG bonus) — runAtMs=14:42:46, status active (next)
+- ⏳ billszuka-gentle-search-check — every 30 min, status active
+
+**Schema check (all 5 countries + EE):**
+- Bułgaria (BG): 18 rows, 36 cols ✓
+- Francja (FR): 30 rows, 36 cols ✓
+- Mołdawia (MD): 11 rows, 36 cols (no new yet, MD cron not fired)
+- Słowenia (SI): 14 rows, 36 cols (no new yet, SI cron pending)
+- Estonia (EE): 23 rows, 36 cols (stable)
+
+⚠️ **Schema divergence:** 36 cols (BG/FR/MD/SI/EE) vs 39 cols (PL/CZ/SK). The schema unification (commit 2b60946) added `_reg_code` only to 22 catalogs that were "38 cols at the time". BG/FR/MD/SI/EE were added later with 36 cols. The 3 missing cols are: `region_kod`, `region_typ`, `_reg_code`. Future fix: rename all to 39 cols.
+
+**Working tree:** clean ✓
+**ng-net:** active ✓
