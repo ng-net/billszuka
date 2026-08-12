@@ -447,3 +447,21 @@ data/Polska/ final state (5 plików + _closed/):
 1. Phone call do FROZEN leads z contactem (Imperial, Sigari Maja, RYO Paper, Easysmoke)
 2. Follow-up call do FMCG-adjacent (Karia, Karisma, Fazer, Nordista) — pytanie o tytoń w ofercie
 3. Po tych phone'ach: stabilizacja i closeout raport
+
+## 2026-08-12 13:40 CEST — Schema: _krs → _reg_code (universal registry column)
+
+Marceli decision: Estonia nie ma KRS (to PL-only), ale ma e-Äriregister.
+Rename `_krs` → `_reg_code` (uniwersalna kolumna dla wszystkich rejestrów):
+- PL: KRS number (e.g. 0001074645)
+- CZ: ARES IČO (e.g. 62586289)
+- EE: e-Äriregister reg_code (e.g. 10808306)
+- inne kraje: do wypełnienia w kolejnych iteracjach
+
+Population (master.csv, 388 rows):
+- CZ: 41/41 (100%)
+- EE: 17/17 (100%)
+- PL: 77/235 (33%, tylko wpisy z KRS w `rejestr_id`)
+- BG: 2/11, LT: 1/10, LV: 1/10 (skąpe dane rejestrowe)
+- FR, HR, MD, RO, SI, SK: 0/10-11 (potrzebne wypełnienie z rejestrów krajowych)
+
+Schema pozostaje 39 kolumn, master nadal 388 rows.
