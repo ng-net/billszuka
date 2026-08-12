@@ -28,10 +28,28 @@
 | 💡 | #tiktokpolska: 18.6k wyświetleń/post (najlepsza engagement PL TikTok) | Kanał sprzedaży |
 | 🔧 | KRS API nie ma search-by-name → chain NIP/REGON → REGON API → KRS | Workflow |
 | 🆔 | Dostępne integracje: Veritor, ENTIA, nipgo.pl, klucznicy/krs-fetcher, pawel-id/bir1 | Nowe możliwości |
-| ⚡ | Weryfikacja automatyczna: 16/143 (11.2%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
-| ⚡ | Auto-cleaning & Quality Scoring przetworzył 143 wierszy we wszystkich katalogach regionalnych. | Pipeline |
-| ⚡ | Weryfikacja automatyczna: 40/145 (27.6%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
-| ⚡ | Auto-cleaning & Quality Scoring przetworzył 145 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 10/117 (8.5%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 23 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 44/297 (14.8%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 290 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 9/12 (75.0%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 12 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+
+---
+
+## Pipeline status (auto-monitoring)
+
+| Run | FROZEN | % | Processed | Notes |
+|-----|--------|---|-----------|-------|
+| 12:23 | 16/143 | 11.2% | 143 | first run |
+| 15:09 | 40/145 | 27.6% | 145 | |
+| 15:26 | 287/1023 | 28.1% | 145 | |
+| 15:32 | 1017/3603 | 28.2% | 1023 | |
+| 18:59 | 2245/7782 | 28.8% | 1 | anomaly (1 row only) |
+| 20:11 | 2/4 | 50.0% | 4 | test run |
+
+> Auto-extracted from `tools/extract_intel.py` after each `walkthrough.md` / verification run.
+> Not curated — for current state see `Decyzje` below + latest DZIENNIK session.
 
 ---
 
@@ -291,6 +309,58 @@ Dodano kolumnę `tiktok` we wszystkich 24 per-kraj CSV, pozycja 21 (po instagram
 |---|---|
 | 2026-08-10 | v1 — powstanie INTEL.md, Sanitex odkryty, KRS automation, realne dane PL |
 | 2026-08-10 | Toolbox 3-4 per kraj dodany do RUNBOOK.md (kanoniczny reference) |
+| 2026-08-11 | **auto_enrich v1** — `tools/auto_enrich.py` (OpenRouter + web_search pipeline). 57/59 decydentów znalezionych (96.6% success). Kraje: BG, HR, CZ, PL, FR, RO, SK, EE, MD. Notable: Mila Marechkova (BAT BG), Anita Letica (PM HR), Fabio Costa (PM ČR), Libor Chrobok (GECO CEO), Mathilde GOFFARD (Logista FR), Carmina Fusté (PM RO), Gabriella Offeddu (JTI cluster). tools/apollo_enrich.py (parallel, 420 linii, REST wrapper). |
+
+## Decydenty wg kraju (auto_enrich 2026-08-11)
+
+| Kraj | Firma | Decydent | Tytuł | Telefon / Email | Conf |
+|---|---|---|---|---|---|
+| 🇧🇬 BG | Tobacco Distribution OOD | Yani Georgiev | Owner | +359 879 336 630 | 0.9 |
+| 🇧🇬 BG | TTI Bulgaria (Pöschl) | Tenko Bankov | Managing Director | — | 0.8 |
+| 🇧🇬 BG | BAT Bulgaria | Mila Marechkova | Country Manager | +359 2 976 98 90 / bgsofiareception@bat.com | 0.9 |
+| 🇧🇬 BG | Philip Morris Bulgaria | Denys Strobykin | General Manager | +359 2 806 31 00 / administration.pmbg@pmi.com | 0.8 |
+| 🇧🇬 BG | JTI Bulgaria | Manos Koukourakis | General Manager | LinkedIn | 0.9 |
+| 🇭🇷 HR | Veletabak d.o.o. | Luka Saraf | Director | +385 1 7888 610 / luka.saraf@veletabak.hr | 0.9 |
+| 🇭🇷 HR | TDR d.o.o. | Zvonko Kolobara | Director | 052844000 / cro_pravniodjel@bat.com | 0.9 |
+| 🇭🇷 HR | Hrvatski duhani d.d. | Aleksandra Grigić | Predsjednik uprave | 033 730 660 / hrvatski_duhani@bat.com | 0.9 |
+| 🇭🇷 HR | Philip Morris Zagreb | Anita Letica | GM Croatia & Slovenia, Předsednik | +385 1 616 6900 / Anita.Letica@pmi.com | 0.9 |
+| 🇭🇷 HR | Imperial Tobacco Zagreb | Tomaz Maver | Director (Market Manager SLO&HR) | 01/5494040 | 0.9 |
+| 🇭🇷 HR | JT International Zagreb | Simone Mammi | Direktor | +385 1 6040801 | 0.8 |
+| 🇭🇷 HR | AER Wholesale (Aer L.M. d.o.o.) | Matteo Lovisolo | Founder/CEO | +39 02 947 501 07 / info@aer-wsale.com | 0.9 |
+| 🇨🇿 CZ | PEAL a.s. | Miroslav Kaštánek | Předseda představenstva | 272 774 153 / info@peal.cz | 0.9 |
+| 🇨🇿 CZ | GGT CZ, a.s. | Josef Hloušek, MBA | Generální ředitel | hlousek@ggtabak.cz | 0.9 |
+| 🇨🇿 CZ | Czech Tobacco Corporation a.s. | Přemysl Opletal | Chairman of the Board | — | 0.8 |
+| 🇨🇿 CZ | Philip Morris ČR a.s. | Fabio Costa | Managing Director, Předseda | +420 266 702 111 / philipmorris.cz@pmi.com | 0.9 |
+| 🇨🇿 CZ | Imperial Tobacco CR s.r.o. | Felix von Schwanewede | Country Manager | +420 296 541 111 | 0.8 |
+| 🇨🇿 CZ | BAT Czech Republic s.r.o. | Tomáš Tesař | manažer komunikace | +420 724 970 431 / prague_press@bat.com | 0.8 |
+| 🇨🇿 CZ | GECO, a.s. | Libor Chrobok | CEO (since 1995) | +420 241 404 738 / mail.box@geco.cz | 0.9 |
+| 🇵🇱 PL | BISTA STANDARD Sp. z o.o. | Adam Jacek Stawowski | Prezes Zarządu | — | 1.0 |
+| 🇵🇱 PL | CK COMPLEX Sp. z o.o. | Paweł Szymański | Prezes Zarządu | — | 0.9 |
+| 🇵🇱 PL | DRV DISTRIBUTION Sp. z o.o. | Jakub Golonka | Prezes / CEO | — | 0.9 |
+| 🇵🇱 PL | Flowrolls Sp. z o.o. | Michał Piotr Kuźnik | Prezes Zarządu | info@flowrolls.pl | 0.9 |
+| 🇵🇱 PL | BIODIO LAB Sp. z o.o. | Izabela Wojciuk | Prezes | — | 0.9 |
+| 🇫🇷 FR | Logista France | Mathilde GOFFARD (Keszey) | Président | 01 49 57 60 00 / [email protected] | 0.9 |
+| 🇫🇷 FR | COPROVA SAS | Jorge PEREZ MARTELL | Président | Direction.Generale@coprova.com | 0.9 |
+| 🇫🇷 FR | Davidoff of Geneva France | Tom Ryhiner | Gérant | — | 0.9 |
+| 🇷🇴 RO | BAT România Trading | Ram ADDANKI | CEO | — | 0.9 |
+| 🇷🇴 RO | Philip Morris România | Carmina Fusté | Director General | — | 0.9 |
+| 🇷🇴 RO | Imperial Tobacco România | Nikos Nikiforidis | Director General | — | 0.8 |
+| 🇷🇴 RO | JTI România | Gabriella Offeddu | General Manager (cluster RO+MD+BG) | — | 0.8 |
+| 🇷🇴 RO | BAT România | Jorge Araya | Director General + SEE Area | 021 311 51 00 | 0.9 |
+| 🇸🇰 SK | Philip Morris Slovakia | Martin Medveď | Generálny riaditeľ | — | 0.9 |
+| 🇸🇰 SK | BAT Slovakia | Peter Kopačka | Generálny riaditeľ | — | 0.9 |
+| 🇸🇰 SK | Imperial Tobacco Slovakia | Vernon Little | Generálny riaditeľ | — | 0.8 |
+| 🇪🇪 EE | Philip Morris Eesti | Liudas Zakarevičius | Management board | +372 6050400 / Tallinn.Admin@pmi.com | 0.8 |
+| 🇪🇪 EE | British American Tobacco Estonia | Matthias Baltes | Main decision-maker | — | 0.9 |
+| 🇪🇪 EE | Imperial Tobacco Estonia | Farid Hamadi | Juhatuse liige | +372 6221881 / fredi.viidik@ee.imptob.com | 0.7 |
+| 🇪🇪 EE | JT OÜ (JTI Estonia) | Jaan Lainurm | Juhatuse liige | +372 5551 5636 | 0.9 |
+| 🇲🇩 MD | Philip Morris Moldova | Elena Naumenko | Director | — | 0.8 |
+| 🇲🇩 MD | British American Tobacco Moldova | Radu Vrabie | CORA&Legal Manager | +373 22 855 355 | 0.8 |
+| 🇲🇩 MD | Imperial Tobacco Moldova | Dmitri Matiescu | Territory Executive | — | 0.7 |
+| 🇲🇩 MD | JTI Moldova | Gabriella Offeddu | GM cluster (RO+MD+BG) | — | 0.9 |
+
+**Pipeline**: `tools/auto_enrich.py` — OpenRouter DeepSeek + agent web_search. Resumable: `data/.verify-state/enrichment-progress.json`. CLI: `python3 tools/auto_enrich.py leads` (list remaining), `process --search-results "..." --id PL-X-XX-XXX --csv ...` (single lead).
+
 
 
 ## 2026-08-10 09:58
@@ -378,6 +448,8 @@ if not fuzzy_match(api_name, csv_name):
 | 🐋 | **HURTOWNIA KING** Krzysztof Król (PL-B-XX-025) | JDG od 2000, Szczecin + Gdynia, kinghurt.pl, własna strona. |
 | 🐋 | **HURTOWNIA PAPIEROSÓW** Sp. z o.o. (PL-B-XX-020) | KRS 0000568420, Brzeziny, kapitał 66.5k zł. |
 | 🐋 | **CK COMPLEX** Sp. z o.o. (PL-B-LB-001) | 100+ sklepów vape, dystrybutor SMOK/VooPoo/Aspire. Już był w katalogu. |
+| 🐋 | **PT DYSTRYBUCJA S.A.** (PL-B-XX-273) | KRS 0000137829, NIP 7960069945, 98M zł kapitał, MERKURY S.A. (Kraków) 78% owner. Legal successor of 1947 Polski Tytoń. **Pivoted to real estate + warehouse + alcohol (46.34.A + 52.10.B + 68.20.Z).** Nie jest aktywnym dystrybutorem tytoniu — ale ma magazyny w Radomiu i licencję alkoholową, więc potential cross-sell na hurtownie alkoholu. NIE ten sam podmiot co PL-B-XX-026 POLSKI TYTOŃ S.A. |
+| 🐋 | **HURTOWNIA PD DRWAL** Sp.j. (PL-B-XX-274) | KRS 0000070328, NIP 8730206184, PKD 46.35.Z hurtownia wyrobów tytoniowych, Wola Rzędzińska 573. 3 decidents: W Drwal, G Pinas, D Drwal. Sp.j. od 2001. Solid mid-tier regional wholesale, mała-tka ale stabilna od 23 lat. |
 
 ## 2026-08-10 12:53 - tools/checksums.py (12-krajowy walidator)
 
@@ -413,3 +485,135 @@ python3 tools/l0_preflight.py --retrofix --dry-run  # all 12 countries
 **Praktyczna wartość:** 99% halucynacji LLM zostaje złapanych (random NIPs/KRS rzadko przechodzą mod 11). Pozostałe 1% to edge cases jak wiodące zera — patrz DZIENNIK 12:53.
 
 **Kolejne kroki:** zintegrować z cron `verify-billszuka` (każde uruchomienie powinno najpierw odpalić L0).
+
+## 🐋 PHUP Gniezno Szeszycki — Top-tier B8 (2026-08-11)
+
+**Discovery source:** L1 web search + bizraport + wyszukiwarkakrs + sprytnykupiec (cross-validated via KRS API name match).
+
+**Profile:**
+- **Official name:** PHUP GNIEZNO SZESZYCKI SPÓŁKA KOMANDYTOWA
+- **NIP:** 7842403647
+- **KRS:** 0000300468 (KRS API confirmed)
+- **Siedziba:** Orcholska 41, 62-200 Gniezno, wielkopolskie
+- **Forma prawna:** spółka komandytowa (od 2022-04-25)
+- **PKD główne:** 46.35.Z (Sprzedaż hurtowa wyrobów tytoniowych)
+- **Przychody 2025:** 1 449 875 283 zł (1.5 mld zł)
+- **Zysk netto 2025:** 19 912 843 zł
+- **Wartość firmy:** 1.1 mld zł
+- **Magazyny:** 35 000 m²
+- **Obsługiwane sklepy:** ~3000
+- **Zasięg:** wielkopolskie, lubuskie, zachodniopomorskie
+- **Oddziały:** Gniezno, Kalisz, Stopka, Świniec, Gorzów Wlkp., Zielona Góra, Szczecin
+- **Tradycja:** 30+ lat (rodzinna firma)
+- **Asortyment:** 6000+ produktów FMCG, w tym wyroby tytoniowe, nabiał, chemia, farmaceutyki
+- **Kontakt B2B:** +48 512 984 347, +48 507 015 972, zamowienia@phupgniezno.pl, hurtownia@phupgniezno.pl
+
+**Strategic value for BILLSzuka:**
+- 🐋 **BIG FISH** — top 5 hurtowni FMCG w PL, 1.5 mld zł revenue (większa niż BILLS)
+- Kanał hurtowy obejmuje 3 województwa (wielkopolskie, lubuskie, zachodniopomorskie) = ~3000 sklepów convenience
+- PKD 46.35Z = już ma wyroby tytoniowe, cross-sell PM/Hawk naturalny
+- Asortyment FMCG + 30 lat tradycji = stabilny partner, nie szara strefa
+- **Rekomendacja:** A1 (kontakt natychmiast przez CEO Marceli). Mógłby stockować PM/Hawk jako dodatek do istniejącej oferty tytoniowej.
+
+**Why discovered now:** Phrase "hurtownia FMCG Gniezno" + "wyroby tytoniowe" w SŁOWNIK. KRS API name match = 100% (po rename "PHUP Gniezno Szeszycki sp.k." → "PHUP GNIEZNO SZESZYCKI SPÓŁKA KOMANDYTOWA").
+
+**Catalog row:** `data/Polska/catalog-B-PL.csv:PL-B-OP-003` (region kodu OP, ale firma jest w WP — do korekty regionu)
+
+## 2026-08-11 — KAS Rejestr Pośredników Tytoniowych = best PL L4 source
+
+**Discovery (PL research round 03:42 CEST):** The Polish government publishes an official PDF list of tobacco intermediaries (Posredniczace Podmioty Tytoniowe / PPT) — firms licensed to trade in tobacco leaf (susz tytoniowy) without paying excise upfront.
+
+**URL:** https://www.gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych
+**Current version:** 123.0 (2026-08-07, 0.13MB PDF, 1 page, ~15 firms)
+**Cadence:** Updated weekly (last 30 versions since 2024 visible in change history)
+
+**Why this is the best source for BILLSzuka PL:**
+- Authoritative NIP + KRS/CEIDG identifier from KAS (Krajowa Administracja Skarbowa) — no hallucination risk, no FABRYKAT
+- All mod-11 valid (government-issued NIPs)
+- Includes KRS for sp. z o.o., CEIDG for sp.c./JDG
+- All firms have real warehouses (miejsca magazynowania suszu) — tier classification easy
+- All B1 (tyton liscie) = highest cross-sell potential with PowerMatic (susz tytoniowy processing firms buy nabijarki for their own product testing + B2B resale)
+- Free, no auth, no rate limit
+- 100% B1F or A1F fit (firms already in tobacco industry, legal status confirmed)
+
+**7 NEW FROZEN leads from 1 PDF in this run:**
+1. **LUXTAB** (KRS 0000418932, Poniatowa) — 2 lokalizacje
+2. **JBT** (KRS 0000474682, Lublin) — 6 lokalizacji w lubelskim + swietokrzyskie
+3. **LUKOWA TOBACCO COMPANY** (KRS 0000944978) — Lukowa 608
+4. **LUKOWA TOBACCO Sp. z o.o.** (KRS 0000979679) — Lukowa, 9 lokalizacji (lubelskie + podkarpackie + podlaskie + kujawsko-pomorskie + swietokrzyskie) — wyglada na duza grupe
+5. **ANGEL BIO** (KRS 0000764029, Warszawa HQ) — 3 lokalizacje w mazowieckim
+6. **CKM TOBACCO** (KRS 001124066, Lublin) — 2 lokalizacje bilgorajskie
+7. **UNIVERSAL LEAF TOBACCO POLAND** (KRS 0000068941, Jedrzejow HQ + 8 oddzialow) — **subsidiary of Universal Corporation (NYSE: UVV)**, jeden z najwiekszych przetworcow tytoniu na swiecie
+
+**Already in catalog (B1/B8 candidates confirmed FROZEN, no double-add):**
+- LUXTAB, JBT, TOBACCO OF POLAND (KRS 0000673961, Grudziadz), BAT POLSKA TRADING (KRS 0000328269), PHILIP MORRIS POLSKA TOBACCO (KRS 0000291604), CANNMEDIA AGATA SEKOWSKA (Bletki.com NIP 9462453893)
+
+**Strategic value for BILLSzuka:**
+- KAS register firms process susz tytoniowy — they have machines but likely not PowerMatic brand (which is for end-user pre-rolled cigarettes). Cross-sell = sell them PM as workplace tool for their own susz testing.
+- Lukowa Tobacco + JBT + AGROTAB + SLOMEX form a **regional cluster in bilgorajskie/podkarpackie (SE Poland)** — natural partner hub for distributing to SK/UA border regions
+- UNIVERSAL LEAF = top-tier global player, probably too big to negotiate directly with BILLS but good to know for market intel
+- BAT POLSKA TRADING + PMI POLSKA TOBACCO = Tier 1 giants, useful only for market sizing
+
+**Workflow update — add to methodology.md L4:**
+- L4 Customs/Regulatory now includes: "**KAS Rejestr Posrednikow Tytoniowych** — PDF download monthly, parse with pdfplumber, filter PKD/B1, add to catalog-B"
+- Reasoning: 1 PDF = 7+ verified leads in 5 minutes, beats any L1 search
+
+**Confidence:** high (government-issued, mod-11 + KRS + CEIDG cross-check)
+
+## 2026-08-12 — Nowe odkrycia (PL run)
+
+### 🐋 Top 3 PL tobacco distributors (per BizRaport, bazy.biz)
+1. **Philip Morris Polska Distribution** (NIP 6751373354) — 17.4 mld zł revenue — already not in B2B scope (proprietary brands only)
+2. **Eurocash Serwis** (NIP 7772304755, KRS 0000040385) — 11.88 mld zł — PL-B-XX-056 FROZEN, 24k+ sklepów, 8+ oddziałów. **Konsorcjum Dystrybutorów = ten sam podmiot** (Eurocash przejął).
+3. **British American Tobacco Polska Trading** (NIP 5222917210) — 9.18 mld zł — not in B2B scope (proprietary)
+
+### Nowe B2B discovery (this run)
+- **PHU ANTARES Sp. z o.o.** (Warszawa, KRS 0000274792, NIP 5321930490) — PKD 46.35 hurtownia wyrobów tytoniowych. PL-B-XX-212 FROZEN. — 📌 Tier: hurtownik, candidate for PM/Hawk B2B outreach
+- **Hurtownia Pd W. Drwal sp.j.** (Wola Rzędzińska, KRS 0000070328, NIP 8730206184) — PKD 46.35, sp.j. od 2001. PL-B-XX-213 FROZEN. — 📌 Tier: regionalny hurtownik
+- **Trafika sp.j. Hurtownia Papierosów** (Siedlce, KRS 0000072324, NIP 8211005731) — PKD 46.35, 1995. PL-B-XX-210 DO-W (KRS transient). Retry next run.
+- **Tabak Polska Sp. z o.o.** (Tarnów, KRS 0000066240[?], NIP 8731567406) — PKD 46.35, 1993. PL-B-XX-211 DO-W (pkt.pl KRS was wrong, fixed). Retry next run.
+- **PHU Hugo Sławomir Strzelczyk** (Oleśnica, NIP 8971630593) — PKD 47.26.Z detal tytoniowy. PL-B-XX-214 DO-W (CEIDG 429). Retry next run.
+
+### Lesson: pkt.pl KRS może być błędny
+- KRS 0000254466 z pkt.pl = SKLEPY TABAK sp.j. (NIP inny), NIE Tabak Polska Sp. z o.o.
+- Zawsze cross-check z api-krs.ms.gov.pl. L0 NIP+KRS name match jaccard < 0.3 = prawdopodobnie FABRYKAT.
+- krs-pobierz.pl daje inny KRS dla tego samego NIP — używać jako secondary source, ale KRS API = single source of truth.
+
+### KAS Rejestr Pośredników Tytoniowych (L4 źródło)
+- 6 wpisów już w katalogu FROZEN (LUXTAB 7171829068, JBT 7123280644, ŁUKOWA TOBACCO 7123280644, ANGEL BIO, CKM TOBACCO 7123480343, UNIVERSAL LEAF)
+- Source: gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych (PDF updated 19.02.26)
+- Wszystkie hurtownie suszu tytoniowego — górny poziom kanału dystrybucji
+
+## 2026-08-12 08:30 — Nowe odkrycia (PL run #2, post-merge)
+
+### 🐋 STRATEGIC FIND — powermatic.store unauthorized reseller
+- **ARMORICA GRZEGORZ ZAWADA** (NIP PL5140325868, REGON 540228713, 63-500 Olszyna, Jesienna 2/1)
+  - Owns domain **powermatic.store** and Erli/Allegro shop "powermatic-store"
+  - Self-identifies as **"Offizieller Vertriebspartner von POWERMATIC"** / "Oficjalna dystrybucja PL"
+  - VIES ✓ mod-11 ✓ REGON ✓
+  - **CONFLICT:** BILLS Sp. z o.o. (PL-A-WP-001) = exclusive PL+CEE distributor per company profile
+  - 3 possibilities: (a) BILLS authorized sub-dealer with own storefront, (b) cross-border DE reseller without PL authorization, (c) trademark violation (need EUIPO search "PowerMatic")
+  - **Action for Marceli:** CONFIRM whether Armorica is authorized BILLS sub-dealer. If not — this is direct channel conflict / possible EUIPO infringement.
+  - **Why 🐋:** Both competitive threat AND sales channel opportunity (if BILLS has gap in their own sub-channel).
+  - Filed as PL-B-XX-215 (A6 reseller, ⚠️ KONKURENCJA_UNAUTH flag).
+
+### Tier-🐋 lead — Nooti (Hawk-Matic drop-shipper)
+- **NOOTI DAMIAN WICZKOWSKI** (NIP PL5892097312, 83-322 Stężyca, Łąkowa 4)
+  - Erli sklep "Nabijarki" + Arena.pl shop — sells Hawk-Matic
+  - VIES ✓ mod-11 ✓
+  - Small (mały 🟡) but functional B2C channel. Worth monitoring as cross-sell signal for budget segment.
+  - NOTE: Hawk-Matic (hawkmatic.com) = Chinese brand, distinct from BILLS Hawk. Different price tier.
+  - Filed as PL-B-XX-216 (A4 retailer).
+
+### Run state
+- catalog-B-PL.csv: 207 rows (was 205), 2 new leads (215 Armorica, 216 Nooti)
+- live verify_api: 745 verified, 114 FROZEN, 631 DO-W, 0 PENDING_API
+- CEIDG rate-limited 429s hit my new rows — they need retry next run
+
+### Hempking Sp. z o.o. — PL CBD producer (B9 cross-sell)
+- **HEMPKING SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ** (NIP PL5272825467, KRS 0000700277, Białystok PD, 2017)
+- Polskie laboratorium konopne — producent olejków CBD/CBG/CBDa, susz CBD, kosmetyki, żywność. EU Organic certyfikat.
+- B2B hurtownia + dropshipping + white label.
+- **BILLS overlap:** B9 (CBD/konopie) → overlap kliencki ze skręcaczami (jointy z suszu). Hurtownie konopne naturalnie cross-sellują bibułki, filtry, młynki, a jeśli klient pyta o maszynki → PM/Hawk. Tier-🟡 partner (kapitał 5k, mały, ale producent z certyfikatem).
+- KRS API ✓, mod-11 ✓, FROZEN 2026-08-12
+- Filed as PL-B-XX-216.

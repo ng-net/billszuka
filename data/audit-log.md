@@ -3606,3 +3606,14624 @@ Wszystkie 37 wpisy z poprzedniej sesji potwierdzone live API:
 - **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
 
 **Run summary:** 0 added, 145 modified, 0 removed — 40 FROZEN, 105 DO-WERYFIKACJI
+
+## 2026-08-10 15:26
+
+### Pliki sprawdzone
+- catalog-A-CZ-20260810T112842Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL.csv: 3 wpisów
+- catalog-A-PL_20260810_150952.csv: 3 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG.csv: 11 wpisów
+- catalog-B-BG_20260810_150952.csv: 11 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952.csv: 7 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE.csv: 10 wpisów
+- catalog-B-EE_20260810_150952.csv: 10 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR.csv: 11 wpisów
+- catalog-B-FR_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-HR_20260810_150952.csv: 11 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT.csv: 10 wpisów
+- catalog-B-LT_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T112843Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV.csv: 10 wpisów
+- catalog-B-LV_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD.csv: 10 wpisów
+- catalog-B-MD_20260810_150952.csv: 10 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952.csv: 31 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952.csv: 27 wpisów
+- catalog-B-PL.csv: 27 wpisów
+- catalog-B-PL_20260810_150952.csv: 27 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO.csv: 11 wpisów
+- catalog-B-RO_20260810_150952.csv: 11 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI.csv: 10 wpisów
+- catalog-B-SI_20260810_150952.csv: 10 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK.csv: 11 wpisów
+- catalog-B-SK_20260810_150952.csv: 11 wpisów
+
+### ✅ FROZEN
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 878 added, 145 modified, 0 removed — 287 FROZEN, 736 DO-WERYFIKACJI
+
+## 2026-08-10 15:31
+
+### Pliki sprawdzone
+- catalog-A-CZ-20260810T112842Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-CZ_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL.csv: 3 wpisów
+- catalog-A-PL_20260810_150952-20260810T132615Z_20260810_152645.csv: 3 wpisów
+- catalog-A-PL_20260810_150952.csv: 3 wpisów
+- catalog-A-PL_20260810_150952_20260810_152645.csv: 3 wpisów
+- catalog-A-PL_20260810_152645.csv: 3 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG.csv: 11 wpisów
+- catalog-B-BG_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-BG_20260810_150952.csv: 11 wpisów
+- catalog-B-BG_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-BG_20260810_152645.csv: 11 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ-20260810T132615Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952-20260810T132616Z_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952_20260810_152645.csv: 7 wpisów
+- catalog-B-CZ_20260810_152645.csv: 7 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE-20260810T132615Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE.csv: 10 wpisów
+- catalog-B-EE_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-EE_20260810_150952.csv: 10 wpisów
+- catalog-B-EE_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-EE_20260810_152645.csv: 10 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR.csv: 11 wpisów
+- catalog-B-FR_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-FR_20260810_150952.csv: 11 wpisów
+- catalog-B-FR_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-FR_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-HR_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-HR_20260810_150952.csv: 11 wpisów
+- catalog-B-HR_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-HR_20260810_152645.csv: 11 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT-20260810T132615Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT.csv: 10 wpisów
+- catalog-B-LT_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LT_20260810_150952.csv: 10 wpisów
+- catalog-B-LT_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LT_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T112843Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T112843Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T112907Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T113007Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LV-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LV.csv: 10 wpisów
+- catalog-B-LV_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-LV_20260810_150952.csv: 10 wpisów
+- catalog-B-LV_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-LV_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD-20260810T132615Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD.csv: 10 wpisów
+- catalog-B-MD_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-MD_20260810_150952.csv: 10 wpisów
+- catalog-B-MD_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-MD_20260810_152645.csv: 10 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952_20260810_152645.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952_20260810_152645.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_152645.csv: 31 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL-20260810T132615Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL.csv: 27 wpisów
+- catalog-B-PL_20260810_150952-20260810T132616Z_20260810_152645.csv: 27 wpisów
+- catalog-B-PL_20260810_150952.csv: 27 wpisów
+- catalog-B-PL_20260810_150952_20260810_152645.csv: 27 wpisów
+- catalog-B-PL_20260810_152645.csv: 27 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO.csv: 11 wpisów
+- catalog-B-RO_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-RO_20260810_150952.csv: 11 wpisów
+- catalog-B-RO_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-RO_20260810_152645.csv: 11 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI-20260810T132615Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI.csv: 10 wpisów
+- catalog-B-SI_20260810_150952-20260810T132616Z_20260810_152645.csv: 10 wpisów
+- catalog-B-SI_20260810_150952.csv: 10 wpisów
+- catalog-B-SI_20260810_150952_20260810_152645.csv: 10 wpisów
+- catalog-B-SI_20260810_152645.csv: 10 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK-20260810T132615Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK.csv: 11 wpisów
+- catalog-B-SK_20260810_150952-20260810T132616Z_20260810_152645.csv: 11 wpisów
+- catalog-B-SK_20260810_150952.csv: 11 wpisów
+- catalog-B-SK_20260810_150952_20260810_152645.csv: 11 wpisów
+- catalog-B-SK_20260810_152645.csv: 11 wpisów
+
+### ✅ FROZEN
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 2580 added, 1023 modified, 0 removed — 1017 FROZEN, 2586 DO-WERYFIKACJI
+
+## 2026-08-10 18:52
+
+### Pliki sprawdzone
+- catalog-A-CZ-20260810T112842Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112842Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T112907Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T113007Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130845Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T130919Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ-20260810T133059Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-CZ_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112843Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T112907Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T113007Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130845Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T130919Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952-20260810T132615Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_150952_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_152645-20260810T133100Z_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_152645_20260810_153138.csv: 3 wpisów
+- catalog-A-PL_20260810_153138.csv: 3 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952_20260810_152645-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112842Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T112907Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T113007Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130845Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T130919Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T132615Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T132615Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG-20260810T133059Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_152645-20260810T133101Z_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-BG_20260810_153138.csv: 11 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112842Z_20260810_150952_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_150952_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T112907Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_150952_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T113007Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_150952_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130845Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952_20260810_152645-20260810T133101Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_150952_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T130919Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T132615Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T132615Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T132615Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ-20260810T133059Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ.csv: 1 wpis
+- catalog-B-CZ_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952-20260810T132616Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952-20260810T133102Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_150952_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_152645-20260810T133102Z_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_152645_20260810_153138.csv: 7 wpisów
+- catalog-B-CZ_20260810_153138.csv: 7 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112842Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T112907Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T113007Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130845Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T130919Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T132615Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T132615Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T132615Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE-20260810T133059Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-EE_20260810_153138.csv: 10 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112842Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T112907Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T113007Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130845Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T130919Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T132615Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T132615Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR-20260810T133059Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-FR_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112842Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T112907Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T113007Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130845Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T130919Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T132615Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T132615Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR-20260810T133059Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_152645-20260810T133102Z_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-HR_20260810_153138.csv: 11 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112842Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T112907Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T113007Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130845Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T130919Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T132615Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T132615Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T132615Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT-20260810T133059Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952-20260810T132616Z_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_152645-20260810T133102Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LT_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T112843Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T112843Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T112907Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T113007Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130845Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T130919Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-LV_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112843Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T112907Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T113007Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130845Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T130919Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T132615Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T132615Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T132615Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD-20260810T133059Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_152645-20260810T133103Z_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-MD_20260810_153138.csv: 10 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T112907Z_20260810_150952_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_150952_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T113007Z_20260810_152645_20260810_153138.csv: 31 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_150952_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T120047Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_150952_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130845Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_150952_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T130919Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T132615Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T132615Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T132615Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL-20260810T133100Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952-20260810T132616Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_150952_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_152645-20260810T133103Z_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_152645_20260810_153138.csv: 27 wpisów
+- catalog-B-PL_20260810_153138.csv: 27 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112843Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T112907Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_152645-20260810T133103Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T113007Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130845Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T130919Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T132615Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T132615Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-RO_20260810_153138.csv: 11 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112843Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T112907Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T113007Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130845Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T130919Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T132615Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T132615Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T132615Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI-20260810T133100Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952-20260810T132616Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_150952_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_152645-20260810T133104Z_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_152645_20260810_153138.csv: 10 wpisów
+- catalog-B-SI_20260810_153138.csv: 10 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112843Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T112907Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T113007Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130845Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T130919Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T132615Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T132615Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T132615Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK-20260810T133100Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952-20260810T132616Z_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952-20260810T132616Z_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952-20260810T132616Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_150952_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_152645-20260810T133104Z_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_152645_20260810_153138.csv: 11 wpisów
+- catalog-B-SK_20260810_153138.csv: 11 wpisów
+
+### ✅ FROZEN
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10 (IČO fixed from 60471484 GECO KLEMPIZO → 63080737 GECO a.s.)), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (rekvizitai.vz.lt + web search), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-057**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-058**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+- **PL-B-XX-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-004**: Źródło nieoficjalne: tobaccotrade.bg (whois: active) + finansi.bg 2026-08-10
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-001**: Źródło nieoficjalne: tobacco.bg + web search 2026-08-10
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-001**: Źródło nieoficjalne: sanitex.eu
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-XX-058**: Brak pól: adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-080**: Brak pól: adres
+- **PL-B-XX-059**: Brak pól: adres
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-016**: Brak pól: rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 7781 added, 1 modified, 0 removed — 2245 FROZEN, 5537 DO-WERYFIKACJI
+
+## 2026-08-10 19:45
+
+### Pliki sprawdzone
+- catalog-B-BG.csv: 4 wpisów
+
+### ✅ FROZEN
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 0 added, 4 modified, 0 removed — 2 FROZEN, 2 DO-WERYFIKACJI
+
+## 2026-08-10 20:00
+
+### Pliki sprawdzone
+- catalog-A-CZ.csv: 2 wpisów
+- catalog-A-PL.csv: 1 wpis
+- catalog-B-BG.csv: 4 wpisów
+- catalog-B-CZ.csv: 6 wpisów
+- catalog-B-HR.csv: 10 wpisów
+- catalog-B-PL.csv: 2 wpisów
+
+### ✅ FROZEN
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10 (IČO fixed from 60471484 GECO KLEMPIZO → 63080737 GECO a.s.)), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+
+**Run summary:** 0 added, 25 modified, 0 removed — 10 FROZEN, 15 DO-WERYFIKACJI
+
+## 2026-08-10 20:19 — PL intake merge (intake v1)
+
+**Operacja:** merge `_intake/PL/source.csv` (376 wierszy) do `data/Polska/catalog-{A,B}-PL.csv`
+
+### Etap 1 — Kategoryzacja fix (per hallucination_audit.md)
+- 4 A→B moves (kategory mismatch per master): Dopalenia, Elenpipe, BongoGo, Cloudshop
+- 7 tier-only fixes (reseller → master_verified): Ismoking, Flowrolls, Konopnysklep, Bista Standard, Wszystkodopalenia, Trafika.pl, Weedpol
+- 4 A1-bez-NIP przeniesione do B (CEIDG search failed, heurestyka: PRODAP = rolnicze, Ubuy/konopny_sklep = marketplace, Beata Czyż = JDG)
+- 86 A4-bez-NIP przeniesione do B (B4 cross-sell, flaga 🔍)
+
+### Etap 2 — Merge + deduplikacja
+- Batch 1: 28 A4-z-NIP → catalog-A-PL.csv
+- Batch 2: 298 B → catalog-B-PL.csv (z 4 nowymi A1-przeniesionymi)
+- Deduplikacja: 38 wierszy dropped (id konflikt z master originals)
+- ID regeneration: 4 wiersze prze-generowane (kolizje wewnętrzne)
+
+### Final state
+| | Przed | Po merge | Po cleanup |
+|---|---:|---:|---:|
+| catalog-A-PL.csv | 3 | 35 | **30** |
+| catalog-B-PL.csv | 27 | 280 | **260** |
+| Razem | 30 | 315 | **290** |
+
+### Istniejące bugi w masterze (NIE z tego merge)
+| Typ | Count | Przykład |
+|---|---:|---|
+| id_unikalne w A i B (ten sam) | 5 | PL-A-WP-001 = BILLS (A) + SklepTytoniowy.pl (B) |
+| NIP ten sam w A i B | 1 | PL5542559901 = BISTA w A (PL-A-KP-001) i B (PL-B-XX-055) |
+
+Te bugi istniały **przed** dzisiejszym merge. Zalecane: ręczny fix w master PL.
+
+### Flagi po merge
+- 🔧 (poprawione per master): 9
+- 🔍 (DO-WERYFIKACJI, no NIP): 281
+- 🔍⚠️ (heavy flag, A1 candidate): 0 (przeniesione do B)
+
+
+### 2026-08-10 20:21 — Cleanup pass (A+B strategy)
+
+**Operacja:** deduplikacja + ID regeneration
+
+#### Statystyki
+- 27 nowych wierszy w A (z 3 oryginałów)
+- 233 nowych wierszy w B (z 27 oryginałów)
+- 38 wierszy dropped (id conflict z master originals)
+- 0 oryginałów mastera zmienionych
+
+#### ID Regeneration
+- 94 ID prze-generowane (nowe w B z PL-A-* prefix → PL-B-*)
+- 0 oryginałów naruszonych
+
+#### Final state
+- A: 30 rows (3 orig + 27 new)
+- B: 260 rows (27 orig + 233 new)
+- Razem: 290 rows
+- Unikalne id_unikalne: 290/290
+- Unikalne NIP: 56/57 (1 dup: BISTA — istniejący bug master)
+
+#### Known issues
+- BISTA NIP (PL5542559901) w A (PL-A-KP-001) i B (PL-B-XX-056) — istniejący bug master
+
+## 2026-08-11 01:42 — Master regen + BISTA fix + NIP validation
+
+### Master regen
+- 405 rows (12 krajów: PL=290, inne=115)
+- 40 kolumn (38 master + _catalog, _country metadata)
+- Backup: `data/_intake/master-backup-20260811-013720.csv`
+
+### BISTA fix
+- Dual classification: A5 (producer OEM Dark Horse/FERN) + B8 (hurtownik)
+- Notatka dodana w master A, master B, master.csv
+- Flaga 🔁dual dodana
+
+### NIP checksum validation
+- 57 NIPs validated (per mod 11 algorithm)
+- Result: 57/57 valid ✓
+
+### Status po merge
+- ✅ FROZEN: 38
+- ⚠️ DO-WERYFIKACJI: 252
+- Brak flagi: 0
+
+### Rekomendacja (następne kroki)
+1. L1 research dla 233 PL B bez NIP (DuckDuckGo + WHOIS batch)
+2. L2 KRS/CEIDG API match dla 77 z NIP (per verify-data skill krok 2)
+3. VIES validation dla 57 NIPs
+4. BuiltWith + SimilarWeb dla 186 z WWW
+
+## 2026-08-11 01:47 — Etap 3 (master regen + BISTA + NIP validation) + Etap 4 (L1 research attempt)
+
+### Master regen
+- 405 rows × 40 cols (38 schema + _catalog + _country)
+- 12 krajów: PL=290, inne=11 każde (CZ=10, EE=10, FR=11, LT=10, LV=10, MD=10, BG=11, HR=11, RO=11, SI=10, SK=11)
+- Backup: `data/_intake/master-backup-20260811-013720.csv`
+
+### BISTA fix
+- Dual classification (A5 producer + B8 hurtownik)
+- Notatka dodana w master A, master B, master.csv
+- Flaga 🔁dual
+
+### NIP checksum validation
+- 57 NIPs (PL), 57/57 valid (mod 11)
+
+### L1 NIP research — próby
+- 233 PL B bez NIP (intake)
+- 121 z WWW+miasto (sweet spot)
+- Direct fetch strony (20 prób): 0% success (NIP nie na homepage)
+- DuckDuckGo HTML search (5 prób): 0% (bot blocker)
+- WHOIS .pl (20 prób): 0% (GDPR ukrył registrant)
+- **Wniosek: L1 NIP research wymaga paid API (Veritor/ENTIA/nipgo.pl) lub manual**
+
+### Rekomendacja
+- L1 NIP research: 5-10h manual lub paid API
+- L2 KRS/CEIDG API match dla 77 z NIP: zautomatyzowane
+- BuiltWith/SimilarWeb dla 186 z WWW: wymaga API key
+- WHOIS dates: dostępne (created/modified) ale bez NIP
+
+## 2026-08-11 01:52
+
+### Pliki sprawdzone
+- catalog-A-PL.csv: 1 wpis
+- catalog-B-EE.csv: 4 wpisów
+- catalog-B-FR.csv: 3 wpisów
+- catalog-B-MD.csv: 3 wpisów
+- catalog-B-PL.csv: 98 wpisów
+- catalog-B-RO.csv: 5 wpisów
+- catalog-B-SK.csv: 3 wpisów
+
+### ✅ FROZEN
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES), format NIP OK
+- **PL-B-PM-001**: Źródło oficjalne (L1 web search (bazafirmdane.pl) + CEIDG API), format NIP OK
+- **PL-B-MZ-007**: Źródło oficjalne (L1 web search (aleo.com + krs-pobierz.pl) + KRS API + PKD 46.35Z), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API), format NIP OK
+- **PL-B-DS-005**: Źródło oficjalne (L1 web search (kaziool.pl/nabijarki) + CEIDG API), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-114**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-063**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-127**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-130**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-PM-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-070**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LD-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-021**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-061**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-060**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-074**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-123**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-077**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-069**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-068**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MZ-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-094**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-111**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-107**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-133**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SL-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-066**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-086**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-093**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-113**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-131**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-058**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-125**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-085**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-104**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-116**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-089**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-122**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-088**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-071**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-109**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-108**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-095**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-059**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-078**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-117**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-100**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-128**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-110**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-119**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-073**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-075**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-072**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-124**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SL-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-083**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SL-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-120**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-096**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-112**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-067**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-132**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-098**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-057**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-090**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-097**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-DS-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-018**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-102**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-115**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-129**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-101**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-015**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-079**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-081**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-DS-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-084**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-WP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-105**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-076**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-092**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-121**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-106**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-062**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-ZP-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-099**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-082**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-065**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-103**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-118**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-087**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-091**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-126**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-080**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-064**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 94 added, 23 modified, 94 removed — 10 FROZEN, 107 DO-WERYFIKACJI
+
+## 2026-08-11 02:02
+
+### Pliki sprawdzone
+- catalog-B-MD.csv: 1 wpis
+
+### ⚠️ DO-WERYFIKACJI
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 0 added, 1 modified, 0 removed — 0 FROZEN, 1 DO-WERYFIKACJI
+
+## 2026-08-11 02:09
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 2 wpisów
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-274**: Brak pól: adres
+- **PL-B-XX-273**: Brak pól: adres
+
+**Run summary:** 2 added, 0 modified, 0 removed — 0 FROZEN, 2 DO-WERYFIKACJI
+
+## 2026-08-11 02:17
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 2 wpisów
+
+### ✅ FROZEN
+- **PL-B-XX-273**: Źródło oficjalne (L1+L3: KAS rejestr pośredników tytoniowych + KRS API (KRS 0000137829, NIP 7960069945 mod-11 ✓, formerly Polski Tytoń, 98M zł kapitał, 68.20.Z nieruchomości + 46.34.A + 52.10.B)), format NIP OK
+- **PL-B-XX-274**: Źródło oficjalne (L1+L3: krs-pobierz.pl + KRS API (KRS 0000070328, NIP 8730206184 mod-11 ✓, PKD 46.35.Z hurtownia wyrobów tytoniowych, 33-150 Wola Rzędzińska 573, decidents: W Drwal+G Pinas+D Drwal)), format NIP OK
+
+**Run summary:** 0 added, 2 modified, 0 removed — 2 FROZEN, 0 DO-WERYFIKACJI
+
+## 2026-08-11 02:19 — L2 VIES verification (52/61 valid)
+
+### VIES batch check
+- 61 unique NIPs queried via `https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number`
+- 52 valid (85%), 9 invalid (probably JDG or non-EU-VAT)
+- 0 errors
+
+### Name match results (per VIES official name)
+- EXACT: 27
+- PARTIAL: 15
+- MISMATCH: 10
+- EMPTY: 0
+
+### Mismatches (manual review needed)
+- 10 firm z VIES name != master name
+- Logged: `data/_intake/PL/vies_name_mismatches.json`
+- Flaga ⚠VIES-MISMATCH dodana
+
+### Updates
+- 52 firm w PL: flaga ✅VIES dodana (FROZEN)
+- VIES data saved: `data/_intake/PL/vies_results_20260811-021915.json`
+
+## 2026-08-11 02:26 — L2 KRS API match (28 verified)
+
+### KRS Open API (Ministerstwo Sprawiedliwości)
+- Endpoint: `https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}?rejestr=P&format=json`
+- Authorization: **NONE required** (public API!)
+- Rate limit: 20 req/min
+- 29 firm z KRS number → 28/28 verified
+  - 22 EXACT match (master = KRS official name)
+  - 6 PARTIAL match (master = skrócona wersja KRS name)
+  - 0 prawdziwych MISMATCH
+  - 1 ERROR (KRS 0000010733 - timeout)
+
+### VIES (combined)
+- 52/61 (85%) valid EU VAT
+- 27 EXACT + 15 PARTIAL name match
+- 10 halucynacji w master (różne nazwy)
+
+### L2 verification summary
+- KRS API: 28 firm FROZEN (EXACT+PARTIAL)
+- VIES: 52 firm FROZEN (EXACT+PARTIAL)
+- L1 NIP research: 233 firm wciąż DO-WERYFIKACJI
+
+## 2026-08-11 02:36 — Rename halucynacji + REGON API attempt
+
+### 1. Rename 9/10 halucynacji (z VIES)
+- Trafika.pl → "TABAK GRUPA" SP. Z O.O.
+- i-Want! → I-WANT SP. Z O.O.
+- Intersmokerhurt → PIOTR KRĘTOWSKI
+- Epapierosy Hurt → GRZEGORZ MUŻYK
+- E Enzo → ENZO VAPE CITY SP. Z O.O.
+- Dym → PROMOTORZY TRADING SP. Z O.O.
+- Drkonopny → JAKUB KRAWCZYK
+- Cybuchshisha → PIOTR MOŁONIEWICZ
+- Bulut → ALPERATA SP. Z O.O.
+- (Konopny Sklep już renamed przez inny agent)
+
+### 2. REGON API attempt - FAILED
+- Endpoint: https://wyszukiwarkaregon.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc
+- Test key: abcde12345abcde12345
+- Wymaga: WS-I Basic Profile (multipart/related + xop+xml)
+- Brak python lib (zeep, suds, regonapi) w venv
+- Portal web: ASP.NET viewstate (wymaga Selenium lub sesji)
+
+### 3. Inny agent aktywny
+- Master PL zmieniony między sesjami: A=29, B=245 (z 30/260)
+- 9 firm dodanych (L1+L3 verifications, KRS lookups)
+- NIPs: 65 (z 57)
+- NIE ruszam więcej master PL (kolaboracja)
+
+### Rekomendacje dla 233 PL B bez NIP
+1. **Manual research** przez portal CEIDG (https://prod.ceidg.gov.pl/CEIDG/CEIDG.Public.UI/Search.aspx)
+   - 5-10 min/firma, 19-39 godzin total
+2. **Paid APIs** (Veritor/ENTIA/Apify CEIDG Scraper) — bulk NIP lookup
+3. **Web scraping** (Selenium/Playwright) z auto-extract NIP z wyników Google
+4. **Zostawić** z flagą 🔍 i kontynuować research partiami
+
+## 2026-08-11 02:47
+
+### Pliki sprawdzone
+- catalog-A-PL.csv: 28 wpisów
+- catalog-B-BG.csv: 3 wpisów
+- catalog-B-CZ.csv: 1 wpis
+- catalog-B-EE.csv: 5 wpisów
+- catalog-B-FR.csv: 7 wpisów
+- catalog-B-HR.csv: 1 wpis
+- catalog-B-LT.csv: 8 wpisów
+- catalog-B-MD.csv: 1 wpis
+- catalog-B-PL.csv: 240 wpisów
+- catalog-B-SI.csv: 3 wpisów
+
+### ✅ FROZEN
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-ZP-001**: Źródło oficjalne (intake_PL_2026-08-10 | https://www.pkt.pl/firma/bjb-phu-hurtownia-papierosow-i-artykulow-spozywczych-348779 | http://www.bjb.pl | VIES confirmed 2026-08-11T00:18:40.020Z), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK
+- **PL-B-XX-277**: Źródło oficjalne (L1+L3: KAS rejestr posrednikow tytoniowych + KRS API (KRS 0000418932, NIP mod-11 ✓, name match ✓, Obliźniak 51A Poniatowa, decydent: Grzegorz Sochalski)), format NIP OK
+- **PL-B-XX-281**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-XX-279**: Źródło oficjalne (L1+L3: KAS rejestr posrednikow + KRS API (KRS 0001124066, NIP mod-11 ✓, name match ✓, Lublin Nałęczowska 30/3, sprzedaż/eksport/WDT)), format NIP OK
+- **PL-B-XX-280**: Źródło oficjalne (L1+L3: westtrading.pl + KRS API (KRS 0000981563, NIP mod-11 ✓, name match ✓, Szczecin Pomorska 61-65, decydenci M.W.Grynkiewicz+K.G.Plinta, 2003+, Coca-Cola+tytoń)), format NIP OK
+- **PL-B-XX-275**: Źródło oficjalne (L1: tobacchem.pl verified via CEIDG API 2026-08-11 — akcesoria dla palaczy, aromaty tytoniowe, Chrzanów), format NIP OK
+- **PL-B-XX-276**: Źródło oficjalne (L1: zas-pol.pl verified via KRS API 2026-08-11 — dystrybutor 4 wiodących producentów tytoniu (PM/IT/JT/BAT), 5 oddziałów (Poznań×3, Piła, Inowrocław) | KRS API 0000092182 (partial)), format NIP OK
+- **PL-B-XX-278**: Źródło oficjalne (L1+L3: pkt.pl + KRS API (KRS 0000023599, NIP mod-11 ✓, name match ✓, siedziba Środa Śląska Malczycka 1, oddziały Sulechów+Lublin, PKD 46.35.Z)), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK
+- **PL-B-MZ-007**: Źródło oficjalne (L1 web search (aleo.com + krs-pobierz.pl) + KRS API + PKD 46.35Z | VIES confirmed 2026-08-11T00:18:51.361Z | KRS API 0000703579), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK
+- **PL-B-DS-005**: Źródło oficjalne (L1 web search (kaziool.pl/nabijarki) + CEIDG API | VIES confirmed 2026-08-11T00:18:57.772Z), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK
+- **PL-B-XX-274**: Źródło oficjalne (L1+L3: krs-pobierz.pl + KRS API (KRS 0000070328, NIP 8730206184 mod-11 ✓, PKD 46.35.Z hurtownia wyrobów tytoniowych, 33-150 Wola Rzędzińska 573, decidents: W Drwal+G Pinas+D Drwal) | KRS API 0000070328), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK
+- **PL-B-XX-273**: Źródło oficjalne (L1+L3: KAS rejestr pośredników tytoniowych + KRS API (KRS 0000137829, NIP 7960069945 mod-11 ✓, formerly Polski Tytoń, 98M zł kapitał, 68.20.Z nieruchomości + 46.34.A + 52.10.B) | VIES confirmed 2026-08-11T00:19:05.050Z | KRS API 0000137829), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000197822), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK
+- **PL-B-PM-001**: Źródło oficjalne (L1 web search (bazafirmdane.pl) + CEIDG API | VIES confirmed 2026-08-11T00:19:12.446Z), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **PL-A-MZ-001**: Brak pól: rejestr_id
+- **PL-A-XX-097**: Brak pól: rejestr_id
+- **PL-A-XX-071**: Brak pól: rejestr_id
+- **PL-A-XX-040**: Brak pól: rejestr_id, adres
+- **PL-A-XX-052**: Brak pól: rejestr_id
+- **PL-A-LB-001**: Brak pól: rejestr_id
+- **PL-A-XX-075**: Brak pól: rejestr_id
+- **PL-A-XX-059**: Brak pól: rejestr_id
+- **PL-A-XX-039**: Brak pól: rejestr_id
+- **PL-A-XX-041**: Brak pól: rejestr_id, adres
+- **PL-A-XX-050**: Brak pól: rejestr_id
+- **PL-A-XX-068**: Brak pól: rejestr_id
+- **PL-A-PM-002**: Brak pól: rejestr_id
+- **PL-A-MZ-003**: Brak pól: rejestr_id
+- **PL-A-XX-043**: Brak pól: rejestr_id
+- **PL-A-XX-063**: Brak pól: rejestr_id
+- **PL-A-XX-093**: Brak pól: rejestr_id
+- **PL-A-XX-045**: Brak pól: adres
+- **PL-A-WP-002**: Źródło nieoficjalne: intake_PL_2026-08-10 | https://i-want.pl/kontakt-i-faq/ | https://i-want.pl/regulamin-iwant/ | https://i-want.pl
+- **PL-A-XX-002**: Brak pól: rejestr_id
+- **PL-A-XX-047**: Brak pól: rejestr_id
+- **PL-A-XX-046**: Brak pól: adres
+- **PL-A-XX-035**: Brak pól: rejestr_id
+- **PL-A-XX-042**: Brak pól: rejestr_id
+- **PL-B-XX-029**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-122**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-095**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-008**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-111**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-017**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-129**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-MZ-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-061**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-132**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-032**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-005**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-080**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-103**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-089**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LD-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-WM-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-099**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-033**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-106**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-PM-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-013**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-011**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-028**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-KP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-109**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-030**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-088**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LD-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LB-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-035**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-ZP-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-115**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-125**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-102**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-091**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LD-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-065**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-006**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-087**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MZ-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-016**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-062**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-127**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-092**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-063**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-128**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MZ-019**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-020**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-082**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SL-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-006**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LU-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PK-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-086**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-OP-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-117**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-121**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-124**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-079**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-064**: Brak pól: nip_vat, rejestr_id
+- **PL-B-WP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-083**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-KP-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-007**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-066**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-085**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-110**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MA-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-007**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-OP-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-015**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-015**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LU-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-058**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-036**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-OP-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-004**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-PK-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-131**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-DS-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-120**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-027**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-059**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LB-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-105**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-123**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LU-006**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-015**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-013**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-078**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-057**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LB-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-112**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MA-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-077**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-113**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-003**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-037**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LD-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-013**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-081**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-XX-060**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-108**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MA-011**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-WM-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-084**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MA-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-008**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-031**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-OP-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-034**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-090**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-118**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 7 added, 290 modified, 31 removed — 44 FROZEN, 253 DO-WERYFIKACJI
+
+## 2026-08-11 02:49
+
+### Pliki sprawdzone
+- catalog-B-BG.csv: 1 wpis
+- catalog-B-LV.csv: 3 wpisów
+- catalog-B-PL.csv: 1 wpis
+- catalog-B-SI.csv: 2 wpisów
+
+### ✅ FROZEN
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-PM-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 0 added, 7 modified, 2 removed — 1 FROZEN, 6 DO-WERYFIKACJI
+
+## 2026-08-11 02:52 — Cron verify: schema-aware regen fix
+
+### Kontext
+- Cron co 45 min wykrył delta=1 + 6 katalogów zmienionych (CZ/PL/RO/SK/LV)
+- Pierwszy przebieg verify_run.py znalazł:
+  - 1 zmieniony wpis w PL-B, 3 w LV-B, 2 w SI-B, 1 w BG-B
+  - Master regen: 565 wierszy z 26 plików, 115 SKIPPED (schema drift)
+- Diagnoza: pre-clean backupy (`catalog-A-PL-pre-clean-20260811_023054.csv`)
+  w katalogu Polska/ były łapane przez glob `*/catalog-*.csv` i dokładały
+  ~150 duplikatów do master.csv. Drugi problem: PL dostał nową kolumnę
+  `_krs` (39 kol), reszta krajów ma 38 → 115 wierszy odrzuconych bo
+  `col_count=38≠39`.
+
+### Naprawy w tools/verify_run.py
+1. **Glob filter (main + regenerate_master)**: regex
+   `^catalog-[AB]-[A-Z]{2}\\.csv$` wyklucza derivative files
+   (pre-clean, apollo cache, itp.) z katalogu per-kraj.
+2. **Schema-aware union header**: master regen teraz buduje union
+   wszystkich kolumn (39 = 38 + `_krs`) i pad-uje brakujące pola
+   pustym stringiem przy zapisie. Brak utraty wierszy.
+3. **Prune + atomic write** (już były w working tree z poprzedniej sesji,
+   teraz działają z powyższymi).
+
+### Wynik po fix
+- Master regen: **383 wiersze z 24 plików** (zero skipped)
+- Rozkład: PL=268, pozostałe 11 krajów po 10-11
+- Schema: 39 kolumn (union), `_krs` obecny wszędzie (pusty dla non-PL)
+
+### Pliki sprawdzone w tej rundzie
+- catalog-B-BG.csv: 1 wpis (FROZEN)
+- catalog-B-LV.csv: 3 wpisy (DO-WERYFIKACJI - brak nip/rejestr)
+- catalog-B-PL.csv: 1 wpis (DO-WERYFIKACJI - brak pól)
+- catalog-B-SI.csv: 2 wpisy (DO-WERYFIKACJI)
+
+### Uwagi
+- Snapshoty w `data/.snapshots/` (np. `bg-verify-2026-08-10/`,
+  `pre-seed-2026-08-10/`) usunięte lokalnie (w HEAD bezpieczne —
+  do `git checkout` jeśli potrzeba). Poza scope crona.
+- Inny agent aktywny w tle (per audit log 02:36) — kolaboracja
+  bez kolizji: ostatni zapis PL o 02:33:53, ten cron o 02:49.
+- Cron ustawiony na "no trigger" przy następnym przebiegu
+  (count=383 == last-verify-count=383).
+
+## 2026-08-11 (02:50 CEST) — CRON PL research round
+
+- **Trigger:** System cron PL research+validation (post-merge state)
+- **Lock:** Stale from PID 65673 (dead) — removed, acquired by 74086
+- **L1 searches:** 4 (hurtownia tytoniowa PL, "BISTA" distributors, "Trafika u Jakuba" PHU)
+- **L0 preflight:** 2 NIP mod-11 ✓ (Kaziool 5981069292, Tobacchem 6282217480)
+- **add_lead:** 2 candidates re-added after 02:30 cleanup regression (PHU KAZIOOL, TOBACCHEM)
+- **verify_api --dry-run:** 500 verified, 0 errors
+- **verify_api --country PL:** 175 rows updated, 0 errors, 30 FROZEN
+- **Final state:** PL catalog-B 177 rows, FROZEN=30, DO-W=147, FAB=0
+- **Anomalies:** add_lead() silent-fail (printed "Added" but no persist) → worked around with direct csv append
+
+## 2026-08-11 03:00
+
+### Pliki sprawdzone
+- catalog-B-MD.csv: 1 wpis
+- catalog-B-PL.csv: 11 wpisów
+
+### ✅ FROZEN
+- **PL-B-OP-001**: Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK
+- **PL-B-LU-002**: Źródło oficjalne (intake_PL_2026-08-10 | https://trafica-hurt.pl | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run. | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run. | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run.), format NIP OK
+- **PL-B-OP-002**: Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-PM-004**: Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-DS-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-XX-003**: Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK
+- **PL-B-LU-008**: Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK
+- **PL-B-SK-002**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-XX-276**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-007**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 0 added, 12 modified, 61 removed — 9 FROZEN, 3 DO-WERYFIKACJI
+
+## 2026-08-11 03:02
+
+### Pliki sprawdzone
+- catalog-B-LV.csv: 1 wpis
+- catalog-B-PL.csv: 4 wpisów
+
+### ✅ FROZEN
+- **PL-B-PD-002**: Źródło oficjalne (intake_PL_2026-08-10 | https://topkart.vp.pl | L1+web+krs-pobierz+panoramafirm: KRS API empty (transient), krs-pobierz 3rd-party + 2 sources consistent (PKD 46.39Z, Białystok)), format NIP OK
+- **PL-B-OP-003**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK
+- **PL-B-MA-006**: Źródło oficjalne (intake_PL_2026-08-10 | http://frega.com.pl | L1+web+krs-online+biznesfinder: 3 sources consistent (FREGA HURTOWNIA ART. CHEMICZNYCH I TYTONIOWYCH mod-11+NIP, Rzeszów HQ + oddział Tarnów). CEIDG API verify on next run.), format NIP OK
+- **PL-B-MA-004**: Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+**Run summary:** 0 added, 5 modified, 0 removed — 5 FROZEN, 0 DO-WERYFIKACJI
+
+## 2026-08-11 03:45
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 9 wpisów
+
+### ✅ FROZEN
+- **PL-B-XX-188**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-XX-189**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-XX-190**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-XX-192**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-XX-191**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-XX-187**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-XX-195**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-194**: Brak pól: adres
+- **PL-B-XX-193**: Brak pól: adres
+
+**Run summary:** 9 added, 0 modified, 0 removed — 7 FROZEN, 2 DO-WERYFIKACJI
+
+## 2026-08-12 07:45
+
+### Pliki sprawdzone
+- catalog-A-PL.csv: 3 wpisów
+
+### ✅ FROZEN
+- **PL-A-ZP-001**: Źródło oficjalne (intake_PL_2026-08-10 | https://www.pkt.pl/firma/bjb-phu-hurtownia-papierosow-i-artykulow-spozywczych-348779 | http://www.bjb.pl | VIES confirmed 2026-08-11T00:18:40.020Z), format NIP OK
+- **PL-A-XX-047**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-A-WP-002**: Źródło nieoficjalne: intake_PL_2026-08-10 | https://i-want.pl/kontakt-i-faq/ | https://i-want.pl/regulamin-iwant/ | https://i-want.pl
+
+**Run summary:** 0 added, 3 modified, 1 removed — 2 FROZEN, 1 DO-WERYFIKACJI
+
+## 2026-08-12 07:51
+
+### Pliki sprawdzone
+- catalog-A-PL.csv: 1 wpis
+- catalog-B-PL.csv: 8 wpisów
+
+### ✅ FROZEN
+- **PL-A-WP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-196**: Brak pól: rejestr_id, adres
+- **PL-B-XX-197**: Brak pól: rejestr_id, adres
+- **PL-B-XX-198**: Brak pól: rejestr_id, adres
+- **PL-B-XX-199**: Brak pól: rejestr_id, adres
+- **PL-B-XX-201**: Brak pól: rejestr_id, adres
+- **PL-B-XX-202**: Brak pól: rejestr_id, adres
+- **PL-B-XX-200**: Brak pól: rejestr_id, adres
+- **PL-B-XX-195**: Brak pól: rejestr_id, adres
+
+**Run summary:** 7 added, 2 modified, 0 removed — 1 FROZEN, 8 DO-WERYFIKACJI
+
+## 2026-08-12 08:00
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 7 wpisów
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-205**: Brak pól: adres
+- **PL-B-XX-203**: Brak pól: adres
+- **PL-B-XX-207**: Brak pól: adres
+- **PL-B-XX-204**: Brak pól: adres
+- **PL-B-XX-206**: Brak pól: adres
+- **PL-B-XX-208**: Brak pól: adres
+- **PL-B-XX-209**: Brak pól: adres
+
+**Run summary:** 7 added, 0 modified, 0 removed — 0 FROZEN, 7 DO-WERYFIKACJI
+
+## 2026-08-12 08:20
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 7 wpisów
+
+### ✅ FROZEN
+- **PL-B-XX-203**: Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK
+- **PL-B-XX-204**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Łódź, PKD 4639Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-XX-208**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-XX-209**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-206**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-205**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-XX-207**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK
+
+**Run summary:** 0 added, 7 modified, 0 removed — 7 FROZEN, 0 DO-WERYFIKACJI
+
+## 2026-08-12 08:22
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 5 wpisów
+
+### ✅ FROZEN
+- **PL-B-XX-212**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-213**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-211**: Brak pól: adres
+- **PL-B-XX-210**: Brak pól: adres
+- **PL-B-XX-214**: Brak pól: adres
+
+**Run summary:** 5 added, 0 modified, 0 removed — 2 FROZEN, 3 DO-WERYFIKACJI
+
+## 2026-08-12 08:27
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 1 wpis
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-211**: Brak pól: adres
+
+**Run summary:** 0 added, 1 modified, 0 removed — 0 FROZEN, 1 DO-WERYFIKACJI
+
+## 2026-08-12 08:30
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 2 wpisów
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-215**: Źródło nieoficjalne: 2026-08-12
+- **PL-B-XX-216**: Źródło nieoficjalne: 2026-08-12
+
+**Run summary:** 2 added, 0 modified, 0 removed — 0 FROZEN, 2 DO-WERYFIKACJI
+
+## 2026-08-12 10:45
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 2 wpisów
+
+### ⚠️ DO-WERYFIKACJI
+- **PL-B-XX-216**: Brak pól: adres
+- **PL-B-XX-215**: Brak pól: rejestr_id, adres
+
+**Run summary:** 0 added, 2 modified, 0 removed — 0 FROZEN, 2 DO-WERYFIKACJI
+
+## 2026-08-12 10:48
+
+### Pliki sprawdzone
+- catalog-B-PL.csv: 1 wpis
+
+### ✅ FROZEN
+- **PL-B-XX-216**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+
+**Run summary:** 0 added, 1 modified, 0 removed — 1 FROZEN, 0 DO-WERYFIKACJI

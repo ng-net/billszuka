@@ -10,15 +10,38 @@ Uruchom po **każdym** zapisie nowych danych do `data/{Kraj}/*.csv` lub `data/ma
 
 **Regeneracja master.csv** (po każdej edycji per-kraj):
 
+> **WAŻNE** — glob `catalog-*.csv` łapie też snapshot-y typu
+> `catalog-A-PL-pre-clean-20260811_023054.csv` / `catalog-A-PL-pre-krs-fix-*.csv`
+> co powoduje duplikaty w master. Filtruj tylko kanoniczne
+> `catalog-[AB]-{2-literowy_kod}.csv` (np. `catalog-A-PL.csv`, `catalog-B-CZ.csv`).
+> Pomiń katalogi: `backups/`, `.snapshots/`, `.verify-state/`, `verification/`.
+
 ```bash
-cd data && {
-  head -1 "$(ls */catalog-*.csv | head -1)"
-  for d in Polska Czechy Bułgaria Chorwacja Estonia Francja Litwa Łotwa Mołdawia Rumunia Słowacja Słowenia; do
-    for f in "$d"/catalog-A-*.csv "$d"/catalog-B-*.csv; do
-      [ -f "$f" ] && tail -n +2 "$f" | grep -v '^$'
-    done
-  done
-} > master.csv
+cd data
+python3 <<'PY'
+import re, csv, tempfile, shutil
+from pathlib import Path
+
+DATA = Path(".")
+SKIP = {"backups", ".snapshots", ".verify-state", "verification"}
+canonical = re.compile(r"^catalog-[AB]-[A-Z]{2}$")
+rows, header = [], None
+for p in sorted(DATA.glob("*/catalog-*.csv")):
+    if p.parent.name in SKIP or p.parent.name.startswith("."): continue
+    if not canonical.match(p.stem): continue
+    with p.open(encoding="utf-8") as f:
+        r = csv.reader(f)
+        h = next(r)
+        if header is None: header, rows = h, [h]
+        for row in r:
+            if any(c.strip() for c in row): rows.append(row)
+
+with tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8", newline="", dir=".") as t:
+    csv.writer(t).writerows(rows)
+    tmp = t.name
+shutil.move(tmp, "master.csv")
+print(f"Wrote {len(rows)-1} data rows")
+PY
 ```
 
 ## Struktura plików (per-kraj)

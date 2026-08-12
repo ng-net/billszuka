@@ -24,6 +24,7 @@ Env: .env → CEIDG_API_TOKEN
 import argparse
 import csv
 import json
+import os
 import re
 import sys
 import time
@@ -297,10 +298,19 @@ def process_csv(csv_path: Path, country: str, token: str, retrofix: bool, dry_ru
             skipped.append(idu)
 
     if not dry_run:
-        with open(csv_path, "w", encoding="utf-8", newline="") as f:
-            w = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
-            w.writerow(header)
-            w.writerows(rows)
+        tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+        try:
+            with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+                w = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
+                w.writerow(header)
+                w.writerows(rows)
+            os.replace(tmp_path, csv_path)
+        except OSError as e:
+            log(f"  → {csv_path.name}: atomic write failed ({e})")
+            if tmp_path.exists():
+                try: tmp_path.unlink()
+                except OSError: pass
+            raise
 
     return {
         "file": str(csv_path.relative_to(ROOT)),

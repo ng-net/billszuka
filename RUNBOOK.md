@@ -794,3 +794,52 @@ Nie mamy jeszcze integracji z:
 - **Lursoft API** (LV, paid) — alternatywa dla UR
 
 Gdyby mieć budżet 100-200 PLN/mies. → rejestr.io + Pappers = pełna weryfikacja PL + FR.
+
+---
+
+## 🤖 §11 AUTO_ENRICH PIPELINE (2026-08-11)
+
+`tools/auto_enrich.py` — pipeline enrichlead przez OpenRouter DeepSeek + agent web_search. Używany do wypełniania kolumn `decydent` / `stanowisko` / `telefon` / `email` / `linkedin` w katalogach regionalnych.
+
+**Architektura**:
+- Agent (ja) woła `web_search` per firma → wyniki tekstowe
+- Tekst idzie do `auto_enrich.py extract` → OpenRouter DeepSeek parsuje → JSON `{name, title, email, phone, linkedin, confidence}`
+- `auto_enrich.py apply` zapisuje do CSV (nadpisuje placeholdery `do ustalenia` / `brak`)
+- `auto_enrich.py process` = extract+apply+mark_done w jednym wywołaniu
+
+**CLI**:
+```bash
+# Lista firm wymagających enrichment (decydent == "do ustalenia")
+python3 tools/auto_enrich.py leads
+
+# Przetwórz jedną firmę (agent driver workflow)
+python3 tools/auto_enrich.py process \
+  --csv data/Polska/catalog-B-PL.csv \
+  --id PL-B-XX-001 \
+  --name "FIRMA SP. Z O.O." --city "Warszawa" --country "PL" \
+  --search-results "$(cat /tmp/search.txt)"
+
+# Tylko extract (bez zapisu do CSV)
+python3 tools/auto_enrich.py extract \
+  --name "FIRMA" --city "..." --country "PL" --search-results "..."
+
+# Tylko apply (ręczne wczytanie JSON)
+python3 tools/auto_enrich.py apply --csv ... --id ... --json '{...}'
+```
+
+**Stan**: `data/.verify-state/enrichment-progress.json` — resumable, format `{done: {key@csv: {ts, name, country, confidence, fields, had_error}}}`. Skipowane w `leads` (key match).
+
+**Wynik sesji 2026-08-11**: 57/59 = 96.6% success rate. Kraje: BG, HR, CZ, PL, FR, RO, SK, EE, MD. Decydenty w INTEL.md.
+
+**Limity**:
+- Brak search API key (DDG HTML zablokowany) → agent musi wołać `web_search` tool
+- 2 tool calls per lead (web_search + process) — 326 leads = ~650 wywołań
+- LLM czasem zwraca role zamiast URLi (LLM classification) — pole `linkedin` może mieć tekst opisowy
+
+**Apollo alternatywa** (wymaga paid plan): `tools/apollo_enrich.py` (420 linii) — wrapper na Apollo.io REST API (`/v1/people/match`, `/v1/organizations/enrich`, `/v1/people/bulk_match`). Obecnie nieaktywny (Free plan blokuje 403), gotowy do wpięcia w `verify_api.py` dispatcher po upgrade.
+
+## CHANGELOG METODOLOGII (uzupełnienie)
+
+| Data | Zmiana |
+|---|---|
+| 2026-08-11 | §11 auto_enrich pipeline dodany. 57/59 decydentów znalezionych w 9 krajach (BG/HR/CZ/PL/FR/RO/SK/EE/MD). Sukces 96.6%. |

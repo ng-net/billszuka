@@ -30,6 +30,7 @@ import json
 import os
 import re
 import sys
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -133,6 +134,26 @@ def snapshot_file(path: Path) -> Path:
     for old in snaps[:-5]:
         old.unlink(missing_ok=True)
     return dest
+
+
+def prune_old_snapshots(max_age_days: int = 7) -> int:
+    """Delete snapshot CSVs older than max_age_days. Catches files with weird
+    names (e.g. multi-timestamped) that the per-basename prune misses.
+
+    Returns count of files deleted.
+    """
+    if not SNAPSHOT_DIR.exists():
+        return 0
+    cutoff = time.time() - (max_age_days * 86400)
+    deleted = 0
+    for f in SNAPSHOT_DIR.glob("*.csv"):
+        try:
+            if f.stat().st_mtime < cutoff:
+                f.unlink()
+                deleted += 1
+        except OSError:
+            pass
+    return deleted
 
 
 def find_changed(csv_path: Path, state: dict, force_all: bool):
@@ -243,10 +264,19 @@ def update_csv_flags(csv_path: Path, updates: dict[str, tuple[str, str]], force:
             row[flagi_idx] = f"{cleaned.strip()} {marker}".strip()
             n += 1
 
-    with open(csv_path, "w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(rows)
+    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            writer.writerows(rows)
+        os.replace(tmp_path, csv_path)
+    except OSError as e:
+        log(f"  → {csv_path.name}: atomic write failed ({e})")
+        if tmp_path.exists():
+            try: tmp_path.unlink()
+            except OSError: pass
+        raise
     if skipped_api:
         log(f"  (skipped {skipped_api} API-verified rows — use --force to override)")
     return n
@@ -303,9 +333,14 @@ def regenerate_master() -> tuple[bool, int]:
     country_dirs.sort(key=country_sort_key)
 
     sources: list[Path] = []
+    # Same canonical-only filter as in main(): exclude derivative filenames
+    # like `catalog-A-PL-pre-clean-*.csv` that some pipeline steps leave
+    # alongside the real catalog. Without this filter the master inflates
+    # by hundreds of rows on every regen.
+    _regen_re = re.compile(r"^catalog-[AB]-[A-Z]{2}\.csv$")
     for sub in country_dirs:
         for f in sorted(sub.glob("catalog-[AB]-*.csv")):
-            if f.name.startswith("._"):
+            if f.name.startswith("._") or not _regen_re.match(f.name):
                 continue
             sources.append(f)
     if not sources:
@@ -331,38 +366,54 @@ def regenerate_master() -> tuple[bool, int]:
         log("master regen: no readable per-kraj files")
         return False, 0
 
-    # Pick the first file's header as canonical
-    canonical_path = next(iter(headers_per_file))
-    canonical_header = headers_per_file[canonical_path]
-    n_columns = len(canonical_header)
-    if n_columns == 0:
-        log(f"master regen: {canonical_path.name} has empty header, aborting")
+    # Schema-aware union header. Instead of forcing all files to match the
+    # first one (which loses rows when one file added a column, e.g. PL
+    # gained `_krs` after a quality-scoring update), build the union of
+    # all column names in the order they first appear. For each source
+    # file, pad missing columns with empty strings. This keeps the regen
+    # lossless when one country picks up an extra column mid-project.
+    union_header: list[str] = []
+    seen: set[str] = set()
+    for hdr in headers_per_file.values():
+        for col in hdr:
+            if col not in seen:
+                seen.add(col)
+                union_header.append(col)
+    if not union_header:
+        log("master regen: no columns in any header, aborting")
         return False, 0
+    n_columns = len(union_header)
 
-    # Schema check across all files
+    # Schema drift diagnostics (only if a column is missing in some file
+    # or extra in another). Informational — we now handle it gracefully
+    # instead of aborting or losing rows.
     schema_warnings: list[str] = []
     for p, hdr in headers_per_file.items():
-        if hdr != canonical_header:
-            diff = _diff_columns(canonical_header, hdr)
+        if hdr != union_header:
+            diff = _diff_columns(union_header, hdr)
             schema_warnings.append(f"{p.relative_to(DATA)}: {diff}")
     if schema_warnings:
-        log(f"  ⚠ master regen: {len(schema_warnings)} file(s) with divergent headers:")
+        log(f"  ⚠ master regen: {len(schema_warnings)} file(s) with header drift (padded to union):")
         for w in schema_warnings:
             log(f"    - {w}")
-        # In strict mode (default) this would abort; here we warn + proceed
-        # because the existing dataset is known-good and we don't want to
-        # break verification on a known legacy drift. Uncomment below for strict:
-        # return False, 0
 
     # 3) Build master rows
     rows_written = 0
     rows_skipped = 0
     skip_reasons: dict[str, int] = {}
-    out_rows: list[list[str]] = [canonical_header]
+    out_rows: list[list[str]] = [union_header]
 
     for p in sources:
         if p not in headers_per_file:
             continue  # was skipped during header read
+        file_header = headers_per_file[p]
+        # Build a column-index remap: union position -> file position (or None)
+        col_index: list[int | None] = []
+        for col in union_header:
+            try:
+                col_index.append(file_header.index(col))
+            except ValueError:
+                col_index.append(None)
         try:
             with p.open("r", encoding="utf-8", newline="") as f:
                 reader = csv.reader(f)
@@ -373,12 +424,19 @@ def regenerate_master() -> tuple[bool, int]:
                 for row_num, row in enumerate(reader, start=2):
                     if not row or all(c == "" for c in row):
                         continue  # empty line
-                    if len(row) != n_columns:
-                        reason = f"col_count={len(row)}≠{n_columns}"
+                    # Pad row to union_header length if this file is short
+                    # on trailing columns (e.g. PL has _krs, others don't).
+                    # Truly malformed rows (way more cols than union) are skipped.
+                    if len(row) > len(file_header):
+                        reason = f"col_count={len(row)}>{len(file_header)}"
                         skip_reasons[reason] = skip_reasons.get(reason, 0) + 1
                         rows_skipped += 1
                         continue
-                    out_rows.append(row)
+                    out_row = [
+                        row[idx] if idx is not None and idx < len(row) else ""
+                        for idx in col_index
+                    ]
+                    out_rows.append(out_row)
                     rows_written += 1
         except (OSError, UnicodeDecodeError) as e:
             log(f"  ⚠ {p.relative_to(DATA)}: read error at row {row_num} ({e})")
@@ -487,14 +545,34 @@ def main() -> int:
         log(f"ERROR: {DATA} not found")
         return 1
 
+    # Housekeeping: prune stale snapshots (mtime-based, catches weird names
+    # that the per-basename prune in snapshot_file() misses).
+    pruned = prune_old_snapshots(max_age_days=7)
+    if pruned:
+        log(f"Pruned {pruned} stale snapshot(s) older than 7 days")
+
     state = load_state()
     all_results = []
     all_added, all_modified, all_removed = [], [], []
     file_updates: dict[str, dict[str, tuple[str, str]]] = {}
 
+    # Skip dotfile dirs (.snapshots, .verify-state, .intake) and
+    # data-housekeeping dirs (backups, verification). Without this filter,
+    # the glob matches thousands of snapshot files (e.g.
+    # data/.snapshots/<subdir>/catalog-*.csv) and burns hours hashing them.
+    # See git log: 2026-08-10 cron hit 10k+ files before being killed.
+    SKIP_PATH_PARTS = (".snapshots", ".verify-state", ".intake", "backups", "verification")
+    # Match only canonical `catalog-A-CC.csv` / `catalog-B-CC.csv` (CC = 2-letter
+    # ISO country code). Excludes pre-clean backups (catalog-A-PL-pre-clean-*.csv),
+    # Apollo cache dumps, or any other derivative filename that may sit alongside
+    # the canonical file. Without this filter the glob catches every derivative
+    # name and treats it as a "new file" on first scan, inflating the run summary.
+    _CANONICAL_RE = re.compile(r"^catalog-[AB]-[A-Z]{2}\.csv$")
     csv_files = sorted(
         p for p in DATA.glob("*/catalog-*.csv")
-        if p.is_file() and not p.parent.name.startswith(".")
+        if p.is_file()
+        and not any(part in SKIP_PATH_PARTS for part in p.relative_to(DATA).parts)
+        and _CANONICAL_RE.match(p.name)
     )
     log(f"Scanning {len(csv_files)} per-kraj CSVs")
 

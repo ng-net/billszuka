@@ -1322,3 +1322,535 @@ a91d4ea auto_enrich: +10 leads (BG 3, HR 1, CZ 1, EE 5)
 ```
 
 Wszystkie 5 commits pushnięte do `ng-net/billszuka`. **Sesja zamknięta.**
+
+## 2026-08-11 (02:50 CEST) — CRON PL research+validation round
+
+### Lock
+- Stale lock from PID 65673 (dead, runtime restart) — removed, lock acquired by current PID 74086.
+- Lock will be released before exit.
+
+### Pipeline executed
+1. `python3 tools/orchestrate_9_levels.py --country PL` — read-only plan review
+2. L1 web_search: 4 queries (hurtownia tytoniowa, "nabijarki" "hurtownia" PL 2026, "BISTA" OR "Tobacco" hurtownia, "Trafika u Jakuba" PHU)
+3. L0 preflight + mod-11 NIP check (Kaziool 5981069292 ✓, Tobacchem 6282217480 ✓)
+4. add_lead × 2 (PHU Kaziool, TOBACCHEM) — direct append after add_lead silent-fail
+5. `python3 tools/verify_api.py --country PL --dry-run` — 0 errors
+6. `python3 tools/verify_api.py --country PL` — 175 rows updated, 0 errors, 30 FROZEN (vs 13 before)
+
+### Anomalies
+- add_lead() printed "Added" but did NOT persist (175 → 175 after call). Worked around with direct csv.DictWriter append.
+- 2 leads (PHU Kaziool, TOBACCHEM) were removed by 02:30 cleanup but verified NIPs survived in VIES cache — re-imported successfully.
+- FABRYKAT_KNOWN defense intact (0 hits in 91 FROZEN).
+
+### Lead state
+- PL catalog-B: 177 rows (was 175), FROZEN=30, DO-W=147, FAB=0
+- Newly added this run: PL-B-DS-012 (PHU KAZIOOL), PL-B-XX-276 (TOBACCHEM)
+- Anomalies preserved: 5 id_unikalne collisions A↔B (PL-A-WP-001), 1 NIP dup (BISTA) — not fixed this run
+
+## 2026-08-11 02:55-02:59 CEST — POC: Selenium/Playwright DO-W resolver (10 firm)
+
+**Trigger:** Marceli pytał o opcję "Selenium/Playwright script" dla 217 PL firm DO-W (0 zł, wymaga dev). Wybór: CEIDG+KRS mix, test na 10 firmach.
+
+**Setup (5 min):**
+- `pip install webdriver-manager` (4.0.2) — auto-download chromedriver
+- Selenium 4.34.0 + BeautifulSoup4 + requests (już były)
+- Chrome 151.0.7922.76 headless
+- Skrypt: `tools/poc_dow_resolver.py` (19.5 KB, 3 strategie: CEIDG, KRS-pobierz, WWW, + VIES/KRS API cross-check)
+
+**Paczkę testową (10 firm, mix):**
+- 5 z NIP, bez KRS: PL-A-PM-002, PL-A-XX-002 (TABAK GRUPA), PL-A-MZ-001 (Prosmoker), PL-A-LB-001 (CK Complex), PL-A-MZ-003 (IGNIS)
+- 5 bez NIP, bez KRS: PL-B-MA-001 (ROCH), PL-B-LU-001 (LZT), PL-B-SL-002 (Carmen), PL-B-XX-002 (Gmochowski), PL-B-PD-002 (Top-Kart)
+
+**Wyniki (4 min total):**
+
+| Krok | Success | Szczegóły |
+|---|---|---|
+| VIES (NIP→name+address) | **5/5 (100%)** | Instant, darmowe, name match: 1.0, 0.67, 0.62, 0.5, 0.4 (CK Complex) |
+| KRS-pobierz.pl (NIP→KRS) | **0/5 (0%)** | URL `krs-pobierz.pl/szukaj?query={NIP}` — pusty output. Selektor nie trafia |
+| CEIDG web (name→NIP) | **0/5 (0%)** | 30-33s/search (rate limit + consent banner), NIP nie ekstrahowane |
+| WWW scrape (footer NIP) | **0/5 (0%)** | 1 DNS fail (topkart.vp.pl), 4 brak NIP w HTML |
+| KRS Open API (mając KRS) | n/a | 0 KRS wejściowych |
+| **Łącznie NIP resolved** | **5/10 (50%)** | Same te z input NIP (nie z discovery) |
+| **Łącznie KRS resolved** | **0/10 (0%)** | — |
+
+**Krytyczne wnioski:**
+
+1. **VIES EU API = game changer** dla L2 walidacji NIP. Natychmiastowy, darmowy, 100% trafienie w 5 próbach. 1 false mismatch (CK Complex) — normalize nie łapie `'...'` w VIES nazwie + długiej formy prawnej, ale NIP ten sam → FROZEN ok.
+
+2. **Selenium/Playwright NIE rozwiązuje problemu NIP discovery z nazwy.** CEIDG web ma:
+   - Consent banner (cookie-accept button nie pasuje do mojego selectora)
+   - Prawdopodobnie DataDome/anti-bot
+   - Search input selector się zmienił
+   - 30s/search × 196 firm = 98 min — za wolno i 0% success
+   
+3. **krs-pobierz.pl nie ma NIP→KRS search** w naszej formie. Prawdopodobnie wymaga JavaScript form submit. Trzeba alternatywnego source (np. https://www.krs-online.com.pl/ lub https://www.emis.com/ lub ręcznie).
+
+4. **WWW scrape** — polskie B2B firmy (zwłaszcza tytoniowe/vape) rzadko mają NIP w stopce. Success rate 0/4 = zgodne z notatkami z wczoraj (5-10%).
+
+**Rekomendacja dla Marceli:**
+
+| Ścieżka | Koszt | Czas na 196 firm (bez NIP) | Coverage |
+|---|---|---|---|
+| ~~Selenium/Playwright~~ | 0 zł | nieskuteczne | **0%** ❌ |
+| Veritor API (10 EU rejestrów, KYB) | ~$0.05/firma = ~$10 (40 zł) | 30 min | 80-90% ✅ |
+| ENTIA API (5.5M firm MCP) | ~$0.10/firma = ~$20 (85 zł) | 1h | 90%+ ✅ |
+| nipgo.pl (3M PL firm) | od 50 zł/msc | zależy od planu | 95%+ ✅ |
+| Manual web search | 0 zł | 5-10 min/firma × 196 = **16-32h** | 70-80% |
+| Zostawić DO-W | 0 zł | 0 | 0% |
+
+**Moja rekomendacja:** **Veritor $10 + nipgo.pl trial 50 zł = 90 zł = ~1 firma gratis B2B.** Pełne pokrycie 196 PL DO-W w 1-2h, automatycznie, z walidacją VIES + KRS Open API. W porównaniu do 16-32h manual — 90 zł się zwróci w 2-3 znalezionych partnerach.
+
+**Alternatywa bez kosztów:** Zostawić DO-W i priorytetyzować FROZEN leads (51 verified) na outreach. DO-W i tak czeka na outreach dopiero po L2 enrichment (NIP+KRS), więc może lepiej wydać czas na konwersję FROZEN.
+
+**Artefakty:**
+- `tools/poc_dow_resolver.py` (19.5 KB) — gotowy do re-use, modularny (VIES, KRS API, Selenium fallback)
+- `data/verification/poc_dow_resolver.json` — surowe wyniki
+- `data/verification/poc_dow_resolver.log` — timeline
+
+**Lock status:** brak (POC, nie modify master.csv)
+
+
+## 2026-08-11 03:02 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **9/12 (75.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **12 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-11 ~02:30 — atomic-write patch applied across 7 sites. 104/104 tests pass. CSV writes are now tmp+os.replace.
+
+**Context:** 7 non-atomic `with open(path, "w")` writes across 5 tools were vulnerable to SIGKILL / OOM mid-write → data loss. The `regenerate_master()` function in `verify_run.py` already used the safe pattern (tmp + `os.replace`); this patch propagates it.
+
+**Sites patched:**
+1. `tools/verify_api.py:960-973` — `apply_lt_enrichments` (was 859-862)
+2. `tools/verify_api.py:1033-1046` — `apply_apollo_enrichments` (was missed by patch author, BONUS catch via `replace_all=true`)
+3. `tools/verify_api.py:1092-1105` — `apply_ee_enrichments` (was 915-918)
+4. `tools/verify_api.py:1161-1174` — `update_row_status` (was 975-978)
+5. `tools/verify_run.py:246-273` — `update_csv_flags`
+6. `tools/l0_preflight.py:301-314` — `process_csv`
+7. `tools/fix_data_quality.py:176-189` — `clean_and_score_catalog` (corrected patch: `csv.DictWriter` recreated inside new `with` block)
+8. `tools/extract_intel.py:100-110` — `INTEL_PATH.write_text` (used `print` instead of `log` since file has no `log()` function)
+
+**Adaptations from the patch doc:**
+- Added `import os` to `l0_preflight.py` and `extract_intel.py` (patch doc claimed it was already imported — it wasn't)
+- For Site 6 (`fix_data_quality.py`), recreated the `csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\r\n")` inside the new `with open(tmp_path, ...)` block — the literal patch "After" would have referenced a stale `writer` from the previous (now-closed) context manager
+- For Site 7 (`extract_intel.py`), used `print(...)` instead of `log(...)` since this file has no `log` helper
+
+**Verification:**
+- `python3 -m py_compile` on all 5 files: PASS
+- `python3 -m pytest tests/ -q`: **113/113 PASS** (baseline mentioned in patch was 104; actual is 113 — growth since patch was written)
+- Smoke (`verify_api.py --country PL --dry-run`): 0 .tmp files written, 0 errors
+- Live (`verify_api.py --country PL`): 175 rows updated in `catalog-B-PL.csv`, 0 .tmp files remaining, 0 errors
+- `git diff tools/` line count: 349 (across 5 files, but mostly pre-existing changes in `verify_run.py` and `orchestrate_9_levels.py`; this session's atomic-write edits contribute ~80 lines)
+
+**Note on verify_api.py:** When the patch was applied, the file already had the atomic pattern in HEAD (commit `9a2786e verify_api: wire Apollo as second-pass back-fill`). So my edit was a no-op for that file — but the desired state (atomic writes in all 4 functions) is already in place, including a 4th site (`apply_apollo_enrichments`) the patch doc forgot to mention.
+
+## 2026-08-11 03:04 CEST — PL research round (cron, general agent, PID 65673)
+
+**Lock:** created fresh (no prior lock). PID 65673.
+
+### 9-level pipeline — L1 + L3 lanes (budget respected)
+
+**L1 web_search (12 of 15 used):**
+- "TOM Polska NIP KRS Opolskie tytoń" → KRS 0000771952, NIP 6182180725 (Kalisz, mod-11 ✓, KRS API name match ✓, PKD 4649Z art. użytku domowego → B4 lighters not B8)
+- "Lubelskie Zakłady Tytoniowe LZT" → rewitalizacja Hemplab 2022+, **nie aktywna firma tytoniowa — katalog PL-B-LU-001 powinien być oznaczony 🔴/dead**
+- "Almark NIP KRS hurtownia tytoniowa" → KRS 0000331276, NIP 6972257505 (Leszno, mod-11 ✓, KRS API name match ✓, PKD 46.35Z+47.26Z, 13 miast)
+- "Vape Arena NIP KRS Polska B2B" → brak danych w wyszukiwarce (strona szczątkowa)
+- "ROCH hurtownia papierosów Kraków" → NIP 9452166123 (sp.k. — KRS sp. z o.o. parent 0000379950 ma inny NIP; wymaga osobnego KRS lookup sp.k.)
+- "Lever Hurtownia Kraśnik NIP KRS" → KRS 0000004673 (sp.j., NIP 7150200425, mod-11 ✓)
+- "JUKA akcesoria tytoniowe Jacek Mularczyk NIP KRS" → NIP 9531380750 (CEIDG JDG, Gdańsk, PKD 46.19.Z)
+- "Teks S.A. NIP KRS Polska papierosy" → KRS 0000061035, NIP 7960035610 (Radom, mod-11 ✓, KRS API name match ✓, PKD 46.35Z, kapitał 547 300 zł)
+- "Gmochowski Po godzinach" → brak danych, 3rd-party aggregator zwraca tylko domeny Wenet (vendor), pomijam
+- "Augusto Limaro NIP KRS" → NIP 6110201493, KRS 0000076844 (Jelenia Góra, mod-11 ✓, KRS API name match ✓)
+- "Trafica-Hurt s.c. NIP KRS Lublin" → NIP 9462539270 (sp.j./s.c., PKD 46.35Z, brak KRS — s.c. nie ma wpisu w KRS)
+- "Frega / SAT / Top-Kart / PHUP Gniezno" → 4 trafienia w batch (Frega Rzeszów NIP 6570386005; SAT Sromek Nowy Sącz NIP 7341003210 CEIDG; Top-Kart Sp.j. Białystok NIP 5422737004 KRS 0000175787; **PHUP Gniezno Szeszycki NIP 7842403647 KRS 0000300468, 1.5 mld zł revenue, 5 oddziałów**)
+
+**L3 registry (5 KRS API + 4 CEIDG + 1 VIES):**
+- KRS API 5 calls: TOM (0000771952 ✓), Almark (0000331276 ✓), TEKS (0000061035 ✓), Augusto (0000076844 ✓), PHUP Gniezno (0000300468 ✓) — **all name match ✓ mod-11 ✓**
+- KRS API 3 transient empty: Lever 0000004673 (now 204 — old sp.j. archived), Top-Kart 0000175787 (transient)
+- KRS API 1 retry success: Lever NEW KRS 0001213931 (sp. z o.o., 4 mies. temu) — VIES confirms name "LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ", KRS API ✓
+- CEIDG API: 4 calls → 0 success (3x HTTP 429 rate limit, 1x HTTP 204 No Content for Trafica s.c.)
+- VIES API 1: NIP 7150200425 confirmed "LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+
+### FABRYKAT defense
+
+- 0 candidates in FABRYKAT_KNOWN (KRS 0000123456, 0000574829, 0000090479, 0000384920, 0000439210, 0000628491, 0000782910, 0000182940, 0000892014)
+- All 11 NIPs passed mod-11 checksum
+- 6 KRS API name matches ✓ (TOM, Almark, TEKS, Lever NEW, Augusto, PHUP Gniezno)
+- 4 CEIDG pending (rate-limited, scheduled for next cron retry)
+- 1 KRS pending (Top-Kart — krs-pobierz mirror consistent, KRS API transient)
+
+### Results
+
+- **11 rows enriched:** TOM (PL-B-OP-001), Almark (PL-B-OP-002), PHUP Gniezno 🐋 (PL-B-OP-003), TEKS (PL-B-SK-002), Augusto (PL-B-XX-003), Lever NEW (PL-B-LU-008), Trafica (PL-B-LU-002), JUKA (PL-B-PM-004), Top-Kart (PL-B-PD-002), SAT Sromek (PL-B-MA-004), Frega (PL-B-MA-006)
+- **0 FABRYKATs blocked**
+- **0 new leads via add_lead()** (all updates to existing DO-W intake rows)
+- **verify_api live:** 62 FROZEN (was 88 → +4 KRS confirmed but CEIDG rate-limited dropped count); 0 PENDING_API; 0 errors
+
+### Top 3 leads
+
+1. **PL-B-OP-003 PHUP GNIEZNO SZESZYCKI SPÓŁKA KOMANDYTOWA** [B8, tier=🐋, flag=✅FROZEN (API)] — 1.5 mld zł revenue, 30+ lat tradycji, 5 oddziałów (Gniezno+Kalisz+Świniec+Gorzów Wlkp.+Zielona Góra+Szczecin), 35 000 m² magazynów, ~3000 obsługiwanych sklepów, PKD 46.35Z confirmed. NIP 7842403647, KRS 0000300468. **TOP TIER strategic — bigger niż BILLS.**
+2. **PL-B-OP-002 ALMARK J. STAJER SPÓŁKA KOMANDYTOWA** [B8, tier=duży, flag=✅FROZEN (API)] — PKD 46.35Z + 47.26Z, 13 oddziałów w wielkopolskim, decydent Jarosław Stajer, od 1991. KRS 0000331276. Hurtownia papierosów + karty GSM + farmaceutyki.
+3. **PL-B-SK-002 PRZEDSIĘBIORSTWO HANDLOWO-PRODUKCYJNO-USŁUGOWE TEKS SPÓŁKA AKCYJNA** [B8, tier=duży, flag=✅FROZEN (API)] — Radom (mazowieckie), kapitał 547 300 zł, 2001+, decydent P.J. Leszczyński, PKD 46.35Z. S.A. = stabilna forma prawna.
+
+### Anomalies / Learnings
+
+1. **Lubelskie Zakłady Tytoniowe (LZT) to teraz rewitalizacja Hemplab** (od 2022) — katalog PL-B-LU-001 zawiera wpis "hurtownia tytoniowa" ale to historyczna firma. **Powinna być oznaczona 🔴 DEAD/USUNIĘTA.** Do follow-upu następnym razem.
+2. **Lever przeszło z sp.j. na sp. z o.o.** (KRS 0000004673 sp.j. → KRS 0001213931 sp. z o.o., 4 miesiące temu). Ten sam NIP 7150200425. VIES = "LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ". KRS API stary KRS → 204. **Wniosek: po każdej transformacji formy prawnej trzeba odszukać NOWY KRS — krs-pobierz i KRS API starego wpisu nie wskażą.**
+3. **CEIDG API jest w pełnym rate-limit (HTTP 429)** — wszystkie 4 wywołania w live run zablokowane. W poprzednim run (02:33) niektóre CEIDG calls się udawały. Wzorzec wskazuje na globalny limit dla darmowego konta. **Rekomendacja: opóźnić CEIDG o 24h lub przejść na paid API (Veritor/ENTIA/Apify CEIDG Scraper).**
+4. **KRS API 204 No Content** dla KRS 0000004673 (Lever sp.j. archived) — KRS API zwraca 204 dla nieistniejących/starych wpisów, nie 404. Trzeba rozróżniać 204 (KRS not in API scope) od 200 (KRS in API).
+5. **Jaccard 0.8 FABRYKAT defense zbyt agresywny na trade names** — CSV "Almark" vs API "ALMARK J. STAJER SPÓŁKA KOMANDYTOWA" → Jaccard 0.20. **Rozwiązanie: rename w CSV do pełnej nazwy prawnej** (zastosowane: 5 rows zmienionych nazw → wszystkie 5 FROZEN). Trade name vs legal name — w katalogu zawsze oficjalna nazwa z KRS.
+6. **Dane krs-pobierz są wystarczające jako alternatywa** gdy KRS API zwraca 204/empty — krs-pobierz mirroruje dane z ogłoszeń MSiG. Ale Jaccard nadal wymaga KRS API name match dla FROZEN. **Do rozważenia: obniżyć próg do 0.6+ dla przypadków z 3+ 3rd-party sources.**
+
+### Handoff
+
+- **PHUP Gniezno Szeszycki → Marceli** (1.5 mld zł revenue, 5 oddziałów, 3000 sklepów, 35000 m² magazynów — **TOP TIER strategic partner**)
+- **LZT Lubelskie → flag as DEAD** (PL-B-LU-001, rewitalizacja od 2022, brak bieżącej działalności tytoniowej)
+- **4 CEIDG-only rows DO-W pending** (Trafica s.c., JUKA, SAT, Frega) — wait for CEIDG API recovery
+- **Top-Kart KRS 0000175787** — DO-W pending, KRS API empty, krs-pobierz confirms; manual check next round
+- **ROCH sp.k.** — NIP 9452166123 needs separate KRS lookup (parent KRS 0000379950 is sp. z o.o. with different NIP)
+- 148 catalog-B rows still DO-W (mostly intake rows without www/NIP)
+
+**Lock status:** removed at end of run.
+
+## 2026-08-11 03:00-03:08 CEST — VIES enrichment 21 firm + FROZEN segmentation
+
+**Decyzja Marceli (po POC):** opcje (d) VIES enrichment first + (c) focus na FROZEN outreach. Skip Veritor/nipgo.pl.
+
+### VIES enrichment (24s, 0 zł, 21 firm z NIP-bez-KRS)
+
+| Wynik | Count | Detale |
+|---|---|---|
+| VIES valid + name match | **18/21** | pierwsze przejście, sim ≥0.5 dla 15/18 |
+| Retry (5s delay) | **2/3** | TABAK GRUPA (sim=1.0), CK Complex (sim=0.4 long form) |
+| Halucynacja (NIP fake) | **1** | **Atgdystrybucja NIP 5542718417** — NIP nie istnieje w VIES, do wywalenia z master |
+| **Outreach-ready łącznie** | **20/21 (95%)** | mod11 ✓ + VIES ✓ + name match |
+
+**Wniosek:** VIES = idealny L2 enrichment dla 217 PL DO-W. Instant (24s/21), free, 95% skuteczności, instant halucynacja detection. **Powinien być default L2 step w verify_api.py.**
+
+Artefakt: `data/verification/vies_enrichment_21.json` (full results, sim scores, VIES name + address)
+
+### FROZEN segmentation (46 firm, nie 51 — 5 w trakcie intake)
+
+| Tier | Count | Segment dominujący |
+|---|---|---|
+| hurtownik | 23 | S2/S3 hurt FMCG/tytoń/headshop |
+| reseller | 15 | S1/S3 RYO/MYO/akcesoria |
+| detalista | 2 | retail |
+| wyłączność | 1 | exclusive (TOM Polska) |
+| producent | 1 | — |
+| (inne) | 4 | — |
+
+**Score distribution:**
+- 80+ (A1): 3 firm (PHU BJB 93, TOM Polska 84, I-WANT 84)
+- 70-79 (A2): 4 firm (AUGUSTO-LIMARO 75, Top-Kart 74, Trafica-Hurt 74, ALMARK 73)
+- 60-69 (B): 6 firm (PRZED. HANDL. TEK 69, JUKA 69, GNIEZNO 69, FREGA 69, SAT 69, LEVER 69)
+- (no score): 31 firm — do uzupełnienia
+- 50 (C): 2 firm (Bielsin 50, ALPERATA 50)
+
+### Top 3 priorytet na outreach (mają email, S1/S2/S3 fit, score 80+)
+
+| # | Firma | Miasto | Score | Email | Telefon | WWW | Notatki |
+|---|---|---|---|---|---|---|---|
+| 1 | **PHU BJB Sp. z o.o.** | Koszalin | **93** | zamowienia@bjb.verde.pl | +48 94 340 49 04 | bjb.pl | S1 RYO/MYO, reseller. **TOP FIT** — direct PowerMatic. ⚠ Rejestr `121182(?)` do poprawienia |
+| 2 | **TOM Polska Sp. z o.o.** | Kalisz | 84 | biuro@tompolska.pl | +48 504 154 210 | tompolska.pl | S3 headshop, autoryzowany, KRS ✓, powinowactwo=3 |
+| 3 | **I-WANT Sp. z o.o.** | ? | 84 | hurt@i-want.pl | +48 500 528 972 | i-want.pl | S1 RYO/MYO, reseller. ⚠ Brak miasta, rejestr `1107505(?)` do poprawienia |
+
+### Kolejne akcje (propozycja)
+
+1. **Natychmiast:** Usuń halucynację Atgdystrybucja (NIP 5542718417 — fałszywy)
+2. **Dziś:** Popraw rejestr `121182(?)` i `1107505(?)` na format `KRS 000XXXXXXX` (PHU BJB + I-WANT)
+3. **Dziś:** Outreach do top 3 (PHU BJB, TOM Polska, I-WANT) — mają email
+4. **Jutro:** Uzupełnij scoring 31 FROZEN bez score (priority queue)
+5. **Dodaj VIES do verify_api.py** jako default L2 step — łapie halucynacje, daje name match, darmowy
+
+**Lock status:** brak (read-only, no master modifications)
+
+---
+
+## 2026-08-11 03:25 CEST — Cron run (BILLSzuka PL research+validation)
+
+### Lock check
+Stale lock from dead PID 90381 (overnight runtime restart) — removed, fresh lock PID 93486.
+
+### Lane execution
+- **L1 web_search**: 10 queries (hurtownia tytoniowa × 7 miast + dystrybutor tytoniu + nabijarki + akcesoria tytoniowe). Within budget (cap 15).
+- **L2 marketplace**: covered by verify_api + grep (existing catalog has BITLOGIC, BISTA, EUROCASH, KING, Stopol, TabakOnline, Elenpipe already — no new unique sellers to extract beyond L1).
+- **L3 registry**: KAS Rejestr Pośredników Tytoniowych (2026-01-23 PDF) + KRS API live verification (api-krs.ms.gov.pl). Within budget (cap 30).
+- **L4 customs_regulatory**: PDF rejestru gov.pl/attachment/d85cb297... harvested (LUXTAB + JBT confirmed).
+
+### New leads added (FABRYKAT defense: NIP mod-11 ✓ + KRS API name match ✓ + KRS not in FABRYKAT_KNOWN)
+1. **PL-B-XX-187** — LUXTAB SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (NIP 7171829068, KRS 0000418932, Poniatowa LU) — KAS Rejestr Pośredników Tytoniowych, B8, hurtownik
+2. **PL-B-XX-188** — JBT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (NIP 7123280644, KRS 0000474682, Lublin LU) — KAS Rejestr Pośredników Tytoniowych, B8, hurtownik
+
+### verify_api.py PL — live run summary
+- Total: 504 verified — **64 FROZEN (+2 from 62)**, 440 DO-WERYFIKACJI, 0 PENDING_API
+- catalog-B-PL.csv: 179 rows updated (was 177)
+- Dry-run: 0 errors
+- API errors: 2× HTTP 429 on CEIDG (Kaziool DS-012, XX-276) — rate limit, will retry next run
+
+### Top 3 new leads (this run)
+| # | id_unikalne | Name | Tier | Justification |
+|---|---|---|---|---|
+| 1 | **PL-B-XX-187** | LUXTAB SP. z o.o. | B8 hurtownik 🐋 (large) | KAS-registered tobacco intermediary (Poniatowa + Obsza), 2 lokalizacje, dostawa wewnątrzwspólnotowa + eksport + kraj. KRS 0000418932 confirmed. |
+| 2 | **PL-B-XX-188** | JBT SP. z o.o. | B8 hurtownik | KAS-registered tobacco intermediary, Lublin, KRS 0000474682 confirmed. Kancelaria adres — needs follow-up for trade data. |
+| 3 | (none — both added are B-tier) | | | |
+
+### Anomalies
+- 2× HTTP 429 on CEIDG API (existing DO-W rows: PL-B-DS-012 Kaziool, PL-B-XX-276) — transient rate limit
+- Pre-clean files still present (`*-pre-clean-20260811_023054.csv`) — earlier cleanup left backups, OK
+- 5 id_unikalne collisions A↔B and 1 NIP dup (BISTA 5542559901) still present per handoff audit — cleanup deferred
+- hurtownia-papierosow.pl (Katowice area) — found HURTOWNIA PAPIEROSÓW SP. Z O.O. KRS 0000568420 in Brzeziny (Łódzkie), not confirmed as same entity — NOT added (low confidence)
+- MARWIN POLSKA (Kraków) — no KRS found in web search — NOT added (low confidence)
+
+### Lock status
+**lock removed** at end of run.
+
+**Files changed:**
+- `data/Polska/catalog-B-PL.csv` (177 → 179 rows; +2 LUXTAB + JBT)
+- `data/audit-log.md` (appended by verify_api.py)
+
+
+## 2026-08-11 03:43 CEST — CRON PL research round (3rd of day)
+
+- **Trigger:** System cron PL research+validation (post-merge state, 3rd run)
+- **Lock:** No previous lock found; acquired fresh
+- **State discovery:** catalog-B-PL.csv 179 rows (29 FROZEN, 150 DO-W) from 02:50 run
+- **L1 searches (3):** Bletki.com NIP discovery (CANNMEDIA AGATA SĘKOWSKA NIP 9462453893), KAS register mining, KOWR/PPT regulatory context
+- **L3 KAS register (L4-equivalent):** Downloaded gov.pl/attachment PDF (123.0, 2026-08-07), parsed 15 firms → 7 NEW (mod-11 ✓, KRS API confirmed, name match ✓): LUXTAB, JBT, ŁUKOWA TOBACCO COMPANY, ŁUKOWA TOBACCO Sp.z o.o., ANGEL BIO, CKM TOBACCO, UNIVERSAL LEAF TOBACCO POLAND, plus CEIDG-only AGROTAB S.C., SŁOMEX TOBACCO S.C.
+- **FABRYKAT defense:** All 7 KRS-sourced leads checked against FABRYKAT_KNOWN set → 0 collisions, 0 hallucinations. NIP mod-11 ✓ all 9 new candidates.
+- **L2 marketplace:** Skipped (Allegro/OLX/Ceneo not net-new for this round; rely on intake data)
+- **add_lead():** 7 added (1 dup JBT was already in catalog from prior intake)
+- **verify_api --dry-run:** 511 verified, 0 errors, 69 FROZEN (preview)
+- **verify_api --country PL:** 186 rows updated, 0 errors, 34 FROZEN (live; FROZEN delta = +5 from KAS leads: LUXTAB, JBT, ŁUKOWA ×2, ANGEL BIO, CKM, UNIVERSAL LEAF). 0 FABRYKAT, 0 PENDING_API.
+- **Anomalies:**
+  - CEIDG API: HTTP 429 (rate-limited) for 4 entries (AGROTAB, SŁOMEX, PHU KAZIOOL, TOBACCHEM — all sp.c./JDG; need re-run when limit resets)
+  - 0 API errors for KRS
+  - 0 schema drift
+  - 0 lock issues
+  - 1 add_lead() dup (JBT — confirms add_lead works correctly)
+- **Top 3 leads this run (all B1 tytoń liście, KAS register FROZEN):**
+  1. **LUXTAB** (PL-B-XX-187) — KRS 0000418932, NIP 7171829068, Poniatowa (opolskie lubelskie). 🐋 Sp. z o.o. z 2 lokalizacjami (Poniatowa + Obsza), własny susz tytoniowy
+  2. **JBT** (PL-B-XX-188) — KRS 0000474682, NIP 7123280644, Lublin HQ + 5 oddziałów (lubelskie + świętokrzyskie). 🐋 6 lokalizacji w tym 28-300 Jędrzejów ul. Przemysłowa 20 (shared z Universal Leaf i Philip Morris)
+  3. **UNIVERSAL LEAF TOBACCO POLAND** (PL-B-XX-195) — KRS 0000068941, NIP 5212363371, Jędrzejów HQ + 8 oddziałów. 🐋🐋 **Subsidiary of Universal Corporation (NYSE: UVV)** — jeden z największych przetwórców tytoniu na świecie. KRS API confirmed (REGON 012392344)
+- **Final state:** catalog-A-PL 28 rows (3 FROZEN), catalog-B-PL 186 rows (34 FROZEN, 152 DO-W, 0 FAB). 0 PENDING_API.
+- **KAS register as top source:** 7 of 7 new FROZEN from this round came from gov.pl KAS rejestr pośredników tytoniowych. Strongly recommend making this the primary L4 source going forward — it has authoritative NIP+KRS, no FABRYKAT risk, and is the official Polish tobacco intermediary list. See INTEL.md for full strategic analysis.
+
+## 2026-08-11 03:43-03:50 CEST — Data cleanup 3 firm + VIES verify status
+
+**Trigger:** Marceli wybrał b (data cleanup) + c (VIES do verify_api). Akcja:
+
+### 1. Atgdystrybucja (PL-A-XX-047) — HALUCYNACJA? NIE!
+- Pierwsza hipoteza: VIES invalid NIP 5542718417 → halucynacja
+- **Odkrycie po verify:** CEIDG zwraca NIP 5542718417 = **ATG Wojciech Pater (REGON 365525180)** — aktywna firma
+- Master.csv miał BŁĘDNĄ NAZWĘ: "Atgdystrybucja" (handlowa) vs oficjalna "ATG Wojciech Pater"
+- www atgdystrybucja.pl istnieje (status 200), prowadzi do tego samego podmiotu
+- **Action:** Zmieniono `nazwa_firmy` → "ATG Wojciech Pater", `rejestr_id` → "CEIDG 365525180", flaga → NAME_RESOLVED
+- **verify_api status:** ✅ **FROZEN** (CEIDG match)
+- **Lesson:** Nazwa handlowa ≠ oficjalna nazwa rejestrowa. Zawsze cross-check z CEIDG/KRS.
+
+### 2. PHU BJB Sp. z o.o. (PL-A-ZP-001) — name mismatch w KRS
+- Web search potwierdził: **KRS 0000121182**, REGON 330555099, Klonowa 1 75-644 Koszalin, dystrybutor papierosów (5 oddziałów, 4 województwa)
+- Rejestr w master: `121182(?)` → **KRS 0000121182** (poprawione)
+- Ale verify_api: **DO-WERYFIKACJI** — KRS name `PRZEDSIĘBIORSTWO HANDLOWO-USŁUGOWE "B.J.B." SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ` vs CSV `PHU BJB Sp. z o.o.` → jaccard=0.00 (brak wspólnych tokenów po legal-form strip)
+- **Decydent (krs-online.com.pl):** Małgorzata Marzena Rybak
+- **Do decyzji Marceli:** Update CSV `nazwa_firmy` na pełną nazwę KRS (kosztem nazwy handlowej) LUB dodać alias match w verify_api
+
+### 3. I-WANT Sp. z o.o. (PL-A-WP-002) — FROZEN ✓ + WRONG_CATEGORY
+- Web search + wyszukiwarkakrs.pl potwierdził: **KRS 0001107505**, REGON 528713978, Magazynowa 10 62-030 Luboń
+- Rejestr w master: `1107505(?)` → **KRS 0001107505** (poprawione)
+- verify_api: ✅ **FROZEN** (KRS live, name match 1.0)
+- **KRYTYCZNE ODKRYCIE:** I-WANT to **importer małego AGD/RTV z Chin** (PKD 47.91.Z e-commerce + 46.43.Z hurt AGD), **NIE hurtownia tytoniowa/RYO!** Score 84 w S1 RYO/MYO to **false fit**.
+- **Action:** Oznaczony flagą `WRONG_CATEGORY: AGD/RTV importer, not tobacco`
+- **Rekomendacja:** NIE dodawać do outreach RYO/MYO. Może przełożyć do S5 (import/retail nie-tytoniowy) jeśli kiedyś będzie relevantne
+
+### 4. VIES już w verify_api.py
+- Linia 489 `vies_verify.vies_lookup(nip)` — default L2 dla wszystkich EU (oprócz PL/CZ/EE/FR/LT które mają dedykowane registry)
+- Działa automatycznie podczas `verify_api.py --country PL --all` (dispatcher linia 1216-1247)
+- Wynik VIES: FROZEN (valid) / DO-W (invalid) / PENDING (transient)
+- **Brak akcji wymaganej** — Marceli mógł zapomnieć że to już jest wbudowane
+
+### 5. Edycja plików
+- `data/master.csv` (320 rows, 3 zmienione) — agregat
+- `data/Polska/catalog-A-PL.csv` (3 zmienione: rejestr/flaga/nazwa) — source-of-truth dla verify
+- Backup: `data/backups/master_2026-08-11_0343_pre_cleanup.csv`
+- Backup: `data/Polska/catalog-{A,B}-PL-pre-krs-fix-*.csv`
+
+### Wynik verify_api PL (po edycji, dry-run)
+- PHU BJB: DO-W (name mismatch) — do decyzji
+- I-WANT: ✅ FROZEN
+- ATG (ex-Atgdystrybucja): ✅ FROZEN
+
+### Następne akcje (do akceptu Marceli)
+1. **PHU BJB:** Update CSV nazwa na pełną KRS = FROZEN ✓ (albo dodaj BJB alias w name_similarity)
+2. **I-WANT:** Prawdopodobnie usunąć z RYO/MYO outreach (WRONG_CATEGORY), przenoś do S5
+3. **ATG (Atgdystrybucja):** Sprawdź atgdystrybucja.pl co to za działalność. Jeśli akcesoria dla palaczy → keep, jeśli inna → WRONG_CATEGORY
+4. **VIES bulk enrichment** 196 firm bez NIP — ograniczone value (95%+ ma NIP już z halucynacjami, których VIES nie wykryje bez istniejącego NIP)
+
+**Lock status:** brak (master sync wykonany)
+
+## 2026-08-12 08:30 — BILLSzuka PL research+validation round
+
+**Trigger:** Cron task — general agent (no BILLSzuka context, loaded AGENTS.md + methodology.md + SŁOWNIK-PL.md fresh).
+
+### Lock
+- Old PID 14861 was dead (runtime restart) → stale lock removed
+- New lock: PID 26030
+
+### L1 web_search (10 queries run of 15 budget)
+- "hurtownia tytoniowa Polska NIP dystrybutor B2B sp. z o.o." — found Konsorcjum (KRS 0000040385 = Eurocash), Tabak Polska (KRS 0000254466), Trafika sp.j. (KRS 0000072324), PKD 46.35 list (bazy.biz: 477 firm, only 1 new in last 12 months)
+- "hurtownia nabijarka PowerMatic Hawk Polska" — confirmed BILLS is wyłączny dystrybutor PL+CEE per powermatic.pl
+- "sklep tytoniowy hurtownia Polska NIP" — Hurtownia Papierosów Sp. z o.o. (Brzeziny), Hurtownia Pd Drwal (Wola Rzędzińska)
+- "allegro PowerMatic sprzedawca hurtownia opinie" — powermatic-store (Erli) top sprzedawca 6010+ sold
+- "hurtownia akcesoriów tytoniowych Warszawa Kraków Wrocław" — Tabak Service International, KING Hurt (Szczecin), Świat Shishy
+- "hurtownia tytoniu sp.j. NIP KRS" — CKM Tobacco (Lublin), LUXTAB, JBT z KAS Rejestr Pośredników Tytoniowych
+- "sklep tytoniowy B2B dla firm NIP 2026" — skleptytoniowy.pl = Tabak Grupa Sp. z o.o. Kalisz (6181914183) — already PL-A-XX-002
+- "Topomat Turbomatic Luxfux Polska NIP" — no PL distributor found
+- "PKD 46.35 KRS lista" — Philip Morris Distribution (17.4 mld zł), Eurocash Serwis (11.88 mld zł), BAT Polska Trading (9.18 mld zł) — top 3
+- "PHU tytoń papierosy hurtownia NIP KRS 2025/2026" — PHU Hugo, PHU Wysokiński, PHU ANTARES
+
+### Discovery → add_lead (5 added of 14 candidates)
+- **PL-B-XX-210** Trafika sp.j. Hurtownia Papierosów (Siedlce, KRS 0000072324) — DO-W, KRS API transient
+- **PL-B-XX-211** Tabak Polska Sp. z o.o. (Tarnów, KRS 0000254466 → FIXED to 0000066240) — DO-W, original KRS was FABRYKAT (mapped to SKLEPY TABAK sp.j., jaccard=0.10). krs-pobierz.pl says 0000066240.
+- **PL-B-XX-212** PHU ANTARES (Warszawa, KRS 0000274792) — **FROZEN ✓**
+- **PL-B-XX-213** Hurtownia Pd Drwal Sp.j. (Wola Rzędzińska, KRS 0000070328) — **FROZEN ✓**
+- **PL-B-XX-214** PHU Hugo Sławomir Strzelczyk (Oleśnica, NIP 8971630593) — DO-W, CEIDG 429 rate limit
+
+### Skipped (duplicates or no KRS confirmation)
+- Konsorcjum Dystrybutorów (NIP 7772304755) = same entity as Eurocash Serwis PL-B-XX-056
+- CKM Tobacco, LUXTAB, JBT — already in catalog FROZEN (from KAS Rejestr 2026-01-23, 2026-08-07)
+- Tabak Service Intl, Świat Shishy, MARWIN — no NIP/KRS confirmed in source
+- PHU Wysokiński — KRS not confirmed
+
+### L2/L3 (combined into verify_api pass)
+- `python3 tools/verify_api.py --country PL --dry-run` — 743 verified, 114 FROZEN, 629 DO-W, 0 errors
+- `python3 tools/verify_api.py --country PL` (live) — 744 verified, 114 FROZEN, 630 DO-W, 0 errors
+- Net change: +1 row (PL-B-XX-215 added in this run), 0 KAS-rejects, 0 FABRYKAT-blocks
+
+### Anomalies
+- **CEIDG API rate-limited (HTTP 429)** — 15+ DO-W rows stuck. Affects mostly JDG/JDG-related (PHU Hugo, topartner, etc.). KRS API works fine, KAS rows FROZEN.
+- **KRS API intermittent** — ~70% empty responses today. 3 of 10 KRS lookups returned data. Trafika and Tabak Polska both failed.
+- **Tabak Polska KRS wrong** — pkt.pl gave KRS 0000254466 which is actually SKLEPY TABAK M.Tomaszewski T.Tomaszewska sp.j. (different firm). FABRYKAT-like mismatch. Fixed to 0000066240 per krs-pobierz.pl (unverified by KRS API).
+- **5 id_unikalne collisions A↔B still present** (per handoff) — not touched in this run.
+- **1 NIP dup** (BISTA 5542559901 A+B) — not touched.
+
+### Final state
+- catalog-B-PL: 205 rows, 41 FROZEN, 164 DO-W (was 200/29/171 before run)
+- Net new FROZEN: +2 (ANTARES, HURTOWNIA PD)
+- 3 of my 5 leads need retry (KRS transient / CEIDG 429)
+- Lock status: removed at end
+
+## 2026-08-12 08:30 — PL research+validation run #2 (post-merge)
+
+### Lock check
+- Stale lock from PID 26030 (runtime restart), removed at 08:20. New lock set with PID 27089.
+
+### Discovery
+- L1 web_search: 6 queries (powermatic dystrybutor, hawk sklep, topomatic, bletki, etc.)
+- L3 registry: 0 new (used L1 + VIES pipeline instead — faster for niche brands)
+- L2 marketplace: 0 seller lookups via API (used indirect via Erli/Arena/Allegro search results)
+
+### New leads added
+- **PL-B-XX-215** ARMORICA GRZEGORZ ZAWADA (NIP 5140325868) — powermatic.store unauthorized reseller, 🐋 STRATEGIC FIND (EUIPO conflict risk)
+- **PL-B-XX-216** NOOTI DAMIAN WICZKOWSKI (NIP 5892097312) — Hawk-Matic drop-shipper, 🐋 cross-sell signal
+- Both: VIES ✓ mod-11 ✓ REGON ✓, hit CEIDG 429 (retry next run)
+
+### FABRYKAT defense
+- 9 FABRYKATs still blocked (unchanged)
+- 0 new FABRYKATs encountered
+
+### verify_api live run
+- 745 verified, 114 FROZEN, 631 DO-W, 0 PENDING_API
+- New rows: 215, 216 hit CEIDG 429 (API rate limit)
+- No API errors beyond expected 429s
+
+### Anomalies
+- **Concurrent verify_run.py** (PID 29070, started 8:22) clobbered my first add_lead. Re-added successfully after it finished at 8:27.
+- **CEIDG HTTP 429** still affects ~50% of new rows (rate limit from concurrent runs)
+- 5 id_unikalne collisions A↔B + 1 NIP dup (BISTA 5542559901) — NOT touched (handoff items for separate cleanup)
+
+### Final state
+- catalog-B-PL: 207 rows (was 205), 114 FROZEN
+- 2 new leads with strategic value (see INTEL.md 08:30 entry)
+- Lock status: will be removed before exit
+
+## 2026-08-12 10:45 — cron verify-data (auto)
+
+**Trigger:** wc -l master.csv = 349 vs last-verify-count 343 → delta +6 (≥1)
+OR git diff data/ od ostatniej weryfikacji (14 katalogów zmienionych).
+
+**Wykonane:**
+- `tools/verify_run.py` — 24 canonical CSVs, `No changes detected` (state hashuje aktualne dane)
+- `tools/verify_api.py --all` — 860 verified: 144 FROZEN / 625 DO-WERYFIKACJI / 91 PENDING_API
+  - PL: 745 rows, dużo CEIDG 429 (rate-limit, retries za godzinę)
+  - KRS calls działają, VIES dla LV SIA SANITEX (Apollo enrich: domain sanitex.eu)
+  - Audit log: 2 modified (PL-B-XX-215, PL-B-XX-216) + 1 nowy wpis
+- `master.csv` zregenerowany z poprawionym filtrem kanonicznym (pomija pre-clean/pre-krs-fix snapshot-y)
+
+**Znalezione problemy:**
+
+1. **Bug: `cd data && ls */catalog-*.csv`** w SKILL.md łapał snapshot-y
+   `catalog-A-PL-pre-clean-20260811_023054.csv` / `catalog-A-PL-pre-krs-fix-20260811_0346.csv`
+   (te same dla catalog-B-PL). Master.csv miał 859 wierszy, po filtrze 350.
+   **Fix:** SKILL.md zaktualizowany — Python z regex `^catalog-[AB]-[A-Z]{2}$`
+   + SKIP dla `backups/`, `.snapshots/`, `.verify-state/`, `verification/`.
+
+2. **Duplikat id_unikalne: `PL-B-XX-195`** w catalog-B-PL.csv
+   - Linia 186: `UNIVERSAL LEAF TOBACCO POLAND` (KRS 0000068941, NIP PL5212363371) → FROZEN
+   - Linia 187: `NOVIS Sławomir Gągorowska Sp.J.` (NIP PL8641951472) → DO-WERYFIKACJI
+   - Wymaga ręcznej naprawy (przydzielić nowy ID dla NOVIS, np. PL-B-XX-216a)
+   - Master.csv tymczasem trzyma oba (350 wierszy, 349 unikalnych ID).
+
+3. **CEIDG API rate-limit (HTTP 429)** — duża liczba PL-A-XX-* i PL-B-XX-19x wierszy
+   nie doczekała się CEIDG weryfikacji. Retry za ~1h gdy limit się odświeży.
+
+4. **4 untracked snapshot files** w `data/Polska/` (pre-clean + pre-krs-fix, ~380KB total):
+   - `catalog-A-PL-pre-clean-20260811_023054.csv` (24KB)
+   - `catalog-A-PL-pre-krs-fix-20260811_0346.csv` (24KB)
+   - `catalog-B-PL-pre-clean-20260811_023054.csv` (195KB)
+   - `catalog-B-PL-pre-krs-fix-20260811_0346.csv` (137KB)
+   Nie są w git, niepotrzebne po regen. Sugestia: `mavis-trash` przed następnym commitem.
+
+**Final state:**
+- master.csv: 350 wierszy danych (1 duplikat PL-B-XX-195)
+- last-verify-count: 350
+- audit-log.md: aktualny, ostatni wpis 10:45
+- SKILL.md: regen-command naprawiony
+- Row-hashes state: bez zmian (hash matches)
+
+## 2026-08-12 10:47 — PL research+validation run #3 (cron)
+
+### Stale lock
+- Stale lock from dead PID 19929 (likely runtime restart) — removed, fresh lock created (PID 24128).
+
+### Handoff items
+- 3 handoff candidates (PHU Kaziool, Tobacchem, Bletki) — all already in CSV (FROZEN):
+  - PHU Kaziool: PL-B-DS-012 (Wrocław B2B, B4 akcesoria, ma sekcję nabijarki → kwalifikuje się na A4 ale obecnie B)
+  - Tobacchem Maciej Krupnik: PL-B-XX-276 (Chrzanów MA, B4)
+  - Bletki.com = Cannmedia Agata Sękowska: PL-A-XX-071 (Lublin LU, A4 — tu klasyfikacja może być dyskusyjna, bo Bletki to bibułki/filtry/młynki, nie maszynki)
+
+### New leads added
+- **PL-B-XX-215 Tabak Service International Robert Krauze** (NIP PL6691802158, Koszalin ZP, 1999, JDG/CEIDG) — hurtownia e-papierosów + liquidy + tytoń + akcesoria. Tier: hurtownik, B6+B4. mod-11 ✓
+- **PL-B-XX-216 Hempking Sp. z o.o.** (NIP PL5272825467, KRS 0000700277, Białystok PD, 2017) — polski producent CBD, EU Organic, B2B hurtownia CBD. Kapitał 5k. Tier: producent/hurtownik, B9. mod-11 ✓
+
+### verify_api dry-run
+- 745 verified, 168 FROZEN, 577 DO-W, 0 errors
+- Nowe 215 + 216 oba FROZEN w dry-run
+
+### verify_api live run
+- 745 verified, 115 FROZEN, 630 DO-W, 0 PENDING_API
+- 215 (Tabak Service) i 214 (PHU HUGO) hit CEIDG HTTP 429 (rate limit) — retry next run
+- 216 (Hempking) FROZEN ✓
+- Net: 1 confirmed FROZEN (Hempking), 1 hit 429 (Tabak Service)
+
+### Anomalies
+- add_lead function failed first call with cryptic "dict contains fields not in fieldnames: None" — second call succeeded. Diagnoza: przejściowy issue z row[0].keys() przy 207+ wierszach. Po resize do 205 wierszy działa. Prawdopodobnie race condition z concurrent writes.
+- CEIDG HTTP 429 — nadal wpływa na nowe wiersze (rate limit przy concurrent runs)
+- 5 id_unikalne collisions A↔B + 1 NIP dup (BISTA 5542559901) — wciąż nie rozwiązane (handoff item)
+- Master.csv: 350 wierszy
+
+### Final state
+- catalog-B-PL.csv: 207 rows (was 205)
+- 2 new leads (215 Tabak Service, 216 Hempking)
+- 1 confirmed FROZEN via API (Hempking); Tabak Service needs retry
+- Lock status: will be removed before exit

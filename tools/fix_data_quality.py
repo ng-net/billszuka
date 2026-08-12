@@ -33,8 +33,33 @@ def log(msg: str) -> None:
     print(f"[{ts}] {msg}", file=sys.stderr)
 
 
+def prune_old_backups(max_age_days: int = 7) -> int:
+    """Delete backup CSVs older than max_age_days. Keeps data/backups/ from
+    growing unboundedly across many fix_data_quality.py runs.
+
+    Returns count of files deleted.
+    """
+    if not BACKUP_DIR.exists():
+        return 0
+    cutoff = time.time() - (max_age_days * 86400)
+    deleted = 0
+    for f in BACKUP_DIR.glob("*.csv"):
+        try:
+            if f.stat().st_mtime < cutoff:
+                f.unlink()
+                deleted += 1
+        except OSError:
+            pass
+    return deleted
+
+
 def create_backups() -> None:
     """Create timestamped backup copies of all CSV catalogs."""
+    # Housekeeping first: prune stale backups so we don't accumulate forever.
+    pruned = prune_old_backups(max_age_days=7)
+    if pruned:
+        log(f"🧹 Pruned {pruned} stale backup(s) older than 7 days")
+
     BACKUP_DIR.mkdir(parents=True, exist_ok=True)
     ts = time.strftime("%Y%m%d_%H%M%S")
     csv_files = list(DATA.glob("*/catalog-*.csv")) + list(DATA.glob("catalog-*.csv"))
@@ -173,10 +198,19 @@ def clean_and_score_catalog(csv_path: Path, dry_run: bool = False) -> tuple[int,
         cleaned_rows.append(row)
 
     if not dry_run:
-        with open(csv_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\r\n")
-            writer.writeheader()
-            writer.writerows(cleaned_rows)
+        tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
+        try:
+            with open(tmp_path, "w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\r\n")
+                writer.writeheader()
+                writer.writerows(cleaned_rows)
+            os.replace(tmp_path, csv_path)
+        except OSError as e:
+            log(f"  → {csv_path.name}: atomic write failed ({e})")
+            if tmp_path.exists():
+                try: tmp_path.unlink()
+                except OSError: pass
+            raise
 
     return updated_count, duplicates_count
 

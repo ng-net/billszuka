@@ -11,6 +11,7 @@ Usage:
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -96,7 +97,17 @@ def append_to_intel(insights: list[str]) -> None:
         
         # Append before section end
         updated_text = intel_text.replace(top_table_m.group(1), top_table_m.group(1) + "\n".join(new_lines) + "\n")
-        INTEL_PATH.write_text(updated_text, encoding="utf-8")
+        tmp_path = INTEL_PATH.with_suffix(INTEL_PATH.suffix + ".tmp")
+        try:
+            with open(tmp_path, "w", encoding="utf-8") as f:
+                f.write(updated_text)
+            os.replace(tmp_path, INTEL_PATH)
+        except OSError as e:
+            print(f"  → INTEL.md: atomic write failed ({e})")
+            if tmp_path.exists():
+                try: tmp_path.unlink()
+                except OSError: pass
+            raise
         print(f"✅ Updated TOP odkrycia table in INTEL.md")
 
 

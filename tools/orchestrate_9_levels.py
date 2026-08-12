@@ -14,6 +14,7 @@ Run modes:
 
 import sys
 import csv
+import re
 import time
 from pathlib import Path
 
