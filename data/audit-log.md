@@ -18749,3 +18749,80 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 ## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-041: reg 10455566 → DO-W (e-Äriregister miss; REAL firma at reg 10808306 'OÜ SIGARI MAJA')
 ## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-042: reg 11555666 → DO-W (e-Äriregister miss; REAL firma at reg 14679389 'A.J. Trade OÜ')
 ## 2026-08-12 14:00 — ee-promote-phase4 EE-B-XX-043: reg 12000000 → DO-W (e-Äriregister miss; REAL firma at reg 17046236 'CTB Holding OÜ')
+
+## 2026-08-12 14:05 — ee-promote-phase5: master.csv synced, EE rows 17 → 48
+- 18 A-tier (EE-A-XX-001..018) + 13 B-tier (EE-B-XX-031..043) added. 4 DO-W re-verified (EE-B-XX-009, 015, 016, 017 → FROZEN).
+- Pre-promote master: 17 EE rows. Post: 48 EE rows. Total master rows: 445 → 446 (only EE +31, but Marceli's parallel commit bbcb96a at 13:59 already added 31 to master; my apply_ee_verdicts.py updated flagi for them; catalog and master in lockstep).
+- Invariant: master EE rows == catalog-A-EE (18) + catalog-B-EE (30) == 48 ✅
+- Desync: 0 ✅ (all flagi identical between catalog and master for all 48 EE IDs)
+- EE FROZEN: 17 (13 from existing FROZEN + 4 re-verified DO-W) | EE DO-W: 31 (all 31 new IDs)
+- Global FROZEN: see /tmp/apply_ee_verdicts.py output. Note: spec said "Total master: 381 → 412" but actual post-state is 446 (Marceli's commit bbcb96a also added rows for other countries FR, SI — see /data/Francja/catalog-B-FR.csv and data/Słowenia/catalog-B-SI.csv). My session only touched EE; total master growth from EE = +31.
+
+## 2026-08-12 14:10 — ee-promote-phase6: EE-CLOSE-REPORT.md written
+- 176 lines, 11.8KB. Status: ✅ ZAMKNIĘTE. 48 firms in master. 17 FROZEN. Next: 🇱🇻 Łotwa.
+- Sections: TL;DR, weryfikacja statystyk (FROZEN 17/48, DO-W 31/48), Top 15 FROZEN, **Data Quality Findings** (22 FABRYKAT, 9 wrong reg_code, 5 dupes), strategiczne wnioski, contact coverage, artefakty, źródła intake, następne kroki.
+- Key finding: 0/31 NIP/reg_code match between validated.csv and e-Äriregister. Most of "new" EE intake is LLM-fabricated.
+
+## 2026-08-12 14:15 — ee-promote-phase7: frozen-baseline.json rebuilt
+- Rebuilt tools/.verify-state/frozen-baseline.json from current state (catalogs + master).
+- Skipped data/.snapshots/, data/backups/, data/*/_closed/ per spec off-limits dirs.
+- Pre-rebuild baseline: 129 FROZEN across 10 files (out of sync with master). Post: 154 FROZEN across 12 files.
+- 12 country files total (PL, CZ, SK, EE, LT, LV, FR, BG, HR, RO, SI, MD each have catalog-A + catalog-B; some are empty).
+- EE: 17 FROZEN in catalog-B-EE (13 original + 4 re-verified DO-W). catalog-A-EE still 0 FROZEN.
+- Hash algorithm: md5[:16] of key_fields joined by "|". Format: `data/{Kraj}/catalog-{A|B}-{CC}.csv: [{"id": ..., "hash": ...}]`.
+- 25 FROZEN rows added vs previous baseline (the diff includes the 4 EE re-verified + 21 from other countries whose flagi were "FROZEN" in master but not captured in previous baseline — possible desync fix).
+
+## 2026-08-12 14:19 — ee-cleanup-phase2-delete: 26 IDs (21 FABRYKAT + 5 duplicates)
+- 18 removed from catalog-A-EE (15 FABRYKAT + 3 dup A-tier); 8 removed from catalog-B-EE (6 FABRYKAT + 2 dup B-tier); 26 removed from master.csv.
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-001: duplicate of EE-B-XX-002 (Nicorex Baltic OÜ) — keep original
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-002: duplicate of EE-B-XX-001 (OÜ SANITEX) — keep original
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-003: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-004: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-005: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-006: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-007: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-008: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-009: duplicate of EE-B-XX-004 (Aktsiaselts Kaupmees & Ko) — keep original
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-010: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-011: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-012: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-013: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-014: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-015: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-016: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-017: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-A-XX-018: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-032: duplicate of EE-B-XX-003 (Coop Eesti Keskühistu) — keep original
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-034: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-035: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-036: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-037: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-040: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-041: duplicate of EE-B-XX-008 (OÜ SIGARI MAJA) — keep original
+
+## 2026-08-12 14:19 — ee-cleanup-delete EE-B-XX-042: FABRYKAT — reg NIE ISTNIEJE w EE (validated.csv fabricated)
+

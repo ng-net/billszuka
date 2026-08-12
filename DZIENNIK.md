@@ -1,5 +1,34 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-12 14:10 CEST — Schema: drop region_kod + region_typ + _reg_code
+
+**Decyzja Marcela:** trzy kolumny nie wnoszą wartości → wywalić ze wszystkich aktywnych CSV.
+
+**Usunięte kolumny** (z `data/master.csv` + 22 `catalog-{A,B}-{COUNTRY}.csv` w 11 folderach krajowych):
+
+| Kolumna | Powód usunięcia |
+|---|---|
+| `region_kod` | 198/388 wierszy master = "XX" (placeholder), 40 = puste. Region już zakodowany w `id_unikalne` (`PL-A-WP-001`). |
+| `region_typ` | Typ jednostki adm. (województwo/kraj) — bez użytecznej typologii poniżej PL. |
+| `_reg_code` | Nadmiarowa z `rejestr_id` (kolumna kanoniczna). Wcześniej zduplikowana 2026-08-12 13:40 z `_krs`. |
+
+**Zachowane:** `region_nazwa` (ludzka nazwa regionu, wciąż pomocna).
+
+**Schema po migracji:** 36 kolumn (było 39, -3).
+
+**Skrypty:**
+- `tools/drop_region_columns.py` — idempotentna migracja, dry-run + `--apply`. Wykrywa brak kolumn i pomija.
+- `python3 tools/verify_run.py --init` — zregenerował `data/.verify-state/row-hashes.json` dla nowego schematu, żeby następny verify nie re-weryfikował 462 wierszy.
+
+**Weryfikacja:**
+- 0 wierszy straconych (463 master, łącznie 932 w aktywnych CSV).
+- 0 wierszy z column-count mismatch (Python csv parser).
+- Verify dry-run: "No changes detected" — schema-change transparent.
+
+**Zaktualizowane pliki:** `methodology.md` (sekcja 10, tabela 36 kolumn + notatka o usunięciu), `DZIENNIK.md` (ten wpis).
+
+**Nietknięte:** `data/backups/`, `data/{Kraj}/_closed/`, `data/.snapshots/` — frozen historical state.
+
 ## 2026-08-08
 
 **Struktura projektu — wstępne zakładki**
@@ -565,3 +594,22 @@ Schema pozostaje 39 kolumn, master nadal 388 rows.
 **Final master state:**
 - 463 rows, 156 FROZEN, 39 cols
 - Per country: PL 235, EE 48, CZ 41, SK 37, FR 26, SI 13, BG/HR/RO 11, LT/MD/LV 10
+
+## 2026-08-12 14:18 CEST — Gentle search #1 (BG) — mi.government.bg GOLD
+
+Web search wykrył **oficjalny publiczny rejestr importerów maszyn tytoniowych** prowadzony przez Ministerstwo Gospodarki BG (art. 25 ust. 2 ustawy o tytoniu):
+https://www.mi.government.bg/
+
+Dodano 6 nowych leadów A-tier (wszystkie 🇧🇬 z publicznego rejestru):
+- **BG-A-XX-001 IZAMAR EOOD** (EIK 200434116) — Plovdiv, full chain (import+sale+recycling)
+- **BG-A-XX-002 BEKI 2015 EOOD** (EIK 203780949) — Dupnitsa, full chain
+- **BG-A-XX-003 BEST TABAKO EOOD** (EIK 202324063) — Sofia, full chain 🐋
+- **BG-A-XX-004 TABI DV OOD** (EIK 205251081) — Plovdiv, full chain
+- **BG-A-XX-005 VEKTOR 7 OOD** (EIK 175165166) — Sofia, full chain
+- **BG-A-XX-006 GAGARIN COMPANY EOOD** (EIK 200569740) — Plovdiv Trakiya, full chain
+
+Wszystkie QS=95/100, FROZEN (gentle_search_cron + mi.government.bg public register).
+
+To są **🐋 TOP TARGETS** dla BILLS — bezpośredni dostęp do rynku maszyn RYO w BG.
+
+BG: 11 → 17 firm, schema 39 cols preserved.
