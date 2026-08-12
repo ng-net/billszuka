@@ -1,0 +1,233 @@
+[
+  {
+    "id": "PL-A-WP-001",
+    "krs": "0001074645",
+    "master_name": "BILLS SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "BILLS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "5140361901",
+    "match": false
+  },
+  {
+    "id": "PL-A-KP-001",
+    "krs": "0000197822",
+    "master_name": "BISTA STANDARD SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "BISTA STANDARD SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "5542559901",
+    "match": false
+  },
+  {
+    "id": "PL-A-MZ-002",
+    "krs": "0001068075",
+    "master_name": "E-TABAK SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "E-TABAK SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "1231543801",
+    "match": false
+  },
+  {
+    "id": "PL-B-LB-001",
+    "krs": "0000237218",
+    "master_name": "CK COMPLEX SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "\"CK COMPLEX\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "9291744080",
+    "match": false
+  },
+  {
+    "id": "PL-B-ZP-002",
+    "krs": "0000396744",
+    "master_name": "POLSKA GRUPA TYTONIOWA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "POLSKA GRUPA TYTONIOWA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "4980260426",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-010",
+    "krs": "0001190453",
+    "master_name": "DRV DISTRIBUTION Sp. z o.o.",
+    "krs_name": "DRV DISTRIBUTION SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "7142066366",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-011",
+    "krs": "0000948471",
+    "master_name": "VTP Sp. z o.o.",
+    "krs_name": "VTP SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "9462714112",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-012",
+    "krs": "0001093977",
+    "master_name": "TABASCO VAPE TABAS SPÓŁKA KOMANDYTOWA",
+    "krs_name": "TABASCO VAPE TABAS SPÓŁKA KOMANDYTOWA",
+    "krs_nip": "5170445620",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-013",
+    "krs": "0000774565",
+    "master_name": "Flowrolls Sp. z o.o.",
+    "krs_name": "FLOWROLLS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "5252782453",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-014",
+    "krs": "0001074861",
+    "master_name": "BIODIO LAB Sp. z o.o.",
+    "krs_name": "BIODIO LAB SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "5423393334",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-015",
+    "krs": "0000922075",
+    "master_name": "WEEDPOL Sp. z o.o.",
+    "krs_name": "WEEDPOL SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "9542835071",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-017",
+    "krs": "0000836728",
+    "master_name": "BENATURAL Sp. z o.o.",
+    "krs_name": "BENATURAL SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "7681843587",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-018",
+    "krs": "0000119343",
+    "master_name": "Tabak Grupa sp. z o.o.",
+    "krs_name": "\"TABAK GRUPA\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "6181914183",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-019",
+    "krs": "0000673961",
+    "master_name": "Tobacco Of Poland",
+    "krs_name": "TOBACCO OF POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "8762468378",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-020",
+    "krs": "0000568420",
+    "master_name": "Hurtownia Papierosów Sp. z o.o.",
+    "krs_name": "HURTOWNIA PAPIEROSÓW SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "8330002756",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-021",
+    "krs": "0000946950",
+    "master_name": "BITLOGIC BARNAŚ SPÓŁKA KOMANDYTOWA",
+    "krs_name": "BITLOGIC BARNAŚ SPÓŁKA KOMANDYTOWA",
+    "krs_nip": "5223217609",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-022",
+    "krs": "0000965005",
+    "master_name": "J&K Dystrybucja sp. z o.o.",
+    "krs_name": "J&K DYSTRYBUCJA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "8961612530",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-023",
+    "krs": "0000998700",
+    "master_name": "CLOUD HOLDING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "CLOUD HOLDING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "9571110560",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-024",
+    "krs": "0000999396",
+    "master_name": "Vape.pl Sp. z o.o.",
+    "krs_name": "VAPE.PL  SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "6492327111",
+    "match": false
+  },
+  {
+    "id": "PL-B-XX-026",
+    "krs": "0000847239",
+    "master_name": "POLSKI TYTOŃ SPÓŁKA AKCYJNA",
+    "krs_name": "POLSKI TYTOŃ SPÓŁKA AKCYJNA",
+    "krs_nip": "9482622620",
+    "match": true
+  },
+  {
+    "id": "PL-B-DS-002",
+    "krs": "0000010733",
+    "response": {
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    }
+  },
+  {
+    "id": "PL-B-PK-001",
+    "krs": "0000445021",
+    "master_name": "ELENPIPE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "ELENPIPE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "7952526523",
+    "match": true
+  },
+  {
+    "id": "PL-B-MZ-001",
+    "krs": "0000513841",
+    "master_name": "ORION TOBACCO POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "ORION TOBACCO POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "7252077543",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-055",
+    "krs": "0000197822",
+    "master_name": "BISTA STANDARD SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "BISTA STANDARD SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "5542559901",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-056",
+    "krs": "0000519553",
+    "master_name": "EUROCASH SERWIS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_name": "EUROCASH SERWIS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "krs_nip": "7772304755",
+    "match": true
+  },
+  {
+    "id": "PL-B-MZ-007",
+    "krs": "0000703579",
+    "master_name": "IGUANA GÓRSKI, KUREK SPÓŁKA KOMANDYTOWA",
+    "krs_name": "IGUANA GÓRSKI, KUREK SPÓŁKA KOMANDYTOWA",
+    "krs_nip": "1251380928",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-273",
+    "krs": "0000137829",
+    "master_name": "PT DYSTRYBUCJA SPÓŁKA AKCYJNA",
+    "krs_name": "PT DYSTRYBUCJA SPÓŁKA AKCYJNA",
+    "krs_nip": "7960069945",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-274",
+    "krs": "0000070328",
+    "master_name": "HURTOWNIA PD WŁADYSŁAW DRWAL, GRZEGORZ PINAS, DARIUSZ DRWAL - SPÓŁKA JAWNA",
+    "krs_name": "HURTOWNIA PD WŁADYSŁAW DRWAL, GRZEGORZ PINAS, DARIUSZ DRWAL - SPÓŁKA JAWNA",
+    "krs_nip": "8730206184",
+    "match": true
+  },
+  {
+    "id": "PL-B-XX-276",
+    "krs": "0000092182",
+    "master_name": "ZAS-POL Zygmunt Sperzyński Alina Sperzyńska Spółka Jawna",
+    "krs_name": "\"ZAS - POL\" ZYGMUNT SPERZYŃSKI ALINA SPERZYŃSKA SPÓŁKA JAWNA",
+    "krs_nip": "9720010451",
+    "match": false
+  }
+]

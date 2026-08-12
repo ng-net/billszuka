@@ -1854,3 +1854,26 @@ OR git diff data/ od ostatniej weryfikacji (14 katalogów zmienionych).
 - 2 new leads (215 Tabak Service, 216 Hempking)
 - 1 confirmed FROZEN via API (Hempking); Tabak Service needs retry
 - Lock status: will be removed before exit
+
+
+## 2026-08-12 10:55 CEST — MC-BRAIN crash recovery + gitignore fix
+
+**Co się stało:** MC-BRAIN external drive (/Volumes/MC-BRAIN/) niespodziewanie unmountował się w trakcie sesji — Disk Utility nie ładował, Finder nie widział dysku, mimo że Marcel potwierdził fizyczne podłączenie. Agent stracił dostęp do workspace (każdy `bash` pada z `Working directory does not exist`).
+
+**Co zrobione:**
+1. Tier 1 → Tier 2 → Tier 3 protocol recovery (kabel/port → NVRAM/Safe Mode → Recovery fsck) — Marcel wykonał sam
+2. Dysk wrócił po ~2h — **pełen stan odzyskany, zero danych utraconych** (filesystem nie ucierpiał)
+3. Przywrócono sesję — HEAD = `0f71ad1` (map_intake), 202/202 testów passing, working tree nietknięty
+
+**Co naprawione w tej sesji:**
+- **`._*` gitignore nie działał** — wzorzec `._*` w .gitignore nie łapał plików AppleDouble w podkatalogach. Fix: `**/._*` (recursive pattern) + dodane `**/.DS_Store`, `data/temp/`, `data/verification/poc_*.json`, `data/verification/vies_*.json`, `data/**/catalog-*-pre-*.csv`, `tools/.verify-state/`, `data/relationships.csv` (zamiast błędnego `data/.relationships*.csv`)
+- **Cleanup**: 4 PL pre-clean snapshots (catalog-*-pre-{clean,krs-fix}-*.csv) skasowane (regenerable)
+- **Staged for commit**: 19 plików z `data/_intake/` (Marcel input + PL artifacts + master-backup + README) + 3 nowe tools (`enrich_pl_dow.py`, `normalize_PL.py`, `poc_dow_resolver.py`) + gitignore fix
+
+**Local commit `63b0d6e` znaleziony na branchu (ahead of origin by 1):** "verify run 2026-08-12: PL catalog updates + atomic-write patch + cleanup" — wykonany przez inny proces między crashem a teraz. Pushnięte w tej sesji razem z recovery commitem.
+
+**Lesson (zapisane w agent memory):**
+- "External drive unmount → agent brick" — agent z workspace na `/Volumes/ExternalDrive/...` jest zablokowany gdy drive znika. Zawsze rozważ `default_workspace_dir` na internal SSD dla projectów wymagających ciągłości.
+
+**Wektor ryzyka na przyszłość:**
+- Working tree (126 modified files) wciąż zawiera lokalne zmiany z sesji 2026-08-11 (np. modyfikacje `tools/auto_enrich.py`, katalogów, `DZIENNIK.md`). Marcel wybiera czy commitować czy odrzucić.

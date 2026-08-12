@@ -22,10 +22,12 @@ build/
 # System / OS
 .DS_Store
 Thumbs.db
-._*        # AppleDouble metadata (macOS)
+**/._*
+**/.DS_Store
 
 # BILLSzuka verify state (machine-local, regenerated on each run)
 data/.verify-state/
+tools/.verify-state/
 
 # BILLSzuka enrichment run state (track which leads have been processed)
 data/.verify-state/enrichment-progress.json
@@ -40,3 +42,11 @@ data/backups/
 data/master.csv
 data/relationships.csv
 data/relationships-audit.md
+
+# BILLSzuka PoC / temp artifacts (re-generable, not part of canonical state)
+data/temp/
+data/verification/poc_*.json
+data/verification/vies_*.json
+
+# BILLSzuka pre-clean snapshots (intermediate states from cleanup scripts)
+data/**/catalog-*-pre-*.csv
