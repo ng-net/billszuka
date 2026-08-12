@@ -1901,3 +1901,35 @@ git log --oneline ng-net-backup/main | head -5
 # Jeśli tak — push mirror z powrotem
 git push ng-net-backup main
 ```
+
+
+## 2026-08-12 11:18 CEST — ng-net OAuth re-auth + design-mc jako backup
+
+**`gh auth refresh --scopes "gist,read:org,repo,workflow" --hostname github.com`** — dodał brakujący `workflow` scope do ng-net OAuth token. Teraz ng-net może pushować do ng-net/billszuka razem z `.github/workflows/ci.yml`.
+
+**Stan końcowy remote'ów:**
+- `origin` = `https://github.com/ng-net/billszuka.git` (canonical, aktywne konto = ng-net)
+- `design-mc` = `https://github.com/design-mc/billszuka.git` (backup mirror, dostęp tylko design-mc)
+
+**Push do obu remote'ów działa (HEAD = 360c457).**
+
+**AGENTS.md zaktualizowany** — canonical = ng-net/billszuka, design-mc jako backup mirror.
+
+**Daily workflow dla przyszłych sesji:**
+```bash
+# Przy starcie sesji — switch to ng-net (jeśli trzeba)
+gh auth switch --user ng-net
+# Weryfikacja
+gh auth status
+# Normalny push
+git push origin main
+# Jeśli chcesz zsynchronizować mirror
+gh auth switch --user design-mc
+git push design-mc main
+gh auth switch --user ng-net   # wróć na primary
+```
+
+**Scenyariusze failure:**
+- ng-net token straci ważność → `gh auth refresh --scopes "gist,read:org,repo,workflow"`
+- ng-net OAuth się zepsuje → `gh auth login --web` z kontem które ma dostęp do ng-net org
+- ng-net/billszuka zniknie z GitHub → push do design-mc (backup), później migrate do innego
