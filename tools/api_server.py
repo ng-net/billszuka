@@ -147,9 +147,10 @@ async def list_datasets() -> dict[str, Any]:
                 "size_bytes": master.stat().st_size,
                 "kind": "master",
             })
+        SKIP_DIRS = {".snapshots", ".verify-state", "backups", "verification", "_intake", "temp"}
         # Per-country catalogs (the A/B files)
         for sub in sorted(DATA.iterdir()):
-            if not sub.is_dir() or sub.name.startswith("."):
+            if not sub.is_dir() or sub.name.startswith(".") or sub.name in SKIP_DIRS:
                 continue
             for csv_file in sorted(sub.glob("catalog-[AB]-*.csv")):
                 if csv_file.name.startswith("._"):

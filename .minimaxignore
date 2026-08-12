@@ -49,7 +49,7 @@ frontend/.next/
 .vscode/
 .idea/
 .DS_Store
-._*
+**/._*
 
 # Secrets — never include even on read
 .env
@@ -61,5 +61,4 @@ frontend/.next/
 .git/
 .github/
 
-# Mac metadata (AppleDouble)
-._*
+

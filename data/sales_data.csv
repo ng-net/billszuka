@@ -1,9 +1,0 @@
-Transaction_ID,Date,Customer_Name,Category,Amount_USD,Status,Region
-101,2026-07-01,Acme Corp,Hardware,4500,Completed,Europe
-102,2026-07-02,TechNova,Software,12000,Completed,North America
-103,2026-07-03,GlobalLogistics,Logistics,8500,Pending,Europe
-104,2026-07-04,Apex Retail,Hardware,3200,Completed,Asia
-105,2026-07-05,Nordic Supplies,Supplies,6100,Shipped,Europe
-106,2026-07-06,BioHealth Ltd,Software,15400,Completed,North America
-107,2026-07-07,TechNova,Software,9800,Pending,North America
-108,2026-07-08,Acme Corp,Hardware,7300,Completed,Europe

@@ -62,10 +62,16 @@ def extract_insights_from_run(metrics_path: Path) -> list[str]:
 
 
 def append_to_dziennik(insights: list[str], title: str = "Automatyczna analiza walkthrough & v2 verification") -> None:
-    """Append insights block to DZIENNIK.md."""
+    """Append insights block to DZIENNIK.md if not already appended recently."""
     if not DZIENNIK_PATH.exists() or not insights:
         return
     
+    dziennik_text = DZIENNIK_PATH.read_text(encoding="utf-8")
+    first_insight = insights[0] if insights else ""
+    if first_insight and first_insight in dziennik_text[-1500:]:
+        print("  → DZIENNIK.md: duplicate insight detected in recent entries, skipping append.")
+        return
+
     ts = time.strftime("%Y-%m-%d %H:%M CEST")
     content = f"\n\n## {ts} — {title}\n\n"
     content += "**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**\n\n"
@@ -93,8 +99,13 @@ def append_to_intel(insights: list[str]) -> None:
             cleaned = insight.replace("**", "").replace("`", "")
             if len(cleaned) > 100:
                 cleaned = cleaned[:97] + "..."
-            new_lines.append(f"| ⚡ | {cleaned} | Pipeline |")
+            if cleaned not in intel_text:
+                new_lines.append(f"| ⚡ | {cleaned} | Pipeline |")
         
+        if not new_lines:
+            print("  → INTEL.md: all insights already present in TOP odkrycia, skipping.")
+            return
+
         # Append before section end
         updated_text = intel_text.replace(top_table_m.group(1), top_table_m.group(1) + "\n".join(new_lines) + "\n")
         tmp_path = INTEL_PATH.with_suffix(INTEL_PATH.suffix + ".tmp")

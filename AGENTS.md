@@ -25,9 +25,7 @@ Canonical remote: `github.com/ng-net/billszuka` (private). Backup mirror: `githu
   Planner data. For real keyword research use Ahrefs / Senuto / Google Trends.
 - **Skip Germany** unless Marceli explicitly says otherwise. Order: PL → CZ → SK → UK →
   Western EU → Scandinavia → Balkans.
-- **CI workflow is untracked** (`.github/workflows/ci.yml` deleted from index, kept in
-  working tree). Reason: GitHub OAuth tokens lack `workflow` scope. Re-add after
-  Marceli grants the scope. File content is preserved.
+- **CI workflow is tracked** (`.github/workflows/ci.yml` added to git). `workflow` scope granted on `ng-net` OAuth token.
 
 ## Memory rules
 - Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log). Don't let

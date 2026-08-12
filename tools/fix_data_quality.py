@@ -33,6 +33,9 @@ def log(msg: str) -> None:
     print(f"[{ts}] {msg}", file=sys.stderr)
 
 
+SKIP_DIRS = {".snapshots", ".verify-state", "backups", "verification", "_intake", "temp"}
+
+
 def prune_old_backups(max_age_days: int = 7) -> int:
     """Delete backup CSVs older than max_age_days. Keeps data/backups/ from
     growing unboundedly across many fix_data_quality.py runs.
@@ -45,7 +48,10 @@ def prune_old_backups(max_age_days: int = 7) -> int:
     deleted = 0
     for f in BACKUP_DIR.glob("*.csv"):
         try:
-            if f.stat().st_mtime < cutoff:
+            if f.name.startswith("._"):
+                f.unlink()
+                deleted += 1
+            elif f.stat().st_mtime < cutoff:
                 f.unlink()
                 deleted += 1
         except OSError:
@@ -54,7 +60,7 @@ def prune_old_backups(max_age_days: int = 7) -> int:
 
 
 def create_backups() -> None:
-    """Create timestamped backup copies of all CSV catalogs."""
+    """Create timestamped backup copies of all canonical CSV catalogs."""
     # Housekeeping first: prune stale backups so we don't accumulate forever.
     pruned = prune_old_backups(max_age_days=7)
     if pruned:
@@ -62,12 +68,43 @@ def create_backups() -> None:
 
     BACKUP_DIR.mkdir(parents=True, exist_ok=True)
     ts = time.strftime("%Y%m%d_%H%M%S")
-    csv_files = list(DATA.glob("*/catalog-*.csv")) + list(DATA.glob("catalog-*.csv"))
+
+    # Discover canonical catalog CSVs only (excluding backups, intake, temp, snapshots)
+    candidates = list(DATA.glob("*/catalog-[AB]-*.csv")) + list(DATA.glob("catalog-[AB]-*.csv"))
+    csv_files = [
+        p for p in candidates
+        if p.is_file()
+        and p.stat().st_size > 10
+        and p.parent.name not in SKIP_DIRS
+        and not p.name.startswith("._")
+    ]
+
+    created = 0
     for p in csv_files:
-        if p.is_file() and p.stat().st_size > 10:
-            dest = BACKUP_DIR / f"{p.stem}_{ts}{p.suffix}"
-            dest.write_bytes(p.read_bytes())
-    log(f"✅ Created backup of {len(csv_files)} catalog CSVs in {BACKUP_DIR.name}/")
+        # Strip existing timestamps or pre-clean suffixes to prevent timestamp chaining
+        canonical_stem = re.sub(r"(_\d{8}_\d{6}.*|_-pre-clean.*)", "", p.stem)
+
+        # Check if identical content already exists in backups for this catalog
+        content = p.read_bytes()
+        content_hash = hashlib.md5(content).hexdigest()
+
+        # Look for matching backup
+        already_backed_up = False
+        for b in BACKUP_DIR.glob(f"{canonical_stem}_*.csv"):
+            if not b.name.startswith("._"):
+                try:
+                    if hashlib.md5(b.read_bytes()).hexdigest() == content_hash:
+                        already_backed_up = True
+                        break
+                except OSError:
+                    pass
+
+        if not already_backed_up:
+            dest = BACKUP_DIR / f"{canonical_stem}_{ts}{p.suffix}"
+            dest.write_bytes(content)
+            created += 1
+
+    log(f"✅ Created {created} backup(s) of {len(csv_files)} catalog CSVs in {BACKUP_DIR.name}/")
 
 
 def string_similarity(a: str, b: str) -> float:
@@ -224,9 +261,10 @@ def main():
     if not args.dry_run:
         create_backups()
 
-    csv_files = sorted(p for p in DATA.glob("*/catalog-*.csv")
+    csv_files = sorted(p for p in DATA.glob("*/catalog-[AB]-*.csv")
                        if p.is_file() and p.stat().st_size > 100
-                       and not p.parent.name.startswith("."))
+                       and p.parent.name not in SKIP_DIRS
+                       and not p.name.startswith("._"))
 
     total_cleaned = 0
     total_dups = 0

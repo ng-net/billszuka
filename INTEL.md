@@ -34,6 +34,10 @@
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 290 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 9/12 (75.0%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 12 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| 📊 | Struktura katalogu PL: 4 firmy w Tier A vs 207 w Tier B — kolejny push to wzbogacanie B1–B9 | Strategiczny |
+| ⏳ | Bottleneck weryfikacji: 350 firm w master.csv, niski % FROZEN (API) — wymagana pełna weryfikacja | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 80/349 (22.9%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 349 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 

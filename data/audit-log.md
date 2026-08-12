@@ -18227,3 +18227,376 @@ Te bugi istniały **przed** dzisiejszym merge. Zalecane: ręczny fix w master PL
 - **PL-B-XX-216**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
 
 **Run summary:** 0 added, 1 modified, 0 removed — 1 FROZEN, 0 DO-WERYFIKACJI
+
+## 2026-08-12 12:25
+
+### Pliki sprawdzone
+- catalog-A-CZ.csv: 3 wpisów
+- catalog-A-PL.csv: 28 wpisów
+- catalog-B-BG.csv: 11 wpisów
+- catalog-B-CZ.csv: 7 wpisów
+- catalog-B-EE.csv: 10 wpisów
+- catalog-B-FR.csv: 11 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-LT.csv: 10 wpisów
+- catalog-B-LV.csv: 10 wpisów
+- catalog-B-MD.csv: 10 wpisów
+- catalog-B-PL.csv: 206 wpisów
+- catalog-B-RO.csv: 11 wpisów
+- catalog-B-SI.csv: 10 wpisów
+- catalog-B-SK.csv: 11 wpisów
+
+### ✅ FROZEN
+- **BG-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **BG-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **CZ-A-PK-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-PR-001**: Źródło oficjalne (ARES API + web search), format NIP OK
+- **CZ-A-JM-001**: Źródło oficjalne (ARES API), format NIP OK
+- **CZ-B-PK-001**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-003**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-002**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-005**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-006**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-004**: Źródło oficjalne (ARES API + web search 2026-08-10), format NIP OK
+- **CZ-B-PR-007**: Źródło oficjalne (ARES API + web search 2026-08-10 (IČO fixed from 60471484 GECO KLEMPIZO → 63080737 GECO a.s.)), format NIP OK
+- **EE-B-XX-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **EE-B-XX-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LT-B-KA-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-KP-001**: Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK
+- **PL-A-MZ-002**: Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK
+- **PL-A-ZP-001**: Źródło oficjalne (intake_PL_2026-08-10 | https://www.pkt.pl/firma/bjb-phu-hurtownia-papierosow-i-artykulow-spozywczych-348779 | http://www.bjb.pl | VIES confirmed 2026-08-11T00:18:40.020Z), format NIP OK
+- **PL-A-WP-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK
+- **PL-A-XX-047**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-WP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-213**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-205**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-XX-189**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-MA-006**: Źródło oficjalne (intake_PL_2026-08-10 | http://frega.com.pl | L1+web+krs-online+biznesfinder: 3 sources consistent (FREGA HURTOWNIA ART. CHEMICZNYCH I TYTONIOWYCH mod-11+NIP, Rzeszów HQ + oddział Tarnów). CEIDG API verify on next run.), format NIP OK
+- **PL-B-XX-191**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-OP-001**: Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK
+- **PL-B-XX-216**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK
+- **PL-B-XX-003**: Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK
+- **PL-B-XX-188**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-ZP-001**: Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK
+- **PL-B-OP-003**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK
+- **PL-B-SK-002**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-XX-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK
+- **PL-B-DS-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-XX-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK
+- **PL-B-XX-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK
+- **PL-B-OP-002**: Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-XX-208**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-XX-203**: Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK
+- **PL-B-XX-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK
+- **PL-B-XX-212**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-209**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-ZP-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK
+- **PL-B-XX-206**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-XX-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK
+- **PL-B-XX-276**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-MZ-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK
+- **PL-B-XX-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK
+- **PL-B-XX-187**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-PD-002**: Źródło oficjalne (intake_PL_2026-08-10 | https://topkart.vp.pl | L1+web+krs-pobierz+panoramafirm: KRS API empty (transient), krs-pobierz 3rd-party + 2 sources consistent (PKD 46.39Z, Białystok)), format NIP OK
+- **PL-B-XX-207**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK
+- **PL-B-PK-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK
+- **PL-B-LB-001**: Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK
+- **PL-B-LU-008**: Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK
+- **PL-B-XX-026**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK
+- **PL-B-PM-004**: Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-LD-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK
+- **PL-B-LU-002**: Źródło oficjalne (intake_PL_2026-08-10 | https://trafica-hurt.pl | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run. | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run. | L1+web+spolkicywilne.pl: 2 sources consistent (TRAFICA-HURT S.C. mod-11+NIP, PKD 46.35Z). CEIDG API verify on next run.), format NIP OK
+- **PL-B-XX-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK
+- **PL-B-XX-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK
+- **PL-B-XX-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK
+- **PL-B-XX-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK
+- **PL-B-XX-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK
+- **PL-B-XX-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK
+- **PL-B-XX-055**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000197822), format NIP OK
+- **PL-B-XX-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK
+- **PL-B-MA-004**: Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-XX-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK
+- **PL-B-XX-192**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-XX-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK
+- **PL-B-XX-204**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Łódź, PKD 4639Z, mod-11+KRS API confirmed)), format NIP OK
+- **LV-B-XX-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **BG-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **HR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **EE-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **FR-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LT-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **MD-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **PL-A-XX-063**: Brak pól: rejestr_id
+- **PL-A-XX-050**: Brak pól: rejestr_id
+- **PL-A-XX-075**: Brak pól: rejestr_id
+- **PL-A-MZ-001**: Brak pól: rejestr_id
+- **PL-A-XX-040**: Brak pól: rejestr_id, adres
+- **PL-A-XX-093**: Brak pól: rejestr_id
+- **PL-A-XX-068**: Brak pól: rejestr_id
+- **PL-A-LB-001**: Brak pól: rejestr_id
+- **PL-A-XX-059**: Brak pól: rejestr_id
+- **PL-A-XX-071**: Brak pól: rejestr_id
+- **PL-A-XX-039**: Brak pól: rejestr_id
+- **PL-A-XX-052**: Brak pól: rejestr_id
+- **PL-A-MZ-003**: Brak pól: rejestr_id
+- **PL-A-PM-002**: Brak pól: rejestr_id
+- **PL-A-XX-002**: Brak pól: rejestr_id
+- **PL-A-XX-041**: Brak pól: rejestr_id, adres
+- **PL-A-XX-045**: Brak pól: adres
+- **PL-A-XX-097**: Brak pól: rejestr_id
+- **PL-A-XX-042**: Brak pól: rejestr_id
+- **PL-A-XX-035**: Brak pól: rejestr_id
+- **PL-A-XX-043**: Brak pól: rejestr_id
+- **PL-A-XX-046**: Brak pól: adres
+- **PL-B-SK-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-059**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-200**: Brak pól: rejestr_id, adres
+- **PL-B-MZ-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LB-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-057**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-199**: Brak pól: rejestr_id, adres
+- **PL-B-XX-028**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-PM-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-ZP-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-211**: Brak pól: adres
+- **PL-B-PD-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-007**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MZ-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-007**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-PK-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PK-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-WM-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-006**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-194**: Brak pól: adres
+- **PL-B-PM-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-193**: Brak pól: adres
+- **PL-B-KP-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-033**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-030**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-198**: Brak pól: rejestr_id, adres
+- **PL-B-KP-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-015**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-034**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SL-008**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-037**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-031**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-035**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-PM-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-004**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-005**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SK-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-015**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-002**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-OP-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-017**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-027**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-XX-202**: Brak pól: rejestr_id, adres
+- **PL-B-LB-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-214**: Brak pól: adres
+- **PL-B-PM-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-006**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MZ-011**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-SL-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-036**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-KP-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LB-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-029**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-201**: Brak pól: rejestr_id, adres
+- **PL-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-DS-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-013**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-003**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-DS-001**: Źródło nieoficjalne: 2026-08-10
+- **PL-B-DS-004**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-009**: Brak pól: nip_vat, rejestr_id
+- **PL-B-WM-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-019**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-210**: Brak pól: adres
+- **PL-B-SK-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PM-006**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-012**: Brak pól: nip_vat, rejestr_id
+- **PL-B-KP-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-014**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-196**: Brak pól: rejestr_id, adres
+- **PL-B-DS-011**: Brak pól: nip_vat, rejestr_id
+- **PL-B-WP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SL-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-032**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-KP-001**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LU-006**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-MZ-016**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-058**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-LD-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-007**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-215**: Brak pól: rejestr_id, adres
+- **PL-B-MA-011**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-DS-008**: Brak pól: nip_vat, rejestr_id, adres
+- **PL-B-KP-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-013**: Brak pól: nip_vat, rejestr_id
+- **PL-B-LD-002**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-010**: Brak pól: nip_vat, rejestr_id
+- **PL-B-OP-008**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-013**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MA-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-MZ-020**: Brak pól: nip_vat, rejestr_id
+- **PL-B-XX-195**: Brak pól: rejestr_id, adres
+- **PL-B-XX-197**: Brak pól: rejestr_id, adres
+- **PL-B-LD-003**: Brak pól: nip_vat, rejestr_id
+- **PL-B-PD-005**: Brak pól: nip_vat, rejestr_id
+- **PL-B-SK-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **RO-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-011**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SK-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-010**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-001**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **SI-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-007**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-006**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-003**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-008**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-004**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-002**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-009**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-005**: Brak pól: nip_vat, rejestr_id
+- **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
+
+**Run summary:** 0 added, 349 modified, 0 removed — 80 FROZEN, 269 DO-WERYFIKACJI
