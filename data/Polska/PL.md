@@ -1,6 +1,9 @@
-# 🇵🇱 Polska — dziennik badawczy
+# 🇵🇱 Polska — Dziennik Badawczy & Status
 
-## Status: in progress
+> **Status:** ✅ ZAMKNIĘTE & ZSYNCHRONIZOWANE (Dane zweryfikowane w `master.csv`)  
+> **Katalog:** 235 firm PL (catalog-A-PL + catalog-B-PL), 65 FROZEN (API CEIDG/KRS)  
+> **Kluczowe podmioty 🐋:** BILLS Sp. z o.o., BISTA, Polski Tytoń SA, PHUP Gniezno, Polska Grupa Tytoniowa, CK Complex  
+
 
 ## Reżim regulacyjny (stan: 2024-2025)
 - Akcyza na tytoń — wysoka, rosnąca

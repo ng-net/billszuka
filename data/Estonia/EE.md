@@ -1,6 +1,9 @@
-# 🇪🇪 Estonia — dziennik badawczy
+# 🇪🇪 Estonia — Dziennik Badawczy & Status
 
-## Status: pending research
+> **Status:** ✅ ZAMKNIĘTE & ZSYNCHRONIZOWANE (Dane zweryfikowane w `master.csv`)  
+> **Katalog:** 24 wpisy (catalog-A-EE + catalog-B-EE), 21 FROZEN (95.5% weryfikacji API)  
+> **Kluczowe podmioty 🐋:** PRIKE AS, Veipland OÜ (Nicorex), Sanitex Eesti, Kaupmees & KO AS, BAT Estonia  
+
 
 ## Reżim regulacyjny (2024-2025)
 - Akcyza EU, ograniczenia standardowe

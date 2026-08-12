@@ -1,6 +1,9 @@
-# 🇨🇿 Czechy — dziennik badawczy
+# 🇨🇿 Czechy — Dziennik Badawczy & Status
 
-## Status: pending research
+> **Status:** ✅ ZAMKNIĘTE & ZSYNCHRONIZOWANE (Dane zweryfikowane w `master.csv`)  
+> **Katalog:** 41 firm CZ (catalog-A-CZ + catalog-B-CZ), 40 FROZEN (97.6% weryfikacji API ARES)  
+> **Kluczowe podmioty 🐋:** PEAL a.s., FORTIS-DB, Mostex, Philip Morris ČR, BAT ČR, Crescogroup  
+
 
 ## Reżim regulacyjny (2024-2025)
 - Akcyza EU, ograniczenia reklamy
