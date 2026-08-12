@@ -387,3 +387,17 @@ Po decyzji Marcelego: czyste repo po closure.
 - SŁOWNIK-CZ.md
 
 `data/_intake/` teraz: 12 krajów minus CZ = 11 country subdirs + _README.md.
+
+## 2026-08-12 13:25 CEST — CZ final fold
+
+Verified-A/B były redundantnymi subsetami canonical (29/29 + 11/11 w catalog-A/B).
+Marceli decision: usunięte verified-A-CZ.csv + verified-B-CZ.csv.
+
+data/Czechy/ final state (5 plików):
+- catalog-A-CZ.csv (29 firm, 100% FROZEN)
+- catalog-B-CZ.csv (12 firm, 11 FROZEN + 1 DO-WERY)
+- CZ-CLOSE-REPORT.md
+- CZ.md
+- SŁOWNIK-CZ.md
+
+Verified subsets dostępne przez `git show cdb9a7a:data/Czechy/verified-A-CZ.csv` etc.
