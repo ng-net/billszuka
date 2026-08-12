@@ -294,3 +294,37 @@ gh auth switch --user ng-net   # wróć na primary
 
 1. Weryfikacja automatyczna: **80/349 (22.9%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **349 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-12 12:35 CEST — PL Research CLOSURE
+
+**Decyzja Marcelego:** Zamykamy research na Polskę. Kolejny kraj → 🇨🇿 Czechy.
+
+### Artefakty zamknięcia
+- `data/Polska/verified-A-PL.csv` (14 firm, FROZEN only)
+- `data/Polska/verified-B-PL.csv` (51 firm, FROZEN only)
+- `data/Polska/PL-CLOSE-REPORT.md` (raport zamykający)
+- `data/Polska/_closed/research-closeout.csv` (sidecar mapowania 235 IDs → status)
+- `data/Polska/_closed/top-targets.csv` (64 leady wg QS, bez WRONG_CATEGORY)
+- `data/Polska/_closed/snapshots/` (pre-close catalog-A, catalog-B, PL.md z 2026-08-12)
+
+### Master sync
+- 235 PL IDs (per-kraj) = 234 unikalne w master.csv (jeden duplikat wykryty i zmerge'owany przez verify_run.py)
+- Zero luk, zero duplikatów po regeneracji
+- Master.csv gotowy jako Excel/GS export
+
+### Top partnerzy (🐋)
+1. **BILLS Sp. z o.o.** (PL-A-WP-001) — właściciel
+2. **BISTA STANDARD** (PL-A-KP-001) — producent konkurenckich marek (Dark Horse/FERN)
+3. **POLSKI TYTOŃ S.A.** (PL-B-XX-026) — 15k+ sklepów, 18.3M PLN
+4. **PHUP GNIEZNO** (PL-B-OP-003) — 1.5 mld zł revenue, 3000 sklepów
+5. **ORION TOBACCO** (PL-B-MZ-001) — 1.8 mld szt/rok, 10 marek własnych
+6. **POLSKA GRUPA TYTONIOWA** (PL-B-ZP-002) — hurtownia ogólnopolska
+
+### Reaktywacja DO-WERYFIKACJI
+- 170 firm w stanie PARKED
+- Reaktywacja tylko na żądanie Marcelego lub po `verify_run.py --country PL --round 2` (za 2 tygodnie)
+- Każdy ID ma przypisany status_on_close w `_closed/research-closeout.csv`
+
+### Decyzja per AGENTS.md
+"Deep PL only" threshold (≥30 verified firm) osiągnięty **3.6×** (65/30) → unlock kolejnych krajów.
+Następny w kolejce: 🇨🇿 Czechy (katalogi istnieją: catalog-A-CZ 3 rows, catalog-B-CZ 7 rows).

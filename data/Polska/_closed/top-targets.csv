@@ -1,0 +1,65 @@
+id_unikalne,nazwa_firmy,tier,kategoria,miasto,qs_score,www,email,telefon,www_ok,email_ok,tel_ok
+PL-A-WP-001,BILLS SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ,wyłączność,A1,Ostrzeszów,90,https://www.bills.pl,finanse@bills.pl,+48 62 586 07 38,tak,tak,tak
+PL-A-MZ-002,E-TABAK SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ,marki własne + SMOK/VooPoo/Aspire/Vaporesso,A4,Piaseczno,90,https://e-tabak.pl,biuro@e-tabak.pl,+48 573 180 220,tak,tak,tak
+PL-A-PM-002,Trober Polska Patrick Chrabkowski,autoryzowany,A4,Kaliska,90,https://trober-polska.pl/,biuro@trober-polska.pl; anna.skarbek@troeber.com,+48 58 587 85 14; +48 502 323 283,tak,tak,tak
+PL-A-MZ-001,Prosmoker Jarosław Szulc,reseller,A4,Warszawa,90,https://www.prosmoker.pl/,prosmokerhurt@gmail.com,+48 507 208 897; +48 690 328 062,tak,tak,tak
+PL-A-XX-035,PIOTR KRĘTOWSKI,reseller,A4,,90,https://www.intersmokerhurt.pl,kontakt@intersmokerhurt.pl,154140039,tak,tak,tak
+PL-A-XX-039,GRZEGORZ MUŻYK,reseller,A4,,90,https://www.epapierosy-hurt.pl,j@email.com,177334242,tak,tak,tak
+PL-A-XX-042,JAKUB KRAWCZYK,reseller,A4,,90,https://www.drkonopny.pl,biuro@drkonopny.pl,162746852,tak,tak,tak
+PL-A-XX-043,PIOTR MOŁONIEWICZ,reseller,A4,,90,https://www.cybuchshisha.pl,sklep@cybuchshisha.pl,178213104,tak,tak,tak
+PL-A-XX-047,ATG Wojciech Pater,reseller,A4,,90,https://www.atgdystrybucja.pl,atg.zamowienia@gmail.com,749696972,tak,tak,tak
+PL-B-LB-001,CK COMPLEX SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ,reseller,B6,Zielona Góra,90,https://ckcomplex.pl,info@ckcomplex.pl,+48 68 452 12 30,tak,tak,tak
+PL-B-ZP-001,F.H.U. ALPIK RYSZARD TRZCIŃSKI (brand: BongoGo.pl),detalista,B4,Szczecin,90,https://bongogo.pl,kontakt@bongogo.pl,+48 601 779 697,tak,tak,tak
+PL-B-LD-001,GABIMIX KRZYSZTOF JASZCZAK (brand: Dopalenia.pl),detalista,B4,Konstantynów Łódzki,90,https://www.dopalenia.pl,sklep@dopalenia.pl,+48 665 852 033,tak,tak,tak
+PL-B-ZP-002,POLSKA GRUPA TYTONIOWA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,Wierzbnica (pow. myśliborski),90,http://polskagt.pl,biuro@polskagt.pl,+48 502 399 832,tak,tak,tak
+PL-B-XX-026,POLSKI TYTOŃ SPÓŁKA AKCYJNA,hurtownik,B8,Radom,90,polskityton.pl,sekretariat@polskityton.pl,+48 48 341 32 00,tak,tak,tak
+PL-B-PK-001,ELENPIPE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurt-detal specjalistyczny,B4,Przemyśl (biuro operacyjne) / Sienno Dolne (siedziba rejestrowa),90,https://www.elenpipe-sw.com,elenpipe.pl@gmail.com,+48 16 675 02 07, +48 729 306 784,tak,tak,tak
+PL-B-MZ-001,ORION TOBACCO POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,producent papierosów + dystrybutor hurt,B8,Goszczyn (Jakubów),90,https://www.orion-orion.pl,orion@orion.mail.pl,+48 48 663 21 90,tak,tak,tak
+PL-B-OP-001,TOM Polska Sp. z o.o.,autoryzowany,B4,Kalisz,90,https://www.tompolska.pl,biuro@tompolska.pl,+48 504 154 210,tak,tak,tak
+PL-B-DS-012,PHU KAZIOOL KRZYSZTOF WOLNIEWICZ,hurtownik,B4,Polkowice,90,https://www.kaziool.pl,sklep@kaziool.pl,+48 601 986 063,tak,tak,tak
+PL-A-XX-052,BENIAMIN BUGNO,reseller,A4,BRZYSKA,85,https://www.bensonstrade.pl,brzyskabensonstrade.pl@gmail.comtel,+48 662 405 220,tak,tak,tak
+PL-A-XX-071,AGATA SĘKOWSKA,reseller,A4,LUBLIN,85,https://cannmedia.pl,sklep@bletki.com,881 253 854,tak,tak,tak
+PL-A-XX-097,TOMASZ DOBEK,reseller,A4,GDYNIA,85,https://otis-td.pl,tasmy@otis-td.pl,58 663 20 23,tak,tak,tak
+PL-B-XX-025,Hurtownia KING Krzysztof Król,hurtownik,B8,Szczecin,85,https://kinghurt.pl,bok@kinghurt.pl,+48 609 641 400, +48 603 580 032,tak,tak,tak
+PL-B-OP-002,ALMARK J. STAJER SPÓŁKA KOMANDYTOWA,reseller,B4,Wielkopolskie,85,https://almark.pl/index.php/of...,,+48 724 282 272,tak,brak,tak
+PL-B-SK-002,PRZEDSIĘBIORSTWO HANDLOWO-PRODUKCYJNO-USŁUGOWE TEKS SPÓŁKA AKCYJNA,reseller,B4,Radom,85,http://www.tekssa.pl,,+48 48 365 25 07,tak,brak,tak
+PL-B-MA-004,SAT Tomasz Sromek,reseller,B4,Nowy Sącz,85,http://hurtowniasat.pl,,+48 18 444 40 30,tak,brak,tak
+PL-B-OP-003,PHUP GNIEZNO SZESZYCKI SPÓŁKA KOMANDYTOWA,reseller,B4,Gniezno,85,http://www.phupgniezno.pl,,+48 512 984 347,tak,brak,tak
+PL-B-LU-008,LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,reseller,B4,Kraśnik,85,https://leverkrasnik.pl,,+48 81 825 02 17,tak,brak,tak
+PL-B-PM-004,JUKA AKCESORIA TYTONIOWE JACEK MULARCZYK,reseller,B4,Gdańsk,85,https://jukaakcesoria.pl,,+48 723 179 629,tak,brak,tak
+PL-A-KP-001,BISTA STANDARD SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ,producent,A5,Bydgoszcz,80,https://bista.pl,brak,brak,tak,tak,tak
+PL-B-XX-012,TABASCO VAPE TABAS SPÓŁKA KOMANDYTOWA,hurtownik,B8,Rzeszów,80,b2b.tabascovape.pl,biuro@tabascovape.pl,brak,tak,tak,tak
+PL-B-XX-013,Flowrolls Sp. z o.o.,hurtownik,B8,Gdynia,80,brak,info@flowrolls.pl,brak,tak,tak,tak
+PL-B-XX-015,WEEDPOL Sp. z o.o.,hurtownik,B8,Katowice,80,www.weedpol.pl,postmaster@weedpol.pl,brak,tak,tak,tak
+PL-B-XX-019,Tobacco Of Poland,hurtownik,B8,Grudziądz,80,https://www.tobaccoofpoland.com,brak,+48 799 885 995 (Aleks Dudalski - dział handlowy),tak,tak,tak
+PL-B-XX-022,J&K Dystrybucja sp. z o.o.,hurtownik,B8,Smolec (k. Wrocławia),80,brak,dystrybucja.jk@gmail.com,brak,tak,tak,tak
+PL-B-XX-003,"AUGUSTO - LIMARO" LIPIŃSKI, MARSZAŁEK SPÓŁKA JAWNA,reseller,B8,Jelenia Góra,80,https://augustolimaro.pl/o-nas,,,tak,brak,brak
+PL-B-XX-010,DRV DISTRIBUTION Sp. z o.o.,hurtownik,B8,Lubartów,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-011,VTP Sp. z o.o.,hurtownik,B8,Lublin,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-014,BIODIO LAB Sp. z o.o.,hurtownik,B8,Białystok,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-017,BENATURAL Sp. z o.o.,hurtownik,B8,Warszawa,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-018,Tabak Grupa sp. z o.o.,hurtownik,B8,Kalisz,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-020,Hurtownia Papierosów Sp. z o.o.,hurtownik,B8,Brzeziny,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-021,BITLOGIC BARNAŚ SPÓŁKA KOMANDYTOWA,hurtownik,B8,Włocławek,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-023,CLOUD HOLDING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,Gdańsk,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-024,Vape.pl Sp. z o.o.,hurtownik,B8,Zawiercie,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-055,BISTA STANDARD SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-056,EUROCASH SERWIS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-276,TOBACCHEM MACIEJ KRUPNIK,hurtownik,B6,Chrzanów,75,https://tobacchem.pl,,,tak,brak,brak
+PL-B-XX-187,LUXTAB SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-188,JBT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-189,ŁUKOWA TOBACCO COMPANY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B1,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-191,ANGEL BIO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B1,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-192,CKM TOBACCO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B1,brak,75,brak,brak,brak,tak,tak,tak
+PL-B-XX-203,BRITISH AMERICAN TOBACCO POLSKA TRADING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,WARSZAWA,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-204,POLSKA GRUPA TYTONIOWA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,ŁÓDŹ,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-205,"ZAS - POL" ZYGMUNT SPERZYŃSKI ALINA SPERZYŃSKA SPÓŁKA JAWNA,hurtownik,B8,POZNAŃ,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-206,IMPERIAL TOBACCO POLSKA SPÓŁKA AKCYJNA,hurtownik,B8,JANKOWICE,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-207,ALTRIA VENTURES POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,WARSZAWA,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-208,IMPERIAL BRANDS TRADING POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,WARSZAWA,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-209,CARMEN POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,SOCHACZEW,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-212,PHU ANTARES SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ,hurtownik,B8,Siedlce,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-213,HURTOWNIA PD WŁADYSŁAW DRWAL, GRZEGORZ PINAS, DARIUSZ DRWAL SPÓŁKA JAWNA,hurtownik,B8,Tarnów,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-214,PHU HUGO SŁAWOMIR STRZELCZYK,hurtownik,B6,Oleśnica,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-215,Tabak Service International Robert Krauze,hurtownik,B6,Koszalin,0,brak,brak,brak,tak,tak,tak
+PL-B-XX-216,Hempking Sp. z o.o.,hurtownik,B9,brak,0,brak,brak,brak,tak,tak,tak

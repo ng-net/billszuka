@@ -38,6 +38,7 @@
 | ⏳ | Bottleneck weryfikacji: 350 firm w master.csv, niski % FROZEN (API) — wymagana pełna weryfikacja | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 80/349 (22.9%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 349 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ✅ | **PL closure** — 65/235 (27.7%) PL firm FROZEN, research ZAMKNIĘTY 2026-08-12. Kolejny kraj: CZ. | Strategiczny |
 
 ---
 
@@ -305,6 +306,48 @@ Dodano kolumnę `tiktok` we wszystkich 24 per-kraj CSV, pozycja 21 (po instagram
 | Tokeny | `.env` (gitignored), `.env.example` z placeholderami |
 | Search volumes | Wszystkie oznaczone `szac.` (szacunek, nie real-time) |
 
+### 2026-08-12 — PL Research Closure (Marceli decision)
+
+| Decyzja | Wartość |
+|---|---|
+| PL research status | ✅ **ZAMKNIĘTE** — research na Polskę uznany za kompletny |
+| Zamrożone (FROZEN) | 65 firm (14 A + 51 B) = 27.7% verification rate |
+| Parked (DO-WERYFIKACJI) | 170 firm — reaktywacja tylko na żądanie |
+| Output artifacts | `verified-A-PL.csv` (14), `verified-B-PL.csv` (51), `top-targets.csv` (64 wg QS) |
+| Archive | `data/Polska/_closed/` — pre-close snapshoty + closeout sidecar |
+| Następny kraj | 🇨🇿 Czechy (per AGENTS.md order) |
+| Decision rule | "Deep PL only" threshold (≥30 verified) **osiągnięty 3.6×** (65/30) → unlock kolejnych krajów |
+
+### Partnerzy PL — Big Fish (TOP 6)
+
+> **Data:** 2026-08-12 12:35 CEST
+> **Status:** ✅ FROZEN (API) — gotowe do outreachu
+
+| Tier | ID | Firma | Dlaczego 🐋 |
+|---|---|---|---|
+| wyłączność | PL-A-WP-001 | **BILLS Sp. z o.o.** | Właściciel Marceli — to MY |
+| A5+B8 dual | PL-A-KP-001 | **BISTA STANDARD** | Producent Dark Horse + FERN. Benchmark cenowy. NIE cel sprzedaży PM/Hawk. |
+| hurtownik 🐋 | PL-B-XX-026 | **POLSKI TYTOŃ S.A.** | 15k+ sklepów, 18.3M PLN, 16 oddziałów. Strategic channel. |
+| hurtownik 🐋 | PL-B-ZP-002 | **POLSKA GRUPA TYTONIOWA** | Hurtownia ogólnopolska, dystrybucja od 2002, 3 wspólników |
+| hurtownik 🐋 | PL-B-OP-003 | **PHUP GNIEZNO** | 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów |
+| reseller+B6 dual | PL-B-LB-001 | **CK COMPLEX** | Sieć 100+ sklepów vape. Cross-sell opportunity. |
+| producent 🐋 | PL-B-MZ-001 | **ORION TOBACCO** | 1.8 mld szt/rok, 10 marek własnych, 100k punktów dystrybucji |
+| hurtownik | PL-B-XX-019 | **TOBACCO OF POLAND** | Surowy tytoń + stacje wykupowe (Grudziądz, Łukowa, Górny Potok) |
+| hurtownik | PL-B-XX-025 | **HURTOWNIA KING** | 25-letni JDG, PKD 46.35.Z, oddziały Gdynia |
+| retailer sieć | PL-A-MZ-002 | **E-TABAK** | Sieć 25+ sklepów vape/CBD, cross-sell akcesoria |
+
+**Konkluzja strategiczna PL:**
+- 5 prawdziwych 🐋 (BILLS, BISTA, POLSKI TYTOŃ, PHUP GNIEZNO, ORION) + 5 silnych partnerów
+- 23/65 (35%) FROZEN gotowych do cold outreach (www + email + tel + decydent)
+- 42/65 (65%) wymaga Apollo-enrich przed kontaktem
+
+**Rekomendowana kolejność outreachu (next 2 weeks):**
+1. 🥇 **E-TABAK** (sieć 25+, już zidentyfikowany kontakt)
+2. 🥈 **PHUP GNIEZNO** (3000 sklepów, easy phone)
+3. 🥉 **CK COMPLEX** (sieć 100+, hurtownia B2B)
+4. **POLSKA GRUPA TYTONIOWA** (wspólnicy zidentyfikowani)
+5. **TOBACCO OF POLAND** (Aleks Dudalski, dział handlowy)
+
 ---
 
 ## CHANGELOG
@@ -314,6 +357,7 @@ Dodano kolumnę `tiktok` we wszystkich 24 per-kraj CSV, pozycja 21 (po instagram
 | 2026-08-10 | v1 — powstanie INTEL.md, Sanitex odkryty, KRS automation, realne dane PL |
 | 2026-08-10 | Toolbox 3-4 per kraj dodany do RUNBOOK.md (kanoniczny reference) |
 | 2026-08-11 | **auto_enrich v1** — `tools/auto_enrich.py` (OpenRouter + web_search pipeline). 57/59 decydentów znalezionych (96.6% success). Kraje: BG, HR, CZ, PL, FR, RO, SK, EE, MD. Notable: Mila Marechkova (BAT BG), Anita Letica (PM HR), Fabio Costa (PM ČR), Libor Chrobok (GECO CEO), Mathilde GOFFARD (Logista FR), Carmina Fusté (PM RO), Gabriella Offeddu (JTI cluster). tools/apollo_enrich.py (parallel, 420 linii, REST wrapper). |
+| 2026-08-12 | **PL closure** — research na Polskę ZAMKNIĘTE. 65/235 (27.7%) FROZEN (API). Master.csv zsynchronizowany (234 PL IDs). Output: `verified-A-PL.csv` (14), `verified-B-PL.csv` (51), `top-targets.csv` (64 wg QS). Pre-close snapshot w `data/Polska/_closed/snapshots/`. Decision: unlock kolejne kraje (start z CZ). |
 
 ## Decydenty wg kraju (auto_enrich 2026-08-11)
 
