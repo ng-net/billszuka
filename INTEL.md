@@ -44,6 +44,8 @@
 | ⚡ | Weryfikacja automatyczna: 139/459 (30.3%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 27/34 (79.4%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 24 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 5/11 (45.5%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 11 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 

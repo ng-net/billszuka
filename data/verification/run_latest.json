@@ -1,180 +1,65 @@
 {
-  "timestamp": "2026-08-12T13:46:26.409721+00:00",
-  "added": 10,
-  "modified": 24,
-  "removed": 0,
-  "frozen": 27,
-  "do_weryfikacji": 7,
+  "timestamp": "2026-08-12T13:56:38.476887+00:00",
+  "added": 0,
+  "modified": 11,
+  "removed": 9,
+  "frozen": 5,
+  "do_weryfikacji": 6,
   "results": [
     {
       "id": "BG-A-002",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: Registry Agency BG / Papagal.bg"
-    },
-    {
-      "id": "BG-A-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "BG-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "BG-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "BG-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "BG-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "BG-B-017",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
     },
     {
       "id": "HR-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+    },
+    {
+      "id": "RO-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK"
+    },
+    {
+      "id": "RO-B-007",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: Sudski registar HR / Fina Info.BIZ"
+      "reason": "Źródło nieoficjalne: ListaFirme RO / Website"
     },
     {
-      "id": "HR-A-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-A-002",
+      "id": "RO-B-005",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: e-Äriregister EE / Inforegister"
+      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
     },
     {
-      "id": "EE-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-022",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-017",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-020",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-021",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "EE-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "FR-A-003",
+      "id": "RO-B-008",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: Pappers FR / Societe.com"
+      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
     },
     {
-      "id": "LT-A-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (Rekvizitai LT / Okredo), format NIP OK"
-    },
-    {
-      "id": "LT-A-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "LT-A-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "MD-A-002",
+      "id": "RO-B-010",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ASP Moldova / CIS / Kompass MD"
+      "reason": "Źródło nieoficjalne: ListaFirme RO / Primonet.ro"
     },
     {
-      "id": "RO-A-003",
+      "id": "RO-B-004",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / CAEN 4635 / Termene"
+      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
     },
     {
-      "id": "RO-A-001",
+      "id": "RO-B-002",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+      "reason": "Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK"
     },
     {
-      "id": "RO-A-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "SK-A-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (ORSR SK / FinStat / Zoznam SK), format NIP OK"
+      "id": "RO-B-006",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
     },
     {
       "id": "SI-A-002",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (AJPES / Bizi SI / ePRS), format NIP OK"
-    },
-    {
-      "id": "SI-A-001",
-      "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "LV-A-001",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: Lursoft LV / UR Latvia"
     }
   ]
 }
