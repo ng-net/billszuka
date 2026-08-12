@@ -401,3 +401,16 @@ data/Czechy/ final state (5 plików):
 - SŁOWNIK-CZ.md
 
 Verified subsets dostępne przez `git show cdb9a7a:data/Czechy/verified-A-CZ.csv` etc.
+
+## 2026-08-12 13:25 CEST — PL final fold
+
+Verified-A-PL.csv (14) + verified-B-PL.csv (51) były redundantnymi subsetami canonical.
+Marceli decision: usunięte.
+
+data/Polska/ final state (5 plików + _closed/):
+- catalog-A-PL.csv (28 firm, 14 FROZEN)
+- catalog-B-PL.csv (207 firm, 51 FROZEN)
+- PL-CLOSE-REPORT.md
+- PL.md
+- SŁOWNIK-PL.md
+- _closed/ (research-closeout + top-targets + snapshots)
