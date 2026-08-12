@@ -414,3 +414,36 @@ data/Polska/ final state (5 plików + _closed/):
 - PL.md
 - SŁOWNIK-PL.md
 - _closed/ (research-closeout + top-targets + snapshots)
+
+## 2026-08-12 13:35 CEST — EE gentle research + schema unification
+
+**Schema unification (39 kolumn wszędzie):**
+- Dodano `_krs` do 22 nie-PL canonicals (były 38, teraz 39)
+- Master.csv zregenerowany (388 rows, 39 cols, 122 FROZEN)
+
+**EE new leads (7) + updates (2) via e-Äriregister + web search:**
+
+| ID | Firma | IČO | Status |
+|---|---|---|---|
+| EE-B-XX-008 (update) | OÜ SIGARI MAJA | 10808306 | ✅ FROZEN (e-Äriregister) |
+| EE-B-XX-009 (update) | AmeiZing OÜ (Hinnapomm.ee) | 16512038 | ⚠️ DO-WERY — wrong entity (Võru, EMTAK 47.11) |
+| EE-B-XX-011 (new) | Imperial Tobacco Estonia OÜ | 11058244 | 🐋 FROZEN (groupa Imperial Brands UK) |
+| EE-B-XX-012 (new) | Easysmoke OÜ | 16293671 | ✅ FROZEN (e-commerce vape, 70 pracowników) |
+| EE-B-XX-013 (new) | RYO Paper & Tobacco OÜ | 16855382 | ✅ FROZEN (detalista RYO specjalistyczny) |
+| EE-B-XX-014 (new) | Karia Food OÜ | 12238729 | ⚠️ DO-WERY (FMCG adjacent, 88 pracowników) |
+| EE-B-XX-015 (new) | Karisma Food OÜ | 12111650 | ⚠️ DO-WERY (owoce/warzywa, 108 pracowników) |
+| EE-B-XX-016 (new) | Fazer Eesti OÜ | 10057691 | ⚠️ DO-WERY (cukier, Fazer Group) |
+| EE-B-XX-017 (new) | Nordista OÜ | 12711752 | ⚠️ DO-WERY (FMCG, Tartu) |
+
+**EE stats after update:** 17 firm w katalogu, 5 FROZEN (29.4%) — spadek verification rate bo dodaliśmy FMCG-adjacent (B-tier, follow-up call).
+
+**Strategic findings EE:**
+- 🐋 Imperial Tobacco Estonia = grupa Imperial Brands UK (4. największy tytoń na świecie). Spadający revenue €5M → €0 — ale kontakt do HQ EU.
+- 🏪 RYO Paper & Tobacco = największy wybór RYO w Tallinnie (rollingpaper.ee + Nautica Center sklep)
+- OÜ SIGARI MAJA = prawdziwa nazwa CigarHouse.ee, EMTAK 46.35 (hurt tytoń)
+- Hinnapomm.ee = właściciel AmeiZing OÜ (Võru), EMTAK 47.11 (e-commerce niewyspecjalizowany) — NIE wyspecjalizowany tytoniowy
+
+**Następne kroki EE:**
+1. Phone call do FROZEN leads z contactem (Imperial, Sigari Maja, RYO Paper, Easysmoke)
+2. Follow-up call do FMCG-adjacent (Karia, Karisma, Fazer, Nordista) — pytanie o tytoń w ofercie
+3. Po tych phone'ach: stabilizacja i closeout raport
