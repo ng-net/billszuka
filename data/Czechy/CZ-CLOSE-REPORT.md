@@ -59,7 +59,7 @@
 | CZ-A-JM-013 | Brno Tabák Velkoobchod s.r.o. | hurtownik | Brno | 91 | 19283746 |
 | CZ-A-JM-012 | RYO-Distribuce Brno s.r.o. | hurtownik | Brno | 91 | 04837261 |
 
-Pełna lista 40 targets: `data/Czechy/_closed/top-targets.csv`
+Pełna lista 40 targets: archiwizowana w git (commit cdb9a7a: `data/Czechy/_closed/top-targets.csv`)
 
 ---
 
@@ -123,26 +123,21 @@ W katalogu są **2 wpisy FORTIS-DB** z różnymi IČO. To wymaga natychmiastowej
 
 ---
 
-## Artefakty zamknięcia
+## Artefakty zamknięcia (final clean state 2026-08-12)
 
 ```
 data/Czechy/
 ├── catalog-A-CZ.csv                 # katalog główny (29 rows, 29 FROZEN)
 ├── catalog-B-CZ.csv                 # katalog główny (12 rows, 11 FROZEN + 1 DO-WERY)
-├── verified-A-CZ.csv                # 🆕 29 FROZEN only — gotowe do Excel/GS export
-├── verified-B-CZ.csv                # 🆕 11 FROZEN only
+├── verified-A-CZ.csv                # 29 FROZEN only — gotowe do Excel/GS export
+├── verified-B-CZ.csv                # 11 FROZEN only
 ├── CZ.md                            # komentarze CZ
 ├── SŁOWNIK-CZ.md                    # search volumes (szac.)
-├── CZ-CLOSE-REPORT.md               # 🆕 ten dokument
-└── _closed/                         # 🆕 research closed archive
-    ├── research-closeout.csv        # mapowanie 41 IDs → status
-    ├── top-targets.csv              # 40 leadów wg QS
-    ├── rejected-intake.csv          # 1 odrzucony (MOSTEX ICO_DUP)
-    └── snapshots/                   # pre-close snapshoty (2026-08-12)
-        ├── catalog-A-CZ.pre-close-2026-08-12.csv
-        ├── catalog-B-CZ.pre-close-2026-08-12.csv
-        └── CZ.md.pre-close-2026-08-12.bak
+└── CZ-CLOSE-REPORT.md               # ten dokument
 ```
+
+Pliki z closure artefaktami (research-closeout.csv, top-targets.csv, rejected-intake.csv, snapshots/)
+zarchiwizowane w git (commit cdb9a7a). Dostępne przez `git show cdb9a7a:data/Czechy/_closed/...`.
 
 Plus update `data/relationships.csv`:
 - `CZ-A-PR-001 → CZ-B-PR-002 group_ownership` (PEAL → CTC)

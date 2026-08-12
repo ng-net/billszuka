@@ -367,3 +367,23 @@ Dodano do `data/relationships.csv`:
 
 ### Następny kraj
 🇸🇰 Słowacja (katalogi puste — start od zera).
+
+## 2026-08-12 13:15 CEST — CZ final cleanup
+
+Po decyzji Marcelego: czyste repo po closure.
+
+**Skasowane (mavis-trash):**
+- `data/_intake/CZ/` — cały folder (master catalog, normalized, validated, validation.md). Intake done, niepotrzebne.
+- `data/Czechy/_closed/` — closure archive (research-closeout, top-targets, rejected-intake, snapshots). Zarchiwizowane w git commit cdb9a7a.
+- 5 plików `._*` (AppleDouble) w data/Czechy/ — macOS metadata noise.
+
+**Final state data/Czechy/ (7 plików):**
+- catalog-A-CZ.csv (29)
+- catalog-B-CZ.csv (12)
+- verified-A-CZ.csv (29 FROZEN)
+- verified-B-CZ.csv (11 FROZEN)
+- CZ-CLOSE-REPORT.md (zaktualizowany — wskazuje na git dla archived files)
+- CZ.md
+- SŁOWNIK-CZ.md
+
+`data/_intake/` teraz: 12 krajów minus CZ = 11 country subdirs + _README.md.

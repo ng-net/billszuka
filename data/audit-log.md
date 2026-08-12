@@ -18600,3 +18600,7 @@ Te bugi istniały **przed** dzisiejszym merge. Zalecane: ręczny fix w master PL
 - **LV-B-XX-010**: Brak pól: nip_vat, rejestr_id
 
 **Run summary:** 0 added, 349 modified, 0 removed — 80 FROZEN, 269 DO-WERYFIKACJI
+
+## 2026-08-12 13:10 — scope1-phaseA: deleted intake buffers + verification transients
+- 22 files removed (~600KB). Master + catalogs untouched. Pre-clean master: 234 unique PL IDs, 46 FROZEN.
+- Note (scope1-phaseB producer): spec premise was stale — observed current state at 13:10 is master 381 rows / 117 FROZEN, not 350/46. Catalog A/B and master are in lockstep for all 19 target IDs (no desync). See report to verifier.
