@@ -1,65 +1,70 @@
 {
-  "timestamp": "2026-08-12T13:56:38.476887+00:00",
-  "added": 0,
-  "modified": 11,
-  "removed": 9,
-  "frozen": 5,
-  "do_weryfikacji": 6,
+  "timestamp": "2026-08-13T10:54:02.880812+00:00",
+  "added": 11,
+  "modified": 1,
+  "removed": 0,
+  "frozen": 1,
+  "do_weryfikacji": 11,
   "results": [
     {
-      "id": "BG-A-002",
+      "id": "BG-B-020",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+    },
+    {
+      "id": "BG-B-019",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+    },
+    {
+      "id": "LT-A-003",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
     },
     {
-      "id": "HR-A-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "RO-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK"
-    },
-    {
-      "id": "RO-B-007",
+      "id": "LT-B-012",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / Website"
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
     },
     {
-      "id": "RO-B-005",
+      "id": "LT-B-013",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
     },
     {
-      "id": "RO-B-008",
+      "id": "LT-B-014",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
     },
     {
-      "id": "RO-B-010",
+      "id": "LT-B-011",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / Primonet.ro"
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
     },
     {
-      "id": "RO-B-004",
+      "id": "SK-B-025",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
+      "reason": "Brak pól: nip_vat"
     },
     {
-      "id": "RO-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (ListaFirme RO / ONRC / VIES), format NIP OK"
-    },
-    {
-      "id": "RO-B-006",
+      "id": "SK-B-026",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: ListaFirme RO / ONRC"
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
     },
     {
-      "id": "SI-A-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+      "id": "SK-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+    },
+    {
+      "id": "SK-B-027",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+    },
+    {
+      "id": "SK-B-028",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat"
     }
   ]
 }
