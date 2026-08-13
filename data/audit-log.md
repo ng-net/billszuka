@@ -19498,3 +19498,29 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 - **SK-B-028**: Brak pól: nip_vat
 
 **Run summary:** 11 added, 1 modified, 0 removed — 1 FROZEN, 11 DO-WERYFIKACJI
+
+## 2026-08-13 13:05
+
+### Pliki sprawdzone
+- catalog-B-BG.csv: 4 wpisów
+- catalog-B-LT.csv: 5 wpisów
+- catalog-B-SK.csv: 4 wpisów
+
+### ✅ FROZEN
+- **BG-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **BG-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **LT-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **LT-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **LT-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **LT-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **SK-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **SK-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **SK-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-022**: Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron
+- **BG-B-021**: Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron
+- **LT-B-015**: Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron
+- **SK-B-029**: Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron
+
+**Run summary:** 4 added, 9 modified, 0 removed — 9 FROZEN, 4 DO-WERYFIKACJI

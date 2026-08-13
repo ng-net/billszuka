@@ -731,3 +731,11 @@ SI: 13 → 15 firms, schema 36 cols preserved.
 
 1. Weryfikacja automatyczna: **1/12 (8.3%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **1 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-13 13:09 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **9/13 (69.2%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **9 wierszy** we wszystkich katalogach regionalnych.
