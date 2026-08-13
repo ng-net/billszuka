@@ -52,6 +52,12 @@
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 1 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 9/13 (69.2%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 9 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 2/2 (100.0%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| 🗺️ | **HR (Chorwacja) — SLIM MARKET**: Places API query "veleprodaja duhana Zagreb" zwrócił tylko 1 wynik lokalny (Tvornica duhana Zagreb). Dopiero zapytanie EN "tobacco wholesale distributor Croatia" dało 20 wyników — zdominowanych przez BAT/JTI i IQOS Service Points, brak niezależnych hurtowni B2B. HR nie jest priorytetem dystrybucji niezależnej. | Rynek |
+| ⚠️ | **SI (Słowenia) — ograniczone dane Google Maps**: Dwa kolejne zapytania zwróciły 503 (Google service unavailable). Rynek SI był już wcześniej ubogi (2 leady w cat-A). Zalecane: scraping rejestrów (AJPES) i portali branżowych zamiast Maps. | Rynek |
+| 🚀 | **7-min Places API sweep 2026-08-13**: 13 zapytań, 0 błędów krytycznych. Dodano ~130+ nowych leadów B do katalogów LV/BG/EE/HR/MD/FR/LT/RO. LV i BG szczególnie bogate — po 40+ nowych firm. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 9/128 (7.0%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 17 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 

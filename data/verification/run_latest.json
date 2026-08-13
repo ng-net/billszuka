@@ -1,20 +1,175 @@
 {
-  "timestamp": "2026-08-13T11:09:50.167659+00:00",
-  "added": 4,
-  "modified": 9,
-  "removed": 0,
+  "timestamp": "2026-08-13T12:17:18.707840+00:00",
+  "added": 111,
+  "modified": 17,
+  "removed": 62,
   "frozen": 9,
-  "do_weryfikacji": 4,
+  "do_weryfikacji": 119,
   "results": [
     {
-      "id": "BG-B-022",
+      "id": "BG-B-023",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+      "reason": "Brak pól: nip_vat, adres"
     },
     {
-      "id": "BG-B-021",
+      "id": "BG-B-039",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-033",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-042",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-041",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-050",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-028",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-038",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-049",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-051",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-034",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-026",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-060",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-061",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-031",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-037",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-029",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-059",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-053",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-055",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-030",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-036",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-062",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-025",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-044",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-040",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-027",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-032",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-035",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-057",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "BG-B-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, rejestr_id"
+    },
+    {
+      "id": "BG-B-020",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
     },
     {
       "id": "BG-B-019",
@@ -22,7 +177,177 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
     },
     {
-      "id": "BG-B-020",
+      "id": "BG-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "BG-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "HR-B-014",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-021",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-015",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-017",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-023",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-013",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-016",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-012",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-018",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "HR-B-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-032",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-031",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-023",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-026",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-034",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "EE-B-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+    },
+    {
+      "id": "FR-B-040",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "FR-B-039",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "FR-B-048",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "FR-B-031",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "FR-B-030",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "FR-B-029",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "FR-B-028",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-019",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-016",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-018",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-017",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-020",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-023",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LT-B-014",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
     },
@@ -32,17 +357,7 @@
       "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
     },
     {
-      "id": "LT-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
-    },
-    {
       "id": "LT-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
-    },
-    {
-      "id": "LT-B-012",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
     },
@@ -52,24 +367,284 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
     },
     {
-      "id": "SK-B-029",
+      "id": "LT-B-012",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
+    },
+    {
+      "id": "MD-B-020",
       "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: web search 2026-08-13 | gentle_search_cron"
+      "reason": "Brak pól: nip_vat, adres"
     },
     {
-      "id": "SK-B-027",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
+      "id": "MD-B-017",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
     },
     {
-      "id": "SK-B-026",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
+      "id": "MD-B-013",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
     },
     {
-      "id": "SK-B-024",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK"
+      "id": "MD-B-016",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-018",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-025",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-023",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-022",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-015",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-027",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "MD-B-014",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-029",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-012",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-014",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-030",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-027",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-015",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-025",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-013",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-026",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "RO-B-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-033",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-028",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-037",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-023",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-016",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-024",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-020",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-032",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-019",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-018",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-027",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-048",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-039",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-030",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-031",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-017",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-021",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-015",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "SI-B-014",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-045",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-012",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-043",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-015",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-026",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-036",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-023",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-033",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-038",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-029",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-011",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-044",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
+    },
+    {
+      "id": "LV-B-041",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Brak pól: nip_vat, adres"
     }
   ]
 }

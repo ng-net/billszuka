@@ -2,7 +2,7 @@
 """enrich_pl_dow.py — Enrich DO-W rows in catalog-B-PL with verified NIP/KRS.
 
 Used by BILLSzuka cron when web_search + KRS API cross-check confirms a
-DO-W intake row. Does NOT add new rows; that's add_lead() in orchestrate_9_levels.py.
+DO-W intake row. Does NOT add new rows; that's add_lead() in orchestrate_11_levels.py.
 
 Defense:
 - mod-11 NIP checksum required

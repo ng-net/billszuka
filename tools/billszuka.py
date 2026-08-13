@@ -6,7 +6,7 @@ Commands:
   compile   - Validate schema across all 24 per-country catalogs and rebuild data/master.csv
   verify    - Run automated verification loop, update hashes/flags, append audit log, rebuild master
   intake    - Process raw lead CSVs from data/_intake/ into catalog format
-  search    - Run lead discovery scrapers or 9-level strategy playbooks
+  search    - Run lead discovery scrapers or 11-level strategy playbooks
 
 Usage:
   python3 tools/billszuka.py compile
@@ -102,15 +102,15 @@ def cmd_intake(args: argparse.Namespace) -> int:
 
 
 def cmd_search(args: argparse.Namespace) -> int:
-    """Run 9-level strategy search or registry scrapers."""
+    """Run 11-level strategy search or registry scrapers."""
     country = getattr(args, "country", None)
     if not country:
         print("Error: --country is required for search (e.g. --country SK)")
         return 1
 
-    import orchestrate_9_levels
+    import orchestrate_11_levels
     sys.argv = [sys.argv[0], "--country", country]
-    orchestrate_9_levels.main()
+    orchestrate_11_levels.main()
     return 0
 
 
@@ -135,7 +135,7 @@ def main():
     p_intake.set_defaults(func=cmd_intake)
 
     # Search
-    p_search = subparsers.add_parser("search", help="Run 9-level lead discovery strategy")
+    p_search = subparsers.add_parser("search", help="Run 11-level lead discovery strategy")
     p_search.add_argument("--country", required=True, help="2-letter country code (e.g. PL, CZ, SK)")
     p_search.set_defaults(func=cmd_search)
 

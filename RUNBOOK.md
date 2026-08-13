@@ -20,7 +20,7 @@ python3 tools/billszuka.py intake --iso CZ
 
 # 4. Wyświetl opcje i strategie wyszukiwania (L0-L11) dla danego kraju
 python3 tools/billszuka.py search --country SK [--level L1]
-python3 tools/orchestrate_9_levels.py --list
+python3 tools/orchestrate_11_levels.py --list
 ```
 
 ## 🧰 TOOLBOX (co mam + jak używać)
@@ -31,7 +31,12 @@ python3 tools/orchestrate_9_levels.py --list
 # /Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/.env
 CEIDG_API_TOKEN=eyJ...   # JWT do CEIDG v3 (Polska)
 OPENROUTER_API_KEY=sk-or-v1-...  # OpenRouter (LLM, $2 budget)
+APOLLO_MCP_KEY=FAI...   # Apollo.io API (match i search)
+GOOGLE_MAPS_API_KEY=AIza...  # Google Places (New) API (patrz SETUP-GOOGLE-MAPS.md)
+SERPAPI_KEY=serp...     # SerpAPI (Google search results fallback)
 ```
+
+Patrz: [SETUP-GOOGLE-MAPS.md](file:///Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/SETUP-GOOGLE-MAPS.md) w celu konfiguracji Places API.
 
 Odczyt: `KEY=$(grep NAZWA .env | cut -d= -f2-)`
 
@@ -59,11 +64,11 @@ Wzorce (z przykładami):
 "site:rejestr.io" "<FIRMA>"                          # PL KRS aggregator
 ```
 
-**⚠️ NIE UŻYWAJ DuckDuckGo HTML scraping do production research.** `html.duckduckgo.com` blokuje niezautoryzowane boty i zwraca 14KB "you are a bot" landing page zamiast wyników. `tools/test_9_levels.py` (po fix z 2026-08-10) wykrywa to i raportuje jako `⚠️ SKIP` zamiast fałszywego `✅ PASS`.
+**⚠️ NIE UŻYWAJ DuckDuckGo HTML scraping do production research.** `html.duckduckgo.com` blokuje niezautoryzowane boty i zwraca 14KB "you are a bot" landing page zamiast wyników. `tools/test_11_levels.py` (po fix z 2026-08-10) wykrywa to i raportuje jako `⚠️ SKIP` zamiast fałszywego `✅ PASS`.
 
 **Zalecane (w kolejności preferencji):**
-1. **Brave Search API** — `BRAVE_API_KEY` w `.env`. `tools/test_9_levels.py` automatycznie użyje Brave jeśli key jest obecny. Darmowy tier: 2000 queries/mies.
-2. **SerpAPI / Google CSE** — płatne, niezawodne. Dodaj `SERPAPI_KEY` lub `GOOGLE_CSE_KEY` + `GOOGLE_CSE_CX` i rozszerz `get_search_provider()` w `test_9_levels.py`.
+1. **Brave Search API** — `BRAVE_API_KEY` w `.env`. `tools/test_11_levels.py` automatycznie użyje Brave jeśli key jest obecny. Darmowy tier: 2000 queries/mies.
+2. **SerpAPI / Google CSE** — płatne, niezawodne. Dodaj `SERPAPI_KEY` lub `GOOGLE_CSE_KEY` + `GOOGLE_CSE_CX` i rozszerz `get_search_provider()` w `test_11_levels.py`.
 3. **Headless browser** (Playwright) z rate-limiting + user-agent rotation — w `skills/crawl4ai-skill` lub bezpośrednio. Wymaga większej infra.
 4. **Bezpośrednie scrape docelowych domen** (orzeczenia.nsa.gov.pl, aleo.com) — omijają ograniczenia wyszukiwarek, ale wymagają per-site parser.
 
@@ -309,9 +314,9 @@ W CEIDG wiele osób dodaje PKD przy rejestracji bez realnej działalności. Wysz
 
 ### 9. DDG HTML scraping = silent fail (2026-08-10)
 
-`https://html.duckduckgo.com/html/?q=...` blokuje boty bez JS/unauth headera. Zwraca 14KB "you are a bot" landing page (tytuł `DuckDuckGo`, brak `class="result__"`). Regex findall → 0 → **fałszywe `✅ Found 0 web results`**. Dotyczyło Levels 1, 2, 4, 6, 7, 8 w `tools/test_9_levels.py` przed fixem.
+`https://html.duckduckgo.com/html/?q=...` blokuje boty bez JS/unauth headera. Zwraca 14KB "you are a bot" landing page (tytuł `DuckDuckGo`, brak `class="result__"`). Regex findall → 0 → **fałszywe `✅ Found 0 web results`**. Dotyczyło Levels 1, 2, 4, 6, 7, 8 w `tools/test_11_levels.py` przed fixem.
 
-**Fix:** `test_9_levels.py` ma teraz `is_ddg_blocked()` check + 3-state outcome (PASS/SKIP/FAIL). Użyj `BRAVE_API_KEY` w `.env` albo bezpośrednio scrapuj docelowe domeny (orzeczenia.nsa.gov.pl, aleo.com).
+**Fix:** `test_11_levels.py` ma teraz `is_ddg_blocked()` check + 3-state outcome (PASS/SKIP/FAIL). Użyj `BRAVE_API_KEY` w `.env` albo bezpośrednio scrapuj docelowe domeny (orzeczenia.nsa.gov.pl, aleo.com).
 
 ### 10. macOS AppleDouble pollution na /Volumes/MC-BRAIN (2026-08-10)
 

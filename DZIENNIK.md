@@ -739,3 +739,67 @@ SI: 13 → 15 firms, schema 36 cols preserved.
 
 1. Weryfikacja automatyczna: **9/13 (69.2%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **9 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-13 13:50 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **2/2 (100.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **2 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-13 14:17 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **9/128 (7.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **17 wierszy** we wszystkich katalogach regionalnych.
+
+---
+
+## Sesja 2026-08-13 (~13:37–14:19 CEST) — Places API sweep + clean pipeline
+
+**Operator:** Marceli  
+**Agent:** Antigravity (Claude Sonnet)
+
+### Co zrobiono
+
+1. **Google Places API** — skonfigurowana i przetestowana (klucz poprawnie ograniczony do Places API New, bez HTTP Referrer restrictions)
+2. **7-min Places sweep** — 13 zapytań, 9 krajów (LV/BG/EE/HR/MD/SI/FR/LT/RO), ~130+ nowych leadów B zebranych
+3. **Retry SI/LT/RO/FR** — 8 dodatkowych zapytań, SI okazała się dostępna (503 był przejściowy), łącznie 373 surowe wyniki
+4. **Clean pipeline** (`gmaps_clean_and_verify.py`):
+   - Usunięto 64 retail/noise (IQOS, kiosk, civette, smoke shop, itp.)
+   - Usunięto 117 duplikatów (po Place ID + normalized name)
+   - Przetłumaczono notatki na polski
+   - Uruchomiono verify_run.py → master.csv: 529 wierszy
+5. **INTEL.md** zaktualizowany: HR slim market, SI 503 fallback, sweep summary
+
+### Wyniki katalogu B (po czyszczeniu)
+
+| Kraj | Surowe | Kept | FROZEN |
+|------|:------:|:----:|:------:|
+| LV | 45 | 15 | 1 |
+| BG | 62 | 46 | 14 |
+| EE | 36 | 28 | 20 |
+| HR | 31 | 12 | 2 |
+| MD | 27 | 13 | 0 |
+| SI | 51 | 23 | 2 |
+| FR | 51 | 21 | 0 |
+| LT | 40 | 14 | 8 |
+| RO | 30 | 20 | 3 |
+
+### Nowe narzędzia
+
+- `tools/gmaps_search.py` — lead discovery via Places API (New)
+- `tools/gmaps_sweep_7min.py` — 7-min sweep script
+- `tools/gmaps_retry_si_lt_ro.py` — retry failed/missed queries
+- `tools/gmaps_clean_and_verify.py` — clean + dedup + translate + verify pipeline
+- `SETUP-GOOGLE-MAPS.md` — dokumentacja konfiguracji klucza API
+
+### Następne kroki
+
+- Wzbogacenie nowych B leadów o NIP/VAT przez krajowe rejestry (LURSOFT dla LV, TR Registry dla BG, itd.)
+- Ręczne scalenie duplikatu PW Distribution w catalog-B-FR.csv (FR-B-028 vs FR-B-031)
+- Kolejny sweep gdy będą nowe kraje do ekspansji
+

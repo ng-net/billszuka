@@ -27,7 +27,7 @@ python3 tools/billszuka.py search --country SK [--level L1]
 ### Core Pipeline & Orchestration
 - **`billszuka.py`**: Unified Master CLI entrypoint.
 - **`config.py`**: Central configuration (35-column canonical schema, country maps, auto AppleDouble `._*` cleanup).
-- **`orchestrate_9_levels.py`**: 11-level search strategy runner and manual lead adder.
+- **`orchestrate_11_levels.py`**: 11-level search strategy runner and manual lead adder.
 - **`map_intake.py`**: Standardized intake normalizer (maps raw 35-col intake CSVs → 35-col master schema).
 - **`validate_intake.py`**: Intake validation & hallucination detection.
 - **`extract_intel.py`**: Automated strategic insight extractor for `DZIENNIK.md` and `INTEL.md`.

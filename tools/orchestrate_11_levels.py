@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-orchestrate_9_levels.py — Per-country 11-level search & lead discovery playbook for BILLSzuka.
+orchestrate_11_levels.py — Per-country 11-level search & lead discovery playbook for BILLSzuka.
 
 Levels (L0-L11 per methodology.md):
   L0: Pre-flight validation (NIP checksum + Registry name match)
@@ -17,8 +17,8 @@ Levels (L0-L11 per methodology.md):
   L11: Public Procurement (BZP PL / TED EU)
 
 Usage:
-  python3 tools/orchestrate_9_levels.py --list
-  python3 tools/orchestrate_9_levels.py --country PL [--level L1]
+  python3 tools/orchestrate_11_levels.py --list
+  python3 tools/orchestrate_11_levels.py --country PL [--level L1]
 """
 
 import argparse

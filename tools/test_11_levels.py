@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-test_9_levels.py — Strict-assertion test for all 9 Lead Generation Levels (Poland).
+test_11_levels.py — Strict-assertion test for all 11 Lead Generation Levels (Poland).
 
 Each level is a function `test_l<n>_<slug>()` that returns a tuple
 (passed: bool, msg: str, count: int). The script:
@@ -12,9 +12,9 @@ Each level is a function `test_l<n>_<slug>()` that returns a tuple
   • Honors BRAVE_API_KEY env var as a real search provider (preferred)
 
 Run:
-  python3 tools/test_9_levels.py           # strict, default
-  python3 tools/test_9_levels.py --warn    # warn-only mode (exits 0 always)
-  pytest tools/test_9_levels.py            # standard pytest, asserts work natively
+  python3 tools/test_11_levels.py           # strict, default
+  python3 tools/test_11_levels.py --warn    # warn-only mode (exits 0 always)
+  pytest tools/test_11_levels.py            # standard pytest, asserts work natively
 """
 
 from __future__ import annotations
@@ -101,17 +101,40 @@ def search_brave(query: str, api_key: str, timeout: int = 10) -> tuple[str, bool
     return body, False
 
 
+def search_serpapi(query: str, api_key: str, timeout: int = 10) -> tuple[str, bool]:
+    """
+    SerpAPI Google Search. Returns (json_text, blocked).
+    """
+    url = "https://serpapi.com/search"
+    params = {
+        "engine": "google",
+        "q": query,
+        "api_key": api_key
+    }
+    encoded_params = urllib.parse.urlencode(params)
+    req = urllib.request.Request(f"{url}?{encoded_params}", headers={"User-Agent": "Mozilla/5.0"})
+    body = urllib.request.urlopen(req, timeout=timeout).read().decode("utf-8", errors="replace")
+    return body, False
+
+
 def get_search_provider() -> tuple[str, Callable[[str], tuple[str, bool]]]:
     """
-    Pick a search provider. Brave if key is set, else DDG (best-effort).
+    Pick a search provider. SerpAPI if key is set, else Brave if key is set, else DDG (best-effort).
     Returns (name, fn). The fn takes a query and returns (raw_response, blocked).
     """
     env = _read_env()
+    serpapi_key = env.get("SERPAPI_KEY", "").strip()
+    if serpapi_key:
+        def serpapi_call(q: str) -> tuple[str, bool]:
+            return search_serpapi(q, serpapi_key)
+        return "serpapi", serpapi_call
+
     brave_key = env.get("BRAVE_API_KEY", "").strip()
     if brave_key:
         def brave_call(q: str) -> tuple[str, bool]:
             return search_brave(q, brave_key)
         return "brave", brave_call
+
     def ddg_call(q: str) -> tuple[str, bool]:
         return search_ddg(q)
     return "ddg", ddg_call
@@ -134,11 +157,17 @@ def run_l1(provider_fn) -> tuple[bool, str, int]:
             "DDG may have changed markup or rate-limited us."
         )
         return True, f"PASS — {len(titles)} results", len(titles)
-    # brave: parse JSON
-    data = json.loads(raw)
-    n = len(data.get("web", {}).get("results", []))
-    assert n >= LEVEL_CONFIG["L1"]["min_results"], f"L1 Brave: expected ≥ {LEVEL_CONFIG['L1']['min_results']} result, got {n}"
-    return True, f"PASS — {n} results (Brave)", n
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = len(data.get("organic_results", []))
+        assert n >= LEVEL_CONFIG["L1"]["min_results"], f"L1 SerpAPI: expected ≥ {LEVEL_CONFIG['L1']['min_results']} result, got {n}"
+        return True, f"PASS — {n} results (SerpAPI)", n
+    else:
+        # brave: parse JSON
+        data = json.loads(raw)
+        n = len(data.get("web", {}).get("results", []))
+        assert n >= LEVEL_CONFIG["L1"]["min_results"], f"L1 Brave: expected ≥ {LEVEL_CONFIG['L1']['min_results']} result, got {n}"
+        return True, f"PASS — {n} results (Brave)", n
 
 
 def run_l2(provider_fn) -> tuple[bool, str, int]:
@@ -153,10 +182,16 @@ def run_l2(provider_fn) -> tuple[bool, str, int]:
             f"L2: expected ≥ {LEVEL_CONFIG['L2']['min_results']} snippet, got {len(snippets)}"
         )
         return True, f"PASS — {len(snippets)} snippets", len(snippets)
-    data = json.loads(raw)
-    n = len(data.get("web", {}).get("results", []))
-    assert n >= LEVEL_CONFIG["L2"]["min_results"], f"L2 Brave: expected ≥ {LEVEL_CONFIG['L2']['min_results']} result, got {n}"
-    return True, f"PASS — {n} results (Brave)", n
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = len(data.get("organic_results", []))
+        assert n >= LEVEL_CONFIG["L2"]["min_results"], f"L2 SerpAPI: expected ≥ {LEVEL_CONFIG['L2']['min_results']} result, got {n}"
+        return True, f"PASS — {n} results (SerpAPI)", n
+    else:
+        data = json.loads(raw)
+        n = len(data.get("web", {}).get("results", []))
+        assert n >= LEVEL_CONFIG["L2"]["min_results"], f"L2 Brave: expected ≥ {LEVEL_CONFIG['L2']['min_results']} result, got {n}"
+        return True, f"PASS — {n} results (Brave)", n
 
 
 def run_l3() -> tuple[bool, str, int]:
@@ -183,10 +218,16 @@ def run_l4(provider_fn) -> tuple[bool, str, int]:
             "Query may have zero hits — adjust SŁOWNIK-PL or use a real search API."
         )
         return True, f"PASS — {len(matches)} NSA rulings", len(matches)
-    data = json.loads(raw)
-    n = sum(1 for r in data.get("web", {}).get("results", []) if "orzeczenia.nsa.gov.pl" in r.get("url", ""))
-    assert n >= LEVEL_CONFIG["L4"]["min_results"], f"L4 Brave: expected ≥ {LEVEL_CONFIG['L4']['min_results']} NSA ruling, got {n}"
-    return True, f"PASS — {n} NSA rulings (Brave)", n
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("organic_results", []) if "orzeczenia.nsa.gov.pl" in r.get("link", ""))
+        assert n >= LEVEL_CONFIG["L4"]["min_results"], f"L4 SerpAPI: expected ≥ {LEVEL_CONFIG['L4']['min_results']} NSA ruling, got {n}"
+        return True, f"PASS — {n} NSA rulings (SerpAPI)", n
+    else:
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("web", {}).get("results", []) if "orzeczenia.nsa.gov.pl" in r.get("url", ""))
+        assert n >= LEVEL_CONFIG["L4"]["min_results"], f"L4 Brave: expected ≥ {LEVEL_CONFIG['L4']['min_results']} NSA ruling, got {n}"
+        return True, f"PASS — {n} NSA rulings (Brave)", n
 
 
 def run_l5() -> tuple[bool, str, int]:
@@ -218,10 +259,16 @@ def run_l6(provider_fn) -> tuple[bool, str, int]:
             f"L6: expected ≥ {LEVEL_CONFIG['L6']['min_results']} InterTabac result, got {len(matches)}"
         )
         return True, f"PASS — {len(matches)} InterTabac snippets", len(matches)
-    data = json.loads(raw)
-    n = len(data.get("web", {}).get("results", []))
-    assert n >= LEVEL_CONFIG["L6"]["min_results"], f"L6 Brave: expected ≥ {LEVEL_CONFIG['L6']['min_results']} result, got {n}"
-    return True, f"PASS — {n} results (Brave)", n
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = len(data.get("organic_results", []))
+        assert n >= LEVEL_CONFIG["L6"]["min_results"], f"L6 SerpAPI: expected ≥ {LEVEL_CONFIG['L6']['min_results']} result, got {n}"
+        return True, f"PASS — {n} results (SerpAPI)", n
+    else:
+        data = json.loads(raw)
+        n = len(data.get("web", {}).get("results", []))
+        assert n >= LEVEL_CONFIG["L6"]["min_results"], f"L6 Brave: expected ≥ {LEVEL_CONFIG['L6']['min_results']} result, got {n}"
+        return True, f"PASS — {n} results (Brave)", n
 
 
 def run_l7(provider_fn) -> tuple[bool, str, int]:
@@ -236,10 +283,16 @@ def run_l7(provider_fn) -> tuple[bool, str, int]:
             f"L7: expected ≥ {LEVEL_CONFIG['L7']['min_results']} FB group, got {len(matches)}"
         )
         return True, f"PASS — {len(matches)} FB trade groups", len(matches)
-    data = json.loads(raw)
-    n = sum(1 for r in data.get("web", {}).get("results", []) if "facebook.com/groups" in r.get("url", ""))
-    assert n >= LEVEL_CONFIG["L7"]["min_results"], f"L7 Brave: expected ≥ {LEVEL_CONFIG['L7']['min_results']} FB group, got {n}"
-    return True, f"PASS — {n} FB groups (Brave)", n
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("organic_results", []) if "facebook.com/groups" in r.get("link", ""))
+        assert n >= LEVEL_CONFIG["L7"]["min_results"], f"L7 SerpAPI: expected ≥ {LEVEL_CONFIG['L7']['min_results']} FB group, got {n}"
+        return True, f"PASS — {n} FB groups (SerpAPI)", n
+    else:
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("web", {}).get("results", []) if "facebook.com/groups" in r.get("url", ""))
+        assert n >= LEVEL_CONFIG["L7"]["min_results"], f"L7 Brave: expected ≥ {LEVEL_CONFIG['L7']['min_results']} FB group, got {n}"
+        return True, f"PASS — {n} FB groups (Brave)", n
 
 
 def run_l8(provider_fn) -> tuple[bool, str, int]:
@@ -254,10 +307,16 @@ def run_l8(provider_fn) -> tuple[bool, str, int]:
             f"L8: expected ≥ {LEVEL_CONFIG['L8']['min_results']} Aleo profile, got {len(matches)}"
         )
         return True, f"PASS — {len(matches)} Aleo profiles", len(matches)
-    data = json.loads(raw)
-    n = sum(1 for r in data.get("web", {}).get("results", []) if "aleo.com" in r.get("url", ""))
-    assert n >= LEVEL_CONFIG["L8"]["min_results"], f"L8 Brave: expected ≥ {LEVEL_CONFIG['L8']['min_results']} Aleo profile, got {n}"
-    return True, f"PASS — {n} Aleo profiles (Brave)", n
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("organic_results", []) if "aleo.com" in r.get("link", ""))
+        assert n >= LEVEL_CONFIG["L8"]["min_results"], f"L8 SerpAPI: expected ≥ {LEVEL_CONFIG['L8']['min_results']} Aleo profile, got {n}"
+        return True, f"PASS — {n} Aleo profiles (SerpAPI)", n
+    else:
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("web", {}).get("results", []) if "aleo.com" in r.get("url", ""))
+        assert n >= LEVEL_CONFIG["L8"]["min_results"], f"L8 Brave: expected ≥ {LEVEL_CONFIG['L8']['min_results']} Aleo profile, got {n}"
+        return True, f"PASS — {n} Aleo profiles (Brave)", n
 
 
 def run_l9() -> tuple[bool, str, int]:
@@ -337,7 +396,7 @@ def test_l9_llm_key():
 
 
 # ---------------------------------------------------------------------------
-# Standalone runner (preserves original `python3 tools/test_9_levels.py` UX)
+# Standalone runner (preserves original `python3 tools/test_11_levels.py` UX)
 # ---------------------------------------------------------------------------
 
 LEVEL_RUNNERS: list[tuple[str, Callable]] = [

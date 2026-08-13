@@ -803,8 +803,8 @@ Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 36 ko
 │   ├── verify_lead.py           # 2-tool check (web_search + whois + registry)
 │   ├── fix_data_quality.py      # clean NIP/KRS, fill regions
 │   ├── scrapers_registry.py     # web scrapers for non-API countries (SK/RO/LT/FR/EE/SI/HR)
-│   ├── orchestrate_9_levels.py  # master orchestrator for 9 lead-gen methods
-│   ├── test_9_levels.py         # tests for orchestrator
+│   ├── orchestrate_11_levels.py # master orchestrator for 11 lead-gen methods
+│   ├── test_11_levels.py        # tests for orchestrator
 │   ├── extract_intel.py         # automatic walkthrough & insight extraction
 │   ├── VERIFICATION-PATTERN.md  # 2-tool protocol documentation
 │   └── run_verify_cron.sh
