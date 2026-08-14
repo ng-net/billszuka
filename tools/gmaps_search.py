@@ -142,7 +142,9 @@ def main():
     parser.add_argument("--query", required=True, help="Search query (e.g. 'hurtownia tytoniowa')")
     parser.add_argument("--country", default="PL", help="2-letter country code (default: PL)")
     parser.add_argument("--dry-run", action="store_true", help="Force dry-run with mock data")
-    parser.add_argument("--write", action="store_true", help="Append results to target country catalog B")
+    parser.add_argument("--write", action="store_true", help="Append results to target country catalog (A or B)")
+    parser.add_argument("--catalog", default="B", choices=["A", "B"],
+                        help="Target catalog: A (high-quality distributor) or B (general lead). Default: B")
     args = parser.parse_args()
 
     country = args.country.upper()
@@ -175,11 +177,13 @@ def main():
 
     print(f"🔎 Found {len(places)} potential leads:")
     
+    catalog = args.catalog.upper()
+
     # Save results to intake folder first as a backup
     intake_dir = DATA_DIR / "_intake" / "gmaps"
     intake_dir.mkdir(parents=True, exist_ok=True)
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    out_file = intake_dir / f"gmaps_search_{country}_{timestamp}.csv"
+    out_file = intake_dir / f"gmaps_search_{country}_cat{catalog}_{timestamp}.csv"
 
     # Define simple raw columns for review
     raw_schema = ["id", "nazwa_firmy", "adres", "miasto", "www", "telefon", "kraj", "types"]
@@ -212,19 +216,22 @@ def main():
                 "types": types
             })
 
-            # If write requested, append directly to country catalog B
+            # If write requested, append to target catalog (A or B)
             if args.write:
                 if is_dry:
                     # For dry-run write, we don't save to file, just skip
                     pass
                 else:
+                    cat_label = catalog  # "A" or "B"
+                    category_code = f"{cat_label}1" if cat_label == "A" else "B9"
                     added = add_lead(
                         country=country,
                         name=name,
-                        category="B9", # general FMCG category
+                        category=category_code,
                         nip_clean="",
                         rejestr_id=place_id,
-                        source=f"Google Maps Search: {args.query} (ID: {place_id})"
+                        source=f"Google Maps Search [{cat_label}]: {args.query} (ID: {place_id})",
+                        catalog=cat_label,
                     )
                     if added:
                         written_count += 1
@@ -234,7 +241,7 @@ def main():
         if is_dry:
             print("ℹ️  [DRY-RUN] Skipped adding to catalog CSV.")
         else:
-            print(f"➕ Appended {written_count} new leads to {country} catalog-B CSV.")
+            print(f"➕ Appended {written_count} new leads to {country} catalog-{catalog} CSV.")
 
 
 if __name__ == "__main__":

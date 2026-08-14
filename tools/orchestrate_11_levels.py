@@ -71,12 +71,15 @@ COUNTRY_PLANS = {
     },
     "CZ": {
         "name": "Czechy",
-        "csv": "data/Czechy/catalog-B-CZ.csv",
+        "csv_B": "data/Czechy/catalog-B-CZ.csv",
+        "csv_A": "data/Czechy/catalog-A-CZ.csv",
         "L0_preflight": "IČO 8-digit modulo 11 check + ARES API name match (ares.gov.cz)",
         "L1_web_search": [
             '"velkoobchod tabák" ceník',
             '"kuřácké potřeby velkoobchod"',
             '"doutníky velkoobchod" Praha OR Brno OR Ostrava',
+            '"nabiječka cigaret" velkoobchod OR distributor',  # nabijarka-specific
+            '"plnička tabáku" OR "plnička cigaret" velkoobchod',  # nabijarka-specific
         ],
         "L2_marketplace": ["heureka.cz", "zbozi.cz", "aukro.cz", "alza.cz", "bazos.cz"],
         "L3_registries": {
@@ -95,12 +98,15 @@ COUNTRY_PLANS = {
     },
     "SK": {
         "name": "Słowacja",
-        "csv": "data/Słowacja/catalog-B-SK.csv",
+        "csv_B": "data/Słowacja/catalog-B-SK.csv",
+        "csv_A": "data/Słowacja/catalog-A-SK.csv",
         "L0_preflight": "IČO 8-digit check + FinStat / ORSR html match",
         "L1_web_search": [
             '"veľkoobchod tabak" cenník',
             '"fajčiarske potreby veľkoobchod"',
             '"tabak predaj" Bratislava OR Košice',
+            '"plničky cigariet" veľkoobchod OR distribútor',  # nabijarka-specific
+            '"tabakové príslušenstvo" veľkoobchod',  # nabijarka-specific
         ],
         "L2_marketplace": ["heureka.sk", "bazos.sk", "mall.sk", "alza.sk"],
         "L3_registries": {"ORSR": "https://www.orsr.sk", "FinStat": "https://finstat.sk/{ICO}", "VIES": True},
@@ -115,9 +121,16 @@ COUNTRY_PLANS = {
     },
     "RO": {
         "name": "Rumunia",
-        "csv": "data/Rumunia/catalog-B-RO.csv",
+        "csv_B": "data/Rumunia/catalog-B-RO.csv",
+        "csv_A": "data/Rumunia/catalog-A-RO.csv",
         "L0_preflight": "CUI format check + ListaFirme / ONRC match",
-        "L1_web_search": ['"angrosist tutun" pret', '"distribuitor tutun"', '"articole fumat en-gros" București'],
+        "L1_web_search": [
+            '"angrosist tutun" pret',
+            '"distribuitor tutun"',
+            '"articole fumat en-gros" București',
+            '"injectoare tigari" angrosist OR distribuitor',  # nabijarka-specific
+            '"masina umplut tigari" gros',  # nabijarka-specific
+        ],
         "L2_marketplace": ["emag.ro", "olx.ro", "cel.ro"],
         "L3_registries": {"ListaFirme": "https://www.listafirme.ro", "ONRC": "https://myreconc.onrc.ro", "VIES": True},
         "L4_customs_regulatory": ["Autoritatea Vamală Română"],
@@ -131,9 +144,15 @@ COUNTRY_PLANS = {
     },
     "LT": {
         "name": "Litwa",
-        "csv": "data/Litwa/catalog-B-LT.csv",
+        "csv_B": "data/Litwa/catalog-B-LT.csv",
+        "csv_A": "data/Litwa/catalog-A-LT.csv",
         "L0_preflight": "Įmonės kodas 9-digit check + Rekvizitai VZ match",
-        "L1_web_search": ['"didmeninė prekyba tabaku"', '"rūkymo reikmenys didmena" Vilnius OR Kaunas'],
+        "L1_web_search": [
+            '"didmeninė prekyba tabaku"',
+            '"rūkymo reikmenys didmena" Vilnius OR Kaunas',
+            '"cigarečių pildymo mašina" didmena OR distributorius',  # nabijarka-specific
+            '"tabako priedai" didmeninė prekyba',  # nabijarka-specific
+        ],
         "L2_marketplace": ["pigu.lt", "skelbiu.lt"],
         "L3_registries": {"Rekvizitai": "https://rekvizitai.vz.lt", "JAR": "https://www.registrucentras.lt", "VIES": True},
         "L4_customs_regulatory": ["Muitinės departamentas prie LR FM"],
@@ -147,9 +166,15 @@ COUNTRY_PLANS = {
     },
     "LV": {
         "name": "Łotwa",
-        "csv": "data/Łotwa/catalog-B-LV.csv",
+        "csv_B": "data/Łotwa/catalog-B-LV.csv",
+        "csv_A": "data/Łotwa/catalog-A-LV.csv",
         "L0_preflight": "Reģistrācijas numurs 11-digit check + LURSOFT match",
-        "L1_web_search": ['"tabakas vairumtirdzniecība"', '"smēķēšanas piederumi vairumā" Rīga'],
+        "L1_web_search": [
+            '"tabakas vairumtirdzniecība"',
+            '"smēķēšanas piederumi vairumā" Rīga',
+            '"cigarešu uzpildes mašīna" vairumtirdzniecība',  # nabijarka-specific
+            '"tabakas piederumi" vairumtirdzniecība distribūtors',  # nabijarka-specific
+        ],
         "L2_marketplace": ["ss.com", "220.lv"],
         "L3_registries": {"Lursoft": "https://www.lursoft.lv", "UR": "https://www.ur.gov.lv", "VIES": True},
         "L4_customs_regulatory": ["VID Muitas pārvalde"],
@@ -163,9 +188,15 @@ COUNTRY_PLANS = {
     },
     "EE": {
         "name": "Estonia",
-        "csv": "data/Estonia/catalog-B-EE.csv",
+        "csv_B": "data/Estonia/catalog-B-EE.csv",
+        "csv_A": "data/Estonia/catalog-A-EE.csv",
         "L0_preflight": "Registrikood 8-digit check + e-Äriregister match",
-        "L1_web_search": ['"tubakatoodete hulgimüük"', '"suitsetamistarvikud hulgimüük" Tallinn'],
+        "L1_web_search": [
+            '"tubakatoodete hulgimüük"',
+            '"suitsetamistarvikud hulgimüük" Tallinn',
+            '"sigarettide täitemasin" hulgimüük OR distributoor',  # nabijarka-specific
+            '"tubakatarvikud" hulgimüük distributorid',  # nabijarka-specific
+        ],
         "L2_marketplace": ["kuldnebors.ee", "okidoki.ee", "kaup24.ee"],
         "L3_registries": {"e-Ariregister": "https://ariregister.rik.ee", "VIES": True},
         "L4_customs_regulatory": ["Maksu- ja Tolliamet"],
@@ -179,9 +210,15 @@ COUNTRY_PLANS = {
     },
     "FR": {
         "name": "Francja",
-        "csv": "data/Francja/catalog-B-FR.csv",
+        "csv_B": "data/Francja/catalog-B-FR.csv",
+        "csv_A": "data/Francja/catalog-A-FR.csv",
         "L0_preflight": "SIREN 9-digit / SIRET 14-digit Luhn check + Pappers API match",
-        "L1_web_search": ['"grossiste tabac" prix', '"grossiste articles fumeurs" Paris OR Lyon OR Marseille'],
+        "L1_web_search": [
+            '"grossiste tabac" prix',
+            '"grossiste articles fumeurs" Paris OR Lyon OR Marseille',
+            '"machine injecteur cigarettes" grossiste distributeur',  # nabijarka-specific
+            '"grossiste accessoires tabac" distributeur France',  # nabijarka-specific
+        ],
         "L2_marketplace": ["leboncoin.fr", "cdiscount.com", "amazon.fr"],
         "L3_registries": {"Pappers": "https://www.pappers.fr", "Societe": "https://www.societe.com", "VIES": True},
         "L4_customs_regulatory": ["Douanes françaises (douane.gouv.fr)"],
@@ -195,9 +232,14 @@ COUNTRY_PLANS = {
     },
     "MD": {
         "name": "Mołdawia",
-        "csv": "data/Mołdawia/catalog-B-MD.csv",
+        "csv_B": "data/Mołdawia/catalog-B-MD.csv",
+        "csv_A": "data/Mołdawia/catalog-A-MD.csv",
         "L0_preflight": "IDNO 13-digit check + CIS registry match",
-        "L1_web_search": ['"gros tutun" Chisinau', '"accesorii fumat gros"'],
+        "L1_web_search": [
+            '"gros tutun" Chisinau',
+            '"accesorii fumat gros"',
+            '"masini injectat tigari" angrosist Moldova',  # nabijarka-specific
+        ],
         "L2_marketplace": ["999.md"],
         "L3_registries": {"CIS": "https://cis.gov.md", "Apollo": "Apollo.io fallback"},
         "L4_customs_regulatory": ["Serviciul Vamal al Republicii Moldova"],
@@ -211,9 +253,15 @@ COUNTRY_PLANS = {
     },
     "BG": {
         "name": "Bułgaria",
-        "csv": "data/Bułgaria/catalog-B-BG.csv",
+        "csv_B": "data/Bułgaria/catalog-B-BG.csv",
+        "csv_A": "data/Bułgaria/catalog-A-BG.csv",
         "L0_preflight": "EIK/UIC 9-digit check + Trade Register match",
-        "L1_web_search": ['"търговия na едро тютюн"', '"аксесоари за пушене едро" София'],
+        "L1_web_search": [
+            '"търговия na едро тютюн"',
+            '"аксесоари за пушене едро" София',
+            '"машина за пълнене цигари" едро дистрибутор',  # nabijarka-specific
+            '"тютюневи принадлежности" едро дистрибутор',  # nabijarka-specific
+        ],
         "L2_marketplace": ["olx.bg", "bazar.bg"],
         "L3_registries": {"ASP": "https://portal.registryagency.bg", "VIES": True},
         "L4_customs_regulatory": ["Агенция Митници (customs.bg)"],
@@ -227,9 +275,15 @@ COUNTRY_PLANS = {
     },
     "SI": {
         "name": "Słowenia",
-        "csv": "data/Słowenia/catalog-B-SI.csv",
+        "csv_B": "data/Słowenia/catalog-B-SI.csv",
+        "csv_A": "data/Słowenia/catalog-A-SI.csv",
         "L0_preflight": "Davčna številka 8-digit check + AJPES match",
-        "L1_web_search": ['"trgovina na debelo tobak"', '"tobačni izdelki debelo" Ljubljana'],
+        "L1_web_search": [
+            '"trgovina na debelo tobak"',
+            '"tobačni izdelki debelo" Ljubljana',
+            '"stroji za polnjenje cigaret" veleprodaja',  # nabijarka-specific
+            '"tobačni pribor" veleprodaja distributer',  # nabijarka-specific
+        ],
         "L2_marketplace": ["bolha.com"],
         "L3_registries": {"AJPES": "https://www.ajpes.si", "VIES": True},
         "L4_customs_regulatory": ["FURS (Finančna uprava RS)"],
@@ -243,9 +297,15 @@ COUNTRY_PLANS = {
     },
     "HR": {
         "name": "Chorwacja",
-        "csv": "data/Chorwacja/catalog-B-HR.csv",
+        "csv_B": "data/Chorwacja/catalog-B-HR.csv",
+        "csv_A": "data/Chorwacja/catalog-A-HR.csv",
         "L0_preflight": "OIB 11-digit ISO 7064 Mod 11,10 check + Sudreg match",
-        "L1_web_search": ['"veleprodaja duhana"', '"pribor za pušenje veleprodaja" Zagreb'],
+        "L1_web_search": [
+            '"veleprodaja duhana"',
+            '"pribor za pušenje veleprodaja" Zagreb',
+            '"stroj za punjenje cigareta" veleprodaja',  # nabijarka-specific
+            '"duhanski pribor" veleprodaja distributer Hrvatska',  # nabijarka-specific
+        ],
         "L2_marketplace": ["njuskalo.hr"],
         "L3_registries": {"Sudreg": "https://sudreg.pravosudje.hr", "VIES": True},
         "L4_customs_regulatory": ["Carinska uprava HR"],
@@ -260,15 +320,25 @@ COUNTRY_PLANS = {
 }
 
 
-def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id: str, source: str) -> bool:
-    """Manually append a verified lead to data/{Kraj}/catalog-B-{ISO}.csv."""
+def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id: str, source: str, catalog: str = "B") -> bool:
+    """Manually append a verified lead to data/{Kraj}/catalog-{A|B}-{ISO}.csv."""
     country = country.upper()
+    catalog = catalog.upper()
     plan = COUNTRY_PLANS.get(country)
     if not plan:
         print(f"❌ Unknown country: {country}")
         return False
 
-    csv_path = ROOT / plan["csv"]
+    # Support both old 'csv' key (catalog-B) and new 'csv_A'/'csv_B' keys
+    if f"csv_{catalog}" in plan:
+        csv_rel = plan[f"csv_{catalog}"]
+    elif "csv" in plan:
+        csv_rel = plan["csv"]  # backward compat
+    else:
+        print(f"❌ No CSV path for catalog-{catalog} in country plan: {country}")
+        return False
+
+    csv_path = ROOT / csv_rel
     if not csv_path.exists():
         print(f"❌ CSV path not found: {csv_path}")
         return False

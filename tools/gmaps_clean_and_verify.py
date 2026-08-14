@@ -131,10 +131,11 @@ def clean_catalog(filepath: Path) -> tuple[int, int, int]:
 
 
 def main():
-    targets = ["LV", "BG", "EE", "HR", "MD", "SI", "FR", "LT", "RO"]
+    targets = ["CZ", "SK", "LV", "BG", "EE", "HR", "MD", "SI", "FR", "LT", "RO"]  # all non-PL
+    catalogs = ["A", "B"]
 
     print("=" * 60)
-    print("Step 1: Cleaning catalog-B CSVs (new gmaps leads)")
+    print("Step 1: Cleaning catalog-A and catalog-B CSVs (all non-PL)")
     print("=" * 60)
 
     total_noise = 0
@@ -142,18 +143,21 @@ def main():
     total_orig  = 0
 
     for cc in targets:
-        files = [f for f in DATA_DIR.rglob(f"catalog-B-{cc}.csv")
-                 if ".snapshots" not in str(f)]
-        if not files:
-            print(f"  {cc}: no catalog-B found, skipping")
-            continue
-        fp = files[0]
-        orig, noise, dups = clean_catalog(fp)
-        total_orig  += orig
-        total_noise += noise
-        total_dups  += dups
-        kept = orig - noise - dups
-        print(f"  {cc}: {orig} → kept {kept}  (removed {noise} noise, {dups} dups)")
+        for cat in catalogs:
+            files = [f for f in DATA_DIR.rglob(f"catalog-{cat}-{cc}.csv")
+                     if ".snapshots" not in str(f)]
+            if not files:
+                continue
+            fp = files[0]
+            orig, noise, dups = clean_catalog(fp)
+            total_orig  += orig
+            total_noise += noise
+            total_dups  += dups
+            kept = orig - noise - dups
+            if noise > 0 or dups > 0:
+                print(f"  {cc} [{cat}]: {orig} → kept {kept}  (removed {noise} noise, {dups} dups)")
+            else:
+                print(f"  {cc} [{cat}]: {orig} rows — clean ✓")
 
     print(f"\n  TOTAL: {total_orig} → removed {total_noise} retail/noise + {total_dups} duplicates")
 
