@@ -823,3 +823,11 @@ SI: 13 → 15 firms, schema 36 cols preserved.
 3. **Stan reguł pipeline:**
    - Narzędzia czyszczące (`gmaps_clean_and_verify.py`, `clean_and_rebuild_verified_catalogs.py`) posiadają twarde filtry na fałszywe branże (części samochodowe, wtryskiwacze diesla, markety budowlane/spożywcze, agencje rządowe).
 
+
+
+## 2026-08-14 14:41 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **9/128 (7.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **17 wierszy** we wszystkich katalogach regionalnych.
