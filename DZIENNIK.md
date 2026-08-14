@@ -803,3 +803,11 @@ SI: 13 → 15 firms, schema 36 cols preserved.
 - Ręczne scalenie duplikatu PW Distribution w catalog-B-FR.csv (FR-B-028 vs FR-B-031)
 - Kolejny sweep gdy będą nowe kraje do ekspansji
 
+
+
+## 2026-08-14 14:19 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **9/128 (7.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **17 wierszy** we wszystkich katalogach regionalnych.

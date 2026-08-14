@@ -19683,3 +19683,286 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 - **LV-B-041**: Brak pól: nip_vat, adres
 
 **Run summary:** 111 added, 17 modified, 62 removed — 9 FROZEN, 119 DO-WERYFIKACJI
+
+## 2026-08-14 14:24
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 33 wpisów
+- catalog-A-CZ.csv: 22 wpisów
+- catalog-A-EE.csv: 17 wpisów
+- catalog-A-FR.csv: 20 wpisów
+- catalog-A-HR.csv: 24 wpisów
+- catalog-A-LT.csv: 7 wpisów
+- catalog-A-LV.csv: 12 wpisów
+- catalog-A-MD.csv: 2 wpisów
+- catalog-A-RO.csv: 1 wpis
+- catalog-A-SI.csv: 8 wpisów
+- catalog-A-SK.csv: 15 wpisów
+- catalog-B-CZ.csv: 25 wpisów
+- catalog-B-EE.csv: 11 wpisów
+- catalog-B-FR.csv: 20 wpisów
+- catalog-B-LT.csv: 2 wpisów
+- catalog-B-LV.csv: 5 wpisów
+- catalog-B-RO.csv: 8 wpisów
+- catalog-B-SK.csv: 23 wpisów
+
+### ✅ FROZEN
+- **SK-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **SK-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+- **SK-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-13), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-B-022**: Brak pól: nip_vat, adres
+- **BG-B-025**: Brak pól: nip_vat, adres
+- **BG-B-030**: Brak pól: nip_vat, adres
+- **BG-B-008**: Brak pól: nip_vat, adres
+- **BG-B-010**: Brak pól: nip_vat, adres
+- **BG-B-021**: Brak pól: nip_vat, adres
+- **BG-B-018**: Brak pól: nip_vat, adres
+- **BG-B-032**: Brak pól: nip_vat, adres
+- **BG-B-007**: Brak pól: nip_vat, adres
+- **BG-B-014**: Brak pól: nip_vat, adres
+- **BG-B-029**: Brak pól: nip_vat, adres
+- **BG-B-036**: Brak pól: nip_vat, adres
+- **BG-B-026**: Brak pól: nip_vat, adres
+- **BG-B-013**: Brak pól: nip_vat, adres
+- **BG-B-028**: Brak pól: nip_vat, adres
+- **BG-B-023**: Brak pól: nip_vat, adres
+- **BG-B-012**: Brak pól: nip_vat, adres
+- **BG-B-019**: Brak pól: nip_vat, adres
+- **BG-B-006**: Brak pól: nip_vat, adres
+- **BG-B-035**: Brak pól: nip_vat, adres
+- **BG-B-003**: Brak pól: nip_vat, adres
+- **BG-B-020**: Brak pól: nip_vat, adres
+- **BG-B-004**: Brak pól: nip_vat, adres
+- **BG-B-034**: Brak pól: nip_vat, adres
+- **BG-B-024**: Brak pól: nip_vat, adres
+- **BG-B-005**: Brak pól: nip_vat, adres
+- **BG-B-027**: Brak pól: nip_vat, adres
+- **BG-B-017**: Brak pól: nip_vat, adres
+- **BG-B-031**: Brak pól: nip_vat, adres
+- **BG-B-016**: Brak pól: nip_vat, adres
+- **BG-B-011**: Brak pól: nip_vat, adres
+- **BG-B-015**: Brak pól: nip_vat, adres
+- **BG-B-009**: Brak pól: nip_vat, adres
+- **HR-B-009**: Brak pól: nip_vat, adres
+- **HR-B-007**: Brak pól: nip_vat, adres
+- **HR-B-024**: Brak pól: nip_vat, adres
+- **HR-B-023**: Brak pól: nip_vat, adres
+- **HR-B-026**: Brak pól: nip_vat, adres
+- **HR-B-027**: Brak pól: nip_vat, adres
+- **HR-B-025**: Brak pól: nip_vat, adres
+- **HR-B-011**: Brak pól: nip_vat, adres
+- **HR-B-006**: Brak pól: nip_vat, adres
+- **HR-B-014**: Brak pól: nip_vat, adres
+- **HR-B-003**: Brak pól: nip_vat, adres
+- **HR-B-015**: Brak pól: nip_vat, adres
+- **HR-B-020**: Brak pól: nip_vat, adres
+- **HR-B-012**: Brak pól: nip_vat, adres
+- **HR-B-021**: Brak pól: nip_vat, adres
+- **HR-B-005**: Brak pól: nip_vat, adres
+- **HR-B-019**: Brak pól: nip_vat, adres
+- **HR-B-018**: Brak pól: nip_vat, adres
+- **HR-B-022**: Brak pól: nip_vat, adres
+- **HR-B-013**: Brak pól: nip_vat, adres
+- **HR-B-010**: Brak pól: nip_vat, adres
+- **HR-B-017**: Brak pól: nip_vat, adres
+- **HR-B-008**: Brak pól: nip_vat, adres
+- **HR-B-016**: Brak pól: nip_vat, adres
+- **CZ-B-031**: Brak pól: nip_vat, adres
+- **CZ-B-036**: Brak pól: nip_vat, adres
+- **CZ-B-057**: Brak pól: nip_vat, adres
+- **CZ-B-041**: Brak pól: nip_vat, adres
+- **CZ-B-045**: Brak pól: nip_vat, adres
+- **CZ-B-033**: Brak pól: nip_vat, adres
+- **CZ-B-055**: Brak pól: nip_vat, adres
+- **CZ-B-050**: Brak pól: nip_vat, adres
+- **CZ-B-038**: Brak pól: nip_vat, adres
+- **CZ-B-060**: Brak pól: nip_vat, adres
+- **CZ-B-035**: Brak pól: nip_vat, adres
+- **CZ-B-044**: Brak pól: nip_vat, adres
+- **CZ-B-040**: Brak pól: nip_vat, adres
+- **CZ-B-053**: Brak pól: nip_vat, adres
+- **CZ-B-037**: Brak pól: nip_vat, adres
+- **CZ-B-056**: Brak pól: nip_vat, adres
+- **CZ-B-039**: Brak pól: nip_vat, adres
+- **CZ-B-048**: Brak pól: nip_vat, adres
+- **CZ-B-047**: Brak pól: nip_vat, adres
+- **CZ-B-042**: Brak pól: nip_vat, adres
+- **CZ-B-051**: Brak pól: nip_vat, adres
+- **CZ-B-043**: Brak pól: nip_vat, adres
+- **CZ-B-032**: Brak pól: nip_vat, adres
+- **CZ-B-024**: Brak pól: nip_vat, adres
+- **CZ-B-036**: Brak pól: nip_vat, adres
+- **CZ-B-028**: Brak pól: nip_vat, adres
+- **CZ-B-033**: Brak pól: nip_vat, adres
+- **CZ-B-025**: Brak pól: nip_vat, adres
+- **CZ-B-034**: Brak pól: nip_vat, adres
+- **CZ-B-023**: Brak pól: nip_vat, adres
+- **CZ-B-016**: Brak pól: nip_vat, adres
+- **CZ-B-038**: Brak pól: nip_vat, adres
+- **CZ-B-030**: Brak pól: nip_vat, adres
+- **CZ-B-035**: Brak pól: nip_vat, adres
+- **CZ-B-017**: Brak pól: nip_vat, adres
+- **CZ-B-020**: Brak pól: nip_vat, adres
+- **CZ-B-040**: Brak pól: nip_vat, adres
+- **CZ-B-027**: Brak pól: nip_vat, adres
+- **CZ-B-037**: Brak pól: nip_vat, adres
+- **CZ-B-019**: Brak pól: nip_vat, adres
+- **CZ-B-029**: Brak pól: nip_vat, adres
+- **CZ-B-022**: Brak pól: nip_vat, adres
+- **CZ-B-018**: Brak pól: nip_vat, adres
+- **CZ-B-031**: Brak pól: nip_vat, adres
+- **CZ-B-026**: Brak pól: nip_vat, adres
+- **CZ-B-015**: Brak pól: nip_vat, adres
+- **CZ-B-013**: Brak pól: nip_vat, adres
+- **EE-B-018**: Brak pól: nip_vat, adres
+- **EE-B-005**: Brak pól: nip_vat, adres
+- **EE-B-008**: Brak pól: nip_vat, adres
+- **EE-B-003**: Brak pól: nip_vat, adres
+- **EE-B-017**: Brak pól: nip_vat, adres
+- **EE-B-020**: Brak pól: nip_vat, adres
+- **EE-B-019**: Brak pól: nip_vat, adres
+- **EE-B-006**: Brak pól: nip_vat, adres
+- **EE-B-022**: Brak pól: nip_vat, adres
+- **EE-B-021**: Brak pól: nip_vat, adres
+- **EE-B-010**: Brak pól: nip_vat, adres
+- **EE-B-007**: Brak pól: nip_vat, adres
+- **EE-B-014**: Brak pól: nip_vat, adres
+- **EE-B-004**: Brak pól: nip_vat, adres
+- **EE-B-024**: Brak pól: nip_vat, adres
+- **EE-B-016**: Brak pól: nip_vat, adres
+- **EE-B-013**: Brak pól: nip_vat, adres
+- **EE-B-042**: Brak pól: nip_vat, adres
+- **EE-B-045**: Brak pól: nip_vat, adres
+- **EE-B-029**: Brak pól: nip_vat, adres
+- **EE-B-047**: Brak pól: nip_vat, adres
+- **EE-B-044**: Brak pól: nip_vat, adres
+- **EE-B-036**: Brak pól: nip_vat, adres
+- **EE-B-046**: Brak pól: nip_vat, adres
+- **EE-B-043**: Brak pól: nip_vat, adres
+- **EE-B-039**: Brak pól: nip_vat, adres
+- **EE-B-034**: Brak pól: nip_vat
+- **EE-B-032**: Brak pól: nip_vat, adres
+- **FR-B-011**: Brak pól: nip_vat, adres
+- **FR-B-012**: Brak pól: nip_vat, adres
+- **FR-B-007**: Brak pól: nip_vat, adres
+- **FR-B-017**: Brak pól: nip_vat, adres
+- **FR-B-013**: Brak pól: nip_vat, adres
+- **FR-B-010**: Brak pól: nip_vat, adres
+- **FR-B-023**: Brak pól: nip_vat, adres
+- **FR-B-006**: Brak pól: nip_vat, adres
+- **FR-B-005**: Brak pól: nip_vat, adres
+- **FR-B-004**: Brak pól: nip_vat, adres
+- **FR-B-014**: Brak pól: nip_vat, adres
+- **FR-B-008**: Brak pól: nip_vat, adres
+- **FR-B-022**: Brak pól: nip_vat, adres
+- **FR-B-018**: Brak pól: nip_vat, adres
+- **FR-B-021**: Brak pól: nip_vat, adres
+- **FR-B-019**: Brak pól: nip_vat, adres
+- **FR-B-020**: Brak pól: nip_vat, adres
+- **FR-B-015**: Brak pól: nip_vat, adres
+- **FR-B-009**: Brak pól: nip_vat, adres
+- **FR-B-016**: Brak pól: nip_vat, adres
+- **FR-B-033**: Brak pól: nip_vat, adres
+- **FR-B-025**: Brak pól: nip_vat, adres
+- **FR-B-035**: Brak pól: nip_vat, adres
+- **FR-B-026**: Brak pól: nip_vat, adres
+- **FR-B-041**: Brak pól: nip_vat, adres
+- **FR-B-032**: Brak pól: nip_vat, adres
+- **FR-B-036**: Brak pól: nip_vat, adres
+- **FR-B-024**: Brak pól: nip_vat, adres
+- **FR-B-037**: Brak pól: nip_vat, adres
+- **FR-B-038**: Brak pól: nip_vat, adres
+- **FR-B-034**: Brak pól: nip_vat, adres
+- **FR-B-040**: Brak pól: nip_vat, adres
+- **FR-B-039**: Brak pól: nip_vat, adres
+- **FR-B-030**: Brak pól: nip_vat, adres
+- **FR-B-022**: Brak pól: nip_vat, adres
+- **FR-B-029**: Brak pól: nip_vat, adres
+- **FR-B-028**: Brak pól: nip_vat, adres
+- **FR-B-031**: Brak pól: nip_vat, adres
+- **FR-B-027**: Brak pól: nip_vat, adres
+- **FR-B-023**: Brak pól: nip_vat, adres
+- **LT-B-018**: Brak pól: nip_vat, adres
+- **LT-B-008**: Brak pól: nip_vat, adres
+- **LT-B-010**: Brak pól: nip_vat, adres
+- **LT-B-004**: Brak pól: nip_vat, adres
+- **LT-B-006**: Brak pól: nip_vat, adres
+- **LT-B-007**: Brak pól: nip_vat, adres
+- **LT-B-005**: Brak pól: nip_vat, adres
+- **LT-B-015**: Brak pól: nip_vat, adres
+- **LT-B-017**: Brak pól: nip_vat, adres
+- **MD-B-003**: Brak pól: nip_vat, adres
+- **MD-B-005**: Brak pól: nip_vat, adres
+- **RO-B-004**: Brak pól: nip_vat, adres
+- **RO-B-028**: Brak pól: nip_vat, adres
+- **RO-B-022**: Brak pól: nip_vat, adres
+- **RO-B-023**: Brak pól: nip_vat, adres
+- **RO-B-031**: Brak pól: nip_vat, adres
+- **RO-B-029**: Brak pól: nip_vat, adres
+- **RO-B-025**: Brak pól: nip_vat, adres
+- **RO-B-030**: Brak pól: nip_vat, adres
+- **RO-B-024**: Brak pól: nip_vat, adres
+- **SK-B-017**: Brak pól: nip_vat, adres
+- **SK-B-037**: Brak pól: nip_vat, adres
+- **SK-B-025**: Brak pól: nip_vat, adres
+- **SK-B-016**: Brak pól: nip_vat, adres
+- **SK-B-022**: Brak pól: nip_vat, adres
+- **SK-B-034**: Brak pól: nip_vat, adres
+- **SK-B-031**: Brak pól: nip_vat, adres
+- **SK-B-020**: Brak pól: nip_vat, adres
+- **SK-B-018**: Brak pól: nip_vat, adres
+- **SK-B-027**: Brak pól: nip_vat, adres
+- **SK-B-038**: Brak pól: nip_vat, adres
+- **SK-B-030**: Brak pól: nip_vat, adres
+- **SK-B-029**: Brak pól: nip_vat, adres
+- **SK-B-035**: Brak pól: nip_vat, adres
+- **SK-B-028**: Brak pól: nip_vat, adres
+- **SK-B-037**: Brak pól: nip_vat, adres
+- **SK-B-044**: Brak pól: nip_vat, adres
+- **SK-B-043**: Brak pól: nip_vat, adres
+- **SK-B-033**: Brak pól: nip_vat, adres
+- **SK-B-031**: Brak pól: nip_vat, adres
+- **SK-B-042**: Brak pól: nip_vat, adres
+- **SK-B-039**: Brak pól: nip_vat, adres
+- **SK-B-032**: Brak pól: nip_vat, adres
+- **SK-B-036**: Brak pól: nip_vat, adres
+- **SK-B-038**: Brak pól: nip_vat, adres
+- **SK-B-040**: Brak pól: nip_vat, adres
+- **SK-B-030**: Brak pól: nip_vat, adres
+- **SK-B-034**: Brak pól: nip_vat, adres
+- **SK-B-035**: Brak pól: nip_vat, adres
+- **SK-B-041**: Brak pól: nip_vat, adres
+- **SK-B-045**: Brak pól: nip_vat, adres
+- **SK-B-025**: Brak pól: nip_vat
+- **SK-B-014**: Źródło nieoficjalne: Vaprio SK / FinStat SK
+- **SK-B-029**: Brak pól: nip_vat, adres
+- **SK-B-028**: Brak pól: nip_vat
+- **SI-B-004**: Brak pól: nip_vat, adres
+- **SI-B-006**: Brak pól: nip_vat, adres
+- **SI-B-007**: Brak pól: nip_vat, adres
+- **SI-B-013**: Brak pól: nip_vat, adres
+- **SI-B-008**: Brak pól: nip_vat, adres
+- **SI-B-009**: Brak pól: nip_vat, adres
+- **SI-B-003**: Brak pól: nip_vat, adres
+- **SI-B-005**: Brak pól: nip_vat, adres
+- **LV-B-028**: Brak pól: nip_vat, adres
+- **LV-B-025**: Brak pól: nip_vat, adres
+- **LV-B-009**: Brak pól: nip_vat, adres
+- **LV-B-021**: Brak pól: nip_vat, adres
+- **LV-B-019**: Brak pól: nip_vat, adres
+- **LV-B-010**: Brak pól: nip_vat, adres
+- **LV-B-007**: Brak pól: nip_vat, adres
+- **LV-B-004**: Brak pól: nip_vat, adres
+- **LV-B-016**: Brak pól: nip_vat, adres
+- **LV-B-005**: Brak pól: nip_vat, adres
+- **LV-B-008**: Brak pól: nip_vat, adres
+- **LV-B-017**: Brak pól: nip_vat, adres
+- **LV-B-032**: Brak pól: nip_vat, adres
+- **LV-B-037**: Brak pól: nip_vat, adres
+- **LV-B-034**: Brak pól: nip_vat, adres
+- **LV-B-035**: Brak pól: nip_vat, adres
+- **LV-B-036**: Brak pól: nip_vat, adres
+
+**Run summary:** 230 added, 25 modified, 8 removed — 3 FROZEN, 252 DO-WERYFIKACJI
