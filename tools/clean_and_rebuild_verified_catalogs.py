@@ -58,9 +58,12 @@ NON_TOBACCO_FALSE_POSITIVES = {
     "torupilli selver", "kaufland peščenica", "kaufland zagreb-jablanska",
     "kaufland hrvatska k.d.", "kaufland zapresic", "gėlių bazė",
     "атанасов маркет", "non-stop my shop - alcohol & tobacco 1", "alcohol center",
-    # Government / Utility / Portal / Event rental
-    "državni inspektorat", "zse", "njuškalo", "галванотех eоод пловдив",
-    "hookahgo - kaljano nuoma - kaljanų nuoma - kaljanai į namus - kaljanai šventėse - kaljanas vilniuje - аренда кальяна",
+    # Fishing / Hunting / BBQ Grills / Food Smokehouses (Lithuanian false positives on 'reikmenys' & 'rūkykla')
+    "žvejybos reikmenys", "žūklės", "ažūklė", "griliai.lt", "jahipaun",
+    "brolių rūkykla", "gerarukykla", "rūkyklos “dūmo”", "rūkykla",
+    # Government department / Shopping mall
+    "narkotiku, tabako ir alkoholio kontroles departamentas", "ztc",
+    "shoppster slovenija", "mojaoprema.si",
     # Pure consumer retail kiosks / mall shops / hotels / lounge bars
     "m+m tabak v tesco martin", "m+m tabak v tesco nitra", "m+m tabak v tesco prešov",
     "m+m tabak v hoteli double tree by hilton košice", "m+m tabak oc prior bratislava",
