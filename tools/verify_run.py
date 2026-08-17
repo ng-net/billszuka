@@ -233,9 +233,11 @@ def update_csv_flags(csv_path: Path, updates: dict[str, tuple[str, str]], force:
     n = 0
     skipped_api = 0
     for row in rows:
+        if not row or len(row) <= id_idx:
+            continue
         id_ = row[id_idx]
         if id_ in updates:
-            existing = row[flagi_idx] or ""
+            existing = row[flagi_idx] if len(row) > flagi_idx and row[flagi_idx] else ""
             # Skip rows already verified via live API (unless --force)
             if not force and "(API)" in existing:
                 skipped_api += 1
@@ -246,7 +248,8 @@ def update_csv_flags(csv_path: Path, updates: dict[str, tuple[str, str]], force:
             cleaned = re.sub(r"\s*⚠️\s*DO-WERYFIKACJI(?:\s*\(API\))?", "", cleaned)
             cleaned = re.sub(r"\s*✅\s*🐋\s*FROZEN", "", cleaned)
             marker = "✅ FROZEN" if status == "FROZEN" else "⚠️ DO-WERYFIKACJI"
-            row[flagi_idx] = f"{cleaned.strip()} {marker}".strip()
+            if len(row) > flagi_idx:
+                row[flagi_idx] = f"{cleaned.strip()} {marker}".strip()
             n += 1
 
     tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")

@@ -59,6 +59,7 @@ Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 | `linkedin` | URL | Profil firmy |
 | `facebook` | URL | Strona firmy |
 | `instagram` | URL | Profil firmy |
+| `tiktok` | URL | Profil firmy / profil TikTok |
 | `tier` | enum | `wyłączność` / `autoryzowany` / `reseller` / `detalista` / `marketplace` / `producent` / `hurtownik` |
 | `marki_nabijarki` | list | A: lista marek (PowerMatic, Hawk, Topomat, GM, Turbomatic, inne) |
 | `marka_wlasna_oem` | str | A: nazwa marki własnej (lub puste) |

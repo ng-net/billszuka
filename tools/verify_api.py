@@ -30,9 +30,14 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import sys
 from pathlib import Path
 
-# Sibling modules (same directory)
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "tools/legacy"))
+
+# Sibling & legacy registry modules
 try:
     from vies_verify import vies_lookup
 except ImportError:  # pragma: no cover

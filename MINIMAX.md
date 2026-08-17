@@ -26,8 +26,7 @@
 - Skip Germany unless told otherwise.
 - Public sources only (KRS, LinkedIn, official registries).
 
-## Commands Mavis should use
-- `bash /Volumes/MC-BRAIN/dev-ext/bin/mavis-optimize.sh .` — re-apply optimization
+## Commands for Agent Sessions
 - glob `data/{Kraj}/*.csv` for country-specific data
 - `cat INTEL.md | head -100` for recent intel
 - `tail -50 DZIENNIK.md` for last session

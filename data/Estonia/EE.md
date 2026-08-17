@@ -1,8 +1,8 @@
 # 🇪🇪 Estonia — Dziennik Badawczy & Status
 
 > **Status:** ✅ ZWERYFIKOWANE & ZSYNCHRONIZOWANE (Dane w `master.csv`)  
-> **Katalogi:** `catalog-A-EE.csv` (16 firm) + `catalog-B-EE.csv` (27 firm)  
-> **Kluczowe podmioty 🐋:** PRIKE AS, Nicorex Baltic OÜ, OÜ Sanitex, Coop Eesti Keskühistu, Aktsiaselts Kaupmees & Ko, LTT AS, Eugesta Eesti OÜ, BAT Estonia  
+> **Katalogi:** `catalog-A-EE.csv` (19 firm) + `catalog-B-EE.csv` (31 firm)  
+> **Kluczowe podmioty 🐋:** PRIKE AS, Nicorex Baltic OÜ, OÜ Sanitex, Coop Eesti Keskühistu, Aktsiaselts Kaupmees & Ko, LTT AS, Eugesta Eesti OÜ, BAT Estonia, NORDIC DIGITAL AS, Montrade NetStores OÜ, ALPI EESTI OÜ, Estonia Logistics OÜ (RRK)  
 
 ## Reżim regulacyjny (2024-2025)
 - Akcyza EU, standardowe ograniczenia reklamy

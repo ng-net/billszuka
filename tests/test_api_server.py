@@ -187,7 +187,11 @@ class TestSync:
         assert data["master_rows"] == 2  # catalog-A-PL.csv has 2 data rows
         assert (tmp_data / "master.csv").exists()
 
-    def test_sync_invalid_source(self, client):
+    def test_sync_invalid_source(self, client, monkeypatch):
+        monkeypatch.setattr(
+            "subprocess.run",
+            lambda *a, **kw: type("Proc", (), {"stdout": "mock tail", "returncode": 0})(),
+        )
         r = client.post("/api/sync", json={})  # default source_type="all"
         # Should still work — defaults are sensible
         assert r.status_code == 200

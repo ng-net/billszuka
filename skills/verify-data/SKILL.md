@@ -57,11 +57,22 @@ Wpis jest zweryfikowany i **nie podlega halucynacji**. Spełnia WSZYSTKIE:
 - Istnieje logiczna spójność między polami (np. hurtownia z 100+ sklepami = wolumen duży)
 
 **Źródła oficjalne (automatycznie FROZEN):**
-- KRS API / KRS.gov.pl
-- CEIDG API / CEIDG.gov.pl
-- VIES (walidacja VAT-EU)
-- Organy celne (KAS), oficjalne rejestry sądowe
-- Rejestr REGON
+- **Polska (PL)**: KRS API (`api-krs.ms.gov.pl`), CEIDG v3, REGON
+- **Czechy (CZ)**: ARES API (`ares.gov.cz`), VIES
+- **Słowacja (SK)**: FinStat, VIES (`SK{IČ DPH}`)
+- **Rumunia (RO)**: ONRC / ANAF (`CUI {6-8 cyfr}`), VIES
+- **Litwa (LT)**: Registrų Centras (`JAR {9 cyfr}`), VIES (`LT{PVM}`)
+- **Łotwa (LV)**: Lursoft (`{11 cyfr}`), VIES (`LV{VAT}`)
+- **Estonia (EE)**: e-Äriregister (`{8 cyfr}`), VIES (`EE{KMKR}`)
+- **Francja (FR)**: SIRENE / Recherche Entreprises (`SIREN {9 cyfr}`)
+- **Mołdawia (MD)**: State Register of Legal Entities (`IDNO {13 cyfr}`)
+- **Bułgaria / Słowenia / Chorwacja**: Trade Register BG, AJPES, Sudski registar RH
+- **VIES**: Ogólnoeuropejska walidacja VAT-EU
+
+### 🧹 Zasady Anty-Halucynacyjne & Pruning
+- **Wpisy do usunięcia**: Puste lub ucięte wpisy ze starych zrzutów web-scrapingu pozbawione NIP/KRS i nazwy rejestrowej.
+- **Podmioty wykreślone/zlikwidowane**: Sprawdzenie w KRS/ONRC/CEIDG; usunięcie lub połączenie z podmiotem przejmującym.
+- **Deduplikacja międzykatalogowa**: Scalanie oddziałów lub sklepów e-commerce z podmiotem macierzystym.
 
 **Źródła pół-oficjalne (wymagają dodatkowego potwierdzenia):**
 - Allegro/OLX — widać firmę, ale brak pełnych danych rejestrowych

@@ -1,6 +1,9 @@
-# 🇷🇴 Rumunia — dziennik badawczy
+# 🇷🇴 Rumunia — Dziennik Badawczy & Status
 
-## Status: pending research (⚠️ trudny rynek)
+> **Status:** ✅ ZWERYFIKOWANE & ZSYNCHRONIZOWANE (Dane w `master.csv`)  
+> **Katalog:** 47 firm RO (`catalog-A-RO.csv` 26 firm + `catalog-B-RO.csv` 21 firm)  
+> **Kluczowe podmioty 🐋:** JPB TRADE SRL, TOBACCO TRADING INTERNATIONAL RO SRL, M. TABAC SRL, SC GOLDEN TIP IMPORT EXPORT SRL (tuburipentrutigari.ro), SENSIMARK CONSULT S.R.L. (magazintrabucuri.ro / tobacco-online.ro), SC SIBIS CONCEPT COMPANY S.R.L. (etutun.ro), SC LUXURYGIFTS SRL, INTERBRANDS ORBICO SRL, RHENUS LOGISTICS SRL.  
+
 
 ## Reżim regulacyjny (2024-2025) — **RYZYKO WYSOKIE**
 - **Plain packaging od 2020**

@@ -1,8 +1,9 @@
 # 🇵🇱 Polska — Dziennik Badawczy & Status
 
-> **Status:** ✅ ZAMKNIĘTE & ZSYNCHRONIZOWANE (Dane zweryfikowane w `master.csv`)  
-> **Katalog:** 235 firm PL (catalog-A-PL + catalog-B-PL), 65 FROZEN (API CEIDG/KRS)  
-> **Kluczowe podmioty 🐋:** BILLS Sp. z o.o., BISTA, Polski Tytoń SA, PHUP Gniezno, Polska Grupa Tytoniowa, CK Complex  
+> **Status:** ✅ ZWERYFIKOWANE & ZSYNCHRONIZOWANE (Dane w `master.csv`)  
+> **Katalog:** 237 firm PL (`catalog-A-PL.csv` 31 firm + `catalog-B-PL.csv` 206 firm)  
+> **Kluczowe podmioty 🐋:** BILLS Sp. z o.o., BISTA Standard, Polski Tytoń SA, Polska Grupa Tytoniowa, CK Complex, ZOLTA Trade, PRIMA-TECH, P&P Cigarro, JAS-FBG S.A., ROHLIG SUUS Logistics S.A.  
+
 
 
 ## Reżim regulacyjny (stan: 2024-2025)

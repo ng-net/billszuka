@@ -35,6 +35,8 @@ python3 tools/billszuka.py search --country SK [--level L1]
 ### Verification & Registry Lookup
 - **`verify_run.py`**: Core hash diffing, verification protocol, and master rebuild trigger.
 - **`verify_api.py`**: Live registry API verification engine (CEIDG v3, ARES, VIES, Pappers, e-Äriregister, etc.).
+- **`verify_lead.py`**: Multi-tool lead double-checker and evidence validator.
+- **`checksums.py`**: 12-country official registry ID checksum & format validator (mod 11, Luhn, ISO 7064).
 - **`l0_preflight.py`**: Pre-flight validation (NIP checksum mod 11 + KRS/ARES name match).
 - **`scrapers_registry.py`**: Web scrapers for non-API countries (SK, RO, LT, FR).
 - **`krs_search.py`**: KRS registry lookup.
@@ -42,18 +44,29 @@ python3 tools/billszuka.py search --country SK [--level L1]
 - **`lt_open_data.py`**: Lithuania JAR open data lookup.
 - **`fr_recherche.py`**: France Pappers / Recherche lookup.
 - **`vies_verify.py`**: EU VIES VAT validation.
+- **`gmaps_search.py`**: Places API search tool for tobacco distributor leads.
 
-### Enrichment & Applications
+### Enrichment, Testing & Diagnostics
 - **`auto_enrich.py`**: Multi-source lead enrichment.
 - **`apollo_enrich.py`**: Apollo.io fallback enricher for non-EU markets (e.g. MD).
 - **`api_server.py`**: FastAPI backend server for local dashboard interface.
+- **`test_tokens.py`**: API keys & tokens validator (.env).
+- **`test_11_levels.py`**: Strict assertions test runner for 11 lead generation levels.
+- **`run_verify_cron.sh`**: Verification cron trigger script.
 
 ---
 
 ## Archival & One-Off Scripts (`tools/legacy/`)
 
 Historical, completed migration, or experimental one-off scripts are archived under `tools/legacy/`:
-- `drop_region_columns.py`: Previous schema migration script.
+- `clean_and_rebuild_verified_catalogs.py`: Full catalog audit and purge pass (executed 2026-08-14).
+- `fix_catalog_quality.py`: Historical one-shot catalog cleaner (superceded by `billszuka.py`).
+- `fix_data_quality.py`: Historical region-based deduplication and scoring script.
+- `gmaps_clean_and_verify.py`: Historical post-sweep cleanup helper.
+- `gmaps_sweep_7min.py`, `gmaps_20min_underrepresented_sweep.py`, `gmaps_45min_sweep.py`, `gmaps_retry_si_lt_ro.py`: Historical targeted sweep sessions.
+- `rescue_intake_leads.py`: One-shot intake rescue pass (2026-08-14).
+- `freeze_baseline_sk.py`: SK intake freeze baseline updater (2026-08-12).
+- `drop_region_columns.py`: Schema migration script.
 - `migrate_strip_regions.py`: Region field stripping & ID re-indexing migration.
 - `refresh_row_hashes.py`: Replaced by `verify_run.py --init`.
 - `clean_backups.py`: Backup CSV cleaner.

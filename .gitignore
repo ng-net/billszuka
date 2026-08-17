@@ -28,6 +28,10 @@ Thumbs.db
 # BILLSzuka verify state (machine-local, regenerated on each run)
 data/.verify-state/
 tools/.verify-state/
+tools/.verify-runs/
+tools/.verify-checkpoint.json
+data/.verify-checkpoint.json
+.verify-checkpoint.json
 
 # BILLSzuka enrichment run state (track which leads have been processed)
 data/.verify-state/enrichment-progress.json

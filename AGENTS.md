@@ -31,7 +31,7 @@ Canonical remote: `github.com/ng-net/billszuka` (private). Backup mirror: `githu
 - Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log). Don't let
   discoveries stay only in chat.
 - When asked "remember this" — append to the right file, not to user/agent memory.
-- Output: Excel/GS + CSV. Deep PL only for now.
+- Output: Excel/GS + CSV. Multi-country CEE/EU coverage.
 
 ## Cache hygiene for this project
 - Don't re-read `INTEL.md` or `DZIENNIK.md` unless asked — they're large and change often.
