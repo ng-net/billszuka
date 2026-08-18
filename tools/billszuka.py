@@ -114,6 +114,22 @@ def cmd_search(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_sync(args: argparse.Namespace) -> int:
+    """Verify 1:1 sync between regional catalogs and master.csv."""
+    import sync_verifier
+    if getattr(args, "watch", False):
+        sync_verifier.run_gentle_watcher(
+            interval_seconds=getattr(args, "interval", 60),
+            auto_recompile=True,
+        )
+        return 0
+    results = sync_verifier.verify_master_sync(
+        auto_fix=getattr(args, "recompile", False),
+        verbose=True,
+    )
+    return 0 if results["status"] == "PERFECT_SYNC" else 1
+
+
 def main():
     parser = argparse.ArgumentParser(description="BILLSzuka Unified Pipeline CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -138,6 +154,13 @@ def main():
     p_search = subparsers.add_parser("search", help="Run 11-level lead discovery strategy")
     p_search.add_argument("--country", required=True, help="2-letter country code (e.g. PL, CZ, SK)")
     p_search.set_defaults(func=cmd_search)
+
+    # Sync
+    p_sync = subparsers.add_parser("sync", help="Verify 1:1 consistency between regional catalogs and master.csv")
+    p_sync.add_argument("--recompile", "--fix", action="store_true", help="Auto-recompile master.csv if drift is detected")
+    p_sync.add_argument("--watch", action="store_true", help="Run continuously in the background")
+    p_sync.add_argument("--interval", type=int, default=60, help="Watch interval in seconds (default: 60)")
+    p_sync.set_defaults(func=cmd_sync)
 
     args = parser.parse_args()
     return args.func(args)
