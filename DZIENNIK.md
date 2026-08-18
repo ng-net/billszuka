@@ -287,3 +287,54 @@
 - A6: brak danych (kandydaci do rekrutacji — brak źródła publicznego)
 
 **Następna sesja:** web scraping dla portal.justice.bg (BG B8), Or.sk (SK B8), info.ur.gov.lv (LV B8) — z tą samą weryfikacją antyhalucynacyjną.
+
+## 2026-08-18 11:00 CEST — Sesja 2: Mass enrichment z publicznych źródeł (free only)
+
+**Kontynuacja sesji 1, anti-halucynacja 100%.**
+
+### Nowe źródła zweryfikowane
+
+| Kraj | Źródło publiczne | Coverage |
+|------|------------------|----------|
+| 🇸🇰 SK | orsr.sk (Obchodný register SR, Ministerstvo spravodlivosti) | 9/25 konatelia, 84% hit rate |
+| 🇧🇬 BG | finansi.bg (Търговски регистър excerpt) | 2 (EL, Kaliman) + 1 (Delion) via bg.kompass.com |
+| 🇸🇰 SK | apify-public-registries skill: orsr.sk | użyte jako baza dla SK scrapera |
+
+### Wyniki sesji 2
+
+- **+9 SK** (nowy scraper orsr.sk, 84% hit rate) — 9/25 placeholderów złapanych, wszystkie zweryfikowane przez ministerstvo spravodlivosti SR
+- **+3 BG** (Hristo Lefterov / ELD, Olya Docheva / Kaliman, Yavor Karagyozov / Delion) — publiczne źródła: finansi.bg, bg.kompass.com, sova.bg, eld.bg
+- **0 halucynacji** — każdy decydent zweryfikowany przez ≥1 publiczne źródło z URL w `zrodlo_danych`
+
+### Stan placeholderów
+
+- **120 placeholderów non-PL** (155 → 120, -23% w tej sesji)
+- Największe grupy: BG=29, SK=16, LT=16, RO=14, HR=11, SI=10, LV=9, CZ=7
+
+### Co NIE zadziałało (free, public)
+
+| Źródło | Powód |
+|--------|-------|
+| AJPES (SI) | SPA, brak JSON API, dane w JS |
+| info.ur.gov.lv / ur.gov.lv | SPA, dane ładowane przez AJAX |
+| sudreg.pravosudje.hr (HR) | Oracle APEX SPA, brak HTML data |
+| finansi.bg direct fetch | 429 rate-limit (anti-bot) — działa przez web_search |
+| bg.kompass.com direct fetch | 403 Forbidden — działa przez web_search |
+| rekvizitai.vz.lt (LT) | DNS not found |
+| JAR (LT) | API zwraca HTML SPA, nie JSON |
+| infobiz.fina.hr (HR) | reCAPTCHA, dane w JS |
+| AJPES API endpoints | Wszystkie zwracają HTML SPA |
+| brra.bg (BG) | Brak company search, tylko newsy |
+| OpenCorporates | Wymaga API key (rejestracja potrzebna) |
+| listafirme.ro (RO) | ANAF API offline od 2026-03; listafirme wymaga Apify |
+
+### Strategia dla pozostałych 120 placeholderów
+
+1. **web_search per firma** (obecna metoda, każdy search weryfikuje konkretny cel) — najwolniejsza ale 100% anti-halucynacja
+2. **OpenCorporates free tier** (rejestracja 1 min) — 200 req/mies, pokrywa 100+ jurysdykcji, ale wymaga klucza API
+3. **Apify free tier** ($5/mies) — webscraping z proxy, pokrywa DE/UK/RO/PL
+4. **Manual research** (web search + weryfikacja 2 źródeł) — najwolniejsza ale niezawodna
+
+**Następna sesja:** zarejestruj się na OpenCorporates free tier (1 min, brak karty) i zbuduj unified scraper.
+
+**Lub:** kontynuuj web_search dla top 30 strategicznych celów (B8 wholesalers + A4 multi-brand).

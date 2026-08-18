@@ -427,3 +427,23 @@ Wszystkie decydenty dodane w sesji 2026-08-18 10:30-11:00 mają **publiczne, wer
 3. **Media branżowe** (seznamzpravy.cz, index.hr, vecernji.hr, sita.sk, progressive.hr) — potwierdzone przez niezależne źródła
 4. **LinkedIn** (cedric-chucri, tomazmaver) — publiczne profile zawodowe
 5. **Strony korporacyjne** (mercatorgroup.si, socotab.com, trafika3dva.si) — oficjalne strony firm
+
+---
+
+## Multi-country decydent enrichment — sesja 2 (2026-08-18 11:00)
+
+**Dodane zweryfikowane decydenty (2026-08-18):**
+
+| Kraj | ID | Firma | Decydent | Źródło publiczne |
+|------|------|-------|----------|------------------|
+| SK | 9 firm | różne | różne (Ing. Miroslav Berecký, RNDr. Ľubica Bačová, Ing. Barnabáš Eke, Ing. Pavol Stiksa, Mgr. Josef Hloušek, Ing. František Chrkavý...) | orsr.sk (Obchodný register SR, windows-1250 HTML scrape) |
+| BG | BG-B-019 | ЕКСПРЕС ЛОГИСТИКА | Христо Григориев Лефтеров | finansi.bg + sova.bg + eld.bg |
+| BG | BG-B-012 | КАЛИМАН КАРИБЕ | Olya Yordanova Docheva | bg.kompass.com |
+| BG | BG-B-021 | ДЕЛИОН | Yavor Stefanov Karagyozov | hk.kompass.com |
+
+**Strategia na następną sesję:**
+
+1. Zarejestruj OpenCorporates free API key (1 min, brak karty kredytowej, 200 req/mies)
+2. Zbuduj unified scraper dla 12 krajów (PL już ma, dodaj SK/RO/BG/HR/SI/LV/LT/CZ/MD/EE/FR)
+3. Dla każdego kraju zapisz: register URL, anti-bot status, rate limit, hit rate
+4. Commit per kraj osobno (łatwiej revertować)
