@@ -531,18 +531,31 @@ def verify_fr_row(row: dict) -> tuple[str, str]:
         return PENDING_API, "FR module niedostępny (fr_recherche.py nie załadowany)"
 
     nip = (row.get("nip_vat") or "").strip()
-    # Strip FR prefix; if SIRET (14 digits), keep all; if SIREN (9), keep all
-    clean_id = re.sub(r"[^0-9]", "", nip)
+    rejestr = (row.get("rejestr_id") or "").strip()
+    m_siren = re.search(r"\b\d{9}\b", rejestr)
+    if m_siren:
+        clean_id = m_siren.group(0)
+    else:
+        digits = re.sub(r"[^0-9]", "", nip)
+        if len(digits) == 11:
+            clean_id = digits[2:]
+        elif len(digits) >= 9:
+            clean_id = digits[-9:]
+        else:
+            clean_id = digits
+
     if not clean_id:
         return PENDING_API, "Brak SIREN/SIRET — Recherche Entreprises nie ma czego sprawdzać"
 
     result = fr_search(clean_id)
     if not result or not result.get("found"):
+        # Fall back to VIES if VAT is valid
+        vies_res = verify_vies_row(row)
+        if vies_res[0] == "FROZEN":
+            return vies_res
         err = (result or {}).get("error", "brak odpowiedzi")
         if "brak wyników" in err.lower():
-            # SIREN not found in registry — real verification failure
             return "DO-WERYFIKACJI", f"FR: SIREN {clean_id[:9]} nie istnieje w rejestrze"
-        # Network / API error — not a verification failure
         return PENDING_API, f"FR: {err}"
 
     # Check active/closed status

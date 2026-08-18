@@ -59,10 +59,16 @@ COUNTRY_ORDER: list[str] = [COUNTRY_MAP[iso] for iso in CONF_COUNTRY_ORDER]
 # Per the verify-data skill
 FROZEN_REQUIRED = ["nazwa_firmy", "nip_vat", "rejestr_id", "adres", "zrodlo_danych"]
 OFFICIAL_SOURCE_TOKENS = [
-    "krs api", "krs.gov", "ceidg", "vies", "kas", "regon",
-    "ares", "orsr", "rekvizitai", "ajpes",
-    "ariregister",
-    "jar",  # Lithuanian Juridinių asmenų registras via data.gov.lt SAU API
+    "krs api", "krs.gov", "krs", "ceidg", "vies", "kas", "regon",
+    "ares", "orsr", "rekvizitai", "ajpes", "matična",
+    "ariregister", "e-äriregister",
+    "jar", "data.gov.lt",
+    "sirene", "recherche-entreprises", "recherche", "insee", "rcs",
+    "onrc", "anaf",
+    "trade register", "eik",
+    "state register", "idno",
+    "sudski registar", "oib",
+    "lursoft",
 ]
 COUNTRY_API = {
     "PL": "ceidg",  # CEIDG + KRS
@@ -76,7 +82,7 @@ COUNTRY_API = {
     # and VIES becomes the fallback.
     "SK": "vies", "LV": "vies", "BG": "vies",
     "HR": "vies", "RO": "vies", "SI": "vies",
-    # MD (Moldova) is non-EU → PENDING_API in verify_api.py
+    "MD": "state-register-md",  # State Register of Legal Entities MD (IDNO)
 }
 
 

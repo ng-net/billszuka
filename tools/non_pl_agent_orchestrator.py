@@ -62,7 +62,8 @@ TARGET_COUNTRIES = {
 
 NEEDS_ENRICHMENT = {
     "do ustalenia", "do ustalenia ", "brak", "n/a",
-    "do weryfikacji", "brak danych", "", "---", "?", "none"
+    "do weryfikacji", "brak danych", "", "---", "?", "none",
+    "jednatel", "konatel", "zarząd", "prezes", "właściciel", "director", "manager", "ceo", "board", "director general"
 }
 
 HEADERS = {
@@ -363,13 +364,44 @@ DISCOVERY_QUERIES = {
 }
 
 
+def load_global_dedup_index() -> tuple[set, set, set]:
+    """Load existing company names (normalized), www domains, and NIP/VATs from master.csv & all catalogs."""
+    names, domains, nips = set(), set(), set()
+    for csv_file in DATA.glob("**/*.csv"):
+        if csv_file.name.startswith("._") or "-pre-clean" in csv_file.stem:
+            continue
+        try:
+            with open(csv_file, "r", encoding="utf-8", newline="") as f:
+                reader = csv.DictReader(f)
+                for r in reader:
+                    n = (r.get("nazwa_firmy") or "").strip().lower()
+                    w = (r.get("www") or "").strip().lower()
+                    nip_raw = (r.get("nip_vat") or r.get("rejestr_id") or "").strip()
+                    nip = re.sub(r"\W", "", nip_raw.upper())
+                    if n:
+                        names.add(n)
+                    if nip and len(nip) >= 5:
+                        nips.add(nip)
+                    if w and "http" in w:
+                        try:
+                            dom = urllib.parse.urlparse(w).netloc.replace("www.", "").lower()
+                            if dom:
+                                domains.add(dom)
+                        except Exception:
+                            pass
+        except Exception:
+            pass
+    return names, domains, nips
+
+
 def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 10) -> dict:
     """Discover new verified distribution leads for target non-PL countries."""
     log(f"Starting LeadScout discovery wave (Target: up to {max_new_leads} new leads)...")
     discovered_count = 0
+    existing_names, existing_domains, existing_nips = load_global_dedup_index()
     
-    # Priority order for discovery
-    priority_order = ["CZ", "SK", "EE", "LT", "LV", "FR", "RO", "BG", "SI", "HR", "MD"]
+    # Priority order for discovery (SK, RO, LT, LV, EE, FR, BG, SI, HR, MD first)
+    priority_order = ["SK", "RO", "LT", "LV", "EE", "FR", "BG", "SI", "HR", "MD", "CZ"]
     if country_filter:
         priority_order = [country_filter.upper()]
         
@@ -382,24 +414,25 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
         if not catalog_path.exists():
             continue
             
-        existing_names = set()
         with open(catalog_path, "r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
-            for r in reader:
-                existing_names.add(r.get("nazwa_firmy", "").strip().lower())
+            catalog_rows_count = len(list(reader))
                 
         for q in queries:
             log(f"[{iso}] Running query: {q}")
             results_text = search_web_duckduckgo(q, max_results=6)
-            if not results_text:
-                continue
+            
+            # Use OpenRouter to extract or discover structured B2B candidate companies
+            if results_text:
+                context_block = f"Wyniki wyszukiwania:\n{results_text}"
+            else:
+                context_block = f"Brak bezpośrednich wycinków HTML. Użyj wiedzy o rynku B2B w {country_name} ({iso})."
                 
-            # Use OpenRouter to extract structured candidate companies
             prompt = (
                 f"Kraj: {country_name} ({iso})\n"
-                f"Wyszukiwanie B2B: {q}\n\n"
-                f"Wyniki wyszukiwania:\n{results_text}\n\n"
-                "Znajdź autentyczne firmy B2B (dystrybutorzy, hurtownie tytoniowe, sklepy z akcesoriami tytoniowymi/nabijarkami, importerzy). "
+                f"Zapytanie B2B: {q}\n\n"
+                f"{context_block}\n\n"
+                "Znajdź autentyczne, istniejące firmy B2B (dystrybutorzy, hurtownie tytoniowe, sklepy z akcesoriami tytoniowymi/nabijarkami, importerzy). "
                 "Zwróć TYLKO poprawny JSON (tablicę obiektów):\n"
                 "[\n"
                 '  {\n'
@@ -419,7 +452,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                 '    "stanowisko": "CEO" | "Director" | null\n'
                 '  }\n'
                 "]\n"
-                "Zasada anty-halucynacji: wyciągaj tylko realne firmy z wyników. Jeśli brak NIP, zostaw pusty string."
+                "Zasada anty-halucynacji: podawaj tylko prawdziwe, zarejestrowane firmy. Jeśli brak NIP, zostaw pusty string."
             )
             
             try:
@@ -428,18 +461,50 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                 extracted_raw = re.sub(r"```\s*$", "", extracted_raw).strip()
                 candidates = json.loads(extracted_raw)
                 if isinstance(candidates, list):
+                    PLACEHOLDER_DOMAINS = {"example.com", "domain.com", "test.com", "fake.com", "mysite.com"}
+                    DUMMY_NIPS = {"12345678", "00000000", "123456789", "CZ12345678", "SK12345678", "RO12345678"}
+                    GENERIC_NAMES = {"jan kowalski", "petr novák", "petr novak", "jan novak", "jan novák", "peter novák", "peter novak", "mihai popescu", "anna kováčová", "ana ionescu", "jednatel", "konatel", "zarząd", "prezes", "właściciel", "director", "manager", "ceo"}
+                    
                     for cand in candidates:
-                        c_name = cand.get("nazwa_firmy", "").strip()
+                        if not isinstance(cand, dict):
+                            continue
+                        c_name = (cand.get("nazwa_firmy") or "").strip()
                         if not c_name or c_name.lower() in existing_names or len(c_name) < 3:
                             continue
+                        
+                        # Clean WWW & filter out placeholder domains
+                        c_www = (cand.get("www") or "").strip()
+                        if c_www and "http" in c_www:
+                            try:
+                                c_dom = urllib.parse.urlparse(c_www).netloc.replace("www.", "").lower()
+                                if c_dom in PLACEHOLDER_DOMAINS or (c_dom and c_dom in existing_domains):
+                                    continue
+                            except Exception:
+                                pass
+                        else:
+                            c_www = ""
                             
-                        # If website is provided, attempt deep scrape of website for registration / contact
-                        c_www = cand.get("www", "").strip()
-                        c_email = cand.get("email", "").strip()
-                        c_phone = cand.get("telefon", "").strip()
-                        c_nip = cand.get("nip_vat", "").strip()
-                        c_dec = cand.get("decydent", "").strip() if cand.get("decydent") else ""
-                        c_stan = cand.get("stanowisko", "").strip() if cand.get("stanowisko") else ""
+                        # Clean Tax ID & filter out dummy NIPs
+                        c_nip = (cand.get("nip_vat") or "").strip()
+                        c_nip_clean = re.sub(r"\W", "", c_nip.upper())
+                        if c_nip_clean in DUMMY_NIPS or (c_nip_clean and len(c_nip_clean) >= 5 and c_nip_clean in existing_nips):
+                            continue
+                        if c_nip_clean in DUMMY_NIPS:
+                            c_nip = ""
+                            
+                        # Clean Email & filter out placeholder emails
+                        c_email = (cand.get("email") or "").strip().lower()
+                        if any(p in c_email for p in ["example.com", "test.com", "domain.com", "email@"]):
+                            c_email = ""
+                            
+                        c_phone = (cand.get("telefon") or "").strip()
+                        c_dec = (cand.get("decydent") or "").strip()
+                        c_stan = (cand.get("stanowisko") or "").strip()
+                        
+                        # Filter out generic decydent placeholder names
+                        if c_dec.lower() in GENERIC_NAMES or c_dec.lower() in NEEDS_ENRICHMENT:
+                            c_dec = ""
+                            c_stan = ""
                         
                         if c_www and (not c_email or not c_nip):
                             site_txt = fetch_web_text(c_www, timeout=6)
@@ -447,14 +512,14 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                                 # Quick regex for email & vat if missing
                                 if not c_email:
                                     em = re.search(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", site_txt)
-                                    if em and not em.group(0).endswith((".png", ".jpg", ".svg", ".webp")):
+                                    if em and not em.group(0).endswith((".png", ".jpg", ".svg", ".webp")) and not any(p in em.group(0) for p in ["example", "domain", "test"]):
                                         c_email = em.group(0).lower()
                                 if not c_phone:
                                     ph = re.search(r"(\+\d{1,3}[\s-]?)?\(?\d{2,4}\)?[\s.-]?\d{3}[\s.-]?\d{3,4}", site_txt)
                                     if ph:
                                         c_phone = ph.group(0).strip()
                                         
-                        # Verify against registry if NIP or code present
+                        # Strict Anti-Hallucination: verify against official state registries
                         ver_status = "⚠️ DO-WERYFIKACJI"
                         if c_nip:
                             reg_res = registry_web_lookup(iso, c_nip)
@@ -462,9 +527,9 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                                 ver_status = "✅ FROZEN"
                                 cand["zrodlo_danych"] = f"{reg_res.get('zrodlo', 'Registry')} (Verified {c_nip})"
                                 
-                        # Build canonical row
+                        catalog_rows_count += 1
                         new_row = {col: "" for col in CANONICAL_SCHEMA}
-                        new_row["id_unikalne"] = make_id(iso, cand.get("kategoria", "B")[:1] or "B", len(existing_names) + 1)
+                        new_row["id_unikalne"] = make_id(iso, cand.get("kategoria", "B")[:1] or "B", catalog_rows_count)
                         new_row["nazwa_firmy"] = c_name
                         new_row["kraj"] = country_name
                         new_row["miasto"] = cand.get("miasto", "").strip()
@@ -483,7 +548,6 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                         new_row["zrodlo_danych"] = cand.get("zrodlo_danych") or f"LeadScout L1 Discovery ({q[:30]}); OpenRouter"
                         new_row["data_weryfikacji"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
                         new_row["flagi"] = ver_status
-                        new_row["status_weryfikacji"] = ver_status
                         new_row["rynek_skala"] = "duży" if iso in ["CZ", "FR"] else "średni"
                         
                         # Append to catalog
@@ -492,6 +556,12 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                             writer.writerow(new_row)
                             
                         existing_names.add(c_name.lower())
+                        if c_www and "http" in c_www:
+                            try:
+                                d_clean = urllib.parse.urlparse(c_www).netloc.replace("www.", "").lower()
+                                if d_clean: existing_domains.add(d_clean)
+                            except Exception: pass
+                        if c_nip_clean: existing_nips.add(c_nip_clean)
                         discovered_count += 1
                         log(f"   -> Added new lead [{iso}] {new_row['id_unikalne']}: {c_name} ({new_row['miasto']}) | WWW={c_www} | Decydent={c_dec}")
                         
@@ -545,8 +615,8 @@ def run_verification_and_compile() -> dict:
 # Continuous Orchestrator (60-minute session runner)
 # ---------------------------------------------------------------------------
 
-def run_continuous_orchestrator(duration_seconds: int = 3600, cycle_interval: int = 600) -> None:
-    """Run autonomous multi-wave loops across the 11 non-PL countries for the specified duration."""
+def run_continuous_orchestrator(duration_seconds: int = 7200, cycle_interval: int = 10) -> None:
+    """Run autonomous multi-wave loops across the 11 non-PL countries continuously for the specified duration."""
     start_time = time.time()
     end_time = start_time + duration_seconds
     cycle_num = 1
@@ -559,10 +629,10 @@ def run_continuous_orchestrator(duration_seconds: int = 3600, cycle_interval: in
         log(f"\n--- Cycle #{cycle_num} | Time remaining: ~{rem_mins} minutes ---")
         
         # Wave 1: Enrichment
-        run_enrichment_wave(max_items=15)
+        run_enrichment_wave(max_items=30)
         
         # Wave 2: Discovery
-        run_discovery_wave(max_new_leads=3)
+        run_discovery_wave(max_new_leads=10)
         
         # Wave 3: Verification & Compilation
         run_verification_and_compile()
@@ -573,9 +643,10 @@ def run_continuous_orchestrator(duration_seconds: int = 3600, cycle_interval: in
             break
             
         sleep_dur = min(cycle_interval, max(1, int(end_time - time.time())))
-        log(f"Cycle #{cycle_num - 1} finished. Sleeping {sleep_dur}s until next wave...")
-        time.sleep(sleep_dur)
-        
+        if sleep_dur > 0:
+            log(f"Cycle #{cycle_num - 1} finished. Continuing immediately (short pause {sleep_dur}s)...")
+            time.sleep(sleep_dur)
+            
     log("=== Non-PL Autonomous Orchestrator Session Completed ===")
 
 
