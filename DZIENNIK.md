@@ -621,3 +621,65 @@ Główne skrypty zostają nienaruszone: `tools/enrich_decydenci_nonpl.py`, `tool
 - Aplikować ten sam template (v9) z danymi z `data/{Kraj}/catalog-A-{ISO}.csv` + `data/{Kraj}/catalog-B-{ISO}.csv` + `data/{Kraj}/insight-{ISO}.md`
 - Stworzyć `tools/pdf_gen_country.py` z parametryzacją per kraj (data, ISO, errata, top 5 firm, statystyki, szacunki rynkowe)
 - Gotowe do zastosowania: PL, SK, SI, HR, BG, RO, MD, LT, LV, EE, FR
+
+
+## 2026-08-18 13:25 CEST — All 12 country PDFs + MDs generated
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o wygenerowanie PDF-[ISO].md oraz PDF-[ISO].pdf dla wszystkich 12 krajów, używając zlockowanego designu v9 (CZ blueprint) jako szablonu.
+
+**Wykonane:**
+
+1. **Stworzony `tools/pdf_gen_country.py`** (24.9KB) — generyczny generator z parametryzacją per kraj:
+   - Style: Verdana (Polish-safe), 1.5cm marginesy, A4 portrait
+   - Header: "BILLS · Dystrybucja PowerMatic & Hawk" / "Katalog leadów B2B/B2C"
+   - Footer: "BILLS · Ostrzeszów · serwis@bills.pl" / "Strona X"
+   - Strona 1: tytuł + errata + Potencjał rynkowy + Statystyki + 5 insightów
+   - Strona 2: Podział + Legenda A + Legenda B + Legenda skrótów
+   - Obsługuje: PL, CZ, SK, SI, HR, BG, RO, MD, LT, LV, EE, FR
+
+2. **Wygenerowane 24 pliki (12 PDF + 12 MD):**
+   - `data/Polska/PDF-PL.pdf` (71KB) + `PDF-PL.md`
+   - `data/Czechy/PDF-CZ.pdf` (71KB) + `PDF-CZ.md`
+   - `data/Słowacja/PDF-SK.pdf` (72KB) + `PDF-SK.md`
+   - `data/Słowenia/PDF-SI.pdf` (71KB) + `PDF-SI.md`
+   - `data/Chorwacja/PDF-HR.pdf` (70KB) + `PDF-HR.md`
+   - `data/Bułgaria/PDF-BG.pdf` (78KB) + `PDF-BG.md`
+   - `data/Rumunia/PDF-RO.pdf` (71KB) + `PDF-RO.md`
+   - `data/Mołdawia/PDF-MD.pdf` (71KB) + `PDF-MD.md`
+   - `data/Litwa/PDF-LT.pdf` (71KB) + `PDF-LT.md`
+   - `data/Łotwa/PDF-LV.pdf` (71KB) + `PDF-LV.md`
+   - `data/Estonia/PDF-EE.pdf` (70KB) + `PDF-EE.md`
+   - `data/Francja/PDF-FR.pdf` (72KB) + `PDF-FR.md`
+
+3. **Weryfikacja języków specjalnych:**
+   - PL/SK/CZ: polskie znaki (Ś/Ł/Ó/Ę/Ą/Ż/Č/Ř/Š) renderują się poprawnie
+   - SK: słowackie (Predseda predstavenstva, Konateľ, daňový sklad) ✓
+   - BG: cyrillica (Пловдив, София, Управител, Димитър) ✓ + polskie tagi ✓
+   - FR: francuskie (buraliste, GOFFARD, BOUYSSY, BOURSSY, VINCENNES) ✓
+   - HR: chorwackie (Predsjednik uprave, Uprava) ✓
+   - MD: rumuńskie + mołdawskie (Director, antrepozit) ✓
+   - LT/LV/EE: bałtyckie (Direktorius, Vadība, Juhatuse liige) ✓
+
+4. **Struktura insightów per kraj** (5 firm × pełne dane kontaktowe):
+   - ID firmy (np. CZ-A-002), rola, nazwa, decydent, tytuł, rejestr (IČO/NIP/PVN/etc.), miasto, email, telefon, www, status (FROZEN/DO-WER), krótki opis handlowy
+
+5. **Szacunki rynkowe per kraj** (zachowawcze, oznaczone jako szac.):
+   - RYNEK TYTONIOWY (w lokalnej walucie kraju: PLN/CZK/EUR)
+   - SEGMENT RYO/MYO (~15-25% wolumenu)
+   - RYNEK NABIJAREK (zakresy mln EUR/rok)
+   - BARIERA WEJŚCIA (niska/wysoka z opisem)
+
+**Regeneracja:**
+```bash
+cd "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka 18 Aug"
+python3 tools/pdf_gen_country.py            # all 12 countries
+python3 tools/pdf_gen_country.py --iso PL   # single country
+python3 tools/pdf_gen_country.py --iso SK
+```
+
+**Następne kroki:**
+- Gotowe do użycia dla partnerów sprzedaży
+- Planowane: stworzyć `tools/verify_pdf.py` do batch-validation wszystkich 24 plików
