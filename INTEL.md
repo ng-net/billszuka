@@ -73,7 +73,7 @@
 
 > Weryfikacja oparta o 11 Poziomów Wyszukiwania (L0-L11) i kanoniczny schemat 35-kolumnowy (`tools/config.py`).
 > Weryfikacja rejestrowa na żywo: KRS, CEIDG, ARES, VIES, e-Äriregister, ONRC, ASP, Sudski registar.
-> Aktualna baza skompilowana (`data/master.csv`): 594 podmioty w 12 krajach europejskich.
+> Aktualna baza skompilowana (`data/master.csv`): **393 podmioty** w 12 krajach europejskich (PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR).
 
 ---
 
@@ -284,6 +284,8 @@ Wykryto 2 wpisy FORTIS-DB z różnymi IČO (CZ62586289 vs 25221981). Obaj deklar
 | 2026-08-13 | **Google Places API Sweep** — sweep 9 krajów, oczyszczenie i dedupikacja. |
 | 2026-08-15 | **Deep MYO & Customs Sweep** — precyzyjny research nabijarek i brokerów celnych (PL, RO, MD, BG, HR, EE, FR, LT, LV). |
 | 2026-08-17 | **Project Cleanup & Modernization** — konsolidacja narzędzi, usunięcie redundancji, czysty 35-kolumnowy schemat. |
+| 2026-08-18 | **Multi-country full verification** — 393/393 FROZEN across 24 catalogs (12 countries). Apollo enrichments, atomic write fixes, VIES multi-country. |
+| 2026-08-18 | **sync_verifier** — nowe narzędzie `tools/sync_verifier.py` + cron (every 30 min) gwarantujące 1:1 sync między katalogami a master.csv. Testy `197 passed`. |
 
 ---
 

@@ -205,3 +205,21 @@
 
 1. Weryfikacja automatyczna: **212/212 (100.0%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **212 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-18 10:05 CEST — Sesja zamknięcie — commit & push (Marceli)
+
+**Zakres sesji:**
+
+- ✅ Pełna weryfikacja rejestrowa: **393/393 FROZEN** w 24 katalogach (12 krajów: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR)
+- ✅ Naprawiono 2 testy regresji `verify_cz_row` (ARES 404 + GECO-KLEMPIZO Jaccard) — 197 passed, 0 failed
+- ✅ Dodano Apollo enrichments (telefon, LinkedIn, miasto) dla krajów nieposiadających własnych API rejestrowych
+- ✅ Atomic write pattern (`tmp → replace`) wdrożony we wszystkich funkcjach CSV update
+- ✅ `tools/sync_verifier.py` — nowy moduł weryfikacji 1:1 katalogu z master.csv (5-warstwowa kontrola)
+- ✅ `tools/run_sync_check.sh` — cron wrapper, uruchamiany co 30 min automatycznie
+- ✅ `python3 tools/billszuka.py sync` — nowy subcommand CLI
+- ✅ Cron job zainstalowany (`*/30 * * * *`) — log w `tools/.verify-runs/sync_YYYY-MM-DD.log`
+- ✅ Aktualna baza: **393 leadów**, zero orphanów, zero driftu, schema 35 kolumn
+- ✅ Commity: `7ca09a8`, `bef0b81` — wypchnięte na `github.com/ng-net/billszuka` (main)
+
+**Następna sesja:** Enrichment decydentów dla krajów non-PL + rozszerzenie Catalog-A na UK (po potwierdzeniu Marcelego)
