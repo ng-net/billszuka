@@ -205,6 +205,72 @@ def registry_decydent_cz(rejestr: str, nip: str) -> dict:
     return {"adres": addr} if addr else {}
 
 
+def registry_decydent_sk(rejestr: str, nip: str) -> dict:
+    """Extract konatelia (statutory directors) from Slovak ORSR.
+
+    Source: official Slovak Commercial Register (Ministerstvo spravodlivosti SR).
+    Reliability: 100% — government registry, windows-1250 encoded HTML.
+    Free, no registration required.
+    """
+    ico = None
+    for src in (rejestr, nip):
+        m = re.search(r"\b(\d{8})\b", re.sub(r"\D", " ", src))
+        if m:
+            ico = m.group(1)
+            break
+    if not ico:
+        return {}
+    try:
+        # Step 1: search by IČO
+        search_url = f"https://www.orsr.sk/hladaj_ico.asp?ICO={ico}&SID=0"
+        req = urllib.request.Request(search_url, headers={"User-Agent": "Mozilla/5.0 BILLSzuka/1.0"})
+        with urllib.request.urlopen(req, timeout=12) as r:
+            html = r.read().decode("windows-1250", errors="replace")
+        # Find first detail link
+        m = re.search(r'href="vypis\.asp\?ID=(\d+)&(?:amp;)?SID=(\d+)&(?:amp;)?P=(\d+)"', html)
+        if not m:
+            return {}
+        detail_id, sid, p = m.group(1), m.group(2), m.group(3)
+        # Step 2: get detail page
+        detail_url = f"https://www.orsr.sk/vypis.asp?ID={detail_id}&SID={sid}&P={p}"
+        req = urllib.request.Request(detail_url, headers={"User-Agent": "Mozilla/5.0 BILLSzuka/1.0"})
+        with urllib.request.urlopen(req, timeout=12) as r:
+            detail = r.read().decode("windows-1250", errors="replace")
+    except Exception:
+        return {}
+    # Step 3: extract 'Štatutárny orgán' (statutory body) section
+    idx = detail.find("Štatutárny orgán")
+    if idx < 0:
+        return {}
+    section = detail[idx:idx + 5000]
+    # Pattern: <span class='ra'> TITLE </span><a class=lnm ...> <span>FIRST</span> <span>LAST</span></a>
+    directors = re.findall(
+        r"<span class='ra'>\s*([A-Za-z\.\s]{1,15})\s*</span>\s*"
+        r"<a[^>]+>\s*<span class='ra'>\s*([^<]+)\s*</span>\s*"
+        r"<span class='ra'>\s*([^<]+)\s*</span>\s*</a>",
+        section,
+    )
+    if not directors:
+        return {}
+    # Filter out role labels (e.g. "konatelia", "konateľ", "štatutárny riaditeľ")
+    real_directors = []
+    for title, first, last in directors:
+        combined = f"{title.strip()} {first.strip()} {last.strip()}".strip()
+        # Skip if title is a role word, not a name prefix
+        if title.strip().lower() in ("konatelia", "konateľ", "konatel", "štatutárny", "štatutárny riaditeľ", "člen", "členovia"):
+            continue
+        real_directors.append(combined)
+    if not real_directors:
+        return {}
+    # Take first director
+    full_name = real_directors[0]
+    return {
+        "decydent": full_name,
+        "stanowisko": "Konateľ / Štatutárny orgán",
+        "zrodlo_danych": f"orsr.sk IČO {ico} (Obchodný register SR, Ministerstvo spravodlivosti) {detail_url}",
+    }
+
+
 def registry_decydent_ee(rejestr: str, nip: str) -> dict:
     """Extract board members from e-Äriregister (EE).
 
@@ -360,6 +426,7 @@ REGISTRY_FUNCS = {
     "CZ": registry_decydent_cz,
     "EE": registry_decydent_ee,
     "LT": registry_decydent_lt,
+    "SK": registry_decydent_sk,
 }
 
 
