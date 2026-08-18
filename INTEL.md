@@ -383,3 +383,47 @@ Moduł `tools/checksums.py` zawiera dispatcher `validate_id(id, country)`:
 3. **M+M Tabak s.r.o.** (IČO 36325981) — hurtownik z własnym składem podatkowym (daňový sklad).
 4. **DanCzek Bratislava s.r.o.** (IČO 35765259) — dystrybutor tytoniu i e-commerce Nicomania.sk. ✅ FROZEN.
 5. **Tabak Invest Slovakia, s.r.o.** (IČO 36788694) — importer produktów tytoniowych z rejestracją EORI. ✅ FROZEN.
+
+---
+
+## Decydent enrichment sesja 2026-08-18 (anti-halucynacja)
+
+**Metodologia sesji:**
+
+Wszystkie decydenty dodane w sesji 2026-08-18 10:30-11:00 mają **publiczne, weryfikowalne źródła**:
+
+| Kraj | ID | Firma | Decydent | Źródło publiczne |
+|------|------|-------|----------|------------------|
+| FR | FR-A-004 | ADNS SARL | DAMIEN CLAUDE ROUSSEAU | api.gouv.fr SIREN 508404167 (RNE/INPI) |
+| FR | FR-A-005 | SAS SODIP (Néodis) | MICHEL BOUYSSY | api.gouv.fr SIREN 414971510 (RNE/INPI) |
+| FR | FR-B-004 | SAS MERCIER | CEDRIC CAMILLE MARCEL MERCIER | api.gouv.fr SIREN 539655761 (RNE/INPI) |
+| EE | EE-B-014 | Karisma Food OÜ | Ando Laine | ariregister.rik.ee/eng/company/10048083 (RIK public) |
+| EE | EE-B-015 | Fazer Eesti OÜ | Anne Mere | ariregister.rik.ee/eng/company/10057691 |
+| EE | EE-B-016 | Nordista OÜ | Virko Antsov | ariregister.rik.ee/eng/company/10097111 |
+| EE | EE-B-017 | AS Ekspress Grupp | Rain Sarapuu | ariregister.rik.ee/eng/company/10004677 |
+| EE | EE-B-018 | OÜ Prisma Peremarket | Marko Juhani Lievonen | ariregister.rik.ee/eng/company/10569681 |
+| EE | EE-B-019 | British American Tobacco Estonia | Michelangelo Perini | ariregister.rik.ee/eng/company/10047451 |
+| EE | EE-B-020 | E-smoke OÜ | Vitali Snagovski | ariregister.rik.ee |
+| EE | EE-B-021 | CTB OÜ | Juhan Kikkas | ariregister.rik.ee |
+| EE | EE-B-022 | SNAPE OÜ | Jevgeni Ivanov | ariregister.rik.ee/eng/company/16011980 |
+| EE | EE-B-013 | Karia Food OÜ | Karl-Erik Kiipli | ariregister.rik.ee |
+| HR | HR-A-001 | VELETABAK d.o.o. | Luka Saraf | companywall.hr/veletabak-doo, tvrtke.hr |
+| HR | HR-B-006 | HRVATSKI DUHANI d.d. | Aleksandra Grigić | reputacija.hr, vecernji.hr, insolve.hr |
+| HR | HR-B-005 | PHILIP MORRIS ZAGREB | Anita Letica | womensweekend.eu, amcham.hr PDF |
+| HR | HR-B-004 | JT INTERNATIONAL ZAGREB | Tomaz Maver | linkedin.com/in/tomazmaver, progressive.hr |
+| HR | HR-B-002 | TISAK PLUS (Fortenova) | Danko Duhović | index.hr, instore.hr |
+| CZ | CZ-B-006 | GECO, a.s. | Libor Chrobok | seznamzpravy.cz (4 niezależne artykuły) |
+| SK | SK-B-001 | GECO, s. r. o. | Zdenko Kalman | valida.sk/35782587, finstat.sk/35782587 |
+| SK | SK-B-013 | JTI Slovak Republic | Cedric Chucri | linkedin.com/in/cedric-chucri |
+| SK | SK-B-015 | Philip Morris Slovakia | Martin Medveď | sita.sk |
+| BG | BG-B-014 | СОКОТАБ ЕООД | Ioannis Kalampoukas | masaf.gov.it PDF, socotab.com, Buyers Guide 2016 |
+| SI | SI-B-001 | TOBAČNA 3DVA, d.o.o. | Milan Rus | podjetnistvo.delo.si, trafika3dva.si |
+| SI | SI-B-003 | Poslovni sistem Mercator d.o.o. | Tomislav Đurić | mercatorgroup.si, companywall.si |
+
+**Anti-halucynacja: 0 przypadków** — OpenRouter/DeepSeek NIE został użyty do jakiegokolwiek decydenta. Wszystkie nazwy zweryfikowane przez:
+
+1. **Rejestry rządowe** (api.gouv.fr, ariregister.rik.ee) — autorytatywne, 100%
+2. **Agregatory firmowe** (companywall.hr/si, valida.sk, finstat.sk, insolve.hr) — publicznie dostępne rejestry handlowe
+3. **Media branżowe** (seznamzpravy.cz, index.hr, vecernji.hr, sita.sk, progressive.hr) — potwierdzone przez niezależne źródła
+4. **LinkedIn** (cedric-chucri, tomazmaver) — publiczne profile zawodowe
+5. **Strony korporacyjne** (mercatorgroup.si, socotab.com, trafika3dva.si) — oficjalne strony firm

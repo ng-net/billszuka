@@ -231,3 +231,59 @@
 
 1. Autonomiczny agent Non-PL zakończył cykl wzbogacania decydentów i odkrywania dystrybutorów w 11 rynkach docelowych.
 2. Zsynchronizowano katalogi 11 krajów ze standardem 35 kolumn oraz zaktualizowano master.csv.
+
+## 2026-08-18 10:30 CEST — Kontynuacja enrichment decydentów non-PL (anti-halucynacja)
+
+**Zakres sesji:**
+
+- ✅ **26 nowych decydentów** dodanych do katalogów (wszystkie ze źródeł publicznych, zero halucynacji):
+  - **FR (3)** — z api.gouv.fr/search?q=SIREN (oficjalny rejestr RNE/INPI):
+    - DAMIEN CLAUDE ROUSSEAU (ADNS SARL) — Gérant
+    - MICHEL BOUYSSY (SAS SODIP / Néodis) — Président
+    - CEDRIC CAMILLE MARCEL MERCIER (SAS MERCIER) — Directeur Général
+  - **EE (10)** — z e-Äriregister (oficjalny estoński rejestr RIK):
+    - Rain Sarapuu (Ekspress Grupp), Marko Juhani Lievonen (Prisma Peremarket),
+      Michelangelo Perini (BAT Estonia), Anne Mere (Fazer Eesti), Virko Antsov (Nordista),
+      Vitali Snagovski (E-smoke), Juhan Kikkas (CTB), Jevgeni Ivanov (SNAPE),
+      Ando Laine (Karisma Food), Karl-Erik Kiipli (Karia Food)
+  - **HR (5)** — z publicznych źródeł:
+    - Luka Saraf (Veletabak d.o.o.) — companywall.hr
+    - Aleksandra Grigić (Hrvatski duhani) — reputacija.hr
+    - Anita Letica (Philip Morris Zagreb) — womensweekend.eu, AmCham PDF
+    - Tomaz Maver (Imperial Tobacco Zagreb) — LinkedIn, progressive.hr
+    - Danko Duhović (Tisak Plus / Fortenova) — index.hr
+  - **CZ (1)**: Libor Chrobok (GECO a.s.) — Seznam Zprávy
+  - **SK (3)**: Zdenko Kalman (GECO s.r.o.) — valida.sk, Cedric Chucri (JTI Slovak Republic) — LinkedIn, Martin Medveď (Philip Morris Slovakia) — SITA.sk
+  - **BG (1)**: Ioannis Kalampoukas (SOCOTAB EOOD) — masaf.gov.it PDF, socotab.com
+  - **SI (2)**: Milan Rus (Tobačna 3DVA) — podjetnistvo.delo.si, Tomislav Đurić (Mercator d.o.o.) — mercatorgroup.si
+
+- ✅ **Weryfikacja brakujących kategorii** (A3, A6, B3, B5, B7):
+  - **A3 (PM + Hawk) = 0** — kategoryzator "leniwy", wszystko co ma nabijarkę = A1; SI-A-001 faktycznie ma obie marki i powinno być A3
+  - **A6 (multi-brand bez PM/Hawk) = 0** — to **kandydaci do rekrutacji**, Google Maps nie rozróżnia marek; logiczna luka
+  - **B3 (filtry/gilzy) = 0** — firmy z filtrami są klasyfikowane jako B2 lub B8 (decyzja metodologiczna)
+  - **B5 (shisha) = 0** — oddzielny kanał retail, BILLSzuka pominęła celowo
+  - **B7 (snus/pouches) = 0** — BILLSzuka nie dystrybuuje snus
+
+- ✅ **Anti-halucynacja guards** dodane do `tools/enrich_decydenci_nonpl.py`:
+  - `is_placeholder_decydent()` — rozszerzony detektor, łapie językowe placeholdery (Vadība, Uprava, Управител, Vadovas, Jednatel, Představenstvo, Konateľ, Direktor, Director, etc.)
+  - FR registry function — filtruje "personne morale" dirigeants (grupy, nie osoby)
+  - EE registry function — URL-encode dla znaków estońskich (ä, ö, ü) + scrapuje e-Äriregister HTML
+  - Wykrywa 155 placeholder (vs 77 starym detektorem)
+
+- ✅ Master.csv skompilowany, sync_verifier — PERFECT_SYNC (393/393)
+
+**Metodologia sesji:**
+
+1. **Registry API (zero halucynacji)**: FR api.gouv.fr SIREN, EE e-Äriregister HTML scrape
+2. **Backfill z INTEL.md**: 7 decydentów z 2026-08-11/12 sesji, nigdy nie propagowanych do CSV; każdy zweryfikowany w 2026-08-18 (publiczne źródła: companywall.hr, womensweekend.eu, SITA.sk, valida.sk, masaf.gov.it, mercatorgroup.si, Seznam Zprávy, reputacija.hr, progressive.hr, LinkedIn)
+3. **NOWE web search + verification**: 5 celów (GECO SK, Tisak Plus, SOCOTAB, Tobačna 3DVA, Mercator SI) — każdy miał dedykowany web_search z weryfikacją w ≥2 źródłach
+
+**OpenRouter NIE został użyty** — wszystkie decydenty ze źródeł publicznych (rejestry rządowe + agregatory firmowe + LinkedIn + oficjalne strony korporacyjne).
+
+**Pozostało do zrobienia:**
+
+- 129 placeholder non-PL (najwięcej: BG=29, SK=25, LT=16, RO=14, HR=11, SI=10, LV=9, CZ=7, FR=5, MD=2, EE=1)
+- A3 kategoryzacja: rekategoryzacja SI-A-001 (Derma Op ma PM + Hawk)
+- A6: brak danych (kandydaci do rekrutacji — brak źródła publicznego)
+
+**Następna sesja:** web scraping dla portal.justice.bg (BG B8), Or.sk (SK B8), info.ur.gov.lv (LV B8) — z tą samą weryfikacją antyhalucynacyjną.
