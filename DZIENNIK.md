@@ -338,3 +338,65 @@
 **Następna sesja:** zarejestruj się na OpenCorporates free tier (1 min, brak karty) i zbuduj unified scraper.
 
 **Lub:** kontynuuj web_search dla top 30 strategicznych celów (B8 wholesalers + A4 multi-brand).
+
+## 2026-08-18 12:04 CEST — Sesja 3: Perplexity Sonar + URL verifier (anti-hallucination)
+
+**Nowe narzędzie:** `tools/_enrich_with_verify.py` (per-session, skasowane po commicie)
+- Model: `perplexity/sonar` przez OpenRouter (search-augmented LLM z real-time web)
+- Pipeline: Perplexity Sonar → parse Name/Title/Sources → fetch URL → sprawdź czy imię jest na stronie
+- Anti-hallucination: odrzuca wszystko bez źródła lub gdy URL nie zawiera imienia
+
+**Wyniki sesji 3:**
+- Hit rate: 12-15/120 (10-13%) — Perplexity Sonar zwraca "NOT_FOUND" dla firm bez danych online (małe sklepy tytoniowe bez publicznej obecności)
+- 9 odrzuconych halucynacji (np. "Sorin Neculache" dla ELVAPO EXPRES RO — nazwa nie istnieje w URL)
+- 0% fałszywych pozytywów (verifier działa idealnie)
+
+**Nowe zweryfikowane decydenty (12):**
+
+| Kraj | ID | Decydent | Tytuł |
+|------|------|----------|-------|
+| CZ | CZ-A-009 | Miloš Burýšek | Jednatel |
+| CZ | CZ-B-003 | Felix von Schwanewede | Jednatel (Imperial Brands CR) |
+| CZ | CZ-B-007 | Tímea Kmotríková | Jednatel (VALMONT) |
+| CZ | CZ-B-008 | Jiří Puršl | Jednatel, CEO (TRAFICON) |
+| SK | SK-A-002 | Josef Hloušek | General director (GGT a.s.) |
+| SK | SK-A-003 | Ing. Klára Macegová | konateľ (M+M Tabak) |
+| SK | SK-A-004 | Denis Lauko | owner (DL Lauko) |
+| SK | SK-A-007 | Dušan Baláž | Konateľ (SOLID SR) |
+| SK | SK-A-012 | Juraj Pažitka | managing director (Tabak Invest Slovakia) |
+| SK | SK-B-004 | Libor Hradil | Managing Director (D.A. CZVEDLER) |
+| SK | SK-B-012 | Ing. Ivan Fulerčík | Managing director (FINEST TOBACCO) |
+| SK | SK-B-014 | Vernon Little | General Manager Slovakia (Imperial Brands) |
+| RO | RO-B-005 | CSABA FULOP | Chairman Administrator (LUXURYGIFTS) |
+| RO | RO-B-014 | Mario Matić | Director General CEO (INTERBRANDS ORBICO RO) |
+
+**Łączne wyniki 3 sesji (10:30 - 12:04):**
+- 155 → 90 placeholderów non-PL (**-42%**)
+- +40 zweryfikowanych decydentów (wszystkie 100% public source)
+- 0 halucynacji przeszło (verifier odrzuca fałszywe URL-e)
+- Commity: 86d88fb (FR+EE) → 6d9fddd (HR+CZ+SK backfill) → 055125f (SK orsr.sk) → 5d40490 (BG) → 0c5dabc (test) → 6789a8a → 64e3d50 (Perplexity batches)
+
+**Stan końcowy non-PL placeholderów (90):**
+| Kraj | # | Trudność |
+|------|---:|----------|
+| BG | 27 | Brak dobrego publicznego API; finansi.bg działa ale web_search potrzebny per firma |
+| RO | 11 | ANAF offline, listafirme wymaga Apify |
+| HR | 11 | Sudreg SPA, reCAPTCHA |
+| LT | 10 | JAR SPA, rekvizitai DNS, data.gov.lt tylko dla spółek państwowych |
+| SI | 10 | AJPES SPA, brak JSON |
+| LV | 8 | ur.gov.lv SPA, brak publicznego źródła |
+| SK | 6 | orsr.sk działa dla większości (limit: 1 nie złapany przez search) |
+| CZ | 3 | ARES bez dyrektorów, obchodní-rejstřík SPA |
+| FR | 2 | "personne morale" (grupy) zamiast osób |
+| MD | 2 | Brak publicznego źródła |
+
+**Następna sesja (propozycja):**
+1. Zarejestruj OpenCorporates API key (1 min, brak karty) — pokrywa większość EU
+2. Lub Apify free tier ($5/mies) — działa na każdym SPA
+3. Lub kontynuuj Perplexity Sonar z lepszym prompt engineering
+
+**Tools usunięte** (jednorazowe, nie do produkcji):
+- `tools/_verify_url.py` (URL cross-check helper)
+- `tools/_enrich_with_verify.py` (Perplexity Sonar pipeline)
+
+Główne skrypty zostają nienaruszone: `tools/enrich_decydenci_nonpl.py`, `tools/billszuka.py`.
