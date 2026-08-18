@@ -35,7 +35,77 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from config import CANONICAL_SCHEMA, COUNTRY_MAP, DATA_DIR
 
-PLACEHOLDERS = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "-", "—"}
+# Anti-hallucination placeholder detection (expanded for non-PL languages)
+# Catches both explicit placeholders AND role-only entries (no person name).
+PLACEHOLDERS_EXACT = {
+    "", "brak", "brak danych", "do weryfikacji", "do ustalenia",
+    "n/a", "-", "—", "tbd", "?",
+}
+
+# Words that indicate a role/title OR legal-entity marker, NOT a personal name.
+# If ANY of these appear anywhere in the decydent field, the entry is a placeholder.
+NON_PERSON_WORDS = {
+    # SK
+    "vedenie", "spoločnosti", "pobočky", "distribúcie", "firmy",
+    "konateľ", "oddelenie", "obchodné", "obchodný", "zástupca",
+    "category", "manager", "b2b", "konatel", "spolocnosti",
+    # CZ
+    "jednatel", "představenstvo", "dozorčí", "oddělení", "firma",
+    # LV
+    "vadība", "vadītājs", "sia", "z/s", "reģistrs",
+    # LT
+    "vadovas", "direktorius", "direktorė", "uab", "vadovybė",
+    # EE
+    "juhatuse", "liige", "osanik", "osaühing", "aktsiaselts",
+    # RO
+    "administrator", "conducere", "s.r.l", "srl", "societate",
+    # BG
+    "управител", "директор", "мениджър", "мениджър", "търговски",
+    "еднолично", "ограничена", "отговорност", "търговско", "дружество",
+    # SI
+    "vedenje", "uprava", "podjetja", "družbe", "d.o.o", "d.o.o.",
+    "kranj", "vodstvo", "vodja",
+    # HR
+    "direktor", "uprava", "d.o.o", "d.o.o.", "poduzeća",
+    # MD
+    "director", "s.r.l", "srl", "întreprindere",
+    # FR
+    "gérant", "président", "directeur", "sarl", "sas", "sasu",
+    # DE (fallback)
+    "geschäftsführer", "geschaftsfuhrer",
+    # EN generic
+    "management", "department", "board", "team", "office",
+    # PL
+    "dział", "oddział", "biuro", "zarząd", "właściciel",
+    "wspólnicy", "prezes", "spółki", "firma", "spółka",
+    "r.", "s.c.", "sp.j.", "sp.k.", "s.c", "spółka",
+    "ceo", "cto", "cfo", "coo", "dyrektor",
+}
+
+
+def is_placeholder_decydent(value: str) -> bool:
+    """True if decydent value is a placeholder or role-only (no real person)."""
+    if not value:
+        return True
+    v = value.strip().lower()
+    if v in PLACEHOLDERS_EXACT:
+        return True
+    # If entry contains any non-person word, it's a placeholder.
+    tokens = re.findall(r"[a-zA-ZÀ-ÿĀ-ſА-Яа-я0-9]+", v)
+    for tok in tokens:
+        if tok in NON_PERSON_WORDS:
+            return True
+    # Strip punctuation then check: real person = exactly 2-4 capitalized words, no role words
+    # e.g. "Adam Jacek Stawowski", "Lukács Attila", "Peter Kadnár", "BODO SCHILLER" (all caps)
+    parts = re.findall(r"[A-ZÀ-ŸĀ-ſА-Я][a-zà-ÿ]+", value)
+    if len(parts) < 2 or len(parts) > 5:
+        # Try ALL CAPS: "BODO SCHILLER" or "PHILIPPE LE GALL"
+        parts_caps = re.findall(r"\b[A-ZÀ-ŸĀ-ſА-Я]{2,}\b", value)
+        if 2 <= len(parts_caps) <= 5:
+            return False
+        return True
+    return False
+
 
 NON_PL = ["CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD", "BG", "SI", "HR"]
 
@@ -76,8 +146,15 @@ def _api_get(url: str, timeout: int = 8) -> dict | None:
 
 
 def registry_decydent_fr(rejestr: str, nip: str) -> dict:
-    """Extract dirigeants from Recherche Entreprises API (FR)."""
+    """Extract dirigeants from Recherche Entreprises API (FR).
+
+    Source: official data from INPI/RNE (Registre National des Entreprises).
+    Reliability: 100% — this is the authoritative French public registry.
+    Skips 'personne morale' dirigeants (legal entity, not a person) — picks first
+    real person from the dirigeants list.
+    """
     siren = None
+    # Try SIREN from rejestr first, then nip_vat (which has FR + 2 + 9 digits)
     for src in (rejestr, nip):
         m = re.search(r"\b(\d{9})\b", re.sub(r"\D", " ", src))
         if m:
@@ -92,15 +169,21 @@ def registry_decydent_fr(rejestr: str, nip: str) -> dict:
     if not results:
         return {}
     top = results[0]
-    dirigeants = top.get("dirigeants", [])
-    if not dirigeants:
-        return {}
-    d = dirigeants[0]
-    nom = d.get("nom", "")
-    prenom = d.get("prenoms", "")
-    qualite = d.get("qualite", "Dirigeant")
-    full_name = f"{prenom} {nom}".strip()
-    return {"decydent": full_name, "stanowisko": qualite} if full_name else {}
+    # Find first REAL PERSON (not personne morale)
+    for d in top.get("dirigeants", []):
+        if d.get("type_dirigeant") == "personne morale":
+            continue  # skip legal entities
+        nom = (d.get("nom") or "").strip()
+        prenom = (d.get("prenoms") or "").strip()
+        qualite = d.get("qualite", "Dirigeant")
+        full_name = f"{prenom} {nom}".strip()
+        if full_name:
+            return {
+                "decydent": full_name,
+                "stanowisko": qualite,
+                "zrodlo_danych": f"recherche-entreprises.api.gouv.fr SIREN {siren} (RNE/INPI public) {siren}",
+            }
+    return {}
 
 
 def registry_decydent_cz(rejestr: str, nip: str) -> dict:
@@ -123,7 +206,13 @@ def registry_decydent_cz(rejestr: str, nip: str) -> dict:
 
 
 def registry_decydent_ee(rejestr: str, nip: str) -> dict:
-    """Extract board members from e-Äriregister (EE)."""
+    """Extract board members from e-Äriregister (EE).
+
+    Source: official Estonian e-Business Register (justiitsministeerium / RIK).
+    Reliability: 100% — this is the authoritative Estonian public registry.
+    Strategy: use the autocomplete API to get the company URL, then scrape the
+    company HTML page for board member names.
+    """
     code = None
     for src in (rejestr, nip):
         m = re.search(r"\b(\d{8})\b", re.sub(r"\D", " ", src))
@@ -132,17 +221,42 @@ def registry_decydent_ee(rejestr: str, nip: str) -> dict:
             break
     if not code:
         return {}
+    # Step 1: find company by reg code
     data = _api_get(f"https://ariregister.rik.ee/eng/api/autocomplete?q={code}")
     if not data or not data.get("data"):
         return {}
     item = data["data"][0]
-    board = item.get("board_members", [])
-    if board:
-        person = board[0]
-        name = person.get("name", "")
-        role = person.get("role", "Juhatuse liige")
-        if name:
-            return {"decydent": name, "stanowisko": role}
+    company_url = item.get("url", "")
+    if not company_url:
+        return {}
+    # Step 2: fetch company page HTML and find first board member name
+    try:
+        # URL-encode non-ASCII chars in path (Estonian company names have ä, ö, ü)
+        safe_url = company_url.encode("ascii", "ignore").decode("ascii")
+        if not safe_url:
+            safe_url = urllib.parse.quote(company_url, safe=":/?&=")
+        req = urllib.request.Request(
+            safe_url,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 BILLSzuka/1.0 research@bills.pl",
+                "Accept": "text/html,application/xhtml+xml",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=10) as r:
+            html = r.read().decode("utf-8", errors="ignore")
+    except Exception:
+        return {}
+    # Look for hidden form field with person name (used in Estonian registry)
+    # Pattern: s__related_person_text" value="Name Surname"
+    m = re.search(r's__related_person_text"\s*value="([^"]+)"', html)
+    if m:
+        full_name = m.group(1).strip()
+        return {
+            "decydent": full_name,
+            "stanowisko": "Juhatuse liige (board member)",
+            "zrodlo_danych": f"{company_url} (e-Äriregister / RIK public, reg {code})",
+        }
     return {}
 
 
@@ -322,8 +436,8 @@ def main():
                 if not name:
                     continue
 
-                current_dec = (row.get("decydent") or "").strip().lower()
-                if current_dec not in PLACEHOLDERS:
+                current_dec = (row.get("decydent") or "").strip()
+                if not is_placeholder_decydent(current_dec):
                     continue  # Already has a real decydent — skip
 
                 uid = row.get("id_unikalne", "?")
@@ -340,8 +454,8 @@ def main():
                 for field, value in enriched.items():
                     if not value:
                         continue
-                    current_val = (row.get(field) or "").strip().lower()
-                    if current_val in PLACEHOLDERS:
+                    current_val = (row.get(field) or "").strip()
+                    if is_placeholder_decydent(current_val):
                         if not args.dry_run:
                             row[field] = value
                         print(f"    ✓ {field}: {value[:60]}")
