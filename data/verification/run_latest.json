@@ -1,11 +1,31 @@
 {
-  "timestamp": "2026-08-18T07:54:13.815204+00:00",
+  "timestamp": "2026-08-18T10:35:42.466381+00:00",
   "added": 0,
-  "modified": 212,
+  "modified": 393,
   "removed": 0,
-  "frozen": 212,
-  "do_weryfikacji": 0,
+  "frozen": 374,
+  "do_weryfikacji": 19,
   "results": [
+    {
+      "id": "BG-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
     {
       "id": "BG-A-002",
       "status": "FROZEN",
@@ -17,29 +37,49 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-A-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-A-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
       "id": "BG-A-007",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-A-001",
+      "id": "BG-B-014",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-A-004",
+      "id": "BG-B-016",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-024",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-023",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-015",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (Trade Register BG EIK 203284127 | melborren.bg), format NIP OK"
     },
     {
       "id": "BG-B-009",
@@ -47,7 +87,17 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-B-006",
+      "id": "BG-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-022",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-017",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -62,12 +112,7 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-022",
+      "id": "BG-B-001",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -77,67 +122,12 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
+      "id": "BG-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
       "id": "BG-B-026",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-024",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-019",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-017",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-025",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-027",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -147,14 +137,29 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-B-023",
+      "id": "BG-B-019",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-B-007",
+      "id": "BG-B-025",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-012",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "BG-B-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (Trade Register BG EIK 200434116 | izamar.bg), format NIP OK"
     },
     {
       "id": "BG-B-018",
@@ -162,34 +167,204 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "BG-B-004",
+      "id": "BG-B-013",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-A-009",
+      "id": "BG-B-027",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-A-004",
+      "id": "HR-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-A-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-A-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-A-001",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-A-010",
+      "id": "HR-A-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-004",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-A-007",
+      "id": "HR-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-005",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-A-008",
+      "id": "HR-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-002",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "HR-B-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "HR-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-A-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-A-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-A-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES 29154529 | VIES CZ29154529 | dobra-trafika.com; OpenRouter DeepSeek WebScrape), format NIP OK"
+    },
+    {
+      "id": "CZ-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES Live API + Živnostenský rejstřík (IČO 45410003)), format NIP OK"
+    },
+    {
+      "id": "CZ-A-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-B-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "CZ-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ARES 26293609 | VIES CZ26293609 | ggtabak.cz), format NIP OK"
+    },
+    {
+      "id": "CZ-B-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15; OpenRouter DeepSeek WebScrape), format NIP OK"
+    },
+    {
+      "id": "CZ-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "CZ-B-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK"
+    },
+    {
+      "id": "EE-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (e-Äriregister 12437648 | KMKR EE101633519 | veipland.ee; nicorex.eu (public) 2026-08-18), format NIP OK"
     },
     {
       "id": "EE-A-006",
@@ -199,105 +374,50 @@
     {
       "id": "EE-A-005",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (e-Äriregister 10310368 | KMKR EE100069352 | prike.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + prikeshop.lt (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-A-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + teatmik.ee (public) 2026-08-18), format NIP OK"
     },
     {
       "id": "EE-A-003",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + e-krediidiinfo.ee (public) 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-B-020",
+      "id": "EE-A-008",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-B-010",
+      "id": "EE-A-009",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-B-026",
+      "id": "EE-A-010",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "EE-B-012",
+      "id": "EE-B-009",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-023",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-021",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (e-Äriregister 16512038 | KMKR EE102501892 | hinnapomm.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + kaubandus.ee (public) 2026-08-18), format NIP OK"
     },
     {
       "id": "EE-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-025",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-011",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -307,32 +427,117 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
+      "id": "EE-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-022",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (https://ariregister.rik.ee/eng/company/16011980/SNAPE-OÜ (e-Äriregister / RIK public, reg 16011980)), format NIP OK"
+    },
+    {
+      "id": "EE-B-018",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (https://ariregister.rik.ee/eng/company/10569681/AS-Prisma-Peremarket (e-Äriregister / RIK public, reg 10569681)), format NIP OK"
+    },
+    {
+      "id": "EE-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-012",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-016",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-025",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-026",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-015",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-013",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-020",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-017",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (https://ariregister.rik.ee/eng/company/10004677/Aktsiaselts-Ekspress-Grupp (e-Äriregister / RIK public, reg 10004677)), format NIP OK"
+    },
+    {
       "id": "EE-B-005",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "FR-A-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (SIRENE / Recherche Entreprises (SIREN 539655761)), format NIP OK"
-    },
-    {
-      "id": "FR-A-009",
+      "id": "EE-B-001",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "FR-A-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (SIRENE / Recherche Entreprises (SIREN 753702018)), format NIP OK"
-    },
-    {
-      "id": "FR-A-005",
+      "id": "EE-B-014",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "FR-A-007",
+      "id": "EE-B-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; e-krediidiinfo.ee + teatmik.ee (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-021",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-023",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "EE-B-024",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (e-Äriregister 10588558 | KMKR EE100569797 | rrk.ee), format NIP OK"
+    },
+    {
+      "id": "EE-B-011",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -342,12 +547,32 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
+      "id": "FR-A-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-A-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
       "id": "FR-A-002",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "FR-A-008",
+      "id": "FR-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-A-009",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -357,42 +582,7 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "FR-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-004",
+      "id": "FR-A-008",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -407,7 +597,42 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
+      "id": "FR-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-B-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
       "id": "FR-B-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "FR-B-003",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -417,7 +642,7 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "LT-A-005",
+      "id": "FR-B-012",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -427,7 +652,32 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
+      "id": "LT-A-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; registrucentras.lt + okredo.com (public) 2026-08-18), format NIP OK"
+    },
+    {
       "id": "LT-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-A-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (JAR (Registrų Centras) JAR 306340639 | VIES LT100013400211), format NIP OK"
+    },
+    {
+      "id": "LT-A-011",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -437,22 +687,7 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "LT-A-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "LT-A-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "LT-A-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "LT-A-006",
+      "id": "LT-A-008",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -463,6 +698,41 @@
     },
     {
       "id": "LT-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; NTAKD / lrv.lt (official government registry) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-B-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LT-B-007",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -477,49 +747,99 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "LT-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
       "id": "LT-B-002",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; mvgroup.eu + okredo.com (public) 2026-08-18), format NIP OK"
     },
     {
-      "id": "LT-B-004",
+      "id": "MD-A-002",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1002600010996)), format NIP OK"
     },
     {
-      "id": "LT-B-005",
+      "id": "MD-A-003",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600076809)), format NIP OK"
     },
     {
-      "id": "LT-B-001",
+      "id": "MD-A-001",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1014600025721)), format NIP OK"
     },
     {
-      "id": "LT-B-007",
+      "id": "MD-A-004",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1020600018613)), format NIP OK"
     },
     {
-      "id": "PL-A-005",
+      "id": "MD-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1005600051817)), format NIP OK"
+    },
+    {
+      "id": "MD-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600007603)), format NIP OK"
+    },
+    {
+      "id": "MD-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600017637)), format NIP OK"
+    },
+    {
+      "id": "PL-A-009",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-A-022",
+      "id": "PL-A-027",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API (KRS 0000966964)), format NIP OK"
     },
     {
       "id": "PL-A-018",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-A-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 1132559176)), format NIP OK"
+    },
+    {
+      "id": "PL-A-012",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 6312426137)), format NIP OK"
+    },
+    {
+      "id": "PL-A-020",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK"
+    },
+    {
+      "id": "PL-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-A-016",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 1132986837)), format NIP OK"
+    },
+    {
+      "id": "PL-A-017",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-A-021",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 6852336998)), format NIP OK"
     },
     {
       "id": "PL-A-026",
@@ -532,19 +852,49 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-A-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API (KRS 0000845347)), format NIP OK"
-    },
-    {
-      "id": "PL-A-009",
+      "id": "PL-A-008",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-A-017",
+      "id": "PL-A-015",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 4990696800)), format NIP OK"
+    },
+    {
+      "id": "PL-A-019",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "PL-A-024",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 9492162686)), format NIP OK"
+    },
+    {
+      "id": "PL-A-005",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-A-031",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 8513011898 | REGON 320355681 | cigarro.pl (op. IGUANA SP. K. NIP 1251380928)), format NIP OK"
+    },
+    {
+      "id": "PL-A-028",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 5860008825)), format NIP OK"
+    },
+    {
+      "id": "PL-A-023",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API (KRS 0000940388)), format NIP OK"
+    },
+    {
+      "id": "PL-A-025",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 9462453893)), format NIP OK"
     },
     {
       "id": "PL-A-001",
@@ -552,54 +902,44 @@
       "reason": "Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK"
     },
     {
+      "id": "PL-A-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+    },
+    {
+      "id": "PL-A-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 5422935796)), format NIP OK"
+    },
+    {
+      "id": "PL-A-022",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-A-030",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES PL949192250 | CEIDG | primarket.pl), format NIP OK"
+    },
+    {
+      "id": "PL-A-013",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API (KRS 0000845347)), format NIP OK"
+    },
+    {
+      "id": "PL-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 5922192789)), format NIP OK"
+    },
+    {
+      "id": "PL-A-029",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (VIES PL8172183841 | KRS API | zolta.pl), format NIP OK"
+    },
+    {
       "id": "PL-A-003",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK"
-    },
-    {
-      "id": "PL-A-027",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API (KRS 0000966964)), format NIP OK"
-    },
-    {
-      "id": "PL-A-020",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-117",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK"
-    },
-    {
-      "id": "PL-B-105",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK"
-    },
-    {
-      "id": "PL-B-077",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000010839 | REGON 290141690), format NIP OK"
-    },
-    {
-      "id": "PL-B-028",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-019",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK"
-    },
-    {
-      "id": "PL-B-106",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000754422 | REGON 381647890), format NIP OK"
-    },
-    {
-      "id": "PL-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK"
     },
     {
       "id": "PL-B-093",
@@ -607,9 +947,74 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-012",
+      "id": "PL-B-118",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-035",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-057",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 8731006509), format NIP OK"
+    },
+    {
+      "id": "PL-B-034",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK"
+    },
+    {
+      "id": "PL-B-025",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK"
+    },
+    {
+      "id": "PL-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK"
+    },
+    {
+      "id": "PL-B-074",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK"
+    },
+    {
+      "id": "PL-B-052",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000085800 | CEIDG), format NIP OK"
+    },
+    {
+      "id": "PL-B-027",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-103",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-087",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-016",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK"
+    },
+    {
+      "id": "PL-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK"
     },
     {
       "id": "PL-B-015",
@@ -617,24 +1022,49 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK"
     },
     {
-      "id": "PL-B-059",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000213765 | eurocash.pl), format NIP OK"
-    },
-    {
-      "id": "PL-B-085",
+      "id": "PL-B-056",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-083",
+      "id": "PL-B-077",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000010839 | REGON 290141690), format NIP OK"
+    },
+    {
+      "id": "PL-B-021",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK"
+    },
+    {
+      "id": "PL-B-030",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK"
+    },
+    {
+      "id": "PL-B-111",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-114",
+      "id": "PL-B-107",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK"
+      "reason": "Źródło oficjalne (KRS 0000858000 | REGON 386923450), format NIP OK"
+    },
+    {
+      "id": "PL-B-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK"
+    },
+    {
+      "id": "PL-B-122",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+    },
+    {
+      "id": "PL-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK"
     },
     {
       "id": "PL-B-017",
@@ -642,69 +1072,74 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK"
     },
     {
-      "id": "PL-B-044",
+      "id": "PL-B-102",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK"
+    },
+    {
+      "id": "PL-B-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK"
+    },
+    {
+      "id": "PL-B-029",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-042",
+      "id": "PL-B-055",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "reason": "Źródło oficjalne (CEIDG NIP 7580003310), format NIP OK"
     },
     {
-      "id": "PL-B-018",
+      "id": "PL-B-106",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK"
+      "reason": "Źródło oficjalne (KRS 0000754422 | REGON 381647890), format NIP OK"
     },
     {
-      "id": "PL-B-075",
+      "id": "PL-B-037",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000045612 | markowecygara.pl), format NIP OK"
+      "reason": "Źródło oficjalne (CEIDG NIP 5630011137), format NIP OK"
     },
     {
-      "id": "PL-B-067",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-047",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-065",
+      "id": "PL-B-119",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "PL-B-120",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
-    },
-    {
-      "id": "PL-B-032",
+      "id": "PL-B-069",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-014",
+      "id": "PL-B-125",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "PL-B-038",
+      "id": "PL-B-100",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000109132 | REGON 910945070), format NIP OK"
+      "reason": "Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK"
     },
     {
-      "id": "PL-B-066",
+      "id": "PL-B-092",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "PL-B-121",
+      "id": "PL-B-003",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK"
+    },
+    {
+      "id": "PL-B-104",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-117",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK"
     },
     {
       "id": "PL-B-013",
@@ -712,17 +1147,157 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK"
     },
     {
-      "id": "PL-B-051",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK"
-    },
-    {
-      "id": "PL-B-061",
+      "id": "PL-B-045",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-045",
+      "id": "PL-B-049",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK"
+    },
+    {
+      "id": "PL-B-088",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-059",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000213765 | eurocash.pl), format NIP OK"
+    },
+    {
+      "id": "PL-B-110",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000181515 | REGON 812674890), format NIP OK"
+    },
+    {
+      "id": "PL-B-028",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-060",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-094",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000125866 | REGON 192778840), format NIP OK"
+    },
+    {
+      "id": "PL-B-040",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 5992541456 | REGON 211001648), format NIP OK"
+    },
+    {
+      "id": "PL-B-020",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK"
+    },
+    {
+      "id": "PL-B-018",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK"
+    },
+    {
+      "id": "PL-B-070",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-084",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-113",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK"
+    },
+    {
+      "id": "PL-B-095",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (REGON 527658007 | NIP 9282109875 | twojepapierosy.pl), format NIP OK"
+    },
+    {
+      "id": "PL-B-044",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-068",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-076",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000049457 | milo.com.pl), format NIP OK"
+    },
+    {
+      "id": "PL-B-067",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-031",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 9462539270 | REGON 060299794), format NIP OK"
+    },
+    {
+      "id": "PL-B-091",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000305881 | donmarco.pl), format NIP OK"
+    },
+    {
+      "id": "PL-B-097",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK"
+    },
+    {
+      "id": "PL-B-090",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-105",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK"
+    },
+    {
+      "id": "PL-B-078",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 6640003463), format NIP OK"
+    },
+    {
+      "id": "PL-B-033",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 5862226779)), format NIP OK"
+    },
+    {
+      "id": "PL-B-098",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK"
+    },
+    {
+      "id": "PL-B-081",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-054",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK"
+    },
+    {
+      "id": "PL-B-023",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK"
+    },
+    {
+      "id": "PL-B-062",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
@@ -732,19 +1307,59 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
     },
     {
-      "id": "PL-B-112",
+      "id": "PL-B-101",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000524433 | jameshawk.pl), format NIP OK"
+      "reason": "Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK"
     },
     {
-      "id": "PL-B-053",
+      "id": "PL-B-046",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK"
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK"
     },
     {
-      "id": "PL-B-108",
+      "id": "PL-B-075",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000045612 | markowecygara.pl), format NIP OK"
+    },
+    {
+      "id": "PL-B-024",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK"
+    },
+    {
+      "id": "PL-B-123",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG API (NIP 6691802158)), format NIP OK"
+    },
+    {
+      "id": "PL-B-073",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK"
+    },
+    {
+      "id": "PL-B-126",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-058",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 8461001460), format NIP OK"
+    },
+    {
+      "id": "PL-B-080",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 7590004724), format NIP OK"
+    },
+    {
+      "id": "PL-B-012",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK"
     },
     {
       "id": "PL-B-050",
@@ -752,29 +1367,14 @@
       "reason": "Źródło oficjalne (KRS 0000308003 | REGON 340456100), format NIP OK"
     },
     {
-      "id": "PL-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK"
-    },
-    {
-      "id": "PL-B-030",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK"
-    },
-    {
-      "id": "PL-B-004",
+      "id": "PL-B-039",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-116",
+      "id": "PL-B-041",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK"
-    },
-    {
-      "id": "PL-B-025",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
       "id": "PL-B-115",
@@ -782,24 +1382,79 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
     },
     {
-      "id": "PL-B-101",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK"
-    },
-    {
-      "id": "PL-B-060",
+      "id": "PL-B-042",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-062",
+      "id": "PL-B-064",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-100",
+      "id": "PL-B-066",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-121",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
+    },
+    {
+      "id": "PL-B-065",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "PL-B-036",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-019",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK"
+    },
+    {
+      "id": "PL-B-116",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK"
+    },
+    {
+      "id": "PL-B-053",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK"
+    },
+    {
+      "id": "PL-B-022",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 6450008134), format NIP OK"
+    },
+    {
+      "id": "PL-B-032",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-071",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-096",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK"
+    },
+    {
+      "id": "PL-B-108",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
       "id": "PL-B-026",
@@ -807,32 +1462,12 @@
       "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK"
     },
     {
-      "id": "PL-B-113",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK"
-    },
-    {
-      "id": "PL-B-034",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK"
-    },
-    {
-      "id": "PL-B-068",
+      "id": "PL-B-047",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-027",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-111",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-084",
+      "id": "PL-B-043",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
@@ -842,22 +1477,17 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "PL-B-110",
+      "id": "PL-B-038",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000181515 | REGON 812674890), format NIP OK"
+      "reason": "Źródło oficjalne (KRS 0000109132 | REGON 910945070), format NIP OK"
     },
     {
-      "id": "PL-B-056",
+      "id": "PL-B-114",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "reason": "Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK"
     },
     {
-      "id": "PL-B-087",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "PL-B-088",
+      "id": "PL-B-061",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
@@ -867,32 +1497,82 @@
       "reason": "Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK"
     },
     {
-      "id": "PL-B-023",
+      "id": "PL-B-085",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-107",
+      "id": "PL-B-109",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS 0000858000 | REGON 386923450), format NIP OK"
+      "reason": "Źródło oficjalne (KRS 0000554433 | REGON 140123450), format NIP OK"
     },
     {
-      "id": "PL-B-098",
+      "id": "PL-B-086",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     },
     {
-      "id": "PL-B-046",
+      "id": "PL-B-120",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK"
     },
     {
-      "id": "PL-B-102",
+      "id": "PL-B-089",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-A-001",
+      "id": "PL-B-051",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK"
+    },
+    {
+      "id": "PL-B-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK"
+    },
+    {
+      "id": "PL-B-072",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-014",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK"
+    },
+    {
+      "id": "PL-B-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK"
+    },
+    {
+      "id": "PL-B-063",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-083",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "PL-B-079",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (CEIDG NIP 7310007883), format NIP OK"
+    },
+    {
+      "id": "PL-B-112",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000524433 | jameshawk.pl), format NIP OK"
+    },
+    {
+      "id": "PL-B-048",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS 0000203325 | selgros.pl), format NIP OK"
+    },
+    {
+      "id": "RO-A-006",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -904,10 +1584,10 @@
     {
       "id": "RO-A-003",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; omnibus.ro + termene.ro (public) 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-A-007",
+      "id": "RO-A-002",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -917,42 +1597,37 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-A-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "RO-A-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
       "id": "RO-A-008",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-B-011",
+      "id": "RO-A-001",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; kompass.com + datasrl.ro (public) 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-B-012",
+      "id": "RO-A-007",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
       "id": "RO-B-010",
       "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; romania-insider.com + amcham.ro (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "RO-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (ONRC J40/2867/2004 | CUI 16173644 | București), format NIP OK"
     },
     {
       "id": "RO-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.northdata.de/Vincom%20Distribution%20Srl | match_count=4 | conf=high | 2026-08-18"
     },
     {
-      "id": "RO-B-006",
+      "id": "RO-B-012",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -962,7 +1637,17 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-B-002",
+      "id": "RO-B-015",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "RO-B-014",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://modernbuyer.ro/mario-matic-este-noul-director-general-al-echipei-interbrands-orbico-romania/ | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "RO-B-004",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -972,27 +1657,12 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-B-014",
+      "id": "RO-B-002",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "RO-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "RO-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "RO-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "RO-B-009",
+      "id": "RO-B-006",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -1002,7 +1672,187 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
+      "id": "RO-B-009",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://startupcafe.ro/clienti-firme-romanesti-comert-online-bani-lipsa-carduri-amenda-gdpr-magazin-atacat-cibernetic-87125 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "RO-B-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; moodiedavittreport.com + imperial-tobacco.pl (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "RO-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "SK-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-A-008",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2020221621 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-A-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.lauko.sk/en/contact | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-007",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.finreg.sk/subjekt/2023071325 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-012",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/firma/561699/tabak-invest-slovakia-s-r-o/ | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-013",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.slideshare.net/slideshow/prezentacia-spolocnosti-fajka-sro-14647399/14647399 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-A-014",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-A-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-A-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2022104348 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; OpenRouter DeepSeek WebScrape; smokeshop.sk/staff (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "SK-A-015",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-A-002",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://ggtabak.sk/contact-us/director | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-A-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-014",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.sita.sk/imperial-tobacco-slovakia-meni-svoj-obchodny-nazov-nove-oznacenie-prepaja-lokalnu-identitu-s-globalnou-znackou/ | match_count=1 | conf=medium | 2026-08-18"
+    },
+    {
+      "id": "SK-B-013",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: linkedin.com/in/cedric-chucri (2026-08-18, June 2025 - Present Country Manager JTI Slovak Republic) | INTEL.md 2026-08-18"
+    },
+    {
+      "id": "SK-B-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-015",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: sita.sk/.../novym-generalnym-riaditelom-philip-morris-na-slovensku-sa-stal-martin-medved (2026-08-18) | INTEL.md 2026-08-11"
+    },
+    {
+      "id": "SK-B-011",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-012",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://vestnikonline.sk/records/detail/3652597 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: valida.sk/35782587 (2026-08-18, GECO s.r.o. IČO 35782587) | finstat.sk/35782587 (2026-08-18)"
+    },
+    {
+      "id": "SK-B-010",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/katalog/tabakove-vyrobky-a-fajciarske-potreby-internetove-obchody/2/ | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "SK-B-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "SK-B-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
       "id": "SI-A-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "SI-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "SI-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "SI-A-002",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
@@ -1022,34 +1872,9 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "SI-A-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-A-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-A-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "SI-B-001",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: podjetnistvo.delo.si/.../trafika-ko-casopisi-in-tobak (2026-08-18) | trafika3dva.si/O-nas (2026-08-18)"
     },
     {
       "id": "SI-B-002",
@@ -1062,9 +1887,89 @@
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
     },
     {
-      "id": "SI-B-001",
+      "id": "SI-B-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (AJPES 1833286000 | VIES SI54717647 | bat.com), format NIP OK"
+    },
+    {
+      "id": "SI-B-003",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: mercatorgroup.si/.../mercator (2026-08-18) | companywall.si/podjetje/mercator-doo (2026-08-18)"
+    },
+    {
+      "id": "SI-B-008",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (AJPES 7041772000 | VIES SI48939223 | qvapehouse.com), format NIP OK"
+    },
+    {
+      "id": "SI-B-009",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (AJPES 6734127000 | VIES SI87241285 | vape-zp.si), format NIP OK"
+    },
+    {
+      "id": "SI-B-006",
       "status": "FROZEN",
       "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "SI-B-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LV-A-004",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "LV-A-005",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "LV-A-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; 1188.lv + saltpoint.eu (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LV-A-006",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "LV-A-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "LV-A-007",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "LV-A-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; firmas.lv + db.lv (public) 2026-08-18), format NIP OK"
+    },
+    {
+      "id": "LV-B-004",
+      "status": "DO-WERYFIKACJI",
+      "reason": "Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://datreal.com/lv/lv/company/50003997841 | match_count=4 | conf=high | 2026-08-18"
+    },
+    {
+      "id": "LV-B-002",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+    },
+    {
+      "id": "LV-B-001",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+    },
+    {
+      "id": "LV-B-003",
+      "status": "FROZEN",
+      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
     }
   ]
 }

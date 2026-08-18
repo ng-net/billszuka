@@ -54,3 +54,4 @@ data/verification/vies_*.json
 
 # BILLSzuka pre-clean snapshots (intermediate states from cleanup scripts)
 data/**/catalog-*-pre-*.csv
+data/.pre-clean-notatki/

@@ -1,5 +1,53 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-18 — Cleanup kolumny `notatki` + migracje do innych kolumn (Marceli request)
+
+**Operator:** Marceli  
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o przejrzenie kolumny `notatki` w `master.csv` oraz we wszystkich 12 folderach krajów i usunięcie duplikatów oraz noise, tak żeby notatki zawierały TYLKO informacje których nie ma w innych kolumnach. Dodatkowo — jeśli z `notatki` da się wyciągnąć dane których brakuje w innych kolumnach, też to zrobić.
+
+**Wykonane:**
+
+1. **Analiza (393 wierszy w master, 392 z niepustym notatki):**
+   - Zidentyfikowane 3 kategorie notatki:
+     - `pure_emoji_flag` (1): tylko `✅🐋` — duplikat `flagi`
+     - `pure_structured` (69): tylko `orig_uzasadnienie`/`orig_uwagi`/`orig_next`/`Status źródłowy`/`user_orig_*`/`renamed` — noise z intake
+     - `mixed` (9): structured + free-form
+     - `pure_freeform` (313): czyste notatki, czasem z duplikatami z kolumn (NIP, KRS, REGON, miasto)
+
+2. **Narzędzie:** `tools/clean_notatki.py` (country-aware, dry-run + apply)
+   - **Strip:** structured metadata (orig_*, user_orig_*, renamed, tier-fix) + emoji-only + duplikaty NIP/KRS/REGON/miasto/region
+   - **Migrate:** `decydent` (z "Dział eksportu: Name"), `miasto` (z "siedziba/magazyn w X"), `rok_zalozenia` (z "Rejestracja YYYY"), `marki_nabijarki` (z nazw marek w tekście), `wolumen` (z "Sieć X+ sklepów")
+   - **Country-aware:** KRS/NIP/REGON dedup tylko PL (żeby nie pomylić EE reg_code 8-cyfr, BG EIK 9-cyfr, etc.)
+
+3. **Wyniki (zastosowane):**
+   - Pliki: 24/24 catalog + master.csv (recompilowany)
+   - Wierszy zmienionych: 102
+   - Migracji: 3 (2 × `rok_zalozenia` dla PL-A-003 E-TABAK i PL-B-035 FHU Patryk Koksztys; 1 × `marki_nabijarki='OCB'` dla RO-A-004 SC Golden Tip)
+   - `notatki` empty: 1 → 67 (czyste po strip)
+   - PL-B size reduction: 24,856 → 7,060 chars (-71.6%)
+   - 0 utraconych istotnych danych (sprawdzone 4 czyste pliki non-PL)
+   - FROZEN status: 374/393 (95.2%) — bez zmian
+   - Verify-data: passed
+
+4. **Pliki zmienione (kto i ile):**
+   - `data/Polska/catalog-A-PL.csv`: 27 wierszy zmienionych, 1 migracja
+   - `data/Polska/catalog-B-PL.csv`: 71 wierszy zmienionych, 1 migracja
+   - `data/Estonia/catalog-B-EE.csv`: 3 wiersze (Harju maakond strip + 2 whitespace)
+   - `data/Rumunia/catalog-A-RO.csv`: 1 wiersz, 1 migracja (OCB)
+   - Inne 20 plików: brak zmian (czyste od początku)
+
+5. **Backup:** `data/.pre-clean-notatki/20260818T122754/` — pełny snapshot master.csv + 24 catalogs sprzed zmian (rollback w razie czego).
+
+6. **Audit log:** wpis dodany w `data/audit-log.md` 2026-08-18 12:28.
+
+**Następne kroki:**
+- Re-run `tools/clean_notatki.py --apply` jest no-op (idempotent)
+- Jeśli Marceli chce agresywniejszej deduplikacji (np. wywalić też "KRS API:" label całkowicie, albo zostawić tylko 1 zdanie z całego notatki) — dodać flagi
+- Rozważyć: czy `notatki` w ogóle potrzebne gdy `zrodlo_danych` + `flagi` już istnieją? Na razie zostawiamy — free-form ma wartość dla research (np. "Dział eksportu: Marta Szałajda" jest unique).
+
+---
 ## 2026-08-17 — Przegląd, modernizacja i głębokie czyszczenie projektu
 
 **Operator:** Marceli  
@@ -400,3 +448,11 @@
 - `tools/_enrich_with_verify.py` (Perplexity Sonar pipeline)
 
 Główne skrypty zostają nienaruszone: `tools/enrich_decydenci_nonpl.py`, `tools/billszuka.py`.
+
+
+## 2026-08-18 12:35 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **374/393 (95.2%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **393 wierszy** we wszystkich katalogach regionalnych.

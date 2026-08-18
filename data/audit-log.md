@@ -22535,3 +22535,1335 @@ Per task: trust Marceli's existing API verification, mark FROZEN.
 - **SI-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
 
 **Run summary:** 0 added, 212 modified, 0 removed — 212 FROZEN, 0 DO-WERYFIKACJI
+
+## 2026-08-18 12:28
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 7 wpisów
+- catalog-A-CZ.csv: 9 wpisów
+- catalog-A-EE.csv: 10 wpisów
+- catalog-A-FR.csv: 9 wpisów
+- catalog-A-HR.csv: 8 wpisów
+- catalog-A-LT.csv: 12 wpisów
+- catalog-A-LV.csv: 7 wpisów
+- catalog-A-MD.csv: 5 wpisów
+- catalog-A-PL.csv: 31 wpisów
+- catalog-A-RO.csv: 8 wpisów
+- catalog-A-SI.csv: 7 wpisów
+- catalog-A-SK.csv: 15 wpisów
+- catalog-B-BG.csv: 27 wpisów
+- catalog-B-CZ.csv: 9 wpisów
+- catalog-B-EE.csv: 26 wpisów
+- catalog-B-FR.csv: 12 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-LT.csv: 9 wpisów
+- catalog-B-LV.csv: 4 wpisów
+- catalog-B-MD.csv: 2 wpisów
+- catalog-B-PL.csv: 126 wpisów
+- catalog-B-RO.csv: 15 wpisów
+- catalog-B-SI.csv: 9 wpisów
+- catalog-B-SK.csv: 15 wpisów
+
+### ✅ FROZEN
+- **BG-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-005**: Źródło oficjalne (Trade Register BG EIK 200434116 | izamar.bg), format NIP OK
+- **BG-B-015**: Źródło oficjalne (Trade Register BG EIK 203284127 | melborren.bg), format NIP OK
+- **BG-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-A-006**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-008**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-003**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-005**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-007**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-004**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-002**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-010**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-003**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-007**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-001**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-009**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-011**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-008**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **CZ-A-003**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-007**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-006**: Źródło oficjalne (ARES 29154529 | VIES CZ29154529 | dobra-trafika.com; OpenRouter DeepSeek WebScrape), format NIP OK
+- **CZ-A-002**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-004**: Źródło oficjalne (ARES Live API + Živnostenský rejstřík (IČO 45410003)), format NIP OK
+- **CZ-A-001**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-008**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-009**: Źródło oficjalne (VIES Live API + ARES 2026-08-15; OpenRouter DeepSeek WebScrape), format NIP OK
+- **CZ-B-005**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-002**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-001**: Źródło oficjalne (ARES 26293609 | VIES CZ26293609 | ggtabak.cz), format NIP OK
+- **CZ-B-004**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **EE-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-001**: Źródło oficjalne (e-Äriregister 10310368 | KMKR EE100069352 | prike.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + prikeshop.lt (public) 2026-08-18), format NIP OK
+- **EE-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-006**: Źródło oficjalne (Perplexity Sonar (OpenRouter) VERIFIED via https://ariregister.rik.ee/eng/company/14616816 | match_count=3 | conf=high | 2026-08-18), format NIP OK
+- **EE-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + e-krediidiinfo.ee (public) 2026-08-18), format NIP OK
+- **EE-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + teatmik.ee (public) 2026-08-18), format NIP OK
+- **EE-A-002**: Źródło oficjalne (e-Äriregister 12437648 | KMKR EE101633519 | veipland.ee; nicorex.eu (public) 2026-08-18), format NIP OK
+- **EE-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-022**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/16011980/SNAPE-OÜ (e-Äriregister / RIK public, reg 16011980)), format NIP OK
+- **EE-B-017**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/10004677/Aktsiaselts-Ekspress-Grupp (e-Äriregister / RIK public, reg 10004677)), format NIP OK
+- **EE-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-018**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/10569681/AS-Prisma-Peremarket (e-Äriregister / RIK public, reg 10569681)), format NIP OK
+- **EE-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-B-024**: Źródło oficjalne (e-Äriregister 10588558 | KMKR EE100569797 | rrk.ee), format NIP OK
+- **EE-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-009**: Źródło oficjalne (e-Äriregister 16512038 | KMKR EE102501892 | hinnapomm.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + kaubandus.ee (public) 2026-08-18), format NIP OK
+- **EE-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; e-krediidiinfo.ee + teatmik.ee (public) 2026-08-18), format NIP OK
+- **EE-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; registrucentras.lt + okredo.com (public) 2026-08-18), format NIP OK
+- **LT-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; NTAKD / lrv.lt (official government registry) 2026-08-18), format NIP OK
+- **LT-A-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-008**: Źródło oficjalne (Perplexity Sonar (OpenRouter) VERIFIED via https://rekvizitai.vz.lt/en/company/n33/ | match_count=4 | conf=high | 2026-08-18), format NIP OK
+- **LT-A-010**: Źródło oficjalne (JAR (Registrų Centras) JAR 306340639 | VIES LT100013400211), format NIP OK
+- **LT-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-005**: Źródło oficjalne (Perplexity Sonar (OpenRouter) VERIFIED via https://rekvizitai.vz.lt/en/company/trenk_lt/ | match_count=4 | conf=high | 2026-08-18), format NIP OK
+- **LT-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-008**: Źródło oficjalne (Perplexity Sonar (OpenRouter) VERIFIED via https://www.lovejob.lt/imone/213147/liteksportas/kestutis-babaliauskas | match_count=4 | conf=high | 2026-08-18), format NIP OK
+- **LT-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; mvgroup.eu + okredo.com (public) 2026-08-18), format NIP OK
+- **LT-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-007**: Źródło oficjalne (Perplexity Sonar (OpenRouter) VERIFIED via https://rekvizitai.vz.lt/en/company/vinges_terminalas/ | match_count=4 | conf=high | 2026-08-18), format NIP OK
+- **LT-B-006**: Źródło oficjalne (JAR (Registrų Centras) JAR: 303015964 | VIES LT100007870911), format NIP OK
+- **LT-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-001**: Źródło oficjalne (Perplexity Sonar (OpenRouter) VERIFIED via https://rekvizitai.vz.lt/en/company/sanitex_bendra_lietuvos_jav_imone_uab/manager/ | match_count=4 | conf=high | 2026-08-18), format NIP OK
+- **MD-A-003**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600076809)), format NIP OK
+- **MD-A-001**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1014600025721)), format NIP OK
+- **MD-A-005**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1005600051817)), format NIP OK
+- **MD-A-002**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1002600010996)), format NIP OK
+- **MD-A-004**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1020600018613)), format NIP OK
+- **MD-B-002**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600007603)), format NIP OK
+- **MD-B-001**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600017637)), format NIP OK
+- **PL-A-003**: Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK
+- **PL-A-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-012**: Źródło oficjalne (CEIDG API (NIP 6312426137)), format NIP OK
+- **PL-A-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-002**: Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK
+- **PL-A-021**: Źródło oficjalne (CEIDG API (NIP 6852336998)), format NIP OK
+- **PL-A-025**: Źródło oficjalne (CEIDG API (NIP 9462453893)), format NIP OK
+- **PL-A-011**: Źródło oficjalne (CEIDG API (NIP 5422935796)), format NIP OK
+- **PL-A-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK
+- **PL-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-027**: Źródło oficjalne (KRS API (KRS 0000966964)), format NIP OK
+- **PL-A-026**: Źródło oficjalne (KRS API (KRS 0000827289)), format NIP OK
+- **PL-A-013**: Źródło oficjalne (KRS API (KRS 0000845347)), format NIP OK
+- **PL-A-007**: Źródło oficjalne (CEIDG API (NIP 1132559176)), format NIP OK
+- **PL-A-023**: Źródło oficjalne (KRS API (KRS 0000940388)), format NIP OK
+- **PL-A-030**: Źródło oficjalne (VIES PL949192250 | CEIDG | primarket.pl), format NIP OK
+- **PL-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-015**: Źródło oficjalne (CEIDG API (NIP 4990696800)), format NIP OK
+- **PL-A-016**: Źródło oficjalne (CEIDG API (NIP 1132986837)), format NIP OK
+- **PL-A-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-004**: Źródło oficjalne (CEIDG API (NIP 5922192789)), format NIP OK
+- **PL-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-A-028**: Źródło oficjalne (CEIDG API (NIP 5860008825)), format NIP OK
+- **PL-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-024**: Źródło oficjalne (CEIDG API (NIP 9492162686)), format NIP OK
+- **PL-A-029**: Źródło oficjalne (VIES PL8172183841 | KRS API | zolta.pl), format NIP OK
+- **PL-A-031**: Źródło oficjalne (CEIDG NIP 8513011898 | REGON 320355681 | cigarro.pl (op. IGUANA SP. K. NIP 1251380928)), format NIP OK
+- **PL-B-126**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-028**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-109**: Źródło oficjalne (KRS 0000554433 | REGON 140123450), format NIP OK
+- **PL-B-076**: Źródło oficjalne (KRS 0000049457 | milo.com.pl), format NIP OK
+- **PL-B-026**: Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK
+- **PL-B-081**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-049**: Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-060**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-095**: Źródło oficjalne (REGON 527658007 | NIP 9282109875 | twojepapierosy.pl), format NIP OK
+- **PL-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK
+- **PL-B-040**: Źródło oficjalne (CEIDG NIP 5992541456 | REGON 211001648), format NIP OK
+- **PL-B-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-071**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK
+- **PL-B-072**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-036**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-097**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-118**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-052**: Źródło oficjalne (KRS 0000085800 | CEIDG), format NIP OK
+- **PL-B-039**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-082**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-111**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-066**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-125**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK
+- **PL-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK
+- **PL-B-064**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-087**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-093**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK
+- **PL-B-080**: Źródło oficjalne (CEIDG NIP 7590004724), format NIP OK
+- **PL-B-112**: Źródło oficjalne (KRS 0000524433 | jameshawk.pl), format NIP OK
+- **PL-B-103**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-063**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-045**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-116**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK
+- **PL-B-100**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK
+- **PL-B-033**: Źródło oficjalne (CEIDG API (NIP 5862226779)), format NIP OK
+- **PL-B-107**: Źródło oficjalne (KRS 0000858000 | REGON 386923450), format NIP OK
+- **PL-B-120**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-104**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-096**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK
+- **PL-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK
+- **PL-B-083**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-078**: Źródło oficjalne (CEIDG NIP 6640003463), format NIP OK
+- **PL-B-037**: Źródło oficjalne (CEIDG NIP 5630011137), format NIP OK
+- **PL-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK
+- **PL-B-091**: Źródło oficjalne (KRS 0000305881 | donmarco.pl), format NIP OK
+- **PL-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK
+- **PL-B-054**: Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-055**: Źródło oficjalne (CEIDG NIP 7580003310), format NIP OK
+- **PL-B-042**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK
+- **PL-B-035**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-034**: Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-094**: Źródło oficjalne (KRS 0000125866 | REGON 192778840), format NIP OK
+- **PL-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK
+- **PL-B-086**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-051**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK
+- **PL-B-117**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-022**: Źródło oficjalne (CEIDG NIP 6450008134), format NIP OK
+- **PL-B-050**: Źródło oficjalne (KRS 0000308003 | REGON 340456100), format NIP OK
+- **PL-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK
+- **PL-B-021**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK
+- **PL-B-084**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-048**: Źródło oficjalne (KRS 0000203325 | selgros.pl), format NIP OK
+- **PL-B-001**: Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK
+- **PL-B-030**: Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK
+- **PL-B-002**: Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK
+- **PL-B-068**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-058**: Źródło oficjalne (CEIDG NIP 8461001460), format NIP OK
+- **PL-B-044**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-046**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-065**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-073**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-105**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK
+- **PL-B-062**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-102**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-090**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK
+- **PL-B-077**: Źródło oficjalne (KRS 0000010839 | REGON 290141690), format NIP OK
+- **PL-B-059**: Źródło oficjalne (KRS 0000213765 | eurocash.pl), format NIP OK
+- **PL-B-101**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-099**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-053**: Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK
+- **PL-B-067**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-057**: Źródło oficjalne (CEIDG NIP 8731006509), format NIP OK
+- **PL-B-032**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-074**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-119**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK
+- **PL-B-106**: Źródło oficjalne (KRS 0000754422 | REGON 381647890), format NIP OK
+- **PL-B-121**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK
+- **PL-B-043**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-079**: Źródło oficjalne (CEIDG NIP 7310007883), format NIP OK
+- **PL-B-029**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-123**: Źródło oficjalne (CEIDG API (NIP 6691802158)), format NIP OK
+- **PL-B-115**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-110**: Źródło oficjalne (KRS 0000181515 | REGON 812674890), format NIP OK
+- **PL-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-031**: Źródło oficjalne (CEIDG NIP 9462539270 | REGON 060299794), format NIP OK
+- **PL-B-047**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK
+- **PL-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK
+- **PL-B-113**: Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK
+- **PL-B-124**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-069**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-085**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-098**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-089**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-122**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-038**: Źródło oficjalne (KRS 0000109132 | REGON 910945070), format NIP OK
+- **PL-B-088**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-075**: Źródło oficjalne (KRS 0000045612 | markowecygara.pl), format NIP OK
+- **PL-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK
+- **PL-B-061**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-070**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-108**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-041**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-114**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-092**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; omnibus.ro + termene.ro (public) 2026-08-18), format NIP OK
+- **RO-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; kompass.com + datasrl.ro (public) 2026-08-18), format NIP OK
+- **RO-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-007**: Źródło oficjalne (ONRC J40/2867/2004 | CUI 16173644 | București), format NIP OK
+- **RO-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; moodiedavittreport.com + imperial-tobacco.pl (public) 2026-08-18), format NIP OK
+- **RO-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; romania-insider.com + amcham.ro (public) 2026-08-18), format NIP OK
+- **RO-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SK-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; OpenRouter DeepSeek WebScrape; smokeshop.sk/staff (public) 2026-08-18), format NIP OK
+- **SK-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SI-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-008**: Źródło oficjalne (AJPES 7041772000 | VIES SI48939223 | qvapehouse.com), format NIP OK
+- **SI-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-009**: Źródło oficjalne (AJPES 6734127000 | VIES SI87241285 | vape-zp.si), format NIP OK
+- **SI-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-007**: Źródło oficjalne (AJPES 1833286000 | VIES SI54717647 | bat.com), format NIP OK
+- **LV-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; firmas.lv + db.lv (public) 2026-08-18), format NIP OK
+- **LV-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; 1188.lv + saltpoint.eu (public) 2026-08-18), format NIP OK
+- **LV-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **BG-A-002**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finansi.bg/tabako-trejd-160087391 | match_count=4 | conf=high | 2026-08-18
+- **BG-A-006**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.rta.government.bg/upload/14591/it.htm | match_count=4 | conf=high | 2026-08-18
+- **BG-B-021**: Źródło nieoficjalne: hk.kompass.com/c/delion/bgc32543003/ (2026-08-18, ЕИК 131445266)
+- **BG-B-012**: Źródło nieoficjalne: bg.kompass.com/c/kaliman-caribe/bgc32519235/ (2026-08-18, Reg 831707273)
+- **BG-B-014**: Źródło nieoficjalne: masaf.gov.it/.../fetratab-pdf (2026-08-18) | socotab.com/contacts (2026-08-18) | Buyers Guide 2016 e-digitaleditions
+- **BG-B-013**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finansi.bg/pen-shop-grup | match_count=4 | conf=high | 2026-08-18
+- **BG-B-017**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.rta.government.bg/upload/14591/it.htm | match_count=3 | conf=high | 2026-08-18
+- **BG-B-019**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.finansi.bg/ekspres-logistika-i-distribucia | match_count=4 | conf=high | 2026-08-18
+- **BG-B-003**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finansi.bg/tabako-trejd-160087391 | match_count=4 | conf=high | 2026-08-18
+- **BG-B-008**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://yox.bg/%D1%82%D0%B0%D0%B1%D0%B8-%D0%B4%D0%B2 | match_count=4 | conf=high | 2026-08-18
+- **HR-A-001**: Źródło nieoficjalne: companywall.hr/veletabak-doo (2026-08-18) + tvrtke.hr/zagreb/duhanski-proizvodi/veletabak (2026-08-18) | luka.saraf@veletabak.hr / 01/7888610 (public) | INTEL.md 2026-08-11
+- **HR-B-006**: Źródło nieoficjalne: reputacija.hr/tvrtka/hrvatski-duhani (2026-08-18) + vecernji.hr/.../proizvodnja-duhana (2026-08-18) | hrvatski_duhani@bat.com / 033 730 660 (public) | INTEL.md 2026-08-11
+- **HR-B-004**: Źródło nieoficjalne: linkedin.com/in/tomazmaver (2026-08-18) + progressive.hr/.../tomaz-maver-ulazemo-u-razvoj (2026-08-18) | INTEL.md 2026-08-11
+- **HR-B-005**: Źródło nieoficjalne: womensweekend.eu/en/pt_sudionici/anita-letica-2/ (2026-08-18) + amcham.hr/.../Anita-Letica-2024.pdf (2026-08-18) | Anita.Letica@pmi.com / +385 1 616 6900 (public) | INTEL.md 2026-08-11
+- **HR-B-002**: Źródło nieoficjalne: index.hr/vijesti/clanak/tisak-dobio-novog-direktora (2026-08-18) | INTEL.md 2026-08-18
+- **CZ-A-009**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.chytryrejstrik.cz/ico-28718682/finosa-s-r-o | match_count=4 | conf=high | 2026-08-18
+- **CZ-B-003**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.chytryrejstrik.cz/ico-43005012/imperial-brands-cr-s-r-o | match_count=3 | conf=high | 2026-08-18
+- **CZ-B-007**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.finmag.cz/obchodni-rejstrik/05340977-valmont-cr-spol-s-r-o | match_count=4 | conf=high | 2026-08-18
+- **CZ-B-006**: Źródło nieoficjalne: seznamzpravy.cz/clanek/.../chrobok-ulcakova...geco (2026-08-18, multiple) | mail.box@geco.cz / +420 241 404 738 (public) | INTEL.md 2026-08-11
+- **CZ-B-008**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.ceskenoviny.cz/tiskove/zpravy/spolecnosti-traficon-a-philip-morris-cr-as-chteji-spolecne-menit-podobu-prodeje-nikotinovych-vyrobku-v-cesku/2689022 | match_count=4 | conf=high | 2026-08-18
+- **FR-A-002**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.pappers.fr/entreprise/pw-distribution-915392963 | match_count=4 | conf=high | 2026-08-18
+- **FR-B-007**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://polesocietes.com/dirigeants/aa667ffcd094426d3a60561c4993e18d/marion-bizeul | match_count=4 | conf=high | 2026-08-18
+- **FR-B-008**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://entreprises.lefigaro.fr/fimar-sas-marty-66/entreprise-437573363 | match_count=4 | conf=high | 2026-08-18
+- **FR-B-003**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.gers.cci.fr/annuaire/sas-bouttier.html | match_count=4 | conf=high | 2026-08-18
+- **LT-A-007**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.info.lt/en/imones/Philip-Morris-Lietuva-UAB/2130172 | match_count=4 | conf=high | 2026-08-18
+- **RO-B-014**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://modernbuyer.ro/mario-matic-este-noul-director-general-al-echipei-interbrands-orbico-romania/ | match_count=4 | conf=high | 2026-08-18
+- **RO-B-005**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.northdata.de/Vincom%20Distribution%20Srl | match_count=4 | conf=high | 2026-08-18
+- **RO-B-009**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://startupcafe.ro/clienti-firme-romanesti-comert-online-bani-lipsa-carduri-amenda-gdpr-magazin-atacat-cibernetic-87125 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.lauko.sk/en/contact | match_count=4 | conf=high | 2026-08-18
+- **SK-A-002**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://ggtabak.sk/contact-us/director | match_count=4 | conf=high | 2026-08-18
+- **SK-A-003**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2022104348 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-013**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.slideshare.net/slideshow/prezentacia-spolocnosti-fajka-sro-14647399/14647399 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-008**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2020221621 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-007**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.finreg.sk/subjekt/2023071325 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-012**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/firma/561699/tabak-invest-slovakia-s-r-o/ | match_count=4 | conf=high | 2026-08-18
+- **SK-B-012**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://vestnikonline.sk/records/detail/3652597 | match_count=4 | conf=high | 2026-08-18
+- **SK-B-014**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.sita.sk/imperial-tobacco-slovakia-meni-svoj-obchodny-nazov-nove-oznacenie-prepaja-lokalnu-identitu-s-globalnou-znackou/ | match_count=1 | conf=medium | 2026-08-18
+- **SK-B-001**: Źródło nieoficjalne: valida.sk/35782587 (2026-08-18, GECO s.r.o. IČO 35782587) | finstat.sk/35782587 (2026-08-18)
+- **SK-B-013**: Źródło nieoficjalne: linkedin.com/in/cedric-chucri (2026-08-18, June 2025 - Present Country Manager JTI Slovak Republic) | INTEL.md 2026-08-18
+- **SK-B-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/katalog/tabakove-vyrobky-a-fajciarske-potreby-internetove-obchody/2/ | match_count=4 | conf=high | 2026-08-18
+- **SK-B-015**: Źródło nieoficjalne: sita.sk/.../novym-generalnym-riaditelom-philip-morris-na-slovensku-sa-stal-martin-medved (2026-08-18) | INTEL.md 2026-08-11
+- **SI-B-001**: Źródło nieoficjalne: podjetnistvo.delo.si/.../trafika-ko-casopisi-in-tobak (2026-08-18) | trafika3dva.si/O-nas (2026-08-18)
+- **SI-B-003**: Źródło nieoficjalne: mercatorgroup.si/.../mercator (2026-08-18) | companywall.si/podjetje/mercator-doo (2026-08-18)
+- **LV-B-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://datreal.com/lv/lv/company/50003997841 | match_count=4 | conf=high | 2026-08-18
+
+**Run summary:** 0 added, 393 modified, 0 removed — 349 FROZEN, 44 DO-WERYFIKACJI
+
+## 2026-08-18 12:30
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 7 wpisów
+- catalog-A-CZ.csv: 9 wpisów
+- catalog-A-EE.csv: 10 wpisów
+- catalog-A-FR.csv: 9 wpisów
+- catalog-A-HR.csv: 8 wpisów
+- catalog-A-LT.csv: 12 wpisów
+- catalog-A-LV.csv: 7 wpisów
+- catalog-A-MD.csv: 5 wpisów
+- catalog-A-PL.csv: 31 wpisów
+- catalog-A-RO.csv: 8 wpisów
+- catalog-A-SI.csv: 7 wpisów
+- catalog-A-SK.csv: 15 wpisów
+- catalog-B-BG.csv: 27 wpisów
+- catalog-B-CZ.csv: 9 wpisów
+- catalog-B-EE.csv: 26 wpisów
+- catalog-B-FR.csv: 12 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-LT.csv: 9 wpisów
+- catalog-B-LV.csv: 4 wpisów
+- catalog-B-MD.csv: 2 wpisów
+- catalog-B-PL.csv: 126 wpisów
+- catalog-B-RO.csv: 15 wpisów
+- catalog-B-SI.csv: 9 wpisów
+- catalog-B-SK.csv: 15 wpisów
+
+### ✅ FROZEN
+- **BG-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-005**: Źródło oficjalne (Trade Register BG EIK 200434116 | izamar.bg), format NIP OK
+- **BG-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-015**: Źródło oficjalne (Trade Register BG EIK 203284127 | melborren.bg), format NIP OK
+- **BG-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-A-005**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-006**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-004**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-003**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-008**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-007**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-002**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-009**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-007**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-001**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-003**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-010**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-011**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-008**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-007**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-003**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-008**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-002**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-001**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-006**: Źródło oficjalne (ARES 29154529 | VIES CZ29154529 | dobra-trafika.com; OpenRouter DeepSeek WebScrape), format NIP OK
+- **CZ-A-004**: Źródło oficjalne (ARES Live API + Živnostenský rejstřík (IČO 45410003)), format NIP OK
+- **CZ-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-001**: Źródło oficjalne (ARES 26293609 | VIES CZ26293609 | ggtabak.cz), format NIP OK
+- **CZ-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-002**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-004**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-009**: Źródło oficjalne (VIES Live API + ARES 2026-08-15; OpenRouter DeepSeek WebScrape), format NIP OK
+- **CZ-B-005**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-002**: Źródło oficjalne (e-Äriregister 12437648 | KMKR EE101633519 | veipland.ee; nicorex.eu (public) 2026-08-18), format NIP OK
+- **EE-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + e-krediidiinfo.ee (public) 2026-08-18), format NIP OK
+- **EE-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-001**: Źródło oficjalne (e-Äriregister 10310368 | KMKR EE100069352 | prike.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + prikeshop.lt (public) 2026-08-18), format NIP OK
+- **EE-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + teatmik.ee (public) 2026-08-18), format NIP OK
+- **EE-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-024**: Źródło oficjalne (e-Äriregister 10588558 | KMKR EE100569797 | rrk.ee), format NIP OK
+- **EE-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-009**: Źródło oficjalne (e-Äriregister 16512038 | KMKR EE102501892 | hinnapomm.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + kaubandus.ee (public) 2026-08-18), format NIP OK
+- **EE-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-018**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/10569681/AS-Prisma-Peremarket (e-Äriregister / RIK public, reg 10569681)), format NIP OK
+- **EE-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-B-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; e-krediidiinfo.ee + teatmik.ee (public) 2026-08-18), format NIP OK
+- **EE-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-022**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/16011980/SNAPE-OÜ (e-Äriregister / RIK public, reg 16011980)), format NIP OK
+- **EE-B-017**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/10004677/Aktsiaselts-Ekspress-Grupp (e-Äriregister / RIK public, reg 10004677)), format NIP OK
+- **EE-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; registrucentras.lt + okredo.com (public) 2026-08-18), format NIP OK
+- **LT-A-010**: Źródło oficjalne (JAR (Registrų Centras) JAR 306340639 | VIES LT100013400211), format NIP OK
+- **LT-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; NTAKD / lrv.lt (official government registry) 2026-08-18), format NIP OK
+- **LT-A-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; mvgroup.eu + okredo.com (public) 2026-08-18), format NIP OK
+- **LT-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **MD-A-003**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600076809)), format NIP OK
+- **MD-A-005**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1005600051817)), format NIP OK
+- **MD-A-002**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1002600010996)), format NIP OK
+- **MD-A-001**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1014600025721)), format NIP OK
+- **MD-A-004**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1020600018613)), format NIP OK
+- **MD-B-001**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600017637)), format NIP OK
+- **MD-B-002**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600007603)), format NIP OK
+- **PL-A-011**: Źródło oficjalne (CEIDG API (NIP 5422935796)), format NIP OK
+- **PL-A-021**: Źródło oficjalne (CEIDG API (NIP 6852336998)), format NIP OK
+- **PL-A-015**: Źródło oficjalne (CEIDG API (NIP 4990696800)), format NIP OK
+- **PL-A-013**: Źródło oficjalne (KRS API (KRS 0000845347)), format NIP OK
+- **PL-A-025**: Źródło oficjalne (CEIDG API (NIP 9462453893)), format NIP OK
+- **PL-A-024**: Źródło oficjalne (CEIDG API (NIP 9492162686)), format NIP OK
+- **PL-A-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-002**: Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK
+- **PL-A-007**: Źródło oficjalne (CEIDG API (NIP 1132559176)), format NIP OK
+- **PL-A-016**: Źródło oficjalne (CEIDG API (NIP 1132986837)), format NIP OK
+- **PL-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-026**: Źródło oficjalne (KRS API (KRS 0000827289)), format NIP OK
+- **PL-A-028**: Źródło oficjalne (CEIDG API (NIP 5860008825)), format NIP OK
+- **PL-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-023**: Źródło oficjalne (KRS API (KRS 0000940388)), format NIP OK
+- **PL-A-012**: Źródło oficjalne (CEIDG API (NIP 6312426137)), format NIP OK
+- **PL-A-029**: Źródło oficjalne (VIES PL8172183841 | KRS API | zolta.pl), format NIP OK
+- **PL-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-A-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-031**: Źródło oficjalne (CEIDG NIP 8513011898 | REGON 320355681 | cigarro.pl (op. IGUANA SP. K. NIP 1251380928)), format NIP OK
+- **PL-A-004**: Źródło oficjalne (CEIDG API (NIP 5922192789)), format NIP OK
+- **PL-A-030**: Źródło oficjalne (VIES PL949192250 | CEIDG | primarket.pl), format NIP OK
+- **PL-A-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-003**: Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK
+- **PL-A-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK
+- **PL-A-027**: Źródło oficjalne (KRS API (KRS 0000966964)), format NIP OK
+- **PL-A-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-001**: Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK
+- **PL-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK
+- **PL-B-122**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK
+- **PL-B-074**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK
+- **PL-B-101**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK
+- **PL-B-031**: Źródło oficjalne (CEIDG NIP 9462539270 | REGON 060299794), format NIP OK
+- **PL-B-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-052**: Źródło oficjalne (KRS 0000085800 | CEIDG), format NIP OK
+- **PL-B-087**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-068**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-093**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-096**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-035**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-113**: Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK
+- **PL-B-051**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK
+- **PL-B-125**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-037**: Źródło oficjalne (CEIDG NIP 5630011137), format NIP OK
+- **PL-B-092**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-040**: Źródło oficjalne (CEIDG NIP 5992541456 | REGON 211001648), format NIP OK
+- **PL-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK
+- **PL-B-042**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-119**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-121**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-112**: Źródło oficjalne (KRS 0000524433 | jameshawk.pl), format NIP OK
+- **PL-B-105**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK
+- **PL-B-046**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-078**: Źródło oficjalne (CEIDG NIP 6640003463), format NIP OK
+- **PL-B-022**: Źródło oficjalne (CEIDG NIP 6450008134), format NIP OK
+- **PL-B-098**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-048**: Źródło oficjalne (KRS 0000203325 | selgros.pl), format NIP OK
+- **PL-B-123**: Źródło oficjalne (CEIDG API (NIP 6691802158)), format NIP OK
+- **PL-B-044**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-126**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-059**: Źródło oficjalne (KRS 0000213765 | eurocash.pl), format NIP OK
+- **PL-B-047**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-080**: Źródło oficjalne (CEIDG NIP 7590004724), format NIP OK
+- **PL-B-088**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-028**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-054**: Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK
+- **PL-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-067**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-075**: Źródło oficjalne (KRS 0000045612 | markowecygara.pl), format NIP OK
+- **PL-B-057**: Źródło oficjalne (CEIDG NIP 8731006509), format NIP OK
+- **PL-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK
+- **PL-B-069**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-053**: Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK
+- **PL-B-117**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-114**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK
+- **PL-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK
+- **PL-B-071**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-102**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-049**: Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-083**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-118**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-082**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-039**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-111**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-106**: Źródło oficjalne (KRS 0000754422 | REGON 381647890), format NIP OK
+- **PL-B-100**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-045**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-120**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-108**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-041**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-033**: Źródło oficjalne (CEIDG API (NIP 5862226779)), format NIP OK
+- **PL-B-081**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-072**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-070**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-077**: Źródło oficjalne (KRS 0000010839 | REGON 290141690), format NIP OK
+- **PL-B-084**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-061**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-085**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-066**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-109**: Źródło oficjalne (KRS 0000554433 | REGON 140123450), format NIP OK
+- **PL-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK
+- **PL-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK
+- **PL-B-089**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-090**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-062**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-002**: Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK
+- **PL-B-064**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-058**: Źródło oficjalne (CEIDG NIP 8461001460), format NIP OK
+- **PL-B-060**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK
+- **PL-B-091**: Źródło oficjalne (KRS 0000305881 | donmarco.pl), format NIP OK
+- **PL-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK
+- **PL-B-079**: Źródło oficjalne (CEIDG NIP 7310007883), format NIP OK
+- **PL-B-110**: Źródło oficjalne (KRS 0000181515 | REGON 812674890), format NIP OK
+- **PL-B-104**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-076**: Źródło oficjalne (KRS 0000049457 | milo.com.pl), format NIP OK
+- **PL-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK
+- **PL-B-026**: Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK
+- **PL-B-073**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-036**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-038**: Źródło oficjalne (KRS 0000109132 | REGON 910945070), format NIP OK
+- **PL-B-124**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-097**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK
+- **PL-B-065**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-107**: Źródło oficjalne (KRS 0000858000 | REGON 386923450), format NIP OK
+- **PL-B-103**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-063**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-029**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK
+- **PL-B-086**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-050**: Źródło oficjalne (KRS 0000308003 | REGON 340456100), format NIP OK
+- **PL-B-030**: Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK
+- **PL-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK
+- **PL-B-094**: Źródło oficjalne (KRS 0000125866 | REGON 192778840), format NIP OK
+- **PL-B-021**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK
+- **PL-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK
+- **PL-B-099**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK
+- **PL-B-116**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK
+- **PL-B-115**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-034**: Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-043**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-095**: Źródło oficjalne (REGON 527658007 | NIP 9282109875 | twojepapierosy.pl), format NIP OK
+- **PL-B-032**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-055**: Źródło oficjalne (CEIDG NIP 7580003310), format NIP OK
+- **RO-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; kompass.com + datasrl.ro (public) 2026-08-18), format NIP OK
+- **RO-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; omnibus.ro + termene.ro (public) 2026-08-18), format NIP OK
+- **RO-B-007**: Źródło oficjalne (ONRC J40/2867/2004 | CUI 16173644 | București), format NIP OK
+- **RO-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; moodiedavittreport.com + imperial-tobacco.pl (public) 2026-08-18), format NIP OK
+- **RO-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; romania-insider.com + amcham.ro (public) 2026-08-18), format NIP OK
+- **RO-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SK-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; OpenRouter DeepSeek WebScrape; smokeshop.sk/staff (public) 2026-08-18), format NIP OK
+- **SK-A-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SI-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-007**: Źródło oficjalne (AJPES 1833286000 | VIES SI54717647 | bat.com), format NIP OK
+- **SI-B-009**: Źródło oficjalne (AJPES 6734127000 | VIES SI87241285 | vape-zp.si), format NIP OK
+- **SI-B-008**: Źródło oficjalne (AJPES 7041772000 | VIES SI48939223 | qvapehouse.com), format NIP OK
+- **SI-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LV-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; firmas.lv + db.lv (public) 2026-08-18), format NIP OK
+- **LV-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; 1188.lv + saltpoint.eu (public) 2026-08-18), format NIP OK
+- **LV-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **RO-B-005**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.northdata.de/Vincom%20Distribution%20Srl | match_count=4 | conf=high | 2026-08-18
+- **RO-B-009**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://startupcafe.ro/clienti-firme-romanesti-comert-online-bani-lipsa-carduri-amenda-gdpr-magazin-atacat-cibernetic-87125 | match_count=4 | conf=high | 2026-08-18
+- **RO-B-014**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://modernbuyer.ro/mario-matic-este-noul-director-general-al-echipei-interbrands-orbico-romania/ | match_count=4 | conf=high | 2026-08-18
+- **SK-A-003**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2022104348 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-007**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.finreg.sk/subjekt/2023071325 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.lauko.sk/en/contact | match_count=4 | conf=high | 2026-08-18
+- **SK-A-002**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://ggtabak.sk/contact-us/director | match_count=4 | conf=high | 2026-08-18
+- **SK-A-013**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.slideshare.net/slideshow/prezentacia-spolocnosti-fajka-sro-14647399/14647399 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-008**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2020221621 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-012**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/firma/561699/tabak-invest-slovakia-s-r-o/ | match_count=4 | conf=high | 2026-08-18
+- **SK-B-001**: Źródło nieoficjalne: valida.sk/35782587 (2026-08-18, GECO s.r.o. IČO 35782587) | finstat.sk/35782587 (2026-08-18)
+- **SK-B-012**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://vestnikonline.sk/records/detail/3652597 | match_count=4 | conf=high | 2026-08-18
+- **SK-B-014**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.sita.sk/imperial-tobacco-slovakia-meni-svoj-obchodny-nazov-nove-oznacenie-prepaja-lokalnu-identitu-s-globalnou-znackou/ | match_count=1 | conf=medium | 2026-08-18
+- **SK-B-015**: Źródło nieoficjalne: sita.sk/.../novym-generalnym-riaditelom-philip-morris-na-slovensku-sa-stal-martin-medved (2026-08-18) | INTEL.md 2026-08-11
+- **SK-B-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/katalog/tabakove-vyrobky-a-fajciarske-potreby-internetove-obchody/2/ | match_count=4 | conf=high | 2026-08-18
+- **SK-B-013**: Źródło nieoficjalne: linkedin.com/in/cedric-chucri (2026-08-18, June 2025 - Present Country Manager JTI Slovak Republic) | INTEL.md 2026-08-18
+- **SI-B-003**: Źródło nieoficjalne: mercatorgroup.si/.../mercator (2026-08-18) | companywall.si/podjetje/mercator-doo (2026-08-18)
+- **SI-B-001**: Źródło nieoficjalne: podjetnistvo.delo.si/.../trafika-ko-casopisi-in-tobak (2026-08-18) | trafika3dva.si/O-nas (2026-08-18)
+- **LV-B-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://datreal.com/lv/lv/company/50003997841 | match_count=4 | conf=high | 2026-08-18
+
+**Run summary:** 0 added, 393 modified, 0 removed — 374 FROZEN, 19 DO-WERYFIKACJI
+
+## 2026-08-18 12:30
+
+### Pliki sprawdzone
+- catalog-A-BG.csv: 7 wpisów
+- catalog-A-CZ.csv: 9 wpisów
+- catalog-A-EE.csv: 10 wpisów
+- catalog-A-FR.csv: 9 wpisów
+- catalog-A-HR.csv: 8 wpisów
+- catalog-A-LT.csv: 12 wpisów
+- catalog-A-LV.csv: 7 wpisów
+- catalog-A-MD.csv: 5 wpisów
+- catalog-A-PL.csv: 31 wpisów
+- catalog-A-RO.csv: 8 wpisów
+- catalog-A-SI.csv: 7 wpisów
+- catalog-A-SK.csv: 15 wpisów
+- catalog-B-BG.csv: 27 wpisów
+- catalog-B-CZ.csv: 9 wpisów
+- catalog-B-EE.csv: 26 wpisów
+- catalog-B-FR.csv: 12 wpisów
+- catalog-B-HR.csv: 11 wpisów
+- catalog-B-LT.csv: 9 wpisów
+- catalog-B-LV.csv: 4 wpisów
+- catalog-B-MD.csv: 2 wpisów
+- catalog-B-PL.csv: 126 wpisów
+- catalog-B-RO.csv: 15 wpisów
+- catalog-B-SI.csv: 9 wpisów
+- catalog-B-SK.csv: 15 wpisów
+
+### ✅ FROZEN
+- **BG-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-015**: Źródło oficjalne (Trade Register BG EIK 203284127 | melborren.bg), format NIP OK
+- **BG-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-005**: Źródło oficjalne (Trade Register BG EIK 200434116 | izamar.bg), format NIP OK
+- **BG-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **BG-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-A-005**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-007**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-004**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-003**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-A-008**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-006**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-A-002**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-008**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-001**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-007**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **HR-B-003**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-009**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-011**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-010**: Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK
+- **HR-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-007**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-001**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-003**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-A-006**: Źródło oficjalne (ARES 29154529 | VIES CZ29154529 | dobra-trafika.com; OpenRouter DeepSeek WebScrape), format NIP OK
+- **CZ-A-004**: Źródło oficjalne (ARES Live API + Živnostenský rejstřík (IČO 45410003)), format NIP OK
+- **CZ-A-008**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-A-002**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-002**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-004**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **CZ-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-001**: Źródło oficjalne (ARES 26293609 | VIES CZ26293609 | ggtabak.cz), format NIP OK
+- **CZ-B-009**: Źródło oficjalne (VIES Live API + ARES 2026-08-15; OpenRouter DeepSeek WebScrape), format NIP OK
+- **CZ-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **CZ-B-005**: Źródło oficjalne (VIES Live API + ARES 2026-08-15), format NIP OK
+- **EE-A-002**: Źródło oficjalne (e-Äriregister 12437648 | KMKR EE101633519 | veipland.ee; nicorex.eu (public) 2026-08-18), format NIP OK
+- **EE-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-A-001**: Źródło oficjalne (e-Äriregister 10310368 | KMKR EE100069352 | prike.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + prikeshop.lt (public) 2026-08-18), format NIP OK
+- **EE-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + teatmik.ee (public) 2026-08-18), format NIP OK
+- **EE-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee + e-krediidiinfo.ee (public) 2026-08-18), format NIP OK
+- **EE-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-009**: Źródło oficjalne (e-Äriregister 16512038 | KMKR EE102501892 | hinnapomm.ee; OpenRouter DeepSeek WebScrape; inforegister.ee + kaubandus.ee (public) 2026-08-18), format NIP OK
+- **EE-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-022**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/16011980/SNAPE-OÜ (e-Äriregister / RIK public, reg 16011980)), format NIP OK
+- **EE-B-018**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/10569681/AS-Prisma-Peremarket (e-Äriregister / RIK public, reg 10569681)), format NIP OK
+- **EE-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK
+- **EE-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-026**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-017**: Źródło oficjalne (https://ariregister.rik.ee/eng/company/10004677/Aktsiaselts-Ekspress-Grupp (e-Äriregister / RIK public, reg 10004677)), format NIP OK
+- **EE-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; e-krediidiinfo.ee + teatmik.ee (public) 2026-08-18), format NIP OK
+- **EE-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-021**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **EE-B-024**: Źródło oficjalne (e-Äriregister 10588558 | KMKR EE100569797 | rrk.ee), format NIP OK
+- **EE-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **FR-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; registrucentras.lt + okredo.com (public) 2026-08-18), format NIP OK
+- **LT-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-010**: Źródło oficjalne (JAR (Registrų Centras) JAR 306340639 | VIES LT100013400211), format NIP OK
+- **LT-A-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; NTAKD / lrv.lt (official government registry) 2026-08-18), format NIP OK
+- **LT-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LT-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; mvgroup.eu + okredo.com (public) 2026-08-18), format NIP OK
+- **MD-A-002**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1002600010996)), format NIP OK
+- **MD-A-003**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600076809)), format NIP OK
+- **MD-A-001**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1014600025721)), format NIP OK
+- **MD-A-004**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1020600018613)), format NIP OK
+- **MD-A-005**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1005600051817)), format NIP OK
+- **MD-B-002**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600007603)), format NIP OK
+- **MD-B-001**: Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600017637)), format NIP OK
+- **PL-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-027**: Źródło oficjalne (KRS API (KRS 0000966964)), format NIP OK
+- **PL-A-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-007**: Źródło oficjalne (CEIDG API (NIP 1132559176)), format NIP OK
+- **PL-A-012**: Źródło oficjalne (CEIDG API (NIP 6312426137)), format NIP OK
+- **PL-A-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-002**: Źródło oficjalne (KRS API + VIES | KRS API 0000197822 (partial)), format NIP OK
+- **PL-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-016**: Źródło oficjalne (CEIDG API (NIP 1132986837)), format NIP OK
+- **PL-A-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-021**: Źródło oficjalne (CEIDG API (NIP 6852336998)), format NIP OK
+- **PL-A-026**: Źródło oficjalne (KRS API (KRS 0000827289)), format NIP OK
+- **PL-A-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-015**: Źródło oficjalne (CEIDG API (NIP 4990696800)), format NIP OK
+- **PL-A-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **PL-A-024**: Źródło oficjalne (CEIDG API (NIP 9492162686)), format NIP OK
+- **PL-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-031**: Źródło oficjalne (CEIDG NIP 8513011898 | REGON 320355681 | cigarro.pl (op. IGUANA SP. K. NIP 1251380928)), format NIP OK
+- **PL-A-028**: Źródło oficjalne (CEIDG API (NIP 5860008825)), format NIP OK
+- **PL-A-023**: Źródło oficjalne (KRS API (KRS 0000940388)), format NIP OK
+- **PL-A-025**: Źródło oficjalne (CEIDG API (NIP 9462453893)), format NIP OK
+- **PL-A-001**: Źródło oficjalne (KRS API + NIP + www.bills.pl + VIES | VIES confirmed 2026-08-11T00:18:52.937Z | KRS API 0001074645 (partial)), format NIP OK
+- **PL-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-A-011**: Źródło oficjalne (CEIDG API (NIP 5422935796)), format NIP OK
+- **PL-A-022**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-A-030**: Źródło oficjalne (VIES PL949192250 | CEIDG | primarket.pl), format NIP OK
+- **PL-A-013**: Źródło oficjalne (KRS API (KRS 0000845347)), format NIP OK
+- **PL-A-004**: Źródło oficjalne (CEIDG API (NIP 5922192789)), format NIP OK
+- **PL-A-029**: Źródło oficjalne (VIES PL8172183841 | KRS API | zolta.pl), format NIP OK
+- **PL-A-003**: Źródło oficjalne (KRS API + VIES | VIES confirmed 2026-08-11T00:18:50.580Z | KRS API 0001068075 (partial)), format NIP OK
+- **PL-B-093**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-118**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-035**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-057**: Źródło oficjalne (CEIDG NIP 8731006509), format NIP OK
+- **PL-B-034**: Źródło oficjalne (intake_PL_2026-08-10 | https://almark.pl/index.php/of... | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (ALMARK J. STAJER SP.K. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-025**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:03.576Z | KRS API 0000519553), format NIP OK
+- **PL-B-002**: Źródło oficjalne (CEIDG API + web search + VIES | VIES confirmed 2026-08-11T00:19:13.918Z), format NIP OK
+- **PL-B-074**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:10.798Z | KRS API 0000948471), format NIP OK
+- **PL-B-052**: Źródło oficjalne (KRS 0000085800 | CEIDG), format NIP OK
+- **PL-B-027**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-103**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-087**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-016**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:54.484Z | KRS API 0000946950), format NIP OK
+- **PL-B-001**: Źródło oficjalne (KRS API + web search + VIES | VIES confirmed 2026-08-11T00:19:10.115Z | KRS API 0000237218 (partial)), format NIP OK
+- **PL-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000568420), format NIP OK
+- **PL-B-056**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-077**: Źródło oficjalne (KRS 0000010839 | REGON 290141690), format NIP OK
+- **PL-B-021**: Źródło oficjalne (L1 web search (polskityton.pl + gowork.pl + sprytnykupiec.pl) + KRS API | VIES confirmed 2026-08-11T00:19:11.524Z | KRS API 0000847239), format NIP OK
+- **PL-B-030**: Źródło oficjalne (intake_PL_2026-08-10 | https://augustolimaro.pl/o-nas | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match) | L1+web+krs-pobierz+panoramafirm: KRS API confirmed (AUGUSTO-LIMARO LIPIŃSKI MARSZAŁEK SP.J. mod-11+NIP+name match)), format NIP OK
+- **PL-B-111**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-107**: Źródło oficjalne (KRS 0000858000 | REGON 386923450), format NIP OK
+- **PL-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:13.192Z | KRS API 0000922075), format NIP OK
+- **PL-B-122**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:53.653Z | KRS API 0001093977), format NIP OK
+- **PL-B-017**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000965005), format NIP OK
+- **PL-B-102**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:56.604Z | KRS API 0001074861), format NIP OK
+- **PL-B-029**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-055**: Źródło oficjalne (CEIDG NIP 7580003310), format NIP OK
+- **PL-B-106**: Źródło oficjalne (KRS 0000754422 | REGON 381647890), format NIP OK
+- **PL-B-037**: Źródło oficjalne (CEIDG NIP 5630011137), format NIP OK
+- **PL-B-119**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-069**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-125**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-100**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-092**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.088Z), format NIP OK
+- **PL-B-104**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-117**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Imperial Brands group, Warszawa, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:58.426Z | KRS API 0000119343), format NIP OK
+- **PL-B-045**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-049**: Źródło oficjalne (intake_PL_2026-08-10 | http://hurtowniasat.pl | L1+web+krs-online+hurtowniasat.pl: 3 sources consistent (SAT Tomasz Sromek mod-11+NIP, PKD 46.90.Z wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-088**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-059**: Źródło oficjalne (KRS 0000213765 | eurocash.pl), format NIP OK
+- **PL-B-110**: Źródło oficjalne (KRS 0000181515 | REGON 812674890), format NIP OK
+- **PL-B-028**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-060**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-094**: Źródło oficjalne (KRS 0000125866 | REGON 192778840), format NIP OK
+- **PL-B-040**: Źródło oficjalne (CEIDG NIP 5992541456 | REGON 211001648), format NIP OK
+- **PL-B-020**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:06.399Z), format NIP OK
+- **PL-B-018**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:14.898Z | KRS API 0000998700), format NIP OK
+- **PL-B-070**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-084**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-113**: Źródło oficjalne (L1: krs-online.com.pl + krs-pobierz.pl + BAT.com.pl 2026-08-12 (BAT group entity, 2-tool + NIP+KRS name match + KRS API confirmed)), format NIP OK
+- **PL-B-095**: Źródło oficjalne (REGON 527658007 | NIP 9282109875 | twojepapierosy.pl), format NIP OK
+- **PL-B-044**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-068**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-076**: Źródło oficjalne (KRS 0000049457 | milo.com.pl), format NIP OK
+- **PL-B-067**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-031**: Źródło oficjalne (CEIDG NIP 9462539270 | REGON 060299794), format NIP OK
+- **PL-B-091**: Źródło oficjalne (KRS 0000305881 | donmarco.pl), format NIP OK
+- **PL-B-097**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-090**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-105**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-078**: Źródło oficjalne (CEIDG NIP 6640003463), format NIP OK
+- **PL-B-033**: Źródło oficjalne (CEIDG API (NIP 5862226779)), format NIP OK
+- **PL-B-098**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-081**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-054**: Źródło oficjalne (intake_PL_2026-08-10 | https://jukaakcesoria.pl | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run. | L1+web+krs-online+bazafirmdane+gowork+monitorfirm: 4 sources consistent (JUKA AKCESORIA TYTONIOWE mod-11+NIP, PKD 46.19.Z agent wholesale). CEIDG API verify on next run.), format NIP OK
+- **PL-B-023**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:04.259Z | KRS API 0000445021), format NIP OK
+- **PL-B-062**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-124**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-101**: Źródło oficjalne (KAS rejestr pośredników tytoniowych 2026-08-07 + KRS API confirmed 2026-08-11), format NIP OK
+- **PL-B-046**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.tekssa.pl | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z) | L1+web+krs-pobierz: KRS API confirmed (TEKS S.A. mod-11+NIP+name match, PKD 46.35Z)), format NIP OK
+- **PL-B-075**: Źródło oficjalne (KRS 0000045612 | markowecygara.pl), format NIP OK
+- **PL-B-024**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:01.393Z | KRS API 0000513841), format NIP OK
+- **PL-B-123**: Źródło oficjalne (CEIDG API (NIP 6691802158)), format NIP OK
+- **PL-B-073**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:00.531Z | KRS API 0001190453), format NIP OK
+- **PL-B-126**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-058**: Źródło oficjalne (CEIDG NIP 8461001460), format NIP OK
+- **PL-B-080**: Źródło oficjalne (CEIDG NIP 7590004724), format NIP OK
+- **PL-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:02.817Z | KRS API 0000836728), format NIP OK
+- **PL-B-050**: Źródło oficjalne (KRS 0000308003 | REGON 340456100), format NIP OK
+- **PL-B-039**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-041**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-115**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-042**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-064**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-066**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-121**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-065**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-036**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-019**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | KRS API 0000999396), format NIP OK
+- **PL-B-116**: Źródło oficjalne (L1: bizintel.pl/pkd/4635z + KRS API 2026-08-12 (Altria Group subsidiary, Warszawa, new KRS)), format NIP OK
+- **PL-B-053**: Źródło oficjalne (intake_PL_2026-08-10 | https://leverkrasnik.pl | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+krs-pobierz+leverkrasnik.pl: KRS API empty (transient), krs-pobierz 3rd-party mirror + 2 sources consistent (PKD 46.35Z) | L1+web+VIES+firmy.ai: KRS 0001213931 (new sp. z o.o., 4 months old, same NIP+address as old sp.j. 0000004673). KRS API for 0000004673 returns 204. VIES confirms 'LEVER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ'.), format NIP OK
+- **PL-B-022**: Źródło oficjalne (CEIDG NIP 6450008134), format NIP OK
+- **PL-B-032**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-071**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-096**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-11), format NIP OK
+- **PL-B-108**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-026**: Źródło oficjalne (intake_PL_2026-08-10 | https://tompolska.pl/o-nas | https://tompolska.pl/kontakt | https://www.tompolska.pl | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match) | L1+web+krs-pobierz: KRS API confirmed (TOM POLSKA SP. Z O.O. mod-11+NIP+name match)), format NIP OK
+- **PL-B-047**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-043**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-082**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-038**: Źródło oficjalne (KRS 0000109132 | REGON 910945070), format NIP OK
+- **PL-B-114**: Źródło oficjalne (L1: krs-pobierz.pl + bizintel.pl/pkd/4635z 2026-08-12 (Poznań, PKD 4635Z, mod-11+KRS API confirmed)), format NIP OK
+- **PL-B-061**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-099**: Źródło oficjalne (L4: KAS Rejestr Pośredników Tytoniowych 2026-01-23 + KRS API (api-krs.ms.gov.pl) confirmed NIP+name match 2026-08-11), format NIP OK
+- **PL-B-085**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-109**: Źródło oficjalne (KRS 0000554433 | REGON 140123450), format NIP OK
+- **PL-B-086**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-120**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-12), format NIP OK
+- **PL-B-089**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **PL-B-051**: Źródło oficjalne (intake_PL_2026-08-10 | http://www.phupgniezno.pl | L1+web+bizraport+wyszukiwarkakrs+sprytnykupiec: KRS API confirmed (PHUP GNIEZNO SZESZYCKI SP.K. mod-11+NIP+name match, 1.5 mld zł revenue, 3000 sklepów, 5 oddziałów, PKD 46.35Z) — 🐋 TOP TIER), format NIP OK
+- **PL-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK
+- **PL-B-072**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:19:07.949Z | KRS API 0000673961 (partial)), format NIP OK
+- **PL-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:55.184Z | KRS API 0000774565), format NIP OK
+- **PL-B-063**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-083**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **PL-B-079**: Źródło oficjalne (CEIDG NIP 7310007883), format NIP OK
+- **PL-B-112**: Źródło oficjalne (KRS 0000524433 | jameshawk.pl), format NIP OK
+- **PL-B-048**: Źródło oficjalne (KRS 0000203325 | selgros.pl), format NIP OK
+- **RO-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; omnibus.ro + termene.ro (public) 2026-08-18), format NIP OK
+- **RO-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; kompass.com + datasrl.ro (public) 2026-08-18), format NIP OK
+- **RO-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; romania-insider.com + amcham.ro (public) 2026-08-18), format NIP OK
+- **RO-B-007**: Źródło oficjalne (ONRC J40/2867/2004 | CUI 16173644 | București), format NIP OK
+- **RO-B-012**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-013**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **RO-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; moodiedavittreport.com + imperial-tobacco.pl (public) 2026-08-18), format NIP OK
+- **RO-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SK-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-014**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; OpenRouter DeepSeek WebScrape; smokeshop.sk/staff (public) 2026-08-18), format NIP OK
+- **SK-A-015**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-A-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-008**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-009**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-011**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-010**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SK-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **SI-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-007**: Źródło oficjalne (AJPES 1833286000 | VIES SI54717647 | bat.com), format NIP OK
+- **SI-B-008**: Źródło oficjalne (AJPES 7041772000 | VIES SI48939223 | qvapehouse.com), format NIP OK
+- **SI-B-009**: Źródło oficjalne (AJPES 6734127000 | VIES SI87241285 | vape-zp.si), format NIP OK
+- **SI-B-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **SI-B-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK
+- **LV-A-004**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-005**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; 1188.lv + saltpoint.eu (public) 2026-08-18), format NIP OK
+- **LV-A-006**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-007**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-A-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17; firmas.lv + db.lv (public) 2026-08-18), format NIP OK
+- **LV-B-002**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+- **LV-B-001**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK
+- **LV-B-003**: Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK
+
+### ⚠️ DO-WERYFIKACJI
+- **RO-B-005**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.northdata.de/Vincom%20Distribution%20Srl | match_count=4 | conf=high | 2026-08-18
+- **RO-B-014**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://modernbuyer.ro/mario-matic-este-noul-director-general-al-echipei-interbrands-orbico-romania/ | match_count=4 | conf=high | 2026-08-18
+- **RO-B-009**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://startupcafe.ro/clienti-firme-romanesti-comert-online-bani-lipsa-carduri-amenda-gdpr-magazin-atacat-cibernetic-87125 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-008**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2020221621 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.lauko.sk/en/contact | match_count=4 | conf=high | 2026-08-18
+- **SK-A-007**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.finreg.sk/subjekt/2023071325 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-012**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/firma/561699/tabak-invest-slovakia-s-r-o/ | match_count=4 | conf=high | 2026-08-18
+- **SK-A-013**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.slideshare.net/slideshow/prezentacia-spolocnosti-fajka-sro-14647399/14647399 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-003**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://finreg.sk/subjekt/2022104348 | match_count=4 | conf=high | 2026-08-18
+- **SK-A-002**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://ggtabak.sk/contact-us/director | match_count=4 | conf=high | 2026-08-18
+- **SK-B-014**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.sita.sk/imperial-tobacco-slovakia-meni-svoj-obchodny-nazov-nove-oznacenie-prepaja-lokalnu-identitu-s-globalnou-znackou/ | match_count=1 | conf=medium | 2026-08-18
+- **SK-B-013**: Źródło nieoficjalne: linkedin.com/in/cedric-chucri (2026-08-18, June 2025 - Present Country Manager JTI Slovak Republic) | INTEL.md 2026-08-18
+- **SK-B-015**: Źródło nieoficjalne: sita.sk/.../novym-generalnym-riaditelom-philip-morris-na-slovensku-sa-stal-martin-medved (2026-08-18) | INTEL.md 2026-08-11
+- **SK-B-012**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://vestnikonline.sk/records/detail/3652597 | match_count=4 | conf=high | 2026-08-18
+- **SK-B-001**: Źródło nieoficjalne: valida.sk/35782587 (2026-08-18, GECO s.r.o. IČO 35782587) | finstat.sk/35782587 (2026-08-18)
+- **SK-B-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://www.azet.sk/katalog/tabakove-vyrobky-a-fajciarske-potreby-internetove-obchody/2/ | match_count=4 | conf=high | 2026-08-18
+- **SI-B-001**: Źródło nieoficjalne: podjetnistvo.delo.si/.../trafika-ko-casopisi-in-tobak (2026-08-18) | trafika3dva.si/O-nas (2026-08-18)
+- **SI-B-003**: Źródło nieoficjalne: mercatorgroup.si/.../mercator (2026-08-18) | companywall.si/podjetje/mercator-doo (2026-08-18)
+- **LV-B-004**: Źródło nieoficjalne: Perplexity Sonar (OpenRouter) VERIFIED via https://datreal.com/lv/lv/company/50003997841 | match_count=4 | conf=high | 2026-08-18
+
+**Run summary:** 0 added, 393 modified, 0 removed — 374 FROZEN, 19 DO-WERYFIKACJI
+
+## 2026-08-18 12:28 — Notatki Cleanup (Marceli request)
+
+### Akcja
+Czyszczenie kolumny `notatki` w `master.csv` + wszystkich 24 plikach catalog-A/B per kraj.
+
+**Cel:** Zostawić w `notatki` TYLKO informacje których nie ma w innych kolumnach.
+Usunąć duplikaty (NIP/KRS/REGON/miasto/region) i noise (structured metadata z intake).
+
+### Co zostało usunięte (regex/strip):
+- `orig_uzasadnienie: ...` (intake reasoning)
+- `orig_uwagi: ...` (intake notes — jeśli puste, cały wpis w notatki też pusty)
+- `Status źródłowy: ...` (już w `flagi`)
+- `orig_next: ...` (action items — nie dla CSV)
+- `user_orig_priorytet=...`, `user_orig_score=...`, `user_orig_segment=...` (intake scoring)
+- `renamed: ...` (pipeline internal note)
+- `l1: ...`, `tier-fix: ...` (pipeline internal)
+- Same emoji-only flags (`✅🐋`, `🐋🔍`) — duplicate `flagi`
+- PL NIP/KRS/REGON duplikaty (country-aware: only PL)
+- Region code w nawiasach `(LUBELSKIE)`, `(HARJU MAAKOND)` itd.
+- Miasto duplikaty (`siedziba [CITY]`, `magazyn w [CITY]`) gdy `miasto` już wypełnione
+- Telefon duplikaty
+- PL: "KRS API:" label po usunięciu wartości
+
+### Migracje (fill empty target columns):
+- `decydent` ← "Dział eksportu: [Name]" (gdy puste)
+- `miasto` ← "siedziba [CITY]" / "magazyn w [CITY]" (gdy puste)
+- `rok_zalozenia` ← "Rejestracja YYYY" / "aktywna od YYYY" (gdy puste)
+- `marki_nabijarki` ← canonical brands (PowerMatic, Hawk, etc.) w tekście (gdy puste)
+- `wolumen` ← "Sieć X+ sklepów" (X≥20→średni, X≥100→duży, gdy puste)
+
+### Wyniki
+- Plików przetworzonych: 24/24 catalog + master.csv (recompilowany)
+- Wierszy zmienionych: 102 (w master.csv po recompile: 393 rows, 67 empty `notatki` vs 1 before)
+- Migracji wykonanych: 3 (2 × `rok_zalozenia` + 1 × `marki_nabijarki` w RO-A-004)
+- Notatki size reduction: 24,856 → 7,060 chars in catalog-B-PL.csv (-71.6%)
+- FROZEN: 374/393 (95.2%) — unchanged
+- DO-WERYFIKACJI: 19/393 (4.8%) — unchanged
+- Verify-data: passed (no schema issues, hashes match new state)
+
+### Backup
+Pre-cleanup snapshot: `data/.pre-clean-notatki/20260818T122754/`
+Zawiera master.csv + wszystkie 24 catalog-*.csv przed zmianą.
+Rollback: `cp -r data/.pre-clean-notatki/20260818T122754/* data/`
+
+### Narzędzie
+`tools/clean_notatki.py` — dry-run + apply mode, country-aware.
+- `--apply` writes changes
+- `--file X` for testing single file
+- `--limit N` to show only N sample changes
+- Idempotent: re-running after changes is no-op
