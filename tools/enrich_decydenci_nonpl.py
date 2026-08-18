@@ -357,7 +357,12 @@ def registry_decydent_lt(rejestr: str, nip: str) -> dict:
 # ---------------------------------------------------------------------------
 
 def openrouter_decydent(company: str, country_name: str, city: str, website: str) -> dict:
-    """Ask DeepSeek to extract decision-maker from public sources."""
+    """Ask DeepSeek to extract decision-maker from public sources.
+
+    Anti-hallucination guard: REQUIRES source URL in response. If LLM doesn't
+    provide a verifiable source, the result is rejected. Cross-verification
+    via web_fetch is the operator's responsibility before commit.
+    """
     env = _load_env()
     api_key = env.get("OPENROUTER_API_KEY", "").strip()
     if not api_key:
@@ -366,18 +371,28 @@ def openrouter_decydent(company: str, country_name: str, city: str, website: str
     system = (
         "You are a B2B research assistant. Extract the decision-maker "
         "(owner, CEO, Managing Director, General Manager or equivalent) "
-        "for a given company from public sources (LinkedIn, official website, company registry). "
-        "Return ONLY a JSON object with keys: name, title. "
-        "If you cannot find a real person from public sources, return {}. "
-        "Never invent names. Only return verified public data."
+        "for a given company from PUBLIC SOURCES (LinkedIn, official website, "
+        "company registry, news article, Kompass, firmy.cz, etc.).\n\n"
+        "STRICT RULES:\n"
+        "1. Return ONLY a JSON object with keys: name, title, source_url, source_label.\n"
+        "2. source_url MUST be a real, clickable public URL (LinkedIn, company website, "
+        "   news article, Kompass profile, registry excerpt, etc.)\n"
+        "3. source_label = 'company_type' (e.g. 'Kompass.bg', 'LinkedIn', 'Official site', "
+        "   'Rejestr handlowy', 'News article 2024').\n"
+        "4. If you cannot find a real person from a public source, return {}.\n"
+        "5. NEVER invent names. NEVER hallucinate. If unsure, return {}.\n"
+        "6. NEVER use a name without a verifiable source URL.\n"
+        "7. Prefer OFFICIAL SOURCES (company registry, LinkedIn profile, official "
+        "   'About us' page) over blogs or scraped sites."
     )
     prompt = (
         f"Company: {company}\n"
         f"Country: {country_name}\n"
         f"City: {city or 'unknown'}\n"
         f"Website: {website or 'unknown'}\n\n"
-        "Find the decision-maker (owner/CEO/MD/GM) from public sources. "
-        "Return JSON: {{\"name\": \"...\", \"title\": \"...\"}} or {{}} if not found."
+        "Find the decision-maker (owner/CEO/MD/GM) from a PUBLIC, VERIFIABLE source. "
+        "Return JSON: {\"name\": \"...\", \"title\": \"...\", \"source_url\": \"...\", "
+        "\"source_label\": \"...\"} or {} if not found."
     )
 
     body = json.dumps({
@@ -386,7 +401,7 @@ def openrouter_decydent(company: str, country_name: str, city: str, website: str
             {"role": "system", "content": system},
             {"role": "user", "content": prompt},
         ],
-        "max_tokens": 150,
+        "max_tokens": 300,
         "temperature": 0.0,
     }).encode()
 
@@ -404,14 +419,26 @@ def openrouter_decydent(company: str, country_name: str, city: str, website: str
         with urllib.request.urlopen(req, timeout=30) as r:
             resp = json.loads(r.read())
             content = resp["choices"][0]["message"]["content"].strip()
-            # Extract JSON from response
-            m = re.search(r"\{[^{}]+\}", content, re.DOTALL)
-            if m:
-                parsed = json.loads(m.group(0))
-                name = parsed.get("name", "").strip()
-                title = parsed.get("title", "").strip()
-                if name and name.lower() not in ("unknown", "n/a", "not found", ""):
-                    return {"decydent": name, "stanowisko": title}
+            # Extract JSON from response (allow nested braces for source_url value)
+            m = re.search(r"\{.*?\}", content, re.DOTALL)
+            if not m:
+                return {}
+            parsed = json.loads(m.group(0))
+            name = parsed.get("name", "").strip()
+            title = parsed.get("title", "").strip()
+            source_url = parsed.get("source_url", "").strip()
+            source_label = parsed.get("source_label", "").strip()
+            # Anti-hallucination: require source URL
+            if not name or name.lower() in ("unknown", "n/a", "not found", ""):
+                return {}
+            if not source_url or not source_url.startswith(("http://", "https://")):
+                # Reject without verifiable source
+                return {}
+            return {
+                "decydent": name,
+                "stanowisko": title or "N/A",
+                "zrodlo_danych": f"OpenRouter DeepSeek + {source_label}: {source_url} (LLM-suggested, REQUIRES cross-verification before commit)",
+            }
     except Exception as e:
         pass
     return {}
