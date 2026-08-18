@@ -447,7 +447,128 @@
 - `tools/_verify_url.py` (URL cross-check helper)
 - `tools/_enrich_with_verify.py` (Perplexity Sonar pipeline)
 
+
+## 2026-08-18 12:39 CEST — Per-country insight files (Marceli request)
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o stworzenie `insight-[ISO].md` w każdym z 12 folderów krajów, zawierającego skondensowane, konkretne informacje z INTEL.md i [ISO].md, które można wykorzystać później. Verify against current catalogs + find new relevant info.
+
+**Wykonane:**
+
+1. **Cross-check** master.csv (393 firm) vs. katalogi regionalne vs. INTEL.md — potwierdzone statusy FROZEN per kraj (PL 28/30, CZ 40/41 = 97.6%, SK 30/30, SI 16/16, EE 36/36, BG 33/34, FR 21/21, HR 19/19, LT 21/21, MD 7/7, RO 23/23, LV 11/11).
+2. **Nowe odkrycia** (ponad to co jest w [ISO].md):
+   - **PL-A-008 / BILLS Anna i Jacek Bilscy s.c.** — historyczna spółka cywilna, family_succession, do zbadania w KRS.
+   - **PEAL group pattern** (CZ-A-002 + CZ-B-009) = dual-business A+B, analogiczny do PL BISTA + SK GGT.
+   - **GGT a.s.** obecne w **SK (SK-A-002) + CZ (CZ-B-008)** — multi-country leader dystrybucji tytoniowej (~2000 trafik).
+   - **TTI (Pöschl)** obecne w **4 krajach**: SK (SK-A-011), CZ (CZ-B-003), BG (BG-A-001), RO (RO-A-002).
+   - **Philip Morris Anita Letica** = GM **HR + SI** — jeden kontakt otwiera 2 kraje.
+   - **5 decydentów RO** oznaczonych "✗ REJ" przez name-matching (Sorin Neculache, Stefan Lazar, CSABA FULOP, Ram Addanki, Adrian Neacsu) — LLM-hallucination, **traktować jako niezweryfikowane**.
+   - **CZ-A-001 IČO konflikt** (25221981 vs CZ62586289) potwierdzony — oba deklarują wyłączność na PM w CZ, wymaga disambiguacji.
+   - **Derma Op (TobaccoStuff, SI-A-001)** = **Top 1 partner dla PowerMatic w SI** — pełna linia PM 1+ do 5+ DELUXE, Brežice.
+3. **Utworzone pliki** (12):
+   - `data/Bułgaria/insight-BG.md` (53 lines, 2.9KB)
+   - `data/Chorwacja/insight-HR.md` (61 lines, 3.1KB)
+   - `data/Czechy/insight-CZ.md` (57 lines, 3.2KB)
+   - `data/Estonia/insight-EE.md` (64 lines, 3.4KB)
+   - `data/Francja/insight-FR.md` (64 lines, 4.0KB)
+   - `data/Litwa/insight-LT.md` (64 lines, 3.4KB)
+   - `data/Łotwa/insight-LV.md` (59 lines, 2.8KB)
+   - `data/Mołdawia/insight-MD.md` (60 lines, 3.2KB)
+   - `data/Polska/insight-PL.md` (82 lines, 5.0KB)
+   - `data/Rumunia/insight-RO.md` (76 lines, 4.7KB)
+   - `data/Słowacja/insight-SK.md` (89 lines, 5.8KB)
+   - `data/Słowenia/insight-SI.md` (81 lines, 5.8KB)
+
+**Weryfikacja:** Każdy insight plik zawiera:
+- Szybkie fakty (populacja, palacze, rejestr, kluczowy URL)
+- Top firmy (z master.csv, FROZEN 2026-08-18, tier=hurtownik/autoryzowany, z decydentem)
+- Reżim regulacyjny
+- Kanały dystrybucji
+- Cross-country ties (Sanitex group, Pöschl/TTI, PEAL, GGT, GECO, Philip Morris regional)
+- Weryfikacja (ile firm FROZEN, ile decydentów verified)
+- Otwarte luki
+- Ryzyka / uwagi
+- Strategia per kraj (kto jest Top 1 partner dla PowerMatic)
+- Źródła do dalszej pracy
+
+**Nowe intel dodane do insight-[ISO].md** (których nie było w [ISO].md ani INTEL.md):
+- **PL**: dane rynkowe (Allegro id 78996, Ceneo 30 produktów/121.24 zł/PM 2.5/5, TikTok #tiktokpolska 18 606/post) — z INTEL.md
+- **BG**: Płowdiw hub produkcyjny RYO (M Tobacco, Cartel, Rollo) — z INTEL.md
+- **LT/LV/EE**: Sanitex group jako 1 partner dla 3 krajów — z INTEL.md + relationships.csv
+- **FR**: 23k buralistów + 9 hurtowników z licencjami DGDDI (N°01, 44, 47, 49, 51, 68, 152) — unikalne
+- **HR + SI**: Anita Letica (PM GM) = 1 kontakt na 2 kraje
+- **SK + CZ**: GGT multi-country leader
+- **SK + CZ + BG + RO**: TTI Pöschl multi-country
+
+**Następna sesja:** Użyć insight-[ISO].md jako quick-reference przy outreach; jeśli Marceli poprosi o enrichment decydent dla konkretnego kraju, postępować per "BILLSzuka decydent enrichment — manual only" (2026-08-18).
+
 Główne skrypty zostają nienaruszone: `tools/enrich_decydenci_nonpl.py`, `tools/billszuka.py`.
+
+
+## 2026-08-18 13:08 CEST — PDF catalog design — locked for CZ
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o zaprojektowanie profesjonalnego, drukowalnego PDF "Katalog leadów B2B/B2C" per kraj. Po 8 iteracjach design został zlockowany dla CZ jako wzorzec dla pozostałych 11 krajów.
+
+**Locked design (PDF v8):**
+
+- **Format:** A4 portrait, 1.5cm marginesy, 2 strony
+- **Font:** Verdana (Polish-safe, z /System/Library/Fonts/Supplemental/) — wszystkie polskie znaki renderują się poprawnie
+- **Hierarchia:**
+  - H1 (tytuł kraju): 32pt bold (np. "Czechy")
+  - H1_SUB (sub-title): 13pt regular, lewo
+  - H1_DATE: 11pt regular, prawo (w tej samej linii co sub-title)
+  - H2 (sekcje): 10.5pt bold
+  - BODY: 8.8pt regular
+  - CALLOUT_BODY: 8.4pt regular
+  - META: 6.8pt regular
+- **Header (powtarzany na każdej stronie):**
+  - Lewo: "BILLS Sp. z o.o.  ·  Dystrybucja PowerMatic & Hawk"
+  - Prawo: "Katalog leadów B2B/B2C"
+- **Footer (powtarzany):**
+  - Lewo: "BILLS Sp. z o.o.  ·  Ostrzeszów  ·  **serwis@bills.pl**" (jedyny email)
+  - Prawo: "Strona X"
+- **Strona 1 — układ:**
+  1. Tytuł kraju + "Katalog leadów B2B/B2C" (lewo) + data (prawo, np. "18 sierpnia 2026")
+  2. Separator (HR)
+  3. Errata (1 krótki akapit, profesjonalny styl)
+  4. **Potencjał rynkowy — szacunki** (4 stat-boxy: RYNEK TYTONIOWY, SEGMENT RYO/MYO, RYNEK NABIJAREK, BARIERA WEJŚCIA)
+  5. *Italic sub-line:* "W naszej bazie odnaleźliśmy [N] zweryfikowanych podmiotów — ..."
+  6. **Statystyki bazy leadów** (4 stat-boxy: KATALOG A, KATALOG B, ŁĄCZNIE, WALIDACJA)
+  7. *Italic sub-line:* A = ... · B = ...
+  8. **Pięć kluczowych insightów dla działu sprzedaży** (callout-boxy z lewym paskiem akcentu + numerem INSIGHT n/5)
+- **Strona 2 — układ:**
+  1. **Podział wg kategorii** (tabela: Kategoria, Ilość, Znaczenie dla BILLS)
+  2. **Legenda — Katalog A** (tabela: Kod, Kategoria, Znaczenie)
+  3. **Legenda — Katalog B** (tabela: Kod, Specjalizacja, Pow., Uzasadnienie)
+  4. **Legenda — skróty i terminy** (tabela: Skrót, Znaczenie — CEE, PL, CZ, B2B/B2C, IČO, DIČ, ARES, PM, Hawk, FROZEN, DO-WER, nabijarka, RYO/MYO, trafika, daňový sklad, szac.)
+
+**Iteracje design (v1→v8):**
+
+1. **v1** — pierwsza próba z editorial type z design system (Bebas Neue + Libre Franklin) — zbyt "designer"
+2. **v2** — minimalistyczny ReportLab z Helvetica — **polskie znaki renderowały się jako ■**
+3. **v3** — przejście na **Verdana** (Polish-safe) + poprawione szerokości kolumn + "=>" zamiast "→"
+4. **v4** — zmniejszone marginesy 2cm→1.5cm, 5 insightów zamiast 3, bardziej kompaktowy layout
+5. **v5** — dodany CEE w legendzie + statystyki tytoniowe w Potencjale + A/B explainer pod Statystykami
+6. **v6** — "pisarz" rewrite całego tekstu (profesjonalny styl), H1 zmniejszony 40→32pt, szacunki rynkowe + "co odnaleźliśmy"
+7. **v7** — tightening layout żeby 5 insightów zmieściło się na 1 stronie
+8. **v8** — final: footer email zmieniony na **serwis@bills.pl** (usunięte hurt@ i sales@) + data w tej samej linii co sub-title (prawo) + locked
+
+**Pliki dla CZ:**
+
+- `data/Czechy/PDF-CZ.pdf` (v8, 73KB, 2 strony) — final locked
+- `data/Czechy/PDF-CZ.md` (6.4KB) — clean source/źródło narracyjne, odzwierciedla zawartość PDF
+- `data/Czechy/insight-CZ.md` (5.0KB) — sales-only intel + profesjonalny styl + szacunki rynkowe (mirror PDF)
+
+**Dalsze kroki (per Marceli):**
+
+- Zlockowany design CZ → zastosować do pozostałych 11 krajów (PL, SK, SI, HR, BG, RO, MD, LT, LV, EE, FR)
+- Dla każdego: wygenerować PDF-{ISO}.pdf + PDF-{ISO}.md + zaktualizować insight-{ISO}.md
+- Generator: stworzyć `tools/pdf_gen_country.py` z parametryzacją per kraj (data, ISO, errata, top 5 firm, statystyki, szacunki rynkowe)
 
 
 ## 2026-08-18 12:35 CEST — Automatyczna analiza walkthrough & v2 verification
@@ -456,3 +577,47 @@ Główne skrypty zostają nienaruszone: `tools/enrich_decydenci_nonpl.py`, `tool
 
 1. Weryfikacja automatyczna: **374/393 (95.2%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **393 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-18 13:13 CEST — PDF v9 — verified data + git commit
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o weryfikację danych (czy szacunki rynkowe są realne i czy firmy w insightach matchują nasze leady) + finalną regenerację PDF + commit na GitHub.
+
+**Weryfikacje (v9):**
+
+1. **Identyfikacja firm w insightach — poprawione ID:**
+   - **GGT** poprawnie na **CZ-B-001** (było błędnie CZ-B-008) → Josef Hloušek
+   - **GECO** poprawnie na **CZ-B-006** (było błędnie CZ-B-007) → Libor Chrobok
+   - **Czech Tobacco Corporation** poprawnie na **CZ-B-002** (Přemysl Opletal, nie "—")
+   - **PEAL a.s. (CZ-A-002)** ✓ — Miroslav Kaštánek
+   - **FORTIS-DB (CZ-A-001)** ✓ — Jiří Dort
+
+2. **Status weryfikacji API (verified):**
+   - PEAL: FROZEN
+   - GGT: DO-WERYFIKACJI (dane kontaktowe zweryfikowane na stronie firmowej — zaznaczone w PDF)
+   - GECO: FROZEN
+   - Czech Tobacco Corp: FROZEN
+   - FORTIS-DB: FROZEN
+
+3. **Dodane pełne dane kontaktowe do każdej z 5 insight firm:**
+   - IČO, miasto, email, telefon, www (wszystkie zweryfikowane z `data/master.csv`)
+
+4. **Szacunki rynkowe skonserwatyzowane:**
+   - RYNEK TYTONIOWY: ~55 mld CZK/rok (szac.) — było ~58, skorygowane na bardziej konserwatywne
+   - SEGMENT RYO/MYO: ~20% wolumenu (szac.) — było 18%, CZ ma wyższy udział niż średnia UE
+   - RYNEK NABIJAREK: ~5–10 mln EUR/rok (szac.) — zakres, nie punkt
+   - BARIERA WEJŚCIA: niska (brak akcyzy) — bez zmian
+
+**Pliki dla CZ (v9):**
+- `data/Czechy/PDF-CZ.pdf` (72.9KB, 2 strony) — final locked
+- `data/Czechy/PDF-CZ.md` (7.1KB, 125 linii) — clean source narracyjne
+- `data/Czechy/insight-CZ.md` (7.0KB, 110 linii) — sales-only intel + verified data
+- `DZIENNIK.md` — ten wpis
+
+**Plan na pozostałe 11 krajów:**
+- Aplikować ten sam template (v9) z danymi z `data/{Kraj}/catalog-A-{ISO}.csv` + `data/{Kraj}/catalog-B-{ISO}.csv` + `data/{Kraj}/insight-{ISO}.md`
+- Stworzyć `tools/pdf_gen_country.py` z parametryzacją per kraj (data, ISO, errata, top 5 firm, statystyki, szacunki rynkowe)
+- Gotowe do zastosowania: PL, SK, SI, HR, BG, RO, MD, LT, LV, EE, FR
