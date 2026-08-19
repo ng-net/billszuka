@@ -149,10 +149,10 @@
   table.liderzy col.c-opis { width: 40%; }
 
   /* Regional table — 5 columns (matches 18) */
-  table.regional col.c-firma { width: 22%; }
-  table.regional col.c-lok { width: 18%; }
-  table.regional col.c-nab { width: 11%; }
-  table.regional col.c-prod { width: 28%; }
+  table.regional col.c-firma { width: 21%; }
+  table.regional col.c-lok { width: 17%; }
+  table.regional col.c-nab { width: 14%; }
+  table.regional col.c-prod { width: 27%; }
   table.regional col.c-model { width: 21%; }
 
   /* Brand map — 2 columns */
@@ -194,11 +194,21 @@
     display: inline-block;
     background: #f0e6d4;
     color: #4a3f35;
-    font-size: 7.2pt;
+    font-size: 7.0pt;
     font-weight: 600;
     padding: 1.5pt 5pt;
     border-radius: 8pt;
     margin-right: 3pt;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+  /* Pills inside table cells: block + centered to prevent column overflow */
+  td .pill {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 1pt auto 1pt auto;
+    text-align: center;
   }
   .pill.tak { background: #d8e4d0; color: #3a5230; }
   .pill.nie { background: #ecd6d2; color: #6b322a; }
@@ -445,7 +455,7 @@
 <div class="page-break"></div>
 
 <h2>3. Katalog Regionalny — Premium Hurtownie per Województwo</h2>
-<p class="muted">51 podmiotów kuratorowanych per region — tylko firmy z NIP, multi-region presence lub specjalizacją Powermatic / akcesoria premium. Format kolumn: <span class="pill neutral">Firma / WWW</span> <span class="pill neutral">Lokalizacja</span> <span class="pill neutral">Nabijarki?</span> <span class="pill neutral">Produkty / Marki</span> <span class="pill neutral">Model biznesowy</span> — zgodny z 18-Premium_Tobacco_Directory_2026.</p>
+<p class="muted">51 podmiotów kuratorowanych per region — tylko firmy z NIP, multi-region presence lub specjalizacją Powermatic / akcesoria premium. Format 5-kolumnowy zgodny z 18-Premium_Tobacco_Directory_2026: <strong>Firma / WWW</strong> · <strong>Lokalizacja</strong> · <strong>Nabijarki?</strong> · <strong>Produkty / Marki</strong> · <strong>Model</strong>.</p>
 
 <!-- Dolnośląskie -->
 <div class="region-head">Region: Województwo Dolnośląskie (5 firm)</div>
@@ -743,7 +753,7 @@
     <tr><td><strong>Wyłączone z katalogu</strong></td><td>~30+ ogólnikowych wpisów bez NIP, z ogólnymi opisami („hurtownia wielobranżowa"), bez marek premium w portfolio</td></tr>
     <tr><td><strong>Data</strong></td><td>2026 (raporty 09/18/24) + dashboard 2024 dla kontekstu makro</td></tr>
     <tr><td><strong>Ograniczenia</strong></td><td>Niektóre NIP do weryfikacji; dane kontaktowe mogą ulec szybkiej dezaktualizacji w przypadku marketplace i małych sklepów</td></tr>
-    <tr><td><strong>Klasyfikacja Nabijarki?</strong></td><td>Wartości z katalogu 18 zachowane: <span class="pill neutral">NIEOKREŚLONE</span> / <span class="pill tak">TAK</span> / <span class="pill nie">NIE</span> / <span class="pill neutral">PRAWDOPODOBNIE</span>. Wartość <span class="pill tak">TAK</span> = potwierdzona obecność maszynek (ręcznych, automatycznych lub elektrycznych) w ofercie</td></tr>
+    <tr><td><strong>Klasyfikacja Nabijarki?</strong></td><td>Wartości z katalogu 18 zachowane: <strong>NIEOKREŚLONE</strong> / <strong>TAK</strong> / <strong>NIE</strong> / <strong>PRAWDOPODOBNIE</strong>. Wartość <strong>TAK</strong> = potwierdzona obecność maszynek (ręcznych, automatycznych lub elektrycznych) w ofercie</td></tr>
   </tbody>
 </table>
 

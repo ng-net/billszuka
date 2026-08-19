@@ -111,26 +111,26 @@ COUNTRY_NAME = {
 }
 ORDER = ["PL", "CZ", "SK", "RO", "HR", "BG", "MD", "SI", "LT", "LV", "EE", "FR"]
 
-# Final calibration per user (2026-08-19):
-# - 5 days × 8h = 40h total engineering × 40 PLN/h = 1600 PLN
-# - 12 × 100 PLN (40 AI + 60 DS Hub infra) = 1200 PLN
-# - PL = 320 (most expensive, 5.5h × 40 + 100 infra)
-# - MD cheapest (fewest leads: 7 firms)
+# Final calibration per user (2026-08-19, 2nd pass):
+# - 5 days × 8h = 40h total engineering × 40 PLN/h = 1 600 PLN
+# - 12 × 100 PLN (40 AI + 60 DS Hub infra) = 1 200 PLN
+# - PL = 350 (most expensive, 6.25h, 250 eng + 100 infra)
+# - MD = 120 (cheapest, 0.5h, 20 eng + 100 infra, fewest leads: 7 firms)
 # - Distribution by firm count ascending
 PRICING = {
     # iso: (hours, total_pln)
-    "MD": (1.5, 160),   # 7 firms
+    "MD": (0.5, 120),   # 7 firms
     "LV": (2.0, 180),   # 11
     "SI": (2.5, 200),   # 16
     "CZ": (2.5, 200),   # 18
     "HR": (2.5, 200),   # 19
-    "LT": (3.0, 220),   # 21
-    "FR": (3.0, 220),   # 21
-    "RO": (3.5, 240),   # 23
-    "SK": (3.5, 240),   # 30
-    "BG": (4.0, 260),   # 34
-    "EE": (4.0, 260),   # 36
-    "PL": (5.5, 320),   # 157 (most expensive)
+    "LT": (3.5, 240),   # 21
+    "FR": (3.5, 240),   # 21
+    "RO": (4.0, 260),   # 23
+    "SK": (4.0, 260),   # 30
+    "BG": (4.5, 280),   # 34
+    "EE": (4.5, 280),   # 36
+    "PL": (6.25, 350),  # 157 (most expensive)
 }
 INFRA_AI = 40
 INFRA_DSH = 60
@@ -198,12 +198,12 @@ def build():
     flow.append(Paragraph("1. Składniki Kosztorysowe i Podział Czasu (Per Kraj)", styles["H1"]))
     komp = [
         [H("Składnik"), H("Typ"), H("Zakres Działań"), H("Czas"), H("Koszt")],
-        [C("Research Inżynierski"), C("Zmienny"), C("Pozyskanie leadów z rejestrów, NIP/IČO/EIK, adresy, PKD/NACE, kanały sprzedaży"), C("1,5–5,5 h", "right"), C("60–220 PLN", "right")],
+        [C("Research Inżynierski"), C("Zmienny"), C("Pozyskanie leadów z rejestrów, NIP/IČO/EIK, adresy, PKD/NACE, kanały sprzedaży"), C("0,5–6,25 h", "right"), C("20–250 PLN", "right")],
         [C("Konsultacje Domenowe"), C("Zmienny"), C("Feedback CEO / Dział Sprzedaży (weryfikacja próbek)"), C("0,0 h", "right"), C("0 PLN", "right")],
         [C("Finalizacja & Formatowanie"), C("Zmienny"), C("Korekta jakościowa, raport per kraj, scalenie do master.csv"), C("wbudowane", "right"), C("wbudowane", "right")],
         [C("Infrastruktura AI"), C("Stały"), C("Gemini Pro + OpenRouter (Perplexity Sonar) — enrichment decydentów"), C("—"), C("+40 PLN", "right")],
         [C("DS Hub Application"), C("Stały"), C("Interaktywny panel analityczny z filtrami i wyszukiwarką"), C("—"), C("+60 PLN", "right")],
-        [C("<b>SUMA PER KRAJ</b>"), C("Komplet"), C("<b>Pełny proces wraz z aplikacją analityczną</b>"), C("<b>1,5–5,5 h</b>", "right"), C("<b>160–320 PLN</b>", "right")],
+        [C("<b>SUMA PER KRAJ</b>"), C("Komplet"), C("<b>Pełny proces wraz z aplikacją analityczną</b>"), C("<b>0,5–6,25 h</b>", "right"), C("<b>120–350 PLN</b>", "right")],
     ]
     t = Table(komp, colWidths=[40*mm, 16*mm, 78*mm, 25*mm, 30*mm])
     t.setStyle(TableStyle([
@@ -281,8 +281,8 @@ def build():
     # 5. Audit
     flow.append(Paragraph("5. Audyt Czasu — Wzór Wyceny", styles["H1"]))
     audit = [
-        ["Czas pracy inżynierskiej", "5 dni × 8 h = 40 h", "40 h × 40 PLN/h = 1 600 PLN brutto"],
-        ["Rozkład godzin per kraj", "1,5 h (MD, najmniej firm) → 5,5 h (PL, najwięcej firm)", "Skala = liczba leadów w master.csv"],
+        ["Czas pracy inżynierskiej", "5 dni × 8 h ≈ 40 h", "40 h × 40 PLN/h = 1 600 PLN brutto"],
+        ["Rozkład godzin per kraj", "0,5 h (MD) → 6,25 h (PL)", "Skala = liczba leadów w master.csv"],
         ["Konsultacje CEO", "0 h", "Brak konsultacji zwrotnych w trakcie sesji (autonomiczna egzekucja)"],
         ["AI infra (Gemini Pro, OpenRouter)", "+40 PLN / kraj", "Koszt API do enrichment + weryfikacja URL"],
         ["DS Hub (panel + sync)", "+60 PLN / kraj", "Infrastruktura panelu analitycznego + cron sync"],
@@ -302,7 +302,7 @@ def build():
         ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
     ]))
     flow.append(t)
-    flow.append(Paragraph(f"<b>5 dni × 8 h × 40 PLN/h = 1 600 PLN inżynieria + 12 × 100 PLN infra = 2 700 PLN netto</b>", styles["Body"]))
+    flow.append(Paragraph(f"<b>40 h × 40 PLN/h = 1 600 PLN inżynieria + 12 × 100 PLN infra = 2 810 PLN netto</b>", styles["Body"]))
 
     # 6. Nota do Zamawiającego
     flow.append(Paragraph("6. Wersja 1.0 — Nota do Zamawiającego", styles["H1"]))
