@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>BONUS — Premium Tobacco Directory (Poland 2026)</title>
+<style>
+  /* ====== Page setup (A4) ====== */
+  @page {
+    size: A4;
+    margin: 16mm 14mm 14mm 14mm;
+  }
+  @page :first {
+    margin-top: 14mm;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #1a1a1a;
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 9.2pt;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ====== Cover header (page 1) ====== */
+  .cover {
+    border-top: 3px solid #8b5e3c;
+    border-bottom: 1px solid #e0d8cf;
+    padding: 8pt 0 10pt 0;
+    margin-bottom: 14pt;
+  }
+  .cover h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #2b211a;
+    margin: 0 0 4pt 0;
+    letter-spacing: -0.3pt;
+  }
+  .cover .subtitle {
+    font-size: 9.5pt;
+    color: #6b5d4f;
+    font-weight: 500;
+  }
+  .cover .doc-id {
+    font-size: 8pt;
+    color: #a08a73;
+    margin-top: 4pt;
+    font-family: "SF Mono", "Menlo", monospace;
+  }
+
+  /* ====== KPI strip (page 1) ====== */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8pt;
+    margin-bottom: 16pt;
+  }
+  .kpi {
+    background: #faf6f0;
+    border: 1px solid #e6dcc9;
+    border-left: 3px solid #8b5e3c;
+    padding: 9pt 10pt 8pt 10pt;
+  }
+  .kpi .label {
+    font-size: 7.4pt;
+    font-weight: 700;
+    color: #6b5d4f;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    margin-bottom: 4pt;
+  }
+  .kpi .value {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #2b211a;
+    line-height: 1.05;
+  }
+  .kpi .sub {
+    font-size: 7.6pt;
+    color: #8b7e6e;
+    margin-top: 3pt;
+  }
+
+  /* ====== Section heading (between sections) ====== */
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #2b211a;
+    margin: 14pt 0 6pt 0;
+    padding: 5pt 0 5pt 8pt;
+    border-left: 3px solid #8b5e3c;
+    background: #faf6f0;
+  }
+  h3 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #4a3f35;
+    margin: 10pt 0 4pt 0;
+  }
+  h4 {
+    font-size: 9.2pt;
+    font-weight: 700;
+    color: #2b211a;
+    margin: 6pt 0 3pt 0;
+  }
+  p { margin: 3pt 0 5pt 0; }
+  ul { margin: 4pt 0 4pt 18pt; padding: 0; }
+  li { margin: 1.5pt 0; }
+
+  /* ====== Tables (generic) ====== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4pt 0 6pt 0;
+    font-size: 8.4pt;
+    table-layout: fixed;
+  }
+  thead th {
+    background: #2b211a;
+    color: #fdfaf6;
+    font-weight: 600;
+    text-align: left;
+    padding: 5pt 6pt;
+    font-size: 7.8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3pt;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  tbody td {
+    padding: 4.5pt 6pt;
+    border-bottom: 1px solid #ece4d6;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  tbody tr:nth-child(even) { background: #faf6f0; }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr { page-break-inside: avoid; }
+
+  /* Liderzy table — 4 columns */
+  table.liderzy col.c-num { width: 5.5%; }
+  table.liderzy col.c-firma { width: 23%; }
+  table.liderzy col.c-nip { width: 31.5%; }
+  table.liderzy col.c-opis { width: 40%; }
+
+  /* Regional table — 5 columns (matches 18) */
+  table.regional col.c-firma { width: 22%; }
+  table.regional col.c-lok { width: 18%; }
+  table.regional col.c-nab { width: 11%; }
+  table.regional col.c-prod { width: 28%; }
+  table.regional col.c-model { width: 21%; }
+
+  /* Brand map — 2 columns */
+  table.brandmap col.c-marka { width: 36%; }
+  table.brandmap col.c-dystr { width: 64%; }
+
+  /* Methodology table */
+  table.method col.c-key { width: 30%; }
+  table.method col.c-val { width: 70%; }
+
+  /* ====== Region header (separator row) ====== */
+  .region-head {
+    background: #2b211a;
+    color: #fdfaf6;
+    font-weight: 700;
+    font-size: 9.2pt;
+    padding: 5pt 8pt;
+    margin: 8pt 0 0 0;
+    border-left: 3px solid #8b5e3c;
+  }
+
+  /* ====== Footer (every page) ====== */
+  .footer {
+    position: running(footer);
+  }
+  @page {
+    @bottom-center {
+      content: "Baza Danych Dystrybutorów Tytoniowych i FMCG — Wygenerowano w 2026 r.   |   Strona " counter(page) " z " counter(pages);
+      font-family: "Inter", sans-serif;
+      font-size: 7.4pt;
+      color: #8b7e6e;
+    }
+  }
+
+  /* ====== Small text variants ====== */
+  .muted { color: #6b5d4f; font-size: 8pt; }
+  .mono { font-family: "SF Mono", "Menlo", "Consolas", monospace; font-size: 8pt; }
+  .pill {
+    display: inline-block;
+    background: #f0e6d4;
+    color: #4a3f35;
+    font-size: 7.2pt;
+    font-weight: 600;
+    padding: 1.5pt 5pt;
+    border-radius: 8pt;
+    margin-right: 3pt;
+  }
+  .pill.tak { background: #d8e4d0; color: #3a5230; }
+  .pill.nie { background: #ecd6d2; color: #6b322a; }
+  .pill.neutral { background: #e6dcc9; color: #4a3f35; }
+
+  /* ====== BILLS strategic note box ====== */
+  .bills-box {
+    background: #faf6f0;
+    border: 1px solid #d8c8a8;
+    border-left: 4px solid #8b5e3c;
+    padding: 9pt 11pt;
+    margin: 8pt 0 6pt 0;
+  }
+  .bills-box .lead {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #2b211a;
+    margin-bottom: 4pt;
+  }
+
+  /* ====== Force page breaks before big sections ====== */
+  .page-break { page-break-before: always; }
+  .avoid-break { page-break-inside: avoid; }
+
+  /* ====== Exec summary list ====== */
+  .exec-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 4pt 0 6pt 0;
+  }
+  .exec-list li {
+    position: relative;
+    padding-left: 14pt;
+    margin: 2.5pt 0;
+  }
+  .exec-list li::before {
+    content: "▸";
+    color: #8b5e3c;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  /* ====== Leadership card highlight (BILLS) ====== */
+  .leader-bills {
+    background: #f4e7d2 !important;
+  }
+  .leader-bills td {
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1: COVER + KPI + EXEC SUMMARY ===================== -->
+
+<div class="cover">
+  <h1>Premium Tobacco Directory (Poland 2026)</h1>
+  <div class="subtitle">Kuratorowana Baza Dystrybutorów Premium — Tytoń, FMCG, Akcesoria, Vape</div>
+  <div class="doc-id">BONUS · rozszerzenie katalogu 18-Premium_Tobacco_Directory_2026</div>
+</div>
+
+<!-- KPI strip -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="label">Łączna liczba podmiotów premium</div>
+    <div class="value">71</div>
+    <div class="sub">zweryfikowanych hubów</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Sieci ogólnopolskie</div>
+    <div class="value">20</div>
+    <div class="sub">multi-region (liderzy rynku)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Focus Powermatic / Hawk-Matic</div>
+    <div class="value">15+</div>
+    <div class="sub">dystrybutorów z marką</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Top region</div>
+    <div class="value">Wielkopolskie</div>
+    <div class="sub">BILLS HQ + Paso + eSmoking/CHIC</div>
+  </div>
+</div>
+
+<h2>1. Skrót Wykonawczy (Executive Summary)</h2>
+
+<ul class="exec-list">
+  <li><strong>Skala rynku.</strong> Polski rynek hurtowy FMCG obejmuje ok. <strong>14 282 aktywnych hurtowni</strong> (dane 2024, dashboard 00-Rynek_Hurtowy-w-Polsce-Ogolnie), średni przychód roczny <strong>12,4 mln PLN</strong>, koncentracja w Mazowieckiem (28% udziału).</li>
+  <li><strong>5 pięter rynku</strong> (raport 09-Narracja-Leady-B2B-Powermatic-Hawk-Matic): (1) hurtownie FMCG/akcyzowe z działem tytoniowym; (2) dystrybutorzy vape / e-papierosów z panelem B2B; (3) wyspecjalizowane hurtownie akcesoriów (headshopy); (4) sieci salonów tytoniowych; (5) sprzedawcy marketplace (Allegro/OLX/Erli).</li>
+  <li><strong>Pozycja BILLS.</strong> BILLS Sp. z o.o. (Ostrzeszów) jest <strong>jedynym autoryzowanym dystrybutorem Powermatic w Polsce</strong> (i Europie Środkowo-Wschodniej). Każdy podmiot chcący sprzedawać legalne maszynki Powermatic z pełną gwarancją i serwisem musi kupować od BILLS — przewaga kontraktowa nie do podrobienia.</li>
+  <li><strong>Top brandy premium</strong> dystrybuowane w PL: Powermatic, Hawk-Matic, OCB, Mascotte, Gizeh, Clipper, RAW, Don Marco (marka własna PL), Al Fakher, PAX, Storz &amp; Bickel, Scandinavian Tobacco Group.</li>
+  <li><strong>Koncentracja regionalna.</strong> Mazowieckie + Śląskie + Małopolskie = ~50% rynku FMCG. Zachodniopomorskie (Szczecin) i Lubuskie (Zielona Góra) = huby dystrybucji vape. Małopolska (Kraków, Kęty, Modlnica) = centrum produkcji gilz i akcesoriów.</li>
+  <li><strong>Legalny kanał vs szara strefa.</strong> Na Allegro/OLX krąży wiele ofert Powermatic z niepewnym pochodzeniem. BILLS (tel. <span class="mono">730 988 994</span>) potwierdza legalność łańcucha dystrybucji dla każdego sprzedawcy — gotowy argument sprzedażowy przy kontakcie z marketami i hurtowniami.</li>
+</ul>
+
+<!-- ===================== PAGE 2: LIDERZY RYNKU ===================== -->
+
+<div class="page-break"></div>
+
+<h2>2. Główni Dystrybutorzy i Liderzy Rynku (Top 20)</h2>
+<p class="muted">Firmy o największym wolumenie, ogólnopolskim zasięgu lub kluczowej pozycji w segmencie Powermatic / akcesoria premium. Dane z NIP i/lub KRS/CEIDG; tam gdzie NIP brak — adnotacja „do weryfikacji". Źródła: 18-Premium_Tobacco_Directory_2026, 24-Extras-Tobacco-Distributors-PL, 09-Narracja-Leady-B2B-Powermatic-Hawk-Matic.</p>
+
+<table class="liderzy">
+  <colgroup>
+    <col class="c-num"><col class="c-firma"><col class="c-nip"><col class="c-opis">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Firma / Lokalizacja</th>
+      <th>NIP / Identyfikatory · Marki</th>
+      <th>Pozycja Rynkowa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="leader-bills">
+      <td>1</td>
+      <td><strong>BILLS Sp. z o.o. (Smoks)</strong><br>Ostrzeszów, Wlkp<br>powermatic.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Powermatic · Hawk-Matic · Smoks · OCB · Mascotte · Gizeh · Clipper</td>
+      <td><strong>Jedyny autoryzowany dystrybutor Powermatic w Polsce i CEE.</strong> Jedyne legalne źródło maszynek z pełną gwarancją i serwisem.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>Polski Tytoń PHP S.A.</strong><br>Radom, Mazowieckie (14+ oddziałów)<br>polskityton.pl</td>
+      <td><span class="mono">NIP: 9482622620</span><br>OCB · Mascotte · Gizeh · Clipper · Dark Horse · RAW · Zorr · Ciggi · Angel · Atomic</td>
+      <td><strong>Top-tier narodowy dystrybutor FMCG/tytoniowy.</strong> Dostarcza do 15 000+ punktów detalicznych, nowoczesnego handlu i stacji benzynowych.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>Lima S.A.</strong><br>HQ Warszawa; oddziały 16+ miast<br>lima-sa.pl</td>
+      <td><span class="mono">NIP: 8842360418</span><br>OCB · Mascotte · Clipper · Golden Virginia</td>
+      <td>Jedna z największych polskich sieci dystrybucji tytoń/FMCG; ścisła B2B. Multi-branch nationwide.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>KDWT S.A.</strong><br>Opole (HQ), Kraków</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>OCB · Mascotte · Gizeh · Clipper · RAW</td>
+      <td>Konsorcjum dystrybucyjne zbudowane z byłych państwowych struktur hurtu tytoniowego.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>PGT — Polska Grupa Tytoniowa</strong><br>Myślibórz (HQ); Bydgoszcz, Łódź, Warszawa, Piekary Śląskie<br>polskagt.pl</td>
+      <td><span class="mono">NIP: 4980260426</span><br>Al Fakher · Dinner Lady · STG Cigarillos · OCB · Mascotte · Gizeh</td>
+      <td>NGP + shisha; 150 hurtowych klientów + 5 000 detalicznych.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>King Hurt</strong><br>Szczecin (HQ, 8 voiv., 20 oddziałów)<br>kinghurt.pl</td>
+      <td><span class="mono">NIP: 8511005882</span><br>OCB · Mascotte · Gizeh · Powermatic · Hawk-Matic · Dark Horse · Clipper</td>
+      <td><strong>Największy niezależny hurtownik tytoniowy w NW Polsce</strong> (od 1994). Multi-branch z pełną paletą akcesoriów.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><strong>ZAS-POL</strong><br>Zielona Góra (HQ); multi-region<br>zas-pol.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>OCB · Mascotte · Gizeh</td>
+      <td><strong>Bezpośredni dystrybutor 4 wielkich koncernów</strong> (PMI, BAT, JTI, Imperial). Gilzy, napełniarki, zapalniczki, zapałki.</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><strong>Paso Polska Sp. z o.o. Sp.k.</strong><br>Sierosław / Tarnowo Podgórne, Wlkp<br>paso.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Multi-category FMCG, marki własne</td>
+      <td>Sieć regionalnych kierowników sprzedaży pokrywających wszystkie 16 województw; hurt@paso.pl.</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><strong>Orion Tobacco Poland Sp. z o.o.</strong><br>Goszczyn, Mazowieckie<br>orion-orion.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Orion · OCB · Mascotte · Gizeh</td>
+      <td><strong>Pionowo zintegrowany producent-dystrybutor</strong> (przychód ~122 mln PLN). Tytoń, papierosy, gilzy, filtry, bibułki, akcesoria.</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><strong>CK Complex Sp. z o.o.</strong><br>Zielona Góra, Lubuskie<br>ckcomplex.pl / b2b.ckcomplex.pl</td>
+      <td><span class="mono">NIP: 9291744080</span><br>OCB · Mascotte · Gizeh + liquids własne + topowe marki vape</td>
+      <td><strong>Lider polskiego hurtu vape.</strong> 120+ sklepów, 442 mln PLN rocznego przychodu, 6 regionalnych kierowników sprzedaży.</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><strong>eSmoking World / CHIC Sp. z o.o. Sp.k.</strong><br>Ostrzeszów, Wlkp</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Zapalniczki SPARK · CK · liquids własne</td>
+      <td><strong>400 punktów sprzedaży w 200 miastach</strong>, fabryka i centrum R&amp;D w Ostrzeszowie.</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><strong>Bitlogic Sp. z o.o. (iSmoking.pl)</strong><br>Zielona Góra<br>iSmoking.pl / b2b.bitlogic.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>iSmoking + topowe marki vape</td>
+      <td>„Jeden z największych i najbardziej wpływowych hurtowników vape w Europie".</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><strong>FHPD Sp. z o.o.</strong><br>Wrocław, Dolnośląskie<br>b2b.fhpd.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Lost Vape · Smok · Vaporesso · Dotmod</td>
+      <td>Hurtownia vape od 2007; „setki sklepów" w PL.</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><strong>Cannmedia / Bletki.com</strong><br>PL (HQ do weryfikacji)<br>bletki.com</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Rolls · Hybrid · Shine 24K Gold · Purize</td>
+      <td><strong>Wyłączny dystrybutor premium brandów headshop</strong> w PL. Hurtownia akcesoriów do palenia.</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><strong>Wujo.pl</strong><br>PL (HQ do weryfikacji)<br>wujo.pl / hurt.wujo.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>3 500+ produktów (marki własne + dystrybucja)</td>
+      <td>Headshop + hurtownia; dedykowany opiekun handlowy; magazyn PL.</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><strong>Vaporshop.pl / ULTI-PRO Sp. z o.o.</strong><br>Rybnik, Śląskie<br>vaporshop.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>PAX · Storz &amp; Bickel · V-Syndicate</td>
+      <td><strong>Wyłączny dystrybutor PAX, dystrybutor Storz &amp; Bickel</strong> w PL.</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td><strong>TRAFIKA / Tabak Grupa Sp. z o.o.</strong><br>Kalisz, Wlkp<br>trafika.pl</td>
+      <td><span class="mono">NIP: 6181914183 · KRS: 0000119343</span><br>Powermatic · OCB · Mascotte · Gizeh</td>
+      <td><strong>Sieć 50+ salonów tytoniowych</strong>, 25+ lat; 30 miast, 2 000+ produktów; skleptytoniowy.pl.</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td><strong>SMOKE / Promotorzy Trading Sp. z o.o. Sp.k.</strong><br>Warszawa<br>smoke.pl</td>
+      <td><span class="mono">NIP: do weryfikacji</span><br>Premium cygara · fajki drewniane · luksusowe zapalniczki · bibułki · tytonie fajkowe · shisha · e-papierosy · saszetki nikotynowe</td>
+      <td><strong>„Największa w Polsce i Europie sieć salonów tytoniowych"</strong> — 50+ salonów w 25 miastach.</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td><strong>Elenpipe Sp. z o.o.</strong><br>Przemyśl, Podkarpackie<br>elenpipe.com</td>
+      <td><span class="mono">NIP: 7952526523</span><br>Elenpipe · Zorr · Angel · Champ · Matteo · Ciggi</td>
+      <td><strong>Specjalista ds. maszynek, gilz, bibułek, filtrów, fajek, cygar, zapalniczek.</strong> Hurt + detal.</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td><strong>Don Marco / Donmarco</strong><br>Gdańsk, Pomorskie<br>donmarco.pl</td>
+      <td><span class="mono">NIP: 5833000423</span><br>Don Marco (własna) · DORA &amp; NASS (exclusive) · zapalniczki · etui · bonga · rolling machines</td>
+      <td><strong>Importer i dystrybutor B2B</strong> — zaopatruje detal i e-sklepy w PL i Europie.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===================== PAGE 3+: REGIONAL CATALOG ===================== -->
+
+<div class="page-break"></div>
+
+<h2>3. Katalog Regionalny — Premium Hurtownie per Województwo</h2>
+<p class="muted">51 podmiotów kuratorowanych per region — tylko firmy z NIP, multi-region presence lub specjalizacją Powermatic / akcesoria premium. Format kolumn: <span class="pill neutral">Firma / WWW</span> <span class="pill neutral">Lokalizacja</span> <span class="pill neutral">Nabijarki?</span> <span class="pill neutral">Produkty / Marki</span> <span class="pill neutral">Model biznesowy</span> — zgodny z 18-Premium_Tobacco_Directory_2026.</p>
+
+<!-- Dolnośląskie -->
+<div class="region-head">Region: Województwo Dolnośląskie (5 firm)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Czechomax<br><span class="muted">czechomax.pl</span></td><td>Wrocław</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń, alkohol, słodycze, FMCG</td><td>B2B + B2C</td></tr>
+    <tr><td>Augusto Limaro<br><span class="muted">augustolimaro.pl</span></td><td>Jelenia Góra (obsługuje Zgorzelec, Bolesławiec, Legnica)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń, alkohol, FMCG</td><td>B2B wholesale + retail mix</td></tr>
+    <tr><td>Tabak — Hurtownia Papierosów<br><span class="muted">tabak.wroclaw.pl</span></td><td>Wrocław (Kruszwicka 26/28)</td><td><span class="pill tak">TAK</span></td><td>Papierosy, wyroby tytoniowe · Powermatic, OCB, Mascotte</td><td>B2B — laureat nagrody 2024</td></tr>
+    <tr><td>Vape Point Sp. z o.o.<br><span class="muted">vapoint.pl</span></td><td>Wrocław (Powstańców Śląskich 95)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Hurtownia vape, e-liquidy</td><td>B2B; tel. +48 729 411 684</td></tr>
+    <tr><td>SOFLY<br><span class="muted">sofly.club</span></td><td>Świdnica</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Kujawsko-Pomorskie -->
+<div class="region-head">Region: Województwo Kujawsko-Pomorskie (2 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>PGT — Polska Grupa Tytoniowa<br><span class="muted">b2b.katalogpgt.pl</span></td><td>Bydgoszcz (oddział regionalny)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Al Fakher, Dinner Lady, STG Cigarillos, OCB, Mascotte, Gizeh</td><td>B2B — oddział sieci</td></tr>
+    <tr><td>Bista Standard<br><span class="muted">bista.pl · NIP 5542559901</span></td><td>Bydgoszcz</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Lubelskie -->
+<div class="region-head">Region: Województwo Lubelskie (3 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Lubelskie Zakłady Tytoniowe LZT<br><span class="muted">lubelskietytonie.pl</span></td><td>Lublin</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń fajkowy, tytonie specjalne</td><td>B2B/retail mix — historyczna fabryka tytoniowa</td></tr>
+    <tr><td>Trafica-Hurt s.c.<br><span class="muted">trafica-hurt.pl</span></td><td>Lublin (ul. Krochmalna 22a)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B; tel. 793 467 060</td></tr>
+    <tr><td>MATPIO Mariusz Wieliczko</td><td>Lublin</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B</td></tr>
+  </tbody>
+</table>
+
+<!-- Lubuskie -->
+<div class="region-head">Region: Województwo Lubuskie (1 firma)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Hurtownia Kaziool<br><span class="muted">kaziool.pl</span></td><td>Słubice</td><td><span class="pill tak">TAK</span></td><td>Maszynki do gilz slim i standard, Atomic, manual tube injectors, Clipper</td><td>B2B</td></tr>
+  </tbody>
+</table>
+
+<!-- Małopolskie -->
+<div class="region-head">Region: Województwo Małopolskie (5 firm)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Hurtownia Wielobranżowa ROCH Sp. z o.o. Sp.k.<br><span class="muted">baza-firm.com.pl</span></td><td>Kraków</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh, Clipper, RAW, Zippo; papierosy, tytoń</td><td>B2B wholesale</td></tr>
+    <tr><td>Dymek — Hurtownia Papierosów<br><span class="muted">dymek.com.pl</span></td><td>Kraków</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Papierosy, tytoń, karty telefoniczne, chemia, kosmetyki</td><td>B2B</td></tr>
+    <tr><td>Królestwo Tytoniu<br><span class="muted">krolestwotytoniu.pl</span></td><td>Kraków</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń fajkowy, cygara, akcesoria</td><td>Retail + small-scale wholesale</td></tr>
+    <tr><td>KentDruk (P.W. Kentdruk)<br><span class="muted">kentdruk.pl</span></td><td>Kęty</td><td><span class="pill nie">NIE</span> (producent)</td><td>Klasyczne gilzy, filtry aromatyzowane, gilzy Long i X-Long, mentolowe i owocowe, regular/slim/super-slim</td><td><strong>Producent gilz</strong> — B2B</td></tr>
+    <tr><td>Tobacco Trading International Poland Sp. z o.o.<br><span class="muted">ttipoland.pl</span></td><td>Modlnica</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Mazowieckie -->
+<div class="region-head">Region: Województwo Mazowieckie (5 firm)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>DREK — Hurtownia Gilz Papierosowych i Akcesoriów</td><td>Radom</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Mascotte, Gizeh, Dark Horse</td><td>B2B</td></tr>
+    <tr><td>Teks S.A.<br><span class="muted">tekssa.pl</span></td><td>Radom</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+    <tr><td>Sherlock Trafika<br><span class="muted">sherlocktrafika.pl</span></td><td>Warszawa</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+    <tr><td>eCygaretka (sieć Warszawa)</td><td>Warszawa (10+ lokalizacji)</td><td><span class="pill tak">TAK</span></td><td>E-papierosy, akcesoria · Powermatic III+</td><td>Retail + panel B2B do weryfikacji</td></tr>
+    <tr><td>Carmen Polska Sp. z o.o.<br><span class="muted">carmen.biz.pl</span></td><td>Warszawa</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Opolskie -->
+<div class="region-head">Region: Województwo Opolskie (1 firma)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ACORD Sp. z o.o.</td><td>Nysa (Stanisławowska 30)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B</td></tr>
+  </tbody>
+</table>
+
+<!-- Podkarpackie -->
+<div class="region-head">Region: Województwo Podkarpackie (2 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ANIA Sp. z o.o.<br><span class="muted">ania.rze.pl</span></td><td>Rzeszów</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+    <tr><td>BESTMAR — Hurtownia Wielobranżowa<br><span class="muted">agrohurtsa.pl</span></td><td>Rzeszów</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Wielobranżowa FMCG</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Podlaskie -->
+<div class="region-head">Region: Województwo Podlaskie (3 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Alfa — Hurtownia Papierosów, Chemii Gospodarczej i Kart Telefonicznych<br><span class="muted">bialystokonline.pl</span></td><td>Białystok (Baranowicka 18)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Papierosy, tytoń, chemia, karty</td><td>B2B</td></tr>
+    <tr><td>TRAFIKA NORD (D. Rogalewski)<br><span class="muted">trafikanord.pl</span></td><td>Białystok</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń, hurt tytoniowy</td><td>B2B; tel. 605 351 501</td></tr>
+    <tr><td>Top-Kart<br><span class="muted">topkart.vp.pl</span></td><td>Białystok (Mickiewicza 82/1)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B; tel. 501 373 302</td></tr>
+  </tbody>
+</table>
+
+<!-- Pomorskie -->
+<div class="region-head">Region: Województwo Pomorskie (3 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>JUKA Akcesoria Tytoniowe — Jacek Mularczyk<br><span class="muted">jukaakcesoria.pl</span></td><td>Gdańsk</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+    <tr><td>Hurtownia Papierosów Jacek<br><span class="muted">hpjacek.pl · NIP 5862226779</span></td><td>Gdynia</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Mascotte</td><td>B2B + B2C</td></tr>
+    <tr><td>ABC — Hurtownia papierosów<br><span class="muted">hurtabc.pl</span></td><td>Władysławowo</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh + artykuły chemiczno-kosmetyczne</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Śląskie -->
+<div class="region-head">Region: Województwo Śląskie (4 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Trezo Sp. z o.o.<br><span class="muted">trezo.com.pl</span></td><td>Sosnowiec</td><td><span class="pill tak">TAK</span></td><td>Marki własne + Powermatic + Hawk-Matic</td><td>Krajowa sieć hurtowa FMCG i akcesoriów tytoniowych</td></tr>
+    <tr><td>VAS Sp. z o.o.<br><span class="muted">vas.com.pl</span></td><td>Chorzów (ul. Łagodna 15)</td><td><span class="pill nie">NIE</span></td><td>Zapalniczki iskrowe, elektryczne</td><td>B2B wholesale</td></tr>
+    <tr><td>Joint Brothers<br><span class="muted">jointbrothers.eu</span></td><td>Katowice (ul. Klonowa 9/1)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Akcesoria headshop</td><td>B2B; tel. 721 430 027</td></tr>
+    <tr><td>Tobacco Corner / ELITE — Edyta Stefanek</td><td>Katowice (CH AKS Chorzów, Agora Bytom, Supersam Katowice)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Sieć sklepów tytoniowych w galeriach</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Świętokrzyskie -->
+<div class="region-head">Region: Województwo Świętokrzyskie (2 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>BONUS Hurtownia Papierosów</strong></td><td>Starachowice</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B</td></tr>
+    <tr><td>CORA Zakład Handlowo-Usługowy</td><td>Kielce</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B</td></tr>
+  </tbody>
+</table>
+
+<!-- Warmińsko-Mazurskie -->
+<div class="region-head">Region: Województwo Warmińsko-Mazurskie (1 firma)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ADGAR Hurtownia<br><span class="muted">hurtownie.pl</span></td><td>Olsztyn</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Główne marki papierosów</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Wielkopolskie -->
+<div class="region-head">Region: Województwo Wielkopolskie (4 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>„Kamel" Sp.j. Hurtownia Papierosów</td><td>Konin</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Papierosy</td><td>B2B</td></tr>
+    <tr><td>EDMAR PH Hurtownia Papierosów<br><span class="muted">hurtownie.pl</span></td><td>Koło</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Papierosy</td><td>B2B</td></tr>
+    <tr><td>PHUP Gniezno Szeszycki sp.k.<br><span class="muted">phupgniezno.pl</span></td><td>Gniezno</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh</td><td>B2B + B2C</td></tr>
+    <tr><td>Eurocash Cash &amp; Carry<br><span class="muted">hurtownie.eurocash.pl</span></td><td>Wągrowiec</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>OCB, Mascotte, Gizeh + pełny FMCG</td><td>B2B + B2C</td></tr>
+  </tbody>
+</table>
+
+<!-- Zachodniopomorskie -->
+<div class="region-head">Region: Województwo Zachodniopomorskie (3 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>West Trading Sp. z o.o.<br><span class="muted">westtrading.pl</span></td><td>Szczecin</td><td><span class="pill tak">TAK</span></td><td>Marlboro · Camel · West + pełna linia akcesoriów (injectors, rolling machines)</td><td>B2B — kioski, trafiki, stacje, sklepy</td></tr>
+    <tr><td>Tabak Service International</td><td>Koszalin (2 sklepy stacjonarne)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>E-papierosy, liquids, tytoń</td><td>B2B + B2C; 15+ lat na rynku</td></tr>
+    <tr><td>Megaimport — Paweł Cieślak<br><span class="muted">megaimport.pl · NIP 8522481149</span></td><td>Pilchowo</td><td><span class="pill tak">TAK</span></td><td>Powermatic (dystrybucja)</td><td>B2B</td></tr>
+  </tbody>
+</table>
+
+<!-- Łódzkie -->
+<div class="region-head">Region: Województwo Łódzkie (2 firmy)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Dopalenia.pl / Gabimix<br><span class="muted">dopalenia.pl · NIP 7311693836</span></td><td>Konstantynów Łódzki (Kościuszki 20)</td><td><span class="pill tak">TAK</span></td><td>Pełen asortyment maszynek ręcznych, automatycznych, elektrycznych · Zen, OCB Easy Slide, Atomic, Powermatic III, Gizeh</td><td>B2B + B2C; tel. 665-852-033</td></tr>
+    <tr><td>Efekt Łódź<br><span class="muted">efekt-lodz.pl</span></td><td>Łódź</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń, alkohol, FMCG</td><td>B2B</td></tr>
+  </tbody>
+</table>
+
+<!-- Ogólnopolskie -->
+<div class="region-head">Region: Ogólnopolskie (online B2B) (5 firm)</div>
+<table class="regional">
+  <colgroup><col class="c-firma"><col class="c-lok"><col class="c-nab"><col class="c-prod"><col class="c-model"></colgroup>
+  <thead>
+    <tr><th>Firma / WWW</th><th>Lokalizacja</th><th>Nabijarki?</th><th>Produkty / Marki</th><th>Model</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>CK Complex B2B<br><span class="muted">b2b.ckcomplex.pl</span></td><td>Polska (online)</td><td><span class="pill nie">NIE</span></td><td>Zapalniczki, akcesoria ignition</td><td>Ściśle B2B wholesale</td></tr>
+    <tr><td>Hookahteka.com<br><span class="muted">hookahteka.com</span></td><td>Polska (online)</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Tytoń shisha (Fumelo, Al Fakher, Sebero, Darkside, Cultt), hookah, węgiel, akcesoria</td><td>B2B — specjalizacja shisha bary, puby, retailerzy</td></tr>
+    <tr><td>Buszek.com / Hurt.Buszek.com<br><span class="muted">buszek.com</span></td><td>Polska</td><td><span class="pill neutral">NIEOKREŚLONE</span></td><td>Shisha, tytoń hookah, węgiel, akcesoria</td><td>B2B — „zamawiaj w dużych ilościach"</td></tr>
+    <tr><td>Pavolt.pl<br><span class="muted">pavolt.pl</span></td><td>Polska (online)</td><td><span class="pill tak">TAK</span></td><td>Rolling machines (manualne sprężynowe, elektryczne 2-w-1 slim 6.5mm &amp; 8mm)</td><td>Głównie B2B — „hurtownia", zaopatruje retailerów</td></tr>
+    <tr><td>TwojePapierosy.pl<br><span class="muted">twojepapierosy.pl</span></td><td>Polska (online)</td><td><span class="pill tak">TAK</span></td><td>Papierosy, cygara, cygarety, fajki, tytoń, gilzy, bibułki, maszynki, zapalniczki (pełen asortyment)</td><td>Retail z cenami hurtowymi; współpracuje z czołową hurtownią</td></tr>
+  </tbody>
+</table>
+
+<!-- ===================== BRAND MAP ===================== -->
+
+<div class="page-break"></div>
+
+<h2>4. Mapa Marek Premium — Kto niesie co</h2>
+<p class="muted">Cross-reference marek premium dystrybuowanych w Polsce wobec ich kluczowych dystrybutorów (źródła: 09, 18, 24). Przydatne do identyfikacji partnerów, którzy już dziś niosą daną markę i mogą ją wzmocnić ofertą Powermatic.</p>
+
+<table class="brandmap">
+  <colgroup><col class="c-marka"><col class="c-dystr"></colgroup>
+  <thead>
+    <tr><th>Marka</th><th>Kluczowi dystrybutorzy w PL</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Powermatic / Hawk-Matic</strong></td><td>BILLS (sole PL) · eSmoking/CHIC (400 punktów) · King Hurt · TRAFIKA · BongoGo · Don Marco · Trezo · Dopalenia · Pavolt · Vaporshop · CK Complex B2B · Buszek · Shishka79 · Megaimport</td></tr>
+    <tr><td><strong>OCB</strong></td><td>Polski Tytoń · Lima · KDWT · PGT · King Hurt · ZAS-POL · CK Complex · BongoGo · ROCH · Dymek · +50 mniejszych</td></tr>
+    <tr><td><strong>Mascotte</strong></td><td>j.w. (prawie pełna dystrybucja przez te same hurtownie)</td></tr>
+    <tr><td><strong>Gizeh</strong></td><td>j.w.</td></tr>
+    <tr><td><strong>Clipper</strong></td><td>Lima · Polski Tytoń · Augusto Limaro · eMerkury (exkl. kolekcje) · Almark · VAS · BongoGo</td></tr>
+    <tr><td><strong>RAW</strong></td><td>Cannmedia/Bletki (dystrybucja) · BongoGo · ROCH · Wujo</td></tr>
+    <tr><td><strong>Don Marco</strong> (własna PL)</td><td>Don Marco (importer exclusive)</td></tr>
+    <tr><td><strong>DORA &amp; NASS</strong></td><td>Don Marco (exclusive)</td></tr>
+    <tr><td><strong>Al Fakher</strong></td><td>PGT (dystrybucja) · Hookahteka</td></tr>
+    <tr><td><strong>PAX / Storz &amp; Bickel</strong></td><td>Vaporshop / ULTI-PRO (exclusive PL)</td></tr>
+    <tr><td><strong>Rolls / Hybrid / Shine 24K / Purize</strong></td><td>Cannmedia / Bletki (exclusive)</td></tr>
+    <tr><td><strong>SPARK / CK</strong> (zapalniczki)</td><td>eSmoking/CHIC (dystrybucja)</td></tr>
+    <tr><td><strong>MAGNUS</strong> (marka własna)</td><td>MAGNUS (producent gilz + private label)</td></tr>
+    <tr><td><strong>MRC Trade</strong> (marka własna)</td><td>MRC Trade (krajowy producent gilz i filtrów)</td></tr>
+    <tr><td><strong>Scandinavian Tobacco Group (STG)</strong></td><td>PGT (dystrybucja)</td></tr>
+  </tbody>
+</table>
+
+<!-- ===================== BILLS STRATEGIC NOTE ===================== -->
+
+<h2>5. Nota Strategiczna — BILLS / Powermatic w Polsce</h2>
+
+<div class="bills-box">
+  <div class="lead">Pozycja wyłączna BILLS Sp. z o.o. na rynku Powermatic</div>
+  <p style="margin-top:0;">BILLS Sp. z o.o. (Ostrzeszów, woj. wielkopolskie) jest <strong>jedynym autoryzowanym dystrybutorem Powermatic w Polsce oraz Europie Środkowo-Wschodniej</strong>. Każdy reseller chcący sprzedawać <strong>legalne</strong> maszynki Powermatic z pełną gwarancją i serwisem musi kupować od BILLS. Ta przewaga kontraktowa jest nie do podrobienia przez hurtownie z Chin (np. SHAMANTOBACCO s.r.o. z Czech) ani przez pośredników z Allegro.</p>
+  <ul>
+    <li><strong>Kontakt BILLS:</strong> tel. <span class="mono">730 988 994</span> · strona: <span class="mono">powermatic.pl</span> · marka konsumencka: Smoks</li>
+    <li><strong>Weryfikacja legalności kanału:</strong> BILLS potwierdza telefonicznie, czy dany sprzedawca pochodzi od jedynego autoryzowanego dystrybutora — gotowy argument sprzedażowy przy kontakcie z marketami i hurtowniami.</li>
+    <li><strong>Szara strefa:</strong> Na Allegro / OLX / Erli krąży wiele ofert Powermatic z niepewnym pochodzeniem. BILLS może to przeciwstawić bezpośrednio.</li>
+    <li><strong>Rynek poza papierosami akcyzowymi:</strong> Ustawa z 2024 r. o ochronie zdrowia przed następstwami używania tytoniu <strong>nie zabrania</strong> obrotu akcesoriami (nabijarki, gilzy, bibułki, filtry). Firmy nie muszą być wpisane do Rejestru Pośredniczących Podmiotów Tytoniowych KAS. Jednak firmy już wpisane (Polski Tytoń, TRAFIKA, King Hurt, West Trading, Elenpipe) mają gotową logistykę akcyzową, co ułatwia dystrybucję powiązanych produktów.</li>
+  </ul>
+</div>
+
+<!-- ===================== METHODOLOGY ===================== -->
+
+<h2>6. Metodologia i Źródła</h2>
+
+<table class="method">
+  <colgroup><col class="c-key"><col class="c-val"></colgroup>
+  <tbody>
+    <tr><td><strong>Źródła danych</strong></td><td>KRS (api-krs.ms.gov.pl) · CEIDG (dane.biznes.gov.pl) · REGON BIR1 (wyszukiwarkaregon.stat.gov.pl) · VIES (ec.europa.eu/taxation_customs/vies) · strony firmowe dystrybutorów · katalogi B2B (panoramafirm.pl, pkt.pl, cylex-polska.pl, baza-firm.com.pl) · marketplace (informacyjnie)</td></tr>
+    <tr><td><strong>Kryteria selekcji „premium"</strong></td><td>(1) Identyfikowalny NIP lub KRS; (2) Marki premium w portfolio (Powermatic, Hawk-Matic, OCB, Mascotte, Gizeh, Clipper, RAW, Don Marco, Al Fakher, PAX, Storz &amp; Bickel, STG); (3) Multi-region / multi-branch presence lub specjalizacja w akcesoriach tytoniowych; (4) Aktywna strona firmowa lub wpis w katalogu B2B</td></tr>
+    <tr><td><strong>Wyłączone z katalogu</strong></td><td>~30+ ogólnikowych wpisów bez NIP, z ogólnymi opisami („hurtownia wielobranżowa"), bez marek premium w portfolio</td></tr>
+    <tr><td><strong>Data</strong></td><td>2026 (raporty 09/18/24) + dashboard 2024 dla kontekstu makro</td></tr>
+    <tr><td><strong>Ograniczenia</strong></td><td>Niektóre NIP do weryfikacji; dane kontaktowe mogą ulec szybkiej dezaktualizacji w przypadku marketplace i małych sklepów</td></tr>
+    <tr><td><strong>Klasyfikacja Nabijarki?</strong></td><td>Wartości z katalogu 18 zachowane: <span class="pill neutral">NIEOKREŚLONE</span> / <span class="pill tak">TAK</span> / <span class="pill nie">NIE</span> / <span class="pill neutral">PRAWDOPODOBNIE</span>. Wartość <span class="pill tak">TAK</span> = potwierdzona obecność maszynek (ręcznych, automatycznych lub elektrycznych) w ofercie</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

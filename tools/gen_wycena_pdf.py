@@ -111,28 +111,39 @@ COUNTRY_NAME = {
 }
 ORDER = ["PL", "CZ", "SK", "RO", "HR", "BG", "MD", "SI", "LT", "LV", "EE", "FR"]
 
-# Compute hours
-hours = {}
-for iso, count in firms_per.items():
-    dec = dec_per.get(iso, 0)
-    base = count * 8 / 60
-    slownik = 2.0
-    catalog = 1.5 + count * 5 / 60
-    decydents = dec * 12 / 60
-    diff = DIFFICULTY.get(iso, 1.0)
-    h = (base + slownik + catalog + decydents) * diff
-    hours[iso] = round(max(h, 1.0), 1)
-hours["PL"] = 12.0
+# Final calibration per user (2026-08-19):
+# - 5 days × 8h = 40h total engineering × 40 PLN/h = 1600 PLN
+# - 12 × 100 PLN (40 AI + 60 DS Hub infra) = 1200 PLN
+# - PL = 320 (most expensive, 5.5h × 40 + 100 infra)
+# - MD cheapest (fewest leads: 7 firms)
+# - Distribution by firm count ascending
+PRICING = {
+    # iso: (hours, total_pln)
+    "MD": (1.5, 160),   # 7 firms
+    "LV": (2.0, 180),   # 11
+    "SI": (2.5, 200),   # 16
+    "CZ": (2.5, 200),   # 18
+    "HR": (2.5, 200),   # 19
+    "LT": (3.0, 220),   # 21
+    "FR": (3.0, 220),   # 21
+    "RO": (3.5, 240),   # 23
+    "SK": (3.5, 240),   # 30
+    "BG": (4.0, 260),   # 34
+    "EE": (4.0, 260),   # 36
+    "PL": (5.5, 320),   # 157 (most expensive)
+}
+INFRA_AI = 40
+INFRA_DSH = 60
+INFRA_TOTAL = INFRA_AI + INFRA_DSH  # 100 per country
 
 total_pln = 0
 data = []
 for iso in ORDER:
-    h = hours[iso]
-    pln = int(round(h * 40))
-    final = pln + 40 + 60
+    h, final = PRICING[iso]
+    eng = h * 40
     total_pln += final
     data.append((iso, COUNTRY_NAME[iso], REGION[iso], firms_per[iso], dec_per[iso],
-                 h, pln, 40, 60, final))
+                 h, int(eng), INFRA_AI, INFRA_DSH, final))
 
 
 def H(text):
@@ -159,11 +170,12 @@ def build():
     flow.append(Paragraph("Wykonawca: DS — Design System · Zamawiający: BILLS Sp. z o.o. · 2026-08-19 · 12 krajów CEE i Bałtyckich", styles["Subtitle"]))
 
     # Summary box (compact 1 row)
+    total_hours = sum(PRICING[iso][0] for iso in ORDER)
     summary_data = [[
         C("393", "right"), C("leadów zweryfikowanych<br/><font size=6 color='#888'>12 krajów</font>"),
         C("253", "right"), C("decydentów verified<br/><font size=6 color='#888'>61% pokrycia</font>"),
-        C("163,8 h", "right"), C("czas pracy inż.<br/><font size=6 color='#888'>40 PLN/h</font>"),
-        C("7 752 PLN", "right"), C("<b>CENA FINALNA netto</b><br/><font size=6 color='#888'>bez VAT</font>"),
+        C(f"{total_hours:.1f} h", "right"), C(f"czas pracy inż.<br/><font size=6 color='#888'>40 PLN/h · 5 dni</font>"),
+        C(f"{total_pln:,} PLN", "right"), C("<b>CENA FINALNA netto</b><br/><font size=6 color='#888'>≤ 3 000 PLN</font>"),
     ]]
     t = Table(summary_data, colWidths=[18*mm, 38*mm, 18*mm, 38*mm, 18*mm, 38*mm, 22*mm, 50*mm])
     t.setStyle(TableStyle([
@@ -186,12 +198,12 @@ def build():
     flow.append(Paragraph("1. Składniki Kosztorysowe i Podział Czasu (Per Kraj)", styles["H1"]))
     komp = [
         [H("Składnik"), H("Typ"), H("Zakres Działań"), H("Czas"), H("Koszt")],
-        [C("Research Inżynierski"), C("Zmienny"), C("Pozyskanie leadów z rejestrów, NIP/IČO/EIK, adresy, PKD/NACE, kanały sprzedaży"), C("6,0–18,0 h", "right"), C("240–720 PLN", "right")],
+        [C("Research Inżynierski"), C("Zmienny"), C("Pozyskanie leadów z rejestrów, NIP/IČO/EIK, adresy, PKD/NACE, kanały sprzedaży"), C("1,5–5,5 h", "right"), C("60–220 PLN", "right")],
         [C("Konsultacje Domenowe"), C("Zmienny"), C("Feedback CEO / Dział Sprzedaży (weryfikacja próbek)"), C("0,0 h", "right"), C("0 PLN", "right")],
-        [C("Finalizacja & Formatowanie"), C("Zmienny"), C("Korekta jakościowa, raport per kraj, scalenie do master.csv"), C("0,5 h", "right"), C("20 PLN", "right")],
+        [C("Finalizacja & Formatowanie"), C("Zmienny"), C("Korekta jakościowa, raport per kraj, scalenie do master.csv"), C("wbudowane", "right"), C("wbudowane", "right")],
         [C("Infrastruktura AI"), C("Stały"), C("Gemini Pro + OpenRouter (Perplexity Sonar) — enrichment decydentów"), C("—"), C("+40 PLN", "right")],
         [C("DS Hub Application"), C("Stały"), C("Interaktywny panel analityczny z filtrami i wyszukiwarką"), C("—"), C("+60 PLN", "right")],
-        [C("<b>SUMA PER KRAJ</b>"), C("Komplet"), C("<b>Pełny proces wraz z dedykowaną aplikacją analityczną</b>"), C("<b>6,5–18,5 h</b>", "right"), C("<b>500–940 PLN</b>", "right")],
+        [C("<b>SUMA PER KRAJ</b>"), C("Komplet"), C("<b>Pełny proces wraz z aplikacją analityczną</b>"), C("<b>1,5–5,5 h</b>", "right"), C("<b>160–320 PLN</b>", "right")],
     ]
     t = Table(komp, colWidths=[40*mm, 16*mm, 78*mm, 25*mm, 30*mm])
     t.setStyle(TableStyle([
@@ -230,7 +242,7 @@ def build():
         C(f"<b>+{sum(d[8] for d in data):,}</b>", "right"),
         C(f"<b>{total_pln:,} PLN</b>", "right"),
     ])
-    t = Table(rows_data, colWidths=[22*mm, 30*mm, 12*mm, 12*mm, 16*mm, 22*mm, 12*mm, 14*mm, 30*mm], repeatRows=1)
+    t = Table(rows_data, colWidths=[20*mm, 28*mm, 11*mm, 11*mm, 14*mm, 20*mm, 12*mm, 14*mm, 28*mm], repeatRows=1)
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -261,25 +273,23 @@ def build():
 
     # 4. Wyjaśnienia
     flow.append(Paragraph("4. Wyjaśnienia Strategiczne i Operacyjne", styles["H1"]))
-    flow.append(Paragraph("<b>Skąd stawki:</b> Cennik bazuje na modelu „koszt czasu inżyniera danych + koszt infrastruktury AI\". Przy 40 PLN/h jest to stawka niższa niż polskie agencje B2B research (150–300 PLN/h), ale wyższa niż wewnętrzny analityk z pensją. Balans odzwierciedla hybrydowy model: automatyzacja algorytmiczna (rejestry, scraper) + egzekucja manualna (weryfikacja decydentów C-Level).", styles["Body"]))
-    flow.append(Paragraph("<b>Skąd czasy:</b> PL — baza klienta, deep dive 8 dni roboczych, 12h inżynieria. EE, CZ, FR, SK mają działające publiczne API → szybszy research. BG, RO, SI, HR, LV, LT, MD wymagają web scrapingu lub web_search per firma (brak darmowego API), stąd dłuższe czasy.", styles["Body"]))
+    flow.append(Paragraph("<b>Skąd stawki:</b> Cennik bazuje na modelu „5 dni × 8 h × 40 PLN/h = 1 600 PLN inżynieria + 12 × 100 PLN infra = 2 700 PLN\". Przy 40 PLN/h jest to stawka niższa niż polskie agencje B2B research (150–300 PLN/h), ale wyższa niż wewnętrzny analityk z pensją. Balans odzwierciedla hybrydowy model: automatyzacja algorytmiczna (rejestry, scraper) + egzekucja manualna (weryfikacja decydentów C-Level).", styles["Body"]))
+    flow.append(Paragraph("<b>Skąd podział godzin:</b> Rozkład 1,5–5,5 h per kraj zależy od (a) liczby firm w master.csv, (b) dostępności publicznego API, (c) bariery językowej. MD (7 firm) = 1,5 h, PL (157 firm, deep dive) = 5,5 h. Kraje z działającym publicznym API (EE, CZ, FR, SK) mają wyższe stawki bo więcej firm do przetworzenia, nie bo trudniejsze.", styles["Body"]))
     flow.append(Paragraph("<b>Kraje pominięte w etapie 1</b> (zgodnie z brief: PL → CZ → SK → UK → DE): UK, DE (pominięte per „skip Germany unless explicitly requested\"), IE, NL, AT, HU. Gotowe metodyki, do realizacji w etapie 2.", styles["Body"]))
     flow.append(Paragraph("<b>Anti-halucynacja gwarantowana:</b> Każdy decydent dodany w sesjach 2026-08-18 przeszedł weryfikację URL (fetch → check name in page). 0 false positives w 40+ zweryfikowanych wpisach. Źródła publiczne tylko: api.gouv.fr (FR), ariregister.rik.ee (EE), orsr.sk (SK), finansi.bg + kompass.com (BG), Perplexity Sonar (cross-checked).", styles["Body"]))
 
     # 5. Audit
     flow.append(Paragraph("5. Audyt Czasu — Wzór Wyceny", styles["H1"]))
     audit = [
-        ["Research per firma", "8 min × liczba firm", "Pozyskanie z rejestru, NIP/IČO/EIK, adres, PKD/NACE, kanały"],
-        ["SŁOWNIK per kraj", "2,0 h", "Słownik synonimów + wolumeny szacunkowe"],
-        ["Katalog (A+B) per kraj", "1,5 h + 5 min/firma", "Budowa catalog-A-{ISO}.csv + catalog-B-{ISO}.csv"],
-        ["Weryfikacja decydenta", "12 min / osoba", "Pobranie z rejestru publicznego + URL cross-check"],
-        ["Mnożnik trudności", "0,7–1,4", "Bariera językowa + dostępność publicznego API"],
-        ["AI infra (Gemini Pro, OpenRouter)", "+40 PLN / kraj", "Koszt API do enrichment"],
-        ["DS Hub (panel + sync)", "+60 PLN / kraj", "Infrastruktura panelu analitycznego"],
+        ["Czas pracy inżynierskiej", "5 dni × 8 h = 40 h", "40 h × 40 PLN/h = 1 600 PLN brutto"],
+        ["Rozkład godzin per kraj", "1,5 h (MD, najmniej firm) → 5,5 h (PL, najwięcej firm)", "Skala = liczba leadów w master.csv"],
+        ["Konsultacje CEO", "0 h", "Brak konsultacji zwrotnych w trakcie sesji (autonomiczna egzekucja)"],
+        ["AI infra (Gemini Pro, OpenRouter)", "+40 PLN / kraj", "Koszt API do enrichment + weryfikacja URL"],
+        ["DS Hub (panel + sync)", "+60 PLN / kraj", "Infrastruktura panelu analitycznego + cron sync"],
     ]
     t = Table([[H("Składnik"), H("Wzór"), H("Zakres")]] + [
         [C(a), C(b), C(c)] for a, b, c in audit
-    ], colWidths=[55*mm, 35*mm, 90*mm])
+    ], colWidths=[55*mm, 60*mm, 65*mm])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -292,7 +302,7 @@ def build():
         ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
     ]))
     flow.append(t)
-    flow.append(Paragraph(f"<b>Czas łączny: 163,8 h × 40 PLN/h = 6 552 PLN + 480 AI + 720 DS Hub = 7 752 PLN netto</b>", styles["Body"]))
+    flow.append(Paragraph(f"<b>5 dni × 8 h × 40 PLN/h = 1 600 PLN inżynieria + 12 × 100 PLN infra = 2 700 PLN netto</b>", styles["Body"]))
 
     # 6. Nota do Zamawiającego
     flow.append(Paragraph("6. Wersja 1.0 — Nota do Zamawiającego", styles["H1"]))
