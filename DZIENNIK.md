@@ -1668,3 +1668,58 @@ v1.3 → v1.4 (2026-08-19 11:30). Nazwa pliku PDF, znacznik w stopce i creator z
 - `data/INSTRUKCJA.pdf` — v1.4 → v1.5 (regenerowany)
 
 **Wersjonowanie:** v1.4 → v1.5 (2026-08-19 11:38).
+
+## 2026-08-19 — INSTRUKCJA.pdf v1.6 — kompakt: mniejsze fonty + równe marginesy (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o: (1) lekko mniejszy font żeby zmniejszyć liczbę stron, (2) redukcję wyświetlanych fraz o 10% jeśli to pomoże, (3) równe marginesy w całym dokumencie.
+
+**Decyzja:** mniejsze fonty (-0.5pt globalnie) + równe marginesy (0.8cm wszystkie strony) **wystarczyły** — nie trzeba było redukować fraz. Zachowano 100% fraz (302 PL translations).
+
+**Zmiany:**
+
+1. **MARGIN**: `1.0 * cm` → `0.8 * cm` (równe L/R/T/B)
+   - Wcześniej: L/R/T = 1.0cm, B = 1.5cm (nierówne)
+   - Teraz: wszystkie 4 strony = 0.8cm (równe)
+
+2. **Style fonty (ParagraphStyle) — obniżone o 0.5-1pt:**
+   - title_main 26 → 24
+   - title_sub 14 → 13
+   - h1 15 → 14
+   - h2 11 → 10
+   - h3 9.5 → 9
+   - body 9 → 8.5
+   - body_tight 8.5 → 8
+   - small 7.5 → 7
+   - small_italic 7 → 6.5
+   - phrase_main 8.5 → 7.5
+   - phrase_pl 7 → 6.5
+   - code 8 → 7.5
+   - callout 8.5 → 8
+   - bullet 8.5 → 8
+   - intro_big 14 → 13
+
+3. **Tabele — obniżone fontsize:**
+   - 8.5pt → 8pt → kaskada → 7pt
+   - 7.5pt → 7pt
+   - 7pt → bez zmian
+   - 6.5pt → bez zmian (9.1 tabela)
+   - Padding LEFTPADDING/RIGHTPADDING: 3/3 → 2.5/2.5 (mniejsze)
+   - Padding TOP/BOTTOM: 1.5/1.5 → 1.2/1.2
+
+4. **bottomMargin** w SimpleDocTemplate: `MARGIN + 0.5*cm` → `MARGIN` (równe z resztą)
+
+**Wynik:**
+- 16 stron → **15 stron** (-6.25%, 138.7 KB → 138.2 KB)
+- 302 frazy → **302 frazy** (100% zachowane)
+- Marginesy: równe 0.8cm na wszystkich 4 stronach
+- Polskie znaki: 100% poprawne
+- Overlapy: brak (sprawdzone na 4 stronach kluczowych: 1, 4, 11, 12, 14)
+
+**Pliki zmienione:**
+- `tools/pdf_gen_instrukcja.py` — MARGIN 0.8cm, fonty -0.5pt, bottomMargin = MARGIN
+- `data/INSTRUKCJA.pdf` — v1.5 → v1.6 (regenerowany)
+
+**Wersjonowanie:** v1.5 → v1.6 (2026-08-19 11:55).
