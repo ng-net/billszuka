@@ -1,5 +1,39 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-19 — INSTRUKCJA.md v1.1 + INSTRUKCJA.pdf v1.1 (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o dodanie do INSTRUKCJA.md sekcji z frazami "nabijarka do tytoniu" w 12 językach (PL + 11 CEE/UE), minimalnymi marginesami, oraz ładną stroną tytułową z katalogiem 12 PDF-ów per kraj + statystykami. Następnie wygenerować PDF do reviewu.
+
+**Wykonane:**
+
+1. **INSTRUKCJA.md v1.1** (37 KB, ~570 linii, 13 sekcji):
+   - Nowa sekcja 0: "Katalog 12 dokumentów PDF per kraj" — tabela z 12 krajami, kolumny: #, Kraj, PDF, Strony, Σ, Katalog A, Katalog B. Stopka z Σ 12 krajów: **107 stron łącznie, 393 leadów** (105 A + 288 B). Dodana tabela priorytetów per typ klienta.
+   - Nowa sekcja 8: "Słownik fraz — 'nabijarka do tytoniu' w 12 językach" — każdy kraj ma: 4 frazy z szac. wolumenem + operatory Google (`site:`, `intitle:`, `inurl:`). Wszystkie wolumeny `szac.` z `SŁOWNIK-{ISO}.md`. Bonus: globalne marki EN.
+
+2. **Tool: `tools/pdf_gen_instrukcja.py`** (54 KB, ~940 linii):
+   - ReportLab z Verdana font (Polish-safe).
+   - **Minimalne marginesy 1.0cm** (zamiast 1.5cm jak w per-country PDF).
+   - 13 sekcji + auto-generowana strona tytułowa + numeracja stron + footer z nagłówkiem firmy.
+   - Auto-liczy strony istniejących PDF-ów (pypdf), leady per kategoria (CSV), buduje pełen katalog 12 krajów w jednej tabeli.
+   - Callout boxes (3 kolory: niebieski = info, żółty = ostrzeżenie, zielony = sukces, czerwony = ryzyko).
+   - Zamienia emoji (flagi + statusy) na tekstowe odpowiedniki ([PL], [OK], [!], [BIG], etc.) bo Verdana nie renderuje emoji.
+
+3. **Wygenerowany `data/INSTRUKCJA.pdf`**: 20 stron, 121 KB.
+   - Strona 1: tytuł BILLS + duża tabela parametrów (kraje, FROZEN, pliki PDF, cele).
+   - Strona 2: katalog 12 PDF-ów (Σ 107 stron, 393 leadów).
+   - Strony 3–10: metodologia, kategoryzacja, scoring, weryfikacja, potencjał rynkowy.
+   - Strony 11–13: słownik fraz (3-4 kraje na stronę, wszystkie 12).
+   - Strony 14–20: co działa/nie, problemy źródeł, rekomendowane API (P1/P2/P3 stacki z cenami), 3 kroki dla handlowca, status + plan.
+
+**Następne kroki:**
+- Marceli review treści + layoutu.
+- Jeśli OK → commit + ewentualnie final polish (np. logo BILLS na pierwszej stronie, jeśli dostępne).
+- Jeśli chcesz wersję z flag emoji → trzeba zarejestrować Apple Color Emoji w ReportLab (niestety kiepsko wspierane; lepsze rozwiązanie to wygenerować PNG z flagami w Inkscape i osadzić jako obrazki).
+
+---
 ## 2026-08-19 — `data/INSTRUKCJA.md` dla Działu Sprzedaży (Marceli request)
 
 **Operator:** Marceli
@@ -1478,3 +1512,32 @@ python3 tools/pdf_gen_country.py --iso SK
 | **TOTAL** | **20 stron** | **21 stron** |
 
 **Rozmiar PL PDF:** 201 KB → 205 KB.
+
+---
+
+## 2026-08-19 (10:25) — Notatka enrichment PL catalog-A + catalog-B
+
+**Stan PRZED:**
+- catalog-A-PL: 31 firm, **6 z notatką**, 25 bez
+- catalog-B-PL: 126 firm, 86 z notatką, 40 bez (programowo 45 dodanych później)
+
+**Stan PO (2026-08-19):**
+- catalog-A-PL: **31/31 z notatką** (100%, śr. 162 znaki)
+- catalog-B-PL: **126/126 z notatką** (100%, śr. 68 znaków)
+
+**Źródła notatek A (25 nowych — web search 15 min):**
+- Real descriptions z firmowych stron, KRS, panorama firm
+- Przykłady: BISTA, Trafika, CK Complex, IGNIS, I-Want, Smoke.pl, Bletki.com...
+
+**Źródła notatek B (45 nowych — programmatic z istniejących pól):**
+- Synteza z `marki_nabijarki`, `sourcing`, `kanal_sprzedaży`, `tier`, `rejestr_id`
+- Format: "Hurtownia tytoniowa (KRS 0000XXXXX). Marki: OCB; Chiny"
+- Honest — nie wymyślone, tylko złożone z istniejących danych
+
+**Coverage w PL PDF (22 strony, 207 KB):**
+- 31 A (Katalog A)
+- 43 B1-B4 (Katalog B)
+- 168 Lista dodatkowa (83 B5-B9 + 5 gmaps + 80 web)
+- **RAZEM: 242 leadów w PDF**
+
+**Czy są leady poza PDF?** NIE — 0 PL firm z master.csv poza A/B/X. Wszystkie dostępne gmaps PL (4 pliki, 8 unikalnych) są w Lista dodatkowa. Brak gmaps catA/catB dla PL.

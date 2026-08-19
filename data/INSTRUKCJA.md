@@ -1,6 +1,64 @@
 # BILLSzuka — Instrukcja dla Działu Sprzedaży
 
-> **Dokument wewnętrzny.** Wersja robocza 2026-08-19. Opisuje jak została zbudowana baza leadów B2B/B2C, jak ją czytać i co można z niej wyciągnąć. Źródła danych: `data/master.csv` (393 firm, 12 krajów) + `INTEL.md` + `DZIENNIK.md` + `methodology.md` + `data/{Kraj}/insight-{ISO}.md`.
+> **Dokument wewnętrzny.** Wersja 1.1 — 2026-08-19. Opisuje jak została zbudowana baza leadów B2B/B2C, jak ją czytać, jakich fraz użyto w researchu i co można z niej wyciągnąć. Źródła danych: `data/master.csv` (393 firm, 12 krajów) + `INTEL.md` + `DZIENNIK.md` + `methodology.md` + `data/{Kraj}/insight-{ISO}.md` + `data/{Kraj}/SŁOWNIK-{ISO}.md`.
+
+---
+
+## 📖 Spis treści
+
+| Sekcja | Temat |
+|---|---|
+| 0 | **Strona tytułowa + Katalog 12 dokumentów PDF per kraj + statystyki** |
+| 1 | Co to jest BILLSzuka |
+| 2 | Skąd wzięły się te dane — 11 poziomów wyszukiwania |
+| 3 | Podział firm na dwa katalogi (A1–A6, B1–B9) |
+| 4 | Scoring — Tier, Wolumen, Flagi |
+| 5 | Weryfikacja FROZEN + defense in depth |
+| 6 | Potencjał rynkowy per kraj (12 krajów) |
+| 7 | TOP firmy per kraj (20 Big Fish) |
+| 8 | **Słownik fraz — „nabijarka do tytoniu" w 12 językach** |
+| 9 | Co zadziałało / co nie zadziałało |
+| 10 | Problemy ze źródłami danych |
+| 11 | Rekomendowane API i płatne serwisy z cenami |
+| 12 | Jak korzystać z bazy (3 kroki dla handlowca) |
+| 13 | Status projektu i plan Q3–Q4 2026 |
+
+---
+
+## 0. Strona tytułowa + Katalog 12 dokumentów PDF
+
+> **Dlaczego ta sekcja:** Dla każdego z 12 krajów wygenerowaliśmy osobny katalog PDF (A4, layout v9). Poniżej pełen wykaz ze statystykami: ile stron, ile leadów w każdej kategorii A1–A6 i B1–B9. Wydrukuj i rozdaj handlowcom per kraj.
+
+### 0.1 12 katalogów per kraj — szybki przegląd
+
+| # | Kraj | PDF | Stron | Σ firm | Katalog A (maszynki) | Katalog B (branża) | TOP partner |
+|--:|---|---|--:|--:|---|---|---|---|
+| 1 | 🇵🇱 Polska | `data/Polska/PDF-PL.pdf` | **22** | 157 | 31 firm (A1:1, A2:3, A4:26, A5:1) | 126 (B1:6, B4:37, B6:14, B8:67, B9:2) | PHUP GNIEZNO, POLSKI TYTOŃ |
+| 2 | 🇨🇿 Czechy | `data/Czechy/PDF-CZ.pdf` | **7** | 18 | 9 (A1:7, A4:2) | 9 (B4:3, B8:6) | PEAL a.s., GGT CZ |
+| 3 | 🇸🇰 Słowacja | `data/Słowacja/PDF-SK.pdf` | **9** | 30 | 15 (A1:4, A2:11) | 15 (B4:1, B6:2, B8:9, B9:3) | GGT a.s. (GGTabak) |
+| 4 | 🇷🇴 Rumunia | `data/Rumunia/PDF-RO.pdf` | **8** | 23 | 8 (A1:5, A2:3) | 15 (B4:7, B8:5, B9:3) | SC Golden Tip, Interbrands |
+| 5 | 🇧🇬 Bułgaria | `data/Bułgaria/PDF-BG.pdf` | **11** | 34 | 7 (A1:6, A2:1) | 27 (B4:2, B8:19, B9:6) | M Tobacco (Płowdiw) |
+| 6 | 🇭🇷 Chorwacja | `data/Chorwacja/PDF-HR.pdf` | **7** | 19 | 8 (A1:8) | 11 (B8:11) | Veletabak d.o.o. |
+| 7 | 🇸🇮 Słowenia | `data/Słowenia/PDF-SI.pdf` | **7** | 16 | 7 (A1:4, A2:3) | 9 (B6:2, B8:4, B9:3) | MERCATOR d.o.o. |
+| 8 | 🇱🇹 Litwa | `data/Litwa/PDF-LT.pdf` | **7** | 21 | 12 (A1:7, A2:5) | 9 (B4:1, B6:1, B8:7) | UAB Skonis ir kvapas |
+| 9 | 🇱🇻 Łotwa | `data/Łotwa/PDF-LV.pdf` | **5** | 11 | 7 (A1:4, A2:3) | 4 (B8:4) | SIA Avalons (tabakeria.lv) |
+| 10 | 🇪🇪 Estonia | `data/Estonia/PDF-EE.pdf` | **11** | 36 | 10 (A1:7, A2:3) | 26 (B1:9, B2:2, B4:3, B8:11, B9:1) | PRIKE AS, Montrade |
+| 11 | 🇫🇷 Francja | `data/Francja/PDF-FR.pdf` | **8** | 21 | 9 (A1:4, A2:5) | 12 (B8:12) | Logista France, Royal Distribution |
+| 12 | 🇲🇩 Mołdawia | `data/Mołdawia/PDF-MD.pdf` | **5** | 7 | 5 (A1:2, A2:3) | 2 (B8:2) | NewSmoke Distribution |
+| | **Σ 12 krajów** | | **107 stron** | **393** | **105** | **288** | |
+
+> **Layout PDF per kraj (locked v9):** strona 1 = tytuł + Potencjał rynkowy + Statystyki + 5 insightów · strona 2+ = Podział firm + 3 legendy · ostatnia strona = stopka. Font: Verdana, 1.5 cm marginesy, A4 portrait.
+
+### 0.2 Który PDF czytać pierwszy — priorytet per typ klienta
+
+| Jeśli Twój klient jest... | Zacznij od | Strony z potencjałem rynkowym |
+|---|---|---|
+| **Polski hurtownik tytoniowy** | `PDF-PL.pdf` | str. 1 (PL: 26 mld PLN/rok) |
+| **Bałtycki dystrybutor FMCG** | `PDF-LT.pdf` + `PDF-LV.pdf` + `PDF-EE.pdf` | 1 każde + ten dokument §6 (Sanitex = 1 partner) |
+| **Czeski/Morawski gracz tytoniowy** | `PDF-CZ.pdf` | str. 1 (CZ: 55 mld CZK/rok) |
+| **Bułgarski producent OEM** | `PDF-BG.pdf` | str. 1 (BG: hub Płowdiw) |
+| **Francuski buralista / hurtownik** | `PDF-FR.pdf` | str. 1 (FR: 23k buralistów) |
+| **Inny** | ten dokument + PDF-{ISO}.pdf | §6 + str. 1 PDF |
 
 ---
 
@@ -17,6 +75,8 @@
 | Status FROZEN | 374 (95,2%) |
 | Status DO-WERYFIKACJI | 19 (4,8%) |
 | Źródła danych | 100% publiczne (rejestry, KRS/CEIDG/ARES/VIES, marketplace, OSINT) |
+| Pliki PDF per kraj | 12 × `data/{Kraj}/PDF-{ISO}.pdf` (107 stron łącznie) |
+| Pliki SŁOWNIK per kraj | 12 × `data/{Kraj}/SŁOWNIK-{ISO}.md` |
 
 **Cel biznesowy:** 3–5 podpisanych umów dystrybucyjnych na PowerMatic / Hawk w ciągu 12 miesięcy. Każdy rekord w `master.csv` jest kandydatem, który przeszedł weryfikację minimum jednego oficjalnego rejestru.
 
@@ -62,7 +122,7 @@ Każdy lead przeszedł przez kombinację poniższych metod. Nazwy i opisy są ka
 
 Numer to **powinowactwo z nabijarkami** w skali 1–5: 5 = kupi prawie na pewno, 1 = marginalny overlap.
 
-| Kod | Specjalizacja | Powin. | Uzasadnienie |
+| Kod | Specjalizacja | Pow. | Uzasadnienie |
 |---|---|:-:|---|
 | **B1** | Tytoń liście / RYO | 5 | Klient kupuje surowiec → maszynka = upsell |
 | **B2** | Bibułki papierosowe | 5 | Top-of-mind palaczy skręcających |
@@ -207,7 +267,149 @@ Każdy z 12 krajów ma swoją własną notę `data/{Kraj}/insight-{ISO}.md` i PD
 
 ---
 
-## 8. Co zadziałało / co nie zadziałało
+## 8. Słownik fraz — „nabijarka do tytoniu" w 12 językach
+
+> **Dlaczego to ważne:** Research w każdym kraju zaczyna się od lokalnej nazwy produktu. Polskie „nabijarka do tytoniu" nie zadziała w Czechach ani w Estonii. Poniżej 3–4 najlepsze frazy per kraj (top wolumeny z `SŁOWNIK-{ISO}.md`). Wszystkie wolumeny `szac.` (szacunek), nie real-time.
+
+### 🇵🇱 Polska (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `nabijarka do tytoniu` | 5–10k/mies. |
+| `nabijarka papierosów` | 3–5k/mies. |
+| `maszynka do skręcania papierosów` | 2–4k/mies. |
+| `powerMatic allegro` | 1–2k/mies. |
+
+**Operatory PL:** `site:allegro.pl "nabijarka"`, `intitle:"hurtownia" "nabijarki"`, `inurl:oferta "powermatic"`, `site:facebook.com/groups "nabijarki"`, `site:youtube.com "PowerMatic recenzja"`.
+
+### 🇨🇿 Czechy (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `plnička tabáku` | 1–2k/mies. |
+| `strojek na cigarety` | 0,5–1k/mies. |
+| `plnička tabáku automatická` | 0,3–0,8k/mies. |
+| `powerMatic` | 0,1–0,3k/mies. |
+
+**Operatory CZ:** `site:heureka.cz "plnička"`, `site:zbozi.cz "plnička tabáku"`, `site:aukro.cz "plnička"`, `site:alza.cz "plnička"`.
+
+### 🇸🇰 Słowacja (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `plnička tabaku` | 0,5–1k/mies. |
+| `strojček na cigarety` | 0,2–0,5k/mies. |
+| `plnička tabaku automatická` | 0,1–0,3k/mies. |
+| `powerMatic` | 0,05–0,1k/mies. |
+
+**Operatory SK:** `site:heureka.sk "plnička"`, `site:mall.sk "plnička"`, `site:bazos.sk "plnička"`, `inurl:ponuka "plnička"`.
+
+### 🇷🇴 Rumunia (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `mașină de umplut țigări` | 1–3k/mies. |
+| `injector de tutun` | 0,5–1k/mies. |
+| `mașină electrică de țigări` | 0,3–0,8k/mies. |
+| `mașină automată de țigări` | 0,3–0,8k/mies. |
+
+**Operatory RO:** `site:emag.ro "umplut țigări"`, `site:olx.ro "mașină țigări"`, `intitle:"injector tutun"`, `site:altex.ro "mașină țigări"`.
+
+### 🇧🇬 Bułgaria (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `машина за пълнене на цигари` (mașină za pălnene na cigari) | 0,3–0,8k/mies. |
+| `инжектор за тютюн` (injektor za tyutyun) | 0,2–0,5k/mies. |
+| `автоматична машина за цигари` (avtomatična mașină za cigari) | 0,1–0,3k/mies. |
+| `powerMatic` | 0,05–0,1k/mies. |
+
+**Operatory BG:** `site:olx.bg "машина цигари"`, `site:emag.bg "пълнене цигари"`, `intitle:"машина за цигари"`, `inurl:prodava "пълнене"`.
+
+### 🇭🇷 Chorwacja (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `stroj za punjenje cigareta` | 0,2–0,5k/mies. |
+| `naprava za punjenje duhana` | 0,05–0,1k/mies. |
+| `automat za punjenje cigareta` | 0,01–0,05k/mies. |
+| `powerMatic` | 0,01–0,05k/mies. |
+
+**Operatory HR:** `site: njuskalo.hr "punjenje cigareta"`, `site:index.hr/oglasi "stroj za cigarete"`, `intitle:"punjenje" "duhan"`.
+
+### 🇸🇮 Słowenia (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `stroj za polnjenje cigaret` | 0,05–0,1k/mies. |
+| `naprava za polnjenje tobaka` | 0,01–0,05k/mies. |
+| `avtomatski polnilec cigaret` | 0,01–0,05k/mies. |
+| `powerMatic` | <0,01k/mies. |
+
+**Operatory SI:** `site:bolha.com "polnjenje cigaret"`, `site:cebimi.si "tobak polnjenje"`, `intitle:"polnjenje cigaret"`.
+
+### 🇱🇹 Litwa (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `cigarečių pildymo mašinėlė` | 0,1–0,3k/mies. |
+| `rankinis pildiklis` | 0,05–0,1k/mies. |
+| `tabako pildymo prietaisas` | 0,05–0,1k/mies. |
+| `powerMatic` | 0,05–0,1k/mies. |
+
+**Operatory LT:** `site:skelbiu.lt "pildymo mašinėlė"`, `site:alio.lt "pildiklis"`, `intitle:"pildymo mašina"`, `site:facebook.com "pildymo mašinėlė" LT`.
+
+### 🇱🇻 Łotwa (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `cigarešu pildīšanas mašīna` | 0,05–0,1k/mies. |
+| `tabakas pildītājs` | 0,01–0,05k/mies. |
+| `rokas pildītājs` | 0,01–0,05k/mies. |
+| `powerMatic` | <0,01k/mies. |
+
+**Operatory LV:** `site:ss.com "pildīšanas mašīna"`, `site:atverskapiem.lv "tabakas"`, `intitle:"cigarešu pildītājs"`.
+
+### 🇪🇪 Estonia (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `sigarettide täitemasin` | 0,1–0,3k/mies. |
+| `käsitsi täitja` | 0,05–0,1k/mies. |
+| `tubakatäitja` | 0,05–0,1k/mies. |
+| `powerMatic` | 0,05–0,1k/mies. |
+
+**Operatory EE:** `site:osta.ee "täitemasin"`, `site:soov.ee "täitja"`, `intitle:"täitemasin"`, `site:facebook.com "täitemasin" EE`.
+
+### 🇫🇷 Francja (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `injector de tabac` | 2–3k/mies. |
+| `machine à rouler les cigarettes` | 1–2k/mies. |
+| `remplisseur de cigarettes électrique` | 0,5–1k/mies. |
+| `powerMatic` | 0,1–0,3k/mies. |
+
+**Operatory FR:** `site:leboncoin.fr "injecteur tabac"`, `site:smoking.fr "machine à tuber"`, `intitle:"buraliste" "tabac"`, `site:amazon.fr "machine rouler"`.
+
+### 🇲🇩 Mołdawia (top 4)
+
+| Fraza | Szac. wolumen |
+|---|---|
+| `mașină de umplere țigarete` | 0,1–0,3k/mies. |
+| `mașină de țigări` | 0,1–0,3k/mies. |
+| `injector de tutun` | 0,05–0,1k/mies. |
+| `mașină automată de țigări` | 0,01–0,05k/mies. |
+
+**Operatory MD:** `site:999.md "umplere țigări"`, `site:olx.md "mașină țigări"`, `intitle:"mașină tutun"`.
+
+> **Bonus — globalne marki (EN):** `powerMatic rolling machine`, `hawk rolling machine`, `topomat`, `turbomatic`, `cigarette injector machine`, `tobacco filling machine`. Używaj na LinkedIn i w YouTube komentarzach — działa globalnie.
+
+> **Pełne słowniki (20+ fraz per kraj + operatory + szac. wolumeny):** `data/{Kraj}/SŁOWNIK-{ISO}.md` (12 plików).
+
+---
+
+## 9. Co zadziałało / co nie zadziałało
 
 ### ✅ Co zadziałało
 
@@ -236,7 +438,7 @@ Każdy z 12 krajów ma swoją własną notę `data/{Kraj}/insight-{ISO}.md` i PD
 | **Wikipedia scraping** | Bot blockery | ręczne zapytania |
 | **OLX / Ceneo / InPost Buy** | Brak oficjalnego API | Scraping (ale blokowany) |
 | **Photon / OSM** | Brak danych B2B (tylko adresy) | Połączenie z Google Places |
-| **Facebook grup scrape** | ReCAPTCHA + ToS | Manual, grupy „Nabijarki do tytoniu" |
+| **Facebook grup scrape** | reCAPTCHA + ToS | Manual, grupy „Nabijarki do tytoniu" |
 
 ### 💡 Wnioski
 
@@ -246,11 +448,11 @@ Każdy z 12 krajów ma swoją własną notę `data/{Kraj}/insight-{ISO}.md` i PD
 
 ---
 
-## 9. Problemy ze źródłami danych — szczegóły
+## 10. Problemy ze źródłami danych — szczegóły
 
 > **Dla działu sprzedaży:** to jest lista rzeczy, które **nie są widoczne** w gotowej bazie `master.csv` ale wpływają na jej kompletność. Przeczytaj zanim powiesz „ta firma powinna tu być, a jej nie ma".
 
-### 9.1 Rejestry państwowe bez publicznego API
+### 10.1 Rejestry państwowe bez publicznego API
 
 | Kraj | Rejestr | Problem | Konsekwencja |
 |---|---|---|---|
@@ -263,7 +465,7 @@ Każdy z 12 krajów ma swoją własną notę `data/{Kraj}/insight-{ISO}.md` i PD
 
 **Praktyczny efekt:** w tych krajach część leadów jest oznaczona ⚠️ DO-WERYFIKACJI, ponieważ nie udało się potwierdzić nazwy firmy w oficjalnym rejestrze. **Przed wysłaniem oferty** sprawdź ręcznie w przeglądarce.
 
-### 9.2 Brak NIP/REGON w danych źródłowych
+### 10.2 Brak NIP/REGON w danych źródłowych
 
 Dla ~50–80% nowych leadów (zwłaszcza małych firm, JDG, e-commerce) nie da się automatycznie znaleźć NIP/REGON. Próby i ich skuteczność:
 
@@ -277,7 +479,7 @@ Dla ~50–80% nowych leadów (zwłaszcza małych firm, JDG, e-commerce) nie da s
 
 **Wniosek:** dla małych firm potrzeba **paid API** (Veritor, ENTIA) albo **manual** (5–10 min/firma).
 
-### 9.3 Marketplace'y bez API
+### 10.3 Marketplace'y bez API
 
 | Marketplace | API | Dane dostępne | Fallback |
 |---|:-:|---|---|
@@ -291,7 +493,7 @@ Dla ~50–80% nowych leadów (zwłaszcza małych firm, JDG, e-commerce) nie da s
 | InPost Buy (PL) | ❌ | — | brak |
 | Aukro (CZ) | ⚠️ legacy SOAP | niepełne | nie używane |
 
-### 9.4 Brak danych decydentów (główna luka)
+### 10.4 Brak danych decydentów (główna luka)
 
 **Stan na 2026-08-19:** decydent wypełniony tylko dla 142/393 firm (36%).
 
@@ -312,7 +514,7 @@ Dla ~50–80% nowych leadów (zwłaszcza małych firm, JDG, e-commerce) nie da s
 
 **Wniosek:** wypełnienie decydenta do >80% wymaga **Veritor / ENTIA / Pappers.fr** (subskrypcja).
 
-### 9.5 Hallucynacje LLM — zagrożenie dla bazy
+### 10.5 Hallucynacje LLM — zagrożenie dla bazy
 
 LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y** które wskazują na **zupełnie inne firmy**. Przykład z bazy:
 - „HURTOWNIA PAPIEROSÓW CYGARO" = KRS 0000123456 → realnie to **RODENSTOCK POLSKA** (optyka).
@@ -322,11 +524,11 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 
 ---
 
-## 10. Rekomendowane API i płatne serwisy
+## 11. Rekomendowane API i płatne serwisy
 
 > **Dla kierownictwa:** to jest lista narzędzi, które pozwoliłyby podnieść kompletność bazy z obecnych 95,2% FROZEN do ~99% i wypełnić lukę decydentów (36% → 80%+). Ceny są z 2026-08 i mogą się różnić.
 
-### 10.1 Cross-country KYB (Know Your Business)
+### 11.1 Cross-country KYB (Know Your Business)
 
 | Narzędzie | URL | Co daje | Cena (mies.) | Rekomendacja |
 |---|---|---|---|---|
@@ -336,7 +538,7 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 | **OpenCorporates** | opencorporates.com | Globalny agregator, mirror 100+ rejestrów | Free z limitem, **API $99/m** (10k) | Backup dla Veritor, najszersze pokrycie |
 | **Pappers.fr** ⭐ (FR) | pappers.fr/api | FR: rejestr, dyrektorzy, finanse, sanity, beneficjenci | **49 €/m** (Essentiel, 500 req/dzień), 199 €/m (Premium) | **Obowiązkowe dla FR** — Societe.com nie daje dyrektorów |
 
-### 10.2 Rejestry per kraj (alternatywa dla Veritor)
+### 11.2 Rejestry per kraj (alternatywa dla Veritor)
 
 | Kraj | Rejestr | Dostęp | Cena | Status |
 |---|---|---|---|---|
@@ -362,7 +564,7 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 | 🇫🇷 FR | SIRENE / Recherche Entreprises | Open REST | **Darmowy** | ✅ działa, ale bez dyrektorów |
 | 🇲🇩 MD | cis.gov.md | HTML | Darmowy | ❌ brak API |
 
-### 10.3 Marketplace + social media
+### 11.3 Marketplace + social media
 
 | Narzędzie | URL | Co daje | Cena | Status |
 |---|---|---|---|---|
@@ -375,7 +577,7 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 | **Google Trends** | trends.google.com | Trend rosnący/malejący fraz | **Darmowy** | ✅ używane |
 | **TikTok Creative Center** | ads.tiktok.com/business/creativecenter | Realne zasięgi hashtagów | **Darmowy** | ✅ używane |
 
-### 10.4 Rekomendowany stack (priorytet 1, 2, 3)
+### 11.4 Rekomendowany stack (priorytet 1, 2, 3)
 
 **Priorytet 1 — najszybszy efekt (~$250/m):**
 - Veritor Starter ($199/m) → pokrywa LT/LV/BG/SI/HR/MD/EE/FR/RO/CZ
@@ -398,7 +600,7 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 
 ---
 
-## 11. Jak korzystać z bazy — 3 kroki dla handlowca
+## 12. Jak korzystać z bazy — 3 kroki dla handlowca
 
 **1. Otwórz `data/master.csv`** (393 wiersze, 35 kolumn) lub **PDF katalogu dla swojego kraju** (`data/{Kraj}/PDF-{ISO}.pdf`). Filtruj po:
 - `tier` (wyłączność > autoryzowany > reseller)
@@ -414,7 +616,7 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 
 ---
 
-## 12. Status projektu i plan na najbliższe miesiące
+## 13. Status projektu i plan na najbliższe miesiące
 
 | Kamień milowy | Data | Status |
 |---|---|---|
@@ -423,6 +625,7 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 | Wszystkie 12 krajów zweryfikowane | 2026-08-18 | ✅ 393/393 (100%) FROZEN, potem 374/393 (95,2%) po enrichment |
 | Decydent enrichment | 2026-08-11 → 18 | ⚠️ 142/393 (36%) — **główna luka** |
 | Cross-country ties (multi-krajowe partnerstwa) | 2026-08-18 | ✅ GGT (CZ+SK), GECO (CZ+SK), TTI (CZ+SK+BG+RO), Sanitex (LT+LV+EE) |
+| 12 PDF katalogów per kraj | 2026-08-18 | ✅ 107 stron łącznie, locked v9 |
 | 3–5 podpisanych umów dystrybucyjnych | **target: 12 mies.** | 🔄 w toku |
 
 **Plan 2026 Q3-Q4:**
@@ -433,5 +636,5 @@ LLM (Gemini, DeepSeek, Claude) potrafi generować **poprawne checksumowo NIP-y**
 
 ---
 
-*Dokument wygenerowany 2026-08-19 na podstawie INTEL.md, DZIENNIK.md, methodology.md, data/{Kraj}/insight-{ISO}.md i data/master.csv.*
-*Wersja: 1.0 · Właściciel: Marceli (BILLS Sp. z o.o.) · Kolejna aktualizacja: po każdym nowym enrichment lub outreachu.*
+*Dokument wygenerowany 2026-08-19 na podstawie INTEL.md, DZIENNIK.md, methodology.md, data/{Kraj}/insight-{ISO}.md, data/{Kraj}/SŁOWNIK-{ISO}.md i data/master.csv.*
+*Wersja: 1.1 · Właściciel: Marceli (BILLS Sp. z o.o.) · Kolejna aktualizacja: po każdym nowym enrichment lub outreachu.*
