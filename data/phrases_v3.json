@@ -1,0 +1,1617 @@
+{
+  "PL": {
+    "device": [],
+    "brand": [],
+    "wholesale": [],
+    "retail": []
+  },
+  "CZ": {
+    "device": [
+      {
+        "phrase": "ruční plnička cigaret",
+        "vol": "1.5-3k/mies.",
+        "pl": "ręczna nabijarka papierosów"
+      },
+      {
+        "phrase": "plnička tabáku",
+        "vol": "1-2k/mies.",
+        "pl": "nabijarka tytoniu"
+      },
+      {
+        "phrase": "strojek na cigarety",
+        "vol": "0.5-1k/mies.",
+        "pl": "maszynka na papierosy"
+      },
+      {
+        "phrase": "plnička tabáku automatická",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "nabijarka tytoniu automatyczna"
+      },
+      {
+        "phrase": "kuřácké potřeby",
+        "vol": "1-2k/mies.",
+        "pl": "dla palaczy akcesoria"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "luxfux",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "luxfux (marka maszynki)"
+      },
+      {
+        "phrase": "\"ruční plnička\" + \"cigaret\"",
+        "vol": "1-2k/mies.",
+        "pl": "\"ręczna nabijarka\"+\"papierosów\""
+      },
+      {
+        "phrase": "\"plnička tabáku\" + \"elektrická\"",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "\"nabijarka tytoniu\"+\"elektryczna\""
+      },
+      {
+        "phrase": "\"stroj na plnění cigaret\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "\"maszyna na nabijania papierosów\""
+      },
+      {
+        "phrase": "\"balící stroj na cigarety\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"pakująca maszyna na papierosy\""
+      },
+      {
+        "phrase": "\"kuřácký strojek\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"dla palaczy maszynka\""
+      },
+      {
+        "phrase": "\"automatická plnička\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"automatyczna nabijarka\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "alza.cz \"ruční plnička\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "alza.cz\"ręczna nabijarka\""
+      },
+      {
+        "phrase": "heureka.cz \"ruční plnička\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "heureka.cz\"ręczna nabijarka\""
+      },
+      {
+        "phrase": "heureka.cz \"plnička tabáku\"",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "heureka.cz\"nabijarka tytoniu\""
+      },
+      {
+        "phrase": "heureka.cz \"powerMatic\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "heureka.cz\"powerMatic\""
+      },
+      {
+        "phrase": "bazos.cz \"plnička\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "bazos.cz\"nabijarka\""
+      },
+      {
+        "phrase": "bazos.cz \"tabák\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "bazos.cz\"tytoń\""
+      },
+      {
+        "phrase": "aukro.cz \"ruční plnička\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "aukro.cz\"ręczna nabijarka\""
+      },
+      {
+        "phrase": "mall.cz \"kuřácké potřeby\"",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "mall.cz\"dla palaczy akcesoria\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "prodejna tabákových potřeb",
+        "vol": "0.5-1k/mies.",
+        "pl": "sklep tytoniowych potrzeb"
+      },
+      {
+        "phrase": "obchod s kuřáckými potřebami",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "sklep z dla palaczy potrzebami"
+      },
+      {
+        "phrase": "e-shop kuřácké potřeby",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "e-sklep dla palaczy akcesoria"
+      },
+      {
+        "phrase": "tabáková prodejna",
+        "vol": "0.5-1k/mies.",
+        "pl": "tytoniowa sklep"
+      },
+      {
+        "phrase": "prodejna elektronických cigaret",
+        "vol": "0.5-1k/mies.",
+        "pl": "sklep elektronických papierosów"
+      },
+      {
+        "phrase": "e-cigarety obchod",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "e-cigarety sklep"
+      },
+      {
+        "phrase": "vape obchod",
+        "vol": "0.5-1k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"prodejna\" + \"tabák\" + [město]",
+        "vol": "0.05-0.2k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ miasto"
+      },
+      {
+        "phrase": "\"kuřácké potřeby\" + [město]",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"dla palaczy akcesoria\"+ miasto"
+      }
+    ]
+  },
+  "SK": {
+    "device": [
+      {
+        "phrase": "ručná plnička cigariet",
+        "vol": "0.5-1.5k/mies.",
+        "pl": "ręczna nabijarka papierosów"
+      },
+      {
+        "phrase": "plnička tabaku",
+        "vol": "0.5-1k/mies.",
+        "pl": "nabijarka tytoniu"
+      },
+      {
+        "phrase": "strojček na cigarety",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "maszynka na papierosy"
+      },
+      {
+        "phrase": "plnička tabaku automatická",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "nabijarka tytoniu automatyczna"
+      },
+      {
+        "phrase": "fajčiarske potreby",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "dla palaczy potrzeby"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"ručná plnička\" + \"cigariet\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "\"ręczna nabijarka\"+\"papierosów\""
+      },
+      {
+        "phrase": "\"plnička\" + \"tabak\"",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "\"nabijarka\"+\"tytoń\""
+      },
+      {
+        "phrase": "\"stroj na plnenie cigariet\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"maszyna na nabijanie papierosów\""
+      },
+      {
+        "phrase": "\"automatická plnička\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"automatyczna nabijarka\""
+      },
+      {
+        "phrase": "\"elektrická plnička\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"elektryczna nabijarka\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "alza.sk \"plnička\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "alza.sk\"nabijarka\""
+      },
+      {
+        "phrase": "heureka.sk \"ručná plnička\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "heureka.sk\"ręczna nabijarka\""
+      },
+      {
+        "phrase": "heureka.sk \"plnička tabaku\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "heureka.sk\"nabijarka tytoniu\""
+      },
+      {
+        "phrase": "bazos.sk \"plnička\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "bazos.sk\"nabijarka\""
+      },
+      {
+        "phrase": "bazos.sk \"tabak\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "bazos.sk\"tytoń\""
+      },
+      {
+        "phrase": "mall.sk \"fajčiarske potreby\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "mall.sk\"dla palaczy potrzeby\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "predajňa tabakových potrieb",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "sklep tytoniowych potrzeb"
+      },
+      {
+        "phrase": "obchod s fajčiarskymi potrebami",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "sklep z fajčiarskymi potrzebami"
+      },
+      {
+        "phrase": "e-shop fajčiarske potreby",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "e-sklep dla palaczy potrzeby"
+      },
+      {
+        "phrase": "tabaková predajňa",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "tytoniowa sklep"
+      },
+      {
+        "phrase": "e-cigarety obchod",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "e-cigarety sklep"
+      },
+      {
+        "phrase": "vape obchod",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"predajňa\" + \"tabak\" + [mesto]",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ miasto"
+      },
+      {
+        "phrase": "\"fajčiarske potreby\" + [mesto]",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"dla palaczy potrzeby\"+ miasto"
+      }
+    ]
+  },
+  "RO": {
+    "device": [
+      {
+        "phrase": "mașină de umplut țigări",
+        "vol": "1-3k/mies.",
+        "pl": "maszyna z napełniać papierosy"
+      },
+      {
+        "phrase": "dispozitiv de umplut tutun",
+        "vol": "0.5-1k/mies.",
+        "pl": "urządzenie z napełniać tytoń"
+      },
+      {
+        "phrase": "mașină automată de țigări",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "maszyna automatyczna z papierosy"
+      },
+      {
+        "phrase": "injector de tutun",
+        "vol": "0.5-1k/mies.",
+        "pl": "wstrzykiwacz z tytoń"
+      },
+      {
+        "phrase": "mașină electrică de țigări",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "maszyna elektryczna z papierosy"
+      },
+      {
+        "phrase": "mașină manuală de țigări",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "maszyna ręczna z papierosy"
+      },
+      {
+        "phrase": "articole pentru fumători",
+        "vol": "0.5-1k/mies.",
+        "pl": "artykuły dla palacze"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.5-1.5k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "luxfux",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "luxfux (marka maszynki)"
+      },
+      {
+        "phrase": "\"mașină\" + \"umplut\" + \"țigări\"",
+        "vol": "1-2k/mies.",
+        "pl": "\"maszyna\"+\"napełniać\"+\"papierosy\""
+      },
+      {
+        "phrase": "\"dispozitiv\" + \"tutun\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "\"urządzenie\"+\"tytoń\""
+      },
+      {
+        "phrase": "\"mașină\" + \"țigări\" + \"automată\"",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "\"maszyna\"+\"papierosy\"+\"automatyczna\""
+      },
+      {
+        "phrase": "\"aparat de umplut tutun\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "\"aparat z napełniać tytoń\""
+      },
+      {
+        "phrase": "\"umplere manuală\" + \"țigări\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"napełnianie ręczna\"+\"papierosy\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "emag.ro \"mașină de umplut țigări\"",
+        "vol": "1-2k/mies.",
+        "pl": "emag.ro\"maszyna z napełniać papierosy\""
+      },
+      {
+        "phrase": "emag.ro \"umplut țigări\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "emag.ro\"napełniać papierosy\""
+      },
+      {
+        "phrase": "olx.ro \"mașină de umplut\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "olx.ro\"maszyna z napełniać\""
+      },
+      {
+        "phrase": "olx.ro \"mașină\" + \"țigări\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "olx.ro\"maszyna\"+\"papierosy\""
+      },
+      {
+        "phrase": "olx.ro \"tutun\"",
+        "vol": "1-2k/mies.",
+        "pl": "olx.ro\"tytoń\""
+      },
+      {
+        "phrase": "okazii.ro \"mașină\" + \"țigări\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "okazii.ro\"maszyna\"+\"papierosy\""
+      },
+      {
+        "phrase": "okazii.ro \"tutun\"",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "okazii.ro\"tytoń\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "magazin tutun",
+        "vol": "1-2k/mies.",
+        "pl": "sklep tytoń"
+      },
+      {
+        "phrase": "magazin de țigarete electronice",
+        "vol": "0.5-1k/mies.",
+        "pl": "sklep z papierosy electronice"
+      },
+      {
+        "phrase": "magazin de articole pentru fumători",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "sklep z artykuły dla palacze"
+      },
+      {
+        "phrase": "shop online tutun",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "shop online tytoń"
+      },
+      {
+        "phrase": "vape magazin",
+        "vol": "0.5-1k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"magazin\" + \"tutun\" + [oraș]",
+        "vol": "0.05-0.2k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ [oraș]"
+      },
+      {
+        "phrase": "\"fumători\" + \"magazin\" + [oraș]",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"palacze\"+\"sklep\"+ [oraș]"
+      }
+    ]
+  },
+  "BG": {
+    "device": [
+      {
+        "phrase": "машина за пълнене на цигари",
+        "vol": "0.5-1.5k/mies.",
+        "pl": "maszyna do napełnianie na papierosy"
+      },
+      {
+        "phrase": "ръчна пълначка за цигари",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "ręczna nabijarka do papierosy"
+      },
+      {
+        "phrase": "пълначка за тютюн",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "nabijarka do tytoń"
+      },
+      {
+        "phrase": "автоматична машина за цигари",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "automatyczna maszyna do papierosy"
+      },
+      {
+        "phrase": "машинка за пушене",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "maszynka do пушене"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"машина за\" + \"цигари\"",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "\"maszyna do\"+\"papierosy\""
+      },
+      {
+        "phrase": "\"ръчна пълначка\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "\"ręczna nabijarka\""
+      },
+      {
+        "phrase": "\"пълначка\" + \"тютюн\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "\"nabijarka\"+\"tytoń\""
+      },
+      {
+        "phrase": "\"машинка за пушене\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"maszynka do пушене\""
+      },
+      {
+        "phrase": "\"апарат за цигари\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"апарат do papierosy\""
+      },
+      {
+        "phrase": "\"уред за пълнене на цигари\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"przyrząd do napełnianie na papierosy\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "olx.bg \"машина за цигари\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "olx.bg\"maszyna do papierosy\""
+      },
+      {
+        "phrase": "olx.bg \"пълначка\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "olx.bg\"nabijarka\""
+      },
+      {
+        "phrase": "emag.bg \"пълначка\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "emag.bg\"nabijarka\""
+      },
+      {
+        "phrase": "emag.bg \"машина за цигари\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "emag.bg\"maszyna do papierosy\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "магазин за тютюневи изделия",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "sklep do tytoniowe изделия"
+      },
+      {
+        "phrase": "магазин за аксесоари за пушачи",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "sklep do akcesoria do palacze"
+      },
+      {
+        "phrase": "тютюнев магазин",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "tytoniowy sklep"
+      },
+      {
+        "phrase": "магазин за електронни цигари",
+        "vol": "0.3-0.5k/mies.",
+        "pl": "sklep do elektroniczne papierosy"
+      },
+      {
+        "phrase": "вейп магазин",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "вейп sklep"
+      },
+      {
+        "phrase": "\"магазин за тютюн\" + [град]",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"sklep do tytoń\"+ [град]"
+      },
+      {
+        "phrase": "\"магазин за пушачи\" + [град]",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"sklep do palacze\"+ [град]"
+      }
+    ]
+  },
+  "HR": {
+    "device": [
+      {
+        "phrase": "stroj za punjenje cigareta",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "maszyna za napełnianie papieros"
+      },
+      {
+        "phrase": "ručna punilica cigareta",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "ręczna nabijarka papieros"
+      },
+      {
+        "phrase": "naprava za punjenje duhana",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "urządzenie za napełnianie tytoniu"
+      },
+      {
+        "phrase": "automatska punilica cigareta",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "automatyczna nabijarka papieros"
+      },
+      {
+        "phrase": "pušačke potrepštine",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "dla palaczy potrzeby"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "<0.05k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "<0.05k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "<0.05k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"stroj za punjenje\" + \"cigareta\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"maszyna za napełnianie\"+\"papieros\""
+      },
+      {
+        "phrase": "\"ručna punilica\" + \"duhana\"",
+        "vol": "0.1-0.2k/mies.",
+        "pl": "\"ręczna nabijarka\"+\"tytoniu\""
+      },
+      {
+        "phrase": "\"naprava za cigarete\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"urządzenie za papierosy\""
+      },
+      {
+        "phrase": "\"punilica za cigarete\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"nabijarka za papierosy\""
+      },
+      {
+        "phrase": "\"električna punilica\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"elektryczna nabijarka\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "njuskalo.hr \"stroj za punjenje cigareta\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "njuskalo.hr\"maszyna za napełnianie papieros\""
+      },
+      {
+        "phrase": "njuskalo.hr \"punilica\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "njuskalo.hr\"nabijarka\""
+      },
+      {
+        "phrase": "njuskalo.hr \"duhan\"",
+        "vol": "0.2-0.5k/mies.",
+        "pl": "njuskalo.hr\"tytoń\""
+      },
+      {
+        "phrase": "index.hr oglasi \"duhan\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "index.hr oglasi\"tytoń\""
+      },
+      {
+        "phrase": "\"njuskalo\" + \"duhan\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"njuskalo\"+\"tytoń\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "prodavaonica duhanskih proizvoda",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "sklep duhanskih produktów"
+      },
+      {
+        "phrase": "duhanska prodavaonica",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "duhanska sklep"
+      },
+      {
+        "phrase": "prodavaonica pušačkih potrepština",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "sklep dla palaczy potrzeba"
+      },
+      {
+        "phrase": "e-trgovina duhanskih proizvoda",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "e-trgovina duhanskih produktów"
+      },
+      {
+        "phrase": "vape shop",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"prodavaonica\" + \"duhan\" + [grad]",
+        "vol": "<0.05k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ miasto"
+      },
+      {
+        "phrase": "\"trgovina\" + \"pušačke potrepštine\" + [grad]",
+        "vol": "<0.05k/mies.",
+        "pl": "\"sklep\"+\"dla palaczy potrzeby\"+ miasto"
+      }
+    ]
+  },
+  "SI": {
+    "device": [
+      {
+        "phrase": "stroj za polnjenje cigaret",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "maszyna za napełnianie papierosów"
+      },
+      {
+        "phrase": "ročni polnilnik cigaret",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "ręczny nabijarka papierosów"
+      },
+      {
+        "phrase": "naprava za polnjenje tobaka",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "urządzenie za napełnianie tytoniu"
+      },
+      {
+        "phrase": "avtomatski polnilnik cigaret",
+        "vol": "<0.01k/mies.",
+        "pl": "automatyczny nabijarka papierosów"
+      },
+      {
+        "phrase": "pripomočki za kadilce",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "artykuły za palacze"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "<0.01k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "<0.01k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "<0.01k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"stroj za polnjenje\" + \"cigaret\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"maszyna za napełnianie\"+\"papierosów\""
+      },
+      {
+        "phrase": "\"ročni polnilnik\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"ręczny nabijarka\""
+      },
+      {
+        "phrase": "\"naprava za tobak\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"urządzenie za tytoń\""
+      },
+      {
+        "phrase": "\"polnilec cigaret\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"polnilec papierosów\""
+      },
+      {
+        "phrase": "\"avtomatska polnilka\"",
+        "vol": "<0.01k/mies.",
+        "pl": "\"automatyczna polnilka\""
+      },
+      {
+        "phrase": "\"električni polnilnik\"",
+        "vol": "<0.01k/mies.",
+        "pl": "\"elektryczny nabijarka\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "bolha.com \"polnjenje cigaret\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "bolha.com\"napełnianie papierosów\""
+      },
+      {
+        "phrase": "bolha.com \"polnilnik\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "bolha.com\"nabijarka\""
+      },
+      {
+        "phrase": "bolha.com \"tobak\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "bolha.com\"tytoń\""
+      },
+      {
+        "phrase": "bolha.com \"powerMatic\"",
+        "vol": "<0.05k/mies.",
+        "pl": "bolha.com\"powerMatic\""
+      },
+      {
+        "phrase": "mimovrste.com \"cigarete\" + \"polnilnik\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "mimovrste.com\"papierosy\"+\"nabijarka\""
+      },
+      {
+        "phrase": "ceneje.si \"polnilnik\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "ceneje.si\"nabijarka\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "prodajalna tobačnih izdelkov",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "sklep tobačnih izdelkov"
+      },
+      {
+        "phrase": "trafika",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "kiosk tytoniowy"
+      },
+      {
+        "phrase": "spletna trgovina tobak",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "spletna sklep tytoń"
+      },
+      {
+        "phrase": "prodajalna e-cigaret",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "sklep e-cigaret"
+      },
+      {
+        "phrase": "vape trgovina",
+        "vol": "0.1-0.2k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"prodajalna\" + \"tobak\" + [mesto]",
+        "vol": "<0.01k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ miasto"
+      },
+      {
+        "phrase": "\"kadilske potrebščine\" + [mesto]",
+        "vol": "<0.01k/mies.",
+        "pl": "\"dla palaczy potrzeby\"+ miasto"
+      }
+    ]
+  },
+  "LT": {
+    "device": [
+      {
+        "phrase": "cigarečių pildymo mašinėlė",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "papierosów napełniania mašinėlė"
+      },
+      {
+        "phrase": "rankinis pildiklis",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "ręczny pildiklis"
+      },
+      {
+        "phrase": "tabako pildymo prietaisas",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "tytoniowe napełniania prietaisas"
+      },
+      {
+        "phrase": "automatinė cigarečių pildyklė",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "automatyczna papierosów nabijarka"
+      },
+      {
+        "phrase": "rūkymo reikmenys",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "palenia przybory"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "<0.05k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "<0.05k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "<0.05k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"cigarečių\" + \"pildymo\" + \"mašinėlė\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"papierosów\"+\"napełniania\"+\"mašinėlė\""
+      },
+      {
+        "phrase": "\"rankinis pildiklis\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"ręczny pildiklis\""
+      },
+      {
+        "phrase": "\"tabako pildymas\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"tytoniowe pildymas\""
+      },
+      {
+        "phrase": "\"mašina cigaretėms\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"maszyna cigaretėms\""
+      },
+      {
+        "phrase": "\"elektros pildyklė\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"elektros nabijarka\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "skelbiu.lt \"cigarečių pildymo mašinėlė\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "skelbiu.lt\"papierosów napełniania mašinėlė\""
+      },
+      {
+        "phrase": "skelbiu.lt \"pildiklis\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "skelbiu.lt\"pildiklis\""
+      },
+      {
+        "phrase": "skelbiu.lt \"tabakas\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "skelbiu.lt\"tytoń\""
+      },
+      {
+        "phrase": "skelbiu.lt \"powerMatic\"",
+        "vol": "<0.05k/mies.",
+        "pl": "skelbiu.lt\"powerMatic\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "tabako prekių parduotuvė",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "tytoniowe towarów sklep"
+      },
+      {
+        "phrase": "parduotuvė rūkikliams",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "sklep rūkikliams"
+      },
+      {
+        "phrase": "e-parduotuvė tabako",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "e-parduotuvė tytoniowe"
+      },
+      {
+        "phrase": "elektroninių cigarečių parduotuvė",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "elektroninių papierosów sklep"
+      },
+      {
+        "phrase": "vape parduotuvė",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"parduotuvė\" + \"tabakas\" + [miestas]",
+        "vol": "<0.05k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ miasto"
+      },
+      {
+        "phrase": "\"rūkymo reikmenys\" + [miestas]",
+        "vol": "<0.05k/mies.",
+        "pl": "\"palenia przybory\"+ miasto"
+      }
+    ]
+  },
+  "LV": {
+    "device": [
+      {
+        "phrase": "cigarešu pildītājs",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "papierosów nabijarka"
+      },
+      {
+        "phrase": "rokas pildītājs",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "ręczny nabijarka"
+      },
+      {
+        "phrase": "tabakas pildītājs",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "tytoniowe nabijarka"
+      },
+      {
+        "phrase": "automātiskais cigarešu pildītājs",
+        "vol": "<0.01k/mies.",
+        "pl": "automātiskais papierosów nabijarka"
+      },
+      {
+        "phrase": "smēķēšanas piederumi",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "smēķēšanas przybory"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "<0.01k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "<0.01k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "<0.01k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"cigarešu\" + \"pildītājs\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"papierosów\"+\"nabijarka\""
+      },
+      {
+        "phrase": "\"rokas pildītājs\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"ręczny nabijarka\""
+      },
+      {
+        "phrase": "\"tabakas pildīšana\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"tytoniowe napełnianie\""
+      },
+      {
+        "phrase": "\"mašīna cigaretēm\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"maszyna papierosami\""
+      },
+      {
+        "phrase": "\"elektriskais pildītājs\"",
+        "vol": "<0.01k/mies.",
+        "pl": "\"elektriskais nabijarka\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "ss.lv \"cigarešu pildītājs\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "ss.lv\"papierosów nabijarka\""
+      },
+      {
+        "phrase": "ss.lv \"pildītājs\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "ss.lv\"nabijarka\""
+      },
+      {
+        "phrase": "ss.lv \"tabaka\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "ss.lv\"tabaka\""
+      },
+      {
+        "phrase": "ss.lv \"powerMatic\"",
+        "vol": "<0.01k/mies.",
+        "pl": "ss.lv\"powerMatic\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "tabakas veikals",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "tytoniowe sklep"
+      },
+      {
+        "phrase": "smēķēšanas piederumu veikals",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "smēķēšanas przyborów sklep"
+      },
+      {
+        "phrase": "e-veikals tabakas",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "e-veikals tytoniowe"
+      },
+      {
+        "phrase": "elektronisko cigarešu veikals",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "elektronisko papierosów sklep"
+      },
+      {
+        "phrase": "vape veikals",
+        "vol": "0.1-0.2k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"veikals\" + \"tabaka\" + [pilsēta]",
+        "vol": "<0.01k/mies.",
+        "pl": "\"sklep\"+\"tabaka\"+ miasto"
+      },
+      {
+        "phrase": "\"smēķētāju veikals\" + [pilsēta]",
+        "vol": "<0.01k/mies.",
+        "pl": "\"palaczy sklep\"+ miasto"
+      }
+    ]
+  },
+  "EE": {
+    "device": [
+      {
+        "phrase": "sigarettide täitemasin",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "papierosów maszyna do napełniania"
+      },
+      {
+        "phrase": "käsitsi täitja",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "ręczny napełniacz"
+      },
+      {
+        "phrase": "tubakatäitja",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "nabijarka tytoniowa"
+      },
+      {
+        "phrase": "automaatne sigaretisidetaja",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "automatyczny sigaretisidetaja"
+      },
+      {
+        "phrase": "sigaretimasin",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "maszyna do papierosów"
+      },
+      {
+        "phrase": "suitsetarvete masin",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "artykułów dla palaczy maszyna"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "\"sigarettide\" + \"täitemasin\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"papierosów\"+\"maszyna do napełniania\""
+      },
+      {
+        "phrase": "\"käsitsi\" + \"täitja\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"ręczny\"+\"napełniacz\""
+      },
+      {
+        "phrase": "\"tubaka\" + \"täitja\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"tytoniu\"+\"napełniacz\""
+      },
+      {
+        "phrase": "\"masin\" + \"sigaretid\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"maszyna\"+\"papierosy\""
+      },
+      {
+        "phrase": "\"elektrooniline\" + \"täitja\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"elektroniczny\"+\"napełniacz\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "osta.ee \"täitemasin\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "osta.ee\"maszyna do napełniania\""
+      },
+      {
+        "phrase": "osta.ee \"sigaretimasin\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "osta.ee\"maszyna do papierosów\""
+      },
+      {
+        "phrase": "osta.ee \"PowerMatic\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "osta.ee\"PowerMatic\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "suitsetarvete pood",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "artykułów dla palaczy sklep"
+      },
+      {
+        "phrase": "tubakapood",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "sklep tytoniowy"
+      },
+      {
+        "phrase": "e-pood suitsetarbed",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "e-sklep artykuły dla palaczy"
+      },
+      {
+        "phrase": "elektrooniliste sigarettide pood",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "elektrooniliste papierosów sklep"
+      },
+      {
+        "phrase": "\"suitsetarvete\" + \"pood\" + [linn]",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"artykułów dla palaczy\"+\"sklep\"+ miasto"
+      },
+      {
+        "phrase": "\"tubakapood\" + [linn]",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"sklep tytoniowy\"+ miasto"
+      }
+    ]
+  },
+  "FR": {
+    "device": [
+      {
+        "phrase": "machine à tuber",
+        "vol": "8-15k/mies.",
+        "pl": "maszyna à tuber"
+      },
+      {
+        "phrase": "boudinoir électrique",
+        "vol": "3-5k/mies.",
+        "pl": "boudinoir elektryczna"
+      },
+      {
+        "phrase": "machine à cigarettes",
+        "vol": "5-10k/mies.",
+        "pl": "maszyna à papierosy"
+      },
+      {
+        "phrase": "remplisseuse de cigarettes",
+        "vol": "1-2k/mies.",
+        "pl": "remplisseuse z papierosy"
+      },
+      {
+        "phrase": "injector de tabac",
+        "vol": "2-3k/mies.",
+        "pl": "injector z tytoń"
+      },
+      {
+        "phrase": "boudinoir à tabac",
+        "vol": "3-5k/mies.",
+        "pl": "boudinoir à tytoń"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "2-5k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "0.5-1k/mies.",
+        "pl": "hawk rolling maszyna"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "luxfux",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "luxfux (marka maszynki)"
+      },
+      {
+        "phrase": "\"machine à tuber\" + \"professionnel\"",
+        "vol": "1-2k/mies.",
+        "pl": "\"maszyna à tuber\"+\"professionnel\""
+      },
+      {
+        "phrase": "\"boudinoir\" + \"tabac\"",
+        "vol": "3-5k/mies.",
+        "pl": "\"boudinoir\"+\"tytoń\""
+      },
+      {
+        "phrase": "\"machine à rouler\" + \"cigarettes\"",
+        "vol": "2-5k/mies.",
+        "pl": "\"maszyna à skręcać\"+\"papierosy\""
+      },
+      {
+        "phrase": "\"remplisseuse\" + \"tabac\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "\"remplisseuse\"+\"tytoń\""
+      },
+      {
+        "phrase": "\"appareil à tuber\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "\"urządzenie à tuber\""
+      },
+      {
+        "phrase": "\"machine à cigarette\" + \"automatique\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "\"maszyna à papieros\"+\"automatyczny\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "leboncoin.fr \"machine à tuber\"",
+        "vol": "3-8k/mies.",
+        "pl": "leboncoin.fr\"maszyna à tuber\""
+      },
+      {
+        "phrase": "leboncoin.fr \"boudinoir\"",
+        "vol": "1-3k/mies.",
+        "pl": "leboncoin.fr\"boudinoir\""
+      },
+      {
+        "phrase": "amazon.fr \"machine à tuber\"",
+        "vol": "2-5k/mies.",
+        "pl": "amazon.fr\"maszyna à tuber\""
+      },
+      {
+        "phrase": "amazon.fr \"boudinoir\"",
+        "vol": "1-2k/mies.",
+        "pl": "amazon.fr\"boudinoir\""
+      },
+      {
+        "phrase": "rakuten.fr \"machine à tuber\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "rakuten.fr\"maszyna à tuber\""
+      },
+      {
+        "phrase": "cdiscount.com \"machine à tuber\"",
+        "vol": "0.5-1k/mies.",
+        "pl": "cdiscount.com\"maszyna à tuber\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "boutique tabac",
+        "vol": "1-2k/mies.",
+        "pl": "sklepik tytoń"
+      },
+      {
+        "phrase": "bureau de tabac",
+        "vol": "10-20k/mies.",
+        "pl": "bureau z tytoń"
+      },
+      {
+        "phrase": "shop pour fumeurs",
+        "vol": "0.3-0.8k/mies.",
+        "pl": "sklep dla palacze"
+      },
+      {
+        "phrase": "magasin de cigarettes électroniques",
+        "vol": "1-3k/mies.",
+        "pl": "sklep z papierosy elektroniczne"
+      },
+      {
+        "phrase": "shop vape",
+        "vol": "3-5k/mies.",
+        "pl": "sklep vape"
+      },
+      {
+        "phrase": "\"bureau de tabac\" + [ville]",
+        "vol": "0.5-1k/mies.",
+        "pl": "\"bureau z tytoń\"+ miasto"
+      },
+      {
+        "phrase": "\"magasin fumeurs\" + [ville]",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"sklep palacze\"+ miasto"
+      }
+    ]
+  },
+  "MD": {
+    "device": [
+      {
+        "phrase": "mașină de umplere țigarete",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "maszyna z napełnianie papierosy"
+      },
+      {
+        "phrase": "dispozitiv de umplere tutun",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "urządzenie z napełnianie tytoń"
+      },
+      {
+        "phrase": "mașină automată de țigări",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "maszyna automatyczna z papierosy"
+      },
+      {
+        "phrase": "injector de tutun",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "wstrzykiwacz z tytoń"
+      },
+      {
+        "phrase": "mașină de țigări",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "maszyna z papierosy"
+      },
+      {
+        "phrase": "accesorii pentru fumători",
+        "vol": "0.1-0.2k/mies.",
+        "pl": "accesorii pentru palacze"
+      },
+      {
+        "phrase": "powerMatic",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "powermatic (marka maszynki)"
+      },
+      {
+        "phrase": "hawk rolling machine",
+        "vol": "<0.05k/mies.",
+        "pl": "hawk rolling machine (marka maszynki (dosł. \"hawk\" = jastrząb))"
+      },
+      {
+        "phrase": "topomat",
+        "vol": "<0.05k/mies.",
+        "pl": "topomat (marka maszynki)"
+      },
+      {
+        "phrase": "turbomatic",
+        "vol": "<0.05k/mies.",
+        "pl": "turbomatic (marka maszynki)"
+      },
+      {
+        "phrase": "\"mașină\" + \"umplere\" + \"țigarete\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "\"maszyna\"+\"napełnianie\"+\"papierosy\""
+      },
+      {
+        "phrase": "\"dispozitiv\" + \"tutun\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "\"urządzenie\"+\"tytoń\""
+      },
+      {
+        "phrase": "\"mașină\" + \"țigări\"",
+        "vol": "0.1-0.2k/mies.",
+        "pl": "\"maszyna\"+\"papierosy\""
+      },
+      {
+        "phrase": "\"aparat de umplut\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"aparat z napełniać\""
+      },
+      {
+        "phrase": "\"umplere tutun\" + \"manuală\"",
+        "vol": "0.01-0.05k/mies.",
+        "pl": "\"napełnianie tytoń\"+\"ręczna\""
+      }
+    ],
+    "brand": [],
+    "wholesale": [
+      {
+        "phrase": "999.md \"mașină de umplere țigarete\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "999.md\"maszyna z napełnianie papierosy\""
+      },
+      {
+        "phrase": "999.md \"mașină\" + \"țigări\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "999.md\"maszyna\"+\"papierosy\""
+      },
+      {
+        "phrase": "999.md \"tutun\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "999.md\"tytoń\""
+      },
+      {
+        "phrase": "olx.md \"mașină\" + \"țigări\"",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "olx.md\"maszyna\"+\"papierosy\""
+      },
+      {
+        "phrase": "olx.md \"tutun\"",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "olx.md\"tytoń\""
+      }
+    ],
+    "retail": [
+      {
+        "phrase": "magazin tutun",
+        "vol": "0.1-0.3k/mies.",
+        "pl": "sklep tytoń"
+      },
+      {
+        "phrase": "magazin de țigarete electronice",
+        "vol": "0.1-0.2k/mies.",
+        "pl": "sklep z papierosy electronice"
+      },
+      {
+        "phrase": "magazin de articole pentru fumători",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "sklep z artykuły pentru palacze"
+      },
+      {
+        "phrase": "magazin online tutun",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "sklep online tytoń"
+      },
+      {
+        "phrase": "vape magazin",
+        "vol": "0.05-0.1k/mies.",
+        "pl": "vape sklep"
+      },
+      {
+        "phrase": "\"magazin\" + \"tutun\" + [oraș]",
+        "vol": "<0.01k/mies.",
+        "pl": "\"sklep\"+\"tytoń\"+ [oraș]"
+      },
+      {
+        "phrase": "\"fumători\" + \"magazin\" + [oraș]",
+        "vol": "<0.01k/mies.",
+        "pl": "\"palacze\"+\"sklep\"+ [oraș]"
+      }
+    ]
+  }
+}

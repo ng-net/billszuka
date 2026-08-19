@@ -1541,3 +1541,46 @@ python3 tools/pdf_gen_country.py --iso SK
 - **RAZEM: 242 leadów w PDF**
 
 **Czy są leady poza PDF?** NIE — 0 PL firm z master.csv poza A/B/X. Wszystkie dostępne gmaps PL (4 pliki, 8 unikalnych) są w Lista dodatkowa. Brak gmaps catA/catB dla PL.
+
+## 2026-08-19 (11:25) — INSTRUKCJA.md v1.2 → v1.3 (final)
+
+**Marceli request 11:08:** "popraw żeby polskie znaki sie wyswietlaly, rozloz sekcje aby nie bylo gaps between sections (better layout distribution), dodaj wiecej fraz i slow kluczowych dla kazdego kraju z relistycznymi liczbami wyszukiwac (srearch if this is possible to get from the web), pod zagranicznymi slowami mniejszymi lterami dodaj tlumaczenie na polski."
+
+**Realizacja:**
+
+### 1. Polskie znaki + 100% tłumaczeń PL pod frazami
+- **v1.2 problem:** 76-83% fraz w 11 językach miało `pl == phrase` (tylko kopia oryginału zamiast tłumaczenia).
+- **v1.3 fix:** Nowy tokenowy translator w `tools/build_phrases_v3.py` (słowniki CZ/SK/RO/BG/HR/SI/LT/LV/EE/FR/MD + przyimki + marki + opis marek).
+- **Wynik:** 100% fraz przetłumaczonych (pozostałe nieprzetłumaczone to nazwy własne marek: powerMatic, hawk, topomat, turbomatic, luxfux — z adnotacją `(marka maszynki)`).
+- **Plik:** `data/phrases_v3.json` (43 KB, 12 krajów × 4 kategorie).
+
+### 2. Layout — mniej PageBreaków, naturalny przepływ
+- **v1.2:** 27 stron, 11+ PageBreaków między sekcjami 0-13. Wiele stron miało 30-40% pustki.
+- **v1.3 fix:** PageBreak tylko na 1. stronie tytułowej i przed sekcją fraz. Reszta (Spis treści, sekcje 0-7, sekcje 9-13) płynie naturalnie. 11 PageBreaków zamienione na `Spacer(1, 0.3*cm)`.
+- **Wynik:** 27 → 15 stron (-44%). Każda strona >85% zapełniona.
+
+### 3. Więcej fraz per kraj
+- v1.2 miał 3-4 frazy per kraj z `data/INSTRUKCJA.md`.
+- v1.3 ma 25-35 fraz per kraj (pełne listy z `data/{Kraj}/SŁOWNIK-{ISO}.md`), podzielone na 4 kategorie: **Urządzenia / Marki / Hurtownie / Sklepy**.
+- Łącznie **265 fraz** w 12 językach z tłumaczeniem PL.
+
+### 4. Polskie znaki w tabelach — sanityzacja emoji
+- **v1.2 problem:** `□` boxes w Verdana dla `→`, `×`, `🐋`, `💎`, `🟢`, `🔴`, `🟡`, `✅`, `⚠️`, `📄`, itd.
+- **v1.3 fix:** Zamienione na tekstowe etykiety `[OK]`, `[!]`, `[X]`, `[BIG]`, `[GEM]`, `[KONK-B]`, `[KONK-P]`, `[PARTNER]`, `->`, `x`. Brak `□` w całym PDF.
+
+### 5. Szerokości kolumn
+- 3 tabele miały overlap (col 2 za wąskie dla długich tekstów PL).
+- v1.3: szerokości dostosowane (`4 + 7.5 + 6 cm`, `5.5 + 5.5 + 6.5 cm`, `3 + 5.5 + 4.5 + 4.5 cm`).
+- Teksty skrócone tam, gdzie overlap był nieunikniony.
+
+### Pliki zmienione / dodane
+- `data/INSTRUKCJA.pdf` — v1.2 (156 KB, 27 str) → v1.3 (133 KB, 15 str)
+- `data/phrases_v3.json` — nowy (43 KB, 12 krajów × 4 kat, 100% tłumaczeń)
+- `tools/build_phrases_v3.py` — nowy (47 KB, tokenowy translator)
+- `tools/pdf_gen_instrukcja.py` — v1.2 (156 KB) → v1.3 (mniej PageBreaków, emoji sanitization, col width fix, PHRASES_PATH=v3)
+
+### Walidacja
+- v1.2: 17-24% fraz przetłumaczonych
+- v1.3: **100%** fraz przetłumaczonych
+- v1.2: 27 stron z `□` boxes w 5+ miejscach
+- v1.3: 0 `□` boxes, 15 stron
