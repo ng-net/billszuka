@@ -1,5 +1,41 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-19 — `data/INSTRUKCJA.md` dla Działu Sprzedaży (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o profesjonalny dokument A4 w języku polskim, który wyjaśni działowi sprzedaży jak została zbudowana baza leadów, jak działa kategoryzacja i scoring, oraz jakie są problemy ze źródłami danych i proponowane płatne API. Miał być kompaktowy, krótki, z tabelami i calloutami.
+
+**Wykonane:**
+
+1. **Przeczytane źródła:** `INTEL.md`, `DZIENNIK.md`, `methodology.md`, `data/Polska/insight-PL.md`, `data/Czechy/insight-CZ.md`, `data/Czechy/PDF-CZ.md`, `data/Polska/PDF-PL.md` (blueprint v9 layout), `data/Polska/PL.md`, `INTEL.md` sekcje 5 (Limity) + 6 (Decyzje) + 7 (Narzędzia).
+
+2. **Plik:** `data/INSTRUKCJA.md` (437 linii, 27 KB, 12 sekcji):
+   - 1. Co to jest BILLSzuka (parametry bazy 393 firm / 12 krajów / 95,2% FROZEN)
+   - 2. 11 poziomów wyszukiwania L0–L11 (tabela + status wdrożenia)
+   - 3. Podział na katalog A (A1–A6, 105 firm) i B (B1–B9 z powinowactwem 1–5, 288 firm)
+   - 4. Scoring — Tier (7 poziomów), Wolumen (progi per rynek), Flagi (🐋💎✅⚠️🔴🟡🟢)
+   - 5. Weryfikacja FROZEN — procedura 2-tool + defense in depth (3 warstwy anty-halucynacji)
+   - 6. **Potencjał rynkowy per kraj** — tabela 12 krajów (populacja, rynek tytoniowy, RYO/MYO, maszynki, bariera, A/B, FROZEN). Sanitex group = 1 partner = 3 kraje bałtyckie (highlightowane).
+   - 7. TOP firmy per kraj (20 Big Fish) — szybki przegląd dla handlowców
+   - 8. **Co zadziałało / co nie zadziałało** — 9 ✅ + 10 ⚠️ metody z dowodami
+   - 9. **Problemy ze źródłami danych** — 5 kategorii (rejestry bez API, brak NIP, marketplace bez API, luka decydentów per kraj, halucynacje LLM)
+   - 10. **Rekomendowane API i płatne serwisy** — pełna lista z cenami 2026-08:
+       - Cross-country KYB: Veritor Starter $199/m, ENTIA od €290/m, Pappers.fr €49/m, OpenCorporates $99/m, eu-verify $0.10/call
+       - Rejestry per kraj: KRS/ARES/e-Äriregister (free), FinStat SK €19/m, Lursoft LV €25/m, ONRC RO 8 lei/odpis, Pappers.fr FR €49/m
+       - Marketplace/social: Allegro free, Apify CEIDG $0.01/result, GPlaces $32/1k, Ahrefs $99/m, TikTok Creative Center free
+       - **Rekomendowany stack P1: ~$250/m = ~1 000 PLN/m** (Veritor + Allegro + GPlaces + Apify) → 100% FROZEN + 80% decydentów
+       - **P2: ~$650/m** dodaje Pappers + Ahrefs + FinStat → 90% decydentów + realne wolumeny
+       - **P3: ~$1 200/m** dodaje ENTIA + OpenCorporates + Lursoft → pełne KYB + monitoring
+   - 11. Jak korzystać z bazy — 3 kroki dla handlowca
+   - 12. Status projektu i plan Q3-Q4 2026
+
+3. **Charakter dokumentu:** kompaktowy, fakty bez ozdobników, dużo tabel (15), krótkie akapity, wyraźne sekcje. Polski język. Layout zaprojektowany do późniejszej konwersji na PDF A4 portrait (Verdana font, 1.5cm marginesy — zgodnie z istniejącym blueprintem `PDF-{ISO}.pdf` v9).
+
+4. **Następne kroki:** po akceptacji treści przez Marceli — wygenerować `data/INSTRUKCJA.pdf` (A4 printable) korzystając z `skills/minimax-pdf` lub bezpośrednio z HTML/Markdown.
+
+---
 ## 2026-08-18 — Cleanup kolumny `notatki` + migracje do innych kolumn (Marceli request)
 
 **Operator:** Marceli  
@@ -683,3 +719,762 @@ python3 tools/pdf_gen_country.py --iso SK
 **Następne kroki:**
 - Gotowe do użycia dla partnerów sprzedaży
 - Planowane: stworzyć `tools/verify_pdf.py` do batch-validation wszystkich 24 plików
+
+## 2026-08-18 13:40 CEST — PDF v10.1: logo + exec summary + bar chart + wersja (CZ only)
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Po prezentacji 7 propozycji ulepszeń designu, Marceli wybrał 4 do implementacji (CZ blueprint first):
+- ✅ #1 Executive summary 1-linia (bold, BEZ nagłówka)
+- ✅ #2 Logo SMOKS · Powermatic (tylko strona tytułowa, prawy gór, 3.5cm, NIE za duże)
+- ✅ #3 Mini bar chart "Struktura rynku tytoniowego CZ (szac.)"
+- ✅ #6 Wersja w stopce ("v10 · 18.08.2026 · Strona X", BEZ changelogu)
+
+**Odrzucone (świadomie):**
+- ❌ Bills top accent (kolor) — Marceli: "Don't add Bills top accent, no need"
+- ❌ Watermark — Marceli: "nie dodawaj watermark"
+- ❌ Kolorowanie calloutów — Marceli: "nie dodawaj kolorow do call out"
+- ❌ #4 Outreach plan
+- ❌ #5 Cross-country comparison
+- ❌ #7 Priority tier styling
+
+**Wykonane:**
+
+1. **Logo na stronie tytułowej** — `data/logo.jpg` (382×84px, SMOKS · Powermatic branding)
+   - Umieszczone w prawym górnym rogu tytułu (3.5cm szerokości)
+   - Aspect 4.55:1 zachowany
+
+2. **Executive summary 1-linia** (bold, bez nagłówka):
+   > **18 firm · 14 FROZEN · 6 hurtowni tytoniowych (B8) · 7 autoryzowanych resellerów PowerMatic (A1) · Top partner: PEAL a.s.**
+
+3. **Bar chart** (`data/Czechy/_potencjal_chart_CZ.png`, 47KB, 5.5×2 inch @ 200dpi):
+   - "Struktura rynku tytoniowego CZ (szac.)"
+   - 4 horyzontalne słupki: Tytoń cięty 60% / RYO/MYO 25% / Nabijarki 10% / Akcesoria 5%
+   - 12.5cm szerokości, wbudowany między "Potencjał rynkowy" a "W naszej bazie"
+
+4. **Wersja w stopce:**
+   - Przed: "BILLS · Ostrzeszów · serwis@bills.pl" / "Strona X"
+   - Po: "BILLS · Ostrzeszów · serwis@bills.pl" / "v10 · 18.08.2026 · Strona X"
+
+5. **Weryfikacja v10.1** (renderowane do PNG, sprawdzone wizualnie):
+   - Strona 1: tytuł + logo + exec summary + errata + Potencjał + bar chart + Statystyki + 5 insightów ✓
+   - Strona 2: Podział + Legenda A + Legenda B + Legenda skrótów ✓
+   - Brak overflow, brak kolorów, brak akcentu
+   - Output: `data/Czechy/PDF-CZ.pdf` (124KB, 2 strony)
+
+6. **Dokumentacja:**
+   - `data/Czechy/PDF-CZ.md` zaktualizowany (opisuje v10.1 + diff v9→v10.1)
+   - Insight #4 poprawiony (było "Hurtownia ogólnopolska" → "hurtownia ogólnokrajowa CZ")
+
+**Oczekuje na decyzję:**
+- Czy v10.1 jest OK do propagacji na pozostałe 11 krajów?
+- Czy uruchomić prompt do append-leads (3+ stron) po v10.1?
+
+## 2026-08-18 13:50 CEST — PDF v11: BEZ bar chart + H1 30pt + leads appendix (CZ)
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o uproszczenie designu (usunąć bar chart, zmniejszyć tytuł, dać ikony zamiast emoji) i rozszerzenie o leads appendix.
+
+**Wykonane:**
+
+1. **Usunięty bar chart "Struktura rynku tytoniowego CZ"** — Marceli: "we don't need it"
+2. **Tytuł H1: 32pt → 30pt** — Marceli: "reduce country name as main heading even by 2 points"
+3. **Layout intro page poprawiony** — data usunięta z subtitle row (kolizja z logo), przeniesiona do stopki: "BILLS Sp. z o.o.  ·  Ostrzeszów  ·  serwis@bills.pl" / "v11 · 18.08.2026 · Strona X"
+4. **Stopka v11 dodana** — "v11 · 18.08.2026 · Strona X"
+
+5. **Nowy `tools/gen_icons.py`** — generuje 14 ikon PNG (64×64, transparent BG) do `data/_icons/`:
+   - Boolean: check.png (zielone kółko ✓), cross.png (szare kółko ✗)
+   - Confidence (5): dot-5/4/3/2/1.png (zielony/żółty/pomarańczowy/szary/czerwony)
+   - Flags (6): flag-check/warn/whale/red/green/diamond.png (kwadraty z piktogramem)
+   - Wygenerowane z PIL (low-level draw), minimalistyczne i profesjonalne
+
+6. **Nowy `tools/pdf_append_leads.py`** — generator leads appendix:
+   - Ładuje catalog-A-{ISO}.csv + catalog-B-{ISO}.csv (18 firm dla CZ)
+   - 13 kolumn: Firma · Miasto/Adres · WWW · Email/Telefon · Kontakt · Email decydent · Social · Marki/Sourcing · Wolumen+confidence · Tier · Kanał · Flagi · Notatki
+   - Ikony inline (check/cross/dot/flag) w `<img src="...">` Paragraph
+   - A4 landscape (29.7×21cm), 18 wierszy w 3 stronach
+   - Używa pypdf do append (nie nadpisuje istniejącego PDF)
+   - Font 7.5pt body, 8.5pt bold dla nazw, 6.5-6.8pt dla metadanych
+
+7. **Output dla CZ** (test):
+   - `data/Czechy/PDF-CZ.pdf`: 139KB, **5 stron**
+     - Strona 1: intro (tytuł + logo + exec + errata + potencjał + statystyki + 5 insightów)
+     - Strona 2: legendy (Podział + Katalog A + Katalog B + Skróty)
+     - Strony 3-5: leads appendix (6+7+5 firm × 13 kolumn, landscape)
+
+**Bug fix podczas developmentu:**
+- Truncate `s[:97]` w parse_flagi obcinał `<img>` tag → "unclosed tag" w raportlab
+- Fix: truncate raw text PRZED konwersją emoji → img (max 60 znaków)
+
+**Pliki zmienione:**
+- `tools/pdf_gen_country.py` — H1 30pt, logo, exec summary, wersja w stopce, brak chart
+- `tools/gen_icons.py` (nowy) — generator 14 ikon PNG
+- `tools/pdf_append_leads.py` (nowy) — leads appendix + pypdf merge
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (139KB, 5 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11
+- `data/_icons/*.png` — 14 ikon (check, cross, dot-1..5, flag-check/warn/whale/red/green/diamond)
+
+**Następne kroki (po decyzji):**
+- Propagacja v11 na 11 pozostałych krajów (po ewentualnych poprawkach)
+- Zmniejszenie wizualnej sztywności (Kanał kolumna 0.9cm — tekst się zawija)
+
+## 2026-08-18 13:55 CEST — PDF v11 portrait leads: scalam kontakt + rozmiar + bez flagi
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o leads appendix w trybie portrait (nie landscape), z decydentem w jednej kolumnie (multi-row), dodany rozmiarem firmy i usuniętą kolumną flag.
+
+**Zmiany w leads appendix:**
+
+1. **Portrait mode** (z landscape) — 18 firm mieści się w 2 stronach zamiast 3
+2. **Kontakt scalony** — 1 kolumna zamiast 2 (Kontakt + Email decydent):
+   - 3 sub-rows: decydent (bold) + stanowisko (italic) + email_decydent (ikona ✓/✗)
+3. **Dodany Rozmiar firmy** — kolumna z ryniek_skala (bardzo duży/duży/średni/mały)
+4. **Usunięta kolumna Flagi** — flagi nie są już w tabeli
+5. **12 kolumn zamiast 13** (suma szerokości 18.2cm w A4 portrait)
+6. **Skrócone nagłówki** — "Miasto" / "Email/Tel" / "Marki" / "Wolumen" / "Rozmiar" (1-liniowe)
+7. **Font zmniejszony** — body 7.5pt → 6.8pt, bold name 8.5pt → 7.5pt, header 7.5pt → 6.5pt
+8. **Marginesy leads** — 1.0cm → 0.7cm (ciasne dla więcej treści)
+9. **Padding wewnętrzny** — 3/3 → 2/2 (mniej powietrza w komórkach)
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 135KB, **4 strony**
+  - Strona 1: intro (tytuł + logo + exec + errata + potencjał + statystyki + 5 insightów)
+  - Strona 2: legendy (Podział + Katalog A + Katalog B + Skróty)
+  - Strona 3: leads appendix A (9 firm × 12 kolumn)
+  - Strona 4: leads appendix B (9 firm × 12 kolumn)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py` — kol_kontakt scalony, col_rozmiar dodany, col_flagi deprecated, nagłówki krótkie, COL_WIDTHS zaktualizowane
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (135KB, 4 strony)
+- `data/Czechy/PDF-CZ.md` — opis v11 z 12-kol tabelą
+
+**Następne kroki (po decyzji):**
+- Propagacja v11 na 11 pozostałych krajów
+- Ewentualna korekta szerokości Tier/Kanał (0.9-1.1cm są ciasne dla długich wartości)
+
+## 2026-08-18 14:00 CEST — PDF v11 final: scalamy + bolder + mniejsze marginesy + font 8.5pt
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o dalsze uproszczenie leads appendix - usunięcie Social, scalenie WWW z Lokalizacja i Wolumen z Tier, bolder nazwa firmy, mniejsze marginesy i większy font.
+
+**Wykonane zmiany w leads appendix:**
+
+1. **Usunięta kolumna Social** — wszystkie 4 sub-rows (LinkedIn/FB/IG/TikTok) nie są potrzebne
+2. **Scalona kolumna Lokalizacja** (3 w 1) — Miasto (bold) + Adres (italic) + WWW (link niebieski)
+3. **Scalona kolumna Tier** (2 w 1) — Tier + Wolumen (bold) + dot ● (1-5)
+4. **Nazwa firmy bolder** — Verdana Bold 9pt (poprzednio 8pt), większa czytelność
+5. **Marginesy leads 0.4cm** (poprzednio 0.7cm) — więcej miejsca na treść
+6. **Font body 8.5pt** (poprzednio 6.8pt) — 25% większy, czytelniejszy
+7. **Header tabeli 7.5pt** (poprzednio 6.5pt) — wyrównane proporcje
+8. **9 kolumn** (poprzednio 12 po usunięciu Flagi) — bardziej zwięzłe
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 136KB, **5 stron**
+  - Strona 1: intro (tytuł + logo + exec + errata + potencjał + statystyki + 5 insightów)
+  - Strona 2: legendy (Podział + Katalog A + Katalog B + Skróty)
+  - Strona 3: leads appendix A (8 firm)
+  - Strona 4: leads appendix B (8 firm)
+  - Strona 5: leads appendix C (2 firmy + ogon)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py` — 9 kolumn, nowe COL_WIDTHS, scalone renderery, font 8.5pt
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (136KB, 5 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11 z 9-kol tabelą
+
+## 2026-08-18 14:10 CEST — PDF v11 final+: 7 kol, kategoria badge, scalony kontakt+email
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o dalsze uproszczenie - usunięcie Rozmiar, scalenie Email i Kontakt, dodanie kodu kategorii (A1/B8 itd.) pod nazwą firmy, puste linie jako separator w Tier+Wolumen, więcej przestrzeni w wierszach.
+
+**Wykonane zmiany w leads appendix:**
+
+1. **Usunięta kolumna Rozmiar** — info zbyt redundantna (jest też "Wolumen")
+2. **Scalone Email + Kontakt** w 1 kolumnę Kontakt z 5 sub-rows:
+   - decydent (bold) + stanowisko + email_decydent (✓/✗) + email firmy + telefon
+3. **Kategoria A1/A2/B8 pod nazwą firmy** — dodana jako 3-ci sub-row w Firmie:
+   - Nazwa firmy (bold 9pt)
+   - ID (np. CZ-A-001) - link niebieski
+   - Kategoria (np. A1) - bold 8pt (jasna klasyfikacja)
+4. **Pusta linia separator w Tier+Wolumen** — `&nbsp;` między tier a wolumen (wizualna separacja)
+5. **7 kolumn** (poprzednio 9) — maksymalna scalanie
+6. **Więcej line-spacing** — leading 11→13 (lepsza czytelność)
+7. **Większy padding** — 2/2 → 4/4 (comfortable)
+8. **Final layout 4-6 firm/stronę** (z 6-7) — więcej powietrza, mniejsze zagęszczenie
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 137KB, **6 stron**
+  - Strona 1: intro (tytuł + logo + exec + errata + potencjał + statystyki + 5 insightów)
+  - Strona 2: legendy (Podział + Katalog A + Katalog B + Skróty)
+  - Strona 3: leads A (5 firm)
+  - Strona 4: leads B (6 firm)
+  - Strona 5: leads C (5 firm)
+  - Strona 6: leads D (2 firmy)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py` — 7 kolumn, col_kontakt ma 5 sub-rows, col_firma ma kategoria, col_tier z &nbsp; separator, line-spacing 13, padding 4/4
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (137KB, 6 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11 final
+
+## 2026-08-18 14:15 CEST — PDF v11.2: 3-wierszowe bloki per lead + szeroka Notatka
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Layout tabeli nie działał. Marceli poprosił o redesign: 3-wierszowe bloki per lead (4 kolumny w wierszu 1), szeroką kolumnę Notatki spanowaną przez 2-3 wiersze, więcej relaksu, użycie pełnej wysokości strony, stałe marginesy 1.0cm dla wszystkich stron.
+
+**Wczytany skill:** pdf-document-creator (dla referencji best practices PDF).
+
+**Wykonalne zmiany w v11.2:**
+
+1. **Nowy design: każdy lead = mini-tabela 3 wiersze × 4 kolumny**
+   - Wiersz 1: [Firma+ID+Kategoria] | [Lokalizacja] | [Kontakt] | [Notatka - spann 3 wiersze]
+   - Wiersz 2: [Marki+Sourcing] | [Email firmy] | [Kanał] | (spanned)
+   - Wiersz 3: [Tier+Wolumen+●] | [Email decydent ✓/✗] | [Telefon] | (spanned)
+
+2. **Szeroka kolumna Notatki** — 7.5cm (z 2.6cm) — spanuje 3 wiersze pionowo
+   - Szare tło (#F8F8F8) dla wizualnej separacji
+   - Bold "Notatka:" label
+
+3. **Layout bardziej relaxed**:
+   - Padding 6pt (z 4pt)
+   - Box + inner grid (każdy blok ma ramkę)
+   - Line-spacing 11pt (z 13pt) — więcej leadów na stronę
+   - Spacer między leadami 2pt (z 4pt)
+
+4. **Stałe marginesy 1.0cm** dla wszystkich stron (intro, legendy, leads)
+   - Poprzednio: intro 1.5cm, leads 0.4cm — różne
+   - Teraz: 1.0cm × 2 (spójne)
+
+5. **Kolumny per lead (suma 18cm)**:
+   - Col 0: 4.0cm (Firma+ID+Kategoria / Marki / Tier+Wolumen)
+   - Col 1: 3.5cm (Lokalizacja / Email / Email decydent)
+   - Col 2: 3.0cm (Kontakt / Kanał / Telefon)
+   - Col 3: 7.5cm (Notatka - spann 3 wiersze)
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 137KB, **6 stron**
+  - Strona 1: intro (tytuł + logo + exec + errata + potencjał + statystyki + 5 insightów)
+  - Strona 2: legendy (Podział + Katalog A + Katalog B + Skróty)
+  - Strona 3-6: leads appendix (4-5 leadów/stronę × 4 strony = 18 firm)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py` — nowa funkcja `build_lead_block()` z SPAN, 4 kol × 3 wiersze
+- `tools/pdf_gen_country.py` — marginesy 1.0cm (z 1.5cm)
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (137KB, 6 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11.2
+
+**Następne kroki (po decyzji):**
+- Propagacja v11.2 na 11 pozostałych krajów
+- Ewentualnie: jeszcze większe leady (jeśli user chce bardziej relaxed)
+
+## 2026-08-18 14:20 CEST — PDF v11.3: 2 sekcje (Katalog A + B) + 3-wierszowe bloki z SPAN
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o podział leads na 2 osobne tabele (Katalog A i Katalog B) z tytułami, oraz ulepszenie layoutu każdego bloku: wiersz 1 = 4 kolumny, wiersz 2 = 3 kolumny z jedną kolumną span 2 cells.
+
+**Wykonane zmiany w v11.3:**
+
+1. **Leads podzielone na 2 sekcje** — osobna tabela dla katalogu A (Dystrybutorzy maszynek) i katalogu B (Branża tytoniowa, cross-sell)
+2. **Tytuły sekcji** — 16pt bold + subtitle z liczbą firm + FROZEN/DO-WER
+3. **3-wierszowy mini-block** (z 4-wierszowego — mniej pustki, więcej leadów na stronę)
+4. **Smart SPANs:**
+   - Marki (col 0) spans rows 1+2 (dłuższy content dla marek + sourcing)
+   - Notatka (col 3) spans rows 0+1+2 (cała prawa kolumna)
+5. **Layout 3-wierszowy:**
+   - Row 1: 4 cells (Firma+ID+Kat | Lokalizacja+WWW | Kontakt | Notatka)
+   - Row 2: 3 cells (Marki-spans-2 | Email firmy+Tel | Kanał+Wolumen) | Notatka cont
+   - Row 3: 2 cells (Marki-cont | Email decydent ✓/✗ | Tier) | Notatka cont
+6. **Statystyki per sekcja** — "9 firm · 6 FROZEN · 3 DO-WER"
+
+**Kolumny per lead (suma 17.0cm):**
+- Col 0: 3.8cm (Firma | Marki-spans-2)
+- Col 1: 3.6cm (Lokalizacja+WWW | Email firmy+Tel | Email decydent)
+- Col 2: 3.0cm (Kontakt | Kanał+Wolumen | Tier)
+- Col 3: 6.6cm (Notatka-spans-3)
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 160KB, **7 stron**
+  - Strona 1: intro (tytuł + logo + exec + errata + potencjał + statystyki + 5 insightów)
+  - Strona 2: legendy
+  - Strona 3-4: Katalog A (9 firm, 4-5/stronę)
+  - Strona 5-7: Katalog B (9 firm, 3-4/stronę)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - `load_catalog()` zwraca dict `{"A": [...], "B": [...]}` zamiast flat listy
+  - Nowa `build_lead_block()` — 3-wierszowy z SPANami
+  - Nowa `build_section_title()` — tytuły sekcji z statystykami
+  - `build_leads_pdf()` iteruje po sekcjach
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (160KB, 7 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11.3
+
+**Następne kroki (po decyzji):**
+- Propagacja v11.3 na 11 pozostałych krajów
+- Ewentualna korekta: Kanał + Wolumen vs Tier (overlap)
+
+## 2026-08-18 14:25 CEST — PDF v11.4: Notatka w row 3 span 3 cells + szerokie tabele
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o przeniesienie Notatki z ostatniej kolumny do row 3 (span 2-3 cells) i poszerzenie tabel (minimalne marginesy L/R).
+
+**Wykonane zmiany w v11.4:**
+
+1. **Notatka przeniesiona z col 4 do row 3** — teraz spanuje 3 cells (cols 0+1+2), z szarym tłem
+2. **Marginesy L/R: 1.0cm → 0.5cm** (leads appendix) — maxymalna szerokość tabel
+3. **Kanał + Wolumen** przeniesiony do row 1 col 3 (4. cell)
+4. **Email decydent** przeniesiony do row 2 col 2 (3. cell)
+5. **Tier** w row 3 col 3 (1 cell, prawy dolny róg)
+6. **Layout per lead 3-wierszowy:**
+   - Row 1: 4 cells (Firma | Lokalizacja+WWW | Kontakt | Kanał+Wolumen ●)
+   - Row 2: 3 cells (Marki-spans-2 | Email firmy+Tel | Email decydent ✓/✗) | empty
+   - Row 3: 2 cells (Notatka-spans-3 | Tier)
+7. **Kolumny per lead (suma 19.0cm):**
+   - Col 0: 4.5cm (Firma+Marki-spans-2)
+   - Col 1: 4.0cm (Lokalizacja | Email firmy+Tel)
+   - Col 2: 3.5cm (Kontakt | Email decydent)
+   - Col 3: 7.0cm (Kanał+Wolumen | Tier)
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 157KB, **6 stron**
+  - Strona 1: intro (marginesy 1.0cm)
+  - Strona 2: legendy (marginesy 1.0cm)
+  - Strona 3-4: Katalog A (5+4 firm, marginesy 0.5cm)
+  - Strona 5-6: Katalog B (5+4 firm, marginesy 0.5cm)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - Nowy `build_lead_block()` — Notatka w row 3 spans 3 cells
+  - Marginesy leads: 0.5cm L/R, 1.0cm T/B
+  - LEAD_COL_WIDTHS: [4.5, 4.0, 3.5, 7.0] (suma 19.0cm)
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (157KB, 6 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11.4
+
+**Następne kroki (po decyzji):**
+- Propagacja v11.4 na 11 pozostałych krajów
+- Ewentualna korekta: więcej leadów na stronie (obecnie 5)
+
+## 2026-08-18 14:30 CEST — PDF v11.5: bolder nazwa (11pt) + widoczne przerwy + 6 leadów/stronę
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o bolder nazwę firmy, widoczne przerwy między leadami, i zmieszczenie 6 leadów na stronę.
+
+**Wykonane zmiany w v11.5:**
+
+1. **Nazwa firmy: 10pt → 11pt Verdana Bold** (bolder + większa)
+2. **Widoczne przerwy między leadami:**
+   - BOX border 1.0pt (z 0.5pt) — wyraźna ramka wokół każdego bloku
+   - Spacer 4pt między leadami (z 2pt) — widoczna separacja
+3. **Padding: 5/5 → 3/3** — ciasne dla 6 leadów/stronę
+4. **Body 8.5pt → 8pt z leading 10** — bardziej kompaktowy
+5. **6 leadów na stronę** (z 5) — cały PDF: 5 stron (z 6)
+
+**Output dla CZ (test):**
+- `data/Czechy/PDF-CZ.pdf`: 156KB, **5 stron**
+  - Strona 1: intro
+  - Strona 2: legendy
+  - Strona 3: Katalog A (6 firm)
+  - Strona 4: Katalog A (3) + Katalog B (4)
+  - Strona 5: Katalog B (5 firm)
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - NAME: 10pt → 11pt
+  - BODY: 8.5pt/leading 11 → 8pt/leading 10
+  - PADDING: 5 → 3
+  - BOX: 0.5pt → 1.0pt (widoczna ramka)
+  - Spacer między leadami: 2pt → 4pt
+- `data/Czechy/PDF-CZ.pdf` — regenerowany (156KB, 5 stron)
+- `data/Czechy/PDF-CZ.md` — opis v11.5
+
+## 2026-08-18 14:35 CEST — PDF v11.5 final: 6 leads/stronę + propagacja CZ/LT/LV/EE
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o finalizację CZ (bez górnego tytułu "Leady — Czechy"), propagację tego samego designu na Litwę, Łotwę i Estonię, oraz weryfikację że statystyki pochodzą z prawdziwych CSV.
+
+**Wykonane zmiany:**
+
+1. **v11.5 final — wymuszenie 6 leadów/stronę:**
+   - Dodany `LEADS_PER_PAGE = 6` + `PageBreak` po 6. lead w każdej sekcji
+   - Wcześniej system pozwalał 7 leadom na stronę (7. ucinany)
+   - Teraz: każda strona ma dokładnie 6 leadów lub mniej (reszta → następna strona)
+
+2. **Stopka v11.5 · 18.08.2026:**
+   - Zmieniono z `v11` na `v11.5`
+
+3. **Propagacja designu na LT/LV/EE:**
+   - **CZ (Czechy):** 2 strony intro+legendy + 4 strony leadów (6+3 A + 4+6 B) = 6 stron, 156KB
+   - **LT (Litwa):** 2 intro+legendy + 4 strony leadów (6+6 A + 6+3 B) = 6 stron, 157KB
+   - **LV (Łotwa):** 2 intro+legendy + 2 strony leadów (6+1 A + 4 B) = 4 stron, 152KB
+   - **EE (Estonia):** 2 intro+legendy + 8 stron leadów (6+4 A + 6+6+6+6+2 B) = 10 stron, 169KB
+
+4. **Weryfikacja statystyk z CSV (prawdziwe dane):**
+
+| ISO | A leads | A FROZEN | A DO-WER | B leads | B FROZEN | B DO-WER | Total |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| CZ  | 9  | 6  | 3  | 9  | 8  | 1  | 18 |
+| LT  | 12 | 10 | 2  | 9  | 8  | 1  | 21 |
+| LV  | 7  | 7  | 0  | 4  | 4  | 0  | 11 |
+| EE  | 10 | 8  | 2  | 26 | 21 | 5  | 36 |
+
+5. **Brak górnego tytułu "Leady — {kraj}":**
+   - Tylko "Katalog A" / "Katalog B" + stats line + 6 leadów
+   - Kontekst dostarczany przez section titles
+
+**Output (4 kraje):**
+
+| ISO | Plik | Stron | Rozmiar |
+|:---:|:---|:---:|:---:|
+| CZ  | data/Czechy/PDF-CZ.pdf | 6 | 156KB |
+| LT  | data/Litwa/PDF-LT.pdf | 6 | 157KB |
+| LV  | data/Łotwa/PDF-LV.pdf | 4 | 152KB |
+| EE  | data/Estonia/PDF-EE.pdf | 10 | 169KB |
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - `LEADS_PER_PAGE = 6` + `PageBreak` po 6. lead
+  - Footer `v11.5 · 18.08.2026`
+  - Docstring v11.5
+- `data/Czechy/PDF-CZ.pdf` (regenerowany)
+- `data/Czechy/PDF-CZ.md` (dodana sekcja Katalog leadów)
+- `data/Litwa/PDF-LT.pdf` (nowy)
+- `data/Litwa/PDF-LT.md` (dodana sekcja Katalog leadów)
+- `data/Łotwa/PDF-LV.pdf` (nowy)
+- `data/Łotwa/PDF-LV.md` (dodana sekcja Katalog leadów)
+- `data/Estonia/PDF-EE.pdf` (nowy)
+- `data/Estonia/PDF-EE.md` (dodana sekcja Katalog leadów)
+
+**Następne kroki (po decyzji):**
+- Propagacja v11.5 na pozostałe 8 krajów: PL, SK, SI, HR, BG, RO, MD, FR
+- Ewentualny commit git (po akceptacji)
+
+## 2026-08-18 14:42 CEST — Katalog C: niezweryfikowane sygnały z gmaps (20/kraj)
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli zapytał czy są niezweryfikowane leady (same name+www) do dodania na końcu PDF. Po potwierdzeniu 137 unikalnych w gmaps, poprosił o dodatkową stronę z max 20 wynikami na kraj.
+
+**Wykonane zmiany:**
+
+1. **Nowa sekcja "Katalog C — Sygnały z gmaps — DO-WERYFIKACJI":**
+   - Osobna strona (PageBreak przed sekcją)
+   - Kompaktowy 1-wierszowy layout: [#] [●] [Nazwa | Miasto] [WWW] [Tel]
+   - Pomarańczowa kropka ● zamiast ⚠ (Verdana nie ma ⚠ glyphu)
+   - Cienka linia 0.3pt pod każdym wpisem (nie pełna ramka — odróżnia od Katalog A/B)
+   - Warning box: "⚠ DO-WERYFIKACJI — sygnały z Google Maps, brak weryfikacji KRS/CEIDG/VIES. Wymagają pełnej weryfikacji przed kontaktem."
+   - Stats: "20 sygnałów · źródło: gmaps 2026-08-13/14 · DO-WERYFIKACJI" (w kolorze #cc6600)
+
+2. **Nowa funkcja `load_unverified(iso, limit=20)`:**
+   - Czyta `data/_intake/gmaps/processed/gmaps_search_{ISO}*.csv`
+   - Deduplikuje po nazwie firmy
+   - Wyklucza firmy już obecne w `master.csv` (dzięki temu Katalog A/B i Katalog C nie mają duplikatów)
+   - Top N (domyślnie 20, regulowane przez `--unverified-limit`)
+
+3. **Nowa funkcja `build_unverified_block(r, idx)`:**
+   - 5-kolumnowa tabela: 0.6cm # + 0.5cm ● + 8.5cm Nazwa+Miasto + 6.0cm WWW + 3.4cm Tel = 19.0cm
+   - Padding 3/3, MIDDLE valign, linebelow 0.3pt
+
+4. **Zaktualizowane funkcje:**
+   - `build_section_title(iso, cat, rows)` — obsługuje `cat="C"` z dedykowanym stats line
+   - `build_leads_pdf(iso, country, sections, unverified, out_tmp)` — nowy parametr + nowa sekcja
+   - `main()` — nowy CLI arg `--unverified-limit` (default 20)
+
+**Output (4 kraje z Katalog C):**
+
+| ISO | Stron | A | B | C (unverified) | Rozmiar |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| CZ  | 7  | 9  | 9  | 20 | 161 KB |
+| LT  | 7  | 12 | 9  | 20 | 161 KB |
+| LV  | 5  | 7  | 4  | 20 | 155 KB |
+| EE  | 11 | 10 | 26 | 20 | 172 KB |
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - Nowy `load_unverified()` — gmaps loader + dedup + master exclude
+  - Nowy `build_unverified_block()` — kompaktowy 1-wiersz layout
+  - `build_section_title()` — obsługa Katalog C
+  - `build_leads_pdf()` — nowy parametr `unverified` + PageBreak + warning box
+  - `main()` — `--unverified-limit` CLI arg
+- `data/Czechy/PDF-CZ.pdf` (regenerowany, +1 strona Katalog C)
+- `data/Litwa/PDF-LT.pdf` (regenerowany, +1 strona)
+- `data/Łotwa/PDF-LV.pdf` (regenerowany, +1 strona)
+- `data/Estonia/PDF-EE.pdf` (regenerowany, +1 strona)
+- `data/{Czechy,Litwa,Łotwa,Estonia}/PDF-{ISO}.md` (dodana sekcja Katalog C)
+
+**Następne kroki (po decyzji):**
+- Propagacja v11.5 + Katalog C na pozostałe 8 krajów (PL, SK, SI, HR, BG, RO, MD, FR)
+- Ewentualny commit git (po akceptacji)
+
+## 2026-08-18 14:45 CEST — Propagacja v11.5 + Katalog C na SK/SI/RO/MD
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o kontynuację — append leads + Katalog C (max 20) dla Słowacji, Słowenii, Rumunii i Mołdawii.
+
+**Wykonane:** 4 kraje przepuszczone przez ten sam pipeline co CZ/LT/LV/EE:
+1. `pdf_gen_country.py --iso {SK|SI|RO|MD}` (regeneruje intro+legendy, v11.5)
+2. `pdf_append_leads.py --iso {SK|SI|RO|MD} --unverified-limit 20` (appends A/B leads + Katalog C)
+
+**Wynik (z danych CSV):**
+
+| ISO | Stron | A (FROZEN/DO-WER) | B (FROZEN/DO-WER) | C (unverified) | Rozmiar |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| SK  | 9  | 15 (15/0) | 15 (15/0)  | 20 | 168 KB |
+| SI  | 7  | 7 (7/0)   | 9 (6/3)    | 20 | 160 KB |
+| RO  | 8  | 8 (8/0)   | 15 (14/1)  | 20 | 163 KB |
+| MD  | 5  | 5 (0/5)   | 2 (0/2)    | 20 | 153 KB |
+
+**Weryfikacja pokrycia:** master.csv == catalog-A+B == PDF (A+B IDs) — 0 braków dla wszystkich 4 krajów.
+
+**Pliki zmienione:**
+- `data/Słowacja/PDF-SK.pdf` (regenerowany, 9 stron, 168KB)
+- `data/Słowacja/PDF-SK.md` (dodana sekcja Katalog C)
+- `data/Słowenia/PDF-SI.pdf` (regenerowany, 7 stron, 160KB)
+- `data/Słowenia/PDF-SI.md` (dodana sekcja Katalog C)
+- `data/Rumunia/PDF-RO.pdf` (regenerowany, 8 stron, 163KB)
+- `data/Rumunia/PDF-RO.md` (dodana sekcja Katalog C)
+- `data/Mołdawia/PDF-MD.pdf` (regenerowany, 5 stron, 153KB)
+- `data/Mołdawia/PDF-MD.md` (dodana sekcja Katalog C)
+
+**Następne kroki (po decyzji):**
+- Propagacja na ostatnie 4 kraje: PL, HR, BG, FR
+
+## 2026-08-18 14:50 CEST — Finalizacja: PL/HR/BG/FR z v11.5 + Katalog C
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o dokończenie pozostałych 4 krajów: PL, HR, BG, FR.
+
+**Wykonane:** ten sam pipeline dla PL/HR/BG/FR.
+
+**Wynik (z danych CSV):**
+
+| ISO | Stron | A (FROZEN/DO-WER) | B (FROZEN/DO-WER) | C | Rozmiar |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| PL  | 38 | 31 (23/8)  | 126 (85/41) | 20 | 234 KB |
+| HR  | 7  | 8 (8/0)    | 11 (11/0)   | 20 | 160 KB |
+| BG  | 11 | 7 (7/0)    | 27 (25/2)   | 20 | 185 KB |
+| FR  | 8  | 9 (9/0)    | 12 (12/0)   | 20 | 162 KB |
+
+**Weryfikacja pokrycia:** master.csv == catalog-A+B == PDF (A+B IDs) — 0 braków dla wszystkich 4 krajów. PL = 157 firm w 36 stronach leads + 1 strona Katalog C = 38 stron PDF.
+
+**Pliki zmienione:**
+- `data/Polska/PDF-PL.pdf` (regenerowany, 38 stron, 234KB) + `PDF-PL.md`
+- `data/Chorwacja/PDF-HR.pdf` (regenerowany, 7 stron, 160KB) + `PDF-HR.md`
+- `data/Bułgaria/PDF-BG.pdf` (regenerowany, 11 stron, 185KB) + `PDF-BG.md`
+- `data/Francja/PDF-FR.pdf` (regenerowany, 8 stron, 162KB) + `PDF-FR.md`
+
+**Status projektu: 12/12 krajów gotowych ✅**
+
+| ISO | Stron | A | B | C | Rozmiar |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| PL  | 38 | 31 | 126 | 20 | 234 KB |
+| CZ  | 7  | 9  | 9   | 20 | 161 KB |
+| SK  | 9  | 15 | 15  | 20 | 168 KB |
+| SI  | 7  | 7  | 9   | 20 | 160 KB |
+| HR  | 7  | 8  | 11  | 20 | 160 KB |
+| BG  | 11 | 7  | 27  | 20 | 185 KB |
+| RO  | 8  | 8  | 15  | 20 | 163 KB |
+| MD  | 5  | 5  | 2   | 20 | 153 KB |
+| LT  | 7  | 12 | 9   | 20 | 161 KB |
+| LV  | 5  | 7  | 4   | 20 | 155 KB |
+| EE  | 11 | 10 | 26  | 20 | 172 KB |
+| FR  | 8  | 9  | 12  | 20 | 162 KB |
+| **Σ** | **123** | **130** | **265** | **240** | **Σ 2074 KB** |
+
+**Następne kroki (po decyzji):**
+- Commit git v11.5 final (po akceptacji)
+- Dystrybucja 12 PDF-ów do działu sprzedaży BILLS Sp. z o.o.
+
+## 2026-08-18 15:55 CEST — PL: Katalog B tylko B1-B4, reszta do "Listy dodatkowej"
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił żeby w PL wyświetlać w Katalogu B tylko firmy do kategorii B4 (B1-B4), a pozostałe (B5-B9) dodać do listy (nie nazywając ich "unverified") w uproszczonym formacie (name + contact + URL).
+
+**Wykonane zmiany:**
+
+1. **Nowy parametr `b_max_cat` w `load_catalog`:**
+   - Filtruje B-catalog: zostawia tylko firmy z kategoria ≤ b_max_cat (string comparison)
+   - PL: b_max_cat="B4" → zachowane B1 (6) + B4 (37) = 43 firm
+   - Reszta (B6, B8, B9 = 14+67+2 = 83 firm) przeniesiona do listy dodatkowej
+
+2. **Nowa funkcja `load_b_outside_range(iso, b_max_cat)`:**
+   - Ładuje firmy z kategoria > b_max_cat (czyli to co odfiltrował load_catalog)
+   - Dla PL = 83 firmy (B6/B8/B9)
+
+3. **Nowa funkcja `build_extra_simple_block` (3-kolumnowa):**
+   - Format: `[#] [Nazwa] [Kontakt: email/tel] [URL]`
+   - Bez warning box, bez "DO-WERYFIKACJI"
+   - Cienka linia pod każdym wpisem (jak unverified)
+   - Padding 3/3 (ciasne), font 8pt
+
+4. **Nowy tryb `extra_mode="simple"` w `build_leads_pdf`:**
+   - Używa `build_extra_simple_block` zamiast `build_unverified_block`
+   - Statystyki: "{N} firm · firmy z rozszerzonej bazy (B5-B9 + sygnały gmaps)" (bez "DO-WERYFIKACJI")
+   - Opcjonalny `extra_label` nadpisuje nazwę sekcji ("Lista dodatkowa")
+
+5. **Tryb per-ISO w `main()`:**
+   - `pl_extended = (iso == "PL")` — włącza nowy flow
+   - extra_list = B5-B9 (z master, verified ale poza B4) + gmaps unverified (po dedupie)
+   - Inne kraje bez zmian (gmaps unverified z warning box)
+
+**Output PL:**
+
+| Sekcja | Firm | Strony |
+|:---|:---:|:---:|
+| Intro | — | 2 |
+| Katalog A | 31 (23 FROZEN, 8 DO-WER) | 6 |
+| Katalog B (B1+B4) | 43 (zachowane) | 12 |
+| **Lista dodatkowa** (B5-B9 + gmaps) | 88 (83 verified + 5 gmaps) | 3 |
+| **TOTAL** | 162 (31+43+88) | **23 strony** |
+
+**Statystyki listy dodatkowej:**
+- 83 firm B5-B9 z master (26 z emailem, 38 z tel, 36 z www)
+- 41 firm (połowa) nie ma kontaktu → puste wpisy "—"
+- To są "B1 ex-A4 verified companies" przeniesione z pełnego katalogu
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - `load_catalog(iso, kraj_dir, b_max_cat="B9")` — nowy parametr
+  - `load_b_outside_range(iso, b_max_cat="B4")` — nowa
+  - `build_extra_simple_block(r, idx)` — nowa (4-kolumnowa)
+  - `build_leads_pdf(..., extra_mode="unverified", extra_label=None)` — nowe parametry
+  - `main()` — `pl_extended` branch + dedup gmaps vs B-outside
+- `data/Polska/PDF-PL.pdf` (regenerowany, 23 strony, 198KB)
+
+**UWAGA:** Intro page PL (strona 1) nadal pokazuje stare statystyki "126 firm (branża)" — to statystyki dla pełnej bazy, nie dla wyświetlanej listy. Przed wysłaniem do sprzedaży warto zaktualizować intro (tekst mówi: "9 hurtowni tytoniowych (B4+B8)").
+
+**Następne kroki (po decyzji):**
+- Zaktualizować intro PL (strona 1) z nowymi statystykami
+- Opcjonalnie: odfiltrować firmy bez kontaktu z Listy dodatkowej
+- Opcjonalnie: zastosować ten sam tryb do innych krajów
+
+## 2026-08-19 08:30 CEST — PL: tight_layout (KeepTogether, brak wymuszonego PageBreak)
+
+**Operator:** Marceli
+**Agent:** General
+
+**Kontekst:** Marceli poprosił o:
+1. Aktualizację liczby firm (true counts)
+2. Weryfikację pokrycia master.csv vs catalog-A/B
+3. Sprawdzenie brakujących kontaktów w innych źródłach
+4. Ulepszenie layoutu (bez pustych miejsc)
+5. Weryfikację znaków specjalnych
+6. Regenerację PDF
+
+**Wynik weryfikacji:**
+
+1. **Pokrycie danych:** master.csv PL (157) = catalog-A-PL (31) + catalog-B-PL (126) = 100%. Wszystkie 157 firm z master.csv jest w katalogach.
+
+2. **Brakujące kontakty B5-B9 (41 firm):** ❌ NIE MA nigdzie:
+   - gmaps (0 trafień dla 41 nazw)
+   - relationships.csv (0 trafień)
+   - inne CSV (0 trafień)
+   - Wniosek: dane nie istnieją w naszej bazie — wymagają manualnego researchu w KRS/CEIDG
+
+3. **Statystyki intro PL:** ✅ Prawidłowe (157 firm, 31 A, 126 B, 108 FROZEN, 49 DO-WER, 67 hurtowni B8). Pokrywają się z master.csv.
+
+4. **Znaki specjalne:** ✅ OK. Wszystkie polskie znaki (ąćęłńóśźż) + łacińskie (², ·, –, —, ", ") renderują się poprawnie. Brak replacement char (□).
+
+5. **Layout — poprawka:** Dodany tryb `tight_layout` dla PL:
+   - **Padding 3/3 → 2/2** (ciaśniejszy box per lead)
+   - **Spacer 4pt → 2pt** (mniejsze przerwy)
+   - **Bez wymuszenia PageBreak** (naturalny flow zamiast sztywnego 6/stronę)
+   - **KeepTogether** na każdym leadzie (zapobiega dzieleniu bloku między strony)
+
+**Output PL po poprawkach:**
+
+| Sekcja | Przed | Po | Strony przed/po |
+|:---|:---:|:---:|:---:|
+| Intro | 2 | 2 | 1–2 / 1–2 |
+| Katalog A (31 firm) | 8 | 6 | 3–8 / 3–8 (gęściej) |
+| Katalog B (43 firm) | 12 | 7 | 9–20 / 9–15 (gęściej) |
+| Lista dodatkowa (88 firm) | 3 | 3 | 21–23 / 16–18 |
+| **TOTAL** | **23 strony** | **18 stron** | **-22%** |
+
+**Pliki zmienione:**
+- `tools/pdf_append_leads.py`:
+  - `build_lead_block(r, tight=False)` — nowy parametr
+  - `build_leads_pdf(..., tight_layout=False)` — nowy parametr + KeepTogether + conditional PageBreak
+  - `main()` — PL używa `tight_layout=True`
+- `data/Polska/PDF-PL.pdf` (regenerowany, 18 stron, 191KB)
+- Import: dodany `KeepTogether` z reportlab.platypus
+
+**Następne kroki (po decyzji):**
+- Zastosować tight_layout do innych krajów z >50 firm (PL, BG, EE)?
+- Odfiltrować firmy bez kontaktu z Listy dodatkowej (41 pustych wpisów)?
+
+---
+
+## 2026-08-19 — Layout fixes + 6. kolumna + 50 nowych leadów PL
+
+**Zmiany w `tools/pdf_append_leads.py`:**
+
+1. **Header fix:** `"Leads — wyniki wyszukiwania"` → `"Katalog leadów B2B/B2C"` (spójność z page 1).
+2. **6. kolumna w Lista dodatkowa:** dodana kolumna **Notatka** (krótka notatka z `notatki` master, albo `types` z gmaps, albo NIP/REGON jako fallback). Layout: `0.5 + 5.2 + 3.6 + 3.5 + 2.6 + 3.6 = 19.0cm`, padding 2/2.
+3. **50 nowych leadów (PL-X-001..PL-X-050):** web search hurtowni/dystrybutorów tytoniowych, vape, akcesoriów, maszynek, CBD w PL. CSV: `data/Polska/extra-leads-PL.csv`. Loader: `load_extra_leads(iso)`. Podział: 20× B8 tytoń, 10× B6 vape, 8× B4 akcesoria, 5× A4 maszynki, 5× B9 CBD, 2× inne.
+
+**Weryfikacja sanitizacji PL-B-090:** Notatka `ex-A4 → B4 (no NIP, L1 research needed)` → renderuje się jako `ex-A4 -> B4 (...)` po `_sanitize_unicode()`. ✅ działa.
+
+**Output PL po zmianach:**
+
+| Sekcja | Przed | Po |
+|:---|:---:|:---:|
+| Intro | 2 | 2 |
+| Katalog A (31 firm) | 6 | 6 |
+| Katalog B (43 firm) | 7 | 7 |
+| Lista dodatkowa (88 + 50 = 138 firm) | 3 | 6 |
+| **TOTAL** | **18 stron** | **21 stron** (+3 od +50 leadów) |
+
+**Rozmiar PL PDF:** 196 KB → 201 KB.
+
+**Następne kroki (po decyzji):**
+- Wzbogacić web-leady o brakujące NIP/REGON przez KRS/CEIDG API (ograniczone czasowo).
+- Rozważyć rozszerzenie web-leads na inne kraje (CZ, SK, EE) — ale Marceli: skip Germany, focus PL.
+
+---
+
+## 2026-08-19 (10:11) — # column nowrap + 30 nowych leadów PL
+
+**Zmiany w `tools/pdf_append_leads.py`:**
+- `build_extra_simple_block()`: # column **0.5cm → 0.9cm** (z 5.2cm zmniejszone do 4.8cm Nazwa), usunięte `:02d` zero-padding. Efekt: 3-cyfrowe numery (116, 137, 168) NIE łamią się między stronami.
+
+**Nowe 30 leadów (PL-X-051..PL-X-080):**
+- 12 B8 hurtownie tytoniowe (PHPU Teks S.A., Sieć DEF, Tyton-Hurt.pl, i-Hurtownia, Tabakierka 2001, M&J, Czyż Beata, PHU TMT, Budlex, Procent 2.0, Agora PHU, Hurtownia Oświęcim)
+- 6 B6 vape (Liquidy.pl, E-Tabak, Strefa Wapera, Intersmoker Hurt, Prosmoker, Gleevape)
+- 5 A4 maszynki (PHU Kaziool, Bongogo, Jarajto/BulkBong, Vaporshop, Sklep Tytoniowy Kraków)
+- 4 B4 akcesoria (Cannabis Spot, Tabakierka 2001 akcesoria, Sklep Vaporshop, E-Papierosy Vapehurt)
+- 3 B9 CBD (CBD King, Biokonopia, Cannabison)
+
+**Output PL po zmianach:**
+
+| Sekcja | Przed | Po |
+|:---|:---:|:---:|
+| Intro | 2 | 2 |
+| Katalog A (31 firm) | 6 | 6 |
+| Katalog B (43 firm) | 7 | 7 |
+| Lista dodatkowa (88 + 50 + 30 = 168 firm) | 5 | 6 |
+| **TOTAL** | **20 stron** | **21 stron** |
+
+**Rozmiar PL PDF:** 201 KB → 205 KB.
