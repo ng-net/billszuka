@@ -3,7 +3,7 @@
 > **Wykonawca:** DS — Design System (data intelligence dla BILLS Sp. z o.o.)
 > **Projekt:** BILLSzuka — B2B research dystrybutorów PowerMatic + Hawk w 12 krajach CEE / Bałtyckich
 > **Data:** 2026-08-19
-> **Status:** Wersja 1.1 — skalibrowana do 5 dni × 8 h × 40 PLN/h, ≤ 3 000 PLN łącznie
+> **Status:** Wersja 1.1 — skalibrowana do 5 dni × 8 h × 40 PLN/h
 
 ---
 

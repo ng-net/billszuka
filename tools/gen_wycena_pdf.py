@@ -175,7 +175,7 @@ def build():
         C("<font size=18><b>393</b></font><br/><font size=6.5 color='#555'>leadów zweryfikowanych</font><br/><font size=6 color='#888'>12 krajów</font>"),
         C("<font size=18><b>253</b></font><br/><font size=6.5 color='#555'>decydentów verified</font><br/><font size=6 color='#888'>61% pokrycia</font>"),
         C(f"<font size=18><b>{total_hours:.1f} h</b></font><br/><font size=6.5 color='#555'>czas pracy inż.</font><br/><font size=6 color='#888'>40 PLN/h · 5 dni</font>"),
-        C(f"<font size=18><b>{total_pln:,} PLN</b></font><br/><font size=6.5 color='#555'>CENA FINALNA netto</font><br/><font size=6 color='#888'>≤ 3 000 PLN</font>"),
+        C(f"<font size=18><b>{total_pln:,} PLN</b></font><br/><font size=6.5 color='#555'>CENA FINALNA netto</font>"),
     ]]
     t = Table(summary_data, colWidths=[42*mm, 42*mm, 42*mm, 44*mm])
     t.setStyle(TableStyle([
