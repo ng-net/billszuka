@@ -1584,3 +1584,41 @@ python3 tools/pdf_gen_country.py --iso SK
 - v1.3: **100%** fraz przetłumaczonych
 - v1.2: 27 stron z `□` boxes w 5+ miejscach
 - v1.3: 0 `□` boxes, 15 stron
+
+## 2026-08-19 (11:30) — INSTRUKCJA.md v1.4 — sekcja 9 przebudowana (Marceli request)
+
+**Marceli request 11:28:** "add a section about our methodology, we have 11 different methods of researching or 9 of them, they were including manual search on google, duckduck, brave, bing search engines, we checked "urzad celny activity", we checked events from industry from previous year and current, we checked domains for countries, we checked marketplaces specific for countires like allegro, olx, we checked KRS, CEIDG, NIP goverment official lists for poland and other countires, we checked katalog firm for each contry, we checked relationship between companies, we scraped linkedin to look decidents, and other methods, chcek again methodologies files and scripts and add nice short professional section describing those metohods, with learning from each method of worked and if was efficinet. if we already include this info, combine info and improve section. also add that we kept dziennik file after every search to learn more insights, and intel. thisese are important way we searched and should be mentioned."
+
+**Realizacja:**
+
+### Sekcja 9 — całkowita przebudowa
+v1.3 miał: 9. "Co zadziałało / co nie zadziałało" (2 tabele + wnioski)
+v1.4 ma: 9. "Metody researchu B2B — 11 poziomów + nauka per sesja" (5 podsekcji)
+
+### 5 podsekcji nowej sekcji 9:
+- **9.0 Filozofia** — research to iteracyjny proces. ASCII diagram cyklu: Search -> DZIENNIK -> INTEL -> next search.
+- **9.1 Tabela 11 metod + efektywność** — L0-L11 z kolumnami: Metoda / Co robiliśmy konkretnie / Efekt / Wniosek. Tabela 5-kolumnowa.
+- **9.2 Co zadziałało ([OK])** — 10 wpisów (KRS API, VIES, ARES, e-Äriregister, Allegro, Heureka, GMap Places, TikTok CC, Multi-LLM, Sanitex).
+- **9.3 Co nie zadziałało ([!]) + fallback** — 9 wpisów z kolumną Wnioski na przyszłość (WHOIS, DDG, CEIDG v3, Perplexity, LT/LV rejestry, ONRC, OLX/Ceneo, OSM, FB grupy).
+- **9.4 Wnioski strategiczne** — 5 bulletów + callout "Dla handlowca" z praktycznymi wskazówkami.
+- **9.5 Cykl DZIENNIK + INTEL** — 2 callouty (cycle diagram + korzyść) + 5 + 3 bulletów kiedy pisać co gdzie.
+
+### Pokrycie metod Marcelego
+- ✅ Google/DDG/Brave/Bing search → L1
+- ✅ Urząd Celny activity → L4 (Biała Lista, BDO, KAS, CN 8479 89 97 90)
+- ✅ Events z industry (poprzedni + obecny rok) → L6 (InterTabac, World Vape, Eurocis)
+- ✅ Domeny dla krajów → L5 (WHOIS + crt.sh)
+- ✅ Marketplace (Allegro, OLX, eMAG, InPost) → L2
+- ✅ KRS, CEIDG, NIP government lists → L3
+- ✅ Katalogi firm per kraj → L8 (Aleo, Panorama, nipgo.pl, Veritor, ENTIA)
+- ✅ Relacje między firmami → L1 + L3 (sieci powiązań KRS)
+- ✅ LinkedIn scrap do decydentów → L1 + L7 (social media)
+- ✅ DZIENNIK.md + INTEL.md → 9.5 (cykl i korzyść)
+
+### Pliki zmienione
+- `data/INSTRUKCJA.md` — sekcja 9 przebudowana (~110 linii zamiast ~38)
+- `tools/pdf_gen_instrukcja.py` — sekcja 9 builder z nowymi tabelami + calloutami (9.0 filozofia, 9.1 11-metod tabela, 9.2 zadziałało, 9.3 nie zadziałało, 9.4 wnioski, 9.5 cykl)
+- `data/INSTRUKCJA.pdf` — v1.3 (15 str, 133KB) → v1.4 (16 str, 139KB, +1 str dla sekcji 9.5)
+
+### Wersjonowanie
+v1.3 → v1.4 (2026-08-19 11:30). Nazwa pliku PDF, znacznik w stopce i creator zaktualizowane.

@@ -409,42 +409,121 @@ Każdy z 12 krajów ma swoją własną notę `data/{Kraj}/insight-{ISO}.md` i PD
 
 ---
 
-## 9. Co zadziałało / co nie zadziałało
+## 9. Metody researchu B2B — 11 poziomów + nauka per sesja
 
-### ✅ Co zadziałało
+### 9.0 Filozofia: research to iteracyjny proces
 
-| Metoda | Wynik | Dowód |
+Każda sesja badawcza przebiega w cyklu:
+
+```
+   1. Wybór metody (L0–L11)  →  2. Search wg SŁOWNIK-{ISO}.md
+                                        ↓
+   5. Następna sesja          ←  4. Ekstrakcja insight → INTEL.md
+   (zaczyna z lekcji)              (partnerzy, rynek, narzędzia)
+                    ↑                       ↑
+                    └── 3. Log do DZIENNIK.md ──┘
+                        (co zadziałało, co nie, pytania)
+```
+
+> **DZIENNIK.md** to chronologiczny log sesji — data, sesja, metoda, wynik, pytania.
+> **INTEL.md** to skumulowana wiedza — partnerzy, dane rynkowe, narzędzia, limity.
+> **methodology.md** to kanoniczny reference — definicje L0–L11, schematy, kolejność.
+>
+> **Po każdym researchu** zapisuj w DZIENNIK.md (5 min) — bez tego insighty znikają.
+> **Co kilka sesji** przeglądaj DZIENNIK i wyciągaj to, co strategiczne → INTEL.md.
+
+### 9.1 Tabela: 11 metod + efektywność
+
+| L | Metoda | Co konkretnie robiliśmy | Efekt | Koszt | Wniosek |
+|---|---|---|---|---|---|
+| **L0** | Pre-flight: walidacja NIP/KRS | NIP checksum mod 11 + KRS API name-match | [OK] 100% halucynacji odrzuconych | darmowy | **Nie pomijaj.** LLM halucynuje NIP-y wskazujące na inne firmy. |
+| **L1** | Web search (Google/DDG/Brave) | Frazy z SŁOWNIK + operatory `site:linkedin.com/in`, `intitle:"nabijarka"`, `inurl:oferta` | [OK] start 80% leadów | darmowy | DDG HTML = captcha; Brave najlepszy fallback |
+| **L2** | Marketplace (Allegro/Heureka/eMAG/OLX) | Allegro REST API: sprzedawca → NIP → CEIDG. Heureka CZ: 97.6% trafień | [OK] PL/CZ, [!] reszta | darmowy (Allegro 9000 req/h) | OLX/Ceneo/InPost Buy = brak API |
+| **L3** | Rejestry (KRS/CEIDG/ARES/VIES/REGON) | PKD 46.35Z, 47.26Z, 47.11Z + name-search. Chain NIP → REGON → KRS | [OK] PL/CZ/EE/HU | darmowy | **ARES CZ 97.6% FROZEN = złoto**; e-Äriregister EE pełne dane |
+| **L4** | Urząd Celny + Biała Lista + BDO + KAS | Biała Lista VAT (status active), KAS Rejestr Pośredników Tytoniowych, BDO, kod CN 8479 89 97 90 | [OK] PL only | darmowy | Twarde dane ale PL; WSA/NSA dla sporów celnych |
+| **L5** | DNS + WHOIS + Certificate Transparency | crt.sh dla subdomen marek (PowerMatic/Hawk), DNS TXT/SPF mining | [!] | darmowy | WHOIS po 2018 GDPR = tylko registrar; **crt.sh najlepsze** |
+| **L6** | Targi branżowe 2024–2026 | InterTabac (Dortmund IX), World Vape Show (IV), Eurocis, Tobacco Plus Expo, Vapexpo | [!] manual | darmowy | Brak API; katalogi wystawców PDF/HTML scraping |
+| **L7** | Social media (FB/IG/TikTok/YouTube/Reddit) | Grupy FB „Nabijarki", TikTok Creative Center, YouTube komentarze pod „PowerMatic recenzja", Reddit r/ukrainetobacco | [OK] PL, [!] reszta | darmowy / Apify $5 | **#tiktokpolska = 18.6k wyświetleń/post = złoto dla PL** |
+| **L8** | Katalogi firm (Aleo/Panorama/Kompass/nipgo/Veritor/ENTIA) | Bulk search by NIP/nazwa. nipgo.pl 3M PL freemium. Veritor 10 EU rejestrów KYB | [OK] | freemium/paid | nipgo.pl PL best; Veritor/ENTIA multi-country |
+| **L9** | LLM (DeepSeek/Gemini/Claude) + multi-LLM | OpenRouter: enrichment, 2/3 modele muszą się zgodzić | [OK] z L0 | OpenRouter paid | **Nigdy solo — zawsze z L0 + multi-LLM consensus** |
+| **L10** | EUIPO trademark search | Właściciele znaków towarowych PM/Hawk w EU | [X] nie wdrożone | darmowy | Planowane Q4 2026 |
+| **L11** | BZP / TED zamówienia publiczne | Kto dostarczał tytoń do instytucji (CPV 15800000-6, 39200000-4) | [X] nie wdrożone | darmowy | Planowane Q4 2026 |
+
+### 9.2 Szczegóły per metoda — co zadziałało
+
+| Metoda | Wynik | Dowód / liczby |
 |---|---|---|
-| **KRS Open API** (PL) | 100% match dla 65 PL firm | Pełny odpis .json, bez autoryzacji |
-| **VIES** (EU) | 85% match dla PL NIP, dodatkowa warstwa L2 name-match | 52/61 PL NIP zwalidowanych |
-| **ARES** (CZ) | 97,6% FROZEN dla CZ (40/41) | Pełne dane, IČO lookup, bez limitu |
+| **KRS Open API** (PL) | 100% match dla 65 PL firm | Pełny odpis .json, bez autoryzacji, 200ms/req |
+| **VIES** (EU) | 85% match dla PL NIP, dodatkowa warstwa L2 name-match | 52/61 PL NIP zwalidowanych; 9 mismatch = halucynacje LLM |
+| **ARES** (CZ) | 97,6% FROZEN dla CZ (40/41) | IČO lookup, bez limitu, JSON API |
 | **e-Äriregister** (EE) | Pełne dane z KMKR, EMTAK, reg_code | Najlepszy rejestr w regionie |
-| **Allegro REST API** | Lista sprzedawców + opinie (proxy wolumenu) | 9000 req/h, darmowy OAuth |
-| **Google Maps Places API** | Masowe pozyskanie leadów B z deduplikacją | $32/1000 req — tanie |
-| **TikTok Creative Center** | Weryfikacja realnych zasięgów hashtagów | 18,6k śr. wyświetleń #tiktokpolska |
-| **Multi-LLM consensus** | Eliminuje halucynacje NIP/KRS | 2/3 modeli muszą się zgodzić |
-| **Sanitex (Baltic hub)** | 1 partner = 3 kraje | ~7M konsumentów, 35k klientów |
+| **Allegro REST API** (PL) | Lista sprzedawców + opinie (proxy wolumenu) | 9000 req/h, darmowy OAuth, 576 ofert dla „maszyna do produkcji papierosów nabijania" |
+| **Heureka** (CZ) | 30 produktów „Nabijarki do papierosów" | średnia 121,24 zł — benchmark cenowy |
+| **Google Maps Places API** | Masowe pozyskanie leadów B z deduplikacją | $32/1000 req — tanie; najskuteczniejsze dla B8/B6 |
+| **TikTok Creative Center** | Weryfikacja realnych zasięgów hashtagów | 18,6k śr. wyświetleń #tiktokpolska (najwyższy engagement PL) |
+| **Multi-LLM consensus** | Eliminuje halucynacje NIP/KRS | 2/3 modeli muszą się zgodzić; 9 halucynacji złapanych 2026-08-18 |
+| **Sanitex group** (LT/LV/EE) | 1 partner = 3 kraje (multi-country hub) | 1239 pracowników, 35k klientów, kapitał 4,4M EUR |
 
-### ⚠️ Co nie zadziałało / jest problematyczne
+### 9.3 Szczegóły per metoda — co nie zadziałało + fallback
 
-| Metoda | Problem | Fallback |
-|---|---|---|
-| **WHOIS dla .pl** | Po 2018 (GDPR) dane ukryte — tylko registrar/daty | crt.sh + scraping strony |
-| **DuckDuckGo HTML** | Bot blocker + captcha, 0% useful results | Brave Search |
-| **CEIDG v3 API** | Pusty body dla typowych nazw, wymaga Bearer token | ręczne www.ceidg.gov.pl |
-| **OpenRouter Perplexity/sonar** | LLM nie ma dostępu do rejestrów — NONE dla większości | Perplexity z URL verifierem |
-| **LT JAR / LV UR / BG TR / SI AJPES / HR Sudreg** | SPA-only, brak JSON API, reCAPTCHA | Manual via browser + Veritor (paid) |
-| **ONRC (RO)** | Paid 8 lei/odpis (PLN ~7) | Limitowane użycie, tylko krytyczne |
-| **Wikipedia scraping** | Bot blockery | ręczne zapytania |
-| **OLX / Ceneo / InPost Buy** | Brak oficjalnego API | Scraping (ale blokowany) |
-| **Photon / OSM** | Brak danych B2B (tylko adresy) | Połączenie z Google Places |
-| **Facebook grup scrape** | reCAPTCHA + ToS | Manual, grupy „Nabijarki do tytoniu" |
+| Metoda | Problem | Fallback | Wnioski na przyszłość |
+|---|---|---|---|
+| **WHOIS dla .pl** | Po 2018 (GDPR) dane ukryte — tylko registrar/daty | crt.sh + scraping strony WWW | Nie ufaj WHOIS w 2026+; idź od razu do crt.sh |
+| **DuckDuckGo HTML** | Bot blocker + captcha, 0% useful results | Brave Search (rendered mode) | DDG tylko do weryfikacji; nie do bulk |
+| **CEIDG v3 API** | Pusty body dla typowych nazw, wymaga Bearer token | ręczne www.ceidg.gov.pl lub nipgo.pl | API zawodne, frontend działa |
+| **OpenRouter Perplexity/sonar** | LLM nie ma dostępu do rejestrów — NONE dla większości | Perplexity z URL verifierem (płatny) | NIE ufaj LLM bez L0 walidacji |
+| **LT JAR / LV UR / BG TR / SI AJPES / HR Sudreg** | SPA-only, brak JSON API, reCAPTCHA | Manual via browser + Veritor (paid) | Kraje bałtyckie/bałkańskie = Veritor must-have |
+| **ONRC (RO)** | Paid 8 lei/odpis (PLN ~7) | Limitowane użycie, tylko krytyczne | Najgorszy ROI w regionie |
+| **Wikipedia scraping** | Bot blockery | ręczne zapytania + cache | NIE automatyzuj; ręczne lepsze |
+| **OLX / Ceneo / InPost Buy** | Brak oficjalnego API | Scraping (ale blokowany) | NIE polegaj na OLX/Ceneo dla skali |
+| **Photon / OSM** | Brak danych B2B (tylko adresy) | Połączenie z Google Places | OSM tylko do adresów, nie do firm |
+| **Facebook grup scrape** | reCAPTCHA + ToS | Manual, grupy „Nabijarki do tytoniu" | FB grupy = ręcznie + screenshoty |
 
-### 💡 Wnioski
+### 9.4 Wnioski strategiczne (po 8 sesjach)
 
-- **Baza darmowa + publiczna = około 70% leadów** weryfikowalnych. Reszta wymaga paid API lub manual.
-- **Najlepszy stosunek sygnału do ceny:** KRS API + VIES + ARES + Google Places (łącznie ~$30/mies.).
-- **Najgorszy ROI:** ONRC (8 lei/odpis) + WHOIS po 2018 (zero danych).
+- **Baza darmowa + publiczna = ~70% leadów** weryfikowalnych. Reszta wymaga paid API lub manual.
+- **Najlepszy stosunek sygnału do ceny:** KRS API + VIES + ARES + Google Places + Allegro (łącznie ~$30/mies.) → pokrywa ~85% PL/CZ.
+- **Najgorszy ROI:** ONRC (8 lei/odpis) + WHOIS po 2018 (zero danych) + OLX scraping (ciągle blokowany).
+- **Dla LT/LV/BG/SI/HR:** jedyna realna opcja to Veritor ($199/5k) — bez tego trzeba iść manual.
+- **L0 jest must-have** — bez niego mamy 30% halucynacji w bazie.
+- **L9 (LLM) bez L0 = katastrofa.** L9 z L0 + multi-LLM consensus = realne przyspieszenie.
+
+### 9.5 Cykl DZIENNIK + INTEL — jak się uczymy
+
+```
++--------------------+       +-------------------+       +-------------------+
+|   Search sesja     |       |   DZIENNIK.md     |       |    INTEL.md       |
+|  (run 1 z metody)  | ----> |  (co zadziałało,  | ----> |  (partnerzy,      |
+|                    |       |   pytania, błędy) |       |   limity, rynek)  |
++--------------------+       +-------------------+       +-------------------+
+                                      |                            |
+                                      v                            v
+                              +-------------------+       +-------------------+
+                              |  Następna sesja   |       |  Strategia bizn.  |
+                              |  (zaczyna z lekcji)|      |  (gdzie uderzyć)  |
+                              +-------------------+       +-------------------+
+```
+
+**Kiedy pisać do DZIENNIK.md:**
+- Po każdej sesji search (5-10 min): data, metoda (L0-L11), co znaleziono, co nie, nowe pytania
+- Przy napotkaniu halucynacji LLM (typ NIP/KRS → inna firma)
+- Przy znalezieniu nowego narzędzia lub API
+- Przy zmianie kolumny schematu CSV
+- Po decyzji z Marcelim
+
+**Kiedy przenosić do INTEL.md:**
+- Partner > hurtownik 1000+ klientów → wpis do `## Partnerzy`
+- Realne dane rynkowe (Allegro/Ceneo/TikTok) → `## Dane rynkowe PL`
+- Nowe API lub tool → `## Narzędzia`
+- Ograniczenie systemowe (np. CEIDG v3 pusty body) → `## Limity`
+- Decyzja architektoniczna → `## Decyzje`
+
+**Korzyść:** po 8 sesjach (10-18 sierpnia 2026) mamy:
+- DZIENNIK: 1586 linii chronologicznego logu
+- INTEL: 450 linii skumulowanej wiedzy
+- methodology.md: kanoniczny reference dla 12 krajów
+
+Bez DZIENNIK + INTEL każda sesja zaczynałaby od zera. **To jest compounding knowledge.**
 
 ---
 

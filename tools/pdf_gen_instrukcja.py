@@ -212,7 +212,7 @@ def build_intro_title(story):
                              hAlign="CENTER", spaceBefore=2, spaceAfter=4))
     story.append(Paragraph("BILLSzuka", styles["intro_big"]))
     story.append(Paragraph("Instrukcja dla Działu Sprzedaży", styles["h1"]))
-    story.append(Paragraph("<i>Wersja 1.3 · 19 sierpnia 2026</i>", styles["small"]))
+    story.append(Paragraph("<i>Wersja 1.4 · 19 sierpnia 2026</i>", styles["small"]))
     story.append(Paragraph("<i>Właściciel: Marceli · BILLS Sp. z o.o.</i>", styles["small"]))
     story.append(Spacer(1, 0.3 * cm))
 
@@ -767,38 +767,109 @@ def build_phrases_section(story):
 
 
 def build_tail(story):
-    # === 9 ===
-    section_h1(story, "Co zadziałało / co nie zadziałało", 9)
-    story.append(Paragraph("Co zadziałało ([OK])", styles["h2"]))
+    # === 9 — Metody researchu B2B + nauka per sesja (DZIENNIK + INTEL) ===
+    section_h1(story, "Metody researchu B2B — 11 poziomów + nauka per sesja", 9)
+
+    # 9.0 Filozofia
+    para(story,
+         "<b>Filozofia:</b> research to iteracyjny proces. Każda sesja to cykl: <b>search</b> wg "
+         "<code>SŁOWNIK-{ISO}.md</code> -> <b>log do DZIENNIK.md</b> (5-10 min) -> <b>ekstrakcja do INTEL.md</b> "
+         "(partnerzy, rynek, narzędzia) -> <b>następna sesja</b> zaczyna z lekcji poprzedniej. "
+         "Bez tego cyklu każda sesja zaczyna od zera.")
+    callout(story,
+        "<b>DZIENNIK.md</b> = chronologiczny log sesji (data, metoda L0-L11, wynik, pytania, błędy). "
+        "<b>INTEL.md</b> = skumulowana wiedza (partnerzy, dane rynkowe, limity API, decyzje architektoniczne). "
+        "<b>methodology.md</b> = kanoniczny reference (definicje, schematy, kolejność). "
+        "Po 8 sesjach (10-18 VIII 2026): DZIENNIK 1586 linii, INTEL 450 linii, methodology 875 linii.")
+
+    # 9.1 Tabela 11 metod + efektywność
+    story.append(Paragraph("9.1 Tabela: 11 metod + efektywność", styles["h2"]))
+    para(story, "Każda z 11 metod (L0-L11) to osobna warstwa. L0-L3 + L7-L9 = core (używane). L4-L6 = PL-only lub manual. L10-L11 = planowane.")
     table(story, [
-        ["Metoda", "Wynik", "Dowód"],
+        ["L", "Metoda", "Co robiliśmy konkretnie", "Efekt", "Wniosek"],
+        ["L0", "Pre-flight NIP/KRS", "NIP checksum mod 11 + KRS API name-match", "[OK] 100% odrz.", "Must-have"],
+        ["L1", "Web search G/DDG/Brave", "Frazy z SŁOWNIK + operatory site:, intitle:, inurl:", "[OK] start 80%", "DDG captcha; Brave"],
+        ["L2", "Marketplace Allegro/OLX", "Allegro REST API: sprzedawca -> NIP -> CEIDG", "[OK] PL, [!] reszta", "OLX = brak API"],
+        ["L3", "Rejestry KRS/ARES/VIES", "PKD 46.35Z/47.26Z/47.11Z + name-search + chain", "[OK] PL/CZ/EE", "ARES CZ 97.6%"],
+        ["L4", "Urząd Celny + KAS", "Status VAT, KAS Pośrednicy, BDO, CN 8479 89 97 90", "[OK] PL only", "Twarde dane PL"],
+        ["L5", "DNS + WHOIS + crt.sh", "Certificate Transparency dla subdomen PM/Hawk", "[!] manual", "WHOIS po 2018 = pusty"],
+        ["L6", "Targi 2024-2026", "InterTabac / World Vape / Eurocis / Vapexpo", "[!] manual", "Brak API; PDF scrape"],
+        ["L7", "Social FB/IG/TikTok/YT", "Grupy FB, TikTok Creative Center, YT komentarze", "[OK] PL, [!] reszta", "#tiktokpolska złoto"],
+        ["L8", "Katalogi nipgo/Veritor", "Bulk search NIP/nazwa. nipgo.pl 3M PL, Veritor 10 EU", "[OK]", "nipgo.pl PL; Veritor EU"],
+        ["L9", "LLM DeepSeek/Gemini/Claude", "OpenRouter enrichment + multi-LLM consensus (2/3 zgoda)", "[OK] z L0", "Nigdy solo — z L0"],
+        ["L10", "EUIPO trademark", "Właściciele znaków towarowych PM/Hawk w EU", "[X] nie wdrożone", "Planowane Q4 2026"],
+        ["L11", "BZP / TED zamówienia publ.", "Kto dostarczał tytoń do instytucji (CPV 15800000-6)", "[X] nie wdrożone", "Planowane Q4 2026"],
+    ], [0.7 * cm, 3.3 * cm, 7.3 * cm, 2.5 * cm, 3.7 * cm], fontsize=6.5)
+
+    # 9.2 Co zadziałało
+    story.append(Paragraph("9.2 Co zadziałało ([OK])", styles["h2"]))
+    table(story, [
+        ["Metoda", "Wynik", "Dowód / liczby"],
         ["KRS Open API (PL)", "100% match dla 65 PL firm", "Pełny odpis .json, bez autoryzacji"],
-        ["VIES (EU)", "85% match dla PL NIP, L2 name-match", "52/61 PL NIP zwalidowanych"],
-        ["ARES (CZ)", "97,6% FROZEN dla CZ (40/41)", "Pełne dane, IČO lookup, bez limitu"],
+        ["VIES (EU)", "85% match dla PL NIP + L2 name-match", "52/61 PL NIP zwalidowanych"],
+        ["ARES (CZ)", "97,6% FROZEN dla CZ (40/41)", "IČO lookup, bez limitu, JSON API"],
         ["e-Äriregister (EE)", "Pełne dane z KMKR, EMTAK, reg_code", "Najlepszy rejestr w regionie"],
-        ["Allegro REST API", "Lista sprzedawców + opinie (proxy wolumenu)", "9000 req/h, darmowy OAuth"],
-        ["Google Maps Places API", "Masowe pozyskanie leadów B z deduplikacją", "$32/1000 req — tanie"],
-        ["TikTok Creative Center", "Weryfikacja realnych zasięgów hashtagów", "18,6k śr. wyświetleń #tiktokpolska"],
+        ["Allegro REST API (PL)", "Lista sprzedawców + opinie (proxy wolumen)", "9000 req/h, OAuth darmowy, 576 ofert dla „nabijarka\""],
+        ["Heureka (CZ)", "30 produktów „Nabijarki do papierosów\"", "średnia 121,24 zł — benchmark cenowy"],
+        ["Google Maps Places API", "Masowe pozyskanie leadów B z deduplikacją", "$32/1000 req — najskuteczniejsze dla B8/B6"],
+        ["TikTok Creative Center", "Weryfikacja realnych zasięgów hashtagów", "18,6k śr. wyświetleń #tiktokpolska (TOP PL)"],
         ["Multi-LLM consensus", "Eliminuje halucynacje NIP/KRS", "2/3 modeli muszą się zgodzić"],
-        ["Sanitex (Baltic hub)", "1 partner = 3 kraje", "~7M konsumentów, 35k klientów"],
+        ["Sanitex (LT/LV/EE hub)", "1 partner = 3 kraje (multi-country)", "1239 pracowników, 35k klientów, 4,4M EUR kapitał"],
     ], [4 * cm, 7.5 * cm, 6 * cm], fontsize=8)
-    story.append(Paragraph("Co nie zadziałało ([!])", styles["h2"]))
+
+    # 9.3 Co nie zadziałało
+    story.append(Paragraph("9.3 Co nie zadziałało ([!]) + fallback", styles["h2"]))
     table(story, [
-        ["Metoda", "Problem", "Fallback"],
-        ["WHOIS dla .pl", "Po 2018 (GDPR) dane ukryte", "crt.sh + scraping strony"],
-        ["DuckDuckGo HTML", "Bot blocker + captcha, 0% useful", "Brave Search"],
-        ["CEIDG v3 API", "Pusty body dla typowych nazw", "ręczne www.ceidg.gov.pl"],
-        ["OpenRouter Perplexity/sonar", "LLM bez dostępu do rejestrów", "Perplexity z URL verifierem"],
-        ["LT/LV/BG/SI/HR rejestry", "SPA-only, reCAPTCHA", "Manual + Veritor (paid)"],
-        ["ONRC (RO)", "Paid 8 lei/odpis (~7 PLN)", "Limitowane użycie"],
-        ["OLX / Ceneo / InPost Buy", "Brak oficjalnego API", "Scraping (blokowany)"],
-        ["Photon / OSM", "Brak danych B2B", "Połączenie z Google Places"],
-        ["Facebook grup scrape", "reCAPTCHA + ToS", "Manual"],
-    ], [5.5 * cm, 5.5 * cm, 6.5 * cm], fontsize=8)
-    story.append(Paragraph("Wnioski", styles["h2"]))
-    bullet(story, "<b>Baza darmowa + publiczna = około 70% leadów</b> weryfikowalnych. Reszta wymaga paid API lub manual.")
-    bullet(story, "<b>Najlepszy stosunek sygnału do ceny:</b> KRS API + VIES + ARES + Google Places (łącznie ~$30/mies.).")
-    bullet(story, "<b>Najgorszy ROI:</b> ONRC (8 lei/odpis) + WHOIS po 2018 (zero danych).")
+        ["Metoda", "Problem", "Fallback", "Wniosek"],
+        ["WHOIS dla .pl", "Po 2018 (GDPR) ukryte dane", "crt.sh + scraping strony", "Nie ufaj WHOIS 2026+"],
+        ["DuckDuckGo HTML", "Bot blocker + captcha, 0%", "Brave Search", "DDG tylko do weryfikacji"],
+        ["CEIDG v3 API", "Pusty body dla typowych nazw", "ręczne www.ceidg.gov.pl / nipgo.pl", "API zawodne, frontend działa"],
+        ["OpenRouter Perplexity", "LLM bez dostępu do rejestrów", "Perplexity + URL verifier (płatny)", "NIE ufaj LLM bez L0"],
+        ["LT/LV/BG/SI/HR rejestry", "SPA-only, reCAPTCHA", "Manual + Veritor (paid)", "Kraje bałtyckie = Veritor must"],
+        ["ONRC (RO)", "Paid 8 lei/odpis (~7 PLN)", "Limitowane, tylko krytyczne", "Najgorszy ROI w regionie"],
+        ["OLX / Ceneo / InPost Buy", "Brak oficjalnego API", "Scraping (blokowany)", "NIE polegaj na OLX/Ceneo dla skali"],
+        ["Photon / OSM", "Brak danych B2B (tylko adresy)", "Google Places", "OSM = adresy, nie firmy"],
+        ["Facebook grup scrape", "reCAPTCHA + ToS", "Manual, grupy „Nabijarki do tytoniu\"", "FB grupy = ręcznie"],
+    ], [4.5 * cm, 4.5 * cm, 4.5 * cm, 4 * cm], fontsize=7.5)
+
+    # 9.4 Wnioski strategiczne
+    story.append(Paragraph("9.4 Wnioski strategiczne (po 8 sesjach)", styles["h2"]))
+    bullet(story, "<b>Baza darmowa + publiczna = ~70% leadów</b> weryfikowalnych. Reszta = paid API lub manual.")
+    bullet(story, "<b>Najlepszy stosunek sygnału do ceny:</b> KRS + VIES + ARES + Google Places + Allegro (~$30/m) — pokrywa ~85% PL/CZ.")
+    bullet(story, "<b>Dla LT/LV/BG/SI/HR:</b> jedyna realna opcja to Veritor ($199/5k) — bez tego manual.")
+    bullet(story, "<b>L0 must-have</b> — bez niego 30% halucynacji. <b>L9 (LLM) bez L0 = katastrofa</b>.")
+    bullet(story, "<b>Najgorszy ROI:</b> ONRC (8 lei/odpis) + WHOIS po 2018 (zero danych) + OLX scraping (ciągle blokowany).")
+    callout(story,
+        "<b>Dla handlowca:</b> Jak dostajesz nowy lead i nie możesz znaleźć NIP w Google — sprawdź czy to nie mała firma / JDG. "
+        "Wtedy trzeba albo Veritor ($199/m), albo 5-10 min manual przez nipgo.pl. "
+        "Nie trać czasu na ONRC, OLX scraping ani WHOIS.")
+
+    # 9.5 Cykl DZIENNIK + INTEL
+    story.append(Paragraph("9.5 Cykl DZIENNIK + INTEL — jak się uczymy", styles["h2"]))
+    para(story,
+         "<b>DZIENNIK.md</b> to chronologiczny log sesji. <b>INTEL.md</b> to skumulowana wiedza. Razem tworzą "
+         "<b>compounding knowledge</b> — każda sesja zaczyna z lekcji poprzedniej, nie od zera.")
+    callout(story,
+        "<b>Cykl:</b> (1) Search -> (2) Log do DZIENNIK (5-10 min: co zadziałało, co nie, pytania) -> "
+        "(3) Ekstrakcja do INTEL (partnerzy > hurt 1k klientów, realne dane Allegro/Ceneo/TikTok, nowe API, limity systemowe) -> "
+        "(4) Następna sesja zaczyna z tej wiedzy.",
+        color=HexColor("#e6f4ea"))
+    para(story, "<b>Kiedy pisać do DZIENNIK.md:</b>", style="body")
+    bullet(story, "Po każdej sesji search (5-10 min): data, metoda (L0-L11), co znaleziono, nowe pytania")
+    bullet(story, "Przy napotkaniu halucynacji LLM (typ NIP/KRS wskazuje na inną firmę)")
+    bullet(story, "Przy znalezieniu nowego narzędzia / API / źródła danych")
+    bullet(story, "Przy zmianie kolumny schematu CSV lub decyzji architektonicznej")
+    bullet(story, "Po każdej decyzji z Marcelim (kierunek, scope, priorytet)")
+    para(story, "<b>Kiedy przenosić do INTEL.md:</b>", style="body")
+    bullet(story, "Partner > hurtownik 1000+ klientów → wpis do sekcji <b>Partnerzy</b>")
+    bullet(story, "Realne dane rynkowe (Allegro/Ceneo/TikTok) → sekcja <b>Dane rynkowe PL</b>")
+    bullet(story, "Nowe API lub tool → sekcja <b>Narzędzia</b>")
+    bullet(story, "Ograniczenie systemowe (np. CEIDG v3 pusty body) → sekcja <b>Limity</b>")
+    callout(story,
+        "<b>Korzyść po 8 sesjach (10-18 VIII 2026):</b> DZIENNIK 1586 linii logu + INTEL 450 linii wiedzy + "
+        "methodology 875 linii reference. Bez tego cyklu każda sesja zaczynałaby od zera. "
+        "<b>To jest compounding knowledge</b> — i dlatego BILLSzuka jest wartościowa, a nie jednorazowa.",
+        color=HexColor("#fff8e6"))
     story.append(Spacer(1, 0.3 * cm))
 
     # === 10 ===
@@ -970,7 +1041,7 @@ def build_tail(story):
     para(story,
         "<i>Dokument wygenerowany 2026-08-19 na podstawie INTEL.md, DZIENNIK.md, methodology.md, "
         "data/{Kraj}/insight-{ISO}.md, data/{Kraj}/SŁOWNIK-{ISO}.md i data/master.csv.</i>", "small")
-    para(story, "<i>Wersja 1.3 · Właściciel: Marceli (BILLS Sp. z o.o.) · Kolejna aktualizacja: po każdym nowym enrichment lub outreachu.</i>", "small")
+    para(story, "<i>Wersja 1.4 · Właściciel: Marceli (BILLS Sp. z o.o.) · Kolejna aktualizacja: po każdym nowym enrichment lub outreachu.</i>", "small")
 
 
 def add_page_number(canvas, doc):
@@ -1001,7 +1072,7 @@ def main():
         title="BILLSzuka — Instrukcja dla Działu Sprzedaży",
         author="BILLS Sp. z o.o.",
         subject="B2B lead research methodology",
-        creator="pdf_gen_instrukcja.py v1.3",
+        creator="pdf_gen_instrukcja.py v1.4",
     )
 
     story = []
