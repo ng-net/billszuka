@@ -407,7 +407,7 @@ def build_main(story):
         ["12", "Jak korzystać z bazy (3 kroki dla handlowca)"],
         ["13", "Status projektu i plan Q3–Q4 2026"],
     ]
-    table(story, toc_data, [1.5 * cm, 16 * cm], fontsize=8.5)
+    table(story, toc_data, [1.5 * cm, 16 * cm], fontsize=7)
     story.append(Spacer(1, 0.3 * cm))
 
     # === 1 ===
@@ -428,7 +428,7 @@ def build_main(story):
         ["Źródła danych", "100% publiczne (rejestry, KRS/CEIDG/ARES/VIES, marketplace, OSINT)"],
         ["Pliki PDF per kraj", "12 x data/{Kraj}/PDF-{ISO}.pdf (107 stron łącznie)"],
         ["Pliki SŁOWNIK per kraj", "12 x data/{Kraj}/SŁOWNIK-{ISO}.md"],
-    ], [5 * cm, 12.5 * cm], fontsize=8)
+    ], [5 * cm, 12.5 * cm], fontsize=7)
     callout(story,
         "<b>Cel biznesowy:</b> 3–5 podpisanych umów dystrybucyjnych na PowerMatic / Hawk w ciągu 12 miesięcy. "
         "Każdy rekord w master.csv jest kandydatem, który przeszedł weryfikację minimum jednego oficjalnego rejestru.")
@@ -451,7 +451,7 @@ def build_main(story):
         ["L9", "LLM (DeepSeek, Gemini, Claude) + multi-LLM consensus", "OpenRouter paid", "[OK] używane"],
         ["L10", "EUIPO trademark search", "darmowy", "[X] nie wdrożone"],
         ["L11", "BZP / TED zamówienia publiczne", "darmowy", "[X] nie wdrożone"],
-    ], [1.2 * cm, 8.5 * cm, 3.5 * cm, 4.3 * cm], fontsize=7.5)
+    ], [1.2 * cm, 8.5 * cm, 3.5 * cm, 4.3 * cm], fontsize=7)
     callout(story,
         "<b>W skrócie:</b> działa to, co jest darmowe i oficjalne (KRS, ARES, VIES, e-Äriregister). "
         "Nie działa to, co wymaga SPA scraping (LT, LV, BG) lub płatnej subskrypcji (Veritor, ENTIA).")
@@ -469,7 +469,7 @@ def build_main(story):
         ["A4", "Multi-brand z PM/Hawk", "Resellerzy wielu marek"],
         ["A5", "Własna marka / OEM z Chin", "Konkurencja cenowa (zostaje w katalogu)"],
         ["A6", "Multi-brand bez PM/Hawk", "Kandydaci do pozyskania"],
-    ], [1.2 * cm, 5.5 * cm, 10.8 * cm], fontsize=8.5)
+    ], [1.2 * cm, 5.5 * cm, 10.8 * cm], fontsize=7)
     story.append(Paragraph("3.2 Katalog B — branża tytoniowa bez maszynek (288 firm)", styles["h2"]))
     para(story, "Numer to <b>powinowactwo z nabijarkami</b> w skali 1–5: 5 = kupi prawie na pewno, 1 = marginalny overlap.")
     table(story, [
@@ -483,7 +483,7 @@ def build_main(story):
         ["B7", "Snus / pouches", "2", "Rosnący segment, klient raczej nie skręca"],
         ["B8", "Hurtownie tytoniowe", "5", "Najwyższy priorytet — mają wszystko poza maszynkami"],
         ["B9", "CBD / susz", "4", "Wysoki overlap kliencki"],
-    ], [1 * cm, 5 * cm, 0.8 * cm, 10.7 * cm], fontsize=8.5)
+    ], [1 * cm, 5 * cm, 0.8 * cm, 10.7 * cm], fontsize=7)
     callout(story,
         "<b>Najważniejsza reguła:</b> Kryterium to <b>overlap kliencki, nie kanałowy</b>. B8 (hurtownia) "
         "waży więcej niż B6 (sieć vape), bo hurtownia ma decydenta i 5 000 punktów dystrybucji.")
@@ -502,7 +502,7 @@ def build_main(story):
         ["marketplace", "Allegro/Amazon, dropshipping", "Konto >5k opinii", "tysiące"],
         ["producent", "Własne maszynki lub gilzy", "Własna marka, fabryka", "5–10"],
         ["hurtownik", "Hurtownia FMCG/tytoniowa", "PKD 46.35Z, magazyn", "20–50"],
-    ], [2.5 * cm, 5 * cm, 6.5 * cm, 3.5 * cm], fontsize=8)
+    ], [2.5 * cm, 5 * cm, 6.5 * cm, 3.5 * cm], fontsize=7)
     story.append(Paragraph("4.2 WOLUMEN — szacowany miesięczny obrót maszynkami", styles["h2"]))
     para(story, "Format: <code>duży [OK]</code> (skala + confidence). Progi skalibrowane na niszę, nie na FMCG ogólne.")
     table(story, [
@@ -510,7 +510,7 @@ def build_main(story):
         ["duży", "PL, CZ, FR", "<50", "50–500", "500+"],
         ["średni", "RO, BG, HR, SI, SK", "<20", "20–200", "200+"],
         ["mały", "LT, LV, EE, MD", "<5", "5–50", "50+"],
-    ], [3 * cm, 4.5 * cm, 3 * cm, 3.5 * cm, 3.5 * cm], fontsize=8.5)
+    ], [3 * cm, 4.5 * cm, 3 * cm, 3.5 * cm, 3.5 * cm], fontsize=7)
     callout(story,
         "<b>Zastrzeżenie:</b> rynek nabijarek to nisza. Nawet „duży\" gracz w PL to realnie 200–500 szt./mies. "
         "Próg 500+ to największe hurtownie ogólnopolskie.")
@@ -524,7 +524,7 @@ def build_main(story):
         ["[KONK-B]", "Sprzedaje klon 1:1 naszych marek (Topomat, Turbomatic)"],
         ["[KONK-P]", "Nabijarki, ale inna półka cenowa"],
         ["[PARTNER]", "Może być kanałem"],
-    ], [4 * cm, 13.5 * cm], fontsize=8.5)
+    ], [4 * cm, 13.5 * cm], fontsize=7)
     callout(story,
         "<b>Dla handlowca:</b> [OK] FROZEN + [BIG] = kontakt priorytetowy. "
         "[!] DO-WERYFIKACJI = sprawdzić ręcznie przed wysłaniem oferty.",
@@ -579,7 +579,7 @@ def build_main(story):
         ["[LT] Litwa", "UAB SANITEX", "LT 110443493", "46.39.00", "Ramūnas Kairys"],
         ["[LV] Łotwa", "SIA SANITEX", "LV 40003166842", "46.39.00", "—"],
         ["[EE] Estonia", "OÜ SANITEX", "EE 11931003", "46.39.00", "—"],
-    ], [2 * cm, 4 * cm, 4 * cm, 2 * cm, 5.5 * cm], fontsize=8.5)
+    ], [2 * cm, 4 * cm, 4 * cm, 2 * cm, 5.5 * cm], fontsize=7)
     callout(story,
         "<b>Metryki:</b> 1 239 pracowników, 35 000 klientów, kapitał 4,4M EUR. "
         "<b>Wniosek:</b> Jedna umowa dystrybucyjna otwiera 3 kraje.",
@@ -611,7 +611,7 @@ def build_main(story):
         ["[FR]", "Logista France", "hurtownik [BIG]", "B4", "23k buralistów, główny kanał dla papierosów"],
         ["[FR]", "Royal Distribution", "hurtownik", "B4", "Akredytowany dostawca buralistów"],
         ["[MD]", "S.R.L. NewSmoke Distribution", "dystrybutor", "A4", "Kiszyniów, RYO + e-papierosy"],
-    ], [1.5 * cm, 4.5 * cm, 2.5 * cm, 1 * cm, 8 * cm], fontsize=7.5)
+    ], [1.5 * cm, 4.5 * cm, 2.5 * cm, 1 * cm, 8 * cm], fontsize=7)
     story.append(Spacer(1, 0.3 * cm))
 
 
@@ -815,7 +815,7 @@ def build_tail(story):
         ["TikTok Creative Center", "Weryfikacja realnych zasięgów hashtagów", "18,6k śr. wyświetleń #tiktokpolska (TOP PL)"],
         ["Multi-LLM consensus", "Eliminuje halucynacje NIP/KRS", "2/3 modeli muszą się zgodzić"],
         ["Sanitex (LT/LV/EE hub)", "1 partner = 3 kraje (multi-country)", "1239 pracowników, 35k klientów, 4,4M EUR kapitał"],
-    ], [4 * cm, 7.5 * cm, 6 * cm], fontsize=8)
+    ], [4 * cm, 7.5 * cm, 6 * cm], fontsize=7)
 
     # 9.3 Co nie zadziałało
     story.append(Paragraph("9.3 Co nie zadziałało ([!]) + fallback", styles["h2"]))
@@ -830,7 +830,7 @@ def build_tail(story):
         ["OLX / Ceneo / InPost Buy", "Brak oficjalnego API", "Scraping (blokowany)", "NIE polegaj dla skali"],
         ["Photon / OSM", "Brak danych B2B (tylko adresy)", "Google Places", "OSM = adresy, nie firmy"],
         ["Facebook grup scrape", "reCAPTCHA + ToS", "Manual przez grupy FB", "FB grupy = ręcznie"],
-    ], [4.5 * cm, 4.5 * cm, 4.5 * cm, 4 * cm], fontsize=7.5)
+    ], [4.5 * cm, 4.5 * cm, 4.5 * cm, 4 * cm], fontsize=7)
 
     # 9.4 Wnioski strategiczne
     story.append(Paragraph("9.4 Wnioski strategiczne (po 8 sesjach)", styles["h2"]))
@@ -885,7 +885,7 @@ def build_tail(story):
         ["[HR]", "Sudski registar", "SPA + reCAPTCHA", "17/19 (89%)"],
         ["[BG]", "Trade Register", "Brak API, web search per firma", "30/34 (88%)"],
         ["[MD]", "State Register (IDNO)", "Brak dobrego API", "5/7 (71%)"],
-    ], [1.5 * cm, 4.5 * cm, 6 * cm, 5.5 * cm], fontsize=8)
+    ], [1.5 * cm, 4.5 * cm, 6 * cm, 5.5 * cm], fontsize=7)
     callout(story,
         "<b>Praktyczny efekt:</b> w tych krajach część leadów jest oznaczona [!] DO-WERYFIKACJI. "
         "<b>Przed wysłaniem oferty</b> sprawdź ręcznie w przeglądarce.")
@@ -898,7 +898,7 @@ def build_tail(story):
         ["WHOIS dla .pl", "0% (po 2018)", "Tylko registrar, daty"],
         ["CEIDG v3 API", "~5%", "Pusty body dla typowych nazw"],
         ["OpenRouter Perplexity/sonar", "0–10%", "LLM nie ma dostępu do rejestrów"],
-    ], [5 * cm, 3 * cm, 9.5 * cm], fontsize=8)
+    ], [5 * cm, 3 * cm, 9.5 * cm], fontsize=7)
     callout(story, "<b>Wniosek:</b> dla małych firm potrzeba <b>paid API</b> (Veritor, ENTIA) albo <b>manual</b> (5–10 min/firma).")
     story.append(Paragraph("10.3 Marketplace'y bez API", styles["h2"]))
     table(story, [
@@ -911,7 +911,7 @@ def build_tail(story):
         ["Alza (CZ)", "B2B partner", "Stany magazynowe", "nie wdrożone"],
         ["Kaufland (DE/PL)", "Marketplace", "NIP, opinie", "nie wdrożone"],
         ["InPost Buy (PL)", "brak", "—", "brak"],
-    ], [4 * cm, 2.5 * cm, 5.5 * cm, 5.5 * cm], fontsize=8)
+    ], [4 * cm, 2.5 * cm, 5.5 * cm, 5.5 * cm], fontsize=7)
     story.append(Paragraph("10.4 Brak danych decydentów (główna luka)", styles["h2"]))
     para(story, "<b>Stan na 2026-08-19:</b> decydent wypełniony tylko dla 142/393 firm (36%).")
     table(story, [
@@ -928,7 +928,7 @@ def build_tail(story):
         ["[EE]", "53% (19/36)", "e-Äriregister działa dobrze"],
         ["[FR]", "19% (4/21)", "Pappers.fr (paid) lub Societe.com (limit)"],
         ["[MD]", "14% (1/7)", "Brak publicznego źródła"],
-    ], [1.5 * cm, 3 * cm, 13 * cm], fontsize=7.5)
+    ], [1.5 * cm, 3 * cm, 13 * cm], fontsize=7)
     callout(story, "<b>Wniosek:</b> wypełnienie decydenta do >80% wymaga <b>Veritor / ENTIA / Pappers.fr</b> (subskrypcja).")
     story.append(Paragraph("10.5 Hallucynacje LLM — zagrożenie dla bazy", styles["h2"]))
     para(story, "LLM potrafi generować poprawne checksumowo NIP-y wskazujące na zupełnie inne firmy. Przykład z bazy: „HURTOWNIA PAPIEROSÓW CYGARO\" = KRS 0000123456 -> realnie to RODENSTOCK POLSKA (optyka).")
@@ -975,7 +975,7 @@ def build_tail(story):
         ["Ahrefs / Senuto", "Realne wolumeny wyszukiwania", "$99–$199/m", "[X] nie wdrożone"],
         ["Google Trends", "Trend rosnący/malejący", "Darmowy", "[OK] używane"],
         ["TikTok Creative Center", "Realne zasięgi hashtagów", "Darmowy", "[OK] używane"],
-    ], [4 * cm, 6 * cm, 4 * cm, 3.5 * cm], fontsize=7.5)
+    ], [4 * cm, 6 * cm, 4 * cm, 3.5 * cm], fontsize=7)
     story.append(Paragraph("11.4 Rekomendowany stack (priorytet 1, 2, 3)", styles["h2"]))
     callout(story,
         "<b>Priorytet 1 — najszybszy efekt (~$250/m):</b><br/>"
@@ -1031,7 +1031,7 @@ def build_tail(story):
         ["Cross-country ties", "2026-08-18", "[OK] GGT (CZ+SK), GECO (CZ+SK), TTI (CZ+SK+BG+RO), Sanitex (LT+LV+EE)"],
         ["12 PDF katalogów per kraj", "2026-08-18", "[OK] 107 stron łącznie, locked v9"],
         ["3–5 podpisanych umów dystrybucyjnych", "target: 12 mies.", "[W TOKU] w toku"],
-    ], [6.5 * cm, 3.5 * cm, 7.5 * cm], fontsize=8.5)
+    ], [6.5 * cm, 3.5 * cm, 7.5 * cm], fontsize=7)
     story.append(Paragraph("Plan 2026 Q3-Q4", styles["h2"]))
     para(story, "<b>1. Veritor / Pappers.fr subskrypcja</b> -> decydent fill 36% -> 80%.")
     para(story, "<b>2. Outreach 28 FROZEN PL firm</b> (katalog A) + <b>6 Big Fish PL</b> (katalog B).")

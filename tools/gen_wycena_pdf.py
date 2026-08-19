@@ -169,30 +169,27 @@ def build():
     flow.append(Paragraph("WYCENA BILLSzuka v1.0 — Kosztorys Retrospektywny", styles["Title"]))
     flow.append(Paragraph("Wykonawca: DS — Design System · Zamawiający: BILLS Sp. z o.o. · 2026-08-19 · 12 krajów CEE i Bałtyckich", styles["Subtitle"]))
 
-    # Summary box (compact 1 row)
+    # Summary box (4 cells, stat+label together, fits in 170mm width)
     total_hours = sum(PRICING[iso][0] for iso in ORDER)
     summary_data = [[
-        C("393", "right"), C("leadów zweryfikowanych<br/><font size=6 color='#888'>12 krajów</font>"),
-        C("253", "right"), C("decydentów verified<br/><font size=6 color='#888'>61% pokrycia</font>"),
-        C(f"{total_hours:.1f} h", "right"), C(f"czas pracy inż.<br/><font size=6 color='#888'>40 PLN/h · 5 dni</font>"),
-        C(f"{total_pln:,} PLN", "right"), C("<b>CENA FINALNA netto</b><br/><font size=6 color='#888'>≤ 3 000 PLN</font>"),
+        C("<font size=18><b>393</b></font><br/><font size=6.5 color='#555'>leadów zweryfikowanych</font><br/><font size=6 color='#888'>12 krajów</font>"),
+        C("<font size=18><b>253</b></font><br/><font size=6.5 color='#555'>decydentów verified</font><br/><font size=6 color='#888'>61% pokrycia</font>"),
+        C(f"<font size=18><b>{total_hours:.1f} h</b></font><br/><font size=6.5 color='#555'>czas pracy inż.</font><br/><font size=6 color='#888'>40 PLN/h · 5 dni</font>"),
+        C(f"<font size=18><b>{total_pln:,} PLN</b></font><br/><font size=6.5 color='#555'>CENA FINALNA netto</font><br/><font size=6 color='#888'>≤ 3 000 PLN</font>"),
     ]]
-    t = Table(summary_data, colWidths=[18*mm, 38*mm, 18*mm, 38*mm, 18*mm, 38*mm, 22*mm, 50*mm])
+    t = Table(summary_data, colWidths=[42*mm, 42*mm, 42*mm, 44*mm])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), BG_LIGHT),
-        ("LINEAFTER", (0, 0), (-1, -1), 0.5, GRAY_LIGHT),
+        ("LINEAFTER", (0, 0), (-2, -1), 0.5, GRAY_LIGHT),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("LEFTPADDING", (0, 0), (-1, -1), 4),
         ("RIGHTPADDING", (0, 0), (-1, -1), 4),
-        ("TOPPADDING", (0, 0), (-1, -1), 5),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-        ("TEXTCOLOR", (0, 0), (0, 0), NAVY),
-        ("TEXTCOLOR", (2, 0), (2, 0), NAVY),
-        ("TEXTCOLOR", (4, 0), (4, 0), NAVY),
-        ("TEXTCOLOR", (6, 0), (6, 0), NAVY),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
     ]))
     flow.append(t)
-    flow.append(Spacer(1, 4))
+    flow.append(Spacer(1, 6))
 
     # 1. Składniki Kosztorysowe
     flow.append(Paragraph("1. Składniki Kosztorysowe i Podział Czasu (Per Kraj)", styles["H1"]))
@@ -278,7 +275,8 @@ def build():
     flow.append(Paragraph("<b>Kraje pominięte w etapie 1</b> (zgodnie z brief: PL → CZ → SK → UK → DE): UK, DE (pominięte per „skip Germany unless explicitly requested\"), IE, NL, AT, HU. Gotowe metodyki, do realizacji w etapie 2.", styles["Body"]))
     flow.append(Paragraph("<b>Anti-halucynacja gwarantowana:</b> Każdy decydent dodany w sesjach 2026-08-18 przeszedł weryfikację URL (fetch → check name in page). 0 false positives w 40+ zweryfikowanych wpisach. Źródła publiczne tylko: api.gouv.fr (FR), ariregister.rik.ee (EE), orsr.sk (SK), finansi.bg + kompass.com (BG), Perplexity Sonar (cross-checked).", styles["Body"]))
 
-    # 5. Audit
+    # 5. Audit (force page 2)
+    flow.append(PageBreak())
     flow.append(Paragraph("5. Audyt Czasu — Wzór Wyceny", styles["H1"]))
     audit = [
         ["Czas pracy inżynierskiej", "5 dni × 8 h ≈ 40 h", "40 h × 40 PLN/h = 1 600 PLN brutto"],
