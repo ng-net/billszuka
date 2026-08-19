@@ -55,31 +55,31 @@ def style(name, **kw):
 
 
 style("Title",
-      fontName=BASE_FONT, fontSize=14, leading=16, textColor=NAVY,
+      fontName=BASE_FONT, fontSize=15, leading=17, textColor=NAVY,
       spaceAfter=1, spaceBefore=0, alignment=TA_LEFT)
 style("Subtitle",
-      fontName=BASE_FONT, fontSize=7.5, leading=9, textColor=GRAY_MID,
+      fontName=BASE_FONT, fontSize=8, leading=10, textColor=GRAY_MID,
       spaceAfter=4, alignment=TA_LEFT)
 style("H1",
-      fontName=BASE_FONT, fontSize=9, leading=11, textColor=NAVY,
-      spaceAfter=2, spaceBefore=5, alignment=TA_LEFT)
+      fontName=BASE_FONT, fontSize=10, leading=12, textColor=NAVY,
+      spaceAfter=3, spaceBefore=8, alignment=TA_LEFT)
 style("H2",
-      fontName=BASE_FONT, fontSize=8, leading=10, textColor=GRAY_DARK,
-      spaceAfter=1, spaceBefore=2, alignment=TA_LEFT)
+      fontName=BASE_FONT, fontSize=9, leading=11, textColor=GRAY_DARK,
+      spaceAfter=1, spaceBefore=3, alignment=TA_LEFT)
 style("Body",
-      fontName=BASE_FONT, fontSize=7, leading=8.5, textColor=GRAY_DARK,
-      spaceAfter=1, spaceBefore=0, alignment=TA_LEFT)
+      fontName=BASE_FONT, fontSize=8, leading=10, textColor=GRAY_DARK,
+      spaceAfter=2, spaceBefore=0, alignment=TA_LEFT)
 style("Note",
-      fontName=BASE_FONT, fontSize=6.5, leading=8, textColor=GRAY_MID,
+      fontName=BASE_FONT, fontSize=7, leading=9, textColor=GRAY_MID,
       spaceAfter=1, spaceBefore=0, alignment=TA_LEFT)
 style("CellHead",
-      fontName=BASE_FONT, fontSize=6.5, leading=7.5, textColor=colors.white,
+      fontName=BASE_FONT, fontSize=7, leading=8, textColor=colors.white,
       spaceAfter=0, spaceBefore=0, alignment=TA_LEFT)
 style("Cell",
-      fontName=BASE_FONT, fontSize=6.5, leading=8, textColor=GRAY_DARK,
+      fontName=BASE_FONT, fontSize=7, leading=9, textColor=GRAY_DARK,
       spaceAfter=0, spaceBefore=0, alignment=TA_LEFT)
 style("CellR",
-      fontName=BASE_FONT, fontSize=6.5, leading=8, textColor=GRAY_DARK,
+      fontName=BASE_FONT, fontSize=7, leading=9, textColor=GRAY_DARK,
       spaceAfter=0, spaceBefore=0, alignment=2)  # right
 
 
@@ -189,7 +189,7 @@ def build():
         ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
     ]))
     flow.append(t)
-    flow.append(Spacer(1, 6))
+    flow.append(Spacer(1, 8))
 
     # 1. Składniki Kosztorysowe
     flow.append(Paragraph("1. Składniki Kosztorysowe i Podział Czasu (Per Kraj)", styles["H1"]))
@@ -218,6 +218,7 @@ def build():
     flow.append(t)
 
     # 2. Zestawienie Wycen per Kraj (compact)
+    flow.append(Spacer(1, 4))
     flow.append(Paragraph("2. Zestawienie Wycen dla Krajów Regionu", styles["H1"]))
     rows_data = [[
         H("Kraj"), H("Region"), H("Firm"), H("Dec"), H("Czas"),
@@ -255,6 +256,7 @@ def build():
     flow.append(t)
 
     # 3. Co otrzymuje Zamawiający
+    flow.append(Spacer(1, 4))
     flow.append(Paragraph("3. Co Otrzymuje Zamawiający", styles["H1"]))
     deliverables = [
         ["393 zweryfikowane leady w formacie CSV (master.csv, 35 kolumn, schema kanoniczna)"],
@@ -269,6 +271,7 @@ def build():
         flow.append(Paragraph(f"• {d}", styles["Body"]))
 
     # 4. Wyjaśnienia
+    flow.append(Spacer(1, 4))
     flow.append(Paragraph("4. Wyjaśnienia Strategiczne i Operacyjne", styles["H1"]))
     flow.append(Paragraph("<b>Skąd stawki:</b> Cennik bazuje na modelu „5 dni × 8 h × 40 PLN/h = 1 600 PLN inżynieria + 12 × 100 PLN infra = 2 700 PLN\". Przy 40 PLN/h jest to stawka niższa niż polskie agencje B2B research (150–300 PLN/h), ale wyższa niż wewnętrzny analityk z pensją. Balans odzwierciedla hybrydowy model: automatyzacja algorytmiczna (rejestry, scraper) + egzekucja manualna (weryfikacja decydentów C-Level).", styles["Body"]))
     flow.append(Paragraph("<b>Skąd podział godzin:</b> Rozkład 1,5–5,5 h per kraj zależy od (a) liczby firm w master.csv, (b) dostępności publicznego API, (c) bariery językowej. MD (7 firm) = 1,5 h, PL (157 firm, deep dive) = 5,5 h. Kraje z działającym publicznym API (EE, CZ, FR, SK) mają wyższe stawki bo więcej firm do przetworzenia, nie bo trudniejsze.", styles["Body"]))
@@ -278,6 +281,7 @@ def build():
     # 5. Audit (force page 2)
     flow.append(PageBreak())
     flow.append(Paragraph("5. Audyt Czasu — Wzór Wyceny", styles["H1"]))
+    flow.append(Spacer(1, 4))
     audit = [
         ["Czas pracy inżynierskiej", "5 dni × 8 h ≈ 40 h", "40 h × 40 PLN/h = 1 600 PLN brutto"],
         ["Rozkład godzin per kraj", "0,5 h (MD) → 6,25 h (PL)", "Skala = liczba leadów w master.csv"],
@@ -303,6 +307,7 @@ def build():
     flow.append(Paragraph(f"<b>40 h × 40 PLN/h = 1 600 PLN inżynieria + 12 × 100 PLN infra = 2 810 PLN netto</b>", styles["Body"]))
 
     # 6. Nota do Zamawiającego
+    flow.append(Spacer(1, 4))
     flow.append(Paragraph("6. Wersja 1.0 — Nota do Zamawiającego", styles["H1"]))
     flow.append(Paragraph("Niniejsza wycena jest <b>pierwszą iteracją</b> (v1.0) i może ulec korekcie w następujących przypadkach:", styles["Body"]))
     notes = [
