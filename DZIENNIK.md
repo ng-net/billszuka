@@ -1622,3 +1622,49 @@ v1.4 ma: 9. "Metody researchu B2B — 11 poziomów + nauka per sesja" (5 podsekc
 
 ### Wersjonowanie
 v1.3 → v1.4 (2026-08-19 11:30). Nazwa pliku PDF, znacznik w stopce i creator zaktualizowane.
+
+## 2026-08-19 — INSTRUKCJA.pdf v1.5 — overlap fix + weryfikacja PL znaków (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o regenerację PDF i sprawdzenie czy polskie znaki się wyświetlają oraz czy teksty nie nachodzą na siebie.
+
+**Weryfikacja wizualna (16 stron, pdftoppm -r 100):**
+- ✅ Polskie znaki (ąćęłńóśźż, wielkie) — renderują się poprawnie w całym PDF
+- ✅ Brak `□` (failed glyph) — wszystkie znaki mają glif w Verdana
+- ✅ Brak problemów z `→×📄` (zastąpione `->`, `x`, `[PDF]`)
+- ✅ Brak flag emoji (zastąpione `[PL]`, `[CZ]`, itd.)
+
+**Overlapy wykryte i naprawione:**
+
+1. **Str. 2 — tabela "Który PDF czytać pierwszy"**: col 1 nachodził na col 3 (4 wiersze)
+   - Skrócono: "Polski hurtownik tytoniowy" + "str. 1 (PL: 26 mld PLN/rok)" → "(PL: 26 mld)"
+   - "Bałtycki dystrybutor FMCG" + "PDF-LT + PDF-LV + PDF-EE" + "1 każde + §6 (Sanitex)" → "LT+LV+EE PDF" + "1 + §6 (Sanitex)"
+   - "Czeski/Morawski gracz tytoniowy" + "str. 1 (CZ: 55 mld CZK/rok)" → "Czeski gracz tytoniowy" + "str. 1 (CZ: 55 mld)"
+   - "Bułgarski producent OEM" + "str. 1 (BG: hub Płowdiw)" → "(BG: Płowdiw)"
+   - "Francuski buralista / hurtownik" + "str. 1 (FR: 23k buralistów)" → "Francuski buralista" + "(FR: 23k)"
+
+2. **Str. 2 — "Spis treści"**: header "Sekcja" nachodził z "Temat"
+   - colWidths: `[1 * cm, 16.5 * cm]` → `[1.5 * cm, 16 * cm]`
+
+3. **Str. 4 — "4.1 TIER — typ relacji handlowej"**: col 2 nachodził na col 3
+   - Skrócono teksty col 2: "Jedyny autoryzowany dystrybutor na kraj/region" → "Jedyny autoryz. dystrybutor"
+   - "Partner z umową, bez wyłączności" → "Partner z umową, nie wyłączny"
+   - "Hurtowo kupuje lub sam importuje, bez umowy" → "Hurtowy zakup lub import"
+   - "Sklep detaliczny, wąska marża" (bez zmian)
+   - "Allegro/Amazon, często dropshipping" → "Allegro/Amazon, dropshipping"
+   - "Wytwarza własne maszynki lub gilzy" → "Własne maszynki lub gilzy"
+   - colWidths: `[2.5, 6, 5.5, 3.5]` → `[2.5, 5, 6.5, 3.5]`
+
+**Wynik końcowy:**
+- 16 stron, 138.7 KB
+- Wszystkie 4 warstwy overlap usunięte
+- Polskie znaki 100% poprawne
+- Layout v1.4 (sekcja 9 = 11 metod + DZIENNIK/INTEL) zachowany
+
+**Pliki zmienione:**
+- `tools/pdf_gen_instrukcja.py` — colWidths + skrócone teksty
+- `data/INSTRUKCJA.pdf` — v1.4 → v1.5 (regenerowany)
+
+**Wersjonowanie:** v1.4 → v1.5 (2026-08-19 11:38).

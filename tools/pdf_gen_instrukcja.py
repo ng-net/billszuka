@@ -309,11 +309,11 @@ def build_inventory_page(story, country_rows):
     story.append(Paragraph("Który PDF czytać pierwszy — priorytet per typ klienta", styles["h2"]))
     data2 = [
         ["Jeśli Twój klient jest…", "Zacznij od", "Strony z potencjałem"],
-        ["Polski hurtownik tytoniowy", "PDF-PL.pdf", "str. 1 (PL: 26 mld PLN/rok)"],
-        ["Bałtycki dystrybutor FMCG", "PDF-LT + PDF-LV + PDF-EE", "1 każde + §6 (Sanitex)"],
-        ["Czeski/Morawski gracz tytoniowy", "PDF-CZ.pdf", "str. 1 (CZ: 55 mld CZK/rok)"],
-        ["Bułgarski producent OEM", "PDF-BG.pdf", "str. 1 (BG: hub Płowdiw)"],
-        ["Francuski buralista / hurtownik", "PDF-FR.pdf", "str. 1 (FR: 23k buralistów)"],
+        ["Polski hurtownik tytoniowy", "PDF-PL.pdf", "str. 1 (PL: 26 mld)"],
+        ["Bałtycki dystrybutor FMCG", "LT+LV+EE PDF", "1 + §6 (Sanitex)"],
+        ["Czeski gracz tytoniowy", "PDF-CZ.pdf", "str. 1 (CZ: 55 mld)"],
+        ["Bułgarski producent OEM", "PDF-BG.pdf", "str. 1 (BG: Płowdiw)"],
+        ["Francuski buralista", "PDF-FR.pdf", "str. 1 (FR: 23k)"],
     ]
     tbl2 = Table(data2, colWidths=[5.5 * cm, 4.5 * cm, 7.5 * cm])
     tbl2.setStyle(TableStyle([
@@ -407,7 +407,7 @@ def build_main(story):
         ["12", "Jak korzystać z bazy (3 kroki dla handlowca)"],
         ["13", "Status projektu i plan Q3–Q4 2026"],
     ]
-    table(story, toc_data, [1 * cm, 16.5 * cm], fontsize=8.5)
+    table(story, toc_data, [1.5 * cm, 16 * cm], fontsize=8.5)
     story.append(Spacer(1, 0.3 * cm))
 
     # === 1 ===
@@ -495,14 +495,14 @@ def build_main(story):
     story.append(Paragraph("4.1 TIER — typ relacji handlowej", styles["h2"]))
     table(story, [
         ["Tier", "Co to znaczy", "Jak rozpoznać", "Skala PL"],
-        ["wyłączność", "Jedyny autoryzowany dystrybutor na kraj/region", "„Jedyny autoryzowany\"", "1–2"],
-        ["autoryzowany", "Partner z umową, bez wyłączności", "„Autoryzowany sprzedawca\"", "5–15"],
-        ["reseller", "Hurtowo kupuje lub sam importuje, bez umowy", "Brak „oficjalny\"", "30–100"],
+        ["wyłączność", "Jedyny autoryz. dystrybutor", "„Jedyny autoryzowany\"", "1–2"],
+        ["autoryzowany", "Partner z umową, nie wyłączny", "„Autoryzowany sprzedawca\"", "5–15"],
+        ["reseller", "Hurtowy zakup lub import", "Brak „oficjalny\"", "30–100"],
         ["detalista", "Sklep detaliczny, wąska marża", "Brak logistyki hurtowej", "setki"],
-        ["marketplace", "Allegro/Amazon, często dropshipping", "Konto >5k opinii", "tysiące"],
-        ["producent", "Wytwarza własne maszynki lub gilzy", "Własna marka, fabryka", "5–10"],
+        ["marketplace", "Allegro/Amazon, dropshipping", "Konto >5k opinii", "tysiące"],
+        ["producent", "Własne maszynki lub gilzy", "Własna marka, fabryka", "5–10"],
         ["hurtownik", "Hurtownia FMCG/tytoniowa", "PKD 46.35Z, magazyn", "20–50"],
-    ], [2.5 * cm, 5 * cm, 5.5 * cm, 4.5 * cm], fontsize=8)
+    ], [2.5 * cm, 5 * cm, 6.5 * cm, 3.5 * cm], fontsize=8)
     story.append(Paragraph("4.2 WOLUMEN — szacowany miesięczny obrót maszynkami", styles["h2"]))
     para(story, "Format: <code>duży [OK]</code> (skala + confidence). Progi skalibrowane na niszę, nie na FMCG ogólne.")
     table(story, [
@@ -823,13 +823,13 @@ def build_tail(story):
         ["Metoda", "Problem", "Fallback", "Wniosek"],
         ["WHOIS dla .pl", "Po 2018 (GDPR) ukryte dane", "crt.sh + scraping strony", "Nie ufaj WHOIS 2026+"],
         ["DuckDuckGo HTML", "Bot blocker + captcha, 0%", "Brave Search", "DDG tylko do weryfikacji"],
-        ["CEIDG v3 API", "Pusty body dla typowych nazw", "ręczne www.ceidg.gov.pl / nipgo.pl", "API zawodne, frontend działa"],
-        ["OpenRouter Perplexity", "LLM bez dostępu do rejestrów", "Perplexity + URL verifier (płatny)", "NIE ufaj LLM bez L0"],
-        ["LT/LV/BG/SI/HR rejestry", "SPA-only, reCAPTCHA", "Manual + Veritor (paid)", "Kraje bałtyckie = Veritor must"],
+        ["CEIDG v3 API", "Pusty body dla typowych nazw", "ręczne / nipgo.pl", "API zawodne, frontend działa"],
+        ["OpenRouter Perplexity", "LLM bez dostępu do rejestrów", "Perplexity + URL verifier", "NIE ufaj LLM bez L0"],
+        ["LT/LV/BG/SI/HR rejestry", "SPA-only, reCAPTCHA", "Manual + Veritor (paid)", "Bałtyckie = Veritor must"],
         ["ONRC (RO)", "Paid 8 lei/odpis (~7 PLN)", "Limitowane, tylko krytyczne", "Najgorszy ROI w regionie"],
-        ["OLX / Ceneo / InPost Buy", "Brak oficjalnego API", "Scraping (blokowany)", "NIE polegaj na OLX/Ceneo dla skali"],
+        ["OLX / Ceneo / InPost Buy", "Brak oficjalnego API", "Scraping (blokowany)", "NIE polegaj dla skali"],
         ["Photon / OSM", "Brak danych B2B (tylko adresy)", "Google Places", "OSM = adresy, nie firmy"],
-        ["Facebook grup scrape", "reCAPTCHA + ToS", "Manual, grupy „Nabijarki do tytoniu\"", "FB grupy = ręcznie"],
+        ["Facebook grup scrape", "reCAPTCHA + ToS", "Manual przez grupy FB", "FB grupy = ręcznie"],
     ], [4.5 * cm, 4.5 * cm, 4.5 * cm, 4 * cm], fontsize=7.5)
 
     # 9.4 Wnioski strategiczne
