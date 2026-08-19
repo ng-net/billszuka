@@ -159,8 +159,8 @@ def C(text, align="left"):
 def build():
     doc = SimpleDocTemplate(
         str(WYCENA), pagesize=A4,
-        leftMargin=12 * mm, rightMargin=12 * mm,
-        topMargin=10 * mm, bottomMargin=10 * mm,
+        leftMargin=20 * mm, rightMargin=20 * mm,
+        topMargin=18 * mm, bottomMargin=18 * mm,
         title="WYCENA BILLSzuka v1.0", author="DS — Design System",
     )
     flow = []
@@ -205,7 +205,7 @@ def build():
         [C("DS Hub Application"), C("Stały"), C("Interaktywny panel analityczny z filtrami i wyszukiwarką"), C("—"), C("+60 PLN", "right")],
         [C("<b>SUMA PER KRAJ</b>"), C("Komplet"), C("<b>Pełny proces wraz z aplikacją analityczną</b>"), C("<b>0,5–6,25 h</b>", "right"), C("<b>120–350 PLN</b>", "right")],
     ]
-    t = Table(komp, colWidths=[40*mm, 16*mm, 78*mm, 25*mm, 30*mm])
+    t = Table(komp, colWidths=[42*mm, 16*mm, 58*mm, 22*mm, 32*mm])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -242,7 +242,7 @@ def build():
         C(f"<b>+{sum(d[8] for d in data):,}</b>", "right"),
         C(f"<b>{total_pln:,} PLN</b>", "right"),
     ])
-    t = Table(rows_data, colWidths=[20*mm, 28*mm, 11*mm, 11*mm, 14*mm, 20*mm, 12*mm, 14*mm, 28*mm], repeatRows=1)
+    t = Table(rows_data, colWidths=[24*mm, 30*mm, 12*mm, 12*mm, 14*mm, 22*mm, 12*mm, 14*mm, 30*mm], repeatRows=1)
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -289,7 +289,7 @@ def build():
     ]
     t = Table([[H("Składnik"), H("Wzór"), H("Zakres")]] + [
         [C(a), C(b), C(c)] for a, b, c in audit
-    ], colWidths=[55*mm, 60*mm, 65*mm])
+    ], colWidths=[50*mm, 50*mm, 60*mm])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),

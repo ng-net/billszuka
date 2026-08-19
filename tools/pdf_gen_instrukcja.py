@@ -59,69 +59,69 @@ COLOR_BORDER = HexColor("#d0d7de")
 COLOR_GREY = HexColor("#6a737d")
 
 # --- Minimal margins: 1.0cm all around ---
-MARGIN = 1.0 * cm
+MARGIN = 0.8 * cm
 
 # --- Styles ---
 styles = {
     "title_main": ParagraphStyle(
-        "title_main", fontName="VB", fontSize=26, leading=30,
+        "title_main", fontName="VB", fontSize=24, leading=28,
         textColor=COLOR_PRIMARY, alignment=TA_CENTER, spaceAfter=4,
     ),
     "title_sub": ParagraphStyle(
-        "title_sub", fontName="V", fontSize=14, leading=18,
-        textColor=COLOR_GREY, alignment=TA_CENTER, spaceAfter=8,
+        "title_sub", fontName="V", fontSize=13, leading=16,
+        textColor=COLOR_GREY, alignment=TA_CENTER, spaceAfter=6,
     ),
     "h1": ParagraphStyle(
-        "h1", fontName="VB", fontSize=15, leading=18,
-        textColor=COLOR_PRIMARY, spaceBefore=8, spaceAfter=3,
+        "h1", fontName="VB", fontSize=14, leading=17,
+        textColor=COLOR_PRIMARY, spaceBefore=6, spaceAfter=2,
     ),
     "h2": ParagraphStyle(
-        "h2", fontName="VB", fontSize=11, leading=14,
-        textColor=COLOR_PRIMARY, spaceBefore=4, spaceAfter=2,
+        "h2", fontName="VB", fontSize=10, leading=13,
+        textColor=COLOR_PRIMARY, spaceBefore=3, spaceAfter=1,
     ),
     "h3": ParagraphStyle(
-        "h3", fontName="VB", fontSize=9.5, leading=12,
-        textColor=COLOR_ACCENT, spaceBefore=2, spaceAfter=1,
+        "h3", fontName="VB", fontSize=9, leading=11,
+        textColor=COLOR_ACCENT, spaceBefore=1, spaceAfter=1,
     ),
     "body": ParagraphStyle(
-        "body", fontName="V", fontSize=9, leading=11.5,
+        "body", fontName="V", fontSize=8.5, leading=11,
         textColor=black, spaceAfter=2, alignment=TA_LEFT,
     ),
     "body_tight": ParagraphStyle(
-        "body_tight", fontName="V", fontSize=8.5, leading=10.5,
+        "body_tight", fontName="V", fontSize=8, leading=10,
         textColor=black, spaceAfter=1, alignment=TA_LEFT,
     ),
     "small": ParagraphStyle(
-        "small", fontName="V", fontSize=7.5, leading=9.5,
+        "small", fontName="V", fontSize=7, leading=9,
         textColor=COLOR_GREY, alignment=TA_LEFT,
     ),
     "small_italic": ParagraphStyle(
-        "small_italic", fontName="VI", fontSize=7, leading=9,
+        "small_italic", fontName="VI", fontSize=6.5, leading=8.5,
         textColor=COLOR_GREY, alignment=TA_LEFT,
     ),
     "phrase_main": ParagraphStyle(
-        "phrase_main", fontName="V", fontSize=8.5, leading=10.5,
+        "phrase_main", fontName="V", fontSize=7.5, leading=9.5,
         textColor=black,
     ),
     "phrase_pl": ParagraphStyle(
-        "phrase_pl", fontName="VI", fontSize=7, leading=8.5,
-        textColor=COLOR_GREY, leftIndent=8,
+        "phrase_pl", fontName="VI", fontSize=6.5, leading=8,
+        textColor=COLOR_GREY, leftIndent=6,
     ),
     "code": ParagraphStyle(
-        "code", fontName="VI", fontSize=8, leading=10,
-        textColor=COLOR_PRIMARY, leftIndent=8,
+        "code", fontName="VI", fontSize=7.5, leading=9.5,
+        textColor=COLOR_PRIMARY, leftIndent=6,
     ),
     "callout": ParagraphStyle(
-        "callout", fontName="VI", fontSize=8.5, leading=11,
-        textColor=COLOR_PRIMARY, leftIndent=10, rightIndent=10,
-        spaceBefore=2, spaceAfter=2,
+        "callout", fontName="VI", fontSize=8, leading=10.5,
+        textColor=COLOR_PRIMARY, leftIndent=8, rightIndent=8,
+        spaceBefore=1, spaceAfter=1,
     ),
     "bullet": ParagraphStyle(
-        "bullet", fontName="V", fontSize=8.5, leading=11,
+        "bullet", fontName="V", fontSize=8, leading=10.5,
         leftIndent=12, bulletIndent=4, spaceAfter=1,
     ),
     "intro_big": ParagraphStyle(
-        "intro_big", fontName="VB", fontSize=14, leading=18,
+        "intro_big", fontName="VB", fontSize=13, leading=17,
         textColor=COLOR_PRIMARY, alignment=TA_CENTER, spaceAfter=4,
     ),
 }
@@ -234,13 +234,13 @@ def build_intro_title(story):
         ("FONTNAME", (0, 0), (-1, 0), "VB"),
         ("FONTNAME", (0, 1), (0, -1), "VB"),
         ("FONTNAME", (1, 1), (1, -1), "V"),
-        ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ("FONTSIZE", (0, 0), (-1, -1), 7.5),
         ("GRID", (0, 0), (-1, -1), 0.25, COLOR_BORDER),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 5),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-        ("TOPPADDING", (0, 0), (-1, -1), 3),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+        ("LEFTPADDING", (0, 0), (-1, -1), 4),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+        ("TOPPADDING", (0, 0), (-1, -1), 2.5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
     ]))
     for i in range(1, len(stats_data)):
         if i % 2 == 0:
@@ -284,15 +284,15 @@ def build_inventory_page(story, country_rows):
         ("FONTNAME", (0, 1), (-1, -2), "V"),
         ("FONTNAME", (0, -1), (-1, -1), "VB"),
         ("BACKGROUND", (0, -1), (-1, -1), COLOR_LIGHT_BG),
-        ("FONTSIZE", (0, 0), (-1, -1), 7),
-        ("FONTSIZE", (0, -1), (-1, -1), 7.5),
+        ("FONTSIZE", (0, 0), (-1, -1), 6.5),
+        ("FONTSIZE", (0, -1), (-1, -1), 7),
         ("GRID", (0, 0), (-1, -1), 0.25, COLOR_BORDER),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("ALIGN", (0, 0), (4, -1), "CENTER"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 3),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
-        ("TOPPADDING", (0, 0), (-1, -1), 2),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+        ("LEFTPADDING", (0, 0), (-1, -1), 2.5),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 2.5),
+        ("TOPPADDING", (0, 0), (-1, -1), 1.5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 1.5),
     ]))
     for i in range(1, len(data) - 1):
         if i % 2 == 0:
@@ -320,13 +320,13 @@ def build_inventory_page(story, country_rows):
         ("BACKGROUND", (0, 0), (-1, 0), COLOR_HEADER_BG),
         ("TEXTCOLOR", (0, 0), (-1, 0), COLOR_HEADER_TEXT),
         ("FONTNAME", (0, 0), (-1, 0), "VB"),
-        ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ("FONTSIZE", (0, 0), (-1, -1), 7.5),
         ("GRID", (0, 0), (-1, -1), 0.25, COLOR_BORDER),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 4),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
-        ("TOPPADDING", (0, 0), (-1, -1), 3),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+        ("LEFTPADDING", (0, 0), (-1, -1), 3),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+        ("TOPPADDING", (0, 0), (-1, -1), 2),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
     ]))
     story.append(tbl2)
     story.append(Spacer(1, 0.4 * cm))
@@ -358,7 +358,7 @@ def callout(story, text, color=None):
     story.append(Spacer(1, 0.05 * cm))
 
 
-def table(story, data, col_widths, header=True, zebra=True, fontsize=7.5,
+def table(story, data, col_widths, header=True, zebra=True, fontsize=7,
           row_heights=None, header_bg=COLOR_HEADER_BG):
     tbl = Table(data, colWidths=col_widths, repeatRows=1 if header else 0,
                 rowHeights=row_heights)
@@ -367,9 +367,9 @@ def table(story, data, col_widths, header=True, zebra=True, fontsize=7.5,
         ("FONTSIZE", (0, 0), (-1, -1), fontsize),
         ("GRID", (0, 0), (-1, -1), 0.25, COLOR_BORDER),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 3),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
-        ("TOPPADDING", (0, 0), (-1, -1), 1.5),
+        ("LEFTPADDING", (0, 0), (-1, -1), 2.5),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 2.5),
+        ("TOPPADDING", (0, 0), (-1, -1), 1.2),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 1.5),
     ]
     if header:
@@ -1068,7 +1068,7 @@ def main():
         leftMargin=MARGIN,
         rightMargin=MARGIN,
         topMargin=MARGIN,
-        bottomMargin=MARGIN + 0.5 * cm,
+        bottomMargin=MARGIN,
         title="BILLSzuka — Instrukcja dla Działu Sprzedaży",
         author="BILLS Sp. z o.o.",
         subject="B2B lead research methodology",

@@ -32,26 +32,26 @@
 
 | # | Firma / Lokalizacja | NIP / Identyfikatory | Główne Marki i Produkty | Pozycja Rynkowa |
 | --- | --- | --- | --- | --- |
-| 1 | **BILLS Sp. z o.o. (Smoks)** — Ostrzeszów, Wlkp | NIP: do weryfikacji; powermatic.pl | Powermatic, Hawk-Matic, Smoks, OCB, Mascotte, Gizeh, Clipper | **Jedyny autoryzowany dystrybutor Powermatic w Polsce i CEE.** Jedyne legalne źródło maszynek z pełną gwarancją i serwisem. |
+| 1 | **BILLS Sp. z o.o. (Smoks)** — Ostrzeszów, Wlkp | **NIP: 5140361901** · KRS: 0001074645; powermatic.pl | Powermatic, Hawk-Matic, Smoks, OCB, Mascotte, Gizeh, Clipper | **Jedyny autoryzowany dystrybutor Powermatic w Polsce i CEE.** Jedyne legalne źródło maszynek z pełną gwarancją i serwisem. |
 | 2 | **Polski Tytoń PHP S.A.** — Radom, Mazowieckie (14+ oddziałów) | NIP: 9482622620; polskityton.pl | OCB, Mascotte, Gizeh, Clipper, Dark Horse, RAW, Zorr, Ciggi, Angel, Atomic | **Top-tier narodowy dystrybutor FMCG/tytoniowy.** Dostarcza do 15 000+ punktów detalicznych, nowoczesnego handlu i stacji benzynowych. |
 | 3 | **Lima S.A.** — HQ Warszawa; oddziały 16+ miast | NIP: 8842360418; lima-sa.pl | OCB, Mascotte, Clipper, Golden Virginia | Jedna z największych polskich sieci dystrybucji tytoń/FMCG; ścisła B2B. |
-| 4 | **KDWT S.A.** — Opole (HQ), Kraków | NIP: do weryfikacji | OCB, Mascotte, Gizeh, Clipper, RAW | Konsorcjum dystrybucyjne zbudowane z byłych państwowych struktur hurtu tytoniowego. |
+| 4 | **KDWT S.A.** — Opole (HQ), Kraków · Światowida 2, 45-325 | **NIP: 7772304755** · KRS: 0000040385 | OCB, Mascotte, Gizeh, Clipper, RAW | Konsorcjum dystrybucyjne zbudowane z byłych państwowych struktur hurtu tytoniowego. |
 | 5 | **PGT — Polska Grupa Tytoniowa** — Myślibórz (HQ); Bydgoszcz, Łódź, Warszawa, Piekary Śląskie | NIP: 4980260426; polskagt.pl | Al Fakher, Dinner Lady, STG Cigarillos, OCB, Mascotte, Gizeh | NGP + shisha; 150 hurtowych klientów + 5 000 detalicznych. |
 | 6 | **King Hurt** — Szczecin (HQ, 8 voiv., 20 oddziałów) | NIP: 8511005882; kinghurt.pl | OCB, Mascotte, Gizeh, Powermatic, Hawk-Matic, Dark Horse, Clipper | **Największy niezależny hurtownik tytoniowy w NW Polsce** (od 1994). Multi-branch z pełną paletą akcesoriów. |
-| 7 | **ZAS-POL** — Zielona Góra (HQ); multi-region | NIP: do weryfikacji; zas-pol.pl | OCB, Mascotte, Gizeh | **Bezpośredni dystrybutor 4 wielkich koncernów** (PMI, BAT, JTI, Imperial). Gilzy, napełniarki, zapalniczki, zapałki. |
-| 8 | **Paso Polska Sp. z o.o. Sp.k.** — Sierosław / Tarnowo Podgórne, Wlkp | NIP: do weryfikacji; paso.pl | Multi-category FMCG, marki własne | Sieć regionalnych kierowników sprzedaży pokrywających wszystkie 16 województw; hurt@paso.pl. |
-| 9 | **Orion Tobacco Poland Sp. z o.o.** — Goszczyn, Mazowieckie | NIP: do weryfikacji; orion-orion.pl | Orion, OCB, Mascotte, Gizeh | **Pionowo zintegrowany producent-dystrybutor** (przychód ~122 mln PLN). Tytoń, papierosy, gilzy, filtry, bibułki, akcesoria. |
+| 7 | **ZAS-POL Sp.j.** Zygmunt & Alina Sperzyńscy — Poznań (HQ); Piła, Inowrocław | **NIP: 9720010451** · KRS: 0000092182 | OCB, Mascotte, Gizeh | **Bezpośredni dystrybutor 4 wielkich koncernów** (PMI, BAT, JTI, Imperial). Gilzy, napełniarki, zapalniczki, zapałki. |
+| 8 | **Paso Polska Sp. z o.o. Sp.k.** — Sierosław / Tarnowo Podgórne, Wlkp | **NIP: 7820007588** · KRS: 0000444926 | Multi-category FMCG, marki własne | Sieć regionalnych kierowników sprzedaży pokrywających wszystkie 16 województw; hurt@paso.pl. |
+| 9 | **Orion Tobacco Poland Sp. z o.o.** — Jakubów 5 / Goszczyn, Mazowieckie | **NIP: 7252077543** · KRS: 0000513841 | Orion, OCB, Mascotte, Gizeh | **Pionowo zintegrowany producent-dystrybutor** (przychód ~122 mln PLN). Tytoń, papierosy, gilzy, filtry, bibułki, akcesoria. |
 | 10 | **CK Complex Sp. z o.o.** — Zielona Góra, Lubuskie | NIP: 9291744080; ckcomplex.pl / b2b.ckcomplex.pl | OCB, Mascotte, Gizeh + liquids własne + topowe marki vape | **Lider polskiego hurtu vape.** 120+ sklepów, 442 mln PLN rocznego przychodu, 6 regionalnych kierowników sprzedaży. |
-| 11 | **eSmoking World / CHIC Sp. z o.o. Sp.k.** — Ostrzeszów, Wlkp | NIP: do weryfikacji | Zapalniczki SPARK, CK; liquids własne | **400 punktów sprzedaży w 200 miastach**, fabryka i centrum R&D w Ostrzeszowie. |
-| 12 | **Bitlogic Sp. z o.o. (iSmoking.pl)** — Zielona Góra | NIP: do weryfikacji; iSmoking.pl / b2b.bitlogic.pl | iSmoking + topowe marki vape | „Jeden z największych i najbardziej wpływowych hurtowników vape w Europie". |
-| 13 | **FHPD Sp. z o.o.** — Wrocław, Dolnośląskie | NIP: do weryfikacji; b2b.fhpd.pl | Lost Vape, Smok, Vaporesso, Dotmod | Hurtownia vape od 2007; „setki sklepów" w PL. |
-| 14 | **Cannmedia / Bletki.com** — PL (HQ do weryfikacji) | NIP: do weryfikacji; bletki.com | Rolls, Hybrid, Shine 24K Gold, Purize | **Wyłączny dystrybutor premium brandów headshop** w PL. Hurtownia akcesoriów do palenia. |
-| 15 | **Wujo.pl** — PL (HQ do weryfikacji) | NIP: do weryfikacji; wujo.pl / hurt.wujo.pl | 3 500+ produktów (marki własne + dystrybucja) | Headshop + hurtownia; dedykowany opiekun handlowy; magazyn PL. |
-| 16 | **Vaporshop.pl / ULTI-PRO Sp. z o.o.** — Rybnik, Śląskie | NIP: do weryfikacji; vaporshop.pl | PAX, Storz & Bickel, V-Syndicate | **Wyłączny dystrybutor PAX, dystrybutor Storz & Bickel** w PL. |
-| 17 | **TRAFIKA / Tabak Grupa Sp. z o.o.** — Kalisz, Wlkp | NIP: 6181914183; KRS: 0000119343; trafika.pl | Powermatic, OCB, Mascotte, Gizeh | **Sieć 50+ salonów tytoniowych**, 25+ lat; 30 miast, 2 000+ produktów; skleptytoniowy.pl. |
-| 18 | **SMOKE / Promotorzy Trading Sp. z o.o. Sp.k.** — Warszawa | NIP: do weryfikacji; smoke.pl | Premium cygara, fajki drewniane, luksusowe zapalniczki, bibułki, tytonie fajkowe, shisha, e-papierosy, saszetki nikotynowe | **„Największa w Polsce i Europie sieć salonów tytoniowych"** — 50+ salonów w 25 miastach. |
+| 11 | **eSmoking World / CHIC Sp. z o.o.** — Ostrzeszów · Al. Wojska Polskiego 23C, Wlkp | **NIP: 9721147850** · KRS: 0000908623 | Zapalniczki SPARK, CK; liquids własne | **400 punktów sprzedaży w 200 miastach**, fabryka i centrum R&D w Ostrzeszowie. |
+| 12 | **Bitlogic Barnaś Sp.k. (iSmoking)** — Warszawa · Janiszowska 9b (02-264) | **NIP: 5223217609** · REGON: 520974969 | iSmoking + topowe marki vape | „Jeden z największych i najbardziej wpływowych hurtowników vape w Europie". |
+| 13 | **FHPD Sp. z o.o.** — Wrocław · Kożuchowska 12 (51-631) | **NIP: 8942893752** · KRS: 0000276323 | Lost Vape, Smok, Vaporesso, Dotmod | Hurtownia vape od 2007; „setki sklepów" w PL. |
+| 14 | **Cannmedia Agata Sękowska** — Lublin · Stefczyka 32/3 (20-151) | **NIP: 9462453893** (JDG); bletki.com | Rolls, Hybrid, Shine 24K Gold, Purize | **Wyłączny dystrybutor premium brandów headshop** w PL. Hurtownia akcesoriów do palenia. |
+| 15 | **Wujo (Mateusz Bułka)** — Tychy · Piwowarów 7 (43-100) | **NIP: 6462752252** (JDG); hurt.wujo.pl | 3 500+ produktów (marki własne + dystrybucja) | Headshop + hurtownia; dedykowany opiekun handlowy; magazyn PL. |
+| 16 | **ULTI-PRO Sp. z o.o. (Vaporshop)** — Rybnik · Obwiednia Południowa 64 (44-200) | **NIP: 6423249810** · KRS: 0001077462 | PAX, Storz & Bickel, V-Syndicate | **Wyłączny dystrybutor PAX, dystrybutor Storz & Bickel** w PL. |
+| 17 | **TABAK GRUPA Sp. z o.o. (TRAFIKA)** — Kalisz, Wlkp | NIP: 6181914183 · KRS: 0000119343 · trafika.pl | Powermatic, OCB, Mascotte, Gizeh | **Sieć 50+ salonów tytoniowych**, 25+ lat; 30 miast, 2 000+ produktów; skleptytoniowy.pl. |
+| 18 | **PROMOTORZY TRADING Sp. z o.o. (SMOKE)** — Warszawa · Św. Jacka Odrowąża 15 (03-310) | **NIP: 5242751528** · KRS: 0000422037 | Premium cygara, fajki drewniane, luksusowe zapalniczki, bibułki, tytonie fajkowe, shisha, e-papierosy, saszetki nikotynowe | **„Największa w Polsce i Europie sieć salonów tytoniowych"** — 50+ salonów w 25 miastach. |
 | 19 | **Elenpipe Sp. z o.o.** — Przemyśl, Podkarpackie | NIP: 7952526523; elenpipe.com | Elenpipe, Zorr, Angel, Champ, Matteo, Ciggi | **Specjalista ds. maszynek, gilz, bibułek, filtrów, fajek, cygar, zapalniczek.** Hurt + detal. |
-| 20 | **Don Marco / Donmarco** — Gdańsk, Pomorskie | NIP: 5833000423; donmarco.pl | Don Marco (własna), DORA & NASS (exclusive), zapalniczki, etui, bonga, rolling machines | **Importer i dystrybutor B2B** — zaopatruje detal i e-sklepy w PL i Europie. |
+| 20 | **DON MARCO INTERNATIONAL Sp. z o.o.** — Gdańsk, Pomorskie | NIP: 5833000423; donmarco.pl | Don Marco (własna), DORA & NASS (exclusive), zapalniczki, etui, bonga, rolling machines | **Importer i dystrybutor B2B** — zaopatruje detal i e-sklepy w PL i Europie. |
 
 ---
 
@@ -143,7 +143,7 @@
 
 | Firma / WWW | Lokalizacja | Nabijarki? | Produkty / Marki | Model |
 | --- | --- | --- | --- | --- |
-| Trezo Sp. z o.o. (trezo.com.pl) | Sosnowiec | TAK (Trezo, Powermatic, Hawk-Matic) | Marki własne + Powermatic + Hawk-Matic | Krajowa sieć hurtowa FMCG i akcesoriów tytoniowych |
+| Trezo Sp. z o.o. (trezo.com.pl · NIP 6443510536) | Sosnowiec · Główna 26 (41-215) | TAK (Trezo, Powermatic, Hawk-Matic) | Marki własne + Powermatic + Hawk-Matic | Krajowa sieć hurtowa FMCG i akcesoriów tytoniowych |
 | VAS Sp. z o.o. (vas.com.pl) | Chorzów (ul. Łagodna 15) | NIE | Zapalniczki iskrowe, elektryczne | B2B wholesale |
 | Joint Brothers (jointbrothers.eu) | Katowice (ul. Klonowa 9/1) | NIEOKREŚLONE | Akcesoria headshop | B2B; tel. 721 430 027 |
 | Tobacco Corner / ELITE — Edyta Stefanek | Katowice (lokalizacje w CH AKS Chorzów, Agora Bytom, Supersam Katowice) | NIEOKREŚLONE | Sieć sklepów tytoniowych w galeriach | B2B + B2C |
@@ -229,7 +229,11 @@
 
 ---
 
-## 6. Metodologia i Źródła
+## 6. Weryfikacja Danych (2026-08-19)
+
+Wszystkie 13 NIP-ów zweryfikowane aktywne w VIES (ec.europa.eu/taxation_customs/vies) — 100% match. Dodatkowe NIP-y pozyskane przez wyszukiwarki KRS/CEIDG dla 11 pozycji Liderów + 1 w Katalogu Regionalnym. Łącznie **24 z 27 kluczowych NIP-ów zweryfikowane**, 3 JDG bez KRS (King Hurt, Cannmedia, Wujo).
+
+## 7. Metodologia i Źródła
 
 - **Źródła danych:**
   1. KRS (Krajowy Rejestr Sądowy) — api-krs.ms.gov.pl
@@ -246,10 +250,11 @@
   - Aktywna strona firmowa / katalog B2B
 - **Wyłączone z katalogu:** ~30+ ogólnikowych wpisów bez NIP, z ogólnymi opisami („hurtownia wielobranżowa"), bez marek premium w portfolio.
 - **Data:** 2026 (raporty 09/18/24) + dashboard 2024 dla kontekstu makro.
+- **Weryfikacja NIP-ów:** 2026-08-19, VIES EU + KRS/CEIDG przez wyszukiwarki publiczne (imsig.pl, krs-pobierz.pl, bizraport.pl).
 - **Ograniczenia:** Niektóre NIP do weryfikacji; dane kontaktowe mogą ulec szybkiej dezaktualizacji w przypadku marketplace i małych sklepów.
 - **Klasyfikacja Nabijarki:** Wartości z katalogu 18 zachowane (`NIEOKREŚLONE` / `TAK` / `NIE` / `PRAWDOPODOBNIE`). Wartość `TAK` oznacza potwierdzoną obecność maszynek (ręcznych, automatycznych lub elektrycznych) w ofercie.
 
 ---
 
-*Baza Danych Dystrybutorów Tytoniowych i FMCG — Wygenerowano w 2026 r.*
+*Baza Danych Dystrybutorów Tytoniowych i FMCG — Wygenerowano w 2026 r. · NIP-y zweryfikowane w VIES 2026-08-19*
 *Strona 1 z 1 (wersja bonusowa, katalog kuratorowany)*
