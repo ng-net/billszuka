@@ -22,6 +22,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     HRFlowable,
+    Image,
     PageBreak,
     Paragraph,
     SimpleDocTemplate,
@@ -408,7 +409,7 @@ LINE = HexColor("#D0D0D0")
 TEXT = HexColor("#1A1A1A")
 MUTED = HexColor("#707070")
 
-H1 = ParagraphStyle("H1", fontName="VB", fontSize=32, leading=36, textColor=TEXT, spaceAfter=0, alignment=TA_LEFT)
+H1 = ParagraphStyle("H1", fontName="VB", fontSize=30, leading=34, textColor=TEXT, spaceAfter=0, alignment=TA_LEFT)
 H1_SUB = ParagraphStyle("H1_SUB", fontName="V", fontSize=13, leading=16, textColor=MUTED, spaceAfter=0, alignment=TA_LEFT)
 H1_DATE = ParagraphStyle("H1_DATE", fontName="V", fontSize=11, leading=16, textColor=MUTED, spaceAfter=0, alignment=TA_RIGHT)
 H2 = ParagraphStyle("H2", fontName="VB", fontSize=10.5, leading=13, textColor=TEXT, spaceBefore=8, spaceAfter=4)
@@ -426,16 +427,16 @@ def header_footer(canvas, doc):
     canvas.saveState()
     canvas.setStrokeColor(LINE)
     canvas.setLineWidth(0.5)
-    canvas.line(1.5*cm, PAGE_H - 1.2*cm, PAGE_W - 1.5*cm, PAGE_H - 1.2*cm)
+    canvas.line(1.0*cm, PAGE_H - 1.0*cm, PAGE_W - 1.0*cm, PAGE_H - 1.0*cm)
     canvas.setFont("V", 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(1.5*cm, PAGE_H - 1.05*cm, "BILLS Sp. z o.o.  ·  Dystrybucja PowerMatic & Hawk")
-    canvas.drawRightString(PAGE_W - 1.5*cm, PAGE_H - 1.05*cm, "Katalog leadów B2B/B2C")
-    canvas.line(1.5*cm, 1.2*cm, PAGE_W - 1.5*cm, 1.2*cm)
+    canvas.drawString(1.0*cm, PAGE_H - 0.85*cm, "BILLS Sp. z o.o.  ·  Dystrybucja PowerMatic & Hawk")
+    canvas.drawRightString(PAGE_W - 1.0*cm, PAGE_H - 0.85*cm, "Katalog leadów B2B/B2C")
+    canvas.line(1.0*cm, 1.0*cm, PAGE_W - 1.0*cm, 1.0*cm)
     canvas.setFont("V", 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(1.5*cm, 1.05*cm, "BILLS Sp. z o.o.  ·  Ostrzeszów  ·  serwis@bills.pl")
-    canvas.drawRightString(PAGE_W - 1.5*cm, 1.05*cm, f"Strona {doc.page}")
+    canvas.drawString(1.0*cm, 0.85*cm, "BILLS Sp. z o.o.  ·  Ostrzeszów  ·  serwis@bills.pl")
+    canvas.drawRightString(PAGE_W - 1.0*cm, 0.85*cm, f"v11.5 · 18.08.2026 · Strona {doc.page}")
     canvas.restoreState()
 
 
@@ -496,32 +497,61 @@ def callout_box(num, title, body):
     return tbl
 
 
-def subtitle_with_date(date_text):
+def subtitle_with_date(date_text, logo_path=None):
     cw = PAGE_W - 3*cm
-    tbl = Table(
-        [[Paragraph("Katalog leadów B2B/B2C", H1_SUB), Paragraph(date_text, H1_DATE)]],
-        colWidths=[cw * 0.7, cw * 0.3]
-    )
-    tbl.setStyle(TableStyle([
-        ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-        ("TOPPADDING", (0, 0), (-1, -1), 0), ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-    ]))
+    if logo_path and Path(logo_path).exists():
+        # On intro page: subtitle (left) + logo (right) only, no date here (date is in footer)
+        logo_w = 2.8*cm
+        logo_h = logo_w/4.55
+        logo = Image(logo_path, width=logo_w, height=logo_h)
+        tbl = Table(
+            [[Paragraph("Katalog leadów B2B/B2C", H1_SUB), logo]],
+            colWidths=[cw - logo_w - 0.3*cm, logo_w + 0.3*cm]
+        )
+        tbl.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0), ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+            ("ALIGN", (1, 0), (1, 0), "RIGHT"),
+        ]))
+    else:
+        tbl = Table(
+            [[Paragraph("Katalog leadów B2B/B2C", H1_SUB), Paragraph(date_text, H1_DATE)]],
+            colWidths=[cw * 0.7, cw * 0.3]
+        )
+        tbl.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0), ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ]))
     return tbl
 
 
 def build_pdf(cfg, date_text, out_pdf):
     doc = SimpleDocTemplate(
         out_pdf, pagesize=A4,
-        leftMargin=1.5*cm, rightMargin=1.5*cm,
-        topMargin=1.6*cm, bottomMargin=1.6*cm,
+        leftMargin=1.0*cm, rightMargin=1.0*cm,
+        topMargin=1.0*cm, bottomMargin=1.0*cm,
         title=f"Katalog leadów B2B/B2C — {cfg['country']}",
         author="BILLS Sp. z o.o.",
     )
     story = []
 
+    logo_path = PROJECT_ROOT / "data" / "logo.jpg"
     story.append(Paragraph(cfg["country"], H1))
-    story.append(subtitle_with_date(date_text))
+    story.append(subtitle_with_date(date_text, logo_path=str(logo_path) if logo_path.exists() else None))
+    story.append(rule())
+
+    # Executive summary 1-line (bold, no header)
+    top_partner = cfg["insights"][0]["name"] if cfg.get("insights") else "—"
+    exec_line = (
+        f"<b>{cfg['found_n']} firm · {cfg['found_frozen']} FROZEN · "
+        f"{cfg['found_b_hurtowni']} hurtowni tytoniowych (B8) · "
+        f"{cfg['found_a_pmr']} autoryzowanych resellerów PowerMatic (A1) · "
+        f"Top partner: {top_partner}</b>"
+    )
+    story.append(Paragraph(exec_line, BODY))
+    story.append(Spacer(1, 2))
     story.append(rule())
 
     story.append(t(cfg["errata"], BODY))
@@ -568,19 +598,7 @@ def build_pdf(cfg, date_text, out_pdf):
     story.append(PageBreak())
     W = PAGE_W - 3*cm
 
-    story.append(t("Podział wg kategorii", H2))
-    story.append(data_table(
-        ["Kategoria", "Ilość", "Znaczenie dla BILLS"],
-        [
-            ["A1 — Tylko PowerMatic", "?", "Najcenniejsi — autoryzowani resellerzy naszej marki"],
-            ["A4 — Multi-brand z PM/Hawk", "?", "Resellerzy kilku marek, w tym naszych"],
-            ["B8 — Hurtownie tytoniowe", "?", "Najwyższy priorytet — mają wszystko poza nabijarkami"],
-            ["B4 — Akcesoria (fajki, zapalniczki)", "?", "Te same sklepy, inna demografia"],
-        ],
-        col_widths=[W*0.42, W*0.10, W*0.48]
-    ))
-    story.append(Spacer(1, 6))
-
+    # (Removed: "Podział wg kategorii" table — duplicated by Legenda Katalog A/B below)
     story.append(t("Legenda — Katalog A (firmy z nabijarkami)", H2))
     story.append(data_table(
         ["Kod", "Kategoria", "Znaczenie dla BILLS"],
