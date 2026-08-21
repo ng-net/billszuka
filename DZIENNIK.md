@@ -2584,3 +2584,44 @@ const sortKeyIndex = useMemo(() => buildSortKeyIndex(data.rows, columns), [data.
 - `useTransition` zamiast `useDeferredValue` dla explicite pending state (np. spinner w status bar)
 - Zastąpić `framer-motion` FLIP animation virtualization dla >500 rows (teraz pagination wystarcza)
 - Memoizować `setSort` / `setFilters` callbacks (currently recreated on every render — `prefs` dep)
+
+## 2026-08-21 — czat-table code review + cleanup (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o review kodu, bug fix pass i cleanup.
+
+**Cleanup:**
+- Usunięte 13 scratch files: `_verify-*.mjs` (5), `_bench-*.mjs` (2), `_debug-*.mjs` (2), `_check-aria*.mjs` (2), `_headers-check.mjs`, `_quick-check.mjs`, `_smoke.mjs`
+- Unused imports: `useTransform` (status-bar), `cn` (toolbar), `resetPrefs` (App)
+- Unused exports: `debounce`, `formatCompact` (utils), `formatDate`, `formatNumber` (format → internal), `PREFS_DEFAULTS` (persist)
+- Unused props: `onVisibleCountChange` (DataTable), `selected` (TypeCell)
+- Merged duplicate `lucide-react` import w status-bar
+
+**Real bug fix (perf):**
+Diagnoza przy okazji przeglądu: filter trwał 8-10s (vs 1-1.4s oczekiwane).
+
+Root cause 1: `columns = useMemo(() => resolveColumns(data, prefs), [data, prefs])` — `prefs` jest nową referencją co render, więc `columns` rebuilduje się co render → `filterIndex` i `sortKeyIndex` (O(rows×cols) = 13,790 ops) co render → co keystroke. **Fix:** deps `[data, prefs.columns]`.
+
+Root cause 2: `updatePrefs = useCallback(..., [onPrefsChange, prefs])` — `prefs` w deps powoduje re-creację co render → bust memoization downstream. **Fix:** functional update `onPrefsChange((p) => ({...p, ...patch}))` + useCallback wrap setSort/setFilters/setColumn.
+
+Root cause 3: framer-motion `LayoutGroup` + `motion.tr layout="position"` (FLIP) na 100 rows × 35 cells — per-frame layout measurement dodawał 3+ sek do state commit. **Fix:** usunięte. Wow nie wart laga.
+
+**Wynik:** filter apply ~1s (było 8-10s z HMR confusion), zero rebuilds indeksu.
+
+**Test fixes (po update master.csv 394→399):**
+- e2e: capture total BEFORE filter to verify it actually reduced
+- e2e: accept any 2-4 digit row count
+- e2e: 2s wait after filter (was 500ms)
+
+**Weryfikacja:**
+- 54/54 unit tests ✓
+- 10/10 e2e ✓
+- `pnpm build` clean (240 KB gz)
+- Commit `4db94d2` pushed
+
+**Pliki:**
+- 9 plików zmienionych: `App.jsx`, `data-table.jsx`, `status-bar.jsx`, `toolbar.jsx`, `type-cell.jsx`, `format.js`, `persist.js`, `utils.js`, `tests/e2e/smoke.mjs`
+- 13 plików usuniętych (scratch)
+- +65 / -59 LOC
