@@ -1,0 +1,7 @@
+# CI-only test dependencies.
+# The repo's main code uses only the Python stdlib (see tools/);
+# this file exists so actions/setup-python@v5 cache: pip has a
+# file to hash (otherwise it errors on first push).
+pytest>=8.0
+fastapi
+httpx

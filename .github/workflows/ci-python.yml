@@ -32,7 +32,7 @@ jobs:
           python -m pip install --upgrade pip
           # The tools/ scripts use only stdlib; pytest + FastAPI/httpx
           # (for API server tests) are the only external deps.
-          pip install pytest>=8.0 fastapi httpx
+          pip install -r requirements-ci.txt
 
       - name: Run pytest
         run: |
