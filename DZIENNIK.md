@@ -2188,6 +2188,53 @@ fragmentu w ` | `-separated stringu) — efekt non-idempotent append w
 **Backup:** `data/.pre-dedup-20260821/`
 **Remote:** ✅ pushed to `origin` (ng-net) — `62f27d3..4d61a0f`
 
+## 2026-08-21 — Enrichment Pass: top 20 non-PL A-tier (web scrape)
+
+**Operator:** Marceli
+**Agent:** Mavis (z skill: web-scraper)
+
+**Kontekst:** Marceli poprosił o web enrichment dla top 20 nie-PL A-tier (catalog-A, multi-country)
+z pełnym zakresem (basic + decydent + biznesowe + social). Wybrałem top 20 wg tier priority
++ 🟢 confidence + krótsza notatka (większy lift).
+
+**Discovery:** Te 20 firm były **already well-enriched** — wszystkie miały email/telefon/VAT/decydent.
+Jedyna luka to social media (FB/IG/TikTok) + notatka. Faktyczny delta:
+- 8 facebook URLs
+- 4 instagram URLs
+- 1 tiktok URL
+- 1 decydent email (BG-A-003 → zhelyo.kolev@mtobacco.bg)
+- 20 notatka additions (www title + enrichment source)
+- **34 cells** w master.csv, 33 cells w per-kraj
+
+**Tools:**
+- `/tmp/scrape_firm.py` — single-firm scraper (encoding auto-detect, mailto: decode, VAT regex, social extraction, optional /kontakt crawl)
+- `/tmp/scrape_all_20.py` — batch runner
+- `/tmp/apply_enrichment_final.py` — apply additions only (no overwrite)
+
+**Coverage wynik:**
+| Field | Przed | Po | Lift |
+|---|---|---|---|
+| email | 16/20 | 16/20 | 0 (already full) |
+| telefon | 15/20 | 15/20 | 0 |
+| nip_vat | 8/20 | 8/20 | 0 |
+| social (FB+IG+TT) | 0/20 | 8/20 | +8 |
+| notatka title | 0/20 | 20/20 | +20 |
+| decydent_email | 0/20 | 1/20 | +1 |
+
+**Lekcja dla przyszłych sesji:** Interpretacja "top 20" ma znaczenie:
+- "top 20 by importance" (A-tier non-PL) → już wzbogacone, mały delta
+- "top 20 by emptiness" (most empty fields) → większy delta, więcej pracy
+
+Następnym razem Marceli może wybrać wariant 2 dla większego efektu.
+
+**Pliki:**
+- data/.enrichment-20260821/scrape_results.json (raw output 20 firm)
+- 5× per-kraj catalog (33 cells synced: CZ/HR/BG/SK/SI)
+- master.csv (gitignored, 34 cells; recompile po dedup)
+- DZIENNIK.md (ten wpis)
+
+**Commit:** `cc4b4e5 enrich(a-tier): top 20 non-PL A-tier — social + notatka + decydent email` (5 files, +20/-20)
+
 
 ---
 
