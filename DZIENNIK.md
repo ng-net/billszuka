@@ -2460,3 +2460,63 @@ Clean. `git status` → "nothing to commit, working tree clean".
 - (opcjonalnie) dodać CI step "pnpm test + pnpm test:e2e" w `.github/workflows/ci.yml` — obecny workflow nie buduje czat-table
 - (follow-up) dodać "Reset all widths" do CommandPalette dla power users
 - (follow-up) rozważyć konsolidację `frontend-2/` (TanStack Table rewrite) z `czat-table/` — na razie oba wersjonowane niezależnie
+
+## 2026-08-21 — czat-table perf: pre-computed filter/sort indexes (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o poprawę wydajności filtrowania i sortowania.
+
+**Diagnoza (Node microbench na master.csv 394×35):**
+- `matchFilter` robił `String(rowValue).toLowerCase()` per cell per keystroke
+- `compareValues` wywoływał `String(a).localeCompare(String(b), undefined, {numeric: true, ...})` — re-parsing options per comparison
+- `columnsById` Map rebuildowany per render (minor, ale free to fix)
+
+**Fix — nowy `src/lib/index-cache.js`:**
+- `buildFilterIndex(rows, columns)` — jednorazowo, lowercased strings / parsed numbers / parsed dates per col
+- `buildSortKeyIndex(rows, columns)` — pre-normalized sort keys
+- `matchFilterIndexed(rowIdx, colId, value, index)` — O(1) array lookup
+- `sortRowsByIndex(rows, sort, sortKeyIndex)` — sort indices, re-map to rows
+- `Intl.Collator` instance utworzony raz na module load (3-5× szybszy niż `localeCompare` z options)
+
+**Bench (Node):**
+- text filter 1 col:        0.40ms → 0.16ms   (2.5×)
+- text filter 3 cols:       0.41ms → 0.17ms   (2.4×)
+- **sort 1 col text:        39.24ms → 2.28ms  (17×)**
+- **sort 3 cols text:       56.24ms → 1.76ms  (32×)**
+- filter+sort combined:     0.80ms → 0.30ms   (2.7×)
+- index build (one-time):       — → 3.68ms
+
+**Bench (browser, Vite dev, synthetic 394 rows):**
+- index build: 0.60ms · filter 2 cols: 0.14ms · sort 3 cols: 0.94ms · combined: 1.16ms
+
+**Wire-in do data-table.jsx:**
+```js
+const filterIndex = useMemo(() => buildFilterIndex(data.rows, columns), [data.rows, columns])
+const sortKeyIndex = useMemo(() => buildSortKeyIndex(data.rows, columns), [data.rows, columns])
+
+// filteredRows: array push zamiast filter() (early-break, ~2× szybsze)
+// sortedRows: sortRowsByIndex(filteredRows, deferredSort, sortKeyIndex)
+```
+
+**Bonus bug fix (Cmd+F):** handler szukał tylko `input[aria-label='Filter X']` co działa dla text columns. Po data-fixie `rok_zalozenia` jest teraz poprawnie typowany jako `number` (czyste 4-cyfrowe lata), więc ma `X min` / `X max` inputs, nie `Filter X`. Rozszerzony handler o wszystkie typy:
+- text/url/email/phone → `Filter X`
+- number               → `X min`
+- date                 → `X from`
+- enum                 → first control in type-filter container
+
+**Testy:**
+- 54/54 unit (25 prior + 29 nowych w `index-cache.test.js` covering parity, edge cases, stability)
+- 10/10 e2e (zaktualizowany Cmd+F assertion na nowe aria-label pattern)
+- `pnpm build` clean (239 KB gz)
+
+**Pliki:**
+- Nowe: `src/lib/index-cache.js` (190 LOC), `src/lib/index-cache.test.js` (199 LOC), `src/lib/bench.mjs` (Node microbench)
+- Zmienione: `src/components/data-table.jsx` (useMemo indexes + index-based filter/sort), `tests/e2e/smoke.mjs` (Cmd+F pattern), `czat-table/.gitignore` (+ more scratch patterns)
+- Commit: `99046a5` pushed to `origin/main`
+
+**Następne kroki (opcjonalnie):**
+- `useTransition` zamiast `useDeferredValue` dla explicite pending state (np. spinner w status bar)
+- Zastąpić `framer-motion` FLIP animation virtualization dla >500 rows (teraz pagination wystarcza)
+- Memoizować `setSort` / `setFilters` callbacks (currently recreated on every render — `prefs` dep)
