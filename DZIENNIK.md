@@ -2377,3 +2377,39 @@ Następna osoba po `git pull` będzie miała frontend-2/ lokalnie.
 ### Working tree
 
 Clean. `git status` → "nothing to commit, working tree clean".
+
+## 2026-08-21 — czat-table/ un-ignored + committed (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o zapis wszystkich zmian lokalnie + git. Po audycie okazało się, że `czat-table/` był gitignored mimo że zawiera cały aktywny projekt (column-reset, useDeferredValue, TooltipProvider fix, e2e tests, vitest). Canonicalna wersja w git to `frontend-2/` (commit a56791b), ale to zupełnie osobna implementacja (TanStack Table) — moje zmiany były w czat-table/.
+
+**Decyzja (za zgodą Marcelego):** Un-ignore `czat-table/`, commit as-is. frontend-2/ zostaje obok.
+
+**Akcje:**
+1. `.gitignore` (root): usunięta linia `czat-table/`, komentarz zaktualizowany ("2026-08-21: in-scope").
+2. `czat-table/.gitignore`: dodane wykluczenia dla scratch (`_verify-*.mjs`, `_smoke.mjs`, `_quick-check.mjs`, `_headers-check.mjs`, e2e screenshots).
+3. `git add czat-table/` → **45 plików** (bez `node_modules/`, `dist/`, `_verify-*.mjs`, e2e shots).
+4. Pliki commita: `.gitignore`, `.oxlintrc.json`, `README.md`, `components.json`, `index.html`, `package.json`, `pnpm-lock.yaml`, `public/favicon.svg`, 13× `src/components/*.jsx`, 7× `src/components/ui/*.jsx`, `src/upload-button.jsx`, `src/App.jsx`, `src/main.jsx`, `src/index.css`, 7× `src/lib/*.js`, `tests/e2e/smoke.mjs`, `vite.config.js`, `vitest.config.js`.
+5. Commit + push do origin (ng-net).
+
+**Co jest w czat-table/ (teraz w git):**
+- Vite + React 19 + Tailwind v4 + shadcn/ui (new-york)
+- 13 wow features: try sample, FLIP sort, multi-sort, type-inference, sticky 2-cols on mobile, Cmd+K palette, ? overlay, theme toggle
+- Column resize (drag) + per-column reset (hover RotateCcw + right-click "Reset width to default")
+- `useDeferredValue` dla filters + sort (snappy typing)
+- Pagination 25/50/100/250/500 per page
+- 25/25 unit tests (Vitest) + 10/10 e2e checks (Puppeteer)
+- 0 console errors
+- `data/master.csv` bundled via Vite `?raw` (auto-picks up updates po Vite restart)
+
+**Pliki:**
+- Zmienione: `.gitignore` (root), `czat-table/.gitignore`, `DZIENNIK.md` (ten wpis)
+- Nowe w git: 45 plików z `czat-table/`
+- Pozostawione lokalnie (gitignored): `node_modules/`, `dist/`, `_verify-*.mjs`, `_smoke.mjs`, `_quick-check.mjs`, `_headers-check.mjs`, e2e screenshots
+
+**Następne kroki:**
+- (opcjonalnie) dodać CI step "pnpm test + pnpm test:e2e" w `.github/workflows/ci.yml` — obecny workflow nie buduje czat-table
+- (follow-up) dodać "Reset all widths" do CommandPalette dla power users
+- (follow-up) rozważyć konsolidację `frontend-2/` (TanStack Table rewrite) z `czat-table/` — na razie oba wersjonowane niezależnie
