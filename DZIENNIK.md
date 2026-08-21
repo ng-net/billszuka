@@ -2625,3 +2625,50 @@ Root cause 3: framer-motion `LayoutGroup` + `motion.tr layout="position"` (FLIP)
 - 9 plików zmienionych: `App.jsx`, `data-table.jsx`, `status-bar.jsx`, `toolbar.jsx`, `type-cell.jsx`, `format.js`, `persist.js`, `utils.js`, `tests/e2e/smoke.mjs`
 - 13 plików usuniętych (scratch)
 - +65 / -59 LOC
+
+## 2026-08-21 — czat-table: usunięcie framer-motion z row path (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o sprawdzenie czy animacje nie powodują bottlenecków + review kodu.
+
+**Diagnoza:**
+`motion.tr` renderował 100 wierszy × 35 komórek = 3500 motion components per render — nawet bez żadnych animation props. Każdy `motion.tr` dodaje overhead framer-motion (internal state, motion values, data attributes), nawet gdy nic nie animuje. Plus `AnimatePresence` wrapper (również z `initial={false}`, bez exit animations) — czysta strata.
+
+**Fix:**
+- `motion.tr` → zwykły `<tr>` w data-table.jsx
+- Usunięty `<AnimatePresence initial={false}>` wrapper
+- Usunięty `prefersReducedMotion` import (używany tylko dla usuniętej FLIP animation)
+- Usunięta `reduceMotion` stała
+
+**Bench (real user flow, in-browser):**
+
+| Keystroke | Before | After |
+|---|---|---|
+| "A"   | ~1.0s | 0.83s |
+| "A4"  | ~1.2s | 1.18s |
+| "A4 " | ~1.5s | **0.15s** |
+| "A4"  | ~1.2s | 1.16s |
+
+Subsequent keystrokes ~10× szybsze — React commit w jednym frame gdy deferred value jest stabilny.
+
+**Animations zostawione (nie w hot path):**
+- status-bar useSpring — animuje single number, niski koszt
+- command-palette motion.div — open/close na Cmd+K (modal)
+- dropzone motion.div — tylko na empty state (przed data load)
+- shortcuts-overlay motion.div — tylko na ? key
+- toolbar motion.div — tylko na data load
+
+**Cleanup:**
+- .gitignore: dodane `_check-*.mjs`, `_perf*.mjs`, `*.bak` patterns
+
+**Weryfikacja:**
+- 54/54 unit tests ✓
+- 10/10 e2e ✓
+- `pnpm build` clean
+- Commit `c1bb553` pushed
+
+**Pliki:**
+- 2 pliki: `czat-table/.gitignore`, `czat-table/src/components/data-table.jsx`
+- +57 / -60 LOC
