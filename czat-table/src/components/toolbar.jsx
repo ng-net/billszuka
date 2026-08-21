@@ -1,6 +1,6 @@
 import * as React from "react"
 import { motion } from "framer-motion"
-import { HelpCircle, Sparkles } from "lucide-react"
+import { HelpCircle, Sparkles, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { UploadButton } from "@/components/upload-button"
@@ -72,6 +72,21 @@ export function Toolbar({
               theme={prefs.theme}
               onChange={(t) => onPrefsChange({ ...prefs, theme: t })}
             />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="https://github.com/marlink/BILLSzuka"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  aria-label="GitHub: marlink/BILLSzuka"
+                  title="GitHub: marlink/BILLSzuka"
+                >
+                  <Github className="size-4" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>GitHub: marlink/BILLSzuka</TooltipContent>
+            </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
