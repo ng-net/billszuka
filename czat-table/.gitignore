@@ -29,4 +29,7 @@ _verify-*.mjs
 _smoke.mjs
 _quick-check.mjs
 _headers-check.mjs
+_check-aria*.mjs
+_debug-*.mjs
+_bench-*.mjs
 /tests/e2e/shots/*.png

@@ -170,7 +170,15 @@ try {
     const el = document.activeElement
     return el?.getAttribute("aria-label")
   })
-  if (focused?.startsWith("Filter ")) pass(`Cmd+F focused: ${focused}`)
+  // Cmd+F should focus a filter control for the selected column. The
+  // aria-label varies by column type:
+  //   text/url/email/phone  → "Filter <name>"
+  //   number               → "<name> min"
+  //   date                 → "<name> from"
+  const isFilterInput =
+    focused?.startsWith("Filter ") ||
+    focused?.match(/(min|max|from|to)$/) !== null
+  if (isFilterInput) pass(`Cmd+F focused: ${focused}`)
   else fail(`Cmd+F did not focus a filter input (got: ${focused})`)
 
   // 8. Pagination
