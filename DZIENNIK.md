@@ -2762,3 +2762,64 @@ Subsequent keystrokes ~10× szybsze — React commit w jednym frame gdy deferred
 **Pliki:**
 - 2 pliki: `czat-table/.gitignore`, `czat-table/src/components/data-table.jsx`
 - +57 / -60 LOC
+
+## 2026-08-21 — frontend-2 viewer: perf pass + code review (czat-table)
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Marceli poprosił o: (1) audyt bugów/problemów w dashboardzie czat-table w `frontend-2/`, (2) poprawę response time na filtry/sortowanie, (3) review całego kodu + cleanup. Trzy tury: audyt → perf → review/cleanup.
+
+**Wykonane:**
+
+1. **Audyt (22 problemy)** — dogłębna inspekcja `frontend-2/`, pełna lista w INTEL.md / odpowiedzi agenta.
+
+2. **Perf pass na `frontend-2/src/raw-table/`:**
+   - `getRowId: (row) => row.id_unikalne` w `useReactTable` — stabilna tożsamość wierszy, sort/filter nie remount-uje 5000 DOM node'ów.
+   - `React.memo(CellRenderer)` — komórki z niezmienioną wartością/type/columnId skip render.
+   - `memo(Row)` + `useCallback(onRowClick)` — tylko wiersz gaining/losing selection re-renderuje.
+   - `useDeferredValue(globalFilter)` + opacity 0.6 hint — typing w global search nie blokuje re-filter.
+   - `useTransition` na `setSortStack` / `setFilters` — sort/filter non-blocking, UI clickable w trakcie.
+   - `enumValuesByColumn` z `useMemo([rows, schema])` — było O(C·N) per render, teraz raz per data load.
+   - `content-visibility: auto` na `tr[data-cv]` + `contain-intrinsic-size: auto 32px` — browser skip paint off-screen rows.
+   - `row-settle` animation tylko na initial data load (`settleTick` counter) — wcześniej 240ms cascade na każdym sort/filter.
+   - `LoadingState` RAF → `setInterval(100ms)` — 6× mniej re-renderów (60 Hz → 10 Hz).
+   - `* { transition: ... }` → `.transition-theme` scoped utility — każda komórka/input już nie płaci 150ms transition na prop change.
+   - `debounce().cancel()` prawdziwy cleanup — wyciek timerów per filter unmount naprawiony.
+
+3. **Real bug fixes (znalezione podczas review):**
+   - `SortableHeader.jsx:12` — `useSortable` called conditionally (lint **error**). Hook order violation potencjalnie crashuje. Naprawione: hook przed guardem.
+   - `DataTable.jsx` — `onFocusedColumnChange` było przekazywane ale nigdy wywoływane. Cała funkcjonalność ⌘F była martwa. Naprawione: `reportColumnFocus` w DataTable + `onClick` w SortableHeader.
+   - `ColumnToggle.jsx:56` — Reset button: `showAll(); hideAll(); showAll()` (3 onChange dla 1 akcji). Naprawione: 1 `showAll`.
+   - `StatusBar.jsx:55` — "Parsed in 0.08s" (angielski) w polskim UI. → "Parsowanie: 0.08s".
+   - `RawTable.jsx:470` — `loadUrl(URL, NAME)` bez `sizeHint` → progress % zawsze 0/Inicjalizacja. Naprawione: `SAMPLE_SIZE` przekazane.
+   - Phone cell — `stopPropagation` missing, click dial-uje i jednocześnie copy first cell. Dodane.
+   - `lib/csv.js` — typ-inferencja enum ≤ 15, ale filter ≤ 10 → kategoria (11 values) miała label "ENUM" ale text filter. Naprawione: `ENUM_FILTER_MAX = 15` w FilterInput.
+
+4. **Lint cleanup (22 warnings → 2):**
+   - `CommandPalette.jsx` — 3 unused imports + set-state-in-effect w reset query (przeniesiony do onOpenChange).
+   - `FilterInput.jsx` — 4 unused `columnId` params usunięte; 3 set-state-in-effect naprawione przez "echo tracking" (`useDebouncedEmit` hook).
+   - `RawTable.jsx` — column-init set-state-in-effect zamienione na `useMemo` derivation; `lastFocusedColumn` w callback zamiast effect.
+   - `useCsv.js` — `preserve-manual-memoization` + dead `fileMeta?.size` backfill branch usunięte.
+   - Pozostałe 2 warnings to shadcn-generated `button.jsx` / `badge.jsx` (Fast Refresh pattern, nie mój kod).
+
+5. **Pliki usunięte (Vite scaffolding, unused):**
+   - `frontend-2/public/icons.svg` — sprite sheet, 0 referencji.
+   - `frontend-2/src/assets/hero.png`, `react.svg`, `vite.svg` — oryginalne Vite template, 0 referencji.
+
+6. **Refactor architektoniczny:**
+   - `columnOrder`, `sortStack`, `filters` są teraz derived state (`useMemo` z `prefs` + `csv.columns`) zamiast mirror state. Eliminuje set-state-in-effect + utrzymuje migration logic (pinning id_unikalne/nazwa_firmy, cleanup filter entries dla usuniętych columns).
+
+**Weryfikacja:**
+- `npm run build` clean (770ms, 213kB gzip)
+- `npm run lint` 0 errors, 2 shadcn warnings
+- Data-layer test: 56/56 ✓ (parse, schema inference, filters, sorts, filter+sort, identity)
+- UI smoke test: 46/46 ✓ Playwright (load, 35 headers, 394 rows, column alignment, enum filter, 2 stacked filters, 3 filters, R reset, sort, sort+filter combined, global search, density toggle, 0 console errors)
+- Marceli potwierdził: keep `frontend/` i `czat-table/` directories dla historii.
+
+**Pliki:**
+- 13 plików: `frontend-2/src/{index.css, hooks/useCsv.js, lib/utils.js, raw-table/RawTable.jsx, raw-table/components/*.jsx (9 plików)}`
+- 4 pliki usunięte: `frontend-2/public/icons.svg`, `frontend-2/src/assets/{hero,react,vite}.{png,svg}`
+- +382 / -236 LOC
+- Commit `c227558`
+
