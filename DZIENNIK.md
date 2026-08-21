@@ -2343,3 +2343,37 @@ Nowe ustalenia w `INTEL.md` (sekcja "Jakość danych master.csv"):
 ### INTEL
 
 Pełna sekcja "Jakość danych master.csv — audyt 2 (2026-08-21 03:25)" dodana do INTEL.md z tabelą before/after.
+
+---
+
+## 2026-08-21 03:37 — git commit + push (frontend-2 in-scope)
+
+**Kontekst:** Marceli poprosił o zapisanie wszystkich zmian lokalnie + git. Dotychczas `frontend-2/` był gitignored.
+
+### Akcje
+
+1. ✅ Usunięty `frontend-2/` z `.gitignore` (linia 43). Komentarz zmieniony na "in-scope od 2026-08-21". `czat-table/` zostaje gitignored.
+2. ✅ `git add frontend-2/` — 47 plików (bez `node_modules/`, `dist/`, `.playwright-cli/`)
+3. ✅ `git add .gitignore DZIENNIK.md INTEL.md` — 3 pliki zmodyfikowane
+4. ✅ `git commit` → **a56791b** (50 plików, +8946 lines)
+5. ✅ `git push origin main` → `bbd0775..a56791b`
+
+### Co poszło w commicie
+
+- Cały katalog `frontend-2/` (Vite + React 19 + Tailwind v4 + shadcn viewer)
+- 9 komponentów raw-table (RawTable, CellRenderer, CommandPalette, DataTable, SortableHeader, FilterInput, StatusBar, LoadingState, EmptyState, UploadButton, ColumnToggle)
+- lib (csv.js, prefs.js, utils.js), hooks (useCsv.js)
+- `public/sample.csv` (skopiowane z `data/master.csv`)
+- Zmiany typu w `lib/csv.js` (number threshold 0.85 → 1.0)
+- 2 bug fixy (onFilteredCountChange wiring, effectiveFilters override)
+- Nowe sekcje w DZIENNIK + INTEL
+- Zmiana w `.gitignore`
+
+### Push status
+
+✅ Pushed to `origin/main` (https://github.com/ng-net/billszuka.git). Branch: `main`. Commit: `a56791b`. 
+Następna osoba po `git pull` będzie miała frontend-2/ lokalnie.
+
+### Working tree
+
+Clean. `git status` → "nothing to commit, working tree clean".
