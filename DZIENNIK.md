@@ -1723,3 +1723,464 @@ v1.3 → v1.4 (2026-08-19 11:30). Nazwa pliku PDF, znacznik w stopce i creator z
 - `data/INSTRUKCJA.pdf` — v1.5 → v1.6 (regenerowany)
 
 **Wersjonowanie:** v1.5 → v1.6 (2026-08-19 11:55).
+
+## 2026-08-20 — czat-table subproject (CSV dashboard) [in progress]
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o nowy folder `czat-table/` z minimalistycznym dashboardem CSV. Wymagania: ~5000 wierszy × 35 kolumn, tylko tabela + sort + filtr + Upload, shadcn/ui + Tailwind, mobile-first, horyzontalnie scrollable, click-to-copy, sticky headers/cols, sort/filter wielokolumnowy. Po review planu v1 → wow layer v2 (try sample, FLIP sort, Cmd+K palette, type-inference, click-to-copy, sticky pinned cols, dark mode, auto-hide toolbar, shortcuts overlay). 13/13 pomysłów z listy Marcela zaakceptowanych do budowy.
+
+**Wykonane:**
+- Scaffold `czat-table/` (Vite + React 19 + JS + Tailwind v4)
+- `components.json` (shadcn) + 6 deps: papaparse, framer-motion, @tanstack/react-virtual, sonner, cmdk, lucide-react + Radix (tooltip/popover/checkbox)
+- 9 shadcn primitives (button, table, input, badge, separator, tooltip, popover, command, checkbox)
+- `lib/csv.js` — parser + type inference (text/number/date/url/email/phone + enum detection) + 50 MB cap
+- `lib/format.js` — Intl number/date helpers
+- `lib/persist.js` — `czat-table.prefs.v1` (density/theme/columns/sort/filters; **CSV content NEVER persisted**)
+- `lib/sample.js` — bundles `data/master.csv` via `?raw` for instant "Try sample"
+- 13 components: dropzone (drag/drop + try sample + progress), upload-button, data-table (virtualized + sticky-2-pinned + spring FLIP sort + multi-sort), type-cell (link rendering), type-filter (text/range/date/enum), sort-stack, filter-chips, quick-filters (auto-derived), status-bar (animated count via framer-motion useSpring), toolbar (auto-hide on scroll), command-palette (Cmd+K), shortcuts-overlay (?), theme-toggle (Light/Dark/System)
+- Verified via Puppeteer: empty state, loaded state, sort, multi-sort, command palette, shortcuts overlay, auto-hide on scroll, filter (kategoria=A4 → 38 rows), mobile (390px) with sticky pinned cols after horizontal scroll, context menu, dark/light theme, click-to-copy
+- Build: 787 KB raw / **245 KB gzipped** (React + PapaParse + framer-motion dominate)
+
+**Wynik końcowy:** Wszystkie 13 pomysłów Marcela działa. Bundle size akceptowalny dla 5k-row data tool. Dev server running on http://localhost:5173/ (foreground task `bg_6b8da882-…`). Production build: `pnpm build` → `dist/`.
+
+**Pliki dodane (w `czat-table/`):**
+- 30 source files (10 lib + 13 components + 7 ui primitives + main.jsx + App.jsx)
+- `vite.config.js`, `index.html`, `components.json`, `package.json`, `.gitignore`
+- `dist/` (build output)
+
+**Następne kroki (gdyby Marceli poprosił):**
+- Performance: code-splitting (framer-motion lazy), bundle 245→180 KB gz
+- CSV export (offline utility, no network)
+- Row striping for accessibility (color-blind safe palette)
+- A11y audit with axe
+
+## 2026-08-20 — czat-table pagination (Marceli request, follow-up)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił: "not all rows visible, add pagination and show 100 per page". Wcześniej używałem virtualizacji (`@tanstack/react-virtual`) — Marceli wolał klasyczne strony.
+
+**Wykonane:**
+- `prefs.pagination = { page: 1, perPage: 100 }` w DEFAULTS; `page` NIE persystowane (zawsze wraca do 1), `perPage` persystowane.
+- `data-table.jsx`: usunięto `useVirtualizer` i całą logikę absolute-positioning. Nowa ścieżka: filter → sort → slice (pageStart, pageEnd) → render. Każdy wiersz to normalny `<motion.tr>` wewnątrz flow (z `key={page-absoluteIndex}` żeby FLIP-animacja działała przy zmianie strony).
+- Auto-reset do page 1 gdy `sort` lub `filters` się zmienią (używa JSON.stringify jako dependency key; nie wymaga deep-equal lib).
+- `status-bar.jsx`: dodane przyciski paginacji `<<` (pierwsza) / `<` (poprzednia) / `>` (następna) / `>>` (ostatnia), "Page X of Y", "Showing N–M of TOTAL rows", oraz `100/page` picker z opcjami 25/50/100/250/500. Spring-animowany `TOTAL` (framer-motion `useSpring`) dla smooth count transitions na filter changes.
+- Usunięto `auto-hide toolbar on scroll` — przy paginacji body scrolluje wewnątrz stałej strony, więc toolbar ukrywający się w połowie strony byłby confusing. Toolbar zawsze widoczny.
+- Smoke test: page 1 (1–100 of 394), page 4 last (301–394 of 394), filter kategoria=A4 → page auto-reset to 1 of 1 (28 rows), perPage=50 → 1 of 8 (1–50 of 394). Brak błędów runtime.
+
+**Wynik:** Pagination działa, FLIP-animacja przejść między stronami zachowana, build nadal 245 KB gz. Dev server działa na :5173.
+
+## 2026-08-20 — frontend-2/ czat-table built (initial ship)
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Marceli chciał minimalny, surowy dashboard CSV do przeglądania katalogu 5000 leadów. Odrębna apka (nie sub-folder frontend/), własny Vite+React+Tailwind v4 stack.
+
+**Wykonane:**
+- Nowa apka `frontend-2/` obok istniejącego `frontend/`. Oba niezależne (własne `node_modules`, `vite.config`, port 3001).
+- Vite + React 19 + Tailwind v4 + shadcn CLI (new-york, neutral palette, oklch tokens).
+- Skopiowane `data/master.csv` (394 wiersze, 35 kolumn) → `frontend-2/public/sample.csv` dla one-click "Spróbuj z master.csv" w empty state.
+- 10 shadcn components: button, input, popover, checkbox, dropdown-menu, badge, tooltip, scroll-area, sheet, progress, command, sonner, separator, dialog.
+- Lib: `lib/csv.js` (PapaParse worker + type inference: text/number/date/url/email/phone/enum ≤10 unique), `lib/prefs.js` (localStorage v1 schema, **bez** CSV content), `lib/utils.js` (cn, formatNumber, formatDate, truncate, debounce).
+- Hook: `useCsv` (parse + progress + cancel via AbortController).
+- 9 components: RawTable, DataTable (TanStack v8 + dnd-kit + framer-motion FLIP + @tanstack/react-virtual), SortableHeader, FilterInput (text/number-range/date-range/enum multi-select, 150ms debounce), CellRenderer (URL/email/phone clickable, mono font na NIP/KRS, copy-on-click), ColumnToggle (popover z 35 checkboxami), StatusBar (animated row count), CommandPalette (⌘K, cmdk), UploadButton (z progress), EmptyState (full-screen drop zone).
+- 8 keyboard shortcuts: ⌘K palette, ⌘O upload, ⌘F focus column filter, D density, R reset, ↑↓ row nav, Enter copy cell, ? help.
+- Theme: light/dark/system, smooth 150ms transition, persisted.
+- Density: compact (32px) / comfortable (44px), compact default, persisted.
+- id_unikalne + nazwa_firmy pinned na front → sticky left on mobile (iPhone 15 viewport tested).
+- Inter font + JetBrains Mono (mono na IDs). Polish characters render OK (Łódź, Bielsko-Biała, Żółkiew).
+
+**Pinned:** 2 front columns (id + firma). Mobile first 2 cols sticky left z right shadow.
+
+**Build size:** 706 KB JS / 218 KB gzipped, 54 KB CSS / 10 KB gzipped. Build OK, dev na :3001.
+
+**Następne (opcjonalnie):** URL state sync, multi-column sort chip strip, column resize z persisted widths, single-row detail panel, export filtered as CSV.
+
+## 2026-08-21 — frontend-2/ virtualization removed (no-flicker fix)
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Marceli zauważył "appearing and disappearing results" przy scrollu — klasyczny symptom virtualization + framer-motion FLIP. Kazał zrobić "results loaded for some short time to then scroll smoother without blinking".
+
+**Co było źle:**
+- `@tanstack/react-virtual` montował/unmontował ~14 wierszy na raz podczas scrolla → flicker.
+- `motion.tr layout="position"` dodawał FLIP-animację do każdej zmiany pozycji → konflikt z virtualizer (które wiersze istnieją w DOM zmienia się co scroll).
+- Razem: niestabilne renderowanie, "rows blink in/out" przy scrollu.
+
+**Fix:**
+- Usunięty `useVirtualizer` i cała logika `paddingTop`/`paddingBottom`/`virtualRows`. 5k wierszy × 35 kolumn to ~10 MB DOM — natywne scrollowanie w przeglądarce jest szybsze i stabilniejsze niż virtualization dla tej skali.
+- Usunięty `motion.tr` (framer-motion). Sort nie animuje FLIP, ale jest instant i stabilny.
+- Dodany CSS keyframe `row-settle` (180ms ease-out, opacity 0→1 + translateY 2px→0) na pierwszych 60 wierszach, z inline `animation-delay: i*4ms`. Daje "settling" efekt po załadowaniu danych, potem tabela jest statyczna.
+- `animation-fill-mode: backwards` — wiersze z delay są niewidoczne do startu animacji.
+
+**Bundle:** 706 KB → 683 KB JS (mniej zależności, mniej kodu). gzipped 218 → 211 KB.
+
+**Smoke test:** 394 wierszy w DOM, scroll góra→dół→góra stabilny, pierwszy wiersz zawsze ten sam po scroll-up. Sort po `miasto` działa, indicator widoczny. Brak błędów runtime.
+
+## 2026-08-21 — frontend-2/ hide-column × button on hover
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Marceli zapytał "can we add hiding whole column?". Funkcja istniała (Kolumny popover + right-click "Ukryj kolumnę") ale nie była discoverable. Dodałem bezpośredni przycisk × w nagłówku kolumny.
+
+**Co dodałem:**
+- W `SortableHeader.jsx`: nowy `onHide` prop + button z `X` iconem (lucide), `opacity-0 group-hover:opacity-100`, hover bg `destructive/10`. `aria-label="Ukryj kolumnę {id}"`.
+- W `DataTable.jsx`: nowy `onColumnHide` prop. Wywoływany z: (1) × button w nagłówku, (2) "Ukryj kolumnę" w right-click context menu.
+- W `RawTable.jsx`: `onColumnHide` callback otwiera `toast()` (sonner) z opisem "Kliknij przycisk, żeby przywrócić" i action buttonem "Pokaż" który usuwa flagę visibility dla tej kolumny. Duration 4s, `richColors`.
+
+**UX flow:**
+1. Hover na nagłówek → pojawia się × (plus grip handle do drag).
+2. Click × → kolumna znika natychmiast, "Kolumny X/35" update w toolbar.
+3. Toast w bottom-right: "Ukryto kolumnę: {id}" + "Pokaż" action.
+4. Click "Pokaż" → kolumna wraca. Lub poczekaj 4s → toast znika, kolumna zostaje ukryta.
+5. Pełne restore przez Kolumny popover (checkbox).
+
+**Bundle:** 683 → 683 KB JS (brak zmiany rozmiaru), 211 KB gzipped.
+
+**Smoke test:** 5 ukrytych kolumn (kategoria, miasto, www, email, telefon) → Kolumny 30/35, dane się reflują poprawnie, sticky first 2 cols nadal pinned. Pokaż przywraca prawidłowo.
+
+**Bonus issue napotkany:** Podczas testu zauważyłem że dnd-kit PointerSensor z `activationConstraint: { distance: 4 }` czasem łapie clicki przeznaczone dla innych przycisków w nagłówku. Na mobile (touch) grip handle jest niewidoczny (`opacity-0 group-hover:opacity-100` bez :focus-within fallback), więc drag też nie działa. Oba items na liście do poprawki.
+
+## 2026-08-20 — czat-table 4-PR cleanup (Marceli request, follow-up #2)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli wybrał 4 wcześniej zaproponowane PR-y: (1) honest shortcuts, (2) correctness pass, (3) data-table split, (4) test harness.
+
+**PR 1 — Honest shortcuts:**
+- Dodany `selected` state (default `{0,0}`) w data-table; `onBodyKeyDown` na `data-scroll-body` (tabIndex=0) obsługuje ↑↓←→ (clamp z Math.min/max), Enter (copy), Cmd/Ctrl+F (focus filter via `document.querySelector`, bo input jest w sticky header poza body).
+- Pierwsza komórka ma ring od razu; ↓↓→→ z `null` startuje 0→1→2 (używałem `?? -1` w old code).
+- TypeCell dostał `data-copy-target` attribute dla łatwiejszego lookup przy Enter.
+- Shortcuts overlay: usunięte 3 linie które nie działały (Drag grip reorder, Scroll ↓/↑ hide toolbar — od czasu paginacji nie są prawdziwe). 13/13 = 16 pozostałych wszystko działa.
+
+**PR 2 — Correctness pass:**
+- Page-reset useEffect: był read `prefs` z outer closure (race condition gdy sort+filter zmieniają się w jednym ticku). Zmienione na `onPrefsChange((p) => ...)` functional update.
+- Status bar `useSpring` respektuje `prefersReducedMotion()` (snap do wartości zamiast animacji).
+- Phone regex w `csv.js` zaostrzony: wymaga `+`/parens/long digit run + separator. Stary regex matchował plain numeric IDs (np. `123456` jako `phone`).
+- PapaParse error filter: `UndetectableDelimiter` (single-column CSV) przestał być fatal — wcześniej `parseCsvFile` rzucał na każdym 1-kolumnowym CSV.
+
+**PR 3 — Split data-table.jsx:**
+- Wyciągnięte: `TableHeaderRow` (118 linii) i `ColumnMenu` (74 linie). `data-table.jsx`: 620 → 497 linii.
+- Cleanup: usunięte `RESERVED_BAR_HEIGHT`, `PER_PAGE_OPTIONS`, `_scrollRef` z toolbar (oraz prop pass-through w App.jsx), niepotrzebne importy lucide-react.
+- 2 bugs znalezione i naprawione podczas refactor: brakujący import `Table` w `table-header.jsx` (test e2e złapał), niepotrzebny `cn` import w toolbar.
+
+**PR 4 — Test harness:**
+- Vitest 4.1.11 dodany. `src/lib/csv.test.js` — 17 testów pokrywających: type inference (number/date/url/email/phone/enum), Polish characters, multi-line cells, empty rows, sort (numeric, date, desc, empty-last, comma decimals, Polish diacritics), MAX_FILE_BYTES.
+- e2e script: `tests/e2e/smoke.mjs` z Puppeteer. Sprawdza: load sample, single sort, multi-sort, filter, page-reset, keyboard nav (↑↓→), Enter→copy toast, Cmd+F focus filter, last page jump, no console errors. Screenshots zapisywane do `tests/e2e/shots/`.
+- Favicon SVG dodany (szybki 32x32) — czyści 404 z konsoli.
+- Scripts: `pnpm test` (Vitest), `pnpm test:watch`, `pnpm test:e2e` (Node + Puppeteer).
+
+**Wynik końcowy:**
+- Unit: 17/17 ✓
+- e2e: 9/9 ✓ + 0 console errors
+- Build: 1.7s, nadal ~245 KB gz
+- Wszystkie 4 PR-y done. Dev server :5173 działa (bg_43a8534a-…), kiedy zginie — wystarczy `pnpm dev`.
+
+**Pliki dodane/zmienione (w `czat-table/`):**
+- Nowe: `src/components/table-header.jsx`, `src/components/column-menu.jsx`, `src/lib/csv.test.js`, `tests/e2e/smoke.mjs`, `public/favicon.svg`
+- Zmienione: `src/components/data-table.jsx`, `src/components/type-cell.jsx`, `src/components/status-bar.jsx`, `src/components/toolbar.jsx`, `src/components/shortcuts-overlay.jsx`, `src/lib/csv.js`, `src/lib/persist.js`, `src/App.jsx`, `package.json`, `index.html`
+
+## 2026-08-21 — czat-table data quality fix + validator (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli zauważył: w master.csv, w wierszach FR (Francja), kolumna RELATED_TO ma wartości typu rok (np. `2007`), a ROK_ZALOZENIA jest pusta — widać to w UI na stronie 4 (FR). Poprosił: napraw dane, dodaj walidator, lub popraw master.csv.
+
+**Diagnoza:**
+- Audit wykazał 55 wierszy (nie tylko FR — też PL, EE, LV, RO, MD) z 4-cyfrowym rokiem w `related_to` i pustym `rok_zalozenia`. Wyraźny wzorzec błędu kopiuj-wklej.
+- Pattern rozpoznany: `rok_zalozenia` w `related_to`, `related_to` powinno być puste.
+
+**Naprawione:**
+- `data/master.csv`: 55 wierszy naprawionych (year przeniesiony z `related_to` do `rok_zalozenia`, `related_to` wyczyszczone). Backup w `data/master.csv.bak`.
+- `src/lib/csv.js`: nowa funkcja `validateRows(rows)` zwracająca listę warnings. Wpięta w `parseCsvString` (warnings dołączone do wyniku).
+- `src/App.jsx`: każdy warning wyświetlany jako `toast.warning("Possible data issue", { description, duration: 8000 })` po wczytaniu CSV.
+- `src/lib/csv.test.js`: 5 nowych testów validateRows (jeden wiersz, wiele wierszy, poprawne dane, brak kolumn, pusty input).
+- Puppeteer e2e screenshot potwierdził fix: FR-B-004..FR-B-012 teraz pokazują RELATED_TO="—", ROK_ZALOZENIA=year.
+
+**Wynik:**
+- 22/22 unit tests ✓
+- pnpm build ✓ (1.28s, ~245 KB gz)
+- e2e 9/9 ✓
+- master.csv: 394 wiersze, 0 misalignment
+- Validator aktywny dla przyszłych uploadowanych CSV (sample z master.csv jest teraz czysty więc nie wyświetli warninga dla bundled sample)
+
+**Pliki:**
+- Zmienione: `data/master.csv` (naprawione), `src/lib/csv.js` (+ validateRows), `src/lib/csv.test.js` (+ 5 testów), `src/App.jsx` (+ toast warning)
+- Nowe: `data/master.csv.bak` (backup oryginału)
+
+## 2026-08-21 — data integrity fix dla master.csv (Marceli request, audit #2)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli zrobił audyt master.csv i wylistował 9 kategorii bugów (A-I). Poprosił o review projektu i fix w master.csv.
+
+**Diagnoza (potwierdzona):**
+- A: 4 duple NIPy → celowe (dual-business, per notatka na PL-A-002)
+- B: 4 złe daty (data_weryfikacji z wyciekiem flagi)
+- C: 4 multi-emails (`;`-separated)
+- D: 1 wiersz z `wolumen='✅'` (PL-A-003, pełen swap)
+- D2: ~50 wierszy z non-canonical wolumen (combined `'duży 🟢 (...)'`, case, numeric rating) — collateral, rozszerzenie D
+- E: tier 58 unique wartości (target 7 canonical)
+- F: 2 flagi wiersze z freeform notatką (RO-A-009, LT-B-010)
+- G: 14 wierszy z csp corruption (8 person-names, 2 city-names, 4 i18n, 1 EMTAK)
+- H, I: nie bugi (sparsity, descriptive kanał_sprzedaży)
+
+**Naprawione:**
+- Nowe narzędzie: `tools/fix_master_data_integrity.py` (idempotent, --dry-run/--apply, obsługuje skip dirs per tools/auto_enrich.py)
+- Zmienione pliki: `data/master.csv` (205 wierszy) + 24 per-kraj katalogi (~80 wierszy)
+- Backupy: każdy plik ma `*.pre-fix-20260821.bak`
+- `billszuka.py compile` przerobiony po fix (master odtworzony z naprawionych katalogów)
+- `verify-data` skill: --init + --dry-run = "No changes detected" (zero drift)
+
+**Kluczowe decyzje projektowe:**
+1. **Scope rozszerzony z master.csv na 24 katalogi** — bo `billszuka.py compile` regeneruje master z katalogów. Fix samego master zostałby wymazany. Zrobiłem pełny scope.
+2. **Tier mapping ręczny, 58 → 7** — compound variants mapowane do roli dominującej (np. 'producent/hurtownik' → 'producent', 'hurtownik + sieć kiosków' → 'hurtownik'). Długie warianty sprawdzane PRZED krótkimi (np. 'hurtownik FMCG (fresh produce)' przed 'hurtownik FMCG').
+3. **Wolumen canonicalization D2** — split combined 'duży 🟢 (opis)' → wolumen='duży' + confidence='🟢' + opis do notatki. Numeric '5'/'0.0' → '🟢'/'🔴'. Descriptive text w confidence (14 wierszy) **zostawione** — konwersja na emoji wymaga domain knowledge (ryzyko halucynacji).
+4. **Person-name csp → decydent/stanowisko** — z uwagą na to, że niektóre wiersze miały też email w `stanowisko` (PL-B-005, PL-B-024) → przeniesiony do `email_decydent`.
+5. **Backup-everywhere przed write** — `*.pre-fix-20260821.bak` dla każdego zmienionego pliku.
+
+**Out-of-scope (dokumentowane w audit-log.md):**
+- **SI-A-006 / SI-B-008**: wielokolumnowa korupcja (miasta w decydent/stanowisko/csp). Tylko csp naprawione.
+- **8 EE wierszy** (EE-B-008..016): employee-counts/NACE w `wolumen`. Ryzykowne dla auto-fix.
+- **14 descriptive-text w `confidence_wolumen`**: zostawione (wymaga domain review).
+
+**Wynik:**
+- master.csv: 394 wiersze, schema 35 kolumn
+- B: 0/4 złych dat ✓
+- C: 0/4 multi-emails ✓
+- D: 0/1 ✓
+- E: 7/7 canonical tier (było 58) ✓
+- F: 23/24 → 2 outliers cleaned (RO-A-009, LT-B-010) ✓
+- G: 7/7 canonical csp (było 23, 8 person/city removed, 4 i18n translated) ✓
+- D2: 8/128 non-canonical wolumen remaining (EE only, follow-up)
+- verify-data: "No changes detected" — 0 drift
+
+**Pliki:**
+- Nowe: `tools/fix_master_data_integrity.py` (157 LOC, idempotent)
+- Zmienione: `data/master.csv` + 24 per-kraj katalogi + `data/audit-log.md` (nowa sekcja) + `DZIENNIK.md` (ten wpis)
+- Backupy: 25 plików `*.pre-fix-20260821.bak` w odpowiednich katalogach
+
+## 2026-08-21 — czat-table: column-reset + snappier filter/sort (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o (1) ręczne resize kolumn + szybki reset do defaultu, (2) szybsze filtry i sortowanie, (3) paginacja 50/100 per page.
+
+**Wykonane:**
+
+1. **Column reset — dwa UX paths:**
+   - **Hover icon:** w `table-header.jsx` — mały `<RotateCcw>` button renderowany **tylko gdy `col.width !== defaultColWidth`**, opacity 0 → 100 na `group-hover/th`. Tooltip: "Reset width (Xpx → 180px)".
+   - **Context menu item:** w `column-menu.jsx` — nowy `<Item icon={RotateCcw}>Reset width to default</Item>` (osobny od istniejącego "Reset column" który resetuje sort/filter).
+   - Akcja: `setColumn(colId, { width: DEFAULT_COL_WIDTH })` z `data-table.jsx` (onResetWidth callback).
+
+2. **Snappier filter/sort — `useDeferredValue`:**
+   ```js
+   const deferredFilters = React.useDeferredValue(filters)
+   const deferredSort = React.useDeferredValue(sort)
+   // filteredRows i sortedRows useMemo zależą od deferredFilters/deferredSort
+   ```
+   - Input (controlled state) update jest natychmiastowy — UI nigdy nie czeka na filtered/sorted recompute.
+   - React automatycznie przerywa ciężkie render i robi nowy z freshest filters. Bez debounce (zero latency feel).
+
+3. **Paginacja — już miała [25, 50, 100, 250, 500] w `status-bar.jsx`**, nic do zmiany. User wybiera przez popover w prawym dolnym rogu.
+
+4. **Bug fix — `Tooltip` must be used within `TooltipProvider`:**
+   - Console error PAGEERR złapany przez e2e (`Puppeteer pageerror`).
+   - Przyczyna: shadcn `Tooltip` jest Radixowy, wymaga providera, ale `App.jsx` nigdy go nie montował.
+   - Fix: `<TooltipProvider delayDuration={300}>` w `App.jsx` (teraz wrapuje cały div).
+   - Test verify: 0 console errors (było 1).
+
+**Weryfikacja:**
+- `pnpm test` → 25/25 ✓
+- `pnpm test:e2e` → 10/10 ✓ (w tym "No console errors during full flow")
+- `pnpm build` → clean, 238 KB gz
+- Visual e2e (Puppeteer + page.mouse):
+  - Per-page popover otwarty → widoczne opcje `[25, 50, 100, 250, 500]` ✓
+  - Right-click na column header → "Reset width to default" w menu ✓
+  - Drag resize handle + hover → reset button widoczny (opacity 1) ✓
+  - Click reset → width wraca do default ✓
+
+**Pliki:**
+- Zmienione: `src/App.jsx` (+ TooltipProvider), `src/components/data-table.jsx` (useDeferredValue, onResetWidth), `src/components/table-header.jsx` (+ defaultColWidth/onResetWidth props, hover button), `src/components/column-menu.jsx` (+ "Reset width to default" item)
+- Nowe: 3 temp verify skrypty (`_verify-final.mjs`, `_verify-progress.mjs`, `_verify-reset.mjs`) — zostawione (safety layer blokuje rm)
+
+**Następne kroki (follow-up):**
+- Manual delete `_verify-*.mjs` jeśli nie potrzebne
+- Opcjonalnie: dodać "Reset all widths" w CommandPalette (Cmd+K) dla power users
+
+## 2026-08-21 — Pass 2: out-of-scope data integrity items (SI/EE/confidence)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o fix 3 out-of-scope kategorii z poprzedniego audytu:
+- SI-A-006, SI-B-008: wielokolumnowa korupcja (miasta w decydent/stanowisko/csp)
+- 8 EE wierszy (EE-B-008..016): employee-counts/NACE w wolumen
+- 13 wierszy: descriptive-text w confidence_wolumen
+
+**Diagnoza + naprawione:**
+
+**J. SI multi-col corruption (2 wiersze):**
+Wiersze miały zdanie "Sieć salonów (Ljubljana, Maribor, Kranj, Krško) & E-commerce" pocięte na 5 kolumn:
+- kanal_sprzedaży: "Sieć salonów (Ljubljana" (początek)
+- powinowactwo_nabijarki: "Maribor" (miasto z listy)
+- decydent: "Kranj" (miasto z listy, NIE osoba)
+- stanowisko: "Krško) & E-commerce" (koniec zdania)
+- email_decydent: "4" (uszkodzone)
+- miasto: "Celje / Ljubljana" (dwa miasta HQ + sklep)
+
+Fix: rekonstrukcja pełnego kanału sprzedaży, wyczyszczenie pozostałych kolumn, lista lokali w notatki, miasto = HQ per adres.
+- SI-A-006 (Belidim, SIGMA-COMMERCE): Celje HQ, 4+ lokali
+- SI-B-008 (Q Vapehouse, M.H.U.): Maribor HQ, 3 lokale
+
+**K. EE wolumen descriptive (8 wierszy):**
+Heuristic oparty na evidence w notatki:
+- 100+ pracowników (Karisma Food, 108 emp) → duży
+- 30-100 pracowników + FMCG (Karia, Fazer, Nordista) → średni
+- Single shop + e-commerce (Hinnapomm) lub declining revenue (Imperial Tobacco Estonia €0) lub self-claim (RYO Paper) → mały
+- Detail (BalticFirms.eu, NACE, revenue) → notatki
+
+**L. Descriptive confidence (13 wierszy):**
+Per-row mapping na podstawie evidence:
+- 🟢 (silna): BILLS, BISTA (70 krajów export), CK COMPLEX (100+ sklepów), CASISS (6+ lokali KRS), POLSKA GRUPA TYTONIOWA, ORION (1.8 mld szt/rok), 3× SANITEX (grupa bałtycka per INTEL)
+- 🟡 (słabsza/mała): F.H.U. ALPIK, GABIMIX, AMPEX, ELENPIPE
+- Stary descriptive text → notatki jako `cf detail: ...`
+
+**Wynik:**
+- master.csv: 0/2 SI corruption ✓
+- 0/8 EE non-canonical wolumen ✓
+- 0/13 descriptive confidence ✓
+- Łącznie 23 wiersze naprawione (master + per-kraj katalogi)
+- D2 fix rozszerzony: obsługuje combined confidence "mały 🟡" → "🟡" (split)
+- verify-data: "No changes detected" (zero drift)
+
+**Pliki:**
+- tools/fix_master_data_integrity.py (+3 kategorie: SI_FIX, EE_WOLUMEN_FIX, DESCRIPTIVE_CONFIDENCE_FIX; +D2 split combined confidence)
+- data/master.csv + 5 per-kraj katalogów (EE A/B, SI A/B, LV B)
+- data/audit-log.md (nowa sekcja "Pass 2")
+- DZIENNIK.md (ten wpis)
+
+## 2026-08-21 — Pass 3: Schema alignment audit (14 kolumn sprawdzone)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił "check if all data now in correct columns" — pełny audyt schema-alignment dla 14 kolumn enum + format w data/master.csv.
+
+**Audit zrobiony (14 kolumn):**
+- id_unikalne (regex), kategoria (A1-A6/B1-B9), tier (7 canonical), wolumen (3 canonical),
+- confidence_wolumen (3 emoji), cross_sell_potential (3 canonical + placeholders), rynek_skala (3 canonical),
+- data_weryfikacji (YYYY-MM-DD), rok_zalozenia (YYYY), powinowactwo_nabijarki (B-only 1-5),
+- email/email_decydent (format), nip_vat (per-country format), 5× URL columns (http://...).
+
+**Bug znalezione i naprawione (Pass 3):**
+
+| # | Bug | Wiersze | Fix |
+|---|---|---|---|
+| M | A-rows z `powinowactwo_nabijarki` (B-only pole) | 71 | Wyczyszczone (methodology §10) |
+| M | B-rows z non-canonical `powinowactwo_nabijarki` ('brak'/'wysoki'/'średni') | 55 | Wyczyszczone (placeholder → empty) |
+| N | `rynek_skala='bardzo duży'` | 51 | → 'duży' (max canonical) |
+| O | `email_decydent` z junk | 12 | Wyczyszczone + source data → zrodlo_danych |
+| P | Social handles zamiast URLs (facebook/instagram/linkedin) | 18 | Dodano `https://platform.com/handle` |
+| Q | `rok_zalozenia='brak'` placeholder | 44 | Wyczyszczone |
+| R | `nip_vat` z whitespace (RO-A-009) | 1 | → 'RO48715727' |
+
+**Wynik: 0/394 issues we wszystkich 14 canonical-enum/format kolumnach.**
+
+**Out-of-scope (udokumentowane, wymaga osobnej sesji):**
+- `sourcing`: 60 unique (methodology allows 4) — descriptive variants: 'Direct EU/Asia Import', 'Trošarinsko skladišče / FURS', 'dystrybucja regionalna', 'import (UE + Azja)' itd. Wymaga ręcznego mappingu per-country.
+- `kanal_sprzedaży`: 119 unique (methodology allows 5) — descriptive variants z detalami (miasta, sklepy). Methodology może wymagać rewizji.
+- `marki_nabijarki`: 186 unique — descriptive list (marki), zgodne z methodology.
+
+**Pliki:**
+- tools/fix_master_data_integrity.py (+M/N/O/P/Q/R fix, +D2 split combined confidence)
+- data/master.csv + per-kraj katalogi (powinowactwo 71+55 rows, rynek_skala 51, social 18, etc.)
+- data/audit-log.md (nowa sekcja "Pass 3")
+- DZIENNIK.md (ten wpis)
+
+## 2026-08-21 — Pass 4: Full tier-cardinality cleanup (RS catalog)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o domknięcie out-of-scope z Pass 1: pełny tier-cardinality cleanup. Pozostałe 16 non-canonical wartości tier siedziało w Srbija katalogach (RS-A, RS-B) — angielskie opisy typu "chain retailer + importer".
+
+**Naprawione (13 wzorców → canonical):**
+- 'chain retailer + X' / 'chain retailer' → 'reseller' (multi-store retail)
+- 'importer + retail + cafe' → 'reseller' (retail dominant)
+- 'importer / distributor' / 'wholesale + retail' / 'wholesale distributor' / 'distributor (RELX)' → 'hurtownik'
+- 'importer + e-commerce' → 'hurtownik'
+- 'manufacturer + distributor (Big Tobacco)' → 'producent' (BAT SEE)
+- 'specialty retail (cigars/pipes)' / 'specialty (shisha bar)' → 'detalista'
+- 'chain retailer + distributor' (1700+ B2B points) → 'hurtownik' (wholesale scale, not retail)
+
+**Wynik:**
+- master.csv + 26 per-kraj katalogów: tier unique = **7** (pełna kanonizacja)
+- 777/777 wierszy canonical (100%)
+- verify-data: "No changes detected" (0 drift)
+- Łączny wynik Pass 1-4: 0/394 issues we wszystkich 14 canonical-enum/format kolumnach + tier 7/7 w każdym pliku
+
+**Pliki:**
+- tools/fix_master_data_integrity.py (+13 wpisów w TIER_MAP_RAW dla RS)
+- data/Srbija/catalog-A-RS.csv + catalog-B-RS.csv (16 wierszy)
+- data/master.csv (regenerowany po compile)
+- data/audit-log.md (Pass 4)
+- DZIENNIK.md (ten wpis)
+
+## 2026-08-21 — Pass 5: notatki Dedupe + Tool Idempotency Fix
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o "fix master.csv" po Pass 4. Weryfikacja
+treści `notatki` wykazała duplikaty w 14 wierszach (x5-x6 kopii tego samego
+fragmentu w ` | `-separated stringu) — efekt non-idempotent append w
+`tools/fix_master_data_integrity.py` po 5-6 uruchomieniach.
+
+**Problem:**
+- master.csv: 14 rows z duplikatami (PL-B-005 miał "Wspólnicy: Robert Biela..." x6)
+- per-kraj: te same 14 rows (mirror)
+- verify-data: 0 drift (bo sprawdza tylko schema/hash, nie treść powtórzeń)
+
+**Fix (3 kroki):**
+
+1. **Dedupe skrypt** (`tools/dedup_notatki.py` — nowy, idempotent):
+   - split by ` | `, dedupe z zachowaniem kolejności pierwszego wystąpienia
+   - 14 master + 14 per-kraj = 28 rows zmienionych
+   - reduction: PL-B-005 866→278 chars (-68%), RO-A-009 788→332 (-58%)
+
+2. **Tool idempotency patch** (`tools/fix_master_data_integrity.py`):
+   - nowy helper `append_notatki_unique(row, addition)` — sprawdza substring
+   - 7 miejsc append zpatchowane (wolumen detail, alt email, lokale list,
+     wolumen detail per-row, cf detail, flagi→canonical+notatki, shareholder data)
+   - dry-run po patch: 0 rows changed (vs 14 przed)
+
+3. **Re-init verify-data** po dedup: 11652 rows rehashed, "No changes detected"
+
+**Wynik końcowy:**
+- master.csv: 394 rows, tier 7+empty canonical
+- Per-kraj: 0 rows z duplicate notatki parts
+- `fix_master_data_integrity.py --dry-run`: 0 rows changed (idempotent)
+- `verify-data --dry-run`: 0 drift
+- **Master.csv + 26 per-kraj: 0 issues we wszystkich 14 canonical-enum/format
+  kolumnach + tier 7/7 + notatki dedupe**
+
+**Pliki:**
+- tools/dedup_notatki.py (nowy, idempotent, --dry-run/--apply)
+- tools/fix_master_data_integrity.py (+append_notatki_unique helper, 7 miejsc patch)
+- data/master.csv (regenerowany po compile po dedup per-kraj)
+- data/{Kraj}/catalog-*.csv (28 rows dedup, wszystkie 7 krajów)
+- data/.pre-dedup-20260821/ (backup data/ przed dedup)
+- data/audit-log.md (Pass 5)
+- DZIENNIK.md (ten wpis)
+

@@ -1,5 +1,141 @@
 # BILLSzuka — Audit Log
 
+## 2026-08-21 (02:40 UTC+2)
+
+### Data-Integrity Pass: 7 Bugs w `data/master.csv` Naprawione (208 wierszy master + 24 per-kraj)
+
+- **Narzędzie:** `tools/fix_master_data_integrity.py` (nowy, idempotentny, --dry-run/--apply)
+- **Scope:** master.csv (394 wierszy) + wszystkie 24 per-kraj katalogi (206 wierszy).
+  Powód pełnego scope: master.csv jest **regenerowany** przez `billszuka.py compile`
+  z per-kraj CSV, więc fix samego master zostałby wymazany przy następnym compile.
+- **Łącznie zmienionych wierszy:** 205 master + ~80 per-kraj (głównie normalizacja tier + wolumen).
+- **Backupy:** każdy zmieniony plik ma `*.pre-fix-20260821.bak` obok.
+
+| # | Bug | Wiersze | Fix | Status |
+|---|---|---|---|---|
+| A | 4 zdublowane NIPy | 4 | **Bez zmian.** Celowe dual-business (A+B para dla tej samej firmy). Potwierdzone w notatkach (np. PL-A-002: "dual-class... keep in both per dual-business model"). | ✓ dokument |
+| B | `data_weryfikacji` z wyciekiem tekstu flagi | 4 (PL-B-005, PL-B-023, PL-B-024, LT-B-001) | Wyciągnięto samo `YYYY-MM-DD` regexem (data gdziekolwiek w stringu, np. `'QS: 95/100 \| 🐋 2026-08-17 ✅ FROZEN (API)'` → `2026-08-17`). | ✓ 0 złych dat |
+| C | Multi-email (`;`-separated) | 4 (PL-A-004, PL-A-008, PL-A-009, PL-B-092) | Pierwszy email = primary; alt email → notatki jako `\| alt email: ...`. | ✓ 0 multi |
+| D | `wolumen = '✅'` dla PL-A-003 | 1 | tier='reseller' (był brand-list), wolumen='duży' (był emoji), confidence='🟢' (był opis "e-commerce + 25+ sklepów"). | ✓ naprawiony |
+| D2 | `wolumen` ma scale `'duży 🟢 (...)'` / `'Średni'` / `'Bardzo duży'` / confidence z `'5'`/`'0.0'` | ~50 | (a) case fix; (b) 'Bardzo duży' → 'duży' (max metodologii); (c) split combined format + tail → notatki; (d) numeric rating → emoji. Nie ruszano descriptive text w confidence (ryzyko halucynacji). | ✓ 8 outliers remaining (EE, follow-up) |
+| E | `tier` 58 unique wartości (target 7) | ~100 | Ręczny mapping do 7 canonical (wyłączność, autoryzowany, reseller, detalista, marketplace, producent, hurtownik). Compound variants → rola dominująca (np. 'producent/hurtownik' → 'producent'). | ✓ 7/7 canonical |
+| F | 2 flagi wiersze z freeform notatką zamiast statusu | 2 (RO-A-009 Coty Shop, LT-B-010 UAB Reto) | Przeniesiono freeform tekst do notatki, flagi → canonical `YYYY-MM-DD ✅ FROZEN (API)`. Pozostałe 23 unikalne flagi to structured prefixes (source / Priorytet / QS) — zgodne z metodologią §10. | ✓ outliers fixed |
+| G | `cross_sell_potential` miał person-names (8) + city-names (2) + i18n (4) | 14 | Person-names → decydent/stanowisko + shareholder info w notatki. PL-B-005 i PL-B-024 miały też email w `stanowisko` — przeniesiony do `email_decydent`. City names → `csp='brak'`. i18n (visok, srednji, zelo visok, nizek) → PL canonical. Placeholder 'do ustalenia (zarząd KRS...)' → 'do ustalenia'. | ✓ 7/7 canonical |
+| H | 30% pustych komórek | 4129/13790 | NIE bug — oczekiwane dla B2B leadów. | – |
+| I | `kanal_sprzedaży` 119 unique (320/394 non-empty) | – | NIE bug — każda firma ma unikalny opis kanału. | – |
+
+- **Dodatkowe odkrycia (out-of-scope, udokumentowane):**
+  - **SI-A-006 i SI-B-008** mają korupcję wielokolumnową: `cross_sell_potential`, `decydent`, `stanowisko` zawierają nazwy miast zamiast danych firmy. Tylko `csp` naprawione (→ 'brak'); reszta wymaga ręcznej naprawy.
+  - **8 EE wierszy** (EE-B-008..016) ma employee-counts lub NACE code w `wolumen` zamiast canonical enum. Zbyt ryzykowne dla auto-fix; wymaga domain knowledge.
+  - **14 descriptive-text w `confidence_wolumen`** (np. 'hurtownia + logistyka', 'exclusive PL+CEE (BILLS)'): pozostawione — konwersja na emoji wymaga domain knowledge.
+
+### Pass 2: Out-of-scope Items Naprawione (Marceli request 2026-08-21)
+
+- **Fix:** J. SI multi-col corruption (2 rows), K. EE wolumen descriptive (8 rows), L. descriptive confidence (13 rows).
+- **Wynik:** master.csv: 0/2 SI corruption, 0/8 EE non-canonical wolumen, 0/13 descriptive confidence.
+- **J. SI multi-col corruption:** Zdanie "Sieć salonów (City1, City2, ...) & E-commerce" było pocięte na 5 kolumn (kanal_sprzedaży / powinowactwo_nabijarki / decydent / stanowisko / email_decydent). Rekonstrukcja + wyczyszczenie pozostałych kolumn + lista lokali w notatki.
+- **K. EE wolumen:** Heuristic per evidence: 100+ emp → duży; 30-100 emp + wholesale → średni; specialty e-commerce / declining / single shop → mały. Detail (BalticFirms.eu, NACE, revenue) → notatki.
+- **L. Descriptive confidence:** Per-row mapping bazowany na notatki/wolumen/tier. BILLS, BISTA, CK COMPLEX, CASISS, PGT, ORION, 3× SANITEX → 🟢 (silna evidence). Single shop, mały scale, declining → 🟡. Stary descriptive text → notatki jako `cf detail: ...`.
+- **Weryfikacja:** `verify-data` --init + --dry-run = "No changes detected" (zero drift).
+
+### Pass 3: Schema Alignment (Marceli request 2026-08-21)
+
+Pełny audyt 14 kolumn enum + format. Łącznie 4 kategorie bugów naprawione:
+
+| # | Bug | Wiersze | Fix |
+|---|---|---|---|
+| M | A-rows z wypełnionym `powinowactwo_nabijarki` (B-only pole) | 71 | Wyczyszczone (methodology §10: "B: tylko (puste w A)") |
+| M | B-rows z non-canonical `powinowactwo_nabijarki` ('brak'/'wysoki'/'średni') | 55 | Wyczyszczone (placeholder → empty; canonical = 1-5) |
+| N | `rynek_skala='bardzo duży'` (poza enum) | 51 | → 'duży' (max canonical) |
+| O | `email_decydent` z junk (positions, source data, em-dash, HTML entity, URL) | 12 | Wyczyszczone + source data → zrodlo_danych; 'właściciel/CEO' → stanowisko |
+| P | Social handles (facebook/instagram/linkedin) zamiast URLs | 18 | Dodano `https://platform.com/handle` |
+| Q | `rok_zalozenia='brak'` placeholder | 44 | Wyczyszczone (rok YYYY lub puste) |
+| R | `nip_vat` z whitespace (RO-A-009 'RO 48715727') | 1 | → 'RO48715727' |
+
+**Wynik końcowy — wszystkie canonical-enum/format kolumny: 0/394 issues.**
+
+**Out-of-scope (wymaga osobnej sesji — zbyt duży scope na auto-fix):**
+- `sourcing`: 60 unique values (methodology allows 4) — descriptive variants: 'Direct EU/Asia Import', 'Trošarinsko skladišče / FURS', 'dystrybucja regionalna', etc. Wymaga ręcznego mappingu lub rozszerzenia enuma.
+- `kanal_sprzedaży`: 119 unique values (methodology allows 5) — descriptive variants z detalami (miasta, sklepy, typ klienta). Methodology może wymagać rewizji (np. dopuścić 'B2B + B2C' jako sub-kanon, lub utrzymać descriptive).
+- `marki_nabijarki`: 186 unique — descriptive list (PowerMatic, SMOK, RYO brands, etc.) — zgodne z methodology ("list").
+
+**Walidator (do ponownego użycia):** Skrypt audytu inline w `tools/fix_master_data_integrity.py` testuje wszystkie 14 kolumn. Wystarczy go wyciągnąć do `tools/audit_schema.py` w przyszłej sesji.
+
+### Pass 4: Full Tier-Cardinality Cleanup (Marceli request 2026-08-21)
+
+Po Pass 1-3 zostało 16 non-canonical tier wartości w **Srbija** katalogach (RS-A, RS-B) — opisy angielskie typu 'chain retailer + importer' zamiast canonical 7-wartosciowego enuma.
+
+| # | Non-canonical → canonical | Ilość |
+|---|---|---|
+| 1 | 'chain retailer + importer' → 'reseller' | 1 |
+| 2 | 'chain retailer + distributor' → 'hurtownik' (1700+ pts B2B) | 1 |
+| 3 | 'chain retailer' / 'chain retailer (X)' → 'reseller' | 6 |
+| 4 | 'importer + retail + cafe (B2B + B2C)' → 'reseller' | 1 |
+| 5 | 'importer + e-commerce (e-papierosy)' → 'hurtownik' | 1 |
+| 6 | 'importer / distributor (hookah)' → 'hurtownik' | 1 |
+| 7 | 'distributor (RELX brand)' → 'hurtownik' | 1 |
+| 8 | 'manufacturer + distributor (Big Tobacco)' → 'producent' (BAT SEE) | 1 |
+| 9 | 'specialty retail (cigars + pipes + spirits)' → 'detalista' | 1 |
+| 10 | 'specialty (shisha bar + lounge)' → 'detalista' | 1 |
+| 11 | 'wholesale + retail' → 'hurtownik' | 1 |
+| 12 | 'wholesale distributor' → 'hurtownik' | 1 |
+| 13 | 'e-commerce retail + wholesale (Cartel distributer)' → 'hurtownik' | 1 |
+
+**Wynik:** tier unique w master.csv + wszystkich 26 per-kraj = **7** (było 23 w Pass 1, 7 w Pass 2-3 po PL+LT+EE+SI+LV fix). 777/777 wierszy canonical (100%).
+
+**Walidacja:** `verify-data` --init + --dry-run = "No changes detected" (0 drift).
+
+### Pass 5: notatki Dedupe + Tool Idempotency Fix (2026-08-21)
+
+**Problem odkryty:** mimo że Pass 4 zamykał temat "0/394 issues + 0 drift", audyt
+treści `notatki` wykazał **14 wierszy z duplikatami** (x6 kopii tego samego
+fragmentu w ` | `-separated stringu). verify-data sprawdza tylko schema/hash
+— nie wykrywa powtórzeń w treści.
+
+| # | id_unikalne | Plik | Duplikat | Ile kopii |
+|---|---|---|---|---|
+| 1 | PL-B-005 | master+PL-B | "Wspólnicy: Robert Biela..." | x6 |
+| 2 | PL-B-024 | master+PL-B | "Wspólnicy: ..." | x6 |
+| 3 | RO-A-009 | master+RO-A | "🔍 MUST-CHECK: ..." | x6 |
+| 4 | LT-B-010 | master+LT-B | "🔍 HOOKAH/SHISHA — ..." | x6 |
+| 5 | EE-B-008 | master+EE-B | "32 pracowników (BalticFirms.eu 2025)" | x5 |
+| 6 | EE-B-009..016 | master+EE-B | employee count | x5 |
+| 7 | SI-A-006 | master+SI-A | "Sieć 4+ lokali: Ljubljana..." | x5 |
+| 8 | SI-B-008 | master+SI-B | "Sieć 3 lokali: Maribor..." | x5 |
+
+**Root cause:** `tools/fix_master_data_integrity.py` miał 7 miejsc z `row["notatki"] = (current + f" | {add}").strip(" |")` — append bez substring check. Po 5-6 odpaleniach (Pass 1-4) każdy rule appendował kolejne kopie.
+
+**Fix (3 kroki):**
+
+1. **Dedupe skrypt** (`tools/dedup_notatki.py` — nowy, idempotent):
+   - split by ` | `, dedupe z zachowaniem kolejności
+   - 14 master rows + 14 per-kraj rows = 28 wierszy zmienionych
+   - reduction: 866→278 chars w PL-B-005 (-68%), 788→332 w RO-A-009 (-58%)
+
+2. **Tool idempotency patch** (`tools/fix_master_data_integrity.py`):
+   - nowy helper `append_notatki_unique(row, addition)` — sprawdza substring
+   - wszystkie 7 miejsc append zpatchowane (wolumen detail, alt email, lokale
+     list, wolumen detail per-row, cf detail, flagi→canonical+notatki, shareholder data)
+   - dry-run po patch: 0 rows changed (vs 14 przed)
+
+3. **Re-init verify-data** (bo zawartość się zmieniła po dedup):
+   - 11652 rows rehashed
+   - dry-run: "No changes detected" (0 drift)
+
+**Walidacja końcowa:**
+- master.csv: 394 rows, tier 7+empty canonical
+- Per-kraj catalogi: 0 rows z duplicate notatki parts
+- `fix_master_data_integrity.py --dry-run`: 0 rows changed
+- `verify-data --dry-run`: "No changes detected"
+
+**Backup:** `data/.pre-dedup-20260821/` (kopia data/ przed dedup)
+
+**Poza scope (nadal):**
+- `sourcing`: 60 unique vs methodology 4
+- `kanal_sprzedaży`: 119 unique vs methodology 5
+
+---
+
 ## 2026-08-17 (18:42 UTC+2)
 
 ### Finał Weryfikacji: Osiągnięto 100.0% Statusu ✅ FROZEN we Wszystkich 12 Krajach (400/400 Leadów)

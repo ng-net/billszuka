@@ -448,3 +448,88 @@ Wszystkie decydenty dodane w sesji 2026-08-18 10:30-11:00 mają **publiczne, wer
 2. Zbuduj unified scraper dla 12 krajów (PL już ma, dodaj SK/RO/BG/HR/SI/LV/LT/CZ/MD/EE/FR)
 3. Dla każdego kraju zapisz: register URL, anti-bot status, rate limit, hit rate
 4. Commit per kraj osobno (łatwiej revertować)
+
+---
+
+## Jakość danych master.csv — audyt 2026-08-21 (frontend-2 viewer)
+
+**Źródło:** skan `data/master.csv` (394 wierszy × 35 kolumn) z poziomu widoku czat-table.
+
+### Pustostany kolumn (top 10 najgorszych)
+
+| Kolumna | Puste | % | Komentarz |
+|---|---|---|---|
+| `tiktok` | 394/394 | 100% | Brak danych — kolumna jest praktycznie dead weight, ale klient chce ją widzieć w widoku "wszystko" |
+| `linkedin` | 389/394 | 98.7% | Też dead weight — jedynie 5 firm z URL-em |
+| `instagram` | 387/394 | 98.2% | 7 firm z URL-em |
+| `kanal_zamiennik` | 386/394 | 98.0% | Prawie puste — usunąć lub uzupełnić |
+| `facebook` | 380/394 | 96.4% | 14 firm |
+| `marka_wlasna_oem` | 370/394 | 93.9% | Z wypełnionych 24 wierszy: 14 unikalnych marek (głównie "brak"/"nie") — enum działa, ale mało wartościowy |
+| `related_to` | 327/394 | 83.0% | Nieużywane |
+| `rok_zalozenia` | 322/394 | 81.7% | 44 z pozostałych 72 to "brak" (wiersze PL-B-098..124 z extra-leads-PL) |
+| `email_decydent` | 291/394 | 73.9% | Krytyczne — decydent bez emaila = nie da się zautomatyzować outreachu |
+| `sourcing` | 231/394 | 58.6% | Prawie połowa firm nie ma źródła — utrudnia ocenę wiarygodności |
+
+**Wniosek:** 30% komórek jest pustych. Viewer (`frontend-2`) traktuje to poprawnie — pokazuje `—` (szary, 40% opacity).
+
+### Realne problemy z konkretnymi kolumnami
+
+#### 🔴 `powinowactwo_nabijarki` — błędna inferencja typu (NAPRAWIONE 2026-08-21)
+
+Był klasyfikowany jako `number`, ale 28/394 wierszy (7.1%) miało wartości nienumeryczne:
+- 14× `"wysoki"`, 12× `"średni"` (PL/SK/EE — kategoryczna skala)
+- 1× `"Maribor"` (SI-A-006 — miasto wpisane przez pomyłkę)
+- 1× `"Ljubljana"` (SI-B-008 — to samo)
+
+**Fix:** `inferColumnType()` w `lib/csv.js` — próg `numLike/n > 0.85` → `numLike === n` (wymaga 100% numeryczności). Teraz typ to `enum`. Dodane kolory badge (wysoki=emerald, średni=amber, brak=zinc) w CellRenderer.
+
+#### 🟠 `wolumen` — outlier text w 8 wierszach EE
+
+Klasyfikacja: `enum` (5 wartości: duży/średni/mały/brak/do ustalenia) + 8 wierszy EE z długimi opisami (np. `"Müügitulu: €2.77M (2020) → €0 (2024-2025, declining)"`). To są de facto notatki finansowe, które trafiły do złej kolumny.
+
+**Wiersze do wyczyszczenia:**
+- `EE-B-008`: "32 pracowników (BalticFirms.eu 2025)"
+- `EE-B-009`: "EMTAK 47.11 (e-commerce detaliczny niewyspecjalizowany)"
+- `EE-B-011`: "Müügitulu: €2.77M (2020) → €0 (2024-2025, declining)"
+- `EE-B-012`: "Największy wybór RYO w Tallinnie i Nordics (per własne claim)"
+- `EE-B-013/014/015/016`: liczby pracowników
+
+**Rekomendacja:** przenieść do `notatki` lub stworzyć osobną kolumnę `pracownicy_est`.
+
+#### 🟠 `miasto` — 2 wiersze z nazwą kraju zamiast miasta
+
+- `PL-B-086` (PL): `miasto="Polska"`
+- `PL-B-104` (PL): `miasto="Polska"`
+
+Bug data entry. Naprawić manualnie lub dorzucić do `extra-leads` cleanup pass.
+
+#### ✅ `nip_vat` SK — format poprawny
+
+30 wierszy SK ma `SK + 10 cyfr` (np. `SK2120899220`) = 12 znaków. To jest **poprawny format IČ DPH** (słowacki NIP EU-VAT), NIE bug. Nie ruszać.
+
+#### ✅ Brak duplikatów NIP / brak złych dat / brak multi-emaili
+
+Wcześniejsze wpisy wskazywały na 4 duplikaty, 4 złe daty, 4 multi-maile — **audyt 2026-08-21 ich nie potwierdza** (prawdopodobnie wyczyszczone w międzyczasie). Stan aktualny: 0/394 każdego z tych problemów.
+
+### Inferencja typów — wynik końcowy (35 kolumn)
+
+| Typ | Kolumny |
+|---|---|
+| `text` (14) | related_to, id_unikalne, nazwa_firmy, miasto, adres, nip_vat, rejestr_id, kanal_zamiennik, linkedin, facebook, instagram, tiktok, marki_nabijarki, sourcing, confidence_wolumen, kanal_sprzedaży, decydent, stanowisko, zrodlo_danych, notatki |
+| `enum` (10) | kategoria, kraj, tier, marka_wlasna_oem, wolumen, powinowactwo_nabijarki, cross_sell_potential, flagi, rynek_skala |
+| `number` (2) | rok_zalozenia (100% numeric), data_weryfikacji (pewnie też, ale to date) |
+| `date` (1) | data_weryfikacji |
+| `url` (1) | www |
+| `email` (2) | email, email_decydent |
+| `phone` (1) | telefon |
+
+### Kraje w master.csv (12)
+
+PL 157 · EE 36 · BG 34 · SK 30 · RO 24 · LT 21 · FR 21 · HR 19 · CZ 18 · SI 16 · LV 11 · MD 7
+
+### Rekomendacje na następną sesję
+
+1. **Cleanup pass** na 8 outlier-ach `wolumen` w EE — przenieść do notatek
+2. **Cleanup** 2 wierszy PL-B-086/104 (`miasto="Polska"`)
+3. **Rozważyć usunięcie dead-weight kolumn** (`tiktok`, `linkedin`, `instagram`, `facebook`, `kanal_zamiennik`, `related_to`) — viewer domyślnie pokazuje 35, user może ukryć × ale to szum
+4. **Uzupełnić `email_decydent`** — 73.9% puste, krytyczne dla outreachu
