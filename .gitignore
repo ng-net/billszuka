@@ -39,8 +39,9 @@ data/.pre-fix-*/
 data/.snapshots/
 
 # Frontend viewers (separate sub-projects, not part of billszuka data pipeline)
+# czat-table/ — original viewer (kept out of git, lives at czat-table/)
+# frontend-2/ — csv viewer v2 (czat-table rewrite, see README). 2026-08-21: in-scope.
 czat-table/
-frontend-2/
 tools/.verify-runs/
 tools/.verify-checkpoint.json
 data/.verify-checkpoint.json

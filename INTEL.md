@@ -533,3 +533,37 @@ PL 157 · EE 36 · BG 34 · SK 30 · RO 24 · LT 21 · FR 21 · HR 19 · CZ 18 �
 2. **Cleanup** 2 wierszy PL-B-086/104 (`miasto="Polska"`)
 3. **Rozważyć usunięcie dead-weight kolumn** (`tiktok`, `linkedin`, `instagram`, `facebook`, `kanal_zamiennik`, `related_to`) — viewer domyślnie pokazuje 35, user może ukryć × ale to szum
 4. **Uzupełnić `email_decydent`** — 73.9% puste, krytyczne dla outreachu
+
+---
+
+## Jakość danych master.csv — audyt 2 (2026-08-21 03:25, frontend-2 reload)
+
+**Źródło:** przeładowanie po aktualizacji `data/master.csv` (3:05), skan 394 × 35.
+
+### Co zostało wyczyszczone ✓
+
+| Kolumna | Było (2026-08-21 02:35) | Jest (2026-08-21 03:25) |
+|---|---|---|
+| `powinowactwo_nabijarki` | 28 non-numeric (wysoki/średni/Maribor/Ljubljana) | 180/394 wypełnionych, **100% numeric** (1/2/3/4/5) |
+| `wolumen` | 8 outliers (Müügitulu, EMTAK, pracownicy...) | **0 outliers** — wszystko w enum {duży/średni/mały/do ustalenia} |
+| `data_weryfikacji` | 0 invalid (sprawdzone) | 0 invalid (sprawdzone) |
+| Email multi | 0 | 0 |
+
+### Stan faktyczny (po audycie 03:25)
+
+- **394 wierszy × 35 kolumn** ✓
+- **5 LinkedIn URL-i**, 14 Facebook, 7 Instagram, 0 TikTok
+- **`rynek_skala` ma wartości** (mój wcześniejszy node-skrypt miał bug w parsowaniu quoted CSV) — 394/394 wypełnione, enum: "duży"/"średni"/"mały"
+- **`confidence_wolumen` = enum** (5 wartości: 🟢/🔴/🟡/brak/do ustalenia)
+
+### Co **nadal** jest do cleanup (niezmienione)
+
+1. **`miasto="Polska"` w 2 wierszach** (PL-B-086, PL-B-104) — bug data entry od początku, nieruszony
+2. **4 "duplikaty" NIP** — to są w rzeczywistości **legalne pary (A-kategoria, B-kategoria)** dla tych samych firm (np. CK COMPLEX PL-A-008 + PL-B-001, Sanitex/TTI). Master/slave wpisy. **NIE naprawiać** — to świadomy design.
+3. **Dead-weight kolumny** (nadal >80% puste): tiktok 100%, linkedin 98.7%, instagram 98.2%, kanal_zamiennik 98%, facebook 96.4%, marka_wlasna_oem 93.9%, related_to 83%, rok_zalozenia 81.7%, email_decydent 73.9%, sourcing 58.6%
+
+### Bug node-skryptu (nieistotny, tylko dev)
+
+Mój audyt z 02:35 raportował błędnie 0 unikalnych wartości dla `rynek_skala` (przez to że CSV ma quoted fields, a mój parser `line.split(',')` tego nie obsługiwał). Prawidłowa wartość: 394/394 wypełnione, enum duży/średni/mały. To NIE wpłynęło na dashboard (który parsuje przez PapaParse), tylko na moje raporty w INTEL.
+
+Lekcja: przy audycie CSV z cytowanymi polami (przecinki w środku) **zawsze** używać PapaParse, nigdy `split(',')`.

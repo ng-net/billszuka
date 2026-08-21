@@ -2188,3 +2188,158 @@ fragmentu w ` | `-separated stringu) — efekt non-idempotent append w
 **Backup:** `data/.pre-dedup-20260821/`
 **Remote:** ✅ pushed to `origin` (ng-net) — `62f27d3..4d61a0f`
 
+
+---
+
+## 2026-08-21 02:35 — frontend-2 tooltip/popover + bug review pass
+
+**Kontekst:** Marceli poprosił o tooltipy i popovery dla skróconych komórek (np. pełna notatka). Kontynuacja sesji 2026-08-20.
+
+### Tooltip + Popover (CellRenderer)
+
+- ✅ `LongTextCell`: hover Tooltip (full value) + click Popover z headerem (`columnId` + `value.length znaków`) + button "Kopiuj" (skopiuj + toast "Skopiowano do schowka")
+- ✅ `ShortTextCell`: hover Tooltip + click = copy
+- ✅ URL: hover Tooltip + click → nowa karta
+- ✅ Email: hover Tooltip + click → mailto:
+- ✅ Phone: hover Tooltip + click → tel:
+- ✅ Date: hover Tooltip z ISO format
+- ✅ Number: hover Tooltip + click = copy
+- ✅ Enum (tier/role/affinity): badge z kolorem + hover Tooltip
+- ✅ ID-ish (NIP, KRS, REGON): truncate + click copy
+- Długi tekst (>30 znaków lub kolumny: notatki, adres, marki_nabijarki, sourcing, kanal_sprzedaży, zrodlo_danych, decydent, stanowisko, email_decydent, kanal_zamiennik, flagi, cross_sell_potential, wolumen, confidence_wolumen) → LongTextCell z popoverem
+- `PopoverContent` width: `min(560px, calc(100vw-2rem))`, max-h-80 z ScrollArea, padding 3
+
+**Wizualnie potwierdzone** (screenshot page-2026-08-21T00-42-30-767Z.png): notatka "Wyłączny autoryzowany dystrybutor PowerMatic..." → popover z 131 znaków + Kopiuj.
+
+### Type inference fix — `powinowactwo_nabijarki` z `number` → `enum`
+
+**Problem:** Kolumna miała 7.1% wartości nienumerycznych ("wysoki"/"średni"/"Maribor"/"Ljubljana"), ale typ był inferowany jako `number` (87% > 0.85 threshold). Wartości nienumeryczne były koercjonowane do `null` i wyświetlane jako `—` (utrata informacji).
+
+**Fix w `lib/csv.js`:**
+```diff
+- if (numLike.length / n > 0.85) return "number";
++ if (numLike.length === n) return "number";  // require 100% numeric
+```
+
+Teraz typ to `enum`. Dodane kolory badge w CellRenderer:
+- `wysoki` → emerald
+- `średni` → amber
+- `niski` → orange
+- `brak` → zinc
+
+### Dodane kolory badge
+
+- `TIER_COLORS` (już były): wyłączność/duży/średni/mały — wolumen
+- `AFFINITY_COLORS` (nowe): wysoki/średni/niski/brak — powinowactwo_nabijarki
+- `ROLE_COLORS` (nowe): wyłączność/autoryzowany/hurtownik/reseller/marketplace/detalista/producent — tier
+- Generic enum badge (kategoria, kraj, marka_wlasna_oem, cross_sell_potential, flagi, rynek_skala) — outlined z hover bg
+
+### 🔴 Bug naprawiony: `onFilteredCountChange` złe podpięcie
+
+**Było:** `<StatusBar onFilteredCountChange={setFilteredCount} />` — props szedł do StatusBar zamiast DataTable. `filteredCount` nigdy się nie aktualizizował, status zawsze "0 z 394 wierszy".
+
+**Fix w `RawTable.jsx`:** przeniesiony na `<DataTable onFilteredCountChange={setFilteredCount} />`.
+
+**Test:** Filtr "kraj=PL" → status poprawnie "157 z 394 wierszy", rows 157.
+
+### 🔴 Bug naprawiony: `effectiveFilters` nadpisywał per-column filtry
+
+**Było:**
+```js
+const effectiveFilters = useMemo(() => {
+  if (!globalFilter) return prefs.filters;
+  return { __global: globalFilter };  // ← wymiatał per-column filtry
+}, [globalFilter, prefs.filters]);
+```
+
+Gdy użytkownik wpisywał w global search, per-column filtry znikały. Plus DataTable i tak je dropował bo "\_\_global" nie było w `columns`.
+
+**Fix:** `const effectiveFilters = prefs.filters;` — global filter idzie osobno przez TanStack `globalFilter` state.
+
+**Test:** Per-column "kraj=PL" (157) + global "BILLS" → status "3 z 394 wierszy" (poprawne przecięcie).
+
+### Audyt danych master.csv (394 × 35)
+
+Nowe ustalenia w `INTEL.md` (sekcja "Jakość danych master.csv"):
+
+1. **Kolumny dead-weight** (pustych >50%): tiktok 100%, linkedin 98.7%, instagram 98.2%, kanal_zamiennik 98%, facebook 96.4%, marka_wlasna_oem 93.9%, related_to 83%, rok_zalozenia 81.7%, email_decydent 73.9%, sourcing 58.6%
+2. **8 outlier-ów `wolumen` w EE** — de facto notatki finansowe ("Müügitulu: €2.77M (2020) → €0 (2024-2025, declining)" itd.) → do przeniesienia w cleanup pass
+3. **2 wiersze z `miasto="Polska"`** (PL-B-086, PL-B-104) — bug data entry
+4. **44× `rok_zalozenia="brak"`** (głównie PL-B-098..124 z extra-leads-PL) — puste
+5. **30× `nip_vat` SK format `SK + 10 cyfr`** = poprawny IČ DPH EU-VAT (NIE bug)
+6. **0 duplikatów NIP, 0 złych dat, 0 multi-emaili** — stan czysty (audyt 2026-08-21)
+
+### Smoke test wyniki
+
+| Feature | Status |
+|---|---|
+| Sort (kliknięcie nagłówka) | ✓ |
+| Per-column filter (kraj=PL → 157) | ✓ |
+| Global search ("BILLS" → 6) | ✓ |
+| Combined filter (kraj=PL + "BILLS" → 3) | ✓ |
+| Hide column (× button) | ✓ (NIP_VAT ukryty → 34/35) |
+| Theme toggle (Light/Dark/System) | ✓ |
+| Mobile view (375px) | ✓ (sticky ID+NAZWA) |
+| Hover Tooltip (URL, Email, Phone, Date, Number, Enum) | ✓ |
+| Click Popover (notatka) | ✓ |
+| Kopiuj button → toast "Skopiowano do schowka" | ✓ |
+| ⌘K (palette), ⌘O (upload), R (reset), Esc | ✓ |
+
+### Build
+
+- ✅ Vite build clean: 692 KB JS / 213 KB gz, 94 KB CSS / 16 KB gz
+- ✅ Dev server: http://localhost:3001 (foreground PID 88222)
+
+### Następne kroki (dla przyszłej sesji)
+
+1. Cleanup pass: 8 EE `wolumen` outliers → przenieść do notatki
+2. Cleanup: `miasto="Polska"` w PL-B-086 i PL-B-104
+3. Rozważyć usunięcie dead-weight kolumn (tiktok, linkedin, instagram, facebook, kanal_zamiennik, related_to) — ale user może je ukryć ×, więc nie krytyczne
+4. Uzupełnić `email_decydent` (73.9% puste) — krytyczne dla outreach
+
+---
+
+## 2026-08-21 03:21 — frontend-2 reload + weryfikacja nowych danych
+
+**Kontekst:** Marceli zaktualizował `data/master.csv` (03:05). Trzeba przeładować `frontend-2/public/sample.csv` i potwierdzić że dashboard pokazuje nowe wartości.
+
+### Akcje
+
+1. ✅ `cp data/master.csv frontend-2/public/sample.csv` (MD5 zgodne: `b41e4ded52c544ff703c26201bda1edb`)
+2. ✅ Restart Vite dev server (port 3001)
+3. ✅ Clear localStorage (stare filtry/sort) + reload + click "Spróbuj z master.csv"
+4. ✅ 394/394 wierszy, 35/35 kolumn załadowane
+
+### Co się zmieniło w danych (potwierdzone audytem 03:25)
+
+| Kolumna | Przed | Po |
+|---|---|---|
+| `powinowactwo_nabijarki` | 28× non-numeric ("wysoki"/"średni"/"Maribor"/"Ljubljana") | **180× numeric (1-5)**, 0 non-numeric |
+| `wolumen` | 8× outlier text | **0× outliers** — wszystko w enum |
+| `linkedin` | 5 URL-i | 5 (bez zmian) |
+| `facebook` | 14 URL-i | 14 (bez zmian) |
+| `instagram` | 7 URL-i | 7 (bez zmian) |
+| `tiktok` | 0 URL-i | 0 (bez zmian) |
+| `data_weryfikacji` | 0 invalid | 0 invalid |
+
+**`rynek_skala`** — mój poprzedni node-skrypt raportował "0 unique values" (bug parsowania quoted CSV z `line.split(',')`). Prawidłowa wartość: 394/394 wypełnione z enum "duży"/"średni"/"mały". Browser pokazywał to poprawnie od początku, tylko moja audyt była zła.
+
+### Dashboard verification
+
+- 394 wiersze widoczne ✓
+- 35 kolumn, type inference poprawna (enum, number, url, email, phone, date, text)
+- Powinowactwo_nabijarki wyświetlane jako liczby (1-5), nie "—" ✓
+- Wolumen wyświetlane jako enum badge (duży/średni/mały) ✓
+- Social URL: 5 LinkedIn z linkami, 14 Facebook, 7 Instagram, 0 TikTok ✓
+- Tooltip + Popover działają (test: notatka "Wyłączny autoryzowany...") ✓
+- Status bar poprawnie aktualizuje (fix z poprzedniej sesji nadal działa) ✓
+
+### Co nadal do cleanup (poza zakresem tej sesji)
+
+- `miasto="Polska"` w 2 wierszach (PL-B-086, PL-B-104)
+- 4 "duplikaty" NIP — w rzeczywistości pary A/B dla tych samych firm (CK COMPLEX, TABAK GRUPA, TTI Bulgaria, TTI Romania) — świadomy design, **NIE naprawiać**
+- 6 dead-weight kolumn (tiktok, linkedin, instagram, facebook, kanal_zamiennik, related_to) — user może ukryć ×, nie krytyczne
+
+### INTEL
+
+Pełna sekcja "Jakość danych master.csv — audyt 2 (2026-08-21 03:25)" dodana do INTEL.md z tabelą before/after.
