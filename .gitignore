@@ -33,8 +33,11 @@ tools/.verify-state/
 data/.pre-dedup-*/
 data/.pre-clean-notatki/
 data/.pre-fix-*/
+data/.enrichment-*/
 **/*.pre-fix-*.bak
 **/*.pre-dedup-*.bak
+**/*.pre-enrich-*.bak
+**/*.pre-enrich-*.csv
 **/*.bak
 data/.snapshots/
 
@@ -45,6 +48,9 @@ tools/.verify-runs/
 tools/.verify-checkpoint.json
 data/.verify-checkpoint.json
 .verify-checkpoint.json
+
+# Runtime tool local state (CLI tools' per-user config, not part of project)
+.klik/
 
 # BILLSzuka enrichment run state (track which leads have been processed)
 data/.verify-state/enrichment-progress.json

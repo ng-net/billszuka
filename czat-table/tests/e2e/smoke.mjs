@@ -210,7 +210,9 @@ try {
   })
   await new Promise((r) => setTimeout(r, 500))
   const lastPg = await page.evaluate(() => {
-    return /Page\s+4\s+of\s+4/.test(document.body.innerText)
+    // Match "Page N of M" where N === M (i.e. on the last page)
+    const m = document.body.innerText.match(/Page\s+(\d+)\s+of\s+(\d+)/)
+    return m ? Number(m[1]) === Number(m[2]) : false
   })
   if (lastPg) pass("Jump to last page works")
   else fail("Jump to last page failed")

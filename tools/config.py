@@ -105,3 +105,9 @@ def make_id(iso: str, catalog_type: str, seq_num: int) -> str:
     """Generate region-free unique ID: e.g. PL-A-001, CZ-B-015."""
     cat = catalog_type.upper().strip()
     return f"{iso.upper()}-{cat}-{seq_num:03d}"
+
+# === Kimi K3 ===
+KIMI_API_KEY  = os.getenv("KIMI_API_KEY", "")
+KIMI_BASE_URL = "https://api.moonshot.ai/v1"
+KIMI_MODEL    = "kimi-k3"
+KIMI_MAX_TOKENS = 8192
