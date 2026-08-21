@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
  * - cmd/ctrl+click on link cells → open the link
  * - hover on link cells → reveal the link icon
  */
-export function TypeCell({ value, type, colId, onCopy, rowIndex, colIndex, selected }) {
+export function TypeCell({ value, type, colId, onCopy, rowIndex, colIndex }) {
   const display = formatCell(value, type)
   const isLink = type === "url" || type === "email" || type === "phone"
   const [copied, setCopied] = React.useState(false)

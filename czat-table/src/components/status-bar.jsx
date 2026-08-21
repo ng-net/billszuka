@@ -1,9 +1,8 @@
 import * as React from "react"
-import { motion, useSpring, useTransform, useMotionValue } from "framer-motion"
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
+import { motion, useSpring, useMotionValue } from "framer-motion"
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Check } from "lucide-react"
 import { cn, prefersReducedMotion } from "@/lib/utils"
 
 const PER_PAGE_OPTIONS = [25, 50, 100, 250, 500]

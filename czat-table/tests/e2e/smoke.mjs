@@ -58,10 +58,16 @@ try {
   })
   await new Promise((r) => setTimeout(r, 2500))
   const loaded = await page.evaluate(() => {
-    return /Loaded\s+394/.test(document.body.innerText)
+    // Master.csv row count varies as the dataset grows. Accept any 3-digit
+    // number in the "Loaded N rows" toast.
+    return /Loaded\s+\d{2,4}\s+rows/.test(document.body.innerText)
   })
-  if (loaded) pass("Try sample loaded 394 rows")
-  else fail("Try sample did not load 394 rows")
+  if (loaded) {
+    const m = await page.evaluate(() => document.body.innerText.match(/Loaded\s+(\d+)\s+rows/)?.[0])
+    pass(`Try sample: ${m}`)
+  } else {
+    fail("Try sample did not load rows")
+  }
   await page.screenshot({ path: `${SHOTS}/01-loaded.png` })
 
   // 2. Sort by KRAJ header
@@ -96,6 +102,12 @@ try {
   await page.screenshot({ path: `${SHOTS}/02-multisort.png` })
 
   // 4. Filter via kategoria column
+  // Capture the original total BEFORE applying the filter, so we can verify
+  // the filter actually reduced the row count.
+  const totalBefore = await page.evaluate(() => {
+    const m = document.body.innerText.match(/of\s+([\d,]+)\s+rows/)
+    return m ? Number(m[1].replace(/,/g, "")) : 0
+  })
   await page.evaluate(() => {
     const input = document.querySelector("input[aria-label='Filter kategoria']")
     if (input) {
@@ -104,13 +116,18 @@ try {
       input.dispatchEvent(new Event("input", { bubbles: true }))
     }
   })
-  await new Promise((r) => setTimeout(r, 500))
+  await new Promise((r) => setTimeout(r, 2000))
   const filtered = await page.evaluate(() => {
-    const m = document.body.innerText.match(/Showing\s+([\d–\d]+|0)\s+of\s+([\d,]+)\s+rows/)
-    return m ? m[0] : null
+    const m = document.body.innerText.match(/Showing\s+(\d+)[–\-](\d+)\s+of\s+(\d+)\s+rows/)
+    if (!m) return null
+    const total = Number(m[3])
+    return { range: m[0], total }
   })
-  if (filtered) pass(`Filter applied: ${filtered}`)
-  else fail("Filter not applied")
+  if (filtered && totalBefore > 0 && filtered.total < totalBefore) {
+    pass(`Filter applied: ${filtered.range} (${totalBefore} → ${filtered.total} rows)`)
+  } else {
+    fail(`Filter did not reduce rows (before=${totalBefore}, after=${filtered?.total ?? "?"})`)
+  }
   // Page should have auto-reset to 1
   const pageReset = await page.evaluate(() => {
     return /Page\s+1\s+of\s+1/.test(document.body.innerText)

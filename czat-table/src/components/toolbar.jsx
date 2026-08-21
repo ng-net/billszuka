@@ -8,7 +8,6 @@ import { QuickFilters } from "@/components/quick-filters"
 import { SortStack } from "@/components/sort-stack"
 import { FilterChips } from "@/components/filter-chips"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { cn } from "@/lib/utils"
 
 export function Toolbar({
   data,

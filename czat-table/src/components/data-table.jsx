@@ -1,5 +1,5 @@
 import * as React from "react"
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Table, TableBody, TableCell } from "@/components/ui/table"
 import { TypeCell } from "@/components/type-cell"
 import { buildFilterIndex, buildSortKeyIndex, matchFilterIndexed, sortRowsByIndex } from "@/lib/index-cache"
@@ -28,9 +28,14 @@ function resolveColumns(parsed, prefs) {
   })
 }
 
-export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPrefsChange, onCopy, onVisibleCountChange, onPaginationChange }, scrollRef) {
-  // Stable references for lookup
-  const columns = React.useMemo(() => resolveColumns(data, prefs), [data, prefs])
+export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPrefsChange, onCopy, onPaginationChange }, scrollRef) {
+  // Resolve columns — depend on the parsed schema and the column overrides slice
+  // only (NOT the full prefs, which changes every render and would force a full
+  // filter/sort index rebuild on every keystroke).
+  const columns = React.useMemo(
+    () => resolveColumns(data, prefs),
+    [data, prefs.columns],
+  )
   const visibleColumns = React.useMemo(
     () => [...columns].filter((c) => c.visible).sort((a, b) => a.order - b.order),
     [columns],
@@ -143,23 +148,26 @@ export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPr
   const parentRef = React.useRef(null)
   React.useImperativeHandle(scrollRef, () => parentRef.current, [])
 
-  // Persist prefs (memoize identity so we don't thrash on every render)
+  // Stable pref setter — uses functional update so we don't capture `prefs` in
+  // a closure (which would make this callback re-create on every render and
+  // bust memoization downstream — see https://react.dev/reference/react/useCallback).
   const updatePrefs = React.useCallback(
     (patch) => {
-      onPrefsChange({ ...prefs, ...patch })
+      onPrefsChange((p) => ({ ...p, ...patch }))
     },
-    [onPrefsChange, prefs],
+    [onPrefsChange],
   )
 
-  const setSort = (next) => updatePrefs({ sort: next })
-  const setFilters = (next) => updatePrefs({ filters: next })
-  const setColumn = (colId, patch) =>
-    updatePrefs({
-      columns: {
-        ...(prefs.columns || {}),
-        [colId]: { ...(prefs.columns?.[colId] || {}), ...patch },
-      },
-    })
+  const setSort = React.useCallback((next) => updatePrefs({ sort: next }), [updatePrefs])
+  const setFilters = React.useCallback((next) => updatePrefs({ filters: next }), [updatePrefs])
+  const setColumn = React.useCallback(
+    (colId, patch) =>
+      updatePrefs((p) => ({
+        ...p,
+        columns: { ...(p.columns || {}), [colId]: { ...(p.columns?.[colId] || {}), ...patch } },
+      })),
+    [updatePrefs],
+  )
 
   // Keyboard navigation on the body: ↑/↓ rows, ←/→ cols, Enter to copy, Cmd+F to focus filter
   function onBodyKeyDown(e) {
@@ -402,18 +410,15 @@ export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPr
         className="relative min-h-0 flex-1 overflow-auto outline-none focus-visible:ring-1 focus-visible:ring-ring"
         style={{ touchAction: "pan-x pan-y" }}
       >
-        <LayoutGroup>
-          <Table style={{ width: "max-content", minWidth: "100%", position: "relative", ...pinnedVars }}>
-            <TableBody>
-              <AnimatePresence initial={false}>
-                {pageRows.map((row, i) => {
+        <Table style={{ width: "max-content", minWidth: "100%", position: "relative", ...pinnedVars }}>
+          <TableBody>
+            <AnimatePresence initial={false}>
+              {pageRows.map((row, i) => {
                   const absoluteIndex = pageStart + i
                   const isSelectedRow = selected?.rowIndex === i
                   return (
                     <motion.tr
                       key={`${safePage}-${absoluteIndex}`}
-                      layout={!reduceMotion ? "position" : false}
-                      transition={{ type: "spring", stiffness: 380, damping: 36, mass: 0.6 }}
                       data-row-index={absoluteIndex}
                       onClick={(e) => {
                         // Clicking anywhere on the row sets the highlight to that row, col 0
@@ -453,7 +458,6 @@ export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPr
                               colId={col.id}
                               rowIndex={absoluteIndex}
                               colIndex={ci}
-                              selected={isSelectedCell}
                               onCopy={onCopy}
                             />
                           </TableCell>
@@ -472,7 +476,6 @@ export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPr
               )}
             </TableBody>
           </Table>
-        </LayoutGroup>
       </div>
 
       {/* Context menu — extracted to ColumnMenu */}

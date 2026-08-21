@@ -59,4 +59,4 @@ export function resetPrefs() {
   storage.del(KEY)
 }
 
-export { DEFAULTS as PREFS_DEFAULTS }
+// (No DEFAULTS export — call sites spread their own defaults on top of loadPrefs().)
