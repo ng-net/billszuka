@@ -7,7 +7,7 @@ Keep this under 40 lines.
 B2B research project for BILLS Sp. z o.o. (Ostrzeszów, PL). Goal: distribution partners
 for PowerMatic rolling machines + Hawk across PL first, then CZ/SK/UK/etc.
 Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
-Canonical remote: `github.com/ng-net/billszuka` (private). Backup mirror: `github.com/design-mc/billszuka`. 2026-08-12 recovery: marlink PAT lost access; ng-net OAuth token refreshed with `workflow` scope via `gh auth refresh --scopes "gist,read:org,repo,workflow"`. `marlink/BILLSzuka` is dead.
+Canonical remote: `github.com/marlink/BILLSzuka` (private). Backup mirror: `github.com/ng-net/billszuka`. 2026-08-21 recovery: ng-net had GitHub phantom workflow ID cache bug (59/59 runs `startup_failure` for 9 days despite file rename + recreate). Switched canonical to `marlink/BILLSzuka` — clean workflow registration, no phantom cache. `marlink` OAuth token has scopes: `admin:gpg_key, admin:org, admin:ssh_signing_key, project, repo, workflow, write:packages` (more permissive than ng-net's). Pre-migration snapshot of marlink preserved as local branch `backup/marlink-pre-migration` (commit `73c766b`, 2026-08-10).
 
 ## Core files (don't read whole — read sections on demand)
 - `methodology.md` — how to research, A1-A6 / B1-B9 framework
@@ -25,7 +25,7 @@ Canonical remote: `github.com/ng-net/billszuka` (private). Backup mirror: `githu
   Planner data. For real keyword research use Ahrefs / Senuto / Google Trends.
 - **Skip Germany** unless Marceli explicitly says otherwise. Order: PL → CZ → SK → UK →
   Western EU → Scandinavia → Balkans.
-- **CI workflow is tracked** (`.github/workflows/ci-python.yml` added to git, id 339221395). `workflow` scope granted on `ng-net` OAuth token. **For Actions minutes** (`/users/ng-net/settings/billing/actions`) `user` scope is also needed — add with `gh auth refresh -s user` (one-time, browser auth). Helper: `tools/check-actions-minutes.sh`. 2026-08-21: 59/59 runs `startup_failure` since 2026-08-12 with 0 jobs, 0 minutes — **not quota** but GitHub phantom workflow ID cache (id 332616408 vs real 339221395). Diagnosis in DZIENNIK 2026-08-21. Workaround: push to `design-mc/billszuka` (backup mirror, fresh workflow).
+- **CI workflow is tracked** (`.github/workflows/ci-python.yml` added to git, id 339221395 on ng-net). 2026-08-21: pushed to `marlink/BILLSzuka` to escape phantom workflow ID cache on ng-net. New workflow registration should give fresh ID on marlink. **For Actions minutes** (`/users/marlink/settings/billing/actions`) `user` scope is also needed — add with `gh auth refresh -s user` (one-time, browser auth). Helper: `tools/check-actions-minutes.sh`. Diagnosis in DZIENNIK 2026-08-21.
 
 ## Memory rules
 - Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log). Don't let
