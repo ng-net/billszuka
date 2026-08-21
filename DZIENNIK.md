@@ -2823,3 +2823,47 @@ Subsequent keystrokes ~10× szybsze — React commit w jednym frame gdy deferred
 - +382 / -236 LOC
 - Commit `c227558`
 
+## 2026-08-21 — CI: investigate startup_failure on every push (ng-net/billszuka)
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Po commit frontend-2 push do ng-net/billszuka, CI startuje ale z `startup_failure` / 0 jobs / brak logs. Marceli poprosił o zbadanie dlaczego joby się nie tworzą.
+
+**Diagnoza:**
+
+1. **30/30 runs** (ostatnie 2 tygodnie) mają `conclusion: "startup_failure"`, `name: ""`, `path: "BuildFailed"`, brak jobów, brak logów.
+
+2. **Phantom workflow ID:** każdy run ma `workflowDatabaseId: 332616408`, ale w `/actions/workflows` istnieje tylko workflow z `id: 332616385`. Różnica 23 ID = GitHub ma w bazie wpis o nieistniejącym workflow.
+
+3. **Historia pliku `.github/workflows/ci.yml`:**
+   - `b31bfba` 2026-08-10 14:40 — dodany
+   - `155d51d` 2026-08-10 15:05 — **usunięty** (commit: "temporarily untrack pending workflow scope on token")
+   - `63b0d6e` 2026-08-12 10:52 — re-added po uzyskaniu `workflow` scope
+   - Od tego czasu każdy push dostaje `startup_failure` (cache phantom ID).
+
+4. **Próby fix (pushowane w tej sesji):**
+   - `fe4cd48` `git rm .github/workflows/ci.yml` — push OK, ale brak nowego ID.
+   - `3028c4e` re-add tego samego pliku — ten sam blob SHA, GitHub nie zarejestrował nowego workflow.
+   - `d2003bc` dodanie komentarza (nowy blob SHA) — workflow nadal `id: 332616385`, runs nadal phantom `332616408`.
+   - `c26e96a` rename `ci.yml` → `ci-python.yml` — **workflow dostał nowe ID `339221395`** ✓, ALE nowe runy nadal referencjonują phantom `332616408`.
+   - `29d54f3` dodanie `workflow_dispatch` — manual trigger też `startup_failure`.
+   - `d808715` minimal `healthcheck.yml` (2 kroki, bez checkout) — też `startup_failure`. → **wryfikowane: problem NIE jest w workflow file.**
+   - `e272ce0` revert healthcheck.
+
+5. **Finalna diagnoza:** `ng-net` to **User** (nie Organization), plan `None` (free). Free plan: 2,000 Actions min/mies dla prywatnych repo. Wszystkie symptomy (`startup_failure` z 0 jobs, brak logów, ID cache) zgadzają się z wyczerpaniem quota. Nie da się zweryfikować bez `user` scope na OAuth token (wymaga interactive browser auth).
+
+6. **Co zostało po stronie repo:**
+   - `.github/workflows/ci-python.yml` (id `339221395`) — gotowy do pracy gdy quota zostanie odblokowane
+   - Wszystkie inne commity z tej sesji (frontend-2 perf + cleanup) działają poprawnie
+
+**Akcja dla Marceli:**
+- Sprawdzić **GitHub → Settings → Billing → Plans and usage → Actions minutes** dla konta `ng-net`
+- Jeśli exhausted: poczekać na monthly reset (lub upgrade do Pro/Team)
+- Po odblokowaniu: nowe pushes powinny triggerować workflow `ci-python.yml` (Python tests)
+
+**Pliki:**
+- 7 nowych commitów na `ng-net/billszuka` (commity `fe4cd48`..`e272ce0`)
+- `.github/workflows/ci.yml` zostal zrenamowany na `ci-python.yml`
+- `healthcheck.yml` dodany i usunięty w tej samej sesji (commit `d808715` istnieje w historii)
+
