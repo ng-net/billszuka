@@ -15,3 +15,7 @@ starlette>=0.36,<0.41
 # multipart/form-data requests. Not pulled in automatically by fastapi
 # in 0.100-0.114.
 python-multipart
+# uvicorn is the ASGI server tools/api_server.py uses (CI smoke-test
+# imports it during the 'Smoke-test the API server' step). Not pulled
+# in by fastapi in 0.100-0.114.
+uvicorn
