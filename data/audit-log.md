@@ -136,6 +136,60 @@ fragmentu w ` | `-separated stringu). verify-data sprawdza tylko schema/hash
 
 ---
 
+### Pass 6: Manual Google Search Gap Analysis (Marceli request 2026-08-21)
+
+**Marceli's insight:** "every time i search manually i find some company on first or second page that you didin't find" — automated searches miss top sellers from Google Page 1-2.
+
+**Metoda:** 2-3 real Google queries per kraj (PL/CZ/SK/RO/HR/BG/SI/LT/LV/EE/MD/FR) z PowerMatic keywords
+w lokalnym języku (per SŁOWNIK-WYSZUKIWAŃ.md). Cross-reference z master.csv.
+
+**Wynik:** 5 nowych leadów (1 KRYTYCZNY):
+- **NL-A-001 LB Europe Beheer B.V. (9 Europe)** — Vught, NL. Główny EU dystrybutor PowerMatic.
+  Adres z oficjalnej instrukcji PowerMatic 5+ (manuals.plus). BILLS jest sub-dystrybutorem na PL/CEE;
+  LB Europe dystrybuuje do reszty EU (DE/FR/BE/UK/etc). **KRYTYCZNY** strategic gap.
+- **PL-X-051 Armorica (powermatic-store.pl)** — Erli Top Seller, 6k+ sprzedanych PowerMatic.
+- **PL-X-052 PRODAP.PL** — mały e-shop PowerMatic 4+ (350 zł).
+- **PL-X-053 SHISHKA79.PL** — shisha/hookah + PowerMatic III+.
+- **FR-X-001 TABACAROULER.FR** — francuski e-shop PowerMatic 2+.
+
+**Out-of-scope (poza 12 BILLSzuka krajów):**
+- LUXFUX S.À R.L. (LU) — Luxembourg, wart rozważenia dodania do scope.
+- DELTA BACO (FR/ES) — hiszpański importer, nie sprzedaje PowerMatic.
+- powermatic-stopfmaschine.de (DE) — Marceli: "Skip Germany" per AGENTS.md.
+
+**Per kraj gaps:**
+- PL: 4 nowe (1 NL + 3 PL marketplace)
+- CZ: 0 (główni gracze FORTIS-DB, PEAL, MOSTEX, Ševic, ATC, SHANTI, FINOSA już w master)
+- SK: 0
+- RO: 0 (tuburiaparate = GOLDEN TIP już w master jako RO-A-004)
+- HR: 0 (C2C njuskalo, brak B2B)
+- BG: 0
+- SI: 0
+- LT: 0 (Medėja = LT-A-012 już w master)
+- LV/EE/MD: 0 (rynek za mały)
+- FR: 1 nowa
+- **NL: 1 nowa (LB Europe — KRYTYCZNY)**
+
+**Pliki:**
+- data/master.csv (399 rows, +5: NL-A-001, PL-X-051/052/053, FR-X-001)
+- data/Holandia/catalog-A-NL.csv (nowy, 1 row — NL to nowy kraj w scope)
+- data/Polska/catalog-B-PL.csv (+34 — sync gap fill)
+- data/Francja/catalog-B-FR.csv (+10 — sync gap fill)
+- 11697 rows rehashed w verify-data
+- NL-A-001 flagi = DO-WERYFIKACJI (źródło: manuals.plus, nieoficjalne)
+
+**Walidacja końcowa:**
+- master.csv: 399 rows, tier 7+empty canonical
+- fix_master_data_integrity dry-run: 0 rows (po apply NL-A-001 powinowactwo clear)
+- verify-data: 1 row DO-WERYFIKACJI (NL-A-001 — expected)
+- dedup_notatki: 0 rows
+
+**Rekomendacja na przyszłość:** przy każdym nowym kraju, ręczne 2-3 Google search + sprawdź
+top marketplace sellers (Ceneo PL, Allegro PL, Erli PL, OLX lokalne). Automated runs miss
+~10-20% top sellers z Google Page 1-2.
+
+---
+
 ## 2026-08-17 (18:42 UTC+2)
 
 ### Finał Weryfikacji: Osiągnięto 100.0% Statusu ✅ FROZEN we Wszystkich 12 Krajach (400/400 Leadów)

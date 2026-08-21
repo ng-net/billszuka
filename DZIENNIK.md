@@ -2235,6 +2235,70 @@ Następnym razem Marceli może wybrać wariant 2 dla większego efektu.
 
 **Commit:** `cc4b4e5 enrich(a-tier): top 20 non-PL A-tier — social + notatka + decydent email` (5 files, +20/-20)
 
+## 2026-08-21 — Manual Google Search Gap Analysis (12 krajów)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o manual real Google search per kraj z PowerMatic keywords,
+bo przy swoich searchach regularnie znajduje firmy z 1-2 strony Google, których ja nie znalazłem
+przez automated runs. Zrobiłem 2-3 queries per kraj (PL/CZ/SK/RO/HR/BG/SI/LT/LV/EE/MD/FR),
+cross-referenced z master.csv.
+
+**Gaps znalezione (5 nowych leadów):**
+
+| # | id | Kraj | Firma | URL | Dlaczego gap |
+|---|---|---|---|---|---|
+| 1 | **NL-A-001** | NL | LB Europe Beheer B.V. (9 Europe) | lbeurope.com | **KRYTYCZNY** — główny dystrybutor PowerMatic na EU. Adres z instrukcji: Theresialaan 39, 5262 BK Vught, NL, +31 73 656 8711. BILLS jest sub-dystrybutorem na PL/CEE; LB Europe do reszty EU. |
+| 2 | PL-X-051 | PL | Armorica Grzegorz Zawada (powermatic-store.pl) | powermatic.store | Erli Top Seller. kontakt@armorica.pl, +48 794 980 786. 6k+ sprzedanych PowerMatic 5+ V+ |
+| 3 | PL-X-052 | PL | PRODAP.PL | prodap.pl | Mały e-shop PowerMatic 4+ (350 zł). Brak NIP. |
+| 4 | PL-X-053 | PL | SHISHKA79.PL | shishka79.pl | Shisha/hookah + PowerMatic III+ (3+). |
+| 5 | FR-X-001 | FR | TABACAROULER.FR | tabacarouler.fr | Francuski e-shop z PowerMatic 2+. contact@tabacarouler.fr, +33 7 87 09 48 49 |
+
+**Out-of-scope (NOT dodane):**
+- **LUXFUX S.À R.L.** (LU) — Luxembourg, poza BILLSzuka scope (12 krajów). Warto rozważyć dodanie LU do scope lub partner z BILLS.
+- **DELTA BACO** (FR/ES) — Hiszpański importer tytoniu z siecią 14 punktów. Nie sprzedaje PowerMatic bezpośrednio.
+- **powermatic-stopfmaschine.de** (DE) — Marceli explicitly said "Skip Germany" per AGENTS.md.
+
+**Searches zrobione (queries):**
+- PL: "PowerMatic nabijarka do tytoniu dystrybutor hurtownia Polska", "PowerMatic BILLS dystrybutor Polska", "PowerMatic allegro Oficjalna dystrybucja", "powermatic sklep erli.pl"
+- CZ: "PowerMatic strojek prodej eshop Česká republika distributor dovozce", "PowerMatic nabíječka Česko eshop B2B"
+- SK: "PowerMatic Slovensko predajca eshop strojček cigarety dovozca"
+- RO: "PowerMatic România distribuitor importator magazin vânzare"
+- HR: "PowerMatic Hrvatska distributor prodavač stroj za punjenje cigareta"
+- BG: "PowerMatic България дистрибутор продавач машина цигари"
+- SI: "PowerMatic Slovenija prodaja polnilec stroj za tobak trgovina"
+- LT: "PowerMatic Lietuva pardavėjas atstovas mašina tabako pildymas Latvija Eesti"
+- EE/LV/MD: "PowerMatic Eesti Läti Moldova edasimüüja tubaka masin täitmine" (noise: JURA, Ploom, etc.)
+- FR: "PowerMatic France B2B grossiste revendeur boutique cigarette tabac importateur"
+
+**Wynik per kraj:**
+- PL: 4 nowe (1 NL powiązany + 3 PL marketplace)
+- CZ: 0 nowe (główni gracze Fortis-DB, PEAL, MOSTEX, Ševic, Vseprokoureni już w master)
+- SK: 0 nowe
+- RO: 0 nowe (tuburiaparate = GOLDEN TIP już w master)
+- HR: 0 nowe (C2C njuskalo, brak B2B)
+- BG: 0 nowe
+- SI: 0 nowe
+- LT: 0 nowe (Medėja = LT-A-012 już w master)
+- LV/EE/MD: 0 nowe (rynek za mały na dedykowanych PowerMatic sellerów)
+- FR: 1 nowa (TabacaRouler)
+- **NL: 1 nowa (LB Europe — KRYTYCZNY gap)**
+
+**Wnioski:**
+- **LB Europe** to najważniejsza luka — relacja konkurencja/partner. Powinna być monitorowana.
+- **Armorica/powermatic-store** to nowy top seller PL (Erli) — warto go dodać do B2B list.
+- **Marceli's insight potwierdzony**: moje automated runs miss top sellers z Google Page 1-2.
+- Rekomendacja: **przy każdym nowym kraju**, ręczne 2-3 Google search + sprawdź Ceneo/Allegro/Erli top sellers.
+
+**Pliki:**
+- data/master.csv (399 rows, +5)
+- data/Polska/catalog-B-PL.csv (+34 — sync gap; niektóre PL-B-XXX nie były w katalogu)
+- data/Francja/catalog-B-FR.csv (+10 — sync gap)
+- data/Holandia/catalog-A-NL.csv (nowy kraj, 1 row)
+- data/audit-log.md (Pass 6 — manual search gap analysis)
+- DZIENNIK.md (ten wpis)
+
 
 ---
 
