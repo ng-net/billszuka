@@ -2186,5 +2186,5 @@ fragmentu w ` | `-separated stringu) — efekt non-idempotent append w
 
 **Commit:** `d7f2ab9 fix(master): Pass 5 — notatki dedupe (28 rows) + tool idempotency` (32 files, +1825/-276)
 **Backup:** `data/.pre-dedup-20260821/`
-**Remote:** push pending — sprawdź `git push origin main` (jeśli wymagany sync z GitHub)
+**Remote:** ✅ pushed to `origin` (ng-net) — `62f27d3..4d61a0f`
 
