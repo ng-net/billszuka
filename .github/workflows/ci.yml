@@ -1,5 +1,10 @@
 name: CI
 
+# Workflow recreated 2026-08-21 to force a fresh workflow ID.
+# Old runs were stuck referencing workflow ID 332616408 (which no
+# longer exists in the repo's workflow list) and failing with
+# startup_failure / no jobs. See DZIENNIK 2026-08-21.
+
 on:
   push:
     branches: [main, master, develop]
