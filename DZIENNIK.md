@@ -2973,3 +2973,54 @@ Skrypt już istnieje (`tools/check-actions-minutes.sh`), wypisze `total_minutes_
 
 **Pliki:** brak zmian w tej sesji (diagnoza korygująca, plan B do decyzji Marceli).
 
+---
+
+## 2026-08-21 — MIGRACJA: ng-net/billszuka → marlink/BILLSzuka
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Phantom workflow ID cache na ng-net (59/59 runs `startup_failure`, brak realnej ścieżki do fix po stronie klienta). Marceli zdecydował: przenieść canonical na `marlink/BILLSzuka`, które ma czysty stan (0 workflows, 0 runs, 3 commity z 2026-08-10).
+
+**Przed migracją — weryfikacja `marlink/BILLSzuka`:**
+- URL: `github.com/marlink/BILLSzuka` (private)
+- main HEAD: `73c766b` "Add RUNBOOK.md" (2026-08-10)
+- merge-base z local main = `73c766b` → marlink jest **strict ancestor** lokalnego main
+- 126 commits local ahead, 0 marlink ahead → czysty fast-forward
+- 10 plików unikalnych dla marlink (stare): `.agents/`, `STORAGE_README.md`, `create_notebook.py`, `data/`, `design/`, `frontend/`, `main.py`, `next-app/`, `requirements.txt`, `storage_config.py` — wszystkie to stare 2026-08-10 artifacts, zastąpione w ng-net wersji (np. `main.py` → `tools/api_server.py`, `next-app/` → `czat-table/`, `frontend/` → `frontend-2/`, `data/` → inna struktura w ng-net)
+
+**Co zrobione:**
+
+1. **Backup lokalny** — `git branch backup/marlink-pre-migration marlink/main` (zachowuje `73c766b` jako punkt odniesienia)
+
+2. **Push do marlink** — `git push marlink main` (fast-forward `73c766b..37c6d5c`, 126 commits, NO force potrzebny)
+
+3. **Swap remotes** — `origin` (marlink) ↔ `ng-net` (backup):
+   - `origin` → `github.com/marlink/BILLSzuka` (nowy canonical)
+   - `ng-net` → `github.com/ng-net/billszuka` (backup mirror)
+   - `design-mc` → `github.com/design-mc/billszuka` (dead — repo 404, ale remote zostawiony dla historii)
+
+4. **AGENTS.md update** — linia "What this is" + "CI workflow" poprawione (marlink = canonical, ng-net = backup, scope reference dla billing zmieniony na `marlink`).
+
+5. **Pierwszy CI run na marlink:**
+   - Workflow registered: `id=339246667` (świeży, **bez phantom cache**)
+   - Pierwszy run `32467317913` — **real failure** (nie `startup_failure`!): "No file in /home/runner/work/.../BILLSzuka matched to [**/requirements.txt or **/pyproject.toml]"
+   - Przyczyna: `actions/setup-python@v5` z `cache: pip` wymaga pliku deps do hashowania, a repo go nie ma (bo `tools/` używa stdlib only)
+   - Fix: dodane `requirements-ci.txt` z `pytest>=8.0`, `fastapi`, `httpx` + workflow zmieniony na `pip install -r requirements-ci.txt` (commit `a5f1824`)
+
+6. **Cron self-reminder** `check-ci-marlink-migration` ustawiony na `*/3 * * * *` — sprawdza kolejny run, raportuje green/red, usuwa się po green.
+
+**Stan po migracji:**
+- canonical: `marlink/BILLSzuka` (private) — workflow id `339246667`, working CI
+- backup: `ng-net/billszuka` (private) — phantom id `332616408` nadal, NIE pushować tu żeby nie generować phantom runs
+- dead: `design-mc/billszuka` (404) — remote usunąć jeśli przeszkadza
+- local backup: `backup/marlink-pre-migration` (commit `73c766b`) — pre-migration snapshot marlink
+
+**Pliki:**
+- `AGENTS.md` — 2 linie zaktualizowane
+- `DZIENNIK.md` — ten wpis
+- `.github/workflows/ci-python.yml` — `pip install` → `pip install -r requirements-ci.txt`
+- `requirements-ci.txt` — nowy, 3 zależności (pytest, fastapi, httpx)
+- Remotes: `origin` (marlink), `ng-net` (backup), `design-mc` (dead)
+- Commits: `54ae39d` (AGENTS swap), `a5f1824` (CI fix)
+
