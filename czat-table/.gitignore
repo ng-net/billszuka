@@ -30,6 +30,9 @@ _smoke.mjs
 _quick-check.mjs
 _headers-check.mjs
 _check-aria*.mjs
+_check-*.mjs
+_perf*.mjs
 _debug-*.mjs
 _bench-*.mjs
+*.bak
 /tests/e2e/shots/*.png

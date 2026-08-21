@@ -1,9 +1,8 @@
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { Table, TableBody, TableCell } from "@/components/ui/table"
 import { TypeCell } from "@/components/type-cell"
 import { buildFilterIndex, buildSortKeyIndex, matchFilterIndexed, sortRowsByIndex } from "@/lib/index-cache"
-import { cn, prefersReducedMotion } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { TableHeaderRow } from "@/components/table-header"
 import { ColumnMenu } from "@/components/column-menu"
 
@@ -357,9 +356,6 @@ export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPr
     }
   }
 
-  // Render rows for the current page (pagination, no virtualization)
-  const reduceMotion = prefersReducedMotion()
-
   // For pinned columns, set CSS variables on the table so headers/cells can
   // position themselves with `left: var(--pinned-w-1)` etc.
   const pinnedCols = visibleColumns.filter((c) => c.pinned)
@@ -412,61 +408,59 @@ export const DataTable = React.forwardRef(function DataTable({ data, prefs, onPr
       >
         <Table style={{ width: "max-content", minWidth: "100%", position: "relative", ...pinnedVars }}>
           <TableBody>
-            <AnimatePresence initial={false}>
-              {pageRows.map((row, i) => {
-                  const absoluteIndex = pageStart + i
-                  const isSelectedRow = selected?.rowIndex === i
-                  return (
-                    <motion.tr
-                      key={`${safePage}-${absoluteIndex}`}
-                      data-row-index={absoluteIndex}
-                      onClick={(e) => {
-                        // Clicking anywhere on the row sets the highlight to that row, col 0
-                        setSelected((s) => ({ rowIndex: i, colIndex: s?.rowIndex === i ? s.colIndex : 0 }))
-                      }}
-                      className={cn(
-                        "border-b text-sm transition-colors",
-                        absoluteIndex % 2 === 1 && "bg-muted/20",
-                        isSelectedRow && "bg-accent/30 hover:bg-accent/40",
-                        !isSelectedRow && "hover:bg-muted/40",
-                      )}
-                      style={{ height: rowHeight }}
-                    >
-                      {visibleColumns.map((col, ci) => {
-                        const value = row[col.id]
-                        const pinnedIdx = col.pinned ? pinnedCols.findIndex((p) => p.id === col.id) : -1
-                        const pinnedLeftStyle = pinnedIdx >= 0
-                          ? { left: `var(--pinned-w-${pinnedIdx + 1})` }
-                          : undefined
-                        const isSelectedCell = isSelectedRow && selected?.colIndex === ci
-                        return (
-                          <TableCell
-                            key={col.id}
-                            style={{ width: col.width, minWidth: col.width, maxWidth: 480, ...pinnedLeftStyle }}
-                            className={cn(
-                              "border-r align-middle",
-                              col.pinned && "sticky z-10 bg-inherit",
-                              pinnedIdx === pinnedCols.length - 1 && "after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-px after:bg-border after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.15)]",
-                              isSelectedCell && "ring-2 ring-inset ring-primary",
-                            )}
-                            data-cell-row={i}
-                            data-cell-col={ci}
-                          >
-                            <TypeCell
-                              value={value}
-                              type={col.type}
-                              colId={col.id}
-                              rowIndex={absoluteIndex}
-                              colIndex={ci}
-                              onCopy={onCopy}
-                            />
-                          </TableCell>
-                        )
-                      })}
-                    </motion.tr>
-                  )
-                })}
-              </AnimatePresence>
+            {pageRows.map((row, i) => {
+                const absoluteIndex = pageStart + i
+                const isSelectedRow = selected?.rowIndex === i
+                return (
+                  <tr
+                    key={`${safePage}-${absoluteIndex}`}
+                    data-row-index={absoluteIndex}
+                    onClick={(e) => {
+                      // Clicking anywhere on the row sets the highlight to that row, col 0
+                      setSelected((s) => ({ rowIndex: i, colIndex: s?.rowIndex === i ? s.colIndex : 0 }))
+                    }}
+                    className={cn(
+                      "border-b text-sm transition-colors",
+                      absoluteIndex % 2 === 1 && "bg-muted/20",
+                      isSelectedRow && "bg-accent/30 hover:bg-accent/40",
+                      !isSelectedRow && "hover:bg-muted/40",
+                    )}
+                    style={{ height: rowHeight }}
+                  >
+                    {visibleColumns.map((col, ci) => {
+                      const value = row[col.id]
+                      const pinnedIdx = col.pinned ? pinnedCols.findIndex((p) => p.id === col.id) : -1
+                      const pinnedLeftStyle = pinnedIdx >= 0
+                        ? { left: `var(--pinned-w-${pinnedIdx + 1})` }
+                        : undefined
+                      const isSelectedCell = isSelectedRow && selected?.colIndex === ci
+                      return (
+                        <TableCell
+                          key={col.id}
+                          style={{ width: col.width, minWidth: col.width, maxWidth: 480, ...pinnedLeftStyle }}
+                          className={cn(
+                            "border-r align-middle",
+                            col.pinned && "sticky z-10 bg-inherit",
+                            pinnedIdx === pinnedCols.length - 1 && "after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-px after:bg-border after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.15)]",
+                            isSelectedCell && "ring-2 ring-inset ring-primary",
+                          )}
+                          data-cell-row={i}
+                          data-cell-col={ci}
+                        >
+                          <TypeCell
+                            value={value}
+                            type={col.type}
+                            colId={col.id}
+                            rowIndex={absoluteIndex}
+                            colIndex={ci}
+                            onCopy={onCopy}
+                          />
+                        </TableCell>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
               {pageRows.length === 0 && (
                 <tr>
                   <td colSpan={visibleColumns.length} className="px-3 py-16 text-center text-sm text-muted-foreground">
