@@ -2343,6 +2343,52 @@ add as 'other' countries, and move actual country name to address data".
 - data/audit-log.md (Pass 7)
 - DZIENNIK.md (ten wpis)
 
+## 2026-08-21 — Pass 8: Master Integrity Cleanup (40 dups + sync)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o sprawdzenie "if we have all info saved correctly and no
+hallucynations, then that master is ok and country csv and commit changes".
+
+**Problem odkryty:**
+- billszuka.py sync wykrył **40 duplicate IDs** w master.csv
+- Wszystkie PL-A-XXX (31) + FR-A-XXX (9) były zduplikowane
+- Root cause: wcześniejszy sync gap fill dodał PL-A-XXX do catalog-B-PL.csv
+  (błąd w logice — powinien dodawać tylko PL-B-XXX i PL-X-XXX)
+- compile czytał oba catalogi i tworzył dups
+
+**Fix:**
+- Usunięte PL-A-XXX z `data/Polska/catalog-B-PL.csv` (160 → 129 rows)
+- Usunięte FR-A-XXX z `data/Francja/catalog-B-FR.csv` (22 → 13 rows)
+- Master zdeduplikowany (442 → 402 rows, -40)
+- Stworzone puste pliki B-tier: `Holandia/catalog-B-NL.csv`, `other/catalog-B-OT.csv`
+  (header only, 0 rows — silence "Catalog file missing" warning)
+
+**Walidacja końcowa (PERFECT_SYNC):**
+- billszuka.py sync: 0 missing, 0 orphans, 0 field mismatches, **0 duplicate IDs**, 0 schema warnings
+- billszuka.py verify: 0 changes detected
+- verify-data: 30 per-kraj CSVs, **11660 rows hashed, 0 drift**
+- fix_master_data_integrity: 0 rows (idempotent)
+- dedup_notatki: 0 rows (idempotent)
+- master: **402 rows**, tier 7+empty canonical
+- 14 kraje: PL 160, EE 36, BG 34, SK 30, RO 24, LT 21, FR 22, HR 19, CZ 18, SI 16, LV 11, MD 7, other 3, NL 1
+
+**Hallucinations check:** wszystkie wartości tier są w canonical 7-value enum.
+NIP/VAT pattern canonical. Adresy wyglądają realnie (nie test/dummy/fake).
+Pola bez krytycznych danych (3 PL bez nip_vat, 77 bez www) — to firmy
+które naprawdę ich nie mają publicznie (np. JDG bez rejestracji, B2C
+e-commerce z brakiem danych firmy).
+
+**Pliki:**
+- data/Polska/catalog-B-PL.csv (-31 PL-A-XXX dups)
+- data/Francja/catalog-B-FR.csv (-9 FR-A-XXX dups)
+- data/Holandia/catalog-B-NL.csv (nowy, empty)
+- data/other/catalog-B-OT.csv (nowy, empty)
+- data/master.csv (-40 dups, recompile)
+- data/audit-log.md (Pass 8)
+- DZIENNIK.md (ten wpis)
+
 
 ---
 

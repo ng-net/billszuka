@@ -224,6 +224,46 @@ and move actual country name to address data add to master and create new folder
 - data/audit-log.md (Pass 7)
 - DZIENNIK.md
 
+### Pass 8: Master Integrity Cleanup (40 dups + PERFECT_SYNC)
+
+**Marceli request:** "check if we have all info saved correctly and no hallucynations, then
+that master is ok and country csv and commit changes to git and github".
+
+**Problem odkryty przez billszuka.py sync:** 40 duplicate IDs w master.csv.
+- 31 PL-A-XXX (PL-A-001..031) w catalog-B-PL.csv
+- 9 FR-A-XXX (FR-A-001..009) w catalog-B-FR.csv
+
+**Root cause:** wcześniejszy "sync gap fill" (Pass 5) miał błąd w logice — dodawał
+PL-A-XXX do catalog-B-PL.csv, bo matcher `'PL-' in cid` matchował wszystko. Powinien
+był `'PL-B-' in cid` lub `'PL-X-' in cid`. compile czytał oba catalogi → 40 dups w master.
+
+**Fix:**
+- Usunięte PL-A-XXX z catalog-B-PL.csv (160 → 129 rows)
+- Usunięte FR-A-XXX z catalog-B-FR.csv (22 → 13 rows)
+- Master zdeduplikowany (442 → 402 rows, -40)
+- Puste pliki B-tier dla NL/other: `Holandia/catalog-B-NL.csv`, `other/catalog-B-OT.csv`
+
+**Walidacja końcowa (PERFECT_SYNC):**
+- billszuka.py sync: 0 missing, 0 orphans, 0 field mismatches, **0 duplicate IDs**, 0 schema warnings
+- billszuka.py verify: 0 changes
+- verify-data: 30 per-kraj CSVs, **11660 rows hashed, 0 drift**
+- fix_master_data_integrity: 0 rows (idempotent)
+- dedup_notatki: 0 rows (idempotent)
+- master: **402 rows**, tier 7+empty canonical
+- 14 kraje: PL 160, EE 36, BG 34, SK 30, RO 24, LT 21, FR 22, HR 19, CZ 18, SI 16, LV 11, MD 7, other 3, NL 1
+
+**Hallucinations check:** wszystkie wartości tier są w canonical 7-value enum. NIP/VAT
+pattern canonical. Adresy wyglądają realnie. Pola bez krytycznych danych (3 PL bez
+nip_vat, 77 bez www) to firmy które naprawdę ich nie mają publicznie.
+
+**Pliki:**
+- data/Polska/catalog-B-PL.csv (-31 dups)
+- data/Francja/catalog-B-FR.csv (-9 dups)
+- data/Holandia/catalog-B-NL.csv (nowy, empty header)
+- data/other/catalog-B-OT.csv (nowy, empty header)
+- data/master.csv (402 rows, recompile)
+- data/audit-log.md (Pass 8), DZIENNIK.md
+
 ---
 
 ## 2026-08-17 (18:42 UTC+2)
