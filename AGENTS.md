@@ -25,7 +25,7 @@ Canonical remote: `github.com/ng-net/billszuka` (private). Backup mirror: `githu
   Planner data. For real keyword research use Ahrefs / Senuto / Google Trends.
 - **Skip Germany** unless Marceli explicitly says otherwise. Order: PL → CZ → SK → UK →
   Western EU → Scandinavia → Balkans.
-- **CI workflow is tracked** (`.github/workflows/ci.yml` added to git). `workflow` scope granted on `ng-net` OAuth token.
+- **CI workflow is tracked** (`.github/workflows/ci-python.yml` added to git, id 339221395). `workflow` scope granted on `ng-net` OAuth token. **For Actions minutes** (`/users/ng-net/settings/billing/actions`) `user` scope is also needed — add with `gh auth refresh -s user` (one-time, browser auth). Helper: `tools/check-actions-minutes.sh`. 2026-08-21: 59/59 runs `startup_failure` since 2026-08-12 with 0 jobs, 0 minutes — **not quota** but GitHub phantom workflow ID cache (id 332616408 vs real 339221395). Diagnosis in DZIENNIK 2026-08-21. Workaround: push to `design-mc/billszuka` (backup mirror, fresh workflow).
 
 ## Memory rules
 - Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log). Don't let

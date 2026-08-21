@@ -2867,3 +2867,109 @@ Subsequent keystrokes ~10× szybsze — React commit w jednym frame gdy deferred
 - `.github/workflows/ci.yml` zostal zrenamowany na `ci-python.yml`
 - `healthcheck.yml` dodany i usunięty w tej samej sesji (commit `d808715` istnieje w historii)
 
+## 2026-08-21 — actions-minutes: API check helper + scope refresh
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Powyższa diagnoza (CI startup_failure → quota exhaustion) nie mogła być zweryfikowana bez `user` scope na OAuth token, a `gh auth refresh -s user` wymaga interactive browser auth (2FA/QR). Marceli chce móc sprawdzić Actions minutes z CLI bez otwierania przeglądarki — albo przynajmniej mieć jasną procedurę, kiedy to zrobi.
+
+**Co zrobione:**
+
+1. **Helper `tools/check-actions-minutes.sh`** — własny skrypt bash, zero zależności poza `gh` + `python3` (do formatowania JSON).
+   - Próbuje `GET /users/{owner}/settings/billing/actions` (scope: `user`).
+   - Jeśli `ng-net` to Org, próbuje `GET /orgs/{owner}/settings/billing/actions` (scope: `admin:org`).
+   - Jeśli scope brakuje → drukuje **dokładny one-liner** do uruchomienia w shell-u z dostępem do przeglądarki:
+     ```
+     gh auth refresh -h github.com -s user
+     ```
+   - Jeśli konto nie istnieje → wyraźny komunikat (404 vs scope error).
+   - Wyjście JSON ładnie sformatowane: `total_minutes_used`, `included_minutes`, `paid_minutes_used`, `breakdown by runner (UBUNTU/MACOS/WINDOWS)`.
+   - Tryb `--refresh` / `-h` → wypisuje tylko instrukcję bez wywoływania API.
+
+2. **Testowane (w tej sesji, bez uprawnień):**
+   - `bash tools/check-actions-minutes.sh` → ✗ "Missing 'user' scope on ng-net (keyring) token." → wyświetla refresh command. ✓
+   - `bash tools/check-actions-minutes.sh --refresh` → wypisuje instrukcję. ✓
+   - `bash tools/check-actions-minutes.sh nonexistent-account` → ✗ oba endpointy 404, jasny komunikat. ✓
+
+3. **Cleanup workflow** (zgodnie z planem Marceli):
+   - `healthcheck.yml` został usunięty w commicie `e272ce0` (przed tą sesją).
+   - `.github/workflows/ci-python.yml` (id `339221395`) zostaje — ma rename + `workflow_dispatch` + minimal Python tests.
+   - Aktualny stan `.github/workflows/` = tylko `ci-python.yml` (czysto).
+
+**Procedura dla Marceli (gdy ma dostęp do przeglądarki):**
+
+```bash
+# Jednorazowo (wymaga 2FA / browser confirm):
+gh auth refresh -h github.com -s user
+
+# Potem już z CLI bez przeglądarki:
+bash tools/check-actions-minutes.sh ng-net
+```
+
+Token scopes persist w macOS keychain — po jednym refresh działa we wszystkich sesjach.
+
+**Endpoint reference (do zapamiętania):**
+- `GET /users/{user}/settings/billing/actions` — User account minutes, scope: `user`
+- `GET /orgs/{org}/settings/billing/actions` — Org account minutes, scope: `admin:org`
+- Response shape: `total_minutes_used`, `total_paid_minutes_used`, `included_minutes`, `minutes_used_breakdown` (UBUNTU/MACOS/WINDOWS keys).
+
+**Pliki:**
+- `tools/check-actions-minutes.sh` — nowy, 3932 bytes
+- Brak zmian w `.github/workflows/` (cleanup wykonany wcześniej w `e272ce0`)
+
+---
+
+## 2026-08-21 — CI follow-up: korekta diagnozy (phantom ID, NIE quota)
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Powyższe wpisy zakładały, że `startup_failure` × 30 = wyczerpany quota. Dodatkowe sprawdzenie (po `gh auth status` + listowaniu wszystkich runs) **obaliło tę hipotezę**.
+
+**Twarde dane z `GET /repos/ng-net/billszuka/actions/runs?per_page=100`:**
+
+```
+total_count: 59
+conclusion: "startup_failure" × 59
+name: "" × 58, "CI" × 1 (ostatni)
+path: "BuildFailed" × 58, ".github/workflows/ci-python.yml" × 1 (ostatni)
+created_at == updated_at dla każdego run (delta 0-1s)
+jobs_url: prowadzi do pustej listy (0 jobs)
+```
+
+**Co to oznacza:**
+
+1. **Każdy run failuje w <1s zanim w ogóle ruszy job.** GitHub **nie bill-uje** minutes dla runów, które nie startowały żadnych jobów. Licznik Actions minutes dla `ng-net` powinien pokazywać wartość bliską 0, nie 2000.
+2. **Hipoteza "exhausted quota" była błędna.** Symptomy (startup_failure, brak jobs) wyglądały podobnie, ale przyczyna leży w GitHub backendzie, nie w billing.
+3. **Prawdziwa przyczyna: phantom workflow ID cache.** GitHub trzyma w swojej bazie rekord workflow z `id: 332616408`, który **nie istnieje w `/actions/workflows`** (jedyne aktywne = `ci-python.yml` z id `339221395`). Mimo to każdy push triggeruje run z referencją do phantom ID. Workflow file rename + nowy blob SHA + nowy workflow registration id (`339221395`) nie pomogły — GitHub nadal route'uje runy do starego rekordu.
+
+**Próby obejścia cache (wszystkie nieskuteczne):**
+- `git rm .github/workflows/ci.yml` (fe4cd48) → brak nowego ID
+- re-add tego samego pliku (3028c4e) → ten sam blob SHA, GitHub nie zarejestrował nowego workflow
+- dodanie komentarza (d2003bc) → nowy blob SHA, ale nadal `id: 332616385`, run nadal phantom `332616408`
+- rename `ci.yml` → `ci-python.yml` (c26e96a) → nowy workflow id `339221395` ✓, ale nowe runy **nadal** referencjonują phantom `332616408`
+- `workflow_dispatch` (29d54f3) → manual trigger też `startup_failure`
+- minimal `healthcheck.yml` (d808715, 2 kroki, bez checkout) → też `startup_failure` (potwierdza: problem NIE w workflow file)
+
+**Wniosek:** Problem jest po stronie GitHub backend cache. Jedyny trwały fix to:
+- **A:** kontakt z GitHub Support (cache invalidation)
+- **B:** push do **innego repo** (marlink/xxx lub design-mc/xxx) — tam nie ma phantom cache
+- **C:** czekanie (cache może się sam oczyścić, ale 9 dni bez zmiany to mało prawdopodobne)
+
+**Rekomendacja:** Plan B (push do `design-mc/billszuka` — backup mirror, te same scopes, ale świeży workflow bez phantom cache) jest najszybszy. AGENTS.md już go ma jako backup remote.
+
+**Co zrobić żeby zweryfikować hipotezę "0 minutes used":**
+
+```bash
+# Jednorazowo (wymaga 2FA / browser, 30s):
+gh auth refresh -h github.com -s user
+
+# Potem (CLI, bez przeglądarki):
+bash tools/check-actions-minutes.sh ng-net
+```
+
+Skrypt już istnieje (`tools/check-actions-minutes.sh`), wypisze `total_minutes_used` + breakdown per runner. Jeśli 0/2000 — hipoteza quota definitywnie obalona.
+
+**Pliki:** brak zmian w tej sesji (diagnoza korygująca, plan B do decyzji Marceli).
+
