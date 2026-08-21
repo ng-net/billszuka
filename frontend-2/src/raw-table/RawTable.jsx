@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useMemo, useCallback, useRef, useTransition } from "react";
+import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import {
   Table as TableIcon,
@@ -12,8 +12,6 @@ import {
   Rows4,
   Keyboard,
   Command as CommandIcon,
-  Plus,
-  Minus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +20,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -37,7 +34,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useCsv } from "@/hooks/useCsv";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
-import { cn, debounce } from "@/lib/utils";
+import { debounce } from "@/lib/utils";
 
 import { EmptyState } from "./components/EmptyState";
 import { UploadButton } from "./components/UploadButton";
@@ -90,38 +87,43 @@ export function RawTable() {
 
   // Initialize column order from CSV columns when loaded.
   // Move id_unikalne and nazwa_firmy to the front (sticky on mobile).
-  useEffect(() => {
-    if (csv.columns.length > 0) {
-      setPrefs((p) => {
-        const baseOrder =
-          p.columnOrder && p.columnOrder.every((c) => csv.columns.includes(c))
-            ? p.columnOrder
-            : csv.columns;
-        // Pin id_unikalne and nazwa_firmy to the front
-        const pinned = ["id_unikalne", "nazwa_firmy"].filter((c) => baseOrder.includes(c));
-        const rest = baseOrder.filter((c) => !pinned.includes(c));
-        const newOrder = [...pinned, ...rest];
-        return {
-          ...p,
-          columnOrder: newOrder,
-          columnVisibility: p.columnVisibility ?? Object.fromEntries(csv.columns.map((c) => [c, true])),
-          sortStack: p.sortStack.filter((s) => csv.columns.includes(s.id)),
-          filters: Object.fromEntries(
-            Object.entries(p.filters).filter(([k]) => csv.columns.includes(k))
-          ),
-        };
-      });
-    }
-  }, [csv.columns.join(",")]);
+  // We derive from prefs + csv.columns instead of mirroring into prefs —
+  // this is a one-time migration done on the fly, and avoids the
+  // setState-in-effect antipattern.
+  const rawColumnOrder = prefs.columnOrder;
+  const columnOrder = useMemo(() => {
+    if (csv.columns.length === 0) return rawColumnOrder || csv.columns;
+    const base = rawColumnOrder && rawColumnOrder.every((c) => csv.columns.includes(c))
+      ? rawColumnOrder
+      : csv.columns;
+    const pinned = ["id_unikalne", "nazwa_firmy"].filter((c) => base.includes(c));
+    const rest = base.filter((c) => !pinned.includes(c));
+    return [...pinned, ...rest];
+  }, [rawColumnOrder, csv.columns]);
+  // Filter out sort/filter entries that point to columns no longer in the CSV.
+  const sortStack = useMemo(
+    () => (prefs.sortStack || []).filter((s) => csv.columns.includes(s.id)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [prefs.sortStack, csv.columns]
+  );
+  const filters = useMemo(
+    () => Object.fromEntries(
+      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k))
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [prefs.filters, csv.columns]
+  );
 
-  // Toast on parse complete
+  // Toast on parse complete. The message references row count and parse
+  // time, so the effect re-fires when those change (i.e. on a fresh
+  // CSV load) — that's the intended behavior, not a cascading render.
   useEffect(() => {
     if (csv.status === "ready") {
       toast.success(`Załadowano ${csv.rows.length.toLocaleString("pl-PL")} wierszy w ${(csv.parseTimeMs / 1000).toFixed(2)}s`, {
         duration: 2200,
       });
     }
-  }, [csv.status]);
+  }, [csv.status, csv.rows.length, csv.parseTimeMs]);
 
   // Toast on error
   useEffect(() => {
@@ -130,17 +132,27 @@ export function RawTable() {
     }
   }, [csv.status, csv.error]);
 
-  // Effective column order & visibility
-  const columnOrder = prefs.columnOrder || csv.columns;
+  // Wrap prefs writes for sort/filter in useTransition. The re-sort and
+  // re-filter are the most expensive operations in the table; running
+  // them as a transition lets the UI stay responsive (e.g. the cell you
+  // clicked stays visually clickable) while the new order is computed.
+  const [, startSortTransition] = useTransition();
+  const [, startFilterTransition] = useTransition();
+
+  // Effective column visibility
   const columnVisibility = prefs.columnVisibility || {};
   const setColumnOrder = (updater) =>
     setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater }));
   const setColumnVisibility = (updater) =>
     setPrefs((p) => ({ ...p, columnVisibility: typeof updater === "function" ? updater(p.columnVisibility || {}) : updater }));
   const setSortStack = (updater) =>
-    setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater }));
+    startSortTransition(() =>
+      setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater }))
+    );
   const setFilters = (updater) =>
-    setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater }));
+    startFilterTransition(() =>
+      setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater }))
+    );
   const setDensity = (d) => setPrefs((p) => ({ ...p, density: d }));
   const setTheme = (t) => setPrefs((p) => ({ ...p, theme: t }));
 
@@ -149,12 +161,22 @@ export function RawTable() {
   const debouncedGlobalRef = useRef();
   useEffect(() => {
     debouncedGlobalRef.current = debounce((v) => setGlobalFilter(v), 200);
-    return () => clearTimeout(debouncedGlobalRef.current?.timer);
+    return () => debouncedGlobalRef.current?.cancel();
   }, []);
   const onGlobalSearchChange = (v) => {
     setGlobalSearch(v);
     debouncedGlobalRef.current?.(v);
   };
+
+  // Memoized so the memoized Row in DataTable can rely on a stable
+  // function reference across renders.
+  const onRowClick = useCallback((_index, original) => {
+    const first = Object.values(original)[0];
+    if (first) {
+      navigator.clipboard?.writeText(String(first));
+      toast.success("Skopiowano pierwszą komórkę", { duration: 1000 });
+    }
+  }, []);
 
   // Toolbar hide-on-scroll
   useEffect(() => {
@@ -237,16 +259,18 @@ export function RawTable() {
     return () => window.removeEventListener("keydown", handler);
   }, [prefs.density, paletteOpen, shortcutsOpen, focusedColumn, globalSearch, csv.status, csv.rows.length]);
 
-  // Persist last focused column
-  useEffect(() => {
-    if (focusedColumn) setPrefs((p) => ({ ...p, lastFocusedColumn: focusedColumn }));
-  }, [focusedColumn]);
+  // Persist last focused column. Done inline in the change handler so
+  // we don't need a setState-in-effect.
+  const onFocusedColumnChange = useCallback((colId) => {
+    setFocusedColumn(colId);
+    if (colId) setPrefs((p) => ({ ...p, lastFocusedColumn: colId }));
+  }, []);
 
-  // Per-column filters are passed to DataTable as-is. Global filter is
-  // handled by TanStack's separate `globalFilter` state (line 97 in DataTable),
-  // so it must NOT be mixed in here — the old `__global` override wiped out
-  // per-column filters whenever the user typed in the global search box.
-  const effectiveFilters = prefs.filters;
+  // Per-column filters and sort are derived from prefs (cleaned of any
+  // column references that no longer exist in the CSV). The setters
+  // above still write to the underlying prefs; these derived values
+  // automatically reflect the writes.
+  const effectiveFilters = filters;
 
   // Handle palette actions
   const handlePaletteAction = (item) => {
@@ -287,10 +311,10 @@ export function RawTable() {
   };
 
   const activeFilterCount = useMemo(() => {
-    let n = Object.keys(prefs.filters).length;
+    let n = Object.keys(filters).length;
     if (globalFilter) n += 1;
     return n;
-  }, [prefs.filters, globalFilter]);
+  }, [filters, globalFilter]);
 
   // Header component
   const Header = (
@@ -436,7 +460,7 @@ export function RawTable() {
   // Render
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="h-screen flex flex-col bg-background text-foreground">
+      <div className="h-screen flex flex-col bg-background text-foreground transition-theme">
         <Toaster position="bottom-right" theme={prefs.theme === "system" ? "system" : prefs.theme} richColors closeButton />
 
         {Header}
@@ -445,7 +469,7 @@ export function RawTable() {
           {csv.status === "idle" && (
             <EmptyState
               onFile={csv.loadFile}
-              onLoadSample={() => csv.loadUrl(SAMPLE_URL, "master.csv (sample)")}
+              onLoadSample={() => csv.loadUrl(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE)}
               hasSample
               sampleSize={SAMPLE_SIZE}
             />
@@ -500,22 +524,15 @@ export function RawTable() {
                     },
                   });
                 }}
-                sortStack={prefs.sortStack}
+                sortStack={sortStack}
                 setSortStack={setSortStack}
                 filters={effectiveFilters}
                 setFilters={setFilters}
                 density={prefs.density}
-                onFocusedColumnChange={setFocusedColumn}
+                onFocusedColumnChange={onFocusedColumnChange}
                 focusedColumn={focusedColumn}
                 selectedRowIndex={selectedRowIndex}
-                onRowClick={(_, original) => {
-                  // copy first cell on row click
-                  const first = Object.values(original)[0];
-                  if (first) {
-                    navigator.clipboard?.writeText(String(first));
-                    toast.success("Skopiowano pierwszą komórkę", { duration: 1000 });
-                  }
-                }}
+                onRowClick={onRowClick}
                 globalFilter={globalFilter}
               />
               <StatusBar
@@ -524,7 +541,7 @@ export function RawTable() {
                 visibleColumns={csv.columns.filter((c) => columnVisibility[c] !== false).length}
                 totalColumns={csv.columns.length}
                 activeFilters={activeFilterCount}
-                sortStack={prefs.sortStack}
+                sortStack={sortStack}
                 parseTimeMs={csv.parseTimeMs}
                 density={prefs.density}
                 fileMeta={csv.fileMeta}

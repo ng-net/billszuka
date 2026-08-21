@@ -1,13 +1,11 @@
-import { useEffect, useState, useMemo } from "react";
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut } from "@/components/ui/command";
+import { useState, useMemo } from "react";
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut } from "@/components/ui/command";
 import {
   ArrowUpDown,
   EyeOff,
   Eye,
   XCircle,
   Trash2,
-  Maximize2,
-  Minimize2,
   Upload,
   Moon,
   Sun,
@@ -19,9 +17,13 @@ import {
 export function CommandPalette({ open, onOpenChange, context, onAction }) {
   const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    if (open) setQuery("");
-  }, [open]);
+  // Reset query when the dialog opens — done in the change handler so
+  // we don't need a setState-in-effect (the lint-compiler complains
+  // about that pattern).
+  const handleOpenChange = (next) => {
+    if (next) setQuery("");
+    onOpenChange(next);
+  };
 
   const items = useMemo(() => {
     const list = [
@@ -109,7 +111,7 @@ export function CommandPalette({ open, onOpenChange, context, onAction }) {
   }, [context, query]);
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
+    <CommandDialog open={open} onOpenChange={handleOpenChange}>
       <CommandInput
         placeholder="Szukaj akcji, kolumny, sortu…"
         value={query}

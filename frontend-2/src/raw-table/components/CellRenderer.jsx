@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
@@ -114,7 +114,7 @@ function LongTextCell({ value, display, columnId, truncated }) {
  * Short cell with hover tooltip (full value) + click copy.
  * No popover — full value is already visible.
  */
-function ShortTextCell({ value, display, columnId }) {
+function ShortTextCell({ value, display }) {
   const handleClick = (e) => {
     e.stopPropagation();
     copyToClipboard(value);
@@ -138,7 +138,7 @@ function ShortTextCell({ value, display, columnId }) {
   );
 }
 
-export function CellRenderer({ value, type, columnId, onCopy }) {
+export const CellRenderer = memo(function CellRenderer({ value, type, columnId, onCopy }) {
   if (value == null || value === "") {
     return <span className="text-muted-foreground/40">—</span>;
   }
@@ -211,7 +211,7 @@ export function CellRenderer({ value, type, columnId, onCopy }) {
           </a>
         </TooltipTrigger>
         <TooltipContent side="top">
-          <p className="text-xs tabular-nums">{display}</p>
+          <p className="text-xs tabular-nums">Kliknij, żeby zadzwonić</p>
         </TooltipContent>
       </Tooltip>
     );
@@ -327,7 +327,6 @@ export function CellRenderer({ value, type, columnId, onCopy }) {
       <ShortTextCell
         value={display}
         display={truncate(display, 32)}
-        columnId={columnId}
       />
     );
   }
@@ -349,6 +348,6 @@ export function CellRenderer({ value, type, columnId, onCopy }) {
 
   // Default short text
   return (
-    <ShortTextCell value={display} display={display} columnId={columnId} />
+    <ShortTextCell value={display} display={display} />
   );
-}
+});

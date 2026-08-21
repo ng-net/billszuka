@@ -8,10 +8,11 @@ import { cn } from "@/lib/utils";
  * `column` is a TanStack v8 Column object (from getVisibleLeafColumns()),
  * not a Header. Columns have .id, .columnDef, .getCanSort(), .getIsSorted() directly.
  */
-export function SortableHeader({ column, sortIndex, onContextMenu, focused, onHide }) {
-  if (!column) return null;
-  const colId = column.id;
-
+export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focused, onHide }) {
+  // Hooks must be called unconditionally on every render. The previous
+  // version had `if (!column) return null` before `useSortable` — a rules
+  // of-hooks violation that could crash if column was ever falsy.
+  const colId = column?.id ?? "__none__";
   const {
     attributes,
     listeners,
@@ -20,6 +21,8 @@ export function SortableHeader({ column, sortIndex, onContextMenu, focused, onHi
     transition,
     isDragging,
   } = useSortable({ id: colId });
+
+  if (!column) return null;
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -66,7 +69,10 @@ export function SortableHeader({ column, sortIndex, onContextMenu, focused, onHi
         </button>
 
         <button
-          onClick={handleClick}
+          onClick={(e) => {
+            handleClick(e);
+            onClick?.(colId);
+          }}
           className={cn(
             "flex items-center gap-1 text-xs font-medium uppercase tracking-wide flex-1 min-w-0",
             canSort && "cursor-pointer hover:text-foreground",

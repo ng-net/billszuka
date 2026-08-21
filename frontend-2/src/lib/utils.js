@@ -28,10 +28,28 @@ export function truncate(str, n = 60) {
   return str.length > n ? str.slice(0, n).trimEnd() + "…" : str;
 }
 
+/**
+ * Trailing-edge debounce. Returns a callable that also exposes
+ * `.cancel()` so callers can clear a pending timer on unmount.
+ *
+ *   const d = debounce(fn, 200);
+ *   d(arg);            // schedules
+ *   d.cancel();        // clears
+ */
 export function debounce(fn, ms) {
   let timer;
-  return (...args) => {
+  const debounced = (...args) => {
     clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), ms);
+    timer = setTimeout(() => {
+      timer = null;
+      fn(...args);
+    }, ms);
   };
+  debounced.cancel = () => {
+    if (timer != null) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  };
+  return debounced;
 }

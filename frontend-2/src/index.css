@@ -163,15 +163,23 @@
   }
 }
 
-/* Smooth theme transition */
-* {
-  transition-property: background-color, border-color, color;
-  transition-duration: 150ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+/* Smooth theme transition.
+   The previous version applied this to `*`, which caused a 150 ms transition
+   on every property change for every DOM node (including table cells, form
+   inputs, and the virtualized row container) — making sort/filter feel
+   laggy. Scoped to a single utility class; apply where transitions are
+   actually wanted. */
+@layer utilities {
+  .transition-theme {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
-/* Row settle-in: runs once on mount (when key= changes), not on re-render.
-   Staggered via inline animation-delay on the first chunk of rows only. */
+/* Row settle-in: runs once on initial data mount. The .row-settle class
+   is conditionally applied (not always-on) so the 240 ms cascade doesn't
+   re-fire on sort/filter. */
 @keyframes row-settle {
   from {
     opacity: 0;
@@ -185,6 +193,13 @@
 
 tr.row-settle {
   animation: row-settle 180ms ease-out backwards;
-  /* `backwards` means the `from` state is applied during animation-delay,
-     so staggered rows stay invisible until their delay elapses. */
+}
+
+/* Off-screen rows skip render work. With 5,000 rows × 35 columns, layout
+   and paint were the dominant cost; content-visibility: auto lets the
+   browser defer off-screen rows. contain-intrinsic-size avoids the
+   scrollbar growing as rows skip in. */
+tbody tr[data-cv] {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 32px;
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useEffect, useCallback } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback, useDeferredValue, memo } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -45,6 +45,7 @@ export function DataTable({
   density,
   onFocusedColumnChange,
   focusedColumn,
+  selectedRowId,
   selectedRowIndex,
   onRowClick,
   globalFilter,
@@ -56,7 +57,22 @@ export function DataTable({
 
   const tableContainerRef = useRef(null);
 
-  // column defs
+  // Defer the global filter so typing stays snappy. The deferred value
+  // lags behind by one render, so the table re-filter happens at a
+  // lower priority than the input update.
+  const deferredGlobalFilter = useDeferredValue(globalFilter);
+  const isFilterStale = globalFilter !== deferredGlobalFilter;
+
+  // Stable row identity from id_unikalne. Without this, TanStack defaults
+  // to the row's array index, so when the sort order changes the keys
+  // shift and React re-mounts every row — re-firing the row-settle
+  // animation and re-rendering 5,000 components.
+  const getRowId = useCallback(
+    (row, index) => String(row?.id_unikalne ?? `__row-${index}`),
+    []
+  );
+
+  // Column defs
   const tableColumns = useMemo(() => {
     return columns.map((colId) => {
       const colType = schema?.find((s) => s.id === colId)?.type || "text";
@@ -74,18 +90,33 @@ export function DataTable({
             value={getValue()}
             type={colType}
             columnId={colId}
-            onCopy={() => {}}
           />
         ),
       };
     });
   }, [columns, schema]);
 
-  // total table width (for horizontal scroll)
+  // Total table width (for horizontal scroll)
   const totalTableWidth = useMemo(
     () => tableColumns.reduce((sum, c) => sum + (c.size || 160), 0),
     [tableColumns]
   );
+
+  // Pre-compute enum values once per (rows, schema) change.
+  // Previously this ran `getEnumValues(rows, columnId)` on every render of
+  // every column — O(N) per column per render = O(C·N) work per render.
+  // For 5 enum columns × 5,000 rows = 25,000 ops on every keystroke.
+  const enumValuesByColumn = useMemo(() => {
+    if (!schema) return {};
+    const out = {};
+    for (const s of schema) {
+      if (s.type === "enum") {
+        const v = getEnumValues(rows, s.id);
+        if (v && v.length > 0) out[s.id] = v;
+      }
+    }
+    return out;
+  }, [rows, schema]);
 
   const table = useReactTable({
     data: rows,
@@ -94,8 +125,9 @@ export function DataTable({
       ...(columnOrder && columnOrder.length > 0 ? { columnOrder } : {}),
       ...(Object.keys(columnVisibility).length > 0 ? { columnVisibility } : {}),
       sorting: sortStack,
-      globalFilter,
+      globalFilter: deferredGlobalFilter,
     },
+    getRowId,
     onColumnOrderChange: setColumnOrder,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSortStack,
@@ -114,18 +146,35 @@ export function DataTable({
   const tableRows = table.getRowModel().rows;
   const rowHeight = density === "compact" ? 32 : 44;
 
-  // report filtered count up
+  // The settle-in fade should run once per data load, not on every
+  // sort/filter. We flip `showSettle` true on (rows, schema) change, then
+  // schedule it off ~700 ms later (past the longest 60×4 ms stagger).
+  // Using a counter so the second flip still triggers a re-render to
+  // remove the class.
+  const dataVersion = useMemo(() => `${rows.length}|${rows[0]?.id_unikalne ?? ""}`, [rows]);
+  const [settleTick, setSettleTick] = useState(0);
+  useEffect(() => {
+    if (tableRows.length === 0) return;
+    setSettleTick((n) => n + 1);
+    const t = setTimeout(() => setSettleTick((n) => n + 1), 700);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataVersion]);
+  const showSettle = settleTick % 2 === 0 && tableRows.length > 0;
+
+  // Report filtered count up
   useEffect(() => {
     onFilteredCountChange?.(tableRows.length);
   }, [tableRows.length, onFilteredCountChange]);
 
-  // column reorder (dnd-kit)
+  // Column reorder (dnd-kit)
   const handleDragEnd = useCallback(
     (event) => {
       const { active, over } = event;
       if (active && over && active.id !== over.id) {
         const oldIndex = visibleColumnIds.indexOf(active.id);
         const newIndex = visibleColumnIds.indexOf(over.id);
+        if (oldIndex < 0 || newIndex < 0) return;
         const next = arrayMove(visibleColumnIds, oldIndex, newIndex);
         // merge with hidden cols (preserve their order)
         const hidden = columns.filter((c) => !next.includes(c));
@@ -135,7 +184,7 @@ export function DataTable({
     [visibleColumnIds, columns, setColumnOrder]
   );
 
-  // per-column filter
+  // Per-column filter
   const updateColumnFilter = useCallback(
     (colId, value) => {
       setFilters((prev) => {
@@ -151,7 +200,7 @@ export function DataTable({
     [setFilters]
   );
 
-  // apply filters to table state
+  // Apply filters to table state
   useEffect(() => {
     if (!table) return;
     const validFilters = Object.entries(filters)
@@ -160,12 +209,25 @@ export function DataTable({
     table.setColumnFilters(validFilters);
   }, [filters, table, columns, tableColumns.length, rows.length]);
 
-  // column header context menu
+  // Column header context menu
   const [menu, setMenu] = useState(null);
   const handleHeaderContextMenu = (e, column) => {
     e.preventDefault();
     setMenu({ x: e.clientX, y: e.clientY, column });
   };
+
+  // Report column focus (click) so the parent can drive ⌘F
+  // — wires the previously-dead onFocusedColumnChange prop.
+  const lastFocusedRef = useRef(null);
+  const reportColumnFocus = useCallback(
+    (colId) => {
+      if (lastFocusedRef.current !== colId) {
+        lastFocusedRef.current = colId;
+        onFocusedColumnChange?.(colId);
+      }
+    },
+    [onFocusedColumnChange]
+  );
 
   return (
     <div className="relative h-full">
@@ -197,6 +259,7 @@ export function DataTable({
                         column={column}
                         sortIndex={sortIndex >= 0 ? sortIndex : null}
                         onContextMenu={handleHeaderContextMenu}
+                        onClick={() => reportColumnFocus(column.id)}
                         focused={focusedColumn === column.id}
                         onHide={(id) => {
                           setColumnVisibility((prev) => ({ ...prev, [id]: false }));
@@ -211,7 +274,7 @@ export function DataTable({
                 {visibleColumns.map((column) => {
                   if (!column) return null;
                   const colType = column.columnDef.meta?.type || "text";
-                  const enumVals = colType === "enum" ? getEnumValues(rows, column.id) : null;
+                  const enumVals = enumValuesByColumn[column.id];
                   return (
                     <th
                       key={column.id}
@@ -232,44 +295,22 @@ export function DataTable({
               </tr>
             </thead>
 
-            <tbody>
+            <tbody style={{ opacity: isFilterStale ? 0.6 : 1, transition: "opacity 100ms" }}>
               {tableRows.map((row, i) => {
                 if (!row) return null;
-                // Stagger fade-in for the first chunk of rows on initial load
-                const settleDelay = i < 60 ? i * 4 : 0; // ms, capped to keep it short
+                const isSelected = selectedRowId
+                  ? row.id === selectedRowId
+                  : selectedRowIndex === i;
                 return (
-                  <tr
+                  <Row
                     key={row.id}
-                    onClick={() => onRowClick?.(i, row.original)}
-                    className={cn(
-                      "border-b border-border/50 cursor-pointer group",
-                      "hover:bg-muted/40",
-                      "row-settle",
-                      selectedRowIndex === i && "bg-accent"
-                    )}
-                    style={{
-                      height: rowHeight,
-                      animationDelay: settleDelay ? `${settleDelay}ms` : undefined,
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell, j) => {
-                      if (!cell?.column) return null;
-                      const isSticky = j < STICKY_COLS_MOBILE;
-                      return (
-                        <td
-                          key={cell.id}
-                          style={{ width: cell.column.columnDef.meta?.width }}
-                          className={cn(
-                            "px-3 align-middle border-r border-border/30 overflow-hidden text-ellipsis whitespace-nowrap",
-                            isSticky &&
-                              "sticky left-0 z-10 bg-card group-hover:bg-muted/40 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:bg-transparent md:after:hidden"
-                          )}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      );
-                    })}
-                  </tr>
+                    row={row}
+                    index={i}
+                    rowHeight={rowHeight}
+                    isSelected={isSelected}
+                    onClick={onRowClick}
+                    showSettle={showSettle}
+                  />
                 );
               })}
               {tableRows.length === 0 && (
@@ -322,6 +363,50 @@ export function DataTable({
     </div>
   );
 }
+
+/**
+ * Memoized row. Re-renders only when its data, selection, or props
+ * change. With stable getRowId, sort/filter reuses these DOM nodes —
+ * only the row becoming selected and the one losing selection re-render
+ * (down from "every row in the table" before).
+ */
+const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, showSettle }) {
+  const settleDelay = showSettle && index < 60 ? index * 4 : 0;
+  return (
+    <tr
+      data-cv="row"
+      onClick={() => onClick?.(index, row.original)}
+      className={cn(
+        "border-b border-border/50 cursor-pointer group",
+        "hover:bg-muted/40",
+        settleDelay > 0 && "row-settle",
+        isSelected && "bg-accent"
+      )}
+      style={{
+        height: rowHeight,
+        animationDelay: settleDelay ? `${settleDelay}ms` : undefined,
+      }}
+    >
+      {row.getVisibleCells().map((cell, j) => {
+        if (!cell?.column) return null;
+        const isSticky = j < STICKY_COLS_MOBILE;
+        return (
+          <td
+            key={cell.id}
+            style={{ width: cell.column.columnDef.meta?.width }}
+            className={cn(
+              "px-3 align-middle border-r border-border/30 overflow-hidden text-ellipsis whitespace-nowrap",
+              isSticky &&
+                "sticky left-0 z-10 bg-card group-hover:bg-muted/40 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:bg-transparent md:after:hidden"
+            )}
+          >
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </td>
+        );
+      })}
+    </tr>
+  );
+});
 
 function defaultWidth(colId, type) {
   if (colId === "id_unikalne") return 130;
@@ -391,7 +476,7 @@ function mergeSort(stack, id, desc) {
   return [...stack, { id, desc }];
 }
 
-function HeaderContextMenu({ x, y, column, onClose, onAction }) {
+function HeaderContextMenu({ x, y, onAction }) {
   return (
     <div
       className="fixed z-50 min-w-[180px] rounded-md border bg-popover p-1 shadow-md text-sm"

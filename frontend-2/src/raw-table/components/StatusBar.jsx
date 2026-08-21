@@ -52,7 +52,7 @@ export function StatusBar({
         </div>
         <div className="flex items-center gap-3 shrink-0 tabular-nums">
           <span className="hidden sm:inline">
-            {parseTimeMs > 0 && `Parsed in ${(parseTimeMs / 1000).toFixed(2)}s`}
+            {parseTimeMs > 0 && `Parsowanie: ${(parseTimeMs / 1000).toFixed(2)}s`}
           </span>
           <span className="text-muted-foreground/40 hidden sm:inline">·</span>
           <span className="capitalize">{density}</span>

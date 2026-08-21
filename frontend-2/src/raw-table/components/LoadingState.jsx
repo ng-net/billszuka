@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FileSpreadsheet, X, Loader2, Gauge, Clock } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FileSpreadsheet, X, Gauge, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { cn, formatNumber } from "@/lib/utils";
+import { formatNumber } from "@/lib/utils";
 
 /**
  * Big loading state with circular % progress, stats, and cancel.
@@ -19,16 +19,13 @@ export function LoadingState({
 }) {
   const [minTimePassed, setMinTimePassed] = useState(false);
   const [now, setNow] = useState(() => performance.now());
-  const rafRef = useRef(null);
 
-  // Tick "now" every 100ms for elapsed/eta display
+  // Tick "now" at 10 Hz (100 ms). RAF at 60 Hz caused a re-render every
+  // frame for a label that only changes at second resolution — 6x the work
+  // for no perceivable difference.
   useEffect(() => {
-    const tick = () => {
-      setNow(performance.now());
-      rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    const id = setInterval(() => setNow(performance.now()), 100);
+    return () => clearInterval(id);
   }, []);
 
   // Min display time

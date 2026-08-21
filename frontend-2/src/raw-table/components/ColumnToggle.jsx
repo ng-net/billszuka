@@ -54,11 +54,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium">Widoczne kolumny</p>
             <button
-              onClick={() => {
-                showAll();
-                hideAll();
-                showAll();
-              }}
+              onClick={showAll}
               className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
               title="Reset do wszystkich"
             >

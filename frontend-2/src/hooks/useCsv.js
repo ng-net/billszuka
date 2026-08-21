@@ -84,10 +84,6 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
         signal: ac.signal,
       });
       if (ac.signal.aborted) return;
-      // Backfill file size if not known (URL loads)
-      if (!fileMeta?.size && result.columns.length) {
-        setFileMeta((m) => (m?.size ? m : { ...m, size: sizeHint || 0 }));
-      }
       const elapsed = performance.now() - start;
       if (elapsed < minLoadingMs) {
         await new Promise((r) => setTimeout(r, minLoadingMs - elapsed));
@@ -106,7 +102,7 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
       setError(e?.message || String(e));
       setStatus("error");
     }
-  }, [minLoadingMs, fileMeta?.size]);
+  }, [minLoadingMs]);
 
   const cancel = useCallback(() => {
     if (abortRef.current) abortRef.current.abort();
