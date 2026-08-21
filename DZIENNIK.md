@@ -2184,3 +2184,7 @@ fragmentu w ` | `-separated stringu) — efekt non-idempotent append w
 - data/audit-log.md (Pass 5)
 - DZIENNIK.md (ten wpis)
 
+**Commit:** `d7f2ab9 fix(master): Pass 5 — notatki dedupe (28 rows) + tool idempotency` (32 files, +1825/-276)
+**Backup:** `data/.pre-dedup-20260821/`
+**Remote:** push pending — sprawdź `git push origin main` (jeśli wymagany sync z GitHub)
+
