@@ -2299,6 +2299,50 @@ cross-referenced z master.csv.
 - data/audit-log.md (Pass 6 — manual search gap analysis)
 - DZIENNIK.md (ten wpis)
 
+## 2026-08-21 — Other Country Strategy: 3 strategic firms z PowerMatic
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli zdecydował: "the ones that have powermatic and are actually strategic
+add as 'other' countries, and move actual country name to address data".
+
+**Wynik:** 3 strategic PowerMatic firms dodane jako `kraj='other'`:
+
+| id | Firma | Actual country | Strategic value |
+|---|---|---|---|
+| **OTHER-A-001** | powermatic-stopfmaschine.de | Deutschland (DE) | "Nr. 1 in DE/AT/LU/CH", pełna linia PowerMatic. DE skip per AGENTS.md, ale strategic reference. |
+| **OTHER-A-002** | Powermatic Wholesale (US) | United States of America | Authorized Master Distributor USA/Canada. John/Debbie, 1-800-243-2737. Global reference. |
+| **OTHER-A-003** | LUXFUX S.À R.L. (LU) | Luxembourg | shop.luxfux.lu/powermatic — pełna linia PowerMatic 1-5+ Deluxe. Cross-border LU/DE/AT/CH. service@luxfux.lu. |
+
+**Pominięte (verified non-PowerMatic):**
+- **DELTA BACO (FR/ES)** — generic tobacco importer, nie sprzedaje PowerMatic.
+
+**Implementation:**
+- Nowy folder: `data/other/` z `catalog-A-OT.csv` (3 rows)
+- `kraj` = "other" (literał, nie ISO kod)
+- `adres` zawiera actual country: "Deutschland (DE)", "United States of America", "Luxembourg (LU)"
+- Powiązanie z NL-A-001 LB Europe (EU master distributor) w `related_to`
+
+**Schema rozszerzenia:**
+- `tools/config.py` — dodane "NL": "Holandia" + "OT": "other" do COUNTRY_MAP
+- `tools/billszuka.py compile` — teraz przetwarza 28 per-kraj CSVs (było 24)
+- `tools/verify_run.py` regex `^catalog-[AB]-[A-Z]{2}\.csv$` — "OT" pasuje (2 litery)
+
+**Walidacja końcowa:**
+- master.csv: 442 rows (PL 191, EE 36, BG 34, FR 31, SK 30, RO 24, LT 21, HR 19, CZ 18, SI 16, LV 11, MD 7, **other 3**, **NL 1**)
+- fix tool: 0 rows (canonical state preserved)
+- dedup: 0 rows
+- verify-data: 11700 rows hashed, 0 drift
+- tier unique: 7+empty canonical (unchanged)
+
+**Pliki:**
+- data/master.csv (442 rows, +3: OTHER-A-001/002/003)
+- data/other/catalog-A-OT.csv (nowy, 3 rows)
+- tools/config.py (+NL, +OT w COUNTRY_MAP)
+- data/audit-log.md (Pass 7)
+- DZIENNIK.md (ten wpis)
+
 
 ---
 

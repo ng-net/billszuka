@@ -90,6 +90,8 @@ COUNTRY_MAP = {
     "BG": "Bułgaria",
     "SI": "Słowenia",
     "HR": "Chorwacja",
+    "NL": "Holandia",  # strategic partner (LB Europe EU master distributor)
+    "OT": "other",    # other strategic (DE/US/LU etc. — poza 12 scope)
 }
 
 # Reverse mapping: Directory Name -> Country Code

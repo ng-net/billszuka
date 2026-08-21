@@ -188,6 +188,42 @@ w lokalnym języku (per SŁOWNIK-WYSZUKIWAŃ.md). Cross-reference z master.csv.
 top marketplace sellers (Ceneo PL, Allegro PL, Erli PL, OLX lokalne). Automated runs miss
 ~10-20% top sellers z Google Page 1-2.
 
+### Pass 7: Other Country Strategy (Marceli request 2026-08-21)
+
+**Marceli:** "the ones that have powermatic and are actually strategic add as 'other' countries,
+and move actual country name to address data add to master and create new folder in /data 'other'".
+
+**3 strategic PowerMatic firms dodane jako `kraj='other'`:**
+
+| id | Firma | Actual country | Notes |
+|---|---|---|---|
+| OTHER-A-001 | powermatic-stopfmaschine.de | Deutschland (DE) | "Nr. 1 in DE/AT/LU/CH" |
+| OTHER-A-002 | Powermatic Wholesale | United States of America (US) | Authorized Master Distributor USA/Canada |
+| OTHER-A-003 | LUXFUX S.À R.L. | Luxembourg (LU) | shop.luxfux.lu/powermatic — pełna linia PM 1-5+ Deluxe |
+
+**Pominięte:**
+- DELTA BACO (FR/ES) — generic tobacco importer, nie sprzedaje PowerMatic
+
+**Schema rozszerzenia:**
+- `tools/config.py` — dodane "NL": "Holandia" + "OT": "other" do COUNTRY_MAP
+- `tools/billszuka.py compile` — teraz 26/24 catalogs (master 442 rows)
+- `tools/verify_run.py` regex `^catalog-[AB]-[A-Z]{2}\.csv$` — "OT" pasuje (2 litery)
+- Nowy folder: `data/other/` z `catalog-A-OT.csv` (3 rows)
+- `kraj='other'` (literał), `adres` zawiera actual country
+
+**Walidacja końcowa:**
+- master.csv: 442 rows (PL 191, EE 36, BG 34, FR 31, SK 30, RO 24, LT 21, HR 19, CZ 18, SI 16, LV 11, MD 7, other 3, NL 1)
+- fix tool: 0 rows, dedup: 0 rows
+- verify-data: 11700 rows hashed, 0 drift
+- tier unique: 7+empty canonical
+
+**Pliki:**
+- data/master.csv (442 rows, +3)
+- data/other/catalog-A-OT.csv (nowy, 3 rows)
+- tools/config.py (+NL, +OT)
+- data/audit-log.md (Pass 7)
+- DZIENNIK.md
+
 ---
 
 ## 2026-08-17 (18:42 UTC+2)
