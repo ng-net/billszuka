@@ -3024,3 +3024,38 @@ Skrypt już istnieje (`tools/check-actions-minutes.sh`), wypisze `total_minutes_
 - Remotes: `origin` (marlink), `ng-net` (backup), `design-mc` (dead)
 - Commits: `54ae39d` (AGENTS swap), `a5f1824` (CI fix)
 
+
+---
+
+## 2026-08-21 — CI FIRST GREEN on marlink/BILLSzuka (workflow id 339246667)
+
+**Operator:** Marceli
+**Agent:** Coder
+
+**Kontekst:** Po migracji na marlink/BILLSzuka (commit `54ae39d`) CI dostał świeżą rejestrację workflow (id `339246667`, brak phantom cache). Pierwsze 5 runów zakończyło się kolejnymi real-failures, każdy z innego powodu — wszystkie fixable, jeden po drugim.
+
+**Sukces:**
+- Run `32469412985` (commit `d9f5ec5`) — **conclusion: success** ✓
+- Wszystkie 3 joby (test 3.11/3.12/3.13) — `success`
+- Czas: 26s (start 09:45:34Z, end 09:46:00Z)
+- Workflow id: `339246667` na marlink, brak phantom, brak startup_failure
+
+**Seria fix-ów po migracji (każdy w osobnym commicie):**
+
+| # | Commit | Symptom | Fix |
+|---|---|---|---|
+| 1 | `a5f1824` | "No file in /.../BILLSzuka matched to [requirements.txt or pyproject.toml]" | Added `requirements-ci.txt` with pytest/fastapi/httpx |
+| 2 | `691d561` | Same error — `cache: pip` default-glob only `requirements.txt`/`pyproject.toml` | Added `cache-dependency-path: requirements-ci.txt` |
+| 3 | `fc0517b` | `StarletteDeprecationWarning` escalated to error by `filterwarnings = error` | Pinned starlette<1.0, fastapi<0.115, httpx<0.28, pytest<9.0 |
+| 4 | `b67d325` | 21 errors: `RuntimeError: Form data requires 'python-multipart' to be installed` | Added `python-multipart` to requirements-ci.txt |
+| 5 | `f307091` | Legacy `multipart` package emits `PendingDeprecationWarning` at import time | Added `ignore::PendingDeprecationWarning` to pytest.ini |
+| 6 | `d9f5ec5` | `ModuleNotFoundError: No module named 'uvicorn'` (api_server.py smoke-test) | Added `uvicorn` to requirements-ci.txt |
+
+**Łącznie:** 6 commitów CI-fix, 1 commit migration, 1 commit AGENTS.md, 2 commity dashboard link, 1 commit Kimi/test cleanup = 11 commitów od początku sesji.
+
+**Verification:**
+- ng-net/billszuka nadal ma phantom id `332616408` — NIE pushować tam (backup mirror tylko)
+- marlink/BILLSzuka workflow id `339246667` — zielone, działa
+- Cron `check-ci-marlink-migration` usunięty po green
+
+**Pliki:** brak zmian w tej sesji (only DZIENNIK update).
