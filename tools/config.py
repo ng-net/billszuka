@@ -90,21 +90,13 @@ COUNTRY_MAP = {
     "BG": "Bułgaria",
     "SI": "Słowenia",
     "HR": "Chorwacja",
-    "RS": "Srbija",    # added 2026-08-22 — OUT-OF-SCOPE but tracked
-    "NL": "Holandia",  # strategic partner (LB Europe EU master distributor)
-    "DE": "Niemcy",    # Germany (DE/AT/LU/CH distribution via LB Europe)
-    "US": "USA",       # United States (master distributor reference)
-    "LU": "Luksemburg", # Luxembourg (DACH cross-border)
 }
 
 # Reverse mapping: Directory Name -> Country Code
 DIR_TO_ISO = {v: k for k, v in COUNTRY_MAP.items()}
 
 # Canonical country order for compilation/reporting.
-# RS appended at end of CEE/Bałtyckich because it's OUT-OF-SCOPE per
-# methodology.md ("Skip Balkans except PL-adjacent") — tracked but not
-# actively prospected. DE/US/LU appended last as strategic reference markets.
-COUNTRY_ORDER = ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD", "BG", "SI", "HR", "RS", "NL", "DE", "US", "LU"]
+COUNTRY_ORDER = ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD", "BG", "SI", "HR"]
 
 
 def make_id(iso: str, catalog_type: str, seq_num: int) -> str:
