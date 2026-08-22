@@ -90,13 +90,14 @@ COUNTRY_MAP = {
     "BG": "Bułgaria",
     "SI": "Słowenia",
     "HR": "Chorwacja",
+    "RS": "Serbia",   # OUT-OF-SCOPE — tracked for competitive intelligence only
 }
 
 # Reverse mapping: Directory Name -> Country Code
 DIR_TO_ISO = {v: k for k, v in COUNTRY_MAP.items()}
 
 # Canonical country order for compilation/reporting.
-COUNTRY_ORDER = ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD", "BG", "SI", "HR"]
+COUNTRY_ORDER = ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD", "BG", "SI", "HR", "RS"]
 
 
 def make_id(iso: str, catalog_type: str, seq_num: int) -> str:
