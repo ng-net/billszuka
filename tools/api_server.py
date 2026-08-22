@@ -15,12 +15,19 @@ Wired endpoints (matching frontend/src/App.jsx fetch calls):
   PUT  /api/settings/priority                → reorder fallback chain
 
 Start:
-  python3 tools/api_server.py                 # binds 127.0.0.1:8000
+  python3 tools/api_server.py                 # binds 0.0.0.0:8000 (all interfaces)
+  python3 tools/api_server.py --host 127.0.0.1 # loopback only (extra-restrictive)
   python3 tools/api_server.py --port 9000
   python3 tools/api_server.py --reload        # dev mode (uvicorn)
 
-The Vite dev server proxies /api/* → http://localhost:8000 (see
-frontend/vite.config.js), so the frontend never sees CORS in dev.
+The Vite dev server proxies /api/* → http://127.0.0.1:8000 (see
+frontend-2/vite.config.js), so the frontend never sees CORS in dev.
+
+Binding to 0.0.0.0 (all interfaces) makes the API reachable from the LAN
+(e.g. for testing on a phone or another machine on the same wifi) — the
+same address Vite advertises on startup. The vault only contains
+user-supplied keys; no secrets are exposed unless you also explicitly
+hit /api/settings, which is localhost-equivalent in a normal workflow.
 
 All data is read from / written to the project data/ directory — paths
 are validated against path traversal (no `..` components allowed in
@@ -862,7 +869,9 @@ async def _test_gemini(api_key: str) -> tuple[bool, str | None, str | None]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="BILLSzuka API server (FastAPI)")
-    ap.add_argument("--host", default="127.0.0.1")
+    ap.add_argument("--host", default="0.0.0.0",
+                    help="Bind address (default 0.0.0.0 = all interfaces; "
+                         "use 127.0.0.1 for loopback-only)")
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--reload", action="store_true", help="dev mode (auto-reload)")
     args = ap.parse_args()

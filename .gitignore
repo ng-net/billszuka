@@ -42,10 +42,15 @@ data/.enrichment-*/
 data/.snapshots/
 
 # Frontend viewers (separate sub-projects, not part of billszuka data pipeline)
-# czat-table/ — original viewer. 2026-08-21: in-scope (un-ignored per Marceli request).
-# frontend-2/ — csv viewer v2 (czat-table rewrite, see README). 2026-08-21: in-scope.
+# czat-table/ — archived 2026-08-22 to archive/czat-table/ (do not resurrect).
+# frontend-2/ — canonical dashboard (csv viewer + analytics + Gemini).
+# archive/ — do not commit. node_modules inside archive/ ignored below.
+archive/
+archive/**/node_modules/
 tools/.verify-runs/
 tools/.verify-checkpoint.json
+tools/api_secrets.json
+tools/api_secrets.tmp
 data/.verify-checkpoint.json
 .verify-checkpoint.json
 
