@@ -23,6 +23,30 @@ SCHEMA_COLUMNS = [
     "zrodlo_danych", "data_weryfikacji", "flagi", "notatki", "rynek_skala"
 ]
 
+# Index positions for swap detection (col 0 = related_to, col 1 = rok_zalozenia)
+IDX_RELATED_TO = 0
+IDX_ROK_ZALOZENIA = 1
+RE_YEAR = re.compile(r"^\d{4}$")
+
+# Swap-guard: columns that are ALLOWED to contain a bare year (YYYY).
+# related_to should be an entity ID/name, not a year.
+# If related_to holds a YYYY and rok_zalozenia is empty, it is the swap pattern.
+def _detect_swap(row: list) -> bool:
+    """Return True if related_to (col 0) is a bare YYYY and rok_zalozenia (col 1) is empty."""
+    related = row[IDX_RELATED_TO].strip().strip("'")
+    rok = row[IDX_ROK_ZALOZENIA].strip()
+    return bool(RE_YEAR.match(related)) and not rok
+
+
+def _repair_swap(row: list, row_id: str) -> bool:
+    """Swap year from col 0 (related_to) into col 1 (rok_zalozenia), put 'brak' in col 0.
+
+    Returns True if a swap was performed.
+    """
+    related = row[IDX_RELATED_TO].strip().strip("'")
+    row[IDX_ROK_ZALOZENIA] = related
+    row[IDX_RELATED_TO] = "brak"
+    return True
 COUNTRY_DIR_MAP = {
     "PL": "Polska", "CZ": "Czechy", "SK": "Słowacja", "SI": "Słowenia",
     "LT": "Litwa", "LV": "Łotwa", "EE": "Estonia", "FR": "Francja",
@@ -94,6 +118,7 @@ def audit_and_normalize_all():
     duplicates = []
     hallucination_flags = []
     
+    swap_warnings = []
     for fpath in catalog_files:
         p = Path(fpath)
         with open(p, "r", encoding="utf-8") as f:
@@ -103,17 +128,28 @@ def audit_and_normalize_all():
             except StopIteration:
                 print(f"Empty file: {fpath}")
                 continue
-                
+
             raw_rows = list(reader)
-            
+
         cleaned_rows = []
         for idx, r in enumerate(raw_rows, start=2):
             cleaned = clean_row_data(r, header, p.name)
             if cleaned is None:
                 continue
-            
-            # Verify ID format
+
+            # ---- Swap guard: related_to ↔ rok_zalozenia ----
+            # Bug origin: enrichment pipeline (KRS/CEIDG/VIES import) or spreadsheet
+            # paste accidentally placed a founding year in related_to (col 0) while
+            # rok_zalozenia (col 1) stayed empty.  Pattern:
+            #   related_to = '2017'  (a bare year, possibly quoted)
+            #   rok_zalozenia = ''
+            # Fix: move the year to rok_zalozenia, put 'brak' in related_to.
             row_id = cleaned[2]
+            if _detect_swap(cleaned):
+                _repair_swap(cleaned, row_id)
+                swap_warnings.append((row_id, p.name, idx, cleaned[IDX_ROK_ZALOZENIA]))
+
+            # Verify ID format
             if not row_id:
                 # generate or report
                 print(f"⚠️ Missing id_unikalne in {p.name} line {idx}: {cleaned[4]}")
@@ -167,7 +203,14 @@ def audit_and_normalize_all():
             print(f"   - {h}")
     else:
         print("✅ Zero templated placeholders detected.")
-        
+
+    if swap_warnings:
+        print(f"⚠️ Detected & repaired {len(swap_warnings)} related_to↔rok_zalozenia swaps:")
+        for row_id, fname, line, year in swap_warnings:
+            print(f"   - {row_id} ({fname}:{line}) → rok_zalozenia='{year}', related_to='brak'")
+    else:
+        print("✅ Zero related_to↔rok_zalozenia column swaps detected.")
+
     return total_cleaned_rows
 
 if __name__ == "__main__":

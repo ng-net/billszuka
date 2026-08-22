@@ -36,6 +36,11 @@ Issues addressed (per user audit 2026-08-21):
                                   prepend platform base URL.
   Q.  rok_zalozenia placeholder  → 44 rows with 'brak' → clear (empty).
   R.  nip_vat whitespace         → RO-A-009 'RO 48715727' → 'RO48715727'.
+  S.  related_to↔rok_zalozenia swap  → enrichment pipeline (KRS/CEIDG/VIES
+                                  import) or spreadsheet paste put a founding
+                                  year in related_to while rok_zalozenia was
+                                  empty.  Pattern: related_to='YYYY', rok_zalozenia=''.
+                                  Fix: move year → rok_zalozenia, related_to='brak'.
   E. tier cardinality (58→7)     → map to canonical 7-value enum.
   F. flagi freeform (2)          → canonicalize, move freeform text to notatki.
   G. cross_sell_potential (8)    → move person-name data to decydent/notatki;
@@ -184,6 +189,20 @@ def append_notatki_unique(row: dict, addition: str) -> bool:
     new_val = " | ".join(p for p in parts if p)
     row["notatki"] = new_val
     return True
+
+
+# S. Swap guard: related_to ↔ rok_zalozenia.
+# Bug origin: KRS/CEIDG/VIES enrichment pipeline or spreadsheet paste placed a
+# founding year (YYYY) in related_to while rok_zalozenia stayed empty.
+# Pattern: related_to matches ^\d{4}$ AND rok_zalozenia is empty.
+RE_BARE_YEAR = re.compile(r"^\d{4}$")
+
+
+def _detect_rok_swap(row: dict) -> bool:
+    """True when related_to holds a bare YYYY and rok_zalozenia is empty."""
+    related = row.get("related_to", "").strip().strip("'")
+    rok = row.get("rok_zalozenia", "").strip()
+    return bool(RE_BARE_YEAR.match(related)) and not rok
 
 
 # ---------------------------------------------------------------------------
@@ -622,6 +641,19 @@ def fix_row(row: dict, src_label: str, log: list) -> dict:
     if rok == "brak":
         changes.append("rok_zalozenia: 'brak' → '' (placeholder)")
         row["rok_zalozenia"] = ""
+
+    # ---- S. related_to↔rok_zalozenia swap guard ----
+    # Pattern: related_to='YYYY' (bare year) AND rok_zalozenia is empty.
+    # Fix: move year → rok_zalozenia, set related_to = 'brak'.
+    # This repair is idempotent: if already fixed it will no longer match _detect_rok_swap.
+    if _detect_rok_swap(row):
+        year_val = row["related_to"].strip().strip("'")
+        changes.append(
+            f"SWAP FIX S: related_to={year_val!r}→'brak', "
+            f"rok_zalozenia=''→{year_val!r}"
+        )
+        row["related_to"] = "brak"
+        row["rok_zalozenia"] = year_val
 
     # ---- R. nip_vat whitespace (RO-A-009) ----
     nip = row.get("nip_vat", "")
