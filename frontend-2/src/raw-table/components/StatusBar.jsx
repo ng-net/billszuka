@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Undo2 } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
 
 export function StatusBar({
@@ -11,10 +12,15 @@ export function StatusBar({
   parseTimeMs,
   density,
   fileMeta,
+  filtersHistory = [],
+  onRestoreFilters,
 }) {
+  // Show "↩ Przywróć" only when filters are currently empty AND we have
+  // something in history. Otherwise the button would be noise.
+  const canRestore = activeFilters === 0 && filtersHistory.length > 0;
   return (
     <div className="border-t bg-card/50 backdrop-blur-sm">
-      <div className="px-3 sm:px-4 h-8 flex items-center justify-between text-xs text-muted-foreground gap-4 overflow-x-auto no-scrollbar">
+      <div className="px-3 sm:px-4 h-8 flex items-center justify-between text-xs text-muted-foreground gap-4 overflow-x-auto">
         <div className="flex items-center gap-3 shrink-0">
           <span className="tabular-nums">
             <motion.span
@@ -44,9 +50,25 @@ export function StatusBar({
           {sortStack.length > 0 && (
             <>
               <span className="text-muted-foreground/40">·</span>
-              <span className="hidden md:inline">
+              <span className="hidden sm:inline">
                 Sort: {sortStack.map((s) => `${s.id} ${s.desc ? "↓" : "↑"}`).join(" · ")}
               </span>
+            </>
+          )}
+          {canRestore && onRestoreFilters && (
+            <>
+              <span className="text-muted-foreground/40">·</span>
+              <button
+                onClick={() => onRestoreFilters(filtersHistory[0])}
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+                title={`Przywróć ${Object.keys(filtersHistory[0]).length} filtrów`}
+              >
+                <Undo2 className="h-3 w-3" />
+                <span>Przywróć filtry</span>
+                {filtersHistory.length > 1 && (
+                  <span className="text-muted-foreground/60">({filtersHistory.length})</span>
+                )}
+              </button>
             </>
           )}
         </div>

@@ -6,7 +6,7 @@ import Papa from "papaparse";
  */
 const EMPTY_LIKE = new Set(["brak", "—", "n/a", "n/d", "nd", "none", "null", "-"]);
 
-function isEmptyLike(v) {
+export function isEmptyLike(v) {
   if (v == null) return true;
   const s = String(v).trim().toLowerCase();
   return s === "" || EMPTY_LIKE.has(s);
@@ -182,12 +182,21 @@ export async function parseCsvUrl(url, { onProgress, signal } = {}) {
 }
 
 /**
- * Get enum values (≤15) for a column from rows — for filter chips.
+ * Get enum values (≤50) for a column from rows — for filter chips.
  * Excludes empty-like values ("brak", "—", "n/a").
+ *
+ * Scans a SAMPLE of rows only (default: first 2 000), not the full dataset.
+ * This keeps filter loading fast regardless of file size (5 k vs 500 k rows).
+ * The 50-value cap is still enforced — if >50 unique values appear in the
+ * sample the column is treated as non-enum (text filter).
  */
-export function getEnumValues(rows, columnId, max = 15) {
+export function getEnumValues(rows, columnId, max = 50) {
+  const SAMPLE = 2000;
+  const end = Math.min(rows.length, SAMPLE);
   const set = new Set();
-  for (const r of rows) {
+  for (let i = 0; i < end; i++) {
+    const r = rows[i];
+    if (!r) continue;
     const v = r[columnId];
     if (v == null) continue;
     const s = String(v).trim();

@@ -11,10 +11,11 @@ import { Button } from "@/components/ui/button";
  * text  → contains input
  * number → two-input range [min, max]
  * date → two date inputs
- * enum → multi-select checkbox list (≤15 values, matches the inference
- *        threshold in lib/csv.js — columns with more values fall back
- *        to a contains text filter, otherwise the type label says ENUM
- *        but the UI offers no enum UX, which is confusing)
+ * enum → multi-select checkbox list (≤50 values, matches the cap used
+ *        by getEnumValues() in lib/csv.js). Columns whose unique set
+ *        exceeds 50 fall back to a contains text filter (otherwise the
+ *        type label says ENUM but the UI offers no enum UX, which is
+ *        confusing).
  * url/email/phone → contains input
  *
  * Local-input state: every input keeps a local string for instant typing
@@ -23,7 +24,7 @@ import { Button } from "@/components/ui/button";
  * second setState (which would trigger cascading renders and trip the
  * react(set-state-in-effect) rule).
  */
-const ENUM_FILTER_MAX = 15;
+const ENUM_FILTER_MAX = 50;
 
 export function FilterInput({ type, value, onChange, enumValues, placeholder }) {
   if (type === "enum" && enumValues && enumValues.length > 0 && enumValues.length <= ENUM_FILTER_MAX) {
@@ -200,16 +201,48 @@ function DateRangeFilter({ value, onChange }) {
 }
 
 function EnumFilter({ value, onChange, enumValues }) {
-  const selected = new Set(value || []);
-  const [open, setOpen] = useState(false);
-  const count = selected.size;
+  // Local Set so multi-toggle is instant and synchronous. The parent gets
+  // a debounced, single-emit array on each commit, not one transition per
+  // toggle.
+  const [selected, setSelected] = useState(() => new Set(value || []));
+  const debouncedRef = useRef();
+  useEffect(() => {
+    // Only resync when the parent value isn't the echo of our own emit.
+    // Without this guard, every parent state write would reset the local Set
+    // and clobber a user's mid-tap selection.
+    if (!value || value.length === 0) {
+      if (selected.size === 0) return;
+      setSelected(new Set());
+      return;
+    }
+    const incoming = new Set(value);
+    if (incoming.size === selected.size && [...incoming].every((v) => selected.has(v))) return;
+    setSelected(incoming);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  useEffect(() => {
+    debouncedRef.current = debounce((arr) => onChange(arr.length > 0 ? arr : undefined), 80);
+    return () => debouncedRef.current?.cancel();
+  }, [onChange]);
 
   const toggle = (v) => {
-    const next = new Set(selected);
-    if (next.has(v)) next.delete(v);
-    else next.add(v);
-    onChange(next.size > 0 ? Array.from(next) : undefined);
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(v)) next.delete(v);
+      else next.add(v);
+      debouncedRef.current?.([...next]);
+      return next;
+    });
   };
+
+  const clear = () => {
+    setSelected(new Set());
+    debouncedRef.current?.([]);
+  };
+
+  const count = selected.size;
+  const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -228,7 +261,7 @@ function EnumFilter({ value, onChange, enumValues }) {
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-56 p-2" align="start">
-        <div className="space-y-1 max-h-72 overflow-y-auto scrollbar-thin">
+        <div className="space-y-1 max-h-72 overflow-y-auto">
           {enumValues.map((v) => (
             <label
               key={v}
@@ -248,7 +281,7 @@ function EnumFilter({ value, onChange, enumValues }) {
               variant="ghost"
               size="sm"
               className="w-full h-7 text-xs"
-              onClick={() => onChange(undefined)}
+              onClick={clear}
             >
               Wyczyść
             </Button>

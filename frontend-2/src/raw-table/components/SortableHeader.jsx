@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ArrowUp, ArrowDown, ArrowUpDown, GripVertical, X } from "lucide-react";
+import { ArrowUp, ArrowDown, ArrowUpDown, GripVertical, X, Filter as FilterIcon } from "lucide-react";
 import { flexRender } from "@tanstack/react-table";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { FilterInput } from "./FilterInput";
 import { cn } from "@/lib/utils";
 
 /**
  * `column` is a TanStack v8 Column object (from getVisibleLeafColumns()),
  * not a Header. Columns have .id, .columnDef, .getCanSort(), .getIsSorted() directly.
  */
-export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focused, onHide }) {
+export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focused, onHide, filterProps }) {
   // Hooks must be called unconditionally on every render. The previous
   // version had `if (!column) return null` before `useSortable` — a rules
   // of-hooks violation that could crash if column was ever falsy.
@@ -34,6 +37,7 @@ export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focu
   const sortDir = column.getIsSorted(); // "asc" | "desc" | false
   const type = column.columnDef.meta?.type;
   const width = column.columnDef.meta?.width;
+  const minWidth = column.columnDef.meta?.minWidth;
   const align = column.columnDef.meta?.align;
 
   const handleClick = (e) => {
@@ -45,9 +49,9 @@ export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focu
   return (
     <th
       ref={setNodeRef}
-      style={{ ...style, width: `${width}px`, minWidth: `${width}px` }}
+      style={{ ...style, width: `${width}px`, minWidth: `${minWidth}px` }}
       className={cn(
-        "group relative text-left align-middle font-medium text-muted-foreground select-none",
+        "group relative overflow-hidden text-left align-middle font-medium text-muted-foreground select-none",
         "border-r border-border",
         focused && "ring-2 ring-primary/50 ring-inset"
       )}
@@ -56,7 +60,8 @@ export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focu
       <div
         className={cn(
           "flex items-center gap-1 px-3 py-2",
-          align === "right" && "justify-end"
+          align === "right" && "justify-end",
+          align === "center" && "justify-center"
         )}
       >
         <button
@@ -105,6 +110,16 @@ export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focu
           </span>
         )}
 
+        {filterProps && (
+          <ColumnFilterTrigger
+            columnId={column.id}
+            type={filterProps.type}
+            value={filterProps.value}
+            enumValues={filterProps.enumValues}
+            onChange={filterProps.onChange}
+          />
+        )}
+
         {onHide && (
           <button
             onClick={(e) => {
@@ -121,4 +136,62 @@ export function SortableHeader({ column, sortIndex, onContextMenu, onClick, focu
       </div>
     </th>
   );
+}
+
+/**
+ * Per-column filter trigger. Renders a small filter icon in the header that
+ * opens a type-aware dropdown (text/range/date/multi-select).
+ * Highlighted when the column has an active filter value.
+ */
+function ColumnFilterTrigger({ columnId, type, value, enumValues, onChange }) {
+  const [open, setOpen] = useState(false);
+  const hasFilter = isFilterActive(value);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          onClick={(e) => e.stopPropagation()}
+          onPointerDown={(e) => e.stopPropagation()}
+          title={`Filtruj ${columnId}`}
+          aria-label={`Filtruj ${columnId}`}
+          className={cn(
+            "shrink-0 h-5 w-5 -mr-1 inline-flex items-center justify-center rounded transition-opacity",
+            "opacity-0 group-hover:opacity-100",
+            hasFilter && "opacity-100",
+            hasFilter
+              ? "text-primary bg-primary/10"
+              : "text-muted-foreground/50 hover:text-foreground hover:bg-muted"
+          )}
+        >
+          <FilterIcon className="h-3 w-3" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        align="end"
+        sideOffset={4}
+        className="p-2 w-auto min-w-[220px]"
+        onClick={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-mono mb-1.5 px-1">
+          Filtruj: {columnId}
+        </div>
+        <FilterInput
+          type={type}
+          value={value}
+          onChange={onChange}
+          enumValues={enumValues}
+          placeholder={`Filtruj ${columnId}…`}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function isFilterActive(value) {
+  if (value == null || value === "") return false;
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === "object") return Object.keys(value).length > 0;
+  return true;
 }

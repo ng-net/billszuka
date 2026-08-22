@@ -72,17 +72,29 @@ export function DataTable({
     []
   );
 
-  // Column defs
+  // Column defs — attach the right filterFn per type so TanStack knows how to
+  // apply each filter value shape (array, {min,max}, {from,to}) against row data.
   const tableColumns = useMemo(() => {
     return columns.map((colId) => {
       const colType = schema?.find((s) => s.id === colId)?.type || "text";
       const width = defaultWidth(colId, colType);
+      let filterFn;
+      if (colType === "enum") {
+        // Cell values are comma-separated strings ("A, B, C"); filter is an array
+        // of checked labels. Match: cell contains ANY of the selected labels.
+        filterFn = "enumContains";
+      } else if (colType === "number") {
+        filterFn = "inNumberRange";
+      } else if (colType === "date") {
+        filterFn = "dateRange";
+      }
       return {
         id: colId,
         accessorKey: colId,
         header: colId,
         enableSorting: true,
         sortingFn: getSortingFn(colType),
+        filterFn,
         size: width,
         meta: { type: colType, width, align: colType === "number" ? "right" : "left" },
         cell: ({ getValue }) => (
@@ -144,6 +156,7 @@ export function DataTable({
     onSortingChange: setSortStack,
     onGlobalFilterChange: () => {},
     globalFilterFn: "includesString",
+    filterFns: { dateRange: dateRangeFilter, enumContains: enumContainsFilter },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -465,6 +478,44 @@ function getSortingFn(type) {
       return "alphanumeric";
   }
 }
+
+/**
+ * Custom filterFn for date-range columns. Filter value is {from?, to?}.
+ * Coerces both the row value and the bound inputs to Date.getTime() so
+ * {min,max} numeric comparison works on dates.
+ */
+const dateRangeFilter = (row, columnId, filterValue) => {
+  if (!filterValue) return true;
+  const raw = row.getValue(columnId);
+  if (raw == null) return false;
+  const cellMs = raw instanceof Date ? raw.getTime() : new Date(raw).getTime();
+  if (isNaN(cellMs)) return true;
+  if (filterValue.from) {
+    const fromMs = new Date(filterValue.from).getTime();
+    if (!isNaN(fromMs) && cellMs < fromMs) return false;
+  }
+  if (filterValue.to) {
+    const toMs = new Date(filterValue.to).getTime();
+    if (!isNaN(toMs) && cellMs > toMs) return false;
+  }
+  return true;
+};
+
+/**
+ * Custom filterFn for enum columns. Cell values are comma-separated strings
+ * ("A, B, C"); filter value is an array of checked labels ["A", "B"].
+ * Match: the cell contains AT LEAST ONE of the selected labels (OR logic).
+ */
+const enumContainsFilter = (row, columnId, filterValue) => {
+  if (!filterValue || filterValue.length === 0) return true;
+  const raw = row.getValue(columnId);
+  if (raw == null || raw === "") return false;
+  // Cell may be a string ("A, B") or already an array.
+  const cellItems = Array.isArray(raw) ? raw : String(raw).split(",").map((s) => s.trim());
+  return filterValue.some((label) =>
+    cellItems.some((item) => item.toLowerCase() === label.toLowerCase())
+  );
+};
 
 function mergeSort(stack, id, desc) {
   const existing = stack.find((s) => s.id === id);
