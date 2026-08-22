@@ -31,7 +31,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 
-from config import CANONICAL_SCHEMA, COUNTRY_MAP, make_id
+from config import CANONICAL_SCHEMA, COUNTRY_MAP, make_id, rynek_skala_for
 
 COUNTRY_PLANS = {
     "PL": {
@@ -317,7 +317,34 @@ COUNTRY_PLANS = {
         "L10_trademark": "DZIV / EUIPO",
         "L11_procurement": "EOJN HR (eojn.nn.hr)",
     },
+    "RS": {
+        "name": "Serbia (out-of-scope)",
+        "csv_A": "data/Serbia/catalog-A-RS.csv",
+        "csv_B": "data/Serbia/catalog-B-RS.csv",
+        "L0_preflight": "PIB 9-digit check + APR name match (apr.gov.rs)",
+        "L1_web_search": [
+            '"velikoprodaja duvana"',
+            '"pribor za pušenje" veleprodaja Beograd OR "Novi Sad"',
+            '"mašina za punjenje cigareta" veleprodaja OR distributer',  # nabijarka-specific
+            '"električna punilica za duvan" prodaja',  # nabijarka-specific
+        ],
+        "L2_marketplace": ["kupujemprodajem.com", "limundo.com"],
+        "L3_registries": {"APR": "https://www.apr.gov.rs", "Carina": "https://www.carina.rs"},
+        "L4_customs_regulatory": ["Uprava Carina RS (carina.rs)", "Poreska uprava RS"],
+        "L5_dns_whois": {"tld": ".rs", "whois": "whois.rnids.rs"},
+        "L6_trade_fairs": ["InterTabac (RS exhibitors)", "Sajam privrede Beograd"],
+        "L7_social_osint": ["kupujemprodajem.com sellers", "FB groups RS"],
+        "L8_B2B_catalogs": ["ekapija.com", "companywall.rs", "yubuild.com"],
+        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
+        "L10_trademark": "ZIS RS (zis.gov.rs) / EUIPO",
+        "L11_procurement": "Portal javnih nabavki RS (jnportal.ujn.gov.rs)",
+    },
 }
+
+
+def _csv_label(plan: dict) -> str:
+    """First available CSV path for a country plan (old 'csv' or new 'csv_A'/'csv_B')."""
+    return plan.get("csv") or plan.get("csv_B") or plan.get("csv_A") or "—"
 
 
 def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id: str, source: str, catalog: str = "B") -> bool:
@@ -360,7 +387,7 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
 
     counter = len(rows) + 1
     row = {k: "" for k in fieldnames}
-    row["id_unikalne"] = make_id(country, "B", counter)
+    row["id_unikalne"] = make_id(country, catalog, counter)
     row["kategoria"] = category
     row["nazwa_firmy"] = name
     row["kraj"] = country
@@ -370,7 +397,7 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
     row["zrodlo_danych"] = source
     row["data_weryfikacji"] = time.strftime("%Y-%m-%d")
     row["flagi"] = f"{time.strftime('%Y-%m-%d')} ⚠️ DO-WERYFIKACJI"
-    row["rynek_skala"] = "duży"
+    row["rynek_skala"] = rynek_skala_for(country)
 
     rows.append(row)
     tmp_path = csv_path.with_suffix(".csv.tmp")
@@ -386,12 +413,12 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
 
 def list_countries():
     print("=" * 80)
-    print("  BILLSzuka 11-level Search Options — 12 European Countries")
+    print("  BILLSzuka 11-level Search Options — 13 tracked countries (12 EU + RS)")
     print("=" * 80)
     for code, plan in COUNTRY_PLANS.items():
         n_levels = sum(1 for k in plan if k.startswith("L") and "_" in k)
         n_mkt = len(plan.get("L2_marketplace", []))
-        print(f"  {code:2s} | {plan['name']:14s} | {n_levels:2d} Search Levels | {n_mkt} Marketplaces | CSV: {plan['csv']}")
+        print(f"  {code:2s} | {plan['name']:14s} | {n_levels:2d} Search Levels | {n_mkt} Marketplaces | CSV: {_csv_label(plan)}")
 
 
 def show_country(country: str, target_level: str = None):
@@ -401,11 +428,11 @@ def show_country(country: str, target_level: str = None):
         return
 
     print("=" * 80)
-    print(f"  Search Options: {country.upper()} — {plan['name']}  (CSV: {plan['csv']})")
+    print(f"  Search Options: {country.upper()} — {plan['name']}  (CSV: {_csv_label(plan)})")
     print("=" * 80)
 
     for key, val in plan.items():
-        if key in ("name", "csv"):
+        if key in ("name", "csv", "csv_A", "csv_B"):
             continue
         if target_level and not key.lower().startswith(target_level.lower()):
             continue

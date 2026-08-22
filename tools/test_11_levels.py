@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-test_11_levels.py — Strict-assertion test for all 11 Lead Generation Levels (Poland).
+test_11_levels.py — Strict-assertion test for all Lead Generation Levels (Poland),
+L0-L11 per methodology.md.
 
 Each level is a function `test_l<n>_<slug>()` that returns a tuple
 (passed: bool, msg: str, count: int). The script:
@@ -38,6 +39,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 # Per-level minimum-result thresholds. Tighten in production, loosen in dev.
 LEVEL_CONFIG: dict[str, dict] = {
+    "L0":  {"min_results": 1, "category": "offline", "label": "Pre-flight NIP Checksum (mod 11)"},
     "L1": {"min_results": 1, "category": "search", "label": "General Web Search"},
     "L2": {"min_results": 1, "category": "search", "label": "Marketplace & Aggregators"},
     "L3": {"min_results": 1, "category": "api",    "label": "Official Register Scans (KRS)"},
@@ -47,6 +49,8 @@ LEVEL_CONFIG: dict[str, dict] = {
     "L7": {"min_results": 1, "category": "search", "label": "Social Media OSINT"},
     "L8": {"min_results": 1, "category": "search", "label": "Business Directories"},
     "L9": {"min_results": 1, "category": "config", "label": "LLM Scouting (OpenRouter)"},
+    "L10": {"min_results": 1, "category": "search", "label": "EUIPO Trademark Search"},
+    "L11": {"min_results": 1, "category": "search", "label": "Public Procurement (TED/BZP)"},
 }
 
 # Markers in DDG HTML that indicate the anti-bot landing page (not real results).
@@ -143,6 +147,27 @@ def get_search_provider() -> tuple[str, Callable[[str], tuple[str, bool]]]:
 # ---------------------------------------------------------------------------
 # Level implementations
 # ---------------------------------------------------------------------------
+
+def run_l0() -> tuple[bool, str, int]:
+    """L0 pre-flight: NIP (mod 11) checksum formula — offline, deterministic."""
+    weights = [6, 5, 7, 2, 3, 4, 5, 6, 7]
+
+    def nip_checksum_ok(nip: str) -> bool:
+        nip = str(nip).replace("PL", "").replace(" ", "")
+        if len(nip) != 10 or not nip.isdigit():
+            return False
+        s = sum(int(nip[i]) * weights[i] for i in range(9))
+        return s % 11 == int(nip[9])
+
+    # Construct a valid NIP: 9 fixed digits + computed control digit
+    base = "526104082"
+    ctrl = sum(int(base[i]) * weights[i] for i in range(9)) % 11
+    valid = base + str(ctrl)
+    assert nip_checksum_ok(valid), f"L0: constructed NIP {valid} must pass checksum"
+    assert not nip_checksum_ok(base + str((ctrl + 1) % 10)), "L0: corrupted control digit must fail"
+    assert not nip_checksum_ok("12345"), "L0: wrong length must fail"
+    return True, f"PASS — NIP mod-11 checksum formula verified ({valid})", 1
+
 
 def run_l1(provider_fn) -> tuple[bool, str, int]:
     """General Web Search."""
@@ -332,6 +357,49 @@ def run_l9() -> tuple[bool, str, int]:
     return True, "PASS — key present and well-formed", 1
 
 
+def _provider_link_check(provider_fn, query: str, domain: str, level: str, label: str) -> tuple[bool, str, int]:
+    """Shared L10/L11-style check: search via provider, count links matching `domain`."""
+    name, fn = provider_fn
+    raw, blocked = fn(query)
+    if name == "ddg":
+        if blocked:
+            return True, f"SKIP — DDG anti-bot landing page. Set BRAVE_API_KEY for real scrape.", 0
+        matches = re.findall(r'href="([^"]*' + re.escape(domain) + r'[^"]*)"', raw)
+        assert len(matches) >= LEVEL_CONFIG[level]["min_results"], (
+            f"{level}: expected ≥ {LEVEL_CONFIG[level]['min_results']} {label} result, got {len(matches)}. "
+            "Query may have zero hits — adjust the query or use a real search API."
+        )
+        return True, f"PASS — {len(matches)} {label} links", len(matches)
+    elif name == "serpapi":
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("organic_results", []) if domain in r.get("link", ""))
+        assert n >= LEVEL_CONFIG[level]["min_results"], f"{level} SerpAPI: expected ≥ {LEVEL_CONFIG[level]['min_results']} {label} result, got {n}"
+        return True, f"PASS — {n} {label} links (SerpAPI)", n
+    else:
+        data = json.loads(raw)
+        n = sum(1 for r in data.get("web", {}).get("results", []) if domain in r.get("url", ""))
+        assert n >= LEVEL_CONFIG[level]["min_results"], f"{level} Brave: expected ≥ {LEVEL_CONFIG[level]['min_results']} {label} result, got {n}"
+        return True, f"PASS — {n} {label} links (Brave)", n
+
+
+def run_l10(provider_fn) -> tuple[bool, str, int]:
+    """EUIPO Trademark Search (L10)."""
+    return _provider_link_check(
+        provider_fn,
+        'site:euipo.europa.eu "powermatic" OR "hawk" trademark',
+        "euipo.europa.eu", "L10", "EUIPO",
+    )
+
+
+def run_l11(provider_fn) -> tuple[bool, str, int]:
+    """Public Procurement — TED EU / BZP (L11)."""
+    return _provider_link_check(
+        provider_fn,
+        'site:ted.europa.eu CPV 15800000-6 tobacco OR tytoń',
+        "ted.europa.eu", "L11", "TED",
+    )
+
+
 # ---------------------------------------------------------------------------
 # Pytest-discoverable wrappers (each level becomes a real `assert`-using test)
 # ---------------------------------------------------------------------------
@@ -339,6 +407,12 @@ def run_l9() -> tuple[bool, str, int]:
 import pytest
 
 _SEARCH_PROVIDER = get_search_provider()  # resolved once at import
+
+def test_l0_nip_checksum():
+    passed, msg, n = run_l0()
+    if not passed:
+        pytest.fail(msg)
+    print(f"   L0: {msg}")
 
 def test_l1_general_search():
     passed, msg, n = run_l1(_SEARCH_PROVIDER)
@@ -394,12 +468,25 @@ def test_l9_llm_key():
         pytest.fail(msg)
     print(f"   L9: {msg}")
 
+def test_l10_euipo_trademark():
+    passed, msg, n = run_l10(_SEARCH_PROVIDER)
+    if not passed:
+        pytest.fail(msg)
+    print(f"   L10: {msg}")
+
+def test_l11_procurement():
+    passed, msg, n = run_l11(_SEARCH_PROVIDER)
+    if not passed:
+        pytest.fail(msg)
+    print(f"   L11: {msg}")
+
 
 # ---------------------------------------------------------------------------
 # Standalone runner (preserves original `python3 tools/test_11_levels.py` UX)
 # ---------------------------------------------------------------------------
 
 LEVEL_RUNNERS: list[tuple[str, Callable]] = [
+    ("L0", lambda: run_l0()),
     ("L1", lambda: run_l1(_SEARCH_PROVIDER)),
     ("L2", lambda: run_l2(_SEARCH_PROVIDER)),
     ("L3", lambda: run_l3()),
@@ -409,13 +496,15 @@ LEVEL_RUNNERS: list[tuple[str, Callable]] = [
     ("L7", lambda: run_l7(_SEARCH_PROVIDER)),
     ("L8", lambda: run_l8(_SEARCH_PROVIDER)),
     ("L9", lambda: run_l9()),
+    ("L10", lambda: run_l10(_SEARCH_PROVIDER)),
+    ("L11", lambda: run_l11(_SEARCH_PROVIDER)),
 ]
 
 
 def _standalone(warn_only: bool = False) -> int:
     provider_name = _SEARCH_PROVIDER[0]
     print("=" * 80)
-    print(f"  TESTING ALL 9 LEAD GENERATION LEVELS (POLAND) — provider={provider_name}")
+    print(f"  TESTING L0-L11 LEAD GENERATION LEVELS (POLAND) — provider={provider_name}")
     print("=" * 80)
 
     # outcome: one of PASS, FAIL, SKIP
@@ -467,7 +556,7 @@ def _standalone(warn_only: bool = False) -> int:
         if skipped_n > 0:
             print(f"\n  RESULT: PASS (with {skipped_n} SKIP — set BRAVE_API_KEY in .env to convert SKIP → PASS)")
         else:
-            print("\n  RESULT: ALL 9 LEVELS PASS")
+            print("\n  RESULT: ALL L0-L11 LEVELS PASS")
         return 0
 
     print(f"\n  RESULT: {failed_n} LEVEL(S) FAILED — test suite is now honest about broken scrapes")

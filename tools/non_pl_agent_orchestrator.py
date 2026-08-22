@@ -38,7 +38,7 @@ ENV_FILE = ROOT / ".env"
 
 sys.path.insert(0, str(TOOLS))
 
-from config import CANONICAL_SCHEMA, COUNTRY_MAP, make_id
+from config import CANONICAL_SCHEMA, COUNTRY_MAP, make_id, rynek_skala_for
 import auto_enrich
 from scrapers_registry import registry_web_lookup
 import uniform_data
@@ -548,7 +548,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                         new_row["zrodlo_danych"] = cand.get("zrodlo_danych") or f"LeadScout L1 Discovery ({q[:30]}); OpenRouter"
                         new_row["data_weryfikacji"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
                         new_row["flagi"] = ver_status
-                        new_row["rynek_skala"] = "duży" if iso in ["CZ", "FR"] else "średni"
+                        new_row["rynek_skala"] = rynek_skala_for(iso)
                         
                         # Append to catalog
                         with open(catalog_path, "a", encoding="utf-8", newline="") as f:

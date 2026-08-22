@@ -32,7 +32,7 @@ data/
 │   ├── catalog-A-CZ.csv
 │   └── catalog-B-CZ.csv
 ├── Bułgaria/  Chorwacja/  Estonia/  Francja/  Litwa/  Łotwa/
-├── Mołdawia/  Rumunia/  Słowacja/  Słowenia/
+├── Mołdawia/  Rumunia/  Serbia/  Słowacja/  Słowenia/
 └── verification/                 # raporty weryfikacji
 ```
 
@@ -66,7 +66,7 @@ Wpis jest zweryfikowany i **nie podlega halucynacji**. Spełnia WSZYSTKIE:
 - **Estonia (EE)**: e-Äriregister (`{8 cyfr}`), VIES (`EE{KMKR}`)
 - **Francja (FR)**: SIRENE / Recherche Entreprises (`SIREN {9 cyfr}`)
 - **Mołdawia (MD)**: State Register of Legal Entities (`IDNO {13 cyfr}`)
-- **Bułgaria / Słowenia / Chorwacja**: Trade Register BG, AJPES, Sudski registar RH
+- Bułgaria / Słowenia / Chorwacja / Serbia: Trade Register BG, AJPES, Sudski registar RH, APR RS
 - **VIES**: Ogólnoeuropejska walidacja VAT-EU
 
 ### 🧹 Zasady Anty-Halucynacyjne & Pruning
@@ -126,7 +126,7 @@ Porównaj obecny stan (per-kraj CSVs + master.csv) z poprzednią wersją. Zident
 - Zmienione wpisy (którekolwiek pole zmienione) w per-kraj CSV
 - Rozbieżności między per-kraj CSV a `master.csv` (master musi być zregenerowany po edycji)
 
-Per-kraj ścieżki do sprawdzenia (24 pliki):
+Per-kraj ścieżki do sprawdzenia (26 plików):
 
 ```
 data/Polska/catalog-A-PL.csv      data/Polska/catalog-B-PL.csv
@@ -139,6 +139,7 @@ data/Litwa/catalog-A-LT.csv       data/Litwa/catalog-B-LT.csv
 data/Łotwa/catalog-A-LV.csv       data/Łotwa/catalog-B-LV.csv
 data/Mołdawia/catalog-A-MD.csv    data/Mołdawia/catalog-B-MD.csv
 data/Rumunia/catalog-A-RO.csv     data/Rumunia/catalog-B-RO.csv
+data/Serbia/catalog-A-RS.csv      data/Serbia/catalog-B-RS.csv
 data/Słowacja/catalog-A-SK.csv    data/Słowacja/catalog-B-SK.csv
 data/Słowenia/catalog-A-SI.csv    data/Słowenia/catalog-B-SI.csv
 ```

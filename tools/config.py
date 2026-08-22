@@ -99,6 +99,19 @@ DIR_TO_ISO = {v: k for k, v in COUNTRY_MAP.items()}
 # Canonical country order for compilation/reporting.
 COUNTRY_ORDER = ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD", "BG", "SI", "HR", "RS"]
 
+# Market-scale formula (methodology.md §5): auto-filled from country code.
+# duży = PL/CZ/FR, średni = RO/BG/HR/SI/SK (+RS out-of-scope intel), mały = LT/LV/EE/MD.
+RYNEK_SKALA_MAP = {
+    "PL": "duży", "CZ": "duży", "FR": "duży",
+    "RO": "średni", "BG": "średni", "HR": "średni", "SI": "średni", "SK": "średni", "RS": "średni",
+    "LT": "mały", "LV": "mały", "EE": "mały", "MD": "mały",
+}
+
+
+def rynek_skala_for(iso: str) -> str:
+    """Market size band (duży/średni/mały) for a country code."""
+    return RYNEK_SKALA_MAP.get(iso.upper(), "średni")
+
 
 def make_id(iso: str, catalog_type: str, seq_num: int) -> str:
     """Generate region-free unique ID: e.g. PL-A-001, CZ-B-015."""

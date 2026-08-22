@@ -3482,3 +3482,44 @@ promised and exercises the 14 new vault tests.
 - **vite config `__dirname` warning**: Vite 8 prefers `import.meta.dirname`.
   Cosmetic, doesn't break anything; defer to vite upgrade.
 
+
+---
+## 2026-08-22 — Review: 11-metod (L0-L11) spójne z ulepszoną formułą
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** Marceli poprosił o review projektu pod kątem spójnego użycia 11 metod
+(L0-L11) z niedawno ulepszoną formułą (rynek_skala auto po kraju, schema 35-kolumnowa
+bez regionów).
+
+**Wykonane (fixy):**
+1. `tools/orchestrate_11_levels.py` — naprawiony crash `KeyError: 'csv'` w
+   `--list` / `--country` (plan PL miał klucz `csv`, reszta `csv_A`/`csv_B`).
+   `billszuka.py search --country X` znowu działa dla wszystkich krajów.
+2. Formuła `rynek_skala` scentralizowana w `tools/config.py`
+   (`RYNEK_SKALA_MAP` + `rynek_skala_for()`): duży = PL/CZ/FR, średni =
+   RO/BG/HR/SI/SK/RS, mały = LT/LV/EE/MD. Użyta w `add_lead()`,
+   `non_pl_agent_orchestrator.py` (wcześniej twardo "duży"/"średni").
+3. `add_lead()` — naprawione `id_unikalne`: `make_id(country, "B", …)` →
+   `make_id(country, catalog, …)` (lead A dostawał ID z katalogu B).
+4. RS (Serbia) dodany do `COUNTRY_PLANS` (pełny plan L0-L11: APR, carina.rs,
+   kupujemprodajem, ekapija, ZIS, JN portal) — wcześniej playbook nie obejmował
+   kraju śledzonego w `config.py` i `data/Serbia/`.
+5. `tools/test_11_levels.py` — dodane testy L0 (NIP mod-11, offline), L10
+   (EUIPO), L11 (TED/BZP). Suite pokrywa teraz L0-L11 zamiast L1-L9.
+   Wynik: 12 poziomów — L0/L3/L5/L9 PASS, reszta SKIP (DDG anti-bot; BRAVE_API_KEY
+   konwertuje SKIP→PASS).
+6. `tools/billszuka.py compile` — licznik "X/24" → dynamiczny (26/26).
+7. `skills/verify-data/SKILL.md` — Serbia dodana, 24 → 26 plików per-kraj.
+8. `methodology.md` — schema 36/38 → 35 kolumn, usunięty rząd `region_nazwa`,
+   ID region-free `PL-A-001`, Serbia w §5/§6/§7/§8/§9 (poza scope).
+9. `data/master.csv` zregenerowany (`billszuka.py compile`): 30 → 35 kolumn,
+   417 wierszy, 26/26 katalogów, `sync` = PERFECT_SYNC.
+10. `python3 -m pytest -q` → **211 passed** (bez regresji).
+
+**Notatki (pozostawione):**
+- `add_lead()` nadal twardo wpisuje `tier = "hurtownik"` dla nowych leadów
+  (niezwiązane z formułą, do decyzji przy najbliższym użyciu).
+- `tools/pdf_gen_instrukcja.py` opisuje L10/L11 jako "[X] nie wdrożone / Planowane
+  Q4 2026" — status, nie błąd; PDF wymaga regeneracji przy zmianie statusu.

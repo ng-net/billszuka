@@ -384,7 +384,7 @@ Szczegóły w `tools/VERIFICATION-PATTERN.md`.
 | Skala rynku | Kraje | Mały/m-c | Średni/m-c | Duży/m-c |
 |---|---|---|---|---|
 | **duży** | PL, CZ, FR | <50 | 50-500 | 500+ |
-| **średni** | RO, BG, HR, SI, SK | <20 | 20-200 | 200+ |
+| **średni** | RO, BG, HR, SI, SK, RS | <20 | 20-200 | 200+ |
 | **mały** | LT, LV, EE, MD | <5 | 5-50 | 50+ |
 
 **Skala rynku wypełnia się automatycznie po `kraj`** — nie wpisuj ręcznie.
@@ -564,6 +564,16 @@ python3 tools/krs_search.py --nip 5140361901 --financials
 
 ---
 
+### 🇷🇸 SERBIA (poza scope — competitive intel)
+
+| Rejestr | URL | Auth |
+|---|---|---|
+| **PIB** (9 cyfr) | — | — |
+| **APR** | `https://www.apr.gov.rs` | ❌ |
+| **Carina** (cło) | `https://www.carina.rs` | ❌ |
+
+---
+
 ## 7. Marketplace per kraj
 
 | Kraj | Główne | Drugorzędne | Notatki |
@@ -580,6 +590,7 @@ python3 tools/krs_search.py --nip 5140361901 --financials
 | 🇧🇬 BG | **OLX**, Bazar.bg | — | OLX dominuje, Bazar.bg dla produktów |
 | 🇸🇮 SI | **Bolha.com**, Mimovrste, Ceneje | — | Bolha = OLX Slovenii |
 | 🇭🇷 HR | **Njuškalo**, Index Oglasi | — | Njuškalo = must-have |
+| 🇷🇸 RS | **KupujemProdajem** | Limundo | Poza scope — competitive intel |
 
 ---
 
@@ -601,6 +612,7 @@ python3 tools/krs_search.py --nip 5140361901 --financials
 | 🇧🇬 BG | Akcyza EU | Legalne, smakowe | CBD legalne, susz nielegalny | Bez ograniczeń | Rynek otwarty |
 | 🇸🇮 SI | Akcyza EU | Legalne, ograniczenia | CBD legalne, susz nielegalny | Bez ograniczeń | Mały rynek |
 | 🇭🇷 HR | Akcyza EU | Legalne, ograniczenia | CBD legalne, susz nielegalny | Bez ograniczeń | Wstęp do Bałkanów |
+| 🇷🇸 RS | Akcyza (poza UE, TPD-aligned) | Do weryfikacji | Do weryfikacji | Bez ograniczeń | Poza scope — competitive intel |
 
 **Ryzyka regulacyjne:**
 - 🔴 **Wysokie**: FR, RO, LT (trudne rynki dystrybucji maszyn)
@@ -624,58 +636,59 @@ python3 tools/krs_search.py --nip 5140361901 --financials
 10. 🇱🇹 **Litwa** — surowa
 11. 🇫🇷 **Francja** — wymaga strategii (najtrudniejsza, ale największy potencjał)
 12. 🇲🇩 **Mołdawia** — specyficzna, poza EU
+13. 🇷🇸 **Serbia** — poza scope (competitive intel)
 
 ---
 
 ## 10. Schemat CSV (zunifikowany)
 
-Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 36 kolumn. Pola specyficzne dla A lub B są puste w rekordach drugiego katalogu.
+Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 35 kolumn. Pola specyficzne dla A lub B są puste w rekordach drugiego katalogu.
 
-### Kolumny (36)
+### Kolumny (35)
 
 | # | Kolumna | Typ | Opis |
 |---|---|---|---|
-| 1 | `region_nazwa` | str | Lokalna nazwa regionu (n.p. "mazowieckie", "Sofia"). Region jest też zakodowany w `id_unikalne` (`PL-A-WP-001`). |
-| 2 | `related_to` | str | ID firm powiązanych (sister firms, sukcesja) |
-| 3 | `rok_zalozenia` | YYYY | Rok rejestracji |
-| 4 | `id_unikalne` | str | `{KOD}-{A\|B}-{REGION_KOD}-{NNN}`, np. `PL-A-WP-001` |
-| 5 | `kategoria` | enum | A1-A6 lub B1-B9 |
-| 6 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
-| 7 | `kraj` | ISO2 | Dwuliterowy kod |
-| 8 | `miasto` | str | |
-| 9 | `adres` | str | Ulica + numer + kod |
-| 10 | `nip_vat` | str | Lokalny odpowiednik NIP |
-| 11 | `rejestr_id` | str | KRS / IČO / ONRC / OIB (kanoniczna kolumna rejestrowa) |
-| 12 | `www` | str | URL lub `brak` |
-| 13 | `kanal_zamiennik` | str | Co mają zamiast WWW: FB, OLX, Allegro shop, Google |
-| 14 | `email` | str | Główny kontakt |
-| 15 | `telefon` | str | Z numerem kierunkowym |
-| 16 | `linkedin` | URL | Profil firmy |
-| 17 | `facebook` | URL | Strona firmy |
-| 18 | `instagram` | URL | Profil firmy |
-| 19 | `tiktok` | URL | Profil firmy (TikTok) |
-| 20 | `tier` | enum | `wyłączność` / `autoryzowany` / `reseller` / `detalista` / `marketplace` / `producent` / `hurtownik` |
-| 21 | `marki_nabijarki` | list | A: PowerMatic, Hawk, Topomat, GM, Turbomatic |
-| 22 | `marka_wlasna_oem` | str | A: nazwa marki własnej |
-| 23 | `sourcing` | enum | Chiny / Europa / Polska / mix |
-| 24 | `wolumen` | enum | mały / średni / duży |
-| 25 | `confidence_wolumen` | enum | 🟢 / 🟡 / 🔴 |
-| 26 | `kanal_sprzedaży` | enum | B2B only / sklep stacjonarny / marketplace / własny e-commerce / mix |
-| 27 | `powinowactwo_nabijarki` | 1-5 | B: tylko (puste w A) |
-| 28 | `cross_sell_potential` | enum | B: wysoki / średni / niski |
-| 29 | `decydent` | str | Imię i nazwisko |
-| 30 | `stanowisko` | str | CEO / właściciel / dyrektor |
-| 31 | `email_decydent` | str | Bezpośredni email (jeśli inny) |
-| 32 | `zrodlo_danych` | str | CEIDG, KRS, FB grupa X, OLX, targi Y, recenzja Z |
-| 33 | `data_weryfikacji` | date | YYYY-MM-DD |
-| 34 | `flagi` | list | Kombinacja 🔴/🟡/🟢/🐋/💎/✅/🔍 + flagi weryfikacji |
-| 35 | `notatki` | str | Dowolne obserwacje |
-| 36 | `rynek_skala` | enum | duży / średni / mały (auto po `kraj`) |
+| 1 | `related_to` | str | ID firm powiązanych (sister firms, sukcesja) |
+| 2 | `rok_zalozenia` | YYYY | Rok rejestracji |
+| 3 | `id_unikalne` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001` (region-free) |
+| 4 | `kategoria` | enum | A1-A6 lub B1-B9 |
+| 5 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
+| 6 | `kraj` | ISO2 | Dwuliterowy kod |
+| 7 | `miasto` | str | |
+| 8 | `adres` | str | Ulica + numer + kod |
+| 9 | `nip_vat` | str | Lokalny odpowiednik NIP |
+| 10 | `rejestr_id` | str | KRS / IČO / ONRC / OIB (kanoniczna kolumna rejestrowa) |
+| 11 | `www` | str | URL lub `brak` |
+| 12 | `kanal_zamiennik` | str | Co mają zamiast WWW: FB, OLX, Allegro shop, Google |
+| 13 | `email` | str | Główny kontakt |
+| 14 | `telefon` | str | Z numerem kierunkowym |
+| 15 | `linkedin` | URL | Profil firmy |
+| 16 | `facebook` | URL | Strona firmy |
+| 17 | `instagram` | URL | Profil firmy |
+| 18 | `tiktok` | URL | Profil firmy (TikTok) |
+| 19 | `tier` | enum | `wyłączność` / `autoryzowany` / `reseller` / `detalista` / `marketplace` / `producent` / `hurtownik` |
+| 20 | `marki_nabijarki` | list | A: PowerMatic, Hawk, Topomat, GM, Turbomatic |
+| 21 | `marka_wlasna_oem` | str | A: nazwa marki własnej |
+| 22 | `sourcing` | enum | Chiny / Europa / Polska / mix |
+| 23 | `wolumen` | enum | mały / średni / duży |
+| 24 | `confidence_wolumen` | enum | 🟢 / 🟡 / 🔴 |
+| 25 | `kanal_sprzedaży` | enum | B2B only / sklep stacjonarny / marketplace / własny e-commerce / mix |
+| 26 | `powinowactwo_nabijarki` | 1-5 | B: tylko (puste w A) |
+| 27 | `cross_sell_potential` | enum | B: wysoki / średni / niski |
+| 28 | `decydent` | str | Imię i nazwisko |
+| 29 | `stanowisko` | str | CEO / właściciel / dyrektor |
+| 30 | `email_decydent` | str | Bezpośredni email (jeśli inny) |
+| 31 | `zrodlo_danych` | str | CEIDG, KRS, FB grupa X, OLX, targi Y, recenzja Z |
+| 32 | `data_weryfikacji` | date | YYYY-MM-DD |
+| 33 | `flagi` | list | Kombinacja 🔴/🟡/🟢/🐋/💎/✅/🔍 + flagi weryfikacji |
+| 34 | `notatki` | str | Dowolne obserwacje |
+| 35 | `rynek_skala` | enum | duży / średni / mały (auto po `kraj`) |
 
-> **Usunięte 2026-08-12** (decyzja Marceli): `region_kod`, `region_typ`, `_reg_code`.
-> - `region_kod` → 61% wierszy w master miało "XX" (placeholder) — kolumna bez sygnału. Region pozostaje zakodowany w `id_unikalne`.
+> **Usunięte 2026-08-12** (decyzja Marceli): `region_kod`, `region_typ`, `_reg_code`, `region_nazwa`.
+> - `region_kod` → 61% wierszy w master miało "XX" (placeholder) — kolumna bez sygnału.
 > - `region_typ` → typ jednostki adm. (województwo/kraj) bez użytecznej typologii poniżej PL.
 > - `_reg_code` → kolumna nadmiarowa z `rejestr_id` (przeniesiona 2026-08-12 13:40).
+> - `region_nazwa` → usunięta wraz z pozostałymi polami regionu — schema 35-kolumnowa bez pól regionu, `id_unikalne` region-free.
 > Migrację wykonał `tools/drop_region_columns.py` (idempotentny, dry-run + --apply). Po migracji zregenerowano `data/.verify-state/row-hashes.json` przez `python3 tools/verify_run.py --init`, żeby schema-change nie triggerował masowej re-weryfikacji.
 
 ### Konwencje wartości
@@ -688,8 +701,8 @@ Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 36 ko
 
 ### Kody regionów PL (16 województw)
 
-> Region jest zakodowany w `id_unikalne` (`PL-A-WP-001`) i opcjonalnie w `region_nazwa` (tekst).
-> Poniższa tabela to mapa pomocnicza dla odszyfrowania kodu z ID.
+> Od 2026-08-12 `id_unikalne` jest region-free (`PL-A-001`) — regiony nie są kodowane w ID ani w kolumnach CSV.
+> Poniższa tabela to mapa pomocnicza do odczytu starych ID z regionem (`PL-A-WP-001`).
 
 | Kod | Nazwa | Kod | Nazwa |
 |---|---|---|---|
@@ -859,7 +872,7 @@ Mówię "CBD/susz = 4" bo logicznie tak wygląda. Ale nie mam danych.
 - [x] Methodology zaktualizowana
 - [x] 12 country journals utworzonych
 - [x] 3 słabe punkty udokumentowane
-- [x] Unified CSV schema zdefiniowany (38 kolumn)
+- [x] Unified CSV schema zdefiniowany (35 kolumn)
 - [x] Cele ilościowe per kraj ustalone
 - [x] 24 stub CSV (12 × 2) utworzone
 - [x] Podejście do weryfikacji relacji z marką zmienione (domyślnie 🔍)

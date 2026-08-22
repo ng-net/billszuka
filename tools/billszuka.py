@@ -67,7 +67,7 @@ def cmd_compile(args: argparse.Namespace) -> int:
     tmp_master.replace(master_file)
 
     print(f"✅ Compilation complete!")
-    print(f"   Catalogs processed: {file_count}/24")
+    print(f"   Catalogs processed: {file_count}/{len(COUNTRY_MAP) * 2}")
     print(f"   Total master rows:  {len(all_rows)}")
     print(f"   Schema columns:     {len(CANONICAL_SCHEMA)}")
     if schema_errors:

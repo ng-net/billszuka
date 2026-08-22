@@ -24133,3 +24133,36 @@ Rollback: `cp -r data/.pre-clean-notatki/20260818T122754/* data/`
 - `--file X` for testing single file
 - `--limit N` to show only N sample changes
 - Idempotent: re-running after changes is no-op
+
+## 2026-08-22 15:40:48 UTC
+
+### Repair: rok_zalozenia/related_to column misalignment (regression from 2026-08-21)
+
+**Bug:** `tools/fix_master_data_integrity.py` ran 2026-08-21 and inverted the
+columns for 55 rows: year values landed in `related_to`, `rok_zalozenia` was
+emptied. The pre-fix snapshot at `data/master.csv.pre-fix-20260821.bak`
+(0 misplaced rows) was the canonical good state. `tools/sync_verifier.py`
+does not catch semantic misplacement (a year string equals itself in any
+column), so the bug survived verification.
+
+**Fix:** For each of 55 affected rows: `rok_zalozenia ← related_to`, then
+`related_to ← "brak"`. Idempotent. Applied to `data/master.csv` and all
+`data/*/catalog-*.csv` (sync_verifier confirms they were equally affected).
+
+**Verification:**
+- Post-fix: 0 rows with year in `related_to` (was 55)
+- Post-fix: `filled rok_zalozenia` = 134 (matches pre-fix aggregate)
+- Cross-check: all 55 affected `id_unikalne` values had identical year in
+  `current.related_to` vs `pre-fix-20260821.bak.rok_zalozenia` (55/55 match)
+
+**Dashboard sync:** `frontend-2/public/sample.csv` overwritten from corrected
+master.csv (was 394 rows, now 417 rows; the 23 newer rows were already
+absent from the dashboard bundle).
+
+**Files changed:** data/master.csv, frontend-2/public/sample.csv, and 26
+per-country catalog-*.csv (24 with affected rows + 2 with 0 — both paths
+written atomically so timestamps move consistently).
+
+**Sync re-check:** TODO — re-run `python3 tools/sync_verifier.py` post-write
+to confirm master ↔ catalog re-sync after the repair.
+
