@@ -43,9 +43,11 @@ def client(tmp_data, monkeypatch, tmp_path):
 
     The api_server reads OPENROUTER_API_KEY from .env as a fallback (after
     os.environ). To force the mock path, we point api_server.ROOT at a
-    temp dir that has no .env file.
+    temp dir that has no .env file. The secrets vault is also pointed
+    at an isolated path so persisted keys from real runs don't leak in.
     """
     import api_server
+    import tools.api_server as tools_api_server  # noqa: F401 — same module, but `api_server` is the bare-name binding
     import verify_run
     # Force the chat endpoint into mock mode for tests (no real LLM)
     monkeypatch.setenv("OPENROUTER_API_KEY", "")
@@ -53,6 +55,13 @@ def client(tmp_data, monkeypatch, tmp_path):
     isolated_root = tmp_path / "isolated_root"
     isolated_root.mkdir()
     monkeypatch.setattr(api_server, "ROOT", isolated_root)
+    monkeypatch.setattr(api_server, "DATA", tmp_path)
+    # Isolated secrets vault so persisted keys from real runs don't leak in.
+    # IMPORTANT: api_server functions resolve SECRETS_PATH via their
+    # __globals__ (== api_server.__dict__), so patching `api_server.SECRETS_PATH`
+    # works. But avoid importing as a fresh `tools.api_server` alias in the
+    # test bodies — that's a DIFFERENT module object in sys.modules.
+    monkeypatch.setattr(api_server, "SECRETS_PATH", isolated_root / "api_secrets.json")
     # And ensure regenerate_master() writes to our tmp dir, not the real one
     monkeypatch.setattr(verify_run, "DATA", tmp_data)
     monkeypatch.setattr(verify_run, "MASTER_CSV", tmp_data / "master.csv")
@@ -257,3 +266,163 @@ class TestChat:
         data = r.json()
         # All rows are PL
         assert "PL" in data["response"]
+
+
+# ---------------------------------------------------------------------------
+# /api/settings — secrets vault (multi-provider LLM keys)
+# ---------------------------------------------------------------------------
+
+class TestSettingsVault:
+    """The vault is auto-bootstrapped from .env on server start. These tests
+    run with `SECRETS_PATH` monkeypatched to an isolated tmp file (see the
+    `client` fixture), so persisted keys from real runs don't leak in.
+
+    Tests are pure — no real network calls. We never exercise /test against
+    a real provider; that path is integration-tested manually.
+    """
+
+    def test_get_settings_returns_redacted_fingerprints(self, client):
+        r = client.get("/api/settings")
+        assert r.status_code == 200
+        data = r.json()
+        # Shape: openrouter/gemini are lists, priority is list of strings
+        assert isinstance(data["openrouter"], list)
+        assert isinstance(data["gemini"], list)
+        assert isinstance(data["priority"], list)
+        # No raw 'key' field anywhere — must be fingerprint only
+        for entry in data["openrouter"] + data["gemini"]:
+            assert "key" not in entry
+            assert "fingerprint" in entry
+
+    def test_add_openrouter_key(self, client):
+        r = client.post(
+            "/api/settings/openrouter",
+            json={"alias": "test-or-1", "key": "sk-or-v1-test1234567890abcd"},
+        )
+        assert r.status_code == 200
+        body = r.json()
+        assert body["ok"] is True
+        assert body["alias"] == "test-or-1"
+        assert body["fingerprint"].startswith("sk-o") and "…" in body["fingerprint"]
+
+        # Now visible in /api/settings
+        s = client.get("/api/settings").json()
+        aliases = [e["alias"] for e in s["openrouter"]]
+        assert "test-or-1" in aliases
+
+    def test_add_gemini_key_with_project(self, client):
+        r = client.post(
+            "/api/settings/gemini",
+            json={"alias": "test-gem-1", "key": "AIzaSyAbcdefghij1234567890", "project": "billszuka-test"},
+        )
+        assert r.status_code == 200
+        s = client.get("/api/settings").json()
+        entry = next(e for e in s["gemini"] if e["alias"] == "test-gem-1")
+        assert entry["fingerprint"].startswith("AIza")
+        assert entry.get("project") == "billszuka-test"
+
+    def test_add_duplicate_alias_rejected(self, client):
+        # First add succeeds
+        client.post("/api/settings/openrouter",
+                    json={"alias": "dup-alias", "key": "sk-or-v1-xxx"})
+        # Second add with same alias must fail 409
+        r = client.post("/api/settings/openrouter",
+                        json={"alias": "dup-alias", "key": "sk-or-v1-yyy"})
+        assert r.status_code == 409
+
+    def test_delete_key(self, client):
+        client.post("/api/settings/openrouter",
+                    json={"alias": "to-delete", "key": "sk-or-v1-del"})
+        r = client.delete("/api/settings/openrouter/to-delete")
+        assert r.status_code == 200
+        # Confirm gone
+        s = client.get("/api/settings").json()
+        assert "to-delete" not in [e["alias"] for e in s["openrouter"]]
+
+    def test_delete_nonexistent_alias_404(self, client):
+        r = client.delete("/api/settings/openrouter/never-existed")
+        assert r.status_code == 404
+
+    def test_set_priority(self, client):
+        r = client.put("/api/settings/priority",
+                       json={"priority": ["gemini", "openrouter", "mock"]})
+        assert r.status_code == 200
+        assert r.json()["priority"] == ["gemini", "openrouter", "mock"]
+        # Verify persistence
+        s = client.get("/api/settings").json()
+        assert s["priority"] == ["gemini", "openrouter", "mock"]
+
+    def test_set_priority_invalid_provider(self, client):
+        r = client.put("/api/settings/priority",
+                       json={"priority": ["gemini", "openrouter", "made-up"]})
+        assert r.status_code == 400
+
+    def test_rotate_all_endpoint_exists(self, client):
+        """Bug #1: /api/settings/rotate-all was missing — clicking the
+        'Rotuj wg last_ok' button in Settings drawer 404'd."""
+        r = client.post("/api/settings/rotate-all")
+        assert r.status_code == 200
+        body = r.json()
+        assert body["ok"] is True
+        assert "rotated_providers" in body
+        assert isinstance(body["rotated_providers"], int)
+
+    def test_rotate_all_reorders_keys(self, client):
+        """Set last_ok timestamps on two gemini keys — newer one should
+        come first after rotate-all."""
+        import api_server as srv
+        vault = srv._secrets_load()
+        vault["gemini"] = [
+            {"alias": "older", "key": "AIzaSyOLD0000000000000000",
+             "source": "ui", "created": "2026-01-01T00:00:00Z",
+             "last_ok": "2026-08-01T00:00:00Z"},
+            {"alias": "newer", "key": "AIzaSyNEW0000000000000000",
+             "source": "ui", "created": "2026-01-01T00:00:00Z",
+             "last_ok": "2026-08-22T00:00:00Z"},
+        ]
+        srv._secrets_save(vault)
+
+        client.post("/api/settings/rotate-all")
+
+        vault = srv._secrets_load()
+        assert vault["gemini"][0]["alias"] == "newer"
+        assert vault["gemini"][1]["alias"] == "older"
+
+    def test_unknown_provider_400(self, client):
+        # DELETE /api/settings/{provider}/{alias} catches unknown provider
+        # and returns 400 with a clear message.
+        r = client.delete("/api/settings/unknown/alias")
+        assert r.status_code == 400
+        assert "unknown" in r.json()["detail"].lower()
+
+        # POST /api/settings/{provider}/test — same 400 treatment
+        r = client.post("/api/settings/unknown/alias/test")
+        assert r.status_code == 400
+
+    def test_add_key_empty_fields_400(self, client):
+        r = client.post("/api/settings/openrouter", json={"alias": "", "key": ""})
+        assert r.status_code == 400
+
+
+# ---------------------------------------------------------------------------
+# /api/chat with vault isolated — ensure no key leakage
+# ---------------------------------------------------------------------------
+
+class TestChatVaultIsolation:
+    """The chat chain walks openrouter → gemini → mock. When the test fixture
+    isolates SECRETS_PATH to a tmp file (empty vault), all chain steps miss
+    and we fall through to mock. This proves the isolation actually works.
+    """
+
+    def test_no_real_keys_in_empty_vault(self, client):
+        """With isolated empty vault, even real .env keys must not leak in."""
+        import api_server as srv
+        vault = srv._secrets_load()
+        assert vault["openrouter"] == []
+        assert vault["gemini"] == []
+
+    def test_chat_falls_through_to_mock(self, client):
+        r = client.post("/api/chat", json={"query": "ile firm jest?"})
+        assert r.status_code == 200
+        data = r.json()
+        assert data["provider"] == "mock"

@@ -118,6 +118,16 @@ export function DataTable({
     return out;
   }, [rows, schema]);
 
+  // Derive columnFilters in the same shape TanStack expects: [{id, value}, ...]
+  // Applied directly in table state — no useEffect, no stale-dep bugs.
+  const columnFilters = useMemo(
+    () =>
+      Object.entries(filters || {})
+        .filter(([id]) => columns.includes(id))
+        .map(([id, value]) => ({ id, value })),
+    [filters, columns]
+  );
+
   const table = useReactTable({
     data: rows,
     columns: tableColumns,
@@ -126,6 +136,7 @@ export function DataTable({
       ...(Object.keys(columnVisibility).length > 0 ? { columnVisibility } : {}),
       sorting: sortStack,
       globalFilter: deferredGlobalFilter,
+      columnFilters,
     },
     getRowId,
     onColumnOrderChange: setColumnOrder,
@@ -199,15 +210,6 @@ export function DataTable({
     },
     [setFilters]
   );
-
-  // Apply filters to table state
-  useEffect(() => {
-    if (!table) return;
-    const validFilters = Object.entries(filters)
-      .filter(([id]) => columns.includes(id))
-      .map(([id, value]) => ({ id, value }));
-    table.setColumnFilters(validFilters);
-  }, [filters, table, columns, tableColumns.length, rows.length]);
 
   // Column header context menu
   const [menu, setMenu] = useState(null);

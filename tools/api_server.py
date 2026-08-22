@@ -7,7 +7,12 @@ Wired endpoints (matching frontend/src/App.jsx fetch calls):
   GET  /api/dataset/{name}   → read CSV, return columns + first N rows
   POST /api/upload           → save uploaded CSV to data/
   POST /api/sync             → regenerate master.csv + run verify
-  POST /api/chat             → LLM proxy (OpenRouter) or mock fallback
+  POST /api/chat             → LLM proxy (multi-provider fallback chain)
+  GET  /api/settings         → redacted secrets vault snapshot
+  POST /api/settings/{provider}              → add a key
+  DELETE /api/settings/{provider}/{alias}    → remove a key
+  POST /api/settings/{provider}/{alias}/test → validate a key
+  PUT  /api/settings/priority                → reorder fallback chain
 
 Start:
   python3 tools/api_server.py                 # binds 127.0.0.1:8000
@@ -30,6 +35,7 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +49,19 @@ from verify_run import regenerate_master  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
+
+# Secrets vault — stores OpenRouter + Gemini keys + priority order.
+# Auto-bootstrapped from .env (OPENROUTER_API_KEY + GEMINI_API_KEY_1..N) on
+# first start when the vault is empty. After that, manage via the
+# Settings drawer (UI) — keys added there persist across restarts.
+# File perms are forced to 0600 on every write. Gitignored.
+SECRETS_PATH = Path(__file__).resolve().parent / "api_secrets.json"
+SECRETS_DEFAULT: dict[str, Any] = {
+    "openrouter": [],   # [{alias, key, created, last_ok, last_err, source}]
+    "gemini": [],       # [{alias, key, project, created, last_ok, last_err, source}]
+    "priority": ["openrouter", "gemini", "mock"],
+}
+VALID_PROVIDERS = {"openrouter", "gemini", "mock"}
 
 # Upload validation
 ALLOWED_CSV_SUFFIX = ".csv"
@@ -63,7 +82,10 @@ app = FastAPI(
 # CORS for Vite dev server (and any explicit browser access)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=[
+            "http://localhost:3000", "http://127.0.0.1:3000",
+            "http://localhost:3001", "http://127.0.0.1:3001",
+        ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -89,7 +111,15 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
-    provider: str  # "openrouter" or "mock"
+    provider: str  # "openrouter" | "gemini" | "mock" | "*-fallback" | "error"
+
+class AddKeyRequest(BaseModel):
+    alias: str
+    key: str
+    project: str | None = None
+
+class PriorityRequest(BaseModel):
+    priority: list[str]
 
 
 # ---------------------------------------------------------------------------
@@ -113,6 +143,9 @@ def _csv_path(filename: str) -> Path:
     Looks first at the data/ root, then recursively in subdirs (catalogs
     live in data/{Kraj}/catalog-*.csv). This matches how the frontend
     references files: by basename, not by relative path.
+
+    Excludes data housekeeping dirs (snapshots, verify state, backups,
+    intake) so a stale copy in there can't shadow the canonical file.
     """
     # Try root first (faster, common case for top-level files)
     candidate = (DATA / filename).resolve()
@@ -120,14 +153,144 @@ def _csv_path(filename: str) -> Path:
         raise HTTPException(status_code=400, detail="path traversal blocked")
     if candidate.exists():
         return candidate
-    # Fall back to recursive search
-    matches = [p for p in DATA.rglob(filename) if p.is_file() and not p.name.startswith("._")]
+    # Fall back to recursive search, but only in real country subdirs.
+    SKIP_DIRS = {
+        ".snapshots", ".verify-state", "backups", "verification",
+        "_intake", ".pre-clean-notatki", ".pre-dedup-20260821",
+        ".pre-fix-20260821", ".enrichment-20260821",
+    }
+    matches = [
+        p for p in DATA.rglob(filename)
+        if p.is_file()
+        and not p.name.startswith("._")
+        and not any(part in SKIP_DIRS for part in p.relative_to(DATA).parts)
+    ]
     if not matches:
         raise HTTPException(status_code=404, detail=f"{filename} not found in data/")
-    # If multiple matches (e.g. catalog-A-PL in Polska + a snapshot copy),
-    # prefer the one in the most recent country dir, not .snapshots
-    real_matches = [m for m in matches if ".snapshots" not in str(m)]
-    return (real_matches or matches)[0]
+    return matches[0]
+
+
+# ---------------------------------------------------------------------------
+# Secrets vault helpers
+# ---------------------------------------------------------------------------
+
+def _secrets_load() -> dict[str, Any]:
+    """Read vault from disk. Returns defaults if missing/corrupt."""
+    if not SECRETS_PATH.exists():
+        return json.loads(json.dumps(SECRETS_DEFAULT))
+    try:
+        data = json.loads(SECRETS_PATH.read_text(encoding="utf-8"))
+        out = json.loads(json.dumps(SECRETS_DEFAULT))
+        for prov in ("openrouter", "gemini"):
+            if isinstance(data.get(prov), list):
+                out[prov] = [
+                    x for x in data[prov]
+                    if isinstance(x, dict) and "alias" in x and "key" in x
+                ]
+        if isinstance(data.get("priority"), list):
+            out["priority"] = [p for p in data["priority"] if p in VALID_PROVIDERS] \
+                or list(SECRETS_DEFAULT["priority"])
+        return out
+    except (json.JSONDecodeError, OSError):
+        return json.loads(json.dumps(SECRETS_DEFAULT))
+
+
+def _secrets_save(data: dict[str, Any]) -> None:
+    """Write vault atomically with 0600 perms."""
+    SECRETS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    tmp = SECRETS_PATH.with_suffix(".tmp")
+    tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    try:
+        os.chmod(tmp, 0o600)
+    except OSError:
+        pass
+    tmp.replace(SECRETS_PATH)
+    try:
+        os.chmod(SECRETS_PATH, 0o600)
+    except OSError:
+        pass
+
+
+def _fingerprint(key: str) -> str:
+    """4…4 chars. Returns '' if key is too short."""
+    if not key or len(key) < 8:
+        return ""
+    return f"{key[:4]}…{key[-4:]}"
+
+
+def _redact(vault: dict[str, Any]) -> dict[str, Any]:
+    """Return snapshot with raw keys replaced by fingerprints."""
+    return {
+        "openrouter": [
+            {k: v for k, v in entry.items() if k != "key"}
+            | {"fingerprint": _fingerprint(entry.get("key", ""))}
+            for entry in vault.get("openrouter", [])
+        ],
+        "gemini": [
+            {k: v for k, v in entry.items() if k != "key"}
+            | {"fingerprint": _fingerprint(entry.get("key", ""))}
+            for entry in vault.get("gemini", [])
+        ],
+        "priority": vault.get("priority", []),
+    }
+
+
+def _read_env_keys() -> dict[str, list[dict[str, Any]]]:
+    """Pull OPENROUTER_API_KEY + GEMINI_API_KEY_1..N from .env (no os.environ).
+
+    Returns {"openrouter": [{alias, key, source}], "gemini": [...]}.
+    Skips empty entries. Numbers Gemini aliases from 1.
+    """
+    env_file = ROOT / ".env"
+    out = {"openrouter": [], "gemini": []}
+    if not env_file.exists():
+        return out
+    for line in env_file.read_text(encoding="utf-8").splitlines():
+        s = line.strip()
+        if not s or s.startswith("#") or "=" not in s:
+            continue
+        k, v = s.split("=", 1)
+        v = v.strip()
+        if not v:
+            continue
+        if k == "OPENROUTER_API_KEY":
+            out["openrouter"].append({
+                "alias": "primary",
+                "key": v,
+                "source": ".env",
+            })
+        elif k.startswith("GEMINI_API_KEY_"):
+            num = k[len("GEMINI_API_KEY_"):]
+            if not num.isdigit():
+                continue
+            alias = f"env-{num}"
+            out["gemini"].append({
+                "alias": alias,
+                "key": v,
+                "source": ".env",
+            })
+    return out
+
+
+def _bootstrap_vault_from_env() -> dict[str, Any]:
+    """Load vault, merge in any .env keys that aren't already there.
+
+    Returns the final vault. Idempotent: running it twice with the same
+    .env does not create duplicates (matched by alias).
+    """
+    vault = _secrets_load()
+    env_keys = _read_env_keys()
+    changed = False
+    for prov in ("openrouter", "gemini"):
+        existing_aliases = {k["alias"] for k in vault[prov]}
+        for entry in env_keys[prov]:
+            if entry["alias"] not in existing_aliases:
+                entry["created"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                vault[prov].append(entry)
+                changed = True
+    if changed:
+        _secrets_save(vault)
+    return vault
 
 
 # ---------------------------------------------------------------------------
@@ -273,60 +436,57 @@ async def sync(req: SyncRequest) -> SyncResponse:
 @app.post("/api/chat")
 async def chat(req: ChatRequest) -> ChatResponse:
     """
-    LLM proxy. Tries OpenRouter first (env: OPENROUTER_API_KEY).
-    Falls back to a mock that returns dataset stats — useful for dev/demo
-    without burning API quota.
+    LLM proxy. Walks the priority chain (openrouter → gemini → mock).
+
+    Keys are sourced from `tools/api_secrets.json` (auto-bootstrapped from
+    .env on first start). On any provider failure, we move on to the next.
+    On total failure, we degrade to mock with a note.
     """
     if not req.query.strip():
         raise HTTPException(status_code=400, detail="empty query")
 
-    api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
-    if not api_key:
-        env_file = ROOT / ".env"
-        if env_file.exists():
-            for line in env_file.read_text().splitlines():
-                if line.startswith("OPENROUTER_API_KEY="):
-                    api_key = line.split("=", 1)[1].strip()
-                    break
+    vault = _bootstrap_vault_from_env()
+    chain = vault.get("priority", list(SECRETS_DEFAULT["priority"]))
 
-    if api_key:
-        return await _chat_openrouter(req, api_key)
-    return _chat_mock(req)
+    for provider in chain:
+        if provider == "openrouter":
+            for entry in [k for k in vault.get("openrouter", []) if k.get("key")]:
+                result = await _call_openrouter(req, entry["key"])
+                if result:
+                    entry["last_ok"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                    _secrets_save(vault)
+                    return result
+                entry["last_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                _secrets_save(vault)
+        elif provider == "gemini":
+            for entry in [k for k in vault.get("gemini", []) if k.get("key")]:
+                result = await _call_gemini(req, entry["key"])
+                if result:
+                    entry["last_ok"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                    _secrets_save(vault)
+                    return result
+                entry["last_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                _secrets_save(vault)
+        elif provider == "mock":
+            return _chat_mock(req)
+
+    mock = _chat_mock(req)
+    return ChatResponse(
+        response=mock.response + "\n\n[All providers failed — using mock]",
+        provider="mock-fallback",
+    )
 
 
 # ---------------------------------------------------------------------------
 # Chat: OpenRouter (real LLM) + Mock fallback
 # ---------------------------------------------------------------------------
 
-async def _chat_openrouter(req: ChatRequest, api_key: str) -> ChatResponse:
-    """Call OpenRouter's chat completions API. Model: deepseek/deepseek-chat (cheap)."""
+async def _call_openrouter(req: ChatRequest, api_key: str) -> ChatResponse | None:
+    """Call OpenRouter. Returns None on failure (chain moves on)."""
     import urllib.error
     import urllib.request
 
-    # Pull a tiny context from the active dataset (first 3 rows + total count)
-    context = ""
-    if req.active_dataset:
-        try:
-            clean = _validate_filename(req.active_dataset)
-            path = _csv_path(clean)
-            with path.open("r", encoding="utf-8") as f:
-                reader = csv.reader(f)
-                header = next(reader, [])
-                rows = []
-                for r in reader:
-                    if r and not all(c == "" for c in r):
-                        rows.append(r)
-                    if len(rows) >= 3:
-                        break
-            if header and rows:
-                context = (
-                    f"\n\nActive dataset: {clean}\n"
-                    f"Total rows (excluding header): {len(rows) if len(rows) < 3 else '>=3 sampled'}\n"
-                    f"Columns ({len(header)}): {', '.join(header[:20])}\n"
-                    f"First row: {dict(zip(header, rows[0]))}"
-                )
-        except HTTPException:
-            pass  # dataset not found — proceed without context
+    context = _build_dataset_context(req.active_dataset)
 
     body = json.dumps({
         "model": "deepseek/deepseek-chat",
@@ -341,11 +501,10 @@ async def _chat_openrouter(req: ChatRequest, api_key: str) -> ChatResponse:
         "max_tokens": 400,
     }).encode("utf-8")
 
-    def _call() -> dict[str, Any]:
+    def _do() -> dict[str, Any]:
         url = "https://openrouter.ai/api/v1/chat/completions"
         http_req = urllib.request.Request(
-            url,
-            data=body,
+            url, data=body,
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
@@ -356,16 +515,86 @@ async def _chat_openrouter(req: ChatRequest, api_key: str) -> ChatResponse:
             return json.loads(resp.read())
 
     try:
-        data = await asyncio.to_thread(_call)
+        data = await asyncio.to_thread(_do)
         text = data["choices"][0]["message"]["content"].strip()
         return ChatResponse(response=text, provider="openrouter")
-    except (urllib.error.URLError, KeyError, TimeoutError) as e:
-        # Real LLM failed — degrade to mock so the UI never breaks
-        mock = _chat_mock(req)
-        return ChatResponse(
-            response=mock.response + f"\n\n[LLM error: {type(e).__name__}]",
-            provider="mock-fallback",
+    except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError):
+        return None
+
+
+async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
+    """Call Google Gemini (Gemini 2.5 Flash — free tier friendly).
+
+    Returns None on failure (chain moves on).
+    """
+    import urllib.error
+    import urllib.request
+
+    context = _build_dataset_context(req.active_dataset)
+    url = (
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"gemini-2.5-flash:generateContent?key={api_key}"
+    )
+    payload = {
+        "systemInstruction": {
+            "parts": [{"text": (
+                "Jesteś asystentem BILLSzuka — polskiej platformy B2B research do dystrybucji "
+                "maszynek do tytoniu. Odpowiadaj po polsku, zwięźle, z konkretnymi liczbami "
+                "gdy to możliwe. Jeśli nie wiesz — powiedz wprost."
+            )}]
+        },
+        "contents": [{
+            "role": "user",
+            "parts": [{"text": req.query + context}],
+        }],
+        "generationConfig": {"maxOutputTokens": 400},
+    }
+    body = json.dumps(payload).encode("utf-8")
+
+    def _do() -> dict[str, Any]:
+        http_req = urllib.request.Request(
+            url, data=body, headers={"Content-Type": "application/json"},
         )
+        with urllib.request.urlopen(http_req, timeout=30) as resp:
+            return json.loads(resp.read())
+
+    try:
+        data = await asyncio.to_thread(_do)
+        # Gemini shape: candidates[0].content.parts[0].text
+        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+        return ChatResponse(response=text, provider="gemini")
+    except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError, IndexError):
+        return None
+
+
+def _build_dataset_context(active_dataset: str | None) -> str:
+    """Small dataset snippet for the LLM (filename + first row)."""
+    if not active_dataset:
+        return ""
+    try:
+        clean = _validate_filename(active_dataset)
+        path = _csv_path(clean)
+    except HTTPException:
+        return ""
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            header = next(reader, [])
+            rows = []
+            for r in reader:
+                if r and not all(c == "" for c in r):
+                    rows.append(r)
+                if len(rows) >= 3:
+                    break
+        if not header or not rows:
+            return ""
+        return (
+            f"\n\nActive dataset: {clean}\n"
+            f"Columns ({len(header)}): {', '.join(header[:20])}\n"
+            f"First row: {dict(zip(header, rows[0]))}"
+        )
+    except OSError:
+        return ""
 
 
 def _chat_mock(req: ChatRequest) -> ChatResponse:
@@ -454,6 +683,180 @@ def _chat_mock(req: ChatRequest) -> ChatResponse:
 
 
 # ---------------------------------------------------------------------------
+# Settings endpoints (secrets vault)
+# ---------------------------------------------------------------------------
+
+@app.get("/api/settings")
+async def get_settings() -> dict[str, Any]:
+    """Redacted vault snapshot — raw keys replaced by fingerprints."""
+    vault = _bootstrap_vault_from_env()
+    return _redact(vault)
+
+
+@app.post("/api/settings/openrouter")
+async def add_openrouter(req: AddKeyRequest) -> dict[str, Any]:
+    return _add_key("openrouter", req.alias, req.key, project=None)
+
+
+@app.post("/api/settings/gemini")
+async def add_gemini(req: AddKeyRequest) -> dict[str, Any]:
+    return _add_key("gemini", req.alias, req.key, project=req.project)
+
+
+def _add_key(provider: str, alias: str, key: str, project: str | None) -> dict[str, Any]:
+    if provider not in ("openrouter", "gemini"):
+        raise HTTPException(status_code=400, detail=f"unknown provider {provider}")
+    if not alias or not key:
+        raise HTTPException(status_code=400, detail="alias and key required")
+    vault = _bootstrap_vault_from_env()
+    if any(k["alias"] == alias for k in vault[provider]):
+        raise HTTPException(status_code=409, detail=f"alias '{alias}' exists for {provider}")
+    entry: dict[str, Any] = {
+        "alias": alias,
+        "key": key,
+        "created": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "source": "ui",
+    }
+    if project:
+        entry["project"] = project
+    vault[provider].append(entry)
+    _secrets_save(vault)
+    return {"ok": True, "alias": alias, "fingerprint": _fingerprint(key)}
+
+
+@app.delete("/api/settings/{provider}/{alias}")
+async def delete_key(provider: str, alias: str) -> dict[str, Any]:
+    if provider not in ("openrouter", "gemini"):
+        raise HTTPException(status_code=400, detail=f"unknown provider {provider}")
+    vault = _bootstrap_vault_from_env()
+    before = len(vault[provider])
+    vault[provider] = [k for k in vault[provider] if k["alias"] != alias]
+    if len(vault[provider]) == before:
+        raise HTTPException(status_code=404, detail=f"alias '{alias}' not found in {provider}")
+    _secrets_save(vault)
+    return {"ok": True}
+
+
+@app.post("/api/settings/{provider}/{alias}/test")
+async def test_key(provider: str, alias: str) -> dict[str, Any]:
+    if provider not in ("openrouter", "gemini"):
+        raise HTTPException(status_code=400, detail=f"unknown provider {provider}")
+    vault = _bootstrap_vault_from_env()
+    entry = next((k for k in vault[provider] if k["alias"] == alias), None)
+    if not entry:
+        raise HTTPException(status_code=404, detail=f"alias '{alias}' not found")
+    t0 = time.time()
+    if provider == "openrouter":
+        ok, model, err = await _test_openrouter(entry["key"])
+    else:
+        ok, model, err = await _test_gemini(entry["key"])
+    latency_ms = int((time.time() - t0) * 1000)
+    if ok:
+        entry["last_ok"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        if model:
+            entry["model"] = model
+    else:
+        entry["last_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    _secrets_save(vault)
+    return {"ok": ok, "latency_ms": latency_ms, "model": model, "error": err}
+
+
+@app.put("/api/settings/priority")
+async def set_priority(req: PriorityRequest) -> dict[str, Any]:
+    if not req.priority:
+        raise HTTPException(status_code=400, detail="priority cannot be empty")
+    bad = [p for p in req.priority if p not in VALID_PROVIDERS]
+    if bad:
+        raise HTTPException(status_code=400, detail=f"unknown providers: {bad}")
+    vault = _bootstrap_vault_from_env()
+    vault["priority"] = list(req.priority)
+    _secrets_save(vault)
+    return {"ok": True, "priority": vault["priority"]}
+
+
+@app.post("/api/settings/rotate-all")
+async def rotate_all_keys() -> dict[str, Any]:
+    """Re-order keys within each provider so the freshest (highest last_ok)
+    comes first. Within each provider: last_ok desc → never used at end.
+
+    `priority` chain itself (openrouter/gemini/mock order) is left alone —
+    only per-provider key order changes. UI calls this when user clicks
+    'Rotuj wg last_ok' so a failing key doesn't keep being hit first.
+    """
+    vault = _bootstrap_vault_from_env()
+    changed = 0
+    for prov in ("openrouter", "gemini"):
+        keys = vault[prov]
+        if len(keys) <= 1:
+            continue
+        before = [k["alias"] for k in keys]
+        # last_ok desc; never used (None) sink to the bottom
+        keys.sort(
+            key=lambda k: (
+                0 if k.get("last_ok") and not k.get("last_err") else 1,
+                -(int(time.mktime(time.strptime(k["last_ok"], "%Y-%m-%dT%H:%M:%SZ")))
+                  if k.get("last_ok") else 0),
+                k["alias"],
+            )
+        )
+        if [k["alias"] for k in keys] != before:
+            changed += 1
+    if changed:
+        _secrets_save(vault)
+    return {
+        "ok": True,
+        "rotated_providers": changed,
+        "note": "per-provider order updated; priority chain unchanged",
+    }
+
+
+async def _test_openrouter(api_key: str) -> tuple[bool, str | None, str | None]:
+    import urllib.error
+    import urllib.request
+    def _do() -> dict[str, Any] | None:
+        req = urllib.request.Request(
+            "https://openrouter.ai/api/v1/models",
+            headers={"Authorization": f"Bearer {api_key}"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.loads(resp.read())
+    try:
+        data = await asyncio.to_thread(_do)
+        if data and isinstance(data.get("data"), list) and data["data"]:
+            return True, "deepseek/deepseek-chat", None
+        return False, None, "empty response"
+    except Exception as e:
+        return False, None, type(e).__name__
+
+
+async def _test_gemini(api_key: str) -> tuple[bool, str | None, str | None]:
+    import urllib.error
+    import urllib.request
+    url = (
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"gemini-2.5-flash:generateContent?key={api_key}"
+    )
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": "ping"}]}],
+        "generationConfig": {"maxOutputTokens": 1},
+    }
+    body = json.dumps(payload).encode("utf-8")
+    def _do() -> dict[str, Any] | None:
+        req = urllib.request.Request(
+            url, data=body, headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.loads(resp.read())
+    try:
+        data = await asyncio.to_thread(_do)
+        if data and data.get("candidates"):
+            return True, "gemini-2.5-flash", None
+        return False, None, "no candidates"
+    except Exception as e:
+        return False, None, type(e).__name__
+
+
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 
@@ -463,6 +866,19 @@ def main() -> int:
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--reload", action="store_true", help="dev mode (auto-reload)")
     args = ap.parse_args()
+
+    # Pre-flight: bootstrap the secrets vault from .env (idempotent).
+    # Reads OPENROUTER_API_KEY + GEMINI_API_KEY_1..N; imports any that
+    # aren't already in the vault. Settings drawer can add more later.
+    vault = _bootstrap_vault_from_env()
+    n_keys = len(vault.get("openrouter", [])) + len(vault.get("gemini", []))
+    if n_keys:
+        print(f"[init] Vault has {n_keys} key(s) "
+              f"({len(vault.get('openrouter', []))} openrouter, "
+              f"{len(vault.get('gemini', []))} gemini)", flush=True)
+    else:
+        print("[init] Vault empty — add keys in .env (OPENROUTER_API_KEY, "
+              "GEMINI_API_KEY_1..N) or via the Settings drawer.", flush=True)
 
     import uvicorn
     uvicorn.run(

@@ -14,5 +14,12 @@ export default defineConfig({
   server: {
     port: 3001,
     host: true,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: false,
+        // rewrite: don't strip /api — backend serves it as-is
+      },
+    },
   },
 })
