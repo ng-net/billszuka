@@ -330,7 +330,7 @@ export function RawTable() {
             <TableIcon className="h-3.5 w-3.5 text-primary-foreground" />
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold leading-none">czat-table</p>
+            <p className="text-sm font-semibold leading-none">BILLSzuka</p>
             <p className="text-[10px] text-muted-foreground leading-none mt-0.5">BILLSzuka katalog</p>
           </div>
         </div>

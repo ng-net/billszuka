@@ -76,6 +76,22 @@ CANONICAL_SCHEMA = [
     "rynek_skala",
 ]
 
+# Columns hidden by default in the frontend viewer because they are sparsely
+# populated (<10% fill rate in master.csv as of 2026-08-23). Data is kept on
+# disk; only the column visibility is suppressed so the UI defaults to a
+# clean 28-column view. Users can re-enable any column via the Column toggle.
+# Audit 2026-08-23 fill rates: tiktok 0.2%, kanal_zamiennik 1.9%, linkedin 2.2%,
+# related_to 3.4%, instagram 3.8%, marka_wlasna_oem 5.8%, facebook 9.4%.
+HIDDEN_COLUMNS = [
+    "tiktok",
+    "kanal_zamiennik",
+    "linkedin",
+    "related_to",
+    "instagram",
+    "marka_wlasna_oem",
+    "facebook",
+]
+
 # Country Code -> Directory Name mapping
 COUNTRY_MAP = {
     "PL": "Polska",
