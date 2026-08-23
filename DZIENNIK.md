@@ -3523,3 +3523,74 @@ bez regionów).
   (niezwiązane z formułą, do decyzji przy najbliższym użyciu).
 - `tools/pdf_gen_instrukcja.py` opisuje L10/L11 jako "[X] nie wdrożone / Planowane
   Q4 2026" — status, nie błąd; PDF wymaga regeneracji przy zmianie statusu.
+
+---
+
+## 2026-08-23 — Plan: Trade-show Intelligence Pipeline
+
+**Dyskusja z userem.** Zaproponowałem 4-layer setup do obsługi 2 plików z `/Volumes/MC-BRAIN/Clients/Bills/`:
+- `Print-1-Dogłębna Analiza Architektury E-commerce.pdf` (WooCommerce-first strategia)
+- `BILLS-SMOKS-Research-2026/01-Kalendarz-Targow-2024-27.html` (671 linii, 121 encji, targi 2024-27)
+
+**Decyzje użytkownika:**
+- Ingestion: **tylko HTML** (PDF → istniejący `extract_intel.py`)
+- Storage: `data/events/` w BILLSzuka-22-Aug
+- Scope: **plan only**, zero kodu w tej sesji
+
+**Plan zapisany w INTEL.md §12** (Trade-show Intelligence Pipeline, 78 linii).
+Architektura: 4 warstwy (ingestion → cross-link → EventsView → cron).
+Wszystko addytywne, zero duplikacji istniejącej infrastruktury.
+Następne kroki w INTEL.md gotowe do odpalenia na zielone światło.
+
+---
+
+## 2026-08-23 — Cleanup pass: dead-weight columns + 2 PL miasto rows
+
+**Kontekst:** Użytkownik wybrał opcję conservative (cleanup #1 + #2 z listy "what else to plan"). Realizacja małymi krokami, każdy commit osobno, verify-data po każdej zmianie.
+
+**Inwentaryzacja (przed zmianami):**
+- `data/master.csv`: **417 wierszy × 35 kolumn** (stan z 2026-08-23, +23 od audytu 2026-08-21)
+- 7 kolumn <10% wypełnienia: tiktok 0.2%, kanal_zamiennik 1.9%, linkedin 2.2%, related_to 3.4%, instagram 3.8%, marka_wlasna_oem 5.8%, facebook 9.4%
+- 2 PL wiersze z `miasto="Polska"` + `adres="Polska"`: PL-B-086 (EDDcom Edyta Świetlik), PL-B-104 (SŁOMEX TOBACCO)
+- 8 EE wierszy (EE-B-008/009/011/012/013/014/015/016) — audyt z 2026-08-21 mylnie wskazał, że outliery są w `wolumen`. Weryfikacja 2026-08-23: outliery są w `notatki` (prawidłowo), `wolumen` jest czysty. **Brak akcji.**
+- `related_to ↔ rok_zalozenia` swap — **już naprawiony** w commicie `e450861` (2026-08-23 przed sesją). Nie ruszać.
+
+**Decyzje użytkownika (2026-08-23):**
+- A. Dead-weight: **ukryj w UI, zostaw dane** (nie usuwaj z `CANONICAL_SCHEMA` — złamałoby to walidację w `billszuka.py compile` i zepsuło 2 narzędzia: `non_pl_agent_orchestrator.py` pisze `row["linkedin"]`, `fix_master_data_integrity.py` używa `row["related_to"]`)
+- B. PL miasto/adres: **wyczyść do pustego** (bez fabrykowania — puste pole jest uczciwsze niż zła wartość)
+- C. Scope: **conservative** (tylko miasto fix + dead-weight hide, bez dorzucania `pracownicy_est`)
+
+**Wykonane zmiany:**
+
+| Plik | Zmiana |
+|---|---|
+| `tools/config.py` | Dodano `HIDDEN_COLUMNS` (7 kolumn) + komentarz z fill rates z 2026-08-23 |
+| `frontend-2/src/lib/schema.js` | Nowy plik — eksportuje `HIDDEN_COLUMNS` + `visibleColumns()` (lustro `tools/config.py`) |
+| `frontend-2/src/hooks/useCsv.js` | Dodano import `visibleColumns`, przefiltrowano `result.columns` w obu setterach (loadFile + loadUrl) |
+| `frontend-2/README.md` | Przepisany — tytuł, sekcje Views (Table + Analytics + 2 drawers), Hidden columns, file layout odzwierciedlający 2 views + 2 drawers + `lib/schema.js` |
+| `frontend-2/src/raw-table/RawTable.jsx` | Brand label `czat-table` → `BILLSzuka` w nagłówku (localStorage key `czat-table.prefs.v1` **zostawiony** — rename by unieważnił istniejące user prefs) |
+| `AGENTS.md` | Dodano do istniejącej reguły "Frontend canonical" klauzulę o 7 ukrytych kolumnach + linki do obu plików konfiguracyjnych (keep-in-sync) |
+| `data/master.csv` | 4 komórki wyczyszczone: `PL-B-086.miasto`, `PL-B-086.adres`, `PL-B-104.miasto`, `PL-B-104.adres` (Polska → '') |
+| `data/Polska/catalog-B-PL.csv` | Te same 4 komórki (sync z master) |
+| `data/master.csv.pre-fix-20260823.bak` | Backup master (244 KB) |
+| `data/Polska/catalog-B-PL.csv.pre-fix-20260823.bak` | Backup PL-B (62 KB) |
+
+**Cleanup side-effects (pozytywne):**
+- `git remote -v`: usunięto martwy `design-mc` remote (`https://github.com/design-mc/billszuka.git` → "Repository not found"). Ryzyko przypadkowego push do phantom repo wyeliminowane. Aktywne pozostały tylko `origin` (marlink, canonical) i `ng-net` (backup mirror).
+- Po `git remote prune origin` czyszczone phantom ref `remotes/design-mc/main`.
+
+**Weryfikacja po zmianach (3 checki, wszystkie green):**
+1. `python3 tools/billszuka.py compile` → 417 wierszy, 35 kolumn, schema consistent ✓
+2. `python3 tools/sync_verifier.py` → `PERFECT_SYNC` (Missing=0, Orphans=0, Field mismatches=0, Duplicate IDs=0, Schema warnings=0) ✓
+3. `python3 -m pytest -q tests/` → **211 passed in 1.82s** (brak regresji) ✓
+
+**Nietknięte w tej sesji (do przyszłych cleanup pass):**
+- 8 EE wierszy z notatkami "X pracowników (BalticFirms.eu 2025)" — rekomendacja z 2026-08-21: dodać kolumnę `pracownicy_est`. Zachowane na następną sesję.
+- 4 "duplikaty" NIP — to legalne pary A/B (np. CK COMPLEX PL-A-008 + PL-B-001). **NIE naprawiać** — świadomy design.
+- `email_decydent` 76.7% puste (spadło z 73.9% na 2026-08-21 — dataset urósł szybciej niż enrichment). Rekomendacja: dedykowany pass `tools/email_decydent_pass.py`.
+
+**Plany do zatwierdzenia (kolejka):**
+- Trade-show Intelligence Pipeline Layer 1 (INTEL.md §12, 6 kroków queued)
+- email_decydent fill-pass
+- Skills map (methodology A1-A6/B1-B9 → available skills)
+- CI green-check on marlink + Actions minutes quota

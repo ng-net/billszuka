@@ -20,6 +20,7 @@
 9. [Infrastruktura weryfikacyjna](#infrastruktura-weryfikacji-dla-billszuka) — wzorzec 2-tool
 10. [Wykrywanie FABRYKATÓW & Checksums](#fabrykat-detection-kluczowe-odkrycie) — mechanizmy obronne
 11. [Profile rynkowe i strategiczne](#phup-gniezno-szeszycki--top-tier-b8-2026-08-11) — szczegółowe analizy (PL, SK, CZ)
+12. [Plan: Trade-show Intelligence Pipeline](#plan-trade-show-intelligence-pipeline-2026-08-23) — setup do obsługi kalendarza targów i decyzji platformowej
 
 ---
 
@@ -567,3 +568,81 @@ PL 157 · EE 36 · BG 34 · SK 30 · RO 24 · LT 21 · FR 21 · HR 19 · CZ 18 �
 Mój audyt z 02:35 raportował błędnie 0 unikalnych wartości dla `rynek_skala` (przez to że CSV ma quoted fields, a mój parser `line.split(',')` tego nie obsługiwał). Prawidłowa wartość: 394/394 wypełnione, enum duży/średni/mały. To NIE wpłynęło na dashboard (który parsuje przez PapaParse), tylko na moje raporty w INTEL.
 
 Lekcja: przy audycie CSV z cytowanymi polami (przecinki w środku) **zawsze** używać PapaParse, nigdy `split(',')`.
+
+---
+
+## Plan: Trade-show Intelligence Pipeline (2026-08-23)
+
+> **Status:** 🟡 Plan only — no code yet. Decisions captured 2026-08-23.
+> **Źródła:**
+> - `/Volumes/MC-BRAIN/Clients/Bills/Print-1-Dogłębna Analiza Architektury E-commerce.pdf` (5-str. strategia platformy e-commerce, 2026-07-13)
+> - `/Volumes/MC-BRAIN/Clients/Bills/BILLS-SMOKS-Research-2026/01-Kalendarz-Targow-2024-27.html` (671 linii, 121 encji, 2026-07-20)
+
+**Dwa pliki = dwa komplementarne wejścia:**
+
+| Plik | Typ | Co daje setupowi |
+|---|---|---|
+| `Print-1-Dogłębna...pdf` | Strategic PDF (WooCommerce/Medusa/IdoSell) | Decyzja **platformowa**: WooCommerce = rekomendacja główna, Medusa = premium alt, IdoSell = wariant bezpieczny. Comarch ERP Optima SaaS = SSoT, BaseLinker middleware, KSeF compliance. |
+| `01-Kalendarz-Targow-2024-27.html` | Trade-show calendar HTML | Oś **czasowa** partner-akwizycji: 5 targów × 4 lata (InterTabac, Vape Expo PL, WeedWeek DAYS, WeedFest, FMCG), ~50 firm z targów, harmonogram Q1-Q4 2026/2027. |
+
+**Razem odpowiadają na:** *Na jakiej platformie sprzedajemy i na których targach szukamy partnerów?*
+
+### Decyzje użytkownika (2026-08-23)
+
+| # | Decyzja | Wartość |
+|---|---|---|
+| 1 | Ingestion depth | Tylko HTML — strukturujemy kalendarz targów; PDF przechodzi przez istniejący `tools/extract_intel.py` → `INTEL.md` (Day-1 path) |
+| 2 | Storage location | Nowe CSVs w `data/events/` wewnątrz BILLSzuka-22-Aug |
+| 3 | Scope | Tylko plan, zero kodu w tej sesji |
+
+### Architektura planu (4 warstwy, all additive)
+
+**Layer 1 — Ingestion.** Nowy `tools/ingest_calendar.py` parsuje HTML kalendarza → 2 CSV w `data/events/`:
+- `calendar-2024-27.csv`: `event_id, event_name, edition, start_date, end_date, city, country, status, type, notes`
+- `exhibitors.csv`: `company, region, events_attended, contact, source`
+
+PDF: Day-1 = wrzuć do `data/_intake/`, istniejący pipeline (extract_intel → validate_intake → INTEL.md) zrobi resztę. Day-3 opcjonalnie: `data/_strategy/platform-decisions.csv` + endpoint `/api/strategy`.
+
+**Layer 2 — Cross-link do lead universe.** `tools/crosslink_events_to_leads.py` join: `exhibitors.csv` × `data/master.csv` × `data/{Kraj}/catalog-*.csv` → `data/events/event-attendance.csv`. Wynik: delta "X nowych firm z targów bez wpisu w master = lead-generation target".
+
+**Layer 3 — Events view w frontend-2.** Nowy `frontend-2/src/views/EventsView.jsx` (te same konwencje co `TableView.jsx`/`AnalyticsView.jsx`: virtualized rows, sticky header, mobile-sticky column). 3 endpointy: `GET /api/events`, `GET /api/events/{id}/exhibitors`, `GET /api/strategy`. Oś czasu (8 kwartałów) + tabela wystawców + panel "Strategy" z decyzją WooCommerce.
+
+**Layer 4 — Re-runnable automation.** `tools/run_event_intel.sh` + cron:
+1. Re-uruchamia `ingest_calendar.py` jeśli HTML mtime się zmienił
+2. Re-uruchamia `crosslink_events_to_leads.py` przeciw aktualnemu master.csv
+3. Emituje 1-liniowy delta do `DZIENNIK.md`
+4. Jeśli nowy exhibitor = match → notyfikacja przez łańcuch OpenRouter → Gemini → mock (istniejący fallback z `tools/api_server.py`)
+
+### Kompatybilność z istniejącą infrastrukturą
+
+| Istniejący asset | Rola w planie |
+|---|---|
+| `tools/extract_intel.py` + `validate_intake.py` | Day-1 ścieżka dla PDF |
+| `tools/api_server.py` (FastAPI, 127.0.0.1:8000) | Host dla 3 nowych endpointów |
+| `frontend-2/src/views/{TableView,AnalyticsView}.jsx` | Konwencje do skopiowania |
+| `frontend-2/src/hooks/useCsv.js` | Reuse dla events/exhibitors |
+| `data/master.csv` + per-country catalogs | SSoT dla cross-link |
+| `tools/api_secrets.json` | Kanał notyfikacji LLM (OpenRouter→Gemini→mock) |
+| `skills/verify-data/SKILL.md` | Iron rule: każdy nowy CSV przechodzi weryfikację |
+| `INTEL.md` (strategic memory) | PDF Day-1 ląduje tu |
+| `DZIENNIK.md` (work log) | Per-run delta entry |
+
+**Zero duplikacji.** Plan czysto addytywny, respektuje verify-data convention.
+
+### Dlaczego to ma wartość
+
+1. **Targi przestają być tekstem, stają się queryable filter.** "Kto z Vape Expo 2025 jest w TOP 12 i nie ma jeszcze maila?" — odpowiedź w SQL-u zamiast scrollowania HTML.
+2. **Decyzja platformowa przestaje być jednorazowym PDF-em.** `platform-decisions.csv` + `/api/strategy` = przyszłe sesje LLM czytają spójną decyzję zamiast reinventować.
+3. **Zero podwójnego liczenia leadów.** Cross-link pass produkuje deltę, nie nowe rekordy.
+4. **Idempotent + mtime-aware.** Cron + mtime check = status `TBC` z 2026/2027 odświeża się automatycznie, nie gnicie po cichu.
+5. **Wykorzystuje istniejący LLM chain.** OpenRouter→Gemini→mock już opłacony, plan go re-use, nie płaci ponownie.
+
+### Następne kroki (gdy user da zielone światło)
+
+1. `tools/ingest_calendar.py` + `data/events/{calendar-2024-27.csv,exhibitors.csv}` → verify-data → commit
+2. `tools/crosslink_events_to_leads.py` → `data/events/event-attendance.csv` → verify-data → commit
+3. `tools/extract_intel.py` na PDF → automatycznie przez istniejący pipeline
+4. `frontend-2/src/views/EventsView.jsx` + 3 endpointy w `api_server.py`
+5. `tools/run_event_intel.sh` + wpis w `run_verify_cron.sh`-style cron
+6. DZIENNIK entry: "Plan approved, layer N started"
+
