@@ -325,18 +325,6 @@ export function RawTable() {
       className="sticky top-0 z-40 border-b bg-card/80 backdrop-blur-md overflow-hidden"
     >
       <div className="h-14 flex items-center gap-2 sm:gap-3 px-3 sm:px-4">
-        <div className="flex items-center gap-2 shrink-0">
-          <div className="h-7 w-7 rounded-md bg-primary flex items-center justify-center">
-            <TableIcon className="h-3.5 w-3.5 text-primary-foreground" />
-          </div>
-          <div className="hidden sm:block">
-            <p className="text-sm font-semibold leading-none">BILLSzuka</p>
-            <p className="text-[10px] text-muted-foreground leading-none mt-0.5">BILLSzuka katalog</p>
-          </div>
-        </div>
-
-        <Separator orientation="vertical" className="h-6 hidden sm:block" />
-
         {csv.status === "ready" && (
           <>
             <div className="relative flex-1 max-w-md min-w-0">

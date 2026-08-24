@@ -592,7 +592,7 @@ Lekcja: przy audycie CSV z cytowanymi polami (przecinki w środku) **zawsze** u�
 | # | Decyzja | Wartość |
 |---|---|---|
 | 1 | Ingestion depth | Tylko HTML — strukturujemy kalendarz targów; PDF przechodzi przez istniejący `tools/extract_intel.py` → `INTEL.md` (Day-1 path) |
-| 2 | Storage location | Nowe CSVs w `data/events/` wewnątrz BILLSzuka-22-Aug |
+| 2 | Storage location | Nowe CSVs w `data/events/` wewnątrz BILLSzuka-24-Aug |
 | 3 | Scope | Tylko plan, zero kodu w tej sesji |
 
 ### Architektura planu (4 warstwy, all additive)

@@ -46,21 +46,27 @@ import {
  *     format is AIza... (39 chars). The project label is just a memory
  *     aid — the key alone is enough to call the API.
  */
-export function SettingsDrawer({ open, onOpenChange }) {
+export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
   const [snapshot, setSnapshot] = useState(null);
   const [loading, setLoading] = useState(false);
   const [busyAlias, setBusyAlias] = useState(null); // "openrouter:alias" | "gemini:alias"
 
-  // Refresh vault on open + after any mutation
-  async function refresh() {
-    setLoading(true);
+  // Refresh vault. Always fetch on open to pick up external changes; pass
+  // the result up via onVaultChange so the HealthBadge stays accurate.
+  // The drawer only shows the "Ładowanie…" spinner on the very first
+  // fetch (snapshot === null) — once we have data we keep showing it
+  // while a silent background refresh runs.
+  async function refresh({ silent = false } = {}) {
+    const firstLoad = snapshot === null;
+    if (!silent || firstLoad) setLoading(firstLoad);
     try {
       const s = await fetchSettings();
       setSnapshot(s);
+      onVaultChange?.(s);
     } catch (e) {
       toast.error("Nie udało się pobrać ustawień", { description: e.message });
     } finally {
-      setLoading(false);
+      if (firstLoad) setLoading(false);
     }
   }
 
@@ -89,7 +95,7 @@ export function SettingsDrawer({ open, onOpenChange }) {
     try {
       await addKey(provider, { alias: alias.trim(), key: key.trim(), project });
       toast.success("Klucz dodany", { description: `${provider}:${alias}` });
-      await refresh();
+      await refresh({ silent: true });
     } catch (e) {
       toast.error("Błąd dodawania", { description: e.message });
     }
@@ -100,7 +106,7 @@ export function SettingsDrawer({ open, onOpenChange }) {
     try {
       await deleteKey(provider, alias);
       toast.success("Klucz usunięty");
-      await refresh();
+      await refresh({ silent: true });
     } catch (e) {
       toast.error("Błąd usuwania", { description: e.message });
     }
@@ -117,7 +123,7 @@ export function SettingsDrawer({ open, onOpenChange }) {
       } else {
         toast.error("Test failed", { description: r.error || "(brak szczegółów)" });
       }
-      await refresh();
+      await refresh({ silent: true });
     } catch (e) {
       toast.error("Błąd testu", { description: e.message });
     } finally {
@@ -127,7 +133,7 @@ export function SettingsDrawer({ open, onOpenChange }) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-lg p-0 flex flex-col gap-0">
+      <SheetContent side="right" showCloseButton={false} className="w-full sm:max-w-lg p-0 flex flex-col gap-0">
         <SheetHeader className="px-5 pt-5 pb-3 border-b">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-2">

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+whimport { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, FileSpreadsheet, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -53,7 +53,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
           "relative w-full max-w-2xl rounded-2xl border-2 border-dashed p-12 transition-all duration-200",
           isDragging
             ? "border-primary bg-accent scale-[1.01]"
-            : "border-border bg-card hover:border-muted-foreground/40"
+            : "border-border bg-zinc-100/60 dark:bg-zinc-900/40 hover:border-muted-foreground/40"
         )}
       >
         <AnimatePresence>
@@ -80,7 +80,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
             Wgraj CSV, żeby zobaczyć tabelę
           </h1>
           <p className="text-sm text-muted-foreground mb-8 max-w-md mx-auto">
-            Upuść plik tutaj albo kliknij przycisk. Do 50&nbsp;MB, kolumny wykrywane automatycznie.
+            Możesz przeciągnąć i upuścić plik w szarym obszarze powyżej. Upuść plik CSV lub kliknij przycisk poniżej.
           </p>
 
           <div className="flex items-center justify-center gap-3 flex-wrap">

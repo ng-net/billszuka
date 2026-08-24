@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Table as TableIcon,
@@ -42,11 +42,12 @@ export default function App() {
   const [vault, setVault] = useState(null); // redacted vault snapshot
   const [vaultError, setVaultError] = useState(null);
 
-  // Poll /api/settings so HealthBadge reflects current key count + chain.
-  // 10s is short enough to catch UI changes, long enough to not hammer the API.
+  // Fetch /api/settings once on mount so HealthBadge has an initial state.
+  // No polling — the Settings drawer refreshes on its own when it opens
+  // or after mutations. This avoids background traffic once data is loaded.
   useEffect(() => {
     let cancelled = false;
-    const poll = async () => {
+    const fetchOnce = async () => {
       try {
         const s = await fetchSettings();
         if (cancelled) return;
@@ -57,19 +58,27 @@ export default function App() {
         setVaultError(e.message || String(e));
       }
     };
-    poll();
-    const id = setInterval(poll, 10_000);
+    fetchOnce();
     return () => {
       cancelled = true;
-      clearInterval(id);
     };
+  }, []);
+
+  // Lift a snapshot from SettingsDrawer so the HealthBadge can stay in sync
+  // without re-polling the API on a timer.
+  const handleVaultChange = useCallback((s) => {
+    setVault(s);
+    setVaultError(null);
   }, []);
 
   return (
     <div className="flex h-dvh flex-col bg-background text-foreground">
       <header className="flex h-14 shrink-0 items-center justify-between border-b bg-background/80 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex items-center gap-4">
-          <div className="font-semibold tracking-tight">BILLSzuka</div>
+          <div className="leading-tight">
+            <div className="font-semibold tracking-tight">BILLSzuka</div>
+            <div className="text-[10px] text-muted-foreground">Katalog leadów B2B/B2C</div>
+          </div>
           <nav className="flex items-center gap-1">
             {TABS.map(({ id, label, icon: Icon }) => (
               <button
@@ -123,7 +132,7 @@ export default function App() {
       </main>
 
       <GeminiDrawer onOpenSettings={() => setSettingsOpen(true)} activeDataset="master.csv" />
-      <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} />
+      <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} onVaultChange={handleVaultChange} />
     </div>
   );
 }

@@ -3534,7 +3534,7 @@ bez regionów).
 
 **Decyzje użytkownika:**
 - Ingestion: **tylko HTML** (PDF → istniejący `extract_intel.py`)
-- Storage: `data/events/` w BILLSzuka-22-Aug
+- Storage: `data/events/` w BILLSzuka-24-Aug
 - Scope: **plan only**, zero kodu w tej sesji
 
 **Plan zapisany w INTEL.md §12** (Trade-show Intelligence Pipeline, 78 linii).
