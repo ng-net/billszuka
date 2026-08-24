@@ -28,7 +28,7 @@ data/
 └── Słowenia/                     # SI
 ```
 
-Foldery nazwane po polsku (Polska, Czechy…) — kody ISO w nazwach plików CSV (PL, CZ, BG, HR, EE, FR, LT, LV, MD, RO, SK, SI).
+Kody {ISO} w nazwach plików CSV (PL, CZ, BG, HR, EE, FR, LT, LV, MD, RO, SK, SI).
 
 ## master.csv + relationships.csv
 
