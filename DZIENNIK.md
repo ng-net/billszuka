@@ -3670,3 +3670,32 @@ Następne kroki w INTEL.md gotowe do odpalenia na zielone światło.
 - email_decydent fill-pass
 - Skills map (methodology A1-A6/B1-B9 → available skills)
 - CI green-check on marlink + Actions minutes quota
+
+## 2026-08-25 — Snapshot: LLM setup (operator was using, mid-session)
+
+**Vault state (`tools/api_secrets.json`, 0600, gitignored):**
+
+| Provider | Key (redacted) | Status 2026-08-25 17:45 |
+|---|---|---|
+| OpenRouter | `sk-o…eeb9` | OK · final fallback only |
+| Gemini | `AQ.A…xPLA` | HTTP 429 — quota exceeded (free-tier RPM, resets in ~1 min) |
+| Gemini | `AQ.A…FGhg` | HTTP 429 — **"prepayment credits are depleted"** (needs top-up at https://ai.studio/projects) |
+
+**Default model:** `gemini-3.6-flash` (gemini-2.5-flash deprecated 2026-08-25).
+
+**Chain order (set in `chat()` handler, `bf8db97`):** `gemini → mock → openrouter`
+- The previous `openrouter → gemini → mock` was the source of hallucinations
+  (DeepSeek via free tier fabricated "500 firm" / "12000 firm" answers)
+- Mock is deterministic — gives real numbers from `master.csv` or a clear "nie wiem"
+- `provider: "mock-gemini-quota"` + footer text is used when ALL Gemini keys
+  are quota'd (clear signal to operator)
+
+**How to add a new key:** Settings drawer (gear icon, top-right) → "Dodaj klucz"
+→ choose provider → paste → it persists to `tools/api_secrets.json` and the
+chain picks it up immediately. For Gemini, get keys from https://aistudio.google.com.
+
+**Why this is here:** the operator ran a long session and asked "what LLM was
+I using last time?" — other agents (or the operator restarting a fresh chat)
+should be able to recover this state by reading DZIENNIK.md instead of asking.
+Detailed commit trail: see `bf8db97` (chain reorder + quota fallback),
+`d621f2c` (Gemini Files API grounding), `869aa50` (auto-recover on 404).
