@@ -435,9 +435,9 @@ const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, show
                 )
             )}
           >
-            {j === 0 && isNabijarka && (
+            {j === 1 && isNabijarka && (
               <span
-                className="mr-2 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider bg-sky-100/80 text-sky-700 border border-sky-200/80 dark:bg-sky-900/30 dark:text-sky-300 dark:border-sky-800/60 shrink-0 align-middle"
+                className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider bg-sky-100/80 text-sky-700 border border-sky-200/80 dark:bg-sky-900/30 dark:text-sky-300 dark:border-sky-800/60 shrink-0 align-middle"
                 title="Firma sprzedaje maszynki (nabijarki) — PowerMatic, Hawk itp."
               >
                 maszynka
