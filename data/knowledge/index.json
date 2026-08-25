@@ -1,0 +1,15 @@
+[
+  {
+    "id": "f2cb767c8121",
+    "filename": "2026-08-24-photo-list-verification.pdf",
+    "safe_name": "2026-08-24-photo-list-verification.pdf",
+    "size": 109159,
+    "mime_type": "application/pdf",
+    "local_path": "data/knowledge/files/f2cb767c8121__2026-08-24-photo-list-verification.pdf",
+    "uploaded_at": "2026-08-25T13:00:25.920911+00:00",
+    "status": "ready",
+    "gemini_name": "files/35sfkt78yc1n",
+    "gemini_uri": "https://generativelanguage.googleapis.com/v1beta/files/35sfkt78yc1n",
+    "gemini_state": "ACTIVE"
+  }
+]

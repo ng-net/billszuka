@@ -8,9 +8,11 @@ import {
   CheckCircle2,
   AlertCircle,
   Command as CommandIcon,
+  BookOpen,
 } from "lucide-react";
 import { fetchSettings } from "@/lib/secretsApi";
 import { GeminiDrawer } from "@/components/GeminiDrawer";
+import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,11 +44,16 @@ const TABS = [
 export default function App() {
   const [activeTab, setActiveTab] = useState("table");
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [knowledgeOpen, setKnowledgeOpen] = useState(false);
   const [vault, setVault] = useState(null); // redacted vault snapshot
   const [vaultError, setVaultError] = useState(null);
   // Ref to the active TableView, used to trigger its command palette
   // (the palette lives inside RawTable because it needs table context).
   const tableRef = useRef(null);
+  // IDs of knowledge files the user has selected to attach to chat.
+  // Lifted here so the GeminiDrawer FAB can include them in /api/chat
+  // without needing to read state from the closed KnowledgeDrawer.
+  const [knowledgeIds, setKnowledgeIds] = useState([]);
 
   // Fetch /api/settings once on mount so HealthBadge has an initial state.
   // No polling — the Settings drawer refreshes on its own when it opens
@@ -106,6 +113,19 @@ export default function App() {
         </div>
         <div className="flex items-center gap-3">
           <HealthBadge vault={vault} error={vaultError} />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setKnowledgeOpen(true)}
+            aria-label="Baza wiedzy"
+            title={`Baza wiedzy${knowledgeIds.length ? ` (${knowledgeIds.length} aktywnych)` : ""}`}
+            className="relative"
+          >
+            <BookOpen className="h-4 w-4" />
+            {knowledgeIds.length > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-background" />
+            )}
+          </Button>
           {activeTab === "table" && (
             <Button
               variant="ghost"
@@ -157,7 +177,16 @@ export default function App() {
         </Suspense>
       </main>
 
-      <GeminiDrawer onOpenSettings={() => setSettingsOpen(true)} activeDataset="master.csv" />
+      <GeminiDrawer
+        onOpenSettings={() => setSettingsOpen(true)}
+        activeDataset="master.csv"
+        knowledgeIds={knowledgeIds}
+      />
+      <KnowledgeDrawer
+        open={knowledgeOpen}
+        onOpenChange={setKnowledgeOpen}
+        onSelectionChange={setKnowledgeIds}
+      />
       <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} onVaultChange={handleVaultChange} />
     </div>
   );

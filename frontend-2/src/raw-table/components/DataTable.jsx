@@ -385,8 +385,22 @@ export function DataTable({
  * only the row becoming selected and the one losing selection re-render
  * (down from "every row in the table" before).
  */
+// Brand-name matcher for "nabijarka" (rolling-machine) vendors — rows that
+// carry any of these brands get a gentle blue tint + a small "maszynka"
+// badge so they're easy to spot when scanning the catalog. Extend the
+// brand list when new machine brands land.
+const NABIJARKA_BRANDS = ["PowerMatic", "Hawk"];
+const NABIJARKA_BG = "bg-sky-50/40 hover:bg-sky-100/60 dark:bg-sky-950/20 dark:hover:bg-sky-950/30";
+
+function isNabijarkaRow(row) {
+  const brands = String(row?.marki_nabijarki || "");
+  if (!brands) return false;
+  return NABIJARKA_BRANDS.some((b) => brands.includes(b));
+}
+
 const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, showSettle }) {
   const settleDelay = showSettle && index < 60 ? index * 4 : 0;
+  const isNabijarka = isNabijarkaRow(row.original);
   return (
     <tr
       data-cv="row"
@@ -394,6 +408,7 @@ const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, show
       className={cn(
         "border-b border-border/50 cursor-pointer group",
         "hover:bg-muted/40",
+        isNabijarka && NABIJARKA_BG,
         settleDelay > 0 && "row-settle",
         isSelected && "bg-accent"
       )}
@@ -412,9 +427,22 @@ const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, show
             className={cn(
               "px-3 align-middle border-r border-border/30 overflow-hidden text-ellipsis whitespace-nowrap",
               isSticky &&
-                "sticky left-0 z-10 bg-card group-hover:bg-muted/40 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:bg-transparent md:after:hidden"
+                cn(
+                  "sticky left-0 z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:after:hidden",
+                  isNabijarka
+                    ? `${NABIJARKA_BG} md:bg-transparent`
+                    : "bg-card group-hover:bg-muted/40"
+                )
             )}
           >
+            {j === 0 && isNabijarka && (
+              <span
+                className="mr-2 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider bg-sky-100/80 text-sky-700 border border-sky-200/80 dark:bg-sky-900/30 dark:text-sky-300 dark:border-sky-800/60 shrink-0 align-middle"
+                title="Firma sprzedaje maszynki (nabijarki) — PowerMatic, Hawk itp."
+              >
+                maszynka
+              </span>
+            )}
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
           </td>
         );

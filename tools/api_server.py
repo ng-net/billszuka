@@ -13,6 +13,9 @@ Wired endpoints (matching frontend/src/App.jsx fetch calls):
   DELETE /api/settings/{provider}/{alias}    → remove a key
   POST /api/settings/{provider}/{alias}/test → validate a key
   PUT  /api/settings/priority                → reorder fallback chain
+  GET  /api/knowledge        → list indexed knowledge files
+  POST /api/knowledge/upload → upload PDF/CSV to Gemini Files API
+  DELETE /api/knowledge/{id} → remove file from index + Gemini
 
 Start:
   python3 tools/api_server.py                 # binds 0.0.0.0:8000 (all interfaces)
@@ -76,6 +79,27 @@ DEFAULT_PAGE_SIZE = 100
 MAX_PAGE_SIZE = 1000
 ALLOWED_FILENAME_RE = re.compile(r"^[A-Za-z0-9_.\-]+$")  # no /, no .., no spaces
 
+# Knowledge base — files uploaded to the Gemini Files API for grounding.
+# `data/knowledge/` holds:
+#   - index.json: list of {id, filename, size, mime_type, gemini_name,
+#                          gemini_uri, uploaded_at, status}
+#   - files/    : local copies (so we can re-upload if Gemini expires the
+#                 file after 48h, which is the default Files API TTL).
+# Gemini's Files API supports 20 MB per file inline, 2 GB via Files API.
+# We default to the Files API path (multipart upload) for everything.
+KNOWLEDGE_DIR = DATA / "knowledge"
+KNOWLEDGE_FILES_DIR = KNOWLEDGE_DIR / "files"
+KNOWLEDGE_INDEX_PATH = KNOWLEDGE_DIR / "index.json"
+KNOWLEDGE_MAX_BYTES = 50 * 1024 * 1024  # 50 MB per file — keep uploads snappy
+ALLOWED_KNOWLEDGE_MIME_PREFIXES = (
+    "application/pdf",
+    "text/csv",
+    "text/plain",
+    "text/markdown",
+    "application/vnd.openxmlformats-officedocument",  # .xlsx, .docx
+)
+ALLOWED_KNOWLEDGE_EXTS = {".pdf", ".csv", ".txt", ".md", ".markdown", ".xlsx", ".xls", ".docx"}
+
 # ---------------------------------------------------------------------------
 # FastAPI app
 # ---------------------------------------------------------------------------
@@ -115,6 +139,11 @@ class SyncResponse(BaseModel):
 class ChatRequest(BaseModel):
     query: str
     active_dataset: str | None = None
+    # Optional list of knowledge file IDs (from /api/knowledge index) that
+    # should be attached as Gemini `file_data` parts to the next chat call.
+    # Empty = no knowledge context. The frontend sends the IDs; the backend
+    # resolves them to Gemini file URIs at call time.
+    knowledge_ids: list[str] = []
 
 class ChatResponse(BaseModel):
     response: str
@@ -127,6 +156,136 @@ class AddKeyRequest(BaseModel):
 
 class PriorityRequest(BaseModel):
     priority: list[str]
+
+
+# ---------------------------------------------------------------------------
+# Knowledge base helpers (Gemini Files API grounding)
+# ---------------------------------------------------------------------------
+import mimetypes
+import uuid
+from datetime import datetime, timezone
+
+
+def _ensure_knowledge_dirs() -> None:
+    KNOWLEDGE_DIR.mkdir(parents=True, exist_ok=True)
+    KNOWLEDGE_FILES_DIR.mkdir(parents=True, exist_ok=True)
+    if not KNOWLEDGE_INDEX_PATH.exists():
+        KNOWLEDGE_INDEX_PATH.write_text("[]", encoding="utf-8")
+
+
+def _read_knowledge_index() -> list[dict[str, Any]]:
+    _ensure_knowledge_dirs()
+    try:
+        raw = json.loads(KNOWLEDGE_INDEX_PATH.read_text(encoding="utf-8"))
+        return raw if isinstance(raw, list) else []
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def _write_knowledge_index(items: list[dict[str, Any]]) -> None:
+    _ensure_knowledge_dirs()
+    KNOWLEDGE_INDEX_PATH.write_text(
+        json.dumps(items, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def _get_first_gemini_key() -> str | None:
+    """Return the first active Gemini key from the vault, or None."""
+    vault = _secrets_load()
+    for entry in vault.get("gemini", []):
+        if entry.get("key"):
+            return entry["key"]
+    return None
+
+
+def _gemini_files_upload(api_key: str, file_path: Path, display_name: str, mime_type: str) -> dict[str, Any]:
+    """Upload file to Gemini Files API via single-request multipart.
+
+    Gemini's response shape is `{"file": {"name": "files/...", "uri": "...", "state": "..."}}`.
+    We unwrap that here and return just the inner file resource so the rest
+    of the code can use a flat shape.
+    """
+    import urllib.error
+    import urllib.request
+
+    file_bytes = file_path.read_bytes()
+    boundary = f"----BILLSzuka{uuid.uuid4().hex}"
+    json_part = json.dumps({"file": {"display_name": display_name}}).encode("utf-8")
+    parts: list[bytes] = [
+        f"--{boundary}\r\n"
+        f"Content-Type: application/json; charset=UTF-8\r\n\r\n"
+        .encode("utf-8"),
+        json_part,
+        b"\r\n",
+        f"--{boundary}\r\n"
+        f"Content-Type: {mime_type}\r\n\r\n"
+        .encode("utf-8"),
+        file_bytes,
+        b"\r\n",
+        f"--{boundary}--\r\n".encode("utf-8"),
+    ]
+    body = b"".join(parts)
+    url = f"https://generativelanguage.googleapis.com/upload/v1beta/files?key={api_key}"
+    req = urllib.request.Request(
+        url,
+        data=body,
+        headers={
+            "Content-Type": f"multipart/related; boundary={boundary}",
+            "X-Goog-Upload-Protocol": "multipart",
+        },
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        result = json.loads(resp.read())
+    # Response shape: {"file": {"name": "files/...", "uri": "...", ...}}
+    inner = result.get("file") if isinstance(result, dict) else None
+    if not isinstance(inner, dict):
+        raise RuntimeError(f"unexpected Gemini Files API response: {result}")
+    return inner
+
+
+def _gemini_files_delete(api_key: str, file_name: str) -> bool:
+    """Delete a file from Gemini Files API. `file_name` is the resource name like 'files/abc'."""
+    import urllib.error
+    import urllib.request
+    url = f"https://generativelanguage.googleapis.com/v1beta/{file_name}?key={api_key}"
+    try:
+        req = urllib.request.Request(url, method="DELETE")
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return 200 <= resp.status < 300
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError):
+        return False
+
+
+def _resolve_knowledge_refs(ids: list[str]) -> list[dict[str, Any]]:
+    """Look up knowledge files by id, return those with valid Gemini refs."""
+    if not ids:
+        return []
+    items = _read_knowledge_index()
+    by_id = {it["id"]: it for it in items if "id" in it}
+    out = []
+    for kid in ids:
+        item = by_id.get(kid)
+        if not item:
+            continue
+        if not item.get("gemini_name") or not item.get("gemini_uri"):
+            continue
+        if item.get("status") == "failed":
+            continue
+        out.append({
+            "id": item["id"],
+            "filename": item.get("filename"),
+            "mime_type": item.get("mime_type"),
+            "file_data": {
+                "mime_type": item.get("mime_type") or "application/pdf",
+                "file_uri": item["gemini_uri"],
+            },
+        })
+    return out
+
+
+
 
 
 # ---------------------------------------------------------------------------
@@ -408,6 +567,135 @@ async def upload_csv(file: UploadFile = File(...)) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Knowledge base endpoints (Gemini Files API grounding)
+# ---------------------------------------------------------------------------
+
+@app.get("/api/knowledge")
+async def list_knowledge() -> dict[str, Any]:
+    """List files in the knowledge index. Each entry includes the Gemini file
+    ref so the frontend can pass ids straight to /api/chat."""
+    items = _read_knowledge_index()
+    return {
+        "items": items,
+        "count": len(items),
+    }
+
+
+@app.post("/api/knowledge/upload")
+async def upload_knowledge(file: UploadFile = File(...)) -> dict[str, Any]:
+    """Upload a PDF / CSV / text file to the Gemini Files API and add it to
+    the local knowledge index. The file is also cached locally under
+    data/knowledge/files/ so we can re-upload to Gemini if it expires after
+    the default 48h TTL.
+    """
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="no filename in upload")
+
+    # Validate extension + size
+    raw_name = file.filename
+    ext = Path(raw_name).suffix.lower()
+    if ext not in ALLOWED_KNOWLEDGE_EXTS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"unsupported file type {ext!r}; allowed: {sorted(ALLOWED_KNOWLEDGE_EXTS)}",
+        )
+
+    _ensure_knowledge_dirs()
+    body = await file.read()
+    if len(body) > KNOWLEDGE_MAX_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"file too large ({len(body)} bytes); max {KNOWLEDGE_MAX_BYTES}",
+        )
+    if not body:
+        raise HTTPException(status_code=400, detail="empty file")
+
+    mime_type, _ = mimetypes.guess_type(raw_name)
+    if not mime_type:
+        mime_type = "application/octet-stream"
+
+    api_key = _get_first_gemini_key()
+    if not api_key:
+        raise HTTPException(
+            status_code=503,
+            detail="no Gemini key in vault — add one in Settings (gear icon) first",
+        )
+
+    # Save locally first (idempotent — overwrite existing copy)
+    file_id = uuid.uuid4().hex[:12]
+    safe_name = re.sub(r"[^A-Za-z0-9_.\-]+", "_", Path(raw_name).name)
+    if not safe_name or safe_name.startswith("."):
+        safe_name = f"upload_{file_id}{ext or '.bin'}"
+    local_path = KNOWLEDGE_FILES_DIR / f"{file_id}__{safe_name}"
+    local_path.write_bytes(body)
+
+    # Push to Gemini Files API
+    item: dict[str, Any] = {
+        "id": file_id,
+        "filename": raw_name,
+        "safe_name": safe_name,
+        "size": len(body),
+        "mime_type": mime_type,
+        "local_path": str(local_path.relative_to(ROOT)),
+        "uploaded_at": datetime.now(timezone.utc).isoformat(),
+        "status": "uploading",
+    }
+    try:
+        result = await asyncio.to_thread(
+            _gemini_files_upload, api_key, local_path, safe_name, mime_type
+        )
+        # Gemini file resource shape:
+        #   { "name": "files/abc123", "uri": "https://...", "state": "ACTIVE", ... }
+        item["gemini_name"] = result.get("name")
+        item["gemini_uri"] = result.get("uri")
+        item["gemini_state"] = result.get("state", "ACTIVE")
+        item["status"] = "ready"
+    except Exception as e:
+        item["status"] = "failed"
+        item["error"] = str(e)
+        # Still keep the local copy so the user can retry
+
+    items = _read_knowledge_index()
+    items.append(item)
+    _write_knowledge_index(items)
+
+    if item["status"] == "failed":
+        raise HTTPException(
+            status_code=502,
+            detail=f"uploaded locally but Gemini Files API failed: {item.get('error')}",
+        )
+    return item
+
+
+@app.delete("/api/knowledge/{file_id}")
+async def delete_knowledge(file_id: str) -> dict[str, Any]:
+    """Remove a file from the knowledge index and from Gemini Files API."""
+    items = _read_knowledge_index()
+    match = next((it for it in items if it.get("id") == file_id), None)
+    if not match:
+        raise HTTPException(status_code=404, detail=f"knowledge id {file_id!r} not found")
+
+    api_key = _get_first_gemini_key()
+    gemini_name = match.get("gemini_name")
+    if api_key and gemini_name:
+        await asyncio.to_thread(_gemini_files_delete, api_key, gemini_name)
+
+    # Best-effort local file cleanup
+    try:
+        local_rel = match.get("local_path")
+        if local_rel:
+            local = ROOT / local_rel
+            if local.exists() and local.is_file():
+                local.unlink()
+    except OSError:
+        pass
+
+    items = [it for it in items if it.get("id") != file_id]
+    _write_knowledge_index(items)
+    return {"ok": True, "deleted": file_id}
+
+
 @app.post("/api/sync")
 async def sync(req: SyncRequest) -> SyncResponse:
     """Regenerate master.csv from per-kraj CSVs. Optionally run verify_api."""
@@ -454,6 +742,13 @@ async def chat(req: ChatRequest) -> ChatResponse:
 
     vault = _bootstrap_vault_from_env()
     chain = vault.get("priority", list(SECRETS_DEFAULT["priority"]))
+
+    # When the request carries knowledge_ids, only Gemini can ground the
+    # answer in the attached files (openrouter path doesn't see them). So
+    # promote Gemini to the front of the chain for this call only — the
+    # stored priority order is not modified.
+    if req.knowledge_ids:
+        chain = ["gemini"] + [p for p in chain if p != "gemini"]
 
     for provider in chain:
         if provider == "openrouter":
@@ -530,7 +825,11 @@ async def _call_openrouter(req: ChatRequest, api_key: str) -> ChatResponse | Non
 
 
 async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
-    """Call Google Gemini (Gemini 2.5 Flash — free tier friendly).
+    """Call Google Gemini (Gemini 3.6 Flash — free tier friendly).
+
+    When req.knowledge_ids is non-empty, the matching files (uploaded to
+    the Gemini Files API via /api/knowledge) are attached as `file_data`
+    parts to the request so the model grounds its answer in them.
 
     Returns None on failure (chain moves on).
     """
@@ -538,22 +837,32 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
     import urllib.request
 
     context = _build_dataset_context(req.active_dataset)
+    knowledge_refs = _resolve_knowledge_refs(req.knowledge_ids)
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"gemini-2.5-flash:generateContent?key={api_key}"
+        f"gemini-3.6-flash:generateContent?key={api_key}"
     )
-    payload = {
-        "systemInstruction": {
-            "parts": [{"text": (
-                "Jesteś asystentem BILLSzuka — polskiej platformy B2B research do dystrybucji "
-                "maszynek do tytoniu. Odpowiadaj po polsku, zwięźle, z konkretnymi liczbami "
-                "gdy to możliwe. Jeśli nie wiesz — powiedz wprost."
-            )}]
-        },
-        "contents": [{
-            "role": "user",
-            "parts": [{"text": req.query + context}],
-        }],
+
+    # Build the user parts: text first, then any attached knowledge files.
+    user_parts: list[dict[str, Any]] = [{"text": req.query + context}]
+    for ref in knowledge_refs:
+        user_parts.append({"file_data": ref["file_data"]})
+
+    system_text = (
+        "Jesteś asystentem BILLSzuka — polskiej platformy B2B research do dystrybucji "
+        "maszynek do tytoniu. Odpowiadaj po polsku, zwięźle, z konkretnymi liczbami "
+        "gdy to możliwe. Jeśli nie wiesz — powiedz wprost."
+    )
+    if knowledge_refs:
+        attached = ", ".join(r["filename"] or r["id"] for r in knowledge_refs)
+        system_text += (
+            f"\n\nDo tej rozmowy dołączono {len(knowledge_refs)} plik(ów) z bazy wiedzy: "
+            f"{attached}. Możesz się na nich opierać przy odpowiedzi."
+        )
+
+    payload: dict[str, Any] = {
+        "systemInstruction": {"parts": [{"text": system_text}]},
+        "contents": [{"role": "user", "parts": user_parts}],
         "generationConfig": {"maxOutputTokens": 400},
     }
     body = json.dumps(payload).encode("utf-8")
@@ -569,7 +878,8 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
         data = await asyncio.to_thread(_do)
         # Gemini shape: candidates[0].content.parts[0].text
         text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-        return ChatResponse(response=text, provider="gemini")
+        suffix = f" (+{len(knowledge_refs)} file)" if knowledge_refs else ""
+        return ChatResponse(response=text, provider="gemini" + suffix)
     except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError, IndexError):
         return None
 

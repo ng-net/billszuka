@@ -34,12 +34,20 @@ import { toast } from "sonner";
  *
  * Conversation is in-memory only (no persistence — by design per plan).
  */
-export function GeminiDrawer({ onOpenSettings, activeDataset }) {
+export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]); // [{role: "user"|"assistant", text, provider?}]
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const scrollRef = useRef(null);
+
+  // Mirror knowledgeIds into a ref so the send() callback always sees the
+  // latest selection without re-binding on every change. (App.jsx is the
+  // single source of truth — the drawer just consumes it.)
+  const knowledgeIdsRef = useRef(knowledgeIds);
+  useEffect(() => {
+    knowledgeIdsRef.current = knowledgeIds;
+  }, [knowledgeIds]);
 
   // Autoscroll on new messages — Radix ScrollArea's Viewport is the actual
   // scrollable node, so we locate it by data-slot after each render.
@@ -64,6 +72,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset }) {
         body: JSON.stringify({
           query: q,
           active_dataset: activeDataset || "master.csv",
+          knowledge_ids: knowledgeIdsRef.current,
         }),
       });
       const body = await res.json();
