@@ -890,7 +890,13 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
     the Gemini Files API via /api/knowledge) are attached as `file_data`
     parts to the request so the model grounds its answer in them.
 
-    Returns None on failure (chain moves on).
+    Auto-recovery: if Gemini returns 404 (expired file — Files API TTL
+    is 48h by default), we re-upload every attached file from its
+    local copy under `data/knowledge/files/`, update the index with
+    fresh `gemini_uri`s, and retry the call once. The user never has
+    to click the manual refresh button.
+
+    Returns None on unrecoverable failure (chain moves on).
     """
     import urllib.error
     import urllib.request
@@ -902,45 +908,116 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
         f"gemini-3.6-flash:generateContent?key={api_key}"
     )
 
-    # Build the user parts: text first, then any attached knowledge files.
-    user_parts: list[dict[str, Any]] = [{"text": req.query + context}]
-    for ref in knowledge_refs:
-        user_parts.append({"file_data": ref["file_data"]})
-
-    system_text = (
-        "Jesteś asystentem BILLSzuka — polskiej platformy B2B research do dystrybucji "
-        "maszynek do tytoniu. Odpowiadaj po polsku, zwięźle, z konkretnymi liczbami "
-        "gdy to możliwe. Jeśli nie wiesz — powiedz wprost."
-    )
-    if knowledge_refs:
-        attached = ", ".join(r["filename"] or r["id"] for r in knowledge_refs)
-        system_text += (
-            f"\n\nDo tej rozmowy dołączono {len(knowledge_refs)} plik(ów) z bazy wiedzy: "
-            f"{attached}. Możesz się na nich opierać przy odpowiedzi."
+    def _build_payload(refs: list[dict[str, Any]]) -> bytes:
+        user_parts: list[dict[str, Any]] = [{"text": req.query + context}]
+        for ref in refs:
+            user_parts.append({"file_data": ref["file_data"]})
+        system_text = (
+            "Jesteś asystentem BILLSzuka — polskiej platformy B2B research do dystrybucji "
+            "maszynek do tytoniu. Odpowiadaj po polsku, zwięźle, z konkretnymi liczbami "
+            "gdy to możliwe. Jeśli nie wiesz — powiedz wprost."
         )
+        if refs:
+            attached = ", ".join(r["filename"] or r["id"] for r in refs)
+            system_text += (
+                f"\n\nDo tej rozmowy dołączono {len(refs)} plik(ów) z bazy wiedzy: "
+                f"{attached}. Możesz się na nich opierać przy odpowiedzi."
+            )
+        payload: dict[str, Any] = {
+            "systemInstruction": {"parts": [{"text": system_text}]},
+            "contents": [{"role": "user", "parts": user_parts}],
+            "generationConfig": {"maxOutputTokens": 400},
+        }
+        return json.dumps(payload).encode("utf-8")
 
-    payload: dict[str, Any] = {
-        "systemInstruction": {"parts": [{"text": system_text}]},
-        "contents": [{"role": "user", "parts": user_parts}],
-        "generationConfig": {"maxOutputTokens": 400},
-    }
-    body = json.dumps(payload).encode("utf-8")
-
-    def _do() -> dict[str, Any]:
+    def _do_request(body: bytes) -> dict[str, Any]:
         http_req = urllib.request.Request(
             url, data=body, headers={"Content-Type": "application/json"},
         )
         with urllib.request.urlopen(http_req, timeout=30) as resp:
             return json.loads(resp.read())
 
-    try:
-        data = await asyncio.to_thread(_do)
-        # Gemini shape: candidates[0].content.parts[0].text
-        text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-        suffix = f" (+{len(knowledge_refs)} file)" if knowledge_refs else ""
-        return ChatResponse(response=text, provider="gemini" + suffix)
-    except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError, IndexError):
-        return None
+    def _is_file_404(err: "urllib.error.HTTPError") -> bool:
+        # Gemini returns 404 for "not found" but 403 (PERMISSION_DENIED) for
+        # expired/deleted files with a body mentioning "may not exist".
+        # Either way, the user-visible effect is the same: the file_data
+        # part is unusable. Trigger auto-recovery.
+        if err.code not in (403, 404):
+            return False
+        try:
+            body = err.read().decode("utf-8", errors="replace")
+        except Exception:
+            return True
+        body_low = body.lower()
+        return (
+            "not found" in body_low
+            or "not_found" in body_low
+            or "not exist" in body_low
+            or "expired" in body_low
+            or "permission" in body_low  # 403 PERMISSION_DENIED on a file
+        )
+
+    async def _refresh_all_refs() -> int:
+        """Re-upload every attached knowledge entry from local. Returns
+        the number of entries that were successfully refreshed."""
+        items = _read_knowledge_index()
+        by_id = {it["id"]: it for it in items if "id" in it}
+        refreshed = 0
+        for ref in knowledge_refs:
+            item = by_id.get(ref["id"])
+            if not item:
+                continue
+            local_rel = item.get("local_path")
+            if not local_rel:
+                continue
+            local = ROOT / local_rel
+            if not local.exists() or not local.is_file():
+                continue
+            mime_type = item.get("mime_type") or "application/octet-stream"
+            safe_name = item.get("safe_name") or local.name
+            old_gemini_name = item.get("gemini_name")
+            try:
+                if old_gemini_name:
+                    await asyncio.to_thread(
+                        _gemini_files_delete, api_key, old_gemini_name
+                    )
+                new_file = await asyncio.to_thread(
+                    _gemini_files_upload, api_key, local, safe_name, mime_type
+                )
+            except Exception:
+                continue
+            item["gemini_name"] = new_file.get("name")
+            item["gemini_uri"] = new_file.get("uri")
+            item["gemini_state"] = new_file.get("state", "ACTIVE")
+            item["status"] = "ready"
+            if "error" in item:
+                del item["error"]
+            item["refreshed_at"] = datetime.now(timezone.utc).isoformat()
+            refreshed += 1
+        _write_knowledge_index(items)
+        return refreshed
+
+    # Two attempts: initial + one auto-recovery if Gemini returns file 404
+    for attempt in range(2):
+        body = _build_payload(knowledge_refs)
+        try:
+            data = await asyncio.to_thread(_do_request, body)
+            text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            suffix = f" (+{len(knowledge_refs)} file)" if knowledge_refs else ""
+            if attempt == 1 and knowledge_refs:
+                suffix += " (auto-recovered)"
+            return ChatResponse(response=text, provider="gemini" + suffix)
+        except urllib.error.HTTPError as e:
+            if attempt == 0 and knowledge_refs and _is_file_404(e):
+                refreshed = await _refresh_all_refs()
+                if refreshed:
+                    # Re-resolve refs (they have fresh URIs now) and retry
+                    knowledge_refs = _resolve_knowledge_refs(req.knowledge_ids)
+                    continue
+            return None
+        except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError, IndexError):
+            return None
+    return None
 
 
 def _build_dataset_context(active_dataset: str | None) -> str:
