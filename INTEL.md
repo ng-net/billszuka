@@ -569,6 +569,9 @@ Mój audyt z 02:35 raportował błędnie 0 unikalnych wartości dla `rynek_skala
 
 Lekcja: przy audycie CSV z cytowanymi polami (przecinki w środku) **zawsze** używać PapaParse, nigdy `split(',')`.
 
+
+
+
 ---
 
 ## Plan: Trade-show Intelligence Pipeline (2026-08-23)

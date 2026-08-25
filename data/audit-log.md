@@ -1,5 +1,166 @@
 # BILLSzuka — Audit Log
 
+## 2026-08-24 (PDF v3.1 — Design System + 🧊 ZAMROŻONY visual)
+
+### Scope
+Aktualizacja PDF: redesign intro page + nowy branding "Design System" + nowy marker wizualny [ZAMROŻONY] dla statusu FROZEN.
+
+### Zmiany wizualne
+- **Header**: usunięto "Marceli" — zastąpiono **"Design System"** (branding BILLS)
+- **H1**: powiększony z 24pt do **32pt** (większy impact)
+- **H1_SUB**: powiększony z 11pt do **12pt** + italic
+- **Meta badges**: Design System · 24 sierpnia 2026 · v3.0 · 33 wpisów · 12 CZ + 21 RO (tag-style inline)
+- **Document status indicator**: `[*] DOCUMENT STATUS: DRAFT` w ice-blue (cyan-700)
+- **Legenda**: redesigned jako tabela z headerem (Status | Znaczenie), [ZAMROŻONY] w **ice-blue (#0E7490)**
+- **Więcej whitespace**: spacery zwiększone (Spacer 1, 8-12 zamiast 4-6)
+- **Wszystkie statusy mają kolorowe markery**:
+  - ACTIVE = zielony (#1B7A3A)
+  - **[ZAMROŻONY]** = ice-blue (#0E7490) — dla FROZEN/duplikat
+  - EXCLUDE = czerwony (#A8201A)
+  - HOLD = amber (#A87500)
+  - [DO-WERYFIKACJI] = amber (#A87500)
+
+### Pliki
+- `data/verification/2026-08-24-photo-list-verification.pdf` (12 stron, 106KB) — zregenerowany
+- `data/verification/2026-08-24-photo-list-verification.md` (mirror)
+- `tools/pdf_photo_verification.py` (zaktualizowany — nowe kolory, redesign intro)
+
+## 2026-08-24 (PDF v3 + rekomendacja zmian reguł weryfikacji)
+
+### Scope
+Aktualizacja PDF weryfikacyjnego + dodanie rekomendacji zmian w regułach weryfikacji na podstawie cross-country lessons (12 krajów).
+
+### Nowe sekcje w PDF
+- **Strona 1**: Nagłówek zaktualizowany — 4 etapy weryfikacji + nowa treść podsumowania (dodane odkrycia z etapu 2+3)
+- **Strona 10**: "Kluczowe odkrycia po audycie 4-etapowym" (6 kluczowych ustaleń: Eva Machačná false negative, błędy OCR NIP/CUI, virtual office pattern Ostrava, sieci rodzinne administratorów, sieć OREA HOTELS, status zmiany DIPA CONCEPT)
+- **Strona 10-11**: "Rekomendacja zmian w regułach weryfikacji (cross-country lessons)" — **7 reguł** (Reguła #1: wzmocnić triage EXCLUDE; #2: multi-source verification; #3: wirtualny adres = red flag; #4: sprawdzać administratorów; #5: CAEN/CZ-NACE nie = aktywność; #6: adres niezgodny = HOLD; #7: nowa kategoria B10 hotele sieciowe)
+- **Strona 11**: "Jak nasze wnioski mają się do doświadczeń w innych krajach" — tabela porównawcza PL/CZ/SK vs RO/BG/HR/SI vs LT/LV/EE vs FR
+- **Strona 12**: "Konkluzja i rekomendacja finalna" (8 reguł dla methodology.md + skills/verify-data/SKILL.md) + nowy plik `data/verification/_patterns.md`
+
+### Naprawione błędy layoutu
+- Unicode `→` zamienione na `->` (Verdana nie wspiera tego znaku) — czcionka nie renderowała poprawnie
+- Podsumowanie na stronie 1 zaktualizowane z nowymi odkryciami
+
+### Pliki
+- `data/verification/2026-08-24-photo-list-verification.pdf` (12 stron, 106KB) — zregenerowany
+- `data/verification/2026-08-24-photo-list-verification.md` (mirror)
+- `tools/pdf_photo_verification.py` (zaktualizowany — 6 nowych sekcji + korekta layoutu)
+
+### Rekomendacja dla methodology.md
+1. **Reguła #1**: NIE EXCLUDE na podstawie samego braku NIP — zawsze sprawdzić ARES/ONRC + CZ-NACE/CAEN
+2. **Reguła #2**: Multi-source verification — minimum 3 niezależne źródła
+3. **Reguła #3**: Wirtualny adres (>3 firmy pod 1 adresem + zagraniczny właściciel) = red flag
+4. **Reguła #4**: Sprawdzać administratorów (datasrl.ro) dla osób fizycznych w fakturach
+5. **Reguła #5**: CAEN/CZ-NACE nie = aktywność — sprawdzać status ONRC/ARES
+6. **Reguła #6**: Adres niezgodny = HOLD (nie EXCLUDE)
+7. **Reguła #7**: Nowa kategoria B10 "Hotele sieciowe (>5 obiektów)"
+8. **Reguła #8**: Aktualizować `data/methodology.md` + `skills/verify-data/SKILL.md` przy następnej aktualizacji
+
+## 2026-08-24 (NIP-lookup pass na firmy bez NIP)
+
+### Scope
+Ponowne wyszukanie NIP/CUI dla 11 firm, które miały "(brak)" w kolumnie nip. Źródła: ARES, rejstrik-firem.kurzy.cz, podnikatel.cz, Finmag, datasrl.ro, termene.ro, listafirme.ro.
+
+### Wynik
+- **4 firmy — znaleziono IČO/NIP prawidłowe:**
+  - **KEVARO s.r.o.** (CZ) — IČO **24755681**. Aktualny adres: náměstí Přátelství 1518/2, Praha-Hostivař (od 26.6.2023). Sokolská 1605/66 (z faktury) to historyczny adres (29.10.2010–2.8.2021). Vlastník: Invest Rom Service s.r.o. (SK). Předmět podnikání: Výroba, obchod a služby + Prodej kvasného lihu. **NIE branża tytoniowa.** Status: HOLD (adres niezgodny) → HOLD potwierdzony.
+  - **Eva Machačná** (CZ) — IČO **44560176**. Kunratice u Cvikova. CZ-NACE: Maloobchod s převahou potravin, nápojů a tabákových výrobků. → ACTIVE B4 (lead od poprzedniej deep-verification).
+  - **Jan Zimola (Etabak.com)** (CZ) — IČO **74215019**. Aktualny adres: Osvoboditelů 1107, Žatec (Pekařská 2386 to stary adres). CZ-NACE: 471 Maloobchod + 20 Výroba chemických látek. Żivnosti: Prodej chemických látek (od 24.10.2022) + Velkoobchod a maloobchod. 1-5 pracowników. UWAGA: `CZ 8608082989` w zdjęciu to **rodné číslo** (PESEL), nie IČO.
+  - **Cotiga Marin** (RO) — datasrl.ro potwierdza: administrator 2 firm (COTY SHOP INVEST CUI 48715727 AKTYWNA + ZASEN TRADE INVEST CUI 41399635 INAKTYWNA). Własnego PFA/II nie ma. → EXCLUDE (scal z RO-A-009).
+
+- **7 firm — NIE znaleziono NIP/CUI** (potwierdzone sprawdzenie):
+  - **Jana Zelezna** (CZ Telč) — brak w ARES, brak śladu
+  - **Iveta Burešová** (CZ Kladno) — w ARES są 3 różne Ivety Burešovej (Praha, Náchod, Ostrov), żadna w Kladno. Tożsamość niepotwierdzona
+  - **Hana Sretrova** (CZ Bílina) — znaleziona Mgr. Hana Šretrová IČO 76140598, ale sídlo Luhačovice (NIE Bílina); przedmět poradenská činnost + mimoškolní výchova + tekstyl. To INNA osoba.
+  - **Răzvan Anghene** (RO Focșani) — to polityk AUR, byly dyrektor OTP Bank; nie ma firmy
+  - **Luca Cristian Lucian** (RO Craiova) — nie znaleziono w ONRC/ANAF dla tego adresu; istnieje inny Luca Cristian PFA w Sibiu (handel tekstyl/obuwie)
+  - **Cerbu Ioana** (RO Jilava/Ilfov) — administrator GRAND PRODUCT SRL (mobilier, suspendată). Własnego PFA/II nie ma.
+  - Cotiga Monica PFA (CUI 37030493, Sector 3) — istnieje, ale niepewne rodzinne powiązanie z Cotiga Marin (może żona). CAEN 7021 Public relations — NIE branża tytoniowa.
+
+### Pliki zaktualizowane
+- `data/verification/2026-08-24-photo-list-verification.pdf` (10 stron, 92KB) — Eva Machačná IČO dodane, Kevaro/Jan Zimola/Eva Machačná/Cotiga Marin z nowymi notatkami
+- `data/verification/2026-08-24-photo-list-verification.md` (mirror)
+- `tools/pdf_photo_verification.py` — 11 wpisów zaktualizowanych
+
+### Rekomendacja
+- Eva Machačná → dodać do `data/_intake/CZ/source.csv` (kategoria B4, OSVČ)
+- Kevaro → pozostaje HOLD (adres niezgodny; przed włączeniem trzeba potwierdzić z właścicielem Invest Rom Service s.r.o. czy mają Powermatic)
+- Osoby bez NIP → EXCLUDE (jednorazowe faktury prywatne, brak wartości dla BILLS B2B)
+
+## 2026-08-24 (deep re-verification EXCLUDE → ACTIVE/HOLD)
+
+### Scope
+Deep audit 13 EXCLUDE firm z poprzedniej weryfikacji (companies.md). Metoda: ARES + rejstrik-firem + datasrl.ro + firmealert.ro + listafirme.ro + WebSearch. Cel: zmniejszyć false negatives.
+
+### Wynik deep re-verification
+- **1 firma RECONSIDER (EXCLUDE → ACTIVE):** Eva Machačná (CZ 44560176) — CZ-NACE: Maloobchod s převahou potravin, nápojů a tabákových výrobků → B4 (akcesoria + artykuły dla palaczy)
+- **12 firm EXCLUDE potwierdzone** — po dodatkowej weryfikacji
+- **0 nowych HOLD** — Kevaro pozostaje HOLD z poprzedniej weryfikacji
+
+### Kluczowe odkrycia
+1. **Eva Machačná** — pominięta w pierwszej weryfikacji. ARES pokazuje CZ-NACE: handel detaliczny z przewagą żywności, napojów i wyrobów tytoniowych. B4 lead (akcesoria dla palaczy).
+2. **Hosting time s.r.o.** — posiada licencję Velkoobchod a maloobchod od 24.6.2025, ALE adres (Švabinského 1700/4, Ostrava) to virtual office dla 9 polskich shell companies. Właścicielka Monika Dąbkowska (PL). NIE lead.
+3. **Cerbu Ioana** — administrator GRAND PRODUCT SRL (mobilier CAEN 4647, suspendată). Brak powiązania z tytoniem.
+4. **Mgr. Hana Šretrová** (IČO 76140598) — istnieje, ale w Luhačovice (NIE Bílina); poradenstwo+tekstyl. Inna osoba.
+5. **Iveta Burešová** — w CZ są 3 różne Iveta Burešová (Praha/Chodov, Katovice, Ostrov). Żadna nie w Kladno. Tożsamość niepotwierdzona.
+6. **Răzvan Anghene** — były dyrektor OTP Bank Focșani, polityk AUR, członek CA CUP SA Vrancea.
+7. **DIPA CONCEPT SRL** (CUI 31861043) — status zmieniony na INACTIVĂ z dniem 26.02.2026 (potwierdzone w firmealert.ro).
+
+### Weryfikacja NIP/CUI
+- **COTY SHOP INVEST** (foto 48831012 → prawidłowe 48715727): potwierdzone w 4 źródłach. Decyzja: duplikat `RO-A-009`.
+- **BLK TRADE MARKET** (foto 40694700 → prawidłowe 40638971): potwierdzone w 5 źródłach. Decyzja: nowy lead ACTIVE (e-commerce CAEN 4791).
+- **Cotiga Monica PFA** (CUI 37030493, Sector 3) — potencjalne rodzinne powiązanie z Cotiga Marin (admin COTY SHOP). Do follow-up.
+
+### Analiza sieciowa
+- **Švabinského 1700/4, Ostrava**: 9 firm pod jednym adresem (Hosting time, ACCOUNT NEW CORPORATE CZ, TOKMO GLOBAL, Scrap Leader, CZECH SOLVATO, JBB Franchise, Flex Step, DESOFT). Virtual office pattern dla polskich shell companies. NIE dla BILLS.
+- **OREA HOTELS**: 20+ hoteli (Praha Pyramida 340 pokoi, Brno Congress, Šumava, Jeseniky, Beskydy). Sieć hospitality, ale brak śladu hurtowych zakupów kuřácké potřeby. NIE lead.
+
+### Pliki zaktualizowane
+- `data/verification/2026-08-24-photo-list-deep-audit.md` (nowy, 119 linii)
+- `data/verification/2026-08-24-photo-list-verification.pdf` (zaktualizowany: Eva Machačná → ACTIVE B4)
+- `data/verification/2026-08-24-photo-list-verification.md` (mirror)
+- `tools/pdf_photo_verification.py` (Eva Machačná entry zmieniona)
+
+### Rekomendacja dla `_intake/`
+- Dodać Eva Machačná do `data/_intake/CZ/source.csv` (kategoria B4, OSVČ)
+- Skorygować CUI w master.csv dla BLK TRADE MARKET (40694700 → 40638971) przed intake
+- Skorygować CUI w master.csv dla COTY SHOP INVEST (48831012 → 48715727) — już FROZEN
+- Monitorować adres Švabinského 1700/4 Ostrava pod kątem nowych firm tytoniowych (future prospecting)
+
+## 2026-08-24 (gentle weryfikacja listy firm ze zdjęć)
+
+### Pliki sprawdzone
+- `data/verification/companies.md` — 33 wpisy (12 CZ + 21 RO), ręcznie przepisane z faktur
+- Porównanie z `data/master.csv` + `data/Czechy/catalog-*-CZ.csv` + `data/Rumunia/catalog-*-RO.csv`
+
+### Metoda
+1. Gentle web search: ARES + rejstrik-firem + termene.ro + listafirme.ro + risco.ro + wyszukiwarka
+2. Sprawdź IČO/CUI + adres + status (aktywny / wykreślony)
+3. Zidentyfikuj duplikaty względem `master.csv`
+
+### Wynik weryfikacji
+- **Łącznie zweryfikowano:** 33 firm (12 CZ + 21 RO)
+- **ACTIVE (nowe leady):** 12 firm → rekomendacja `data/_intake/`
+- **DUPLIKAT (już w master.csv):** 7 firm (VIVACE, SHANTI, Jan Sevic, SIBIS, PRIMONET, GOLDEN TIP, COTY SHOP)
+- **EXCLUDE (odrzucone):** 13 firm (zła branża / brak śladu / osoba fizyczna / firma wykreślona)
+- **HOLD (wymaga follow-up):** 1 firma (Kevaro s.r.o. — adres niezgodny z rejestrem)
+
+### Wykryte błędy w danych ze zdjęć
+- **COTY SHOP INVEST:** CUI w foto `48831012` → prawidłowy `48715727` (adnotacja: administrator to COTIGĂ MARIN)
+- **BLK TRADE MARKET:** CUI w foto `40694700` → prawidłowy `40638971`
+- **RO-A-004 GOLDEN TIP:** telefon w master `0744 545 936`, w foto `+40 761 250 819` → rozbieżność
+- **RO-B-009 PRIMONET:** telefon w master `+40 21 318 90 00`, w foto `+40 751 551 169` → rozbieżność
+
+### Pliki wygenerowane
+- `data/verification/2026-08-24-photo-list.md` (audit log, 59 linii)
+- `data/verification/2026-08-24-photo-list-verification.pdf` (printable, 7 stron, 86KB)
+- `data/verification/2026-08-24-photo-list-verification.md` (mirror MD, 84 linie)
+- `tools/pdf_photo_verification.py` (generator PDF)
+
+### Rekomendowane leady do `_intake/`
+🇨🇿 CZ: Dobrý tabák s.r.o. (CZ 28595611) + Etabak.com Jan Zimola (CZ 8608082989)
+🇷🇴 RO: Tabacioc Grup SRL + SC RIO TUTUNGERIE SRL + SC GRANDE PLAYER SRL + S.C. OSTRO-VICE S.R.L. + ROCADRINA SRL + MAFERDI S.R.L. + GRAVO EXPRESS SRL + ElMario Distribution SRL + DVD Master SRL + BLK TRADE MARKET S.R.L.
+
 ## 2026-08-21 (02:40 UTC+2)
 
 ### Data-Integrity Pass: 7 Bugs w `data/master.csv` Naprawione (208 wierszy master + 24 per-kraj)

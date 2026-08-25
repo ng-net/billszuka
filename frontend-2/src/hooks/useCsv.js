@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { parseCsvFile, parseCsvUrl } from "@/lib/csv";
-import { visibleColumns } from "@/lib/schema";
 
 /**
  * Hook: load + parse CSV with progress + cancel.
@@ -54,7 +53,7 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
         await new Promise((r) => setTimeout(r, minLoadingMs - elapsed));
       }
       if (ac.signal.aborted) return;
-      setData({ columns: visibleColumns(result.columns), rows: result.rows, schema: result.schema });
+      setData({ columns: result.columns, rows: result.rows, schema: result.schema });
       setParseTimeMs(result.parseTimeMs);
       setStatus("ready");
     } catch (e) {
@@ -90,7 +89,7 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
         await new Promise((r) => setTimeout(r, minLoadingMs - elapsed));
       }
       if (ac.signal.aborted) return;
-      setData({ columns: visibleColumns(result.columns), rows: result.rows, schema: result.schema });
+      setData({ columns: result.columns, rows: result.rows, schema: result.schema });
       setParseTimeMs(result.parseTimeMs);
       setStatus("ready");
     } catch (e) {

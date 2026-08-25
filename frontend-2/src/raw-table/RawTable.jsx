@@ -139,7 +139,7 @@ export function RawTable() {
   const [, startSortTransition] = useTransition();
   const [, startFilterTransition] = useTransition();
 
-  // Effective column visibility
+  // Effective column visibility — whatever the user last set in localStorage.
   const columnVisibility = prefs.columnVisibility || {};
   const setColumnOrder = (updater) =>
     setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater }));
