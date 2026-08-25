@@ -1,5 +1,81 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-25 — Login gate (AccessGate) + prep Netlify/Render + fix CI (Marceli request)
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+**Kontekst:** przeglad gotowosci produkcyjnej, poprawki krytyczne,
+przygotowanie deployu (Netlify frontend, Render backend) oraz zasady
+i implementacja ekranu logowania (frontend-only gate; OAuth pozniej).
+
+**Wykonane:**
+
+1. **Review produkcyjny:** 6 blockerow — zepsuty krok CI
+   (test_9_levels.py nie istnieje; jest test_11_levels.py),
+   brak engines/Node w package.json, zero auth backendu,
+   brak netlify.toml/render.yaml/requirements.txt,
+   efemeryczny FS Rendera (vault/uploady), public/sample.csv.
+
+2. **Fixy lokalne + deploy prep:**
+   - `.github/workflows/ci-python.yml` — smoke test na test_11_levels.py
+   - `frontend-2/package.json` — engines.node >= 20.19, skrypt test
+   - NOWE: `frontend-2/netlify.toml` (NODE_VERSION 22),
+     `render.yaml` (web service billszuka-api, free,
+     regeneracja master.csv w startCommand),
+     `requirements.txt` (fastapi/starlette/uvicorn/python-multipart)
+
+3. **Login gate (frontend-only, MVP):**
+   - Zasady: `design/LOGIN-RULES.md` — 6 imion (marceli, karol,
+     jarek, jaroslaw, jaro, jaroslaw-wariant) + firmy bills/smoks,
+     case-insensitive, trim
+   - `tools/hash_name.py` + `tests/test_hash_name.py` —
+     SHA-256 hex z trim().toLowerCase() (zgodne z frontendem)
+   - `frontend-2/public/access.json` — TYLKO hashe (6+2),
+     brak plaintextow w bundlu
+   - `frontend-2/src/lib/access.js` — WebCrypto SHA-256,
+     verify/verifyName/verifyCompany, sesja
+     localStorage["billszuka.access.v1"]
+   - `frontend-2/src/components/AccessGate.jsx` — 2 ekrany
+     (imie → firma), chip Wyloguj, strapline
+     "Katalog leadów B2B/B2C", domyslny shadcn
+   - `main.jsx` — AccessGate owija App (bez zmian w App.jsx —
+     bezpieczenstwo konfliktu z agentem knowledge)
+   - `RawTable.jsx` — boot loader: /api/master.csv →
+     fallback /sample.csv → reczny przycisk EmptyState
+   - `access.test.js` — 5 testow node:test (cross-validacja
+     hashy z pythonem)
+
+4. **Weryfikacja (dowody):** pytest 215/215 PASS;
+   node --test 5/5; oxlint 0 bledow (16 warnings pre-existing,
+   nasz exhaustive-deps naprawiony); vite build exit 0.
+
+5. **Commit 7105610** na main (marlink/BILLSzuka): 13 plikow,
+   417 insertions. Uwaga: commit message ma "fe at:" zamiast
+   "feat:" (line-wrap terminala przy pastowaniu) — kosmetyka,
+   zostawione (amend = force push, ryzykowne przy aktywnym
+   agencie knowledge).
+
+**Kolizje z agentem knowledge:**
+- Agent knowledge modyfikuje: tools/api_server.py,
+  DataTable.jsx, data/knowledge/index.json,
+  KnowledgeDrawer.jsx — celowo NIE dotykane.
+- Obserwacje: netlify.toml byl tracked ale nieobecny na dysku;
+  staging zniknal miedzy git add a git diff --cached
+  (podejrzenie git reset innego procesu).
+- Rekomendacja: git add … && git commit … w jednej linii.
+- Nasze 13 plikow nie nachodzi na pliki agenta;
+  jego niezcommitowane zmiany nietkniete.
+
+**Nastepne kroki (deferred):**
+- GET /api/master.csv w api_server.py (raw CSV, pelny master) —
+  po zakonczeniu rundy agenta knowledge; do tego czasu gate
+  auto-fallbuje do sample.
+- CORS dla domeny Netlify, VITE_API_BASE_URL, token/OAuth backendu.
+- UI: Netlify → Base directory = frontend-2;
+  Render → New Blueprint z render.yaml.
+
+
 ## 2026-08-19 — INSTRUKCJA.md v1.1 + INSTRUKCJA.pdf v1.1 (Marceli request)
 
 **Operator:** Marceli
