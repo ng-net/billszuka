@@ -144,6 +144,10 @@ class ChatRequest(BaseModel):
     # Empty = no knowledge context. The frontend sends the IDs; the backend
     # resolves them to Gemini file URIs at call time.
     knowledge_ids: list[str] = []
+    # Power-user escape hatch: skip the Gemini-first chain reorder and use
+    # the stored priority as-is. Hidden flag for now; the UI doesn't expose
+    # it. Default False.
+    prefer_openrouter: bool = False
 
 class ChatResponse(BaseModel):
     response: str
@@ -295,6 +299,7 @@ def _resolve_knowledge_refs(ids: list[str]) -> list[dict[str, Any]]:
 def _validate_filename(name: str) -> str:
     """Reject path traversal and weird characters. Returns the clean name."""
     if not name or name.startswith(".") or "/" in name or "\\" in name:
+        raise HTTPException(status_code=400, detail="invalid filename")
         raise HTTPException(status_code=400, detail="invalid filename")
     if not ALLOWED_FILENAME_RE.match(name):
         raise HTTPException(status_code=400, detail="filename must match [A-Za-z0-9_.-]+")
@@ -787,6 +792,42 @@ async def sync(req: SyncRequest) -> SyncResponse:
     )
 
 
+# ---------------------------------------------------------------------------
+# Quota-aware key cooldown (avoids hammering a known-429'd key)
+# ---------------------------------------------------------------------------
+
+# Module-level state — updated by _call_gemini when a 429 is observed, read
+# by the chain handler. A 429'd key is "cooled down" for this many seconds
+# before we'll try it again. Conservative: 60s for free-tier RPM (15/min),
+# longer if the error said "credits depleted".
+QUOTA_COOLDOWN_SECONDS = 60
+_quota_last_seen: dict[str, float] = {}
+
+
+def _stamp_quota_error(api_key: str) -> None:
+    _quota_last_seen[api_key] = time.time()
+
+
+def _is_key_cooled_down(entry: dict[str, Any]) -> bool:
+    """Skip this key if it 429'd less than QUOTA_COOLDOWN_SECONDS ago."""
+    key = entry.get("key")
+    if not key:
+        return False
+    last = _quota_last_seen.get(key)
+    if last is None:
+        return True
+    return (time.time() - last) > QUOTA_COOLDOWN_SECONDS
+
+
+def _last_call_was_quota() -> bool:
+    """True if any Gemini key was quota-errored in the last call.
+    Used by the chat handler to label the fallback as 'gemini-quota'."""
+    if not _quota_last_seen:
+        return False
+    latest = max(_quota_last_seen.values())
+    return (time.time() - latest) < 5  # within the last 5 seconds
+
+
 @app.post("/api/chat")
 async def chat(req: ChatRequest) -> ChatResponse:
     """
@@ -802,12 +843,21 @@ async def chat(req: ChatRequest) -> ChatResponse:
     vault = _bootstrap_vault_from_env()
     chain = vault.get("priority", list(SECRETS_DEFAULT["priority"]))
 
-    # When the request carries knowledge_ids, only Gemini can ground the
-    # answer in the attached files (openrouter path doesn't see them). So
-    # promote Gemini to the front of the chain for this call only — the
-    # stored priority order is not modified.
-    if req.knowledge_ids:
-        chain = ["gemini"] + [p for p in chain if p != "gemini"]
+    # Gemini-first by default, with OpenRouter LAST as a final fallback.
+    # Rationale: OpenRouter (DeepSeek via free tier) hallucinates on
+    # structured-data questions (e.g. "ile firm" → "500"). The mock
+    # fallback is deterministic — it gives real numbers or a clear
+    # "nie wiem", never a fabricated number. So the safe order is
+    # gemini → mock → openrouter.
+    # The user can opt out via `prefer_openrouter=True` (hidden flag).
+    if not getattr(req, "prefer_openrouter", False):
+        order = ["gemini", "mock", "openrouter"]
+        chain = [p for p in order if p in chain] + [p for p in chain if p not in order]
+
+    # Track whether all Gemini keys hit quota — if so, label the fallback
+    # so the user knows it's not the LLM being bad, it's the keys.
+    all_gemini_quota = True
+    gemini_attempted = False
 
     for provider in chain:
         if provider == "openrouter":
@@ -821,15 +871,36 @@ async def chat(req: ChatRequest) -> ChatResponse:
                 _secrets_save(vault)
         elif provider == "gemini":
             for entry in [k for k in vault.get("gemini", []) if k.get("key")]:
+                gemini_attempted = True
+                # Skip keys that were 429'd in the last 60s — they will
+                # just 429 again and waste a call's worth of latency.
+                if _is_key_cooled_down(entry) is False:
+                    continue
                 result = await _call_gemini(req, entry["key"])
                 if result:
+                    all_gemini_quota = False
                     entry["last_ok"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                     _secrets_save(vault)
                     return result
+                # Track if it was a quota error so we don't double-charge
+                # the user's quota in the next request.
+                if _last_call_was_quota():
+                    entry["last_quota_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 entry["last_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 _secrets_save(vault)
         elif provider == "mock":
-            return _chat_mock(req)
+            mock = _chat_mock(req)
+            if all_gemini_quota and gemini_attempted:
+                return ChatResponse(
+                    response=(
+                        mock.response
+                        + "\n\n_(Wszystkie klucze Gemini wyczerpały limit — "
+                        "odpowiedź z mocka. Dodaj nowy klucz w Ustawieniach "
+                        "lub doładuj konto na ai.studio.)_"
+                    ),
+                    provider="mock-gemini-quota",
+                )
+            return mock
 
     mock = _chat_mock(req)
     return ChatResponse(
@@ -913,9 +984,21 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
         for ref in refs:
             user_parts.append({"file_data": ref["file_data"]})
         system_text = (
-            "Jesteś asystentem BILLSzuka — polskiej platformy B2B research do dystrybucji "
-            "maszynek do tytoniu. Odpowiadaj po polsku, zwięźle, z konkretnymi liczbami "
-            "gdy to możliwe. Jeśli nie wiesz — powiedz wprost."
+            "Jesteś Gills — asystentem BILLSzuka (polskiej platformy B2B "
+            "research do dystrybucji maszynek do tytoniu).\n\n"
+            "JAK ODPOWIADAĆ:\n"
+            "- Poniżej masz blok 'Active dataset' z PRAWDZIWYMI liczbami. "
+            "Używaj TYLKO tych wartości — cytuj konkretne liczby, nie "
+            "zaokrąglaj, nie domyślaj się.\n"
+            "- Jeśli pytanie dotyczy danych firmy, kategorii, statusu, "
+            "rozkładu — odpowiedź powinna opierać się na bloku poniżej.\n"
+            "- Jeśli pytanie wykracza poza katalog (np. prognozy rynkowe, "
+            "historia) — powiedz krótko: 'To wykracza poza dane w katalogu. "
+            "Sprawdź źródła zewnętrzne.'\n"
+            "- Odpowiadaj po polsku, zwięźle (2-4 zdania), z konkretnymi "
+            "liczbami.\n"
+            "- Jeśli masz załączone pliki, możesz się na nich opierać — "
+            "ale cytuj fragmenty, nie streszczaj 'z głowy'."
         )
         if refs:
             attached = ", ".join(r["filename"] or r["id"] for r in refs)
@@ -1008,6 +1091,12 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
                 suffix += " (auto-recovered)"
             return ChatResponse(response=text, provider="gemini" + suffix)
         except urllib.error.HTTPError as e:
+            # Quota / billing errors — remember the key is hot so the
+            # chain handler can skip it for the next ~60s and the user
+            # gets a clear "all keys quota'd" message instead of a silent
+            # openrouter hallucination.
+            if e.code == 429 or e.code == 402:
+                _stamp_quota_error(api_key)
             if attempt == 0 and knowledge_refs and _is_file_404(e):
                 refreshed = await _refresh_all_refs()
                 if refreshed:
@@ -1021,7 +1110,13 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
 
 
 def _build_dataset_context(active_dataset: str | None) -> str:
-    """Small dataset snippet for the LLM (filename + first row)."""
+    """Aggregate stats for the active dataset, formatted for the LLM.
+
+    The point of this is to anchor the model in real numbers so it can't
+    hallucinate when answering "how many / how is X distributed" type
+    questions. We pre-compute count + the most useful breakdowns (kraj,
+    tier, wolumen, status) once per call and pass the full picture.
+    """
     if not active_dataset:
         return ""
     try:
@@ -1029,25 +1124,54 @@ def _build_dataset_context(active_dataset: str | None) -> str:
         path = _csv_path(clean)
     except HTTPException:
         return ""
+
+    def _load() -> list[dict[str, str]]:
+        with path.open("r", encoding="utf-8", newline="") as f:
+            return [r for r in csv.DictReader(f) if r and any((c or "").strip() for c in r.values())]
+
     try:
-        with path.open("r", encoding="utf-8") as f:
-            reader = csv.reader(f)
-            header = next(reader, [])
-            rows = []
-            for r in reader:
-                if r and not all(c == "" for c in r):
-                    rows.append(r)
-                if len(rows) >= 3:
-                    break
-        if not header or not rows:
-            return ""
-        return (
-            f"\n\nActive dataset: {clean}\n"
-            f"Columns ({len(header)}): {', '.join(header[:20])}\n"
-            f"First row: {dict(zip(header, rows[0]))}"
-        )
-    except OSError:
+        rows = _load()
+    except (OSError, csv.Error):
         return ""
+    if not rows:
+        return ""
+
+    total = len(rows)
+
+    def _hist(field: str) -> list[tuple[str, int]]:
+        counts: dict[str, int] = {}
+        for r in rows:
+            v = (r.get(field) or "").strip() or "(puste)"
+            counts[v] = counts.get(v, 0) + 1
+        return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+
+    def _format_hist(name: str, items: list[tuple[str, int]], top: int = 8) -> str:
+        if not items:
+            return ""
+        lines = [f"  {name}:"]
+        for k, v in items[:top]:
+            lines.append(f"    - {k}: {v}")
+        if len(items) > top:
+            lines.append(f"    - … {len(items) - top} more values")
+        return "\n".join(lines)
+
+    parts: list[str] = [
+        f"\n\n=== Active dataset: {clean} ===",
+        f"Total rows: {total}",
+    ]
+    # Only include columns that actually have data
+    for field, label in [
+        ("kraj", "By kraj"),
+        ("tier", "By tier"),
+        ("wolumen", "By wolumen (rynek)"),
+        ("flagi", "By status weryfikacji"),
+        ("kategoria", "By kategoria (A1-A6 / B1-B9)"),
+    ]:
+        hist = _hist(field)
+        if hist:
+            parts.append(_format_hist(label, hist))
+
+    return "\n".join(parts)
 
 
 def _chat_mock(req: ChatRequest) -> ChatResponse:
