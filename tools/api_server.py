@@ -696,6 +696,65 @@ async def delete_knowledge(file_id: str) -> dict[str, Any]:
     return {"ok": True, "deleted": file_id}
 
 
+@app.post("/api/knowledge/{file_id}/refresh")
+async def refresh_knowledge(file_id: str) -> dict[str, Any]:
+    """Re-upload a knowledge file to the Gemini Files API.
+
+    Use this when the original Gemini upload expired (48h TTL) or the
+    upstream file is otherwise unavailable — we have the local copy at
+    `data/knowledge/files/<id>__<safe_name>`, so we just push it again and
+    update the index with the new gemini_uri. The old Gemini file is
+    best-effort deleted first to avoid orphans.
+    """
+    items = _read_knowledge_index()
+    idx = next((i for i, it in enumerate(items) if it.get("id") == file_id), None)
+    if idx is None:
+        raise HTTPException(status_code=404, detail=f"knowledge id {file_id!r} not found")
+    match = items[idx]
+
+    local_rel = match.get("local_path")
+    if not local_rel:
+        raise HTTPException(status_code=409, detail="no local copy available — re-upload via drag-drop")
+    local = ROOT / local_rel
+    if not local.exists() or not local.is_file():
+        raise HTTPException(
+            status_code=410,
+            detail=f"local copy missing ({local_rel}) — re-upload via drag-drop",
+        )
+
+    api_key = _get_first_gemini_key()
+    if not api_key:
+        raise HTTPException(
+            status_code=503,
+            detail="no Gemini key in vault — add one in Settings (gear icon) first",
+        )
+
+    mime_type = match.get("mime_type") or "application/octet-stream"
+    safe_name = match.get("safe_name") or local.name
+
+    # Best-effort: drop the old Gemini file before re-uploading
+    old_gemini_name = match.get("gemini_name")
+    if old_gemini_name:
+        await asyncio.to_thread(_gemini_files_delete, api_key, old_gemini_name)
+
+    try:
+        new_file = await asyncio.to_thread(
+            _gemini_files_upload, api_key, local, safe_name, mime_type
+        )
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Gemini re-upload failed: {e}")
+
+    items[idx]["gemini_name"] = new_file.get("name")
+    items[idx]["gemini_uri"] = new_file.get("uri")
+    items[idx]["gemini_state"] = new_file.get("state", "ACTIVE")
+    items[idx]["status"] = "ready"
+    if "error" in items[idx]:
+        del items[idx]["error"]
+    items[idx]["refreshed_at"] = datetime.now(timezone.utc).isoformat()
+    _write_knowledge_index(items)
+    return items[idx]
+
+
 @app.post("/api/sync")
 async def sync(req: SyncRequest) -> SyncResponse:
     """Regenerate master.csv from per-kraj CSVs. Optionally run verify_api."""

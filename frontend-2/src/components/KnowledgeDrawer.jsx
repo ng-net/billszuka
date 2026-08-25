@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   AlertCircle,
   RefreshCw,
+  RotateCw,
 } from "lucide-react";
 import {
   Sheet,
@@ -150,6 +151,27 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     }
   };
 
+  const [refreshing, setRefreshing] = useState(() => new Set());
+  const refresh = async (id) => {
+    if (refreshing.has(id)) return;
+    setRefreshing((prev) => new Set(prev).add(id));
+    try {
+      const res = await fetch(`/api/knowledge/${id}/refresh`, { method: "POST" });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(body?.detail || res.statusText);
+      toast.success("Odświeżono", { description: body.filename });
+      await load();
+    } catch (e) {
+      toast.error("Nie udało się odświeżyć", { description: e.message });
+    } finally {
+      setRefreshing((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    }
+  };
+
   const toggleSelected = (id) => {
     setSelected((prev) => {
       const next = new Set(prev);
@@ -258,6 +280,8 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
                   selected={selected.has(item.id)}
                   onToggle={() => toggleSelected(item.id)}
                   onRemove={() => remove(item.id)}
+                  onRefresh={() => refresh(item.id)}
+                  refreshing={refreshing.has(item.id)}
                 />
               ))
             )}
@@ -274,7 +298,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
   );
 }
 
-function KnowledgeItem({ item, selected, onToggle, onRemove }) {
+function KnowledgeItem({ item, selected, onToggle, onRemove, onRefresh, refreshing }) {
   const isReady = item.status === "ready" && item.gemini_uri;
   const isFailed = item.status === "failed";
 
@@ -334,6 +358,20 @@ function KnowledgeItem({ item, selected, onToggle, onRemove }) {
         </p>
       </div>
 
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-7 w-7 shrink-0 text-muted-foreground hover:text-emerald-600"
+        onClick={onRefresh}
+        disabled={refreshing}
+        title="Wyślij ponownie do Gemini (po wygaśnięciu pliku w Gemini Files API)"
+      >
+        {refreshing ? (
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+        ) : (
+          <RotateCw className="h-3.5 w-3.5" />
+        )}
+      </Button>
       <Button
         variant="ghost"
         size="icon"
