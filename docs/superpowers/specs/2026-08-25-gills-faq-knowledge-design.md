@@ -35,7 +35,8 @@ FAQ build session (tools/faq_build_session.py, on demand)
      - numeric/aggregate → numbers compared against pandas ground truth
      - qualitative → OpenRouter judge votes agree/disagree
      - disagree/wrong → one retry with correction hint, then reject
-  5. Verified pairs → data/faq.json (atomic write), report for review
+  5. Verified pairs → `data/faq.json` (atomic write + rotate previous file to
+     `.bak`, following the project's existing backup convention), report for review
   6. Resumable via checkpoint (data/faq-session.json)
 ```
 
@@ -153,7 +154,8 @@ answers are verified against.
 2. Exact key hit (`q_norm`) → fuzzy (`difflib.SequenceMatcher` ratio ≥ 0.85).
 3. HIT → respond `provider: "faq"`, increment `hits`, write chat log.
    **Zero LLM calls.**
-4. Staleness: if `master.csv` mtime > `generated_at`, append
+4. Staleness: if current `master.csv` mtime > stored `master_mtime` in
+   `faq.json`, append
    `⚠️ Dane mogły się zmienić od wygenerowania FAQ — odśwież sesję FAQ.`
 5. MISS → normal chain + corpus grounding.
 
@@ -170,7 +172,7 @@ Append-only, cap 5000 lines then rotate to `.bak`. Write failure is non-fatal
   (`billszuka.access.name.v1`, lowercase). The allow-list itself stays
   hash-only; the stored name is a session marker only.
 - Frontend sends the name with `/api/chat` and `/api/knowledge/upload`
-  (JSON field / form field). Backend stamps:
+  (JSON field / form field; absent → `—`). Backend stamps:
   - uploads → `uploaded_by` in knowledge index
   - saved facts → `saved_by` in inbox entry
 - Knowledge list shows badges: `marceli` / `jaro` / `—`.
@@ -259,6 +261,9 @@ Renderer `AnswerMarkup.jsx` rules:
 - `faq.json` missing/corrupt → skip layer, log warning, normal chain.
 - Session crash → resume from checkpoint; Gemini quota → `paused:quota`.
 - Judge API failure → entry marked unverified, listed for manual review.
+- OpenRouter judge unavailable (no keys / no balance) → judge falls back
+  to Gemini with an alternate judge prompt; `judge_model` is recorded in
+  the entry metadata.
 - Chat-log/inbox write failure → non-fatal.
 - Renderer: unknown markup → plain text; non-http links → text.
 
