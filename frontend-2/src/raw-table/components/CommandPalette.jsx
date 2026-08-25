@@ -30,10 +30,10 @@ export function CommandPalette({ open, onOpenChange, context, onAction }) {
       {
         group: "Akcje",
         items: [
-          { id: "upload", label: "Upload CSV", icon: Upload, shortcut: "⌘O" },
-          { id: "clear-filters", label: "Wyczyść wszystkie filtry", icon: XCircle, shortcut: "R" },
+          { id: "upload", label: "Wgraj plik", icon: Upload, shortcut: "⌘O" },
+          { id: "clear-filters", label: "Wyczyść filtry", icon: XCircle, shortcut: "R" },
           { id: "clear-sort", label: "Wyczyść sortowanie", icon: ArrowUpDown },
-          { id: "reset", label: "Reset (filtry + sort + widoczność)", icon: Trash2, destructive: true },
+          { id: "reset", label: "Reset widoku", icon: Trash2, destructive: true },
         ],
       },
       {
@@ -41,33 +41,33 @@ export function CommandPalette({ open, onOpenChange, context, onAction }) {
         items: [
           {
             id: "density-compact",
-            label: "Gęstość: Compact",
+            label: "Gęstość: kompaktowa",
             icon: Rows3,
             shortcut: "D",
             active: context.density === "compact",
           },
           {
             id: "density-comfortable",
-            label: "Gęstość: Comfortable",
+            label: "Gęstość: wygodna",
             icon: Rows4,
             shortcut: "D",
             active: context.density === "comfortable",
           },
           {
             id: "theme-light",
-            label: "Motyw: Light",
+            label: "Motyw: jasny",
             icon: Sun,
             active: context.theme === "light",
           },
           {
             id: "theme-dark",
-            label: "Motyw: Dark",
+            label: "Motyw: ciemny",
             icon: Moon,
             active: context.theme === "dark",
           },
           {
             id: "theme-system",
-            label: "Motyw: System",
+            label: "Motyw: systemowy",
             icon: Monitor,
             active: context.theme === "system",
           },

@@ -16,11 +16,11 @@ export function UploadButton({ onFile, status, progress, fileMeta, onCancel, com
     const file = files?.[0];
     if (!file) return;
     if (!/\.csv$/i.test(file.name) && file.type !== "text/csv") {
-      setError("Tylko .csv");
+      setError("Tylko pliki .csv");
       return;
     }
     if (file.size > MAX_SIZE) {
-      setError("Max 50 MB");
+      setError("Maks. 50 MB");
       return;
     }
     onFile(file);
@@ -41,7 +41,7 @@ export function UploadButton({ onFile, status, progress, fileMeta, onCancel, com
             <span className="tabular-nums text-xs">· {pct}%</span>
           )}
           <span className="tabular-nums text-xs">
-            · {formatNumber(progress.rowsParsed)} rows
+            · {formatNumber(progress.rowsParsed)} wierszy
           </span>
         </div>
         <Button
@@ -71,7 +71,7 @@ export function UploadButton({ onFile, status, progress, fileMeta, onCancel, com
         className="gap-2"
       >
         <Upload className="h-4 w-4" />
-        {compact ? "Zmień CSV" : "Upload CSV"}
+        {compact ? "Zmień plik" : "Wgraj plik"}
       </Button>
       <input
         ref={inputRef}

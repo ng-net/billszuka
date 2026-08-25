@@ -77,10 +77,10 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
             <FileSpreadsheet className="h-8 w-8 text-muted-foreground" />
           </div>
           <h1 className="text-2xl font-semibold tracking-tight mb-2">
-            Wgraj CSV, żeby zobaczyć tabelę
+            Wgraj CSV
           </h1>
           <p className="text-sm text-muted-foreground mb-8 max-w-md mx-auto">
-            Możesz przeciągnąć i upuścić plik w szarym obszarze powyżej. Upuść plik CSV lub kliknij przycisk poniżej.
+            Przeciągnij i upuść albo wybierz plik
           </p>
 
           <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -90,7 +90,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
               className="gap-2"
             >
               <Upload className="h-4 w-4" />
-              Wybierz plik CSV
+              Wybierz plik
             </Button>
             {hasSample && (
               <Button
@@ -100,7 +100,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
                 className="gap-2"
               >
                 <Sparkles className="h-4 w-4" />
-                Spróbuj z master.csv
+                Załaduj master.csv
                 <span className="text-xs text-muted-foreground ml-1">
                   ({Math.round(sampleSize / 1024)} KB)
                 </span>

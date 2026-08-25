@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef, useTransition } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, useTransition, forwardRef, useImperativeHandle } from "react";
 import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import {
@@ -11,7 +11,6 @@ import {
   Rows3,
   Rows4,
   Keyboard,
-  Command as CommandIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +46,7 @@ import { LoadingState } from "./components/LoadingState";
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
 
-export function RawTable() {
+export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
   const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
@@ -234,7 +233,7 @@ export function RawTable() {
       if (e.key.toLowerCase() === "d") {
         e.preventDefault();
         setDensity(prefs.density === "compact" ? "comfortable" : "compact");
-        toast.success(`Gęstość: ${prefs.density === "compact" ? "Comfortable" : "Compact"}`, { duration: 1000 });
+        toast.success(`Gęstość: ${prefs.density === "compact" ? "wygodna" : "kompaktowa"}`, { duration: 1000 });
         return;
       }
       if (e.key.toLowerCase() === "r" && !mod) {
@@ -243,7 +242,7 @@ export function RawTable() {
         setSortStack([]);
         setGlobalFilter("");
         setGlobalSearch("");
-        toast.success("Filtry i sort wyczyszczone", { duration: 1000 });
+        toast.success("Wyczyszczono filtry i sortowanie", { duration: 1000 });
         return;
       }
       // Arrow keys for row nav
@@ -258,6 +257,12 @@ export function RawTable() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [prefs.density, paletteOpen, shortcutsOpen, focusedColumn, globalSearch, csv.status, csv.rows.length]);
+
+  // Expose openCommandPalette() so the App-level navbar can open the palette
+  // without prop-drilling its visibility state.
+  useImperativeHandle(ref, () => ({
+    openCommandPalette: () => setPaletteOpen(true),
+  }), []);
 
   // Persist last focused column. Done inline in the change handler so
   // we don't need a setState-in-effect.
@@ -362,10 +367,10 @@ export function RawTable() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Gęstość</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => setDensity("compact")}>
-                  <Rows3 className="h-4 w-4 mr-2" /> Compact {prefs.density === "compact" && "✓"}
+                  <Rows3 className="h-4 w-4 mr-2" /> Kompaktowy {prefs.density === "compact" && "✓"}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setDensity("comfortable")}>
-                  <Rows4 className="h-4 w-4 mr-2" /> Comfortable {prefs.density === "comfortable" && "✓"}
+                  <Rows4 className="h-4 w-4 mr-2" /> Wygodny {prefs.density === "comfortable" && "✓"}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -381,13 +386,13 @@ export function RawTable() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Motyw</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => setTheme("light")}>
-                  <Sun className="h-4 w-4 mr-2" /> Light {prefs.theme === "light" && "✓"}
+                  <Sun className="h-4 w-4 mr-2" /> Jasny {prefs.theme === "light" && "✓"}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("dark")}>
-                  <Moon className="h-4 w-4 mr-2" /> Dark {prefs.theme === "dark" && "✓"}
+                  <Moon className="h-4 w-4 mr-2" /> Ciemny {prefs.theme === "dark" && "✓"}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("system")}>
-                  <Monitor className="h-4 w-4 mr-2" /> System {prefs.theme === "system" && "✓"}
+                  <Monitor className="h-4 w-4 mr-2" /> Systemowy {prefs.theme === "system" && "✓"}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -404,7 +409,7 @@ export function RawTable() {
           </>
         )}
 
-        {csv.status === "loading" ? (
+        {csv.status === "ready" && (
           <UploadButton
             onFile={csv.loadFile}
             status={csv.status}
@@ -412,35 +417,8 @@ export function RawTable() {
             fileMeta={csv.fileMeta}
             onCancel={csv.cancel}
             compact
-          />
-        ) : csv.status === "ready" ? (
-          <UploadButton
-            onFile={csv.loadFile}
-            status={csv.status}
-            progress={csv.progress}
-            fileMeta={csv.fileMeta}
-            onCancel={csv.cancel}
-            compact
-          />
-        ) : (
-          <UploadButton
-            onFile={csv.loadFile}
-            status={csv.status}
-            progress={csv.progress}
-            fileMeta={csv.fileMeta}
-            onCancel={csv.cancel}
           />
         )}
-
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8"
-          onClick={() => setPaletteOpen(true)}
-          title="Paleta komend (⌘K)"
-        >
-          <CommandIcon className="h-4 w-4" />
-        </Button>
       </div>
     </motion.header>
   );
@@ -498,7 +476,7 @@ export function RawTable() {
                 onFilteredCountChange={setFilteredCount}
                 onColumnHide={(id) => {
                   toast(`Ukryto kolumnę: ${id}`, {
-                    description: "Kliknij przycisk, żeby przywrócić",
+                    description: "Kliknij „Pokaż\", żeby przywrócić",
                     duration: 4000,
                     action: {
                       label: "Pokaż",
@@ -559,13 +537,13 @@ export function RawTable() {
             </DialogHeader>
             <div className="space-y-3 text-sm">
               {[
-                ["⌘K", "Otwórz paletę komend"],
-                ["⌘O", "Upload CSV"],
-                ["⌘F", "Focus na filtr kolumny"],
+                ["⌘K", "Polecenia"],
+                ["⌘O", "Wgraj plik"],
+                ["⌘F", "Fokus na filtr kolumny"],
                 ["D", "Zmień gęstość"],
-                ["R", "Wyczyść filtry i sort"],
+                ["R", "Wyczyść filtry i sortowanie"],
                 ["↑ ↓", "Nawigacja po wierszach"],
-                ["Esc", "Wyczyść focus / zamknij"],
+                ["Esc", "Wyczyść fokus / zamknij"],
                 ["?", "Pokaż te skróty"],
               ].map(([k, v]) => (
                 <div key={k} className="flex items-center justify-between">
@@ -579,4 +557,4 @@ export function RawTable() {
       </div>
     </TooltipProvider>
   );
-}
+});

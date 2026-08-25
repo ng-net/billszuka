@@ -121,7 +121,7 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
           description: `${provider}:${alias}`,
         });
       } else {
-        toast.error("Test failed", { description: r.error || "(brak szczegółów)" });
+        toast.error("Test klucza nieudany", { description: r.error || "(brak szczegółów)" });
       }
       await refresh({ silent: true });
     } catch (e) {
