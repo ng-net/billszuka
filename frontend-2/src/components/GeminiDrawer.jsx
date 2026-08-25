@@ -8,7 +8,7 @@ import {
   Trash2,
   Settings as SettingsIcon,
   Loader2,
-  ChevronDown,
+  Bird,
 } from "lucide-react";
 import {
   Sheet,
@@ -22,18 +22,60 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 
 /**
- * GeminiDrawer — floating-action-button chat panel.
+ * GeminiDrawer — floating-action-button chat panel for "Gills — twój skowronek".
  * Triggered from any header that passes an onOpenSettings prop.
  *
- * Backend: POST /api/chat { query, active_dataset }
+ * Backend: POST /api/chat { query, active_dataset, knowledge_ids }
  *   Response: { response, provider }   (provider: openrouter | gemini | mock | mock-fallback | ...)
  *
  * Conversation is in-memory only (no persistence — by design per plan).
  */
+
+// Curated prompts the user can fire with one click. Grouped so the drawer
+// can label them. Each prompt is a complete, natural-language question —
+// the same thing the user would type themselves.
+const QUICK_PROMPTS = [
+  {
+    group: "Szukaj danych",
+    icon: "🔍",
+    items: [
+      "Ile firm jest FROZEN w PL?",
+      "Pokaż firmy z CZ które sprzedają PowerMatic",
+      "Top 5 firm w PL z tier=wyłączność",
+      "Lista hurtowników w CZ z wolumen=duży",
+      "Firmy z DE z kanałem online",
+      "Ile firm jest DO-WERYFIKACJI w RO?",
+    ],
+  },
+  {
+    group: "Przygotuj widok",
+    icon: "📋",
+    items: [
+      "Rozkład firm wg kraju",
+      "Status weryfikacji (FROZEN / DO-WERYFIKACJI)",
+      "Tier × kraj",
+      "Wolumen × kraj (mały/średni/duży)",
+      "Top 10 krajów wg liczby firm",
+    ],
+  },
+  {
+    group: "Baza wiedzy",
+    icon: "📚",
+    items: [
+      "Streść załączone dokumenty w 5 punktach",
+      "Jakie firmy wymienia załączony raport?",
+      "Wymień kluczowe wnioski z dokumentu PDF",
+    ],
+  },
+];
+
+const PROMPT_LABELS = QUICK_PROMPTS.flatMap((g) =>
+  g.items.map((q) => ({ q, group: g.group, icon: g.icon })),
+);
+
 export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]); // [{role: "user"|"assistant", text, provider?}]
@@ -59,10 +101,10 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
     if (viewport) viewport.scrollTop = viewport.scrollHeight;
   }, [messages, busy]);
 
-  async function send() {
-    const q = input.trim();
-    if (!q || busy) return;
-    setMessages((m) => [...m, { role: "user", text: q }]);
+  async function sendQuery(q) {
+    const text = (q ?? input).trim();
+    if (!text || busy) return;
+    setMessages((m) => [...m, { role: "user", text }]);
     setInput("");
     setBusy(true);
     try {
@@ -70,7 +112,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          query: q,
+          query: text,
           active_dataset: activeDataset || "master.csv",
           knowledge_ids: knowledgeIdsRef.current,
         }),
@@ -114,9 +156,10 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg hover:shadow-xl transition-shadow"
-            aria-label="Otwórz AI Assistant"
+            aria-label="Otwórz Gills — twój skowronek"
+            title="Gills — twój skowronek"
           >
-            <Sparkles className="h-6 w-6" />
+            <Bird className="h-6 w-6" />
           </motion.button>
         </SheetTrigger>
         <SheetContent
@@ -126,8 +169,10 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
           <SheetHeader className="px-5 pt-5 pb-3 border-b">
             <div className="flex items-center justify-between">
               <SheetTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-violet-500" />
-                AI Assistant
+                <Bird className="h-5 w-5 text-violet-500" />
+                <span>
+                  Gills <span className="text-muted-foreground font-normal text-sm">— twój skowronek</span>
+                </span>
               </SheetTitle>
               <div className="flex items-center gap-1">
                 <Button
@@ -155,15 +200,15 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
               </div>
             </div>
             <SheetDescription>
-              Zadaj pytania o dane w master.csv. Backend używa łańcucha awaryjnego
-              OpenRouter → Gemini → mock.
+              Pytaj o dane w master.csv albo załączone pliki. Gills ćwierka
+              konkretami z bazy wiedzy.
             </SheetDescription>
           </SheetHeader>
 
           {/* Thread */}
           <ScrollArea className="flex-1 px-5 py-3" ref={scrollRef}>
             {messages.length === 0 ? (
-              <EmptyState />
+              <EmptyState onPick={sendQuery} />
             ) : (
               <div className="space-y-3">
                 {messages.map((m, i) => (
@@ -172,12 +217,16 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                 {busy && (
                   <div className="flex items-center gap-2 text-xs text-muted-foreground pl-1">
                     <Loader2 className="h-3 w-3 animate-spin" />
-                    Myślę…
+                    Gills ćwierka…
                   </div>
                 )}
               </div>
             )}
           </ScrollArea>
+
+          {/* Quick-prompt pills — visible while thread is empty or after a
+              reply so the user can keep firing one-click questions. */}
+          <QuickPrompts onPick={sendQuery} disabled={busy} />
 
           {/* Input */}
           <div className="border-t p-3 flex gap-2 items-end">
@@ -187,15 +236,15 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
-                  send();
+                  sendQuery();
                 }
               }}
-              placeholder="Np. ile firm jest FROZEN w PL?"
+              placeholder="Albo wpisz własne pytanie…"
               className="flex-1"
               disabled={busy}
             />
             <Button
-              onClick={send}
+              onClick={() => sendQuery()}
               size="icon"
               disabled={busy || !input.trim()}
               aria-label="Wyślij"
@@ -220,32 +269,69 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
   );
 }
 
-function EmptyState() {
-  const examples = [
-    "ile firm jest FROZEN w PL?",
-    "rozkład firm wg kraju",
-    "pokaż top 5 firm z tier=wyłączność",
-  ];
+function EmptyState({ onPick }) {
   return (
-    <div className="text-center py-8 space-y-3">
-      <Sparkles className="h-10 w-10 mx-auto text-violet-400 opacity-50" />
-      <div>
-        <p className="text-sm text-muted-foreground">Zacznij od pytania o dane.</p>
-        <p className="text-xs text-muted-foreground mt-1">
-          Przykłady:
+    <div className="py-6 space-y-5">
+      <div className="text-center space-y-1.5">
+        <Bird className="h-10 w-10 mx-auto text-violet-400" />
+        <p className="text-sm font-medium">Cześć! Jestem Gills.</p>
+        <p className="text-xs text-muted-foreground">
+          Pytaj o firmy w katalogu albo o załączone dokumenty.
         </p>
       </div>
-      <div className="space-y-1.5 text-left">
-        {examples.map((e) => (
-          <div
-            key={e}
-            className="rounded-md border px-3 py-1.5 text-xs text-muted-foreground bg-muted/30 font-mono"
-          >
-            {e}
+      <div className="space-y-3">
+        {QUICK_PROMPTS.map((group) => (
+          <div key={group.group}>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1.5 px-1">
+              {group.icon} {group.group}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {group.items.map((q) => (
+                <PromptPill key={q} q={q} onPick={onPick} />
+              ))}
+            </div>
           </div>
         ))}
       </div>
     </div>
+  );
+}
+
+function QuickPrompts({ onPick, disabled }) {
+  // Show a single horizontal strip of the most useful prompts so the
+  // user always has a shortcut, even mid-conversation.
+  const featured = [
+    "Ile firm jest FROZEN w PL?",
+    "Rozkład firm wg kraju",
+    "Top 5 firm z tier=wyłączność",
+    "Streść dokumenty",
+  ];
+  return (
+    <div className="px-3 pt-2 pb-1 border-t bg-muted/20">
+      <div className="flex flex-wrap gap-1.5">
+        {featured.map((q) => (
+          <PromptPill key={q} q={q} onPick={onPick} disabled={disabled} compact />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PromptPill({ q, onPick, disabled = false, compact = false }) {
+  return (
+    <button
+      onClick={() => !disabled && onPick(q)}
+      disabled={disabled}
+      className={
+        "inline-flex items-center gap-1 rounded-full border bg-background text-left " +
+        "hover:bg-accent hover:border-violet-300 hover:text-foreground " +
+        "disabled:opacity-50 disabled:cursor-not-allowed transition-colors " +
+        (compact ? "px-2.5 py-0.5 text-[11px]" : "px-3 py-1.5 text-xs")
+      }
+    >
+      {compact && <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />}
+      <span className="truncate">{q}</span>
+    </button>
   );
 }
 
@@ -294,7 +380,9 @@ function ProviderTag({ provider }) {
     "gemini-fallback": { label: "Gemini (fallback)", color: "bg-purple-100 text-purple-700 border-purple-300" },
     error: { label: "Error", color: "bg-red-100 text-red-700 border-red-300" },
   };
-  const p = palette[provider] || { label: provider, color: "bg-gray-100 text-gray-700 border-gray-300" };
+  // Strip the "(+N file)" or "(auto-recovered)" suffixes — they're decoration
+  const base = String(provider).split(" ")[0].replace("(+1file)", "").replace("(+1 file)", "");
+  const p = palette[base] || { label: provider, color: "bg-gray-100 text-gray-700 border-gray-300" };
   return (
     <Badge variant="outline" className={`text-[10px] h-5 px-1.5 ${p.color}`}>
       {p.label}
