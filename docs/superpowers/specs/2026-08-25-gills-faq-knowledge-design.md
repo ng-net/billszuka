@@ -45,10 +45,11 @@ FAQ build session (tools/faq_build_session.py, single-flight, on demand)
      corpus, "NIE WIEM" rule) → OpenRouter judge votes agree/disagree
   4. Judge disagree → one retry with correction hint, then reject.
      Rejected answers never enter the DB — they appear in the report.
-  5. Upsert entries into faq_entries (never touching hits); export
-     data/faq.json + data/faq.csv artifacts with timestamped .bak
-     rotation (keep last 5)
-  6. Resumable via checkpoint in faq_session; one session at a time (409)
+  5. Upsert entries into faq_entries (never touching hits); rejected
+     questions recorded in faq_rejects (blocklist); export data/faq.json +
+     data/faq.csv artifacts with timestamped .bak rotation (keep last 5)
+  6. Single-flight via atomic lock claim on faq_session; runner is a
+     detached subprocess; resumable via checkpoint (state interrupted)
 ```
 
 ## Data store — SQLite (`data/billszuka.db`)
@@ -93,6 +94,10 @@ CREATE TABLE IF NOT EXISTS knowledge_inbox (
   file TEXT PRIMARY KEY, saved_by TEXT, question TEXT,
   content_hash TEXT UNIQUE, status TEXT, saved_at TEXT
 );
+CREATE TABLE IF NOT EXISTS faq_rejects (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  q TEXT NOT NULL, q_norm TEXT NOT NULL UNIQUE, reason TEXT, rejected_at TEXT
+);
 ```
 
 Rules:
@@ -102,6 +107,12 @@ Rules:
 - The `.md` corpus files and inbox `.md` files stay on disk (human-authored,
   append-mostly); their metadata lives in the tables above. `index.json` is
   dropped entirely.
+- `data/faq.json` + `data/faq.csv` are immutable artifacts: written only by
+  the session at generation time, never rewritten at runtime. Hits are a
+  sidecar concern — they live exclusively in `faq_entries.hits`.
+- `faq_rejects` is the blocklist: questions the verifier rejected, recorded
+  with reason; the session skips already-rejected questions (UNIQUE on
+  q_norm) instead of re-burning tokens.
 - Chat log is a table — no line-cap/rotation needed (retention can be added
   later by date).
 
@@ -173,10 +184,14 @@ facts-relevant columns only (`FACTS_COLUMNS` constant), stored in
 - **Single-flight:** the `faq_session` row is the lock. `POST /api/faq/generate`
   returns **409 Conflict** if `state` is `running` (double-click, two users).
   `GET /api/faq/session` reflects live state.
-- **Lifecycle:** the runner is an in-process `threading.Thread` started by the
-  API server. On restart it dies; the checkpoint row leaves `state =
-  "interrupted"` and the UI offers "Wznów" (resume from checkpoint). This is
-  stated behavior, not an accident.
+- **Lifecycle + locking:** the runner is a **detached subprocess**
+  (`subprocess.Popen([sys.executable, "tools/faq_build_session.py", …],
+  start_new_session=True)`). It claims the lock with an atomic
+  `UPDATE faq_session SET state='running' WHERE state IN ('idle','interrupted')`
+  — if no row was claimed, it exits with conflict and the API answers 409.
+  An API server restart does **not** kill the session (detached); if the
+  subprocess dies, the checkpoint leaves `state="interrupted"` and the UI
+  offers "Wznów". Exactly one active session is possible.
 - **Numeric questions:** each numeric template carries a `ground_key` into
   `faq-facts.json`; the answer is computed and rendered by template — no LLM,
   no free-text digit extraction, no false-accept/false-reject ambiguity.
@@ -189,8 +204,10 @@ facts-relevant columns only (`FACTS_COLUMNS` constant), stored in
   keys / no balance) → judge falls back to Gemini with an alternate judge
   prompt; `judge_model` records which ran.
 - Report: accepted / rejected / failed + per-entry verdicts, in UI and
-  terminal. After success: export `data/faq.json` + `data/faq.csv` artifacts
-  and rotate timestamped backups (keep last 5).
+  terminal. Rejected questions are written to `faq_rejects` (blocklist) with
+  reason and timestamp. After success: export `data/faq.json` +
+  `data/faq.csv` artifacts (immutable — runtime never rewrites them) and
+  rotate timestamped backups (keep last 5).
 
 ## 4. Runtime FAQ matching — token-set, measured, entity-guarded
 
@@ -204,10 +221,13 @@ facts-relevant columns only (`FACTS_COLUMNS` constant), stored in
    chosen as the highest value with zero false accepts; stored in
    `tools/config.py` with a comment pointing at the eval run.
 4. **Entity-token guard (hard miss):** `PROTECTED_ENTITIES` is built from the
-   dataset (kraj codes, tier values, status values, wolumen values). If a
-   protected token appears in either the query or the candidate and the two
-   protected-token sets differ → force miss, regardless of similarity.
-   Example: "ile firm frozen w pl" vs "ile firm frozen w cz" → PL ≠ CZ → miss.
+   dataset (kraj codes, tier values, status values, wolumen values). For a
+   hit, the protected-token sets of query and candidate must be **identical**.
+   A protected token present on one side only is a miss too — the query "ile
+   firm frozen w de" vs a PL entry, or a country-less query vs a country
+   answer, both fall through to the live chain. Examples: "ile firm frozen w
+   pl" vs "ile firm frozen w cz" → PL ≠ CZ → miss; "hurtownicy w de" vs a
+   PL-only entry → miss (the PL/DE trap).
 5. HIT → respond `provider: "faq"`, `hits+1` (SQL), write chat log. Zero LLM
    calls. Staleness check first (§10).
 6. MISS → normal chain + corpus grounding.
@@ -259,16 +279,19 @@ future FAQ expansion sessions.
 }
 ```
 
-- **Detection (disambiguated, not just "starts with"):** all three must hold —
+- **Detection (disambiguated, not just "starts with"):** all four must hold —
   1. query tokens start with a phrase's tokens (per-token difflib ≥ 0.9
      tolerance, so "zamietaj" matches "zapamiętaj"),
   2. the query contains **no question token** (`QUESTION_TOKENS` constant:
      ile, jak, jaki, która, kto, co, gdzie, kiedy, dlaczego, czy / how, what,
      who, where, when, why, which),
   3. a last assistant answer exists (otherwise reply "nie ma jeszcze
-     odpowiedzi do zapisania", zero tokens).
-  Tokens after the phrase become the note. Checked before FAQ lookup and
-  before any LLM call.
+     odpowiedzi do zapisania", zero tokens),
+  4. the **remainder** (tokens after the phrase) is ≤ 4 tokens — a longer
+     tail means the message is a question, not a command → fall through to
+     the normal chain.
+  The remainder becomes the note. Checked before FAQ lookup and before any
+  LLM call.
 - Effect: last assistant answer → `data/knowledge/md/inbox/fact-{ts}-{user}.md`
   (sanitized `user`) with a provenance header (fact text, original question,
   sources, `saved_by`, timestamp). Dedupe by content hash —
@@ -326,20 +349,24 @@ output**; its tests are security tests:
   text, never crash, never loop.
 - Long descriptive answers: heading + body paragraphs with vertical gaps.
 
-## 10. Staleness — content hash, not mtime
+## 10. Staleness — per-source digests, not mtime
 
-- `faq_meta.facts_hash` = SHA-256 of the canonical serialization of
-  `FACTS_COLUMNS` rows (sorted). Catching a touch or a silent byte change is
-  both wrong and dangerous — hash is the only signal used.
-- Runtime: on FAQ hit, `os.stat(master.csv)` mtime is checked first; if
-  unchanged since the last in-process hash computation, the cached verdict
-  is reused (hash is computed at most once per mtime per process). If
-  changed → recompute hash.
-- Hash mismatch:
+- At session time, `faq_meta.source_digests` stores a JSON map of every
+  source an entry may cite: `{"master.csv": <facts_hash>, "<corpus
+  file>.md": <sha256 of file content>, …}`. `facts_hash` = SHA-256 of the
+  canonical serialization of `FACTS_COLUMNS` rows (sorted). Touching a file
+  or a silent byte change is both wrong and dangerous — digests are the only
+  staleness signal.
+- Runtime, per FAQ hit: for each source in the entry's `sources`, compare
+  the current digest against the stored one. Per-file `os.stat` mtime is
+  used only to cache the digest computation in-process (a digest is computed
+  at most once per mtime per file per process).
+- Any source digest mismatch → the entry is stale:
   - **numeric entries → not served**; fall through to the live chain
     (fresh data, correct numbers), log `faq_hit="stale-skip"`.
   - qualitative entries → served with
     `⚠️ Dane mogły się zmienić od wygenerowania FAQ — odśwież sesję FAQ.`
+  - Changing one corpus `.md` invalidates **only** entries citing it.
 - The FAQ view shows the same staleness banner.
 
 ## 11. API endpoints
@@ -348,9 +375,10 @@ output**; its tests are security tests:
 |---|---|---|---|
 | POST | `/api/chat` | name header (log only) | save-command → FAQ lookup → chain → log |
 | GET | `/api/faq` | open | entries + categories + hits + staleness |
-| POST | `/api/faq/generate` | **verified** | `{mode: "full" \| "doc", doc_id?}`; 409 if running |
+| POST | `/api/faq/generate` | **verified** | `{mode: "full" \| "doc", doc_id?}`; 409 if lock claim fails |
 | GET | `/api/faq/session` | open | `{state, progress, report}` |
 | DELETE | `/api/faq/{id}` | **verified** | remove a bad entry |
+| GET | `/api/faq/rejects` | open | blocklist of rejected questions + reasons |
 | POST | `/api/knowledge/upload` | **verified** | stamps `uploaded_by` from verified name |
 | GET | `/api/knowledge` | open | files + corpus + inbox with markings |
 | DELETE | `/api/knowledge/{id}` | **verified** | remove a file |
@@ -371,18 +399,22 @@ output**; its tests are security tests:
 
 - `tests/test_db.py` — schema init/migration; **concurrency**: hits increment
   during a simulated rebuild preserves counts; two concurrent upserts don't
-  lose entries; WAL busy handling.
+  lose entries; WAL busy handling; **lock claim: two concurrent generate
+  attempts → exactly one claims the row (atomic UPDATE), the other gets
+  409**; `faq_rejects` UNIQUE dedup.
 - `tests/test_faq.py` — normalization (diacritics/case); exact hit;
-  **near-miss negatives (PL vs CZ, tier/status swaps) → forced miss**;
-  paraphrase hits; **eval-set gate: zero false accepts on the 50 negatives
-  at the shipped threshold**; facts computation on fixture CSV; staleness
-  hash behavior (touch ≠ change, change → numeric skip).
+  **near-miss negatives (PL vs CZ, PL vs DE, tier/status swaps) → forced
+  miss**; paraphrase hits; **eval-set gate: zero false accepts on the 50
+  negatives at the shipped threshold**; facts computation on fixture CSV;
+  **per-source digest staleness: touch ≠ change, change → numeric skip, one
+  corpus `.md` change invalidates only entries citing it**; artifact
+  immutability: runtime hit leaves `data/faq.json` mtime untouched.
 - `tests/test_md_corpus.py` — corpus load/truncation (token budget), injection
   format; inbox save + dedupe; filename sanitization (path traversal input).
 - API tests (pytest) — FAQ hit returns `provider="faq"` with zero LLM calls;
-  **save-command vs question disambiguation**; **403 on mutating endpoints
-  without/with bad `X-Billszuka-User`**; 409 on second `generate`;
-  upload marking from verified name.
+  **save-command vs question disambiguation (incl. long-remainder fall-through)**;
+  **403 on mutating endpoints without/with bad `X-Billszuka-User`**; 409 on
+  second `generate`; upload marking from verified name.
 - `frontend-2/src/components/AnswerMarkup.test.js` (node --test) —
   **adversarial markup: `javascript:` variants (case/whitespace/entity),
   `data:`, malformed fences, deeply nested lists, link attribute injection**
@@ -402,10 +434,11 @@ output**; its tests are security tests:
 
 - **Phase 1 — backend core (no UI polish):** `tools/db.py`, `tools/faq.py`
   (normalize/facts/matching/eval), `tools/md_corpus.py`,
-  `tools/faq_build_session.py` (single-flight, checkpoint, numeric
-  ground-truth answers, judge), server-side auth, endpoints, and all backend
-  tests including concurrency/adversarial/auth cases. Ship the FAQ/verify
-  core first; the drawer UI waits.
+  `tools/faq_build_session.py` (atomic lock claim, detached subprocess
+  runner, checkpoint, numeric ground-truth answers, judge, faq_rejects
+  blocklist), server-side auth, endpoints, and all backend tests including
+  concurrency/adversarial/auth cases. Ship the FAQ/verify core first; the
+  drawer UI waits.
 - **Phase 2 — frontend:** AnswerMarkup (+ security tests), FaqView,
   GeminiDrawer view switch + save button, KnowledgeDrawer badges +
   extraction offer + pending count, access-gate name persistence.
