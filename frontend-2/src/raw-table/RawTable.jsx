@@ -45,9 +45,25 @@ import { LoadingState } from "./components/LoadingState";
 
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
+const MASTER_URL = "/api/master.csv";
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
+  // Automatic data pre-load after the gate: try the full master.csv from
+  // the backend first; if unreachable, fall back to the bundled sample;
+  // if that also fails, leave the EmptyState's manual button for the user.
+  const bootRef = useRef(0); // 0 = try master, 1 = master pending, 2 = settled
+  useEffect(() => {
+    if (bootRef.current === 0 && csv.status === "idle") {
+      bootRef.current = 1;
+      csv.loadUrl(MASTER_URL, "master.csv", 0);
+    } else if (bootRef.current === 1 && csv.status === "error") {
+      bootRef.current = 2;
+      csv.loadUrl(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
+    } else if (bootRef.current === 1 && csv.status === "ready") {
+      bootRef.current = 2;
+    }
+  }, [csv, csv.status]);
   const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);

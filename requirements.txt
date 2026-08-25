@@ -1,0 +1,6 @@
+# Runtime deps for tools/api_server.py (Render).
+# Pins mirror requirements-ci.txt — keep in sync.
+fastapi>=0.100,<0.115
+starlette>=0.36,<0.41
+uvicorn
+python-multipart

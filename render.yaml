@@ -1,0 +1,15 @@
+# Render Blueprint — BILLSzuka API (tools/api_server.py).
+# Render dashboard → New + → Blueprint → point at this repo.
+
+services:
+  - type: web
+    name: billszuka-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # Regenerate master.csv from the per-country CSVs shipped in git, then boot.
+    startCommand: python -c "import sys; sys.path.insert(0, 'tools'); from verify_run import regenerate_master; print(regenerate_master())" && python tools/api_server.py --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/datasets
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12
