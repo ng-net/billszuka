@@ -41,21 +41,27 @@ from __future__ import annotations
 import argparse
 import asyncio
 import csv
+import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # Sibling modules — same dir
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from verify_run import regenerate_master  # noqa: E402
+
+import db         # noqa: E402  (SQLite store)
+import faq        # noqa: E402  (FAQ matching/save-command/staleness)
+import md_corpus  # noqa: E402  (permanent .md corpus + inbox)
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -72,6 +78,34 @@ SECRETS_DEFAULT: dict[str, Any] = {
     "priority": ["openrouter", "gemini", "mock"],
 }
 VALID_PROVIDERS = {"openrouter", "gemini", "mock"}
+
+# ---------------------------------------------------------------------------
+# Server-side auth: X-Billszuka-User header verified against the hash
+# allow-list in frontend-2/public/access.json (spec §6).
+# ---------------------------------------------------------------------------
+
+def _verified_user(header: str | None) -> str | None:
+    """Verify X-Billszuka-User against the hash allow-list. Returns the
+    verified lowercase name or None. ROOT is read at call time so tests
+    can monkeypatch it."""
+    if not header:
+        return None
+    access_json = ROOT / "frontend-2" / "public" / "access.json"
+    try:
+        allowed = set(json.loads(access_json.read_text(encoding="utf-8")).get("names", []))
+    except (json.JSONDecodeError, OSError):
+        return None
+    name = header.strip().lower()
+    digest = hashlib.sha256(name.encode("utf-8")).hexdigest()
+    return name if digest in allowed else None
+
+
+def _require_user(header: str | None) -> str:
+    """403 unless the header carries a verified allow-listed name."""
+    user = _verified_user(header)
+    if not user:
+        raise HTTPException(status_code=403, detail="verified user required")
+    return user
 
 # Upload validation
 ALLOWED_CSV_SUFFIX = ".csv"
@@ -160,6 +194,10 @@ class AddKeyRequest(BaseModel):
 
 class PriorityRequest(BaseModel):
     priority: list[str]
+
+class GenerateRequest(BaseModel):
+    mode: str = "full"          # "full" | "doc"
+    doc_id: str | None = None   # corpus .md filename for doc mode
 
 
 # ---------------------------------------------------------------------------
@@ -356,7 +394,7 @@ def _secrets_load() -> dict[str, Any]:
             if isinstance(data.get(prov), list):
                 out[prov] = [
                     x for x in data[prov]
-                    if isinstance(x, dict) and "alias" in x and "key" in x
+                    if isinstance(x, dict) and x.get("key")
                 ]
         if isinstance(data.get("priority"), list):
             out["priority"] = [p for p in data["priority"] if p in VALID_PROVIDERS] \
@@ -453,7 +491,7 @@ def _bootstrap_vault_from_env() -> dict[str, Any]:
     env_keys = _read_env_keys()
     changed = False
     for prov in ("openrouter", "gemini"):
-        existing_aliases = {k["alias"] for k in vault[prov]}
+        existing_aliases = {k.get("alias") for k in vault[prov]}
         for entry in env_keys[prov]:
             if entry["alias"] not in existing_aliases:
                 entry["created"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
@@ -578,17 +616,29 @@ async def upload_csv(file: UploadFile = File(...)) -> dict[str, Any]:
 
 @app.get("/api/knowledge")
 async def list_knowledge() -> dict[str, Any]:
-    """List files in the knowledge index. Each entry includes the Gemini file
-    ref so the frontend can pass ids straight to /api/chat."""
+    """List files in the knowledge index plus the .md corpus inbox (with
+    pending count). Each entry includes the Gemini file ref so the frontend
+    can pass ids straight to /api/chat."""
     items = _read_knowledge_index()
-    return {
-        "items": items,
-        "count": len(items),
-    }
+    inbox: list[dict[str, Any]] = []
+    pending = 0
+    try:
+        with db.connect() as conn:
+            rows = conn.execute(
+                "SELECT file, saved_by, question, status, saved_at FROM knowledge_inbox "
+                "ORDER BY saved_at DESC").fetchall()
+            inbox = [dict(r) for r in rows]
+            pending = sum(1 for r in rows if r["status"] == "pending")
+    except Exception:
+        pass
+    return {"items": items, "count": len(items), "inbox": inbox, "inbox_pending": pending}
 
 
 @app.post("/api/knowledge/upload")
-async def upload_knowledge(file: UploadFile = File(...)) -> dict[str, Any]:
+async def upload_knowledge(
+    file: UploadFile = File(...),
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> dict[str, Any]:
     """Upload a PDF / CSV / text file to the Gemini Files API and add it to
     the local knowledge index. The file is also cached locally under
     data/knowledge/files/ so we can re-upload to Gemini if it expires after
@@ -596,6 +646,7 @@ async def upload_knowledge(file: UploadFile = File(...)) -> dict[str, Any]:
     """
     if not file.filename:
         raise HTTPException(status_code=400, detail="no filename in upload")
+    user = _require_user(x_billszuka_user)  # 403 before any Gemini work
 
     # Validate extension + size
     raw_name = file.filename
@@ -644,6 +695,7 @@ async def upload_knowledge(file: UploadFile = File(...)) -> dict[str, Any]:
         "mime_type": mime_type,
         "local_path": str(local_path.relative_to(ROOT)),
         "uploaded_at": datetime.now(timezone.utc).isoformat(),
+        "uploaded_by": user,
         "status": "uploading",
     }
     try:
@@ -674,8 +726,12 @@ async def upload_knowledge(file: UploadFile = File(...)) -> dict[str, Any]:
 
 
 @app.delete("/api/knowledge/{file_id}")
-async def delete_knowledge(file_id: str) -> dict[str, Any]:
+async def delete_knowledge(
+    file_id: str,
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> dict[str, Any]:
     """Remove a file from the knowledge index and from Gemini Files API."""
+    _require_user(x_billszuka_user)
     items = _read_knowledge_index()
     match = next((it for it in items if it.get("id") == file_id), None)
     if not match:
@@ -702,7 +758,10 @@ async def delete_knowledge(file_id: str) -> dict[str, Any]:
 
 
 @app.post("/api/knowledge/{file_id}/refresh")
-async def refresh_knowledge(file_id: str) -> dict[str, Any]:
+async def refresh_knowledge(
+    file_id: str,
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> dict[str, Any]:
     """Re-upload a knowledge file to the Gemini Files API.
 
     Use this when the original Gemini upload expired (48h TTL) or the
@@ -711,6 +770,7 @@ async def refresh_knowledge(file_id: str) -> dict[str, Any]:
     update the index with the new gemini_uri. The old Gemini file is
     best-effort deleted first to avoid orphans.
     """
+    _require_user(x_billszuka_user)
     items = _read_knowledge_index()
     idx = next((i for i, it in enumerate(items) if it.get("id") == file_id), None)
     if idx is None:
@@ -828,36 +888,105 @@ def _last_call_was_quota() -> bool:
     return (time.time() - latest) < 5  # within the last 5 seconds
 
 
-@app.post("/api/chat")
-async def chat(req: ChatRequest) -> ChatResponse:
-    """
-    LLM proxy. Walks the priority chain (openrouter → gemini → mock).
+# ---------------------------------------------------------------------------
+# Chat: save-command → FAQ → chain → log
+# ---------------------------------------------------------------------------
 
-    Keys are sourced from `tools/api_secrets.json` (auto-bootstrapped from
-    .env on first start). On any provider failure, we move on to the next.
-    On total failure, we degrade to mock with a note.
-    """
+def _log_chat(user: str | None, query: str, response: str, provider: str,
+              dataset: str | None, knowledge_ids: list[str], faq_hit: int,
+              sources: str) -> None:
+    """Non-fatal chat log write (spec §5)."""
+    try:
+        with db.connect() as conn:
+            conn.execute(
+                "INSERT INTO chat_log (ts, user, query, response, provider, dataset, "
+                "knowledge_ids, faq_hit, sources) VALUES (datetime('now'), ?, ?, ?, ?, ?, ?, ?, ?)",
+                (user, query, response, provider, dataset,
+                 json.dumps(knowledge_ids), faq_hit, sources),
+            )
+    except Exception as e:
+        print(f"[chat_log] write failed: {e}", file=sys.stderr)
+
+
+def _last_chat_response() -> str | None:
+    """Last non-save assistant response — the save-command target."""
+    try:
+        with db.connect() as conn:
+            row = conn.execute(
+                "SELECT response FROM chat_log WHERE provider != 'save' "
+                "AND response IS NOT NULL AND response != '' ORDER BY id DESC LIMIT 1"
+            ).fetchone()
+        return row["response"] if row else None
+    except Exception:
+        return None
+
+
+def _last_chat_query() -> str | None:
+    try:
+        with db.connect() as conn:
+            row = conn.execute(
+                "SELECT query FROM chat_log WHERE provider != 'save' ORDER BY id DESC LIMIT 1"
+            ).fetchone()
+        return row["query"] if row else None
+    except Exception:
+        return None
+
+
+@app.post("/api/chat")
+async def chat(
+    req: ChatRequest,
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> ChatResponse:
+    """Gills chat: save-command → FAQ lookup → LLM chain. Every Q&A is
+    logged to chat_log; FAQ hits and saves cost zero tokens."""
     if not req.query.strip():
         raise HTTPException(status_code=400, detail="empty query")
 
+    user = _verified_user(x_billszuka_user)  # None for anonymous — log only
+
+    # 1. "Zapisz ten fakt" command — zero tokens, writes the inbox.
+    last = _last_chat_response()
+    note = faq.is_save_command(req.query, last is not None)
+    if note is not None:
+        ok, msg = md_corpus.save_fact_to_inbox(
+            last or "", _last_chat_query() or req.query, [], user or "anonim")
+        _log_chat(user, req.query, msg, "save", req.active_dataset,
+                  req.knowledge_ids, 0, "[]")
+        return ChatResponse(response=msg, provider="save")
+
+    # 2. FAQ lookup — zero tokens when hit.
+    try:
+        hit = faq.match_faq(req.query, faq.list_entries())
+    except Exception as e:
+        print(f"[faq] lookup disabled: {e}", file=sys.stderr)
+        hit = None
+    if hit is not None:
+        stale = faq.check_stale(hit)
+        if stale and hit["verified_kind"] == "numeric":
+            # Stale numbers are never served — fall through to the live
+            # chain (fresh data, correct numbers).
+            _log_chat(user, req.query, "", "faq-stale-skip", req.active_dataset,
+                      req.knowledge_ids, 1, hit["sources"])
+        else:
+            response = hit["a"]
+            if stale:
+                response = ("⚠️ Dane mogły się zmienić od wygenerowania FAQ — "
+                            "odśwież sesję FAQ.\n\n") + response
+            faq.bump_hits(hit["id"])
+            _log_chat(user, req.query, response, "faq", req.active_dataset,
+                      req.knowledge_ids, 1, hit["sources"])
+            return ChatResponse(response=response, provider="faq")
+
+    # 3. LLM chain (unchanged behavior — gemini → mock → openrouter).
     vault = _bootstrap_vault_from_env()
     chain = vault.get("priority", list(SECRETS_DEFAULT["priority"]))
-
-    # Gemini-first by default, with OpenRouter LAST as a final fallback.
-    # Rationale: OpenRouter (DeepSeek via free tier) hallucinates on
-    # structured-data questions (e.g. "ile firm" → "500"). The mock
-    # fallback is deterministic — it gives real numbers or a clear
-    # "nie wiem", never a fabricated number. So the safe order is
-    # gemini → mock → openrouter.
-    # The user can opt out via `prefer_openrouter=True` (hidden flag).
     if not getattr(req, "prefer_openrouter", False):
         order = ["gemini", "mock", "openrouter"]
         chain = [p for p in order if p in chain] + [p for p in chain if p not in order]
 
-    # Track whether all Gemini keys hit quota — if so, label the fallback
-    # so the user knows it's not the LLM being bad, it's the keys.
     all_gemini_quota = True
     gemini_attempted = False
+    result: ChatResponse | None = None
 
     for provider in chain:
         if provider == "openrouter":
@@ -866,14 +995,14 @@ async def chat(req: ChatRequest) -> ChatResponse:
                 if result:
                     entry["last_ok"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                     _secrets_save(vault)
-                    return result
+                    break
                 entry["last_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 _secrets_save(vault)
+            if result:
+                break
         elif provider == "gemini":
             for entry in [k for k in vault.get("gemini", []) if k.get("key")]:
                 gemini_attempted = True
-                # Skip keys that were 429'd in the last 60s — they will
-                # just 429 again and waste a call's worth of latency.
                 if _is_key_cooled_down(entry) is False:
                     continue
                 result = await _call_gemini(req, entry["key"])
@@ -881,32 +1010,50 @@ async def chat(req: ChatRequest) -> ChatResponse:
                     all_gemini_quota = False
                     entry["last_ok"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                     _secrets_save(vault)
-                    return result
-                # Track if it was a quota error so we don't double-charge
-                # the user's quota in the next request.
+                    break
                 if _last_call_was_quota():
                     entry["last_quota_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 entry["last_err"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                 _secrets_save(vault)
+            if result:
+                break
         elif provider == "mock":
             mock = _chat_mock(req)
             if all_gemini_quota and gemini_attempted:
-                return ChatResponse(
+                # ONE coherent note. The default mock text must never blame a
+                # provider itself — that's how the old code produced two
+                # contradictory messages in one answer ("OPENROUTER_API_KEY
+                # not configured" + "klucze Gemini wyczerpały limit").
+                result = ChatResponse(
                     response=(
                         mock.response
-                        + "\n\n_(Wszystkie klucze Gemini wyczerpały limit — "
-                        "odpowiedź z mocka. Dodaj nowy klucz w Ustawieniach "
-                        "lub doładuj konto na ai.studio.)_"
+                        + "\n\n_(Żaden klucz Gemini nie odpowiedział (limit "
+                        "wyczerpany) — to odpowiedź deterministyczna z mocka. "
+                        "Dodaj klucz w Ustawieniach albo wygeneruj sesję FAQ "
+                        "(widok „100 pytań do…”), żeby pytania o dane działały "
+                        "bez tokenów.)_"
                     ),
                     provider="mock-gemini-quota",
                 )
-            return mock
+            else:
+                result = mock
+            break
 
-    mock = _chat_mock(req)
-    return ChatResponse(
-        response=mock.response + "\n\n[All providers failed — using mock]",
-        provider="mock-fallback",
-    )
+    if result is None:
+        mock = _chat_mock(req)
+        result = ChatResponse(
+            response=(
+                mock.response
+                + "\n\n_(Wszyscy dostawcy LLM zawiedli — odpowiedź z mocka. "
+                "Sprawdź klucze w Ustawieniach albo wygeneruj sesję FAQ, "
+                "żeby pytania o dane działały bez tokenów.)_"
+            ),
+            provider="mock-fallback",
+        )
+
+    _log_chat(user, req.query, result.response, result.provider, req.active_dataset,
+              req.knowledge_ids, 0, "[]")
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -1006,6 +1153,25 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
                 f"\n\nDo tej rozmowy dołączono {len(refs)} plik(ów) z bazy wiedzy: "
                 f"{attached}. Możesz się na nich opierać przy odpowiedzi."
             )
+        corpus_blocks = md_corpus.inject_corpus([], reserved_chars=len(context) + len(req.query))
+        if corpus_blocks:
+            system_text += (
+                "\n\nKORPUS WIEDZY (stałe dokumenty projektu — opieraj się na nich "
+                "i wskazuj nazwę pliku źródłowego):\n" + "\n".join(corpus_blocks)
+            )
+
+        # Markup contract (spec §9) — the frontend renderer understands only
+        # this subset; anything else degrades to plain text.
+        system_text += (
+            "\n\nFORMAT ODPOWIEDZI (lekki markup, renderowany po stronie UI): "
+            "nagłówki pisz jako „## Tytuł”, listy punktowane jako „- element”, "
+            "listy numerowane jako „1. element”, pogrubienia jako „**tekst**”, "
+            "linki jako „[tekst](https://…)” (tylko adresy http/https). "
+            "Kluczowe fakty umieszczaj w bloku ```fakt … ```, ostrzeżenia lub "
+            "errata w bloku ```errata … ```, a grupy krótkich pozycji do ułożenia "
+            "w kolumnach w bloku ```cols … ``` (jedna pozycja w linii). "
+            "Nie używaj żadnego innego formatowania."
+        )
         payload: dict[str, Any] = {
             "systemInstruction": {"parts": [{"text": system_text}]},
             "contents": [{"role": "user", "parts": user_parts}],
@@ -1185,15 +1351,21 @@ def _chat_mock(req: ChatRequest) -> ChatResponse:
         with path.open("r", encoding="utf-8", newline="") as f:
             return max(0, sum(1 for _ in f) - 1)  # minus header
 
-    # Resolve the target dataset
+    # Resolve the target dataset. An invalid NAME is rejected outright; a
+    # valid name whose file is missing on disk still gets deterministic
+    # answers (count 0), so the default nudge stays reachable without a file
+    # (spec: the nudge text must be provider-agnostic and always renderable).
     try:
         clean = _validate_filename(target_name)
-        path = _csv_path(clean)
     except HTTPException:
         return ChatResponse(
             response=f"Nie widzę datasetu {target_name!r}. Wybierz istniejący plik CSV.",
             provider="mock",
         )
+    try:
+        path = _csv_path(clean)
+    except HTTPException:
+        path = DATA / clean  # missing on disk — counts resolve to 0
 
     total = _count_rows(path)
 
@@ -1205,7 +1377,7 @@ def _chat_mock(req: ChatRequest) -> ChatResponse:
         )
 
     # Heuristic 2: "kraj" / "country" — group by first column that looks like kraj
-    if "kraj" in q or "country" in q or "państw" in q:
+    if ("kraj" in q or "country" in q or "państw" in q) and path.exists():
         with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
             kraj_col = next((k for k in reader.fieldnames or [] if k.lower() in ("kraj", "country", "kraj_kod")), None)
@@ -1222,7 +1394,7 @@ def _chat_mock(req: ChatRequest) -> ChatResponse:
                 )
 
     # Heuristic 3: "frozen" / status
-    if "frozen" in q or "status" in q or "weryfik" in q:
+    if ("frozen" in q or "status" in q or "weryfik" in q) and path.exists():
         with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
             flagi_col = next((k for k in reader.fieldnames or [] if "flagi" in k.lower()), None)
@@ -1248,15 +1420,95 @@ def _chat_mock(req: ChatRequest) -> ChatResponse:
                     provider="mock",
                 )
 
-    # Default: nudge the user
+    # Default: nudge the user — provider-agnostic. The chat() fallback notes
+    # explain WHY the mock answered; this text must not blame a specific key.
     return ChatResponse(
         response=(
-            f"Mock AI (OPENROUTER_API_KEY not configured). Mam dostęp do {clean} "
+            f"To odpowiedź deterministyczna z mocka (bez LLM). Mam dostęp do {clean} "
             f"({total} wierszy). Spróbuj pytań typu: 'ile firm', 'rozkład wg kraj', "
-            f"'status frozen'. Ustaw OPENROUTER_API_KEY w .env dla prawdziwego LLM."
+            f"'status frozen' — a dla pytań o dane bez tokenów wygeneruj sesję FAQ "
+            f'(widok „100 pytań do…" w Gills).'
         ),
         provider="mock",
     )
+
+
+# ---------------------------------------------------------------------------
+# FAQ endpoints
+# ---------------------------------------------------------------------------
+
+@app.get("/api/faq")
+async def list_faq() -> dict[str, Any]:
+    """Entries with staleness flags, categories and the rejects count."""
+    try:
+        entries = sorted(faq.list_entries(), key=lambda e: (-(e["hits"] or 0), e["q"]))
+        for e in entries:
+            try:
+                e["stale"] = faq.check_stale(e)
+            except Exception:
+                e["stale"] = False
+        categories = sorted({e["category"] or "inne" for e in entries})
+        with db.connect() as conn:
+            rejects = conn.execute("SELECT COUNT(*) AS n FROM faq_rejects").fetchone()["n"]
+        return {"items": entries, "categories": categories, "rejects": rejects}
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"faq store unavailable: {e}")
+
+
+@app.post("/api/faq/generate")
+async def generate_faq(
+    req: GenerateRequest,
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> dict[str, Any]:
+    """Launch a detached generation session. 409 when one is running."""
+    _require_user(x_billszuka_user)
+    try:
+        db.init()
+        if not db.claim_session():
+            raise HTTPException(status_code=409, detail="session already running")
+        cmd = [sys.executable, str(Path(__file__).parent / "faq_build_session.py"), req.mode]
+        if req.doc_id:
+            cmd.append(req.doc_id)
+        subprocess.Popen(cmd, start_new_session=True)
+        return {"ok": True, "mode": req.mode, "state": "running"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"failed to start session: {e}")
+
+
+@app.get("/api/faq/session")
+async def faq_session() -> dict[str, Any]:
+    with db.connect() as conn:
+        row = conn.execute("SELECT * FROM faq_session WHERE id=1").fetchone()
+    return dict(row) if row else {"state": "idle"}
+
+
+@app.delete("/api/faq/{entry_id}")
+async def delete_faq(
+    entry_id: str,
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> dict[str, Any]:
+    """Remove a bad entry and block it from regeneration."""
+    _require_user(x_billszuka_user)
+    with db.connect() as conn:
+        row = conn.execute("SELECT q FROM faq_entries WHERE id=?", (entry_id,)).fetchone()
+        if not row:
+            raise HTTPException(status_code=404, detail="entry not found")
+        conn.execute(
+            "INSERT OR IGNORE INTO faq_rejects (q, q_norm, reason, rejected_at) "
+            "VALUES (?, ?, 'deleted-by-user', datetime('now'))",
+            (row["q"], faq.normalize(row["q"])),
+        )
+        conn.execute("DELETE FROM faq_entries WHERE id=?", (entry_id,))
+    return {"ok": True, "deleted": entry_id}
+
+
+@app.get("/api/faq/rejects")
+async def list_faq_rejects() -> dict[str, Any]:
+    with db.connect() as conn:
+        rows = conn.execute("SELECT * FROM faq_rejects ORDER BY id DESC").fetchall()
+    return {"items": [dict(r) for r in rows]}
 
 
 # ---------------------------------------------------------------------------
@@ -1445,6 +1697,9 @@ def main() -> int:
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--reload", action="store_true", help="dev mode (auto-reload)")
     args = ap.parse_args()
+
+    # FAQ/knowledge store — idempotent schema init.
+    db.init()
 
     # Pre-flight: bootstrap the secrets vault from .env (idempotent).
     # Reads OPENROUTER_API_KEY + GEMINI_API_KEY_1..N; imports any that
