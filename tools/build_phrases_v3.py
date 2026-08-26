@@ -8,7 +8,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path("/Users/ciepolml/Documents/Bills-Drive/BILLSzuka 18 Aug")
+ROOT = Path(__file__).resolve().parent.parent  # project root (BILLSzuka-24-Aug)
 
 # === Brand names (do not translate) ===
 BRANDS = {
