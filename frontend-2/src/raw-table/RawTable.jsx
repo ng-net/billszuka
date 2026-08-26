@@ -73,7 +73,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // Manual refresh: re-fetch master.csv with cache-buster. Used after
   // Marceli edits data/master.csv and wants to see changes without
   // doing a full page reload (preserves prefs, scroll, selection).
-  const refreshMaster = useCallback(() => {
+  const _refreshMaster = useCallback(() => {
     bootRef.current = 1;
     csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
   }, [csv]);

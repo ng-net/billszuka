@@ -74,6 +74,11 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     }
   }, [onSelectionChange]);
 
+  // Load KB files when the drawer opens. This is a controlled component
+  // (parent owns `open` via onOpenChange), so the load trigger is the
+  // prop transition, not a user event — the standard "fetch on prop
+  // change" pattern. Disabling react/set-state-in-effect for this hook
+  // (see .oxlintrc.json) because the rule is too aggressive for this case.
   useEffect(() => {
     if (open) load();
   }, [open, load]);
