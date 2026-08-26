@@ -213,3 +213,54 @@ def test_save_command_needs_last_answer():
 
 def test_save_command_plain_question_is_none():
     assert faq.is_save_command("ile firm jest frozen w pl", True, PHRASES) is None
+
+
+# --- staleness (§10) ---------------------------------------------------------
+import json as _json
+
+import db as _db
+import md_corpus as _md
+
+
+def _db_setup(tmp_path, monkeypatch):
+    monkeypatch.setattr(_db, "DB_PATH", tmp_path / "t.db")
+    _db.init()
+
+
+def test_check_stale_master(tmp_path, monkeypatch):
+    _db_setup(tmp_path, monkeypatch)
+    copy = tmp_path / "master.csv"
+    copy.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+    monkeypatch.setattr(faq, "MASTER_CSV", copy)
+    monkeypatch.setattr(faq, "DATA_DIR", tmp_path)
+    faq.set_meta("source_digests",
+                 _json.dumps({"master.csv": faq.facts_hash(faq.compute_facts(copy))}))
+    entry = {"sources": _json.dumps(["master.csv"])}
+    assert faq.check_stale(entry) is False            # fresh
+    copy.write_text(copy.read_text(encoding="utf-8") + "\n,2024,X, ,X,X, , ,",
+                    encoding="utf-8")
+    assert faq.check_stale(entry) is True             # bytes changed → stale
+
+
+def test_check_stale_corpus_only_citing_entries(tmp_path, monkeypatch):
+    import hashlib
+
+    _db_setup(tmp_path, monkeypatch)
+    corpus = tmp_path / "md"
+    corpus.mkdir()
+    (corpus / "01-a.md").write_text("v1", encoding="utf-8")
+    (corpus / "02-b.md").write_text("v1", encoding="utf-8")
+    monkeypatch.setattr(_md, "CORPUS_DIR", corpus)
+    monkeypatch.setattr(_md, "INBOX_DIR", corpus / "inbox")
+    monkeypatch.setattr(_md, "_cache", {})
+    monkeypatch.setattr(faq, "DATA_DIR", tmp_path)
+    faq.set_meta("source_digests", _json.dumps({
+        "master.csv": "x",
+        "01-a.md": hashlib.sha256(b"v1").hexdigest(),
+        "02-b.md": hashlib.sha256(b"v1").hexdigest(),
+    }))
+    citing_a = {"sources": _json.dumps(["01-a.md"])}
+    citing_b = {"sources": _json.dumps(["02-b.md"])}
+    (corpus / "01-a.md").write_text("v2", encoding="utf-8")   # only a.md changes
+    assert faq.check_stale(citing_a) is True
+    assert faq.check_stale(citing_b) is False

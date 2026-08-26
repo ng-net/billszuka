@@ -112,3 +112,21 @@ def save_fact_to_inbox(content: str, question: str, sources: list[str],
             (fname, digest),
         )
     return True, f"Zapisano fakt do skrzynki wiedzy ({user or '—'}) — do przeglądu ✓"
+
+
+_digest_cache: dict[str, tuple[int, str]] = {}
+
+
+def file_digest(name: str) -> str:
+    """sha256 of one corpus file's content, cached by mtime. mtime only
+    avoids recomputation — the digest itself is the staleness signal."""
+    path = CORPUS_DIR / name
+    if not path.exists():
+        return "missing"
+    mtime = path.stat().st_mtime_ns
+    cached = _digest_cache.get(name)
+    if cached and cached[0] == mtime:
+        return cached[1]
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    _digest_cache[name] = (mtime, digest)
+    return digest

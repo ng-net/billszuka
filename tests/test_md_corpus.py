@@ -59,3 +59,21 @@ def test_save_fact_to_inbox_with_dedupe(tmp_path, monkeypatch):
     assert len(files) == 1
     text = files[0].read_text(encoding="utf-8")
     assert "saved_by: marceli" in text and "pytanie?" in text
+
+
+def test_file_digest_is_content_not_mtime(tmp_path, monkeypatch):
+    import os
+
+    _setup(tmp_path, monkeypatch)
+    p = md_corpus.CORPUS_DIR / "01-a.md"
+    d1 = md_corpus.file_digest("01-a.md")
+    t = p.stat().st_mtime_ns
+    os.utime(p, ns=(t, t + 1_000_000))     # touch only — bytes unchanged
+    assert md_corpus.file_digest("01-a.md") == d1
+    p.write_text("inna treść", encoding="utf-8")
+    assert md_corpus.file_digest("01-a.md") != d1
+
+
+def test_file_digest_missing_file(tmp_path, monkeypatch):
+    _setup(tmp_path, monkeypatch)
+    assert md_corpus.file_digest("nie-ma.md") == "missing"

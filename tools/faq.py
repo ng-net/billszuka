@@ -14,6 +14,7 @@ from pathlib import Path
 
 import config
 import db
+import md_corpus
 
 DATA_DIR = config.DATA_DIR
 MASTER_CSV = DATA_DIR / "master.csv"
@@ -114,10 +115,13 @@ def facts_hash(facts: dict) -> str:
 _facts_cache: tuple[object, dict | None] = (None, None)
 
 
-def load_facts(master_csv: Path = MASTER_CSV) -> dict:
+def load_facts(master_csv: Path | None = None) -> dict:
     """Facts with an mtime cache — recomputed at most once per mtime per
-    process (hashing 417 rows on every chat query would be wasteful)."""
+    process (hashing 417 rows on every chat query would be wasteful).
+    MASTER_CSV is resolved at CALL time: a bound default arg would ignore
+    monkeypatch.setattr(faq, 'MASTER_CSV', …) used by tests/API wiring."""
     global _facts_cache
+    master_csv = master_csv or MASTER_CSV
     key = master_csv.stat().st_mtime_ns if master_csv.exists() else None
     if _facts_cache[0] == key and _facts_cache[1] is not None:
         return _facts_cache[1]
@@ -152,10 +156,12 @@ def set_meta(key: str, value: str) -> None:
 _entities_cache: tuple[object, frozenset] = (None, frozenset())
 
 
-def protected_entities(master_csv: Path = MASTER_CSV) -> frozenset:
+def protected_entities(master_csv: Path | None = None) -> frozenset:
     """Single normalized tokens for every value in FACTS_COLUMNS plus the
-    flag-status tokens. Cached by master.csv mtime."""
+    flag-status tokens. Cached by master.csv mtime. MASTER_CSV is resolved
+    at call time (see load_facts)."""
     global _entities_cache
+    master_csv = master_csv or MASTER_CSV
     key = master_csv.stat().st_mtime_ns if master_csv.exists() else 0
     if _entities_cache[0] == key and _entities_cache[1]:
         return _entities_cache[1]
@@ -279,3 +285,32 @@ def is_save_command(query: str, has_last_answer: bool,
     if len(remainder) > 4:
         return None
     return " ".join(remainder)
+
+
+# ---------------------------------------------------------------------------
+# Staleness — per-source digests (§10). Digests are the only staleness
+# signal; mtime only caches digest computation (touch ≠ change, and a
+# silent byte change must not go unnoticed).
+# ---------------------------------------------------------------------------
+
+def current_digest(source: str) -> str:
+    """Digest of one cited source: 'master.csv' → facts_hash; anything
+    else → md_corpus.file_digest (sha256 of the corpus .md content)."""
+    if source == "master.csv":
+        return facts_hash(load_facts())
+    return md_corpus.file_digest(source)
+
+
+def update_source_digests(sources: list[str]) -> None:
+    """Snapshot digests of the session's sources into faq_meta (called by
+    the session runner after a successful build)."""
+    set_meta("source_digests", json.dumps({s: current_digest(s) for s in sources}))
+
+
+def check_stale(entry: dict) -> bool:
+    """True when any source cited by the entry differs from the snapshot
+    in faq_meta.source_digests (or has no snapshot at all)."""
+    raw = get_meta("source_digests")
+    stored = json.loads(raw) if raw else {}
+    sources = json.loads(entry.get("sources") or "[]")
+    return any(current_digest(s) != stored.get(s) for s in sources)
