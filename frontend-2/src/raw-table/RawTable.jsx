@@ -44,7 +44,13 @@ import { LoadingState } from "./components/LoadingState";
 
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
+// Append ?v=Date.now() on every load to bust browser + vite proxy cache.
+// The API also sends Cache-Control: no-cache (see api_server.py), but
+// some browser/cache layers still ignore that for CSV MIME; the version
+// query param is the belt-and-braces guarantee that after Marceli edits
+// data/master.csv manually, the next reload picks up the new content.
 const MASTER_URL = "/api/master.csv";
+const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
@@ -55,7 +61,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   useEffect(() => {
     if (bootRef.current === 0 && csv.status === "idle") {
       bootRef.current = 1;
-      csv.loadUrl(MASTER_URL, "master.csv", 0);
+      csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
     } else if (bootRef.current === 1 && csv.status === "error") {
       bootRef.current = 2;
       csv.loadUrl(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
@@ -63,6 +69,14 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       bootRef.current = 2;
     }
   }, [csv, csv.status]);
+
+  // Manual refresh: re-fetch master.csv with cache-buster. Used after
+  // Marceli edits data/master.csv and wants to see changes without
+  // doing a full page reload (preserves prefs, scroll, selection).
+  const refreshMaster = useCallback(() => {
+    bootRef.current = 1;
+    csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
+  }, [csv]);
   const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);

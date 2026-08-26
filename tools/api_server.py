@@ -565,11 +565,21 @@ async def get_master_csv_raw() -> FileResponse:
     """Raw master.csv bytes for the frontend's boot-time fetch (RawTable.jsx
     parses this directly with PapaParse). Distinct from /api/dataset/{name},
     which returns paginated JSON, not a raw file — the frontend needs the
-    full CSV to run its own client-side parsing/inference."""
+    full CSV to run its own client-side parsing/inference.
+
+    Cache-Control: no-cache (NOT no-store) so the browser revalidates with
+    If-None-Match / If-Modified-Since on every reload — essential when
+    Marceli edits data/master.csv manually and expects to see changes on
+    next reload. Without this, etag-based caching makes the browser serve
+    a stale copy after a save. The frontend also appends ?v=<mtime> as a
+    belt-and-braces cache-buster."""
     path = DATA / "master.csv"
     if not path.exists():
         raise HTTPException(status_code=404, detail="master.csv not found in data/")
-    return FileResponse(path, media_type="text/csv", filename="master.csv")
+    response = FileResponse(path, media_type="text/csv", filename="master.csv")
+    response.headers["Cache-Control"] = "no-cache, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    return response
 
 
 @app.get("/api/dataset/{filename}")
