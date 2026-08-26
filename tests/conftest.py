@@ -21,6 +21,10 @@ if str(TOOLS) not in sys.path:
 
 # Repo root for any tests that need to read data/
 ROOT = Path(__file__).resolve().parent.parent
+# Also on sys.path so `import tools` resolves as a namespace package
+# (the tools/ scripts are flat files, no __init__.py).
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import pytest
 

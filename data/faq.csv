@@ -1,0 +1,52 @@
+id,q,a,category,sources,verified_kind,judge_model,verified_at
+5f8142d8dc424a02,Ile firm jest w katalogu?,377,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+7838e1fb844ec7bc,Jaki jest rozkład tierów?,hurtownik: 242; reseller: 86; producent: 17; —: 15; detalista: 10; marketplace: 5; autoryzowany: 2,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+6c8abf9da3c57a4e,Jaki jest rozkład wolumenów?,—: 93; duży: 92; średni: 75; do ustalenia: 46; brak: 44; mały: 27,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+b0ee90ca8b81ac91,Jaki jest rozkład kategorii?,B8: 152; B4: 59; A1: 59; A2: 39; B9: 22; B6: 21; B1: 15; B5: 4; A4: 3; B2: 3,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+5df7aced6cc24071,Ile firm jest w BG?,34,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+22932390fbc1eb4e,Ile firm FROZEN w BG?,32,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+e36f78c4c03b97f1,Ile firm DO-WERYFIKACJI w BG?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+240bb446cf9c8ce9,Ile firm jest w CZ?,9,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+4098ff546c6082b5,Ile firm FROZEN w CZ?,6,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+8661233cdfa8650e,Ile firm DO-WERYFIKACJI w CZ?,3,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+9f429feb4b858dae,Ile firm jest w EE?,36,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+1a7928da7ee6819d,Ile firm FROZEN w EE?,29,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+8fabbe376da443bf,Ile firm DO-WERYFIKACJI w EE?,7,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+afe177619f428110,Ile firm jest w FR?,22,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+f6a6e9241b98f2b9,Ile firm FROZEN w FR?,21,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+ae241f3c5ecd1270,Ile firm DO-WERYFIKACJI w FR?,1,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+65455159cf24c273,Ile firm jest w HR?,19,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+0dd6608685189e43,Ile firm FROZEN w HR?,19,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+164c5e87a724226b,Ile firm DO-WERYFIKACJI w HR?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+a0cc2ea76d49661b,Ile firm jest w LT?,21,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+c8dfa4e0d873fc5a,Ile firm FROZEN w LT?,18,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+d86c04ce45342a8e,Ile firm DO-WERYFIKACJI w LT?,1,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+3cb4f4398fbe36a3,Ile firm jest w LV?,11,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+bedd6bb8e15d1814,Ile firm FROZEN w LV?,11,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+fb3dd08cd7554fc3,Ile firm DO-WERYFIKACJI w LV?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+607b529a594fa3db,Ile firm jest w MD?,7,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+55119428f5ec7702,Ile firm FROZEN w MD?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+bf035219fdefeb61,Ile firm DO-WERYFIKACJI w MD?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+b7dd0b37adad751c,Ile firm jest w PL?,129,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+8413ae3a5d8ad2ba,Ile firm FROZEN w PL?,85,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+501026fe17fc6333,Ile firm DO-WERYFIKACJI w PL?,44,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+dd2169702a53dea8,Ile firm jest w RO?,24,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+e1789bf6718c5414,Ile firm FROZEN w RO?,23,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+f3a7f4e0065da865,Ile firm DO-WERYFIKACJI w RO?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+999b7c928cbb015b,Ile firm jest w RS?,19,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+6bdc678806b4fe4e,Ile firm FROZEN w RS?,1,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+cade55212a792106,Ile firm DO-WERYFIKACJI w RS?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+57c919246bae0ea4,Ile firm jest w SI?,16,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+02f4989ff6cbc63e,Ile firm FROZEN w SI?,13,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+70c2521987808a79,Ile firm DO-WERYFIKACJI w SI?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+db1a82d9e55cce97,Ile firm jest w SK?,30,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+7ed4dd15046d16fb,Ile firm FROZEN w SK?,30,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+b3b296530417f4bb,Ile firm DO-WERYFIKACJI w SK?,brak danych,dane katalogowe,"[""master.csv""]",numeric,,2026-08-26T00:59:03Z
+129975cef43a0e6d,Jaka jest różnica między tierem hurtownik a reseller?,W bazie danych BILLSzuka tier **hurtownik** obejmuje **24,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:10Z
+b486fa7ffe77fc84,Co oznacza status DO-WERYFIKACJI i co z nim zrobić?,W bazie danych BILLSzuka tier **hurtownik** obejmuje **24,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:10Z
+939d88ff0d448340,Jak wygląda proces weryfikacji firmy w BILLSzuka?,W bazie danych BILLSzuka tier **hurtownik** obejmuje **24,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:10Z
+e638a75f9da169d7,Dlaczego firmy ze statusem FROZEN są najcenniejsze?,W bazie danych BILLSzuka tier **hurtownik** obejmuje **24,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:10Z
+204d913ce3ee60ae,Które kraje są priorytetem ekspansji i dlaczego?,W bazie danych BILLSzuka tier **hurtownik** obejmuje **24,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:10Z
+af41e2f2fd4b71e6,Jakie są typowe wolumeny u hurtowników tytoniowych?,W katalogu ogólny rozkład wolumenów (dla wszystkich pod,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:20Z
+787f8432e8704b19,"Co robić, gdy firma ma flagę PENDING_API?",W katalogu ogólny rozkład wolumenów (dla wszystkich pod,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:20Z
+5231a32842a80aaa,Jak BILLSzuka zbiera dane o firmach?,W katalogu ogólny rozkład wolumenów (dla wszystkich pod,dane katalogowe,"[""master.csv""]",manual,,2026-08-26T00:59:20Z
