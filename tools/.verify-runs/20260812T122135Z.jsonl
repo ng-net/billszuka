@@ -1,1 +1,0 @@
-{"id": "EE-B-XX-043", "name": "CTB OÜ", "country": "EE", "verdict": "PENDING", "evidence": {"registry": {"tool": "registry", "nip": "17046236", "country": "EE", "status": "PENDING", "note": "Use verify_api.py for live API call"}, "web_search": {"tool": "web_search", "status": "PENDING", "note": "web_search must be invoked at agent level — not from Python"}}}

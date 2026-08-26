@@ -84,10 +84,6 @@ data/.pre-clean-notatki/
 data/billszuka.db
 data/billszuka.db-wal
 data/billszuka.db-shm
-# BILLSzuka FAQ SQLite store (generated at runtime — schema lives in tools/db.py)
-data/billszuka.db
-data/billszuka.db-wal
-data/billszuka.db-shm
 
 # Session artifacts (generated per research session, regenerated on next run)
 data/faq-*.json
@@ -99,6 +95,7 @@ data/validation-reports/
 
 # Intake pipeline (raw inputs → canonical catalogs; safe to re-run)
 data/_intake/
+!data/_intake/_README.md
 data/.pre-normalize-*/
 
 # Knowledge base (Gemini Files API local cache; regenerated on upload)
@@ -113,6 +110,7 @@ data/master.pre-*.csv
 data/relationships.csv
 data/relationships-audit.md
 data/README.md
+!data/README.md
 
 # Docs (project documentation lives in AGENTS.md / DZIENNIK.md / INTEL.md)
 docs/
