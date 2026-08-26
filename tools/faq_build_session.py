@@ -287,6 +287,7 @@ async def run_session(mode: str, doc_file: str | None, force: bool) -> int:
         for q in qual:
             attempts = 0
             while True:
+                answer = None
                 try:
                     ask_q = q if attempts == 0 else (
                         q + " (sędzia odrzucił poprzednią odpowiedź jako "
@@ -301,9 +302,19 @@ async def run_session(mode: str, doc_file: str | None, force: bool) -> int:
                     report["verdicts"].append({"q": q, "verdict": "tak"})
                     break
                 if ok is None:
-                    entries.append(_make_entry(q, answer, "manual", None, sources))
-                    report["manual"] += 1
-                    report["verdicts"].append({"q": q, "verdict": "brak sędziego"})
+                    if answer is not None:
+                        # judge unavailable but the answer exists → save as
+                        # manual (human review later).
+                        entries.append(_make_entry(q, answer, "manual", None, sources))
+                        report["manual"] += 1
+                        report["verdicts"].append({"q": q, "verdict": "brak sędziego"})
+                    else:
+                        # Answerer down (e.g. Gemini quota): nothing to save
+                        # and nothing to judge. Do NOT blocklist — a temporary
+                        # outage must not permanently reject the question
+                        # (regression: UnboundLocalError on `answer`).
+                        report["answer_failed"] = report.get("answer_failed", 0) + 1
+                        report["verdicts"].append({"q": q, "verdict": "brak odpowiedzi"})
                     break
                 if attempts < RETRY_LIMIT:
                     attempts += 1

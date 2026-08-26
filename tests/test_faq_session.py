@@ -99,3 +99,33 @@ def test_run_session_conflict_when_running(tmp_path, monkeypatch):
     with db.connect() as conn:
         conn.execute("UPDATE faq_session SET state='running' WHERE id=1")
     assert asyncio.run(run_session("full", None, force=False)) == 3
+
+
+def test_run_session_answer_failure_skips_question(tmp_path, monkeypatch):
+    """Gemini outage (answer raises) must not crash the session, must not
+    save an entry, and must NOT blocklist the question (outage != rejection).
+    Regression: UnboundLocalError on `answer` in the ok-is-None branch."""
+    import faq_build_session as fbs
+
+    monkeypatch.setattr(db, "DB_PATH", tmp_path / "t.db")
+    monkeypatch.setattr(md_corpus, "CORPUS_DIR", tmp_path / "md")
+    monkeypatch.setattr(md_corpus, "INBOX_DIR", tmp_path / "md" / "inbox")
+    monkeypatch.setattr(fbs, "ARTIFACT_JSON", tmp_path / "faq.json")
+    monkeypatch.setattr(fbs, "ARTIFACT_CSV", tmp_path / "faq.csv")
+    monkeypatch.setattr(fbs, "build_numeric_bank", lambda facts: [])
+    monkeypatch.setattr(fbs, "build_qual_bank",
+                        lambda doc_file=None: ["Czy to pytanie?"])
+
+    async def boom(q, facts, corpus_blocks):
+        raise RuntimeError("gemini call failed")
+
+    monkeypatch.setattr(fbs, "answer_qualitative", boom)
+
+    assert asyncio.run(fbs.run_session("full", None, force=False)) == 0
+    with db.connect() as conn:
+        assert conn.execute("SELECT COUNT(*) AS n FROM faq_entries").fetchone()["n"] == 0
+        assert conn.execute("SELECT COUNT(*) AS n FROM faq_rejects").fetchone()["n"] == 0
+        row = conn.execute("SELECT state, report FROM faq_session WHERE id=1").fetchone()
+    assert row["state"] == "done"
+    report = json.loads(row["report"])
+    assert report["verdicts"] == [{"q": "Czy to pytanie?", "verdict": "brak odpowiedzi"}]

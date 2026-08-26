@@ -3699,3 +3699,27 @@ I using last time?" — other agents (or the operator restarting a fresh chat)
 should be able to recover this state by reading DZIENNIK.md instead of asking.
 Detailed commit trail: see `bf8db97` (chain reorder + quota fallback),
 `d621f2c` (Gemini Files API grounding), `869aa50` (auto-recover on 404).
+
+## 2026-08-26 — Phase 1 REST POINT: smoke check + runner bugfix
+
+**Smoke (dev server :8000):** GET /api/faq → 51 items / 0 rejects; chat
+"ile firm jest w katalogu" → `provider: "faq"`, answer "377" (zero tokens);
+"zapisz ten fakt" (X-Billszuka-User: marceli) → `provider: "save"`, inbox file
+`data/knowledge/md/inbox/fact-20260826T010032-marceli.md` written.
+
+**Bug found by the smoke check (the bug was in the plan itself, code matched
+the plan verbatim):** the qualitative loop in `tools/faq_build_session.py`
+crashed with `UnboundLocalError: cannot access local variable 'answer'` when
+Gemini quota was exhausted — `answer_qualitative` raised, the `except` set
+`ok=None`, and the manual branch then used the unbound `answer`.
+**Fix:** `answer = None` at the top of each attempt; outage → report
+`verdict: "brak odpowiedzi"` + skip. The question is NOT blocklisted — a
+temporary outage must not permanently reject it (only judge rejections go to
+`faq_rejects`). Regression test:
+`tests/test_faq_session.py::test_run_session_answer_failure_skips_question`.
+Full suite: 346 passed.
+
+**Live session run (Gemini quota-dead):** 43 numeric entries upserted
+(zero LLM); 8 qualitative → "brak odpowiedzi" (honest report, no crash).
+
+**Phase 2 NOT started — awaiting Marceli review.**
