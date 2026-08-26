@@ -170,6 +170,28 @@ export function DataTable({
   const tableRows = table.getRowModel().rows;
   const rowHeight = density === "compact" ? 32 : 44;
 
+  // Cumulative left-offset (px) for the first STICKY_COLS_MOBILE visible
+  // columns, so id_unikalne + nazwa_firmy stay pinned together (header AND
+  // body) while horizontally scrolling on mobile — md:static cancels this
+  // above the md breakpoint. Previously every sticky column used a fixed
+  // `left-0`, so column 2 rendered on top of column 1 instead of after it,
+  // and only body cells were pinned (headers scrolled away), leaving
+  // pinned data with no header above it.
+  // Memoized on the column id sequence (a stable string), not on the
+  // visibleColumns array itself (a fresh reference every render), so
+  // Row's memo() comparison keeps working.
+  const stickyLeftOffsets = useMemo(() => {
+    const widthById = Object.fromEntries(tableColumns.map((c) => [c.id, c.size || 160]));
+    const offsets = [];
+    let acc = 0;
+    for (let i = 0; i < Math.min(STICKY_COLS_MOBILE, visibleColumnIds.length); i++) {
+      offsets.push(acc);
+      acc += widthById[visibleColumnIds[i]] || 160;
+    }
+    return offsets;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visibleColumnIds.join("|"), tableColumns]);
+
   // The settle-in fade should run once per data load, not on every
   // sort/filter. We flip `showSettle` true on (rows, schema) change, then
   // schedule it off ~700 ms later (past the longest 60×4 ms stagger).
@@ -265,7 +287,7 @@ export function DataTable({
                 strategy={horizontalListSortingStrategy}
               >
                 <tr>
-                  {visibleColumns.map((column) => {
+                  {visibleColumns.map((column, j) => {
                     if (!column) return null;
                     const sortIndex = (sortStack || []).findIndex((s) => s && s.id === column.id);
                     return (
@@ -273,6 +295,7 @@ export function DataTable({
                         key={column.id}
                         column={column}
                         sortIndex={sortIndex >= 0 ? sortIndex : null}
+                        stickyLeft={j < STICKY_COLS_MOBILE ? stickyLeftOffsets[j] : null}
                         onContextMenu={handleHeaderContextMenu}
                         onClick={() => reportColumnFocus(column.id)}
                         focused={focusedColumn === column.id}
@@ -286,16 +309,23 @@ export function DataTable({
                 </tr>
               </SortableContext>
               <tr className="bg-muted/30 border-b">
-                {visibleColumns.map((column) => {
+                {visibleColumns.map((column, j) => {
                   if (!column) return null;
                   const colType = column.columnDef.meta?.type || "text";
                   const enumVals = enumValuesByColumn[column.id];
+                  const stickyLeft = j < STICKY_COLS_MOBILE ? stickyLeftOffsets[j] : null;
                   return (
                     <th
                       key={column.id}
                       data-col-filter={column.id}
-                      style={{ width: column.columnDef.meta?.width ? `${column.columnDef.meta.width}px` : undefined }}
-                      className="px-1.5 py-1 border-r border-border"
+                      style={{
+                        width: column.columnDef.meta?.width ? `${column.columnDef.meta.width}px` : undefined,
+                        ...(stickyLeft != null ? { left: stickyLeft } : {}),
+                      }}
+                      className={cn(
+                        "px-1.5 py-1 border-r border-border",
+                        stickyLeft != null && "sticky z-20 bg-muted/30 md:static"
+                      )}
                     >
                       <FilterInput
                         columnId={column.id}
@@ -325,6 +355,7 @@ export function DataTable({
                     isSelected={isSelected}
                     onClick={onRowClick}
                     showSettle={showSettle}
+                    stickyLeftOffsets={stickyLeftOffsets}
                   />
                 );
               })}
@@ -398,7 +429,7 @@ function isNabijarkaRow(row) {
   return NABIJARKA_BRANDS.some((b) => brands.includes(b));
 }
 
-const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, showSettle }) {
+const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, showSettle, stickyLeftOffsets }) {
   const settleDelay = showSettle && index < 60 ? index * 4 : 0;
   const isNabijarka = isNabijarkaRow(row.original);
   return (
@@ -420,15 +451,19 @@ const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, show
       {row.getVisibleCells().map((cell, j) => {
         if (!cell?.column) return null;
         const isSticky = j < STICKY_COLS_MOBILE;
+        const stickyLeft = isSticky ? stickyLeftOffsets[j] : null;
         return (
           <td
             key={cell.id}
-            style={{ width: cell.column.columnDef.meta?.width }}
+            style={{
+              width: cell.column.columnDef.meta?.width,
+              ...(stickyLeft != null ? { left: stickyLeft } : {}),
+            }}
             className={cn(
               "px-3 align-middle border-r border-border/30 overflow-hidden text-ellipsis whitespace-nowrap",
               isSticky &&
                 cn(
-                  "sticky left-0 z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:after:hidden",
+                  "sticky z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:after:hidden",
                   isNabijarka
                     ? `${NABIJARKA_BG} md:bg-transparent`
                     : "bg-card group-hover:bg-muted/40"

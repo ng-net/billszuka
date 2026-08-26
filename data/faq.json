@@ -8,8 +8,8 @@
     "ground_key": "rows",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "7838e1fb844ec7bc",
@@ -20,8 +20,8 @@
     "ground_key": "columns.tier",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "6c8abf9da3c57a4e",
@@ -32,8 +32,8 @@
     "ground_key": "columns.wolumen",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "b0ee90ca8b81ac91",
@@ -44,8 +44,8 @@
     "ground_key": "columns.kategoria",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "5df7aced6cc24071",
@@ -56,8 +56,8 @@
     "ground_key": "columns.kraj.BG",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "22932390fbc1eb4e",
@@ -68,8 +68,8 @@
     "ground_key": "flags_x_kraj.frozen|BG",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "e36f78c4c03b97f1",
@@ -80,8 +80,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|BG",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "240bb446cf9c8ce9",
@@ -92,8 +92,8 @@
     "ground_key": "columns.kraj.CZ",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "4098ff546c6082b5",
@@ -104,8 +104,8 @@
     "ground_key": "flags_x_kraj.frozen|CZ",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "8661233cdfa8650e",
@@ -116,8 +116,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|CZ",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "9f429feb4b858dae",
@@ -128,8 +128,8 @@
     "ground_key": "columns.kraj.EE",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "1a7928da7ee6819d",
@@ -140,8 +140,8 @@
     "ground_key": "flags_x_kraj.frozen|EE",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "8fabbe376da443bf",
@@ -152,8 +152,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|EE",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "afe177619f428110",
@@ -164,8 +164,8 @@
     "ground_key": "columns.kraj.FR",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "f6a6e9241b98f2b9",
@@ -176,8 +176,8 @@
     "ground_key": "flags_x_kraj.frozen|FR",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "ae241f3c5ecd1270",
@@ -188,8 +188,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|FR",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "65455159cf24c273",
@@ -200,8 +200,8 @@
     "ground_key": "columns.kraj.HR",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "0dd6608685189e43",
@@ -212,8 +212,8 @@
     "ground_key": "flags_x_kraj.frozen|HR",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "164c5e87a724226b",
@@ -224,8 +224,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|HR",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "a0cc2ea76d49661b",
@@ -236,8 +236,8 @@
     "ground_key": "columns.kraj.LT",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "c8dfa4e0d873fc5a",
@@ -248,8 +248,8 @@
     "ground_key": "flags_x_kraj.frozen|LT",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "d86c04ce45342a8e",
@@ -260,8 +260,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|LT",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "3cb4f4398fbe36a3",
@@ -272,8 +272,8 @@
     "ground_key": "columns.kraj.LV",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "bedd6bb8e15d1814",
@@ -284,8 +284,8 @@
     "ground_key": "flags_x_kraj.frozen|LV",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "fb3dd08cd7554fc3",
@@ -296,8 +296,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|LV",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "607b529a594fa3db",
@@ -308,8 +308,8 @@
     "ground_key": "columns.kraj.MD",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "55119428f5ec7702",
@@ -320,8 +320,8 @@
     "ground_key": "flags_x_kraj.frozen|MD",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "bf035219fdefeb61",
@@ -332,8 +332,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|MD",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "b7dd0b37adad751c",
@@ -344,8 +344,8 @@
     "ground_key": "columns.kraj.PL",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "8413ae3a5d8ad2ba",
@@ -356,8 +356,8 @@
     "ground_key": "flags_x_kraj.frozen|PL",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "501026fe17fc6333",
@@ -368,8 +368,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|PL",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "dd2169702a53dea8",
@@ -380,8 +380,8 @@
     "ground_key": "columns.kraj.RO",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "e1789bf6718c5414",
@@ -392,8 +392,8 @@
     "ground_key": "flags_x_kraj.frozen|RO",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "f3a7f4e0065da865",
@@ -404,8 +404,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|RO",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "999b7c928cbb015b",
@@ -416,8 +416,8 @@
     "ground_key": "columns.kraj.RS",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "6bdc678806b4fe4e",
@@ -428,8 +428,8 @@
     "ground_key": "flags_x_kraj.frozen|RS",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "cade55212a792106",
@@ -440,8 +440,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|RS",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "57c919246bae0ea4",
@@ -452,8 +452,8 @@
     "ground_key": "columns.kraj.SI",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "02f4989ff6cbc63e",
@@ -464,8 +464,8 @@
     "ground_key": "flags_x_kraj.frozen|SI",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "70c2521987808a79",
@@ -476,8 +476,8 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|SI",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "db1a82d9e55cce97",
@@ -488,8 +488,8 @@
     "ground_key": "columns.kraj.SK",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "7ed4dd15046d16fb",
@@ -500,8 +500,8 @@
     "ground_key": "flags_x_kraj.frozen|SK",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   },
   {
     "id": "b3b296530417f4bb",
@@ -512,103 +512,7 @@
     "ground_key": "flags_x_kraj.do-weryfikacji|SK",
     "verified_kind": "numeric",
     "judge_model": null,
-    "verified_at": "2026-08-26T00:59:03Z",
-    "created_at": "2026-08-26T00:59:03Z"
-  },
-  {
-    "id": "129975cef43a0e6d",
-    "q": "Jaka jest różnica między tierem hurtownik a reseller?",
-    "a": "W bazie danych BILLSzuka tier **hurtownik** obejmuje **24",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:10Z",
-    "created_at": "2026-08-26T00:59:10Z"
-  },
-  {
-    "id": "b486fa7ffe77fc84",
-    "q": "Co oznacza status DO-WERYFIKACJI i co z nim zrobić?",
-    "a": "W bazie danych BILLSzuka tier **hurtownik** obejmuje **24",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:10Z",
-    "created_at": "2026-08-26T00:59:10Z"
-  },
-  {
-    "id": "939d88ff0d448340",
-    "q": "Jak wygląda proces weryfikacji firmy w BILLSzuka?",
-    "a": "W bazie danych BILLSzuka tier **hurtownik** obejmuje **24",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:10Z",
-    "created_at": "2026-08-26T00:59:10Z"
-  },
-  {
-    "id": "e638a75f9da169d7",
-    "q": "Dlaczego firmy ze statusem FROZEN są najcenniejsze?",
-    "a": "W bazie danych BILLSzuka tier **hurtownik** obejmuje **24",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:10Z",
-    "created_at": "2026-08-26T00:59:10Z"
-  },
-  {
-    "id": "204d913ce3ee60ae",
-    "q": "Które kraje są priorytetem ekspansji i dlaczego?",
-    "a": "W bazie danych BILLSzuka tier **hurtownik** obejmuje **24",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:10Z",
-    "created_at": "2026-08-26T00:59:10Z"
-  },
-  {
-    "id": "af41e2f2fd4b71e6",
-    "q": "Jakie są typowe wolumeny u hurtowników tytoniowych?",
-    "a": "W katalogu ogólny rozkład wolumenów (dla wszystkich pod",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:20Z",
-    "created_at": "2026-08-26T00:59:20Z"
-  },
-  {
-    "id": "787f8432e8704b19",
-    "q": "Co robić, gdy firma ma flagę PENDING_API?",
-    "a": "W katalogu ogólny rozkład wolumenów (dla wszystkich pod",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:20Z",
-    "created_at": "2026-08-26T00:59:20Z"
-  },
-  {
-    "id": "5231a32842a80aaa",
-    "q": "Jak BILLSzuka zbiera dane o firmach?",
-    "a": "W katalogu ogólny rozkład wolumenów (dla wszystkich pod",
-    "category": "dane katalogowe",
-    "sources": "[\"master.csv\"]",
-    "ground_key": null,
-    "verified_kind": "manual",
-    "judge_model": null,
-    "verified_at": "2026-08-26T00:59:20Z",
-    "created_at": "2026-08-26T00:59:20Z"
+    "verified_at": "2026-08-26T01:07:42Z",
+    "created_at": "2026-08-26T01:07:42Z"
   }
 ]

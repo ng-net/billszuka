@@ -6,20 +6,17 @@ import {
   Loader2,
   CheckCircle2,
   XCircle,
-  ChevronUp,
-  ChevronDown,
   KeyRound,
   ShieldCheck,
 } from "lucide-react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -29,7 +26,6 @@ import {
   addKey,
   deleteKey,
   testKey,
-  rotateAll,
 } from "@/lib/secretsApi";
 
 /**
@@ -290,20 +286,6 @@ function ProviderSection({
         <div className="text-xs text-muted-foreground italic py-2">{emptyHint}</div>
       )}
     </section>
-  );
-}
-
-function ProviderChip({ provider }) {
-  const map = {
-    openrouter: { label: "OpenRouter", cls: "bg-blue-100 text-blue-700 border-blue-300" },
-    gemini: { label: "Gemini", cls: "bg-purple-100 text-purple-700 border-purple-300" },
-    mock: { label: "Mock", cls: "bg-gray-100 text-gray-700 border-gray-300" },
-  };
-  const p = map[provider] || { label: provider, cls: "bg-gray-100 text-gray-700 border-gray-300" };
-  return (
-    <Badge variant="outline" className={`text-[10px] h-5 px-1.5 ${p.cls}`}>
-      {p.label}
-    </Badge>
   );
 }
 

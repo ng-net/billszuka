@@ -86,19 +86,21 @@ export default function App() {
 
   return (
     <div className="flex h-dvh flex-col bg-background text-foreground">
-      <header className="flex h-14 shrink-0 items-center justify-between border-b bg-background/80 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex items-center gap-4">
-          <div className="leading-tight">
+      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+          <div className="shrink-0 leading-tight">
             <div className="font-semibold tracking-tight">BILLSzuka</div>
-            <div className="text-[10px] text-muted-foreground">Katalog leadów B2B/B2C</div>
+            <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
           </div>
           <nav className="flex items-center gap-1">
             {TABS.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
+                aria-label={label}
+                title={label}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  "inline-flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors sm:px-3",
                   activeTab === id
                     ? "bg-muted text-foreground"
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
@@ -106,12 +108,12 @@ export default function App() {
                 aria-pressed={activeTab === id}
               >
                 <Icon className="h-4 w-4" />
-                {label}
+                <span className="hidden sm:inline">{label}</span>
               </button>
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-3">
           <HealthBadge vault={vault} error={vaultError} />
           <Button
             variant="ghost"

@@ -10,6 +10,7 @@ import {
   AlertCircle,
   RefreshCw,
   RotateCw,
+  X,
 } from "lucide-react";
 import {
   Sheet,
@@ -22,14 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import { cn, formatNumber } from "@/lib/utils";
-
-function formatBytes(n) {
-  if (!n || n < 1024) return `${n || 0} B`;
-  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
-  if (n < 1024 * 1024 * 1024) return `${(n / 1024 / 1024).toFixed(1)} MB`;
-  return `${(n / 1024 / 1024 / 1024).toFixed(2)} GB`;
-}
+import { cn, formatBytes } from "@/lib/utils";
+import { apiUrl } from "@/lib/api";
 
 const ALLOWED_EXTS = [".pdf", ".csv", ".txt", ".md", ".xlsx", ".xls", ".docx"];
 
@@ -58,7 +53,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/knowledge");
+      const res = await fetch(apiUrl("/api/knowledge"));
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
       const body = await res.json();
       const next = Array.isArray(body.items) ? body.items : [];
@@ -100,7 +95,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
       const form = new FormData();
       form.append("file", file);
       try {
-        const res = await fetch("/api/knowledge/upload", { method: "POST", body: form });
+        const res = await fetch(apiUrl("/api/knowledge/upload"), { method: "POST", body: form });
         const body = await res.json().catch(() => ({}));
         if (!res.ok) {
           throw new Error(body?.detail || res.statusText);
@@ -136,7 +131,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     const item = items.find((it) => it.id === id);
     if (!item) return;
     try {
-      const res = await fetch(`/api/knowledge/${id}`, { method: "DELETE" });
+      const res = await fetch(apiUrl(`/api/knowledge/${id}`), { method: "DELETE" });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body?.detail || res.statusText);
       toast.success("Usunięto", { description: item.filename });
@@ -156,7 +151,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     if (refreshing.has(id)) return;
     setRefreshing((prev) => new Set(prev).add(id));
     try {
-      const res = await fetch(`/api/knowledge/${id}/refresh`, { method: "POST" });
+      const res = await fetch(apiUrl(`/api/knowledge/${id}/refresh`), { method: "POST" });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body?.detail || res.statusText);
       toast.success("Odświeżono", { description: body.filename });
@@ -185,6 +180,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
+        showCloseButton={false}
         className="w-full sm:max-w-md p-0 flex flex-col gap-0"
       >
         <SheetHeader className="px-5 pt-5 pb-3 border-b">
@@ -211,7 +207,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
                 onClick={() => onOpenChange(false)}
                 aria-label="Zamknij"
               >
-                <span aria-hidden>×</span>
+                <X className="h-4 w-4" />
               </Button>
             </div>
           </div>

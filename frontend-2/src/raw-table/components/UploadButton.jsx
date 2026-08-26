@@ -68,10 +68,14 @@ export function UploadButton({ onFile, status, progress, fileMeta, onCancel, com
         variant={compact ? "outline" : "default"}
         size={compact ? "sm" : "default"}
         onClick={() => inputRef.current?.click()}
+        aria-label={compact ? "Zmień plik" : "Wgraj plik"}
+        title={compact ? "Zmień plik" : undefined}
         className="gap-2"
       >
         <Upload className="h-4 w-4" />
-        {compact ? "Zmień plik" : "Wgraj plik"}
+        <span className={compact ? "hidden sm:inline" : undefined}>
+          {compact ? "Zmień plik" : "Wgraj plik"}
+        </span>
       </Button>
       <input
         ref={inputRef}

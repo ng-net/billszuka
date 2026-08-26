@@ -35,7 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from checksums import validate_id
 
-ROOT = Path("/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka")
+ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 ENV_FILE = ROOT / ".env"
 
@@ -265,14 +265,12 @@ def process_csv(csv_path: Path, country: str, token: str, retrofix: bool, dry_ru
         idu = row[id_idx]
 
         # Skip non-PL rows in non-PL files
-        if (row_dict.get("kraj") if len(row) > 8 else None) and False:
+        if len(row) > 8 and row_dict.get("kraj") and False:
             pass
 
         is_frozen_api = "FROZEN (API)" in (row_dict["flagi"] or "")
 
         if is_frozen_api and not retrofix:
-            skipped.append(idu)
-            continue
             skipped.append(idu)
             continue
 

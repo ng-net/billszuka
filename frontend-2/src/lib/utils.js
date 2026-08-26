@@ -23,6 +23,14 @@ export function formatDate(iso) {
   }
 }
 
+export function formatBytes(n) {
+  if (!n) return "—";
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+  if (n < 1024 * 1024 * 1024) return `${(n / 1024 / 1024).toFixed(1)} MB`;
+  return `${(n / 1024 / 1024 / 1024).toFixed(2)} GB`;
+}
+
 export function truncate(str, n = 60) {
   if (!str) return "";
   return str.length > n ? str.slice(0, n).trimEnd() + "…" : str;

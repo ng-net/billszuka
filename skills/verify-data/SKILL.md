@@ -1,3 +1,8 @@
+---
+name: verify-data
+description: "Verify data integrity in data/{Kraj}/*.csv or data/master.csv after edits/imports."
+---
+
 # Skill: BILLSzuka — Weryfikacja Danych
 
 ## Kiedy używać

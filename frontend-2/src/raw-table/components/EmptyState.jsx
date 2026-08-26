@@ -50,7 +50,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
           handleFiles(e.dataTransfer.files);
         }}
         className={cn(
-          "relative w-full max-w-2xl rounded-2xl border-2 border-dashed p-12 transition-all duration-200",
+          "relative w-full max-w-2xl rounded-2xl border-2 border-dashed p-6 transition-all duration-200 sm:p-12",
           isDragging
             ? "border-primary bg-accent scale-[1.01]"
             : "border-border bg-zinc-100/60 dark:bg-zinc-900/40 hover:border-muted-foreground/40"

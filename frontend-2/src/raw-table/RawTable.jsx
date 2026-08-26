@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo, useCallback, useRef, useTransition, forwa
 import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import {
-  Table as TableIcon,
   Search,
   X,
   Sun,
@@ -28,7 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
+
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useCsv } from "@/hooks/useCsv";
@@ -416,9 +415,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8"
+              className="hidden h-8 w-8 sm:inline-flex"
               onClick={() => setShortcutsOpen(true)}
               title="Skróty klawiszowe (?)"
+              aria-label="Skróty klawiszowe"
             >
               <Keyboard className="h-4 w-4" />
             </Button>

@@ -699,6 +699,21 @@ Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 35 ko
 - **rynek_skala**: duży (PL/CZ/FR) / średni (RO/BG/HR/SI/SK) / mały (LT/LV/EE/MD)
 - **CSV**: UTF-8 z BOM (polskie znaki w Excelu), separator przecinek, cudzysłów `"…"` gdy przecinek, linie LF, daty YYYY-MM-DD
 
+### 🔓 Ścieżka C (2026-08-25): loose matching w walidatorze
+
+Metodologia trzyma **strict enum** dla nowych wpisów. Walidator (`tools/validate_columns.py`) akceptuje **loose warianty** żeby nie flagować historycznych danych jako błędy:
+
+- `sourcing`: enum jest `{Chiny, Europa, Polska, mix}`. Walidator akceptuje też substring/first-word match z rozszerzonej listy: `import`, `hurt`, `hurtownia`, `veleprodaja`, `dystrybucja`, `produkcja`, `e-commerce`, `sieć`, `salon`, `skład`, `logistyka`, `agent`, `broker`, `sklepy`, `krajowa`, `regionalna`, `ogólnokrajowa`, `import + dystrybucja`, `własna produkcja`.
+- `kanal_sprzedaży`: enum jest `{B2B only, sklep stacjonarny, marketplace, własny e-commerce, mix}`. Walidator akceptuje też: `hurt`, `hurtownia`, `veleprodaja`, `dystrybucja`, `e-commerce`, `sieć`, `salon`, `skład`, `logistyka`, `agent`, `broker`, `sklepy`.
+- `cross_sell_potential`: enum jest `{wysoki, średni, niski}`. Walidator akceptuje też `bardzo wysoki` (substring match `wysoki`).
+
+**Nowe wpisy** powinny używać strict enum. Historyczne dane z rozszerzonymi wartościami są akceptowane przez walidator (loose match) ale **nie są traktowane jako wzorzec** dla nowych rekordów. Decyzja 2026-08-25 (Marceli) — ścieżka C po audycie 1901 critical / 437 warning na 28 plikach.
+
+Narzędzia pomocnicze:
+- `tools/validate_columns.py` — loose-match validator (header mapping, per-column rules, cross-consistency A/B)
+- `tools/normalize_kolumny.py` — idempotent fixes dla PL katalogów (FixA junk values, FixB misplaced digits, FixC A→B contamination, FixD B→A contamination)
+- `tools/sync_verifier.py` — 1:1 diff master ↔ per-kraj katalogi
+
 ### Kody regionów PL (16 województw)
 
 > Od 2026-08-12 `id_unikalne` jest region-free (`PL-A-001`) — regiony nie są kodowane w ID ani w kolumnach CSV.

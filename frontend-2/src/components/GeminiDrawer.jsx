@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Sparkles,
   Send,
@@ -23,6 +23,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { apiUrl } from "@/lib/api";
 
 /**
  * GeminiDrawer — floating-action-button chat panel for "Gills — twój skowronek".
@@ -72,10 +74,6 @@ const QUICK_PROMPTS = [
   },
 ];
 
-const PROMPT_LABELS = QUICK_PROMPTS.flatMap((g) =>
-  g.items.map((q) => ({ q, group: g.group, icon: g.icon })),
-);
-
 export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]); // [{role: "user"|"assistant", text, provider?}]
@@ -108,7 +106,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
     setInput("");
     setBusy(true);
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(apiUrl("/api/chat"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -155,7 +153,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             transition={{ delay: 0.4, type: "spring", stiffness: 260, damping: 22 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg hover:shadow-xl transition-shadow"
+            className="fixed right-6 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg hover:shadow-xl transition-shadow"
             aria-label="Otwórz Gills — twój skowronek"
             title="Gills — twój skowronek"
           >
@@ -164,6 +162,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
         </SheetTrigger>
         <SheetContent
           side="right"
+          showCloseButton={false}
           className="w-full sm:max-w-md p-0 flex flex-col gap-0"
         >
           <SheetHeader className="px-5 pt-5 pb-3 border-b">
@@ -322,12 +321,12 @@ function PromptPill({ q, onPick, disabled = false, compact = false }) {
     <button
       onClick={() => !disabled && onPick(q)}
       disabled={disabled}
-      className={
-        "inline-flex items-center gap-1 rounded-full border bg-background text-left " +
-        "hover:bg-accent hover:border-violet-300 hover:text-foreground " +
-        "disabled:opacity-50 disabled:cursor-not-allowed transition-colors " +
-        (compact ? "px-2.5 py-0.5 text-[11px]" : "px-3 py-1.5 text-xs")
-      }
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full border bg-background text-left",
+        "hover:bg-accent hover:border-violet-300 hover:text-foreground",
+        "disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+        compact ? "px-2.5 py-0.5 text-[11px]" : "px-3 py-1.5 text-xs",
+      )}
     >
       {compact && <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />}
       <span className="truncate">{q}</span>

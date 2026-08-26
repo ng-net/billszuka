@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FileSpreadsheet, X, Gauge, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, formatBytes } from "@/lib/utils";
 
 /**
  * Big loading state with circular % progress, stats, and cancel.
@@ -165,9 +165,4 @@ function CircularProgress({ value, size = 120, strokeWidth = 8 }) {
   );
 }
 
-function formatBytes(bytes) {
-  if (!bytes) return "—";
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
-}
+

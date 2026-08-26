@@ -53,6 +53,7 @@ from typing import Any
 
 from fastapi import FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 # Sibling modules — same dir
@@ -67,10 +68,11 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 
 # Secrets vault — stores OpenRouter + Gemini keys + priority order.
-# Auto-bootstrapped from .env (OPENROUTER_API_KEY + GEMINI_API_KEY_1..N) on
-# first start when the vault is empty. After that, manage via the
-# Settings drawer (UI) — keys added there persist across restarts.
-# File perms are forced to 0600 on every write. Gitignored.
+# Auto-bootstrapped from production env vars and local .env
+# (OPENROUTER_API_KEY + GEMINI_API_KEY_1..N). After that, manage via the
+# Settings drawer (UI) — keys added there persist across restarts on a
+# persistent filesystem. File perms are forced to 0600 on every write.
+# Gitignored.
 SECRETS_PATH = Path(__file__).resolve().parent / "api_secrets.json"
 SECRETS_DEFAULT: dict[str, Any] = {
     "openrouter": [],   # [{alias, key, created, last_ok, last_err, source}]
@@ -445,13 +447,35 @@ def _redact(vault: dict[str, Any]) -> dict[str, Any]:
 
 
 def _read_env_keys() -> dict[str, list[dict[str, Any]]]:
-    """Pull OPENROUTER_API_KEY + GEMINI_API_KEY_1..N from .env (no os.environ).
+    """Pull OPENROUTER_API_KEY + GEMINI_API_KEY_1..N from env and .env.
 
-    Returns {"openrouter": [{alias, key, source}], "gemini": [...]}.
-    Skips empty entries. Numbers Gemini aliases from 1.
+    Production hosts like Render expose secrets via os.environ; local
+    development also supports ROOT/.env. Environment variables win when the
+    same alias exists in both places. Returns
+    {"openrouter": [{alias, key, source}], "gemini": [...]} and skips empty
+    entries.
     """
-    env_file = ROOT / ".env"
     out = {"openrouter": [], "gemini": []}
+    seen: dict[str, set[str]] = {"openrouter": set(), "gemini": set()}
+
+    def add(provider: str, alias: str, key: str, source: str) -> None:
+        key = (key or "").strip()
+        if not key or alias in seen[provider]:
+            return
+        out[provider].append({"alias": alias, "key": key, "source": source})
+        seen[provider].add(alias)
+
+    # Production/runtime environment first.
+    add("openrouter", "primary", os.environ.get("OPENROUTER_API_KEY", ""), "env")
+    for k, v in sorted(os.environ.items()):
+        if not k.startswith("GEMINI_API_KEY_"):
+            continue
+        num = k[len("GEMINI_API_KEY_"):]
+        if num.isdigit():
+            add("gemini", f"env-{num}", v, "env")
+
+    # Local .env fallback (does not override runtime env aliases).
+    env_file = ROOT / ".env"
     if not env_file.exists():
         return out
     for line in env_file.read_text(encoding="utf-8").splitlines():
@@ -460,32 +484,20 @@ def _read_env_keys() -> dict[str, list[dict[str, Any]]]:
             continue
         k, v = s.split("=", 1)
         v = v.strip()
-        if not v:
-            continue
         if k == "OPENROUTER_API_KEY":
-            out["openrouter"].append({
-                "alias": "primary",
-                "key": v,
-                "source": ".env",
-            })
+            add("openrouter", "primary", v, ".env")
         elif k.startswith("GEMINI_API_KEY_"):
             num = k[len("GEMINI_API_KEY_"):]
-            if not num.isdigit():
-                continue
-            alias = f"env-{num}"
-            out["gemini"].append({
-                "alias": alias,
-                "key": v,
-                "source": ".env",
-            })
+            if num.isdigit():
+                add("gemini", f"env-{num}", v, ".env")
     return out
 
 
 def _bootstrap_vault_from_env() -> dict[str, Any]:
-    """Load vault, merge in any .env keys that aren't already there.
+    """Load vault, merge in any runtime env/.env keys that aren't present.
 
     Returns the final vault. Idempotent: running it twice with the same
-    .env does not create duplicates (matched by alias).
+    variables does not create duplicates (matched by alias).
     """
     vault = _secrets_load()
     env_keys = _read_env_keys()
@@ -546,6 +558,18 @@ async def list_datasets() -> dict[str, Any]:
 
     datasets = await asyncio.to_thread(_scan)
     return {"datasets": datasets, "count": len(datasets)}
+
+
+@app.get("/api/master.csv")
+async def get_master_csv_raw() -> FileResponse:
+    """Raw master.csv bytes for the frontend's boot-time fetch (RawTable.jsx
+    parses this directly with PapaParse). Distinct from /api/dataset/{name},
+    which returns paginated JSON, not a raw file — the frontend needs the
+    full CSV to run its own client-side parsing/inference."""
+    path = DATA / "master.csv"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="master.csv not found in data/")
+    return FileResponse(path, media_type="text/csv", filename="master.csv")
 
 
 @app.get("/api/dataset/{filename}")

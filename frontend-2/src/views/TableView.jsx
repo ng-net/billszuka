@@ -1,6 +1,5 @@
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef } from "react";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
 import { RawTable } from "@/raw-table/RawTable";
 
 /**
@@ -10,17 +9,11 @@ import { RawTable } from "@/raw-table/RawTable";
  *
  * Forwards an imperative handle so the App-level navbar (e.g. ⌘K button
  * next to the gear) can open the command palette without prop-drilling
- * its visibility state through here.
+ * its visibility state through here. RawTable is already behind
+ * React.lazy() + Suspense at the App level, so no local mount gate is
+ * needed here — by the time this renders, the chunk is loaded.
  */
 export const TableView = forwardRef(function TableView(_props, ref) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  // Imperative handle so the App navbar can trigger the command palette.
-  // The actual palette lives inside RawTable (it needs table context), so
-  // we just forward an `openCommandPalette` method up.
-  useImperativeHandle(ref, () => ({}), []);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 6 }}
@@ -28,13 +21,7 @@ export const TableView = forwardRef(function TableView(_props, ref) {
       transition={{ duration: 0.18 }}
       className="h-full"
     >
-      {mounted ? (
-        <RawTable ref={ref} />
-      ) : (
-        <div className="flex h-full items-center justify-center text-muted-foreground">
-          <Loader2 className="h-5 w-5 animate-spin" />
-        </div>
-      )}
+      <RawTable ref={ref} />
     </motion.div>
   );
 });

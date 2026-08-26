@@ -6,10 +6,12 @@
  * keys before sending responses; we just display the fingerprint.
  */
 
+import { apiUrl } from "@/lib/api";
+
 const BASE = "/api/settings";
 
 async function jsonFetch(path, init = {}) {
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await fetch(apiUrl(`${BASE}${path}`), {
     headers: { "Content-Type": "application/json", ...(init.headers || {}) },
     ...init,
   });

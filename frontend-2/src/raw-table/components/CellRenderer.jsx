@@ -36,6 +36,11 @@ const ROLE_COLORS = {
   "producent": "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/20",
 };
 
+// Free-text columns where truncation/wrapping is common (notatki, adres,
+// etc.) — hoisted to module scope so the regex compiles once, not on every
+// cell render (this runs thousands of times per table paint).
+const LONG_TEXT_COLUMNS = /^(notatki|adres|marki_nabijarki|marka_wlasna_oem|sourcing|kanal_sprzedaży|zrodlo_danych|decydent|stanowisko|email_decydent|kanal_zamiennik|flagi|cross_sell_potential|wolumen|confidence_wolumen|notatki)$/i;
+
 function copyToClipboard(text) {
   if (navigator.clipboard?.writeText) {
     navigator.clipboard.writeText(text).catch(() => {});
@@ -333,15 +338,14 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
 
   // Long text → popover with full content. Threshold: 30 chars OR a free-text
   // type column (where truncation is common: notatki, adres, marki_nabijarki, etc.)
-  const longTextColumns = /^(notatki|adres|marki_nabijarki|marka_wlasna_oem|sourcing|kanal_sprzedaży|zrodlo_danych|decydent|stanowisko|email_decydent|kanal_zamiennik|flagi|cross_sell_potential|wolumen|confidence_wolumen|notatki)$/i;
-  const isLong = display.length > 30 || longTextColumns.test(columnId);
+  const isLong = display.length > 30 || LONG_TEXT_COLUMNS.test(columnId);
   if (isLong) {
     return (
       <LongTextCell
         value={display}
         display={truncate(display, 60)}
         columnId={columnId}
-        truncated={display.length > 60 || longTextColumns.test(columnId)}
+        truncated={display.length > 60 || LONG_TEXT_COLUMNS.test(columnId)}
       />
     );
   }

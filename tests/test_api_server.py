@@ -69,6 +69,42 @@ def client(tmp_data, monkeypatch, tmp_path):
 
 
 # ---------------------------------------------------------------------------
+# Secrets bootstrap
+# ---------------------------------------------------------------------------
+
+
+def test_read_env_keys_prefers_runtime_env(monkeypatch, tmp_path):
+    import api_server
+
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        "OPENROUTER_API_KEY=sk-or-local\n"
+        "GEMINI_API_KEY_1=AIza-local\n"
+        "GEMINI_API_KEY_2=AIza-local-two\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(api_server, "ROOT", tmp_path)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-prod")
+    monkeypatch.setenv("GEMINI_API_KEY_1", "AIza-prod")
+
+    keys = api_server._read_env_keys()
+
+    assert keys["openrouter"][0] == {
+        "alias": "primary",
+        "key": "sk-or-prod",
+        "source": "env",
+    }
+    assert {entry["alias"]: entry["source"] for entry in keys["gemini"]} == {
+        "env-1": "env",
+        "env-2": ".env",
+    }
+    assert {entry["alias"]: entry["key"] for entry in keys["gemini"]} == {
+        "env-1": "AIza-prod",
+        "env-2": "AIza-local-two",
+    }
+
+
+# ---------------------------------------------------------------------------
 # /api/datasets
 # ---------------------------------------------------------------------------
 
