@@ -37,8 +37,12 @@ QUESTION_TOKENS = {
     "how", "what", "who", "where", "when", "why", "which",
 }
 
-# Measured on the eval gate (tests/test_faq.py::test_eval_gate). See
-# Task 3 — the tune step writes the measured value here.
+# Measured on the eval gate (tests/test_faq.py::test_eval_gate). Shipped
+# value 0.6: 0 false accepts and <50% misses once the entity guard also
+# recognizes inflected forms (see _entity_tokens). The tune sweep
+# (test_tune_sweep_finds_working_threshold) reports 0.9 as its first
+# zero-false-accept step, but at 0.9 the gate fails with 50 misses (0 hits)
+# — the sweep stops at the degenerate end; the gate test is the arbiter.
 FAQ_FUZZY_THRESHOLD = 0.6
 
 
@@ -139,3 +143,88 @@ def set_meta(key: str, value: str) -> None:
             "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
             (key, value),
         )
+
+
+# ---------------------------------------------------------------------------
+# FAQ matching — token-set Jaccard + entity guard
+# ---------------------------------------------------------------------------
+
+_entities_cache: tuple[object, frozenset] = (None, frozenset())
+
+
+def protected_entities(master_csv: Path = MASTER_CSV) -> frozenset:
+    """Single normalized tokens for every value in FACTS_COLUMNS plus the
+    flag-status tokens. Cached by master.csv mtime."""
+    global _entities_cache
+    key = master_csv.stat().st_mtime_ns if master_csv.exists() else 0
+    if _entities_cache[0] == key and _entities_cache[1]:
+        return _entities_cache[1]
+    ents = set(FLAG_NEEDLES)
+    if master_csv.exists():
+        with open(master_csv, encoding="utf-8-sig") as f:
+            for row in csv.DictReader(f):
+                for col in FACTS_COLUMNS:
+                    v = normalize(row.get(col) or "")
+                    if v and v != "—":
+                        ents.add(v)
+    ents = frozenset(ents)
+    _entities_cache = (key, ents)
+    return ents
+
+
+def _entity_tokens(normalized: str, ents: frozenset) -> set:
+    """Protected tokens in a normalized text. A token is protected when it
+    equals an entity or starts with a longer (≥4 char) entity — inflected
+    forms ('hurtownicy', 'hurtownikow') carry the same protected concept as
+    their lemma ('hurtownik') and must trigger the guard, otherwise e.g.
+    'ile hurtownikow jest w pl' (J≈0.667) would resolve to
+    'ile firm jest w pl' at any threshold below 0.67. Short entities
+    (country codes, ids) stay exact-match only."""
+    out: set = set()
+    for t in normalized.split():
+        if t in ents:
+            out.add(t)
+            continue
+        for e in ents:
+            if len(e) >= 4 and t.startswith(e):
+                out.add(e)
+                break
+    return out
+
+
+def _jaccard(a: set, b: set) -> float:
+    if not a and not b:
+        return 1.0
+    return len(a & b) / len(a | b)
+
+
+def match_faq(query: str, entries: list[dict], ents: frozenset | None = None) -> dict | None:
+    """Best matching entry or None. Exact normalized match first, then
+    Jaccard on token sets. Entity guard: protected tokens must match
+    exactly on both sides (one-sided presence → miss)."""
+    ents = ents if ents is not None else protected_entities()
+    qn = normalize(query)
+    qt = set(tokenize(qn))
+    q_ents = _entity_tokens(qn, ents)
+    best, best_score = None, 0.0
+    for e in entries:
+        en = normalize(e["q"])
+        if qn == en:
+            return e
+        if _entity_tokens(en, ents) != q_ents:
+            continue
+        score = _jaccard(qt, set(tokenize(en)))
+        if score >= FAQ_FUZZY_THRESHOLD and score > best_score:
+            best, best_score = e, score
+    return best
+
+
+def list_entries() -> list[dict]:
+    with db.connect() as conn:
+        rows = conn.execute("SELECT * FROM faq_entries ORDER BY created_at").fetchall()
+    return [dict(r) for r in rows]
+
+
+def bump_hits(entry_id: str) -> None:
+    with db.connect() as conn:
+        conn.execute("UPDATE faq_entries SET hits = hits + 1 WHERE id=?", (entry_id,))

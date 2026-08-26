@@ -121,6 +121,13 @@ def rynek_skala_for(iso: str) -> str:
     return RYNEK_SKALA_MAP.get(iso.upper(), "średni")
 
 
+# FAQ fuzzy-matching threshold (tools/faq.py:FAQ_FUZZY_THRESHOLD — keep in
+# sync). Measured by tests/test_faq.py::test_eval_gate: with the inflected-
+# form entity guard, 0.6 yields 0 false accepts and <50% misses. Near-misses
+# like "ile hurtownikow jest w pl" are caught by the guard (hurtownikow →
+# hurtownik), never by the raw Jaccard score alone.
+
+
 def make_id(iso: str, catalog_type: str, seq_num: int) -> str:
     """Generate region-free unique ID: e.g. PL-A-001, CZ-B-015."""
     cat = catalog_type.upper().strip()
