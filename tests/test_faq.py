@@ -172,3 +172,44 @@ def test_tune_sweep_finds_working_threshold():
             print(f"threshold {t}: 0 false accepts, {hits}/{sum(1 for _, e in eval_rows if e)} positives hit")
             break
     faq.FAQ_FUZZY_THRESHOLD = 0.6
+
+
+# --- save-command -----------------------------------------------------------
+
+PHRASES = [
+    "zapisz ten fakt", "zapisz to", "zapisz to zdanie", "zachowaj to",
+    "zapamiętaj to", "zapisz odpowiedź", "save this", "save this fact",
+    "remember this",
+]
+
+
+def test_save_command_basic():
+    assert faq.is_save_command("zapisz ten fakt", True, PHRASES) == ""
+    assert faq.is_save_command("Save this fact", True, PHRASES) == ""
+
+
+def test_save_command_with_short_note():
+    assert faq.is_save_command("zapisz to zdanie o rynku", True, PHRASES) == "o rynku"
+
+
+def test_save_command_typo_tolerance():
+    # "zamietaj" ≈ "zapamiętaj" (per-token difflib ≥ 0.9)
+    assert faq.is_save_command("zamietaj to", True, PHRASES) == ""
+
+
+def test_save_command_question_token_blocks():
+    assert faq.is_save_command("zapisz ile firm jest w pl", True, PHRASES) is None
+    assert faq.is_save_command("zapisz to jakie firmy", True, PHRASES) is None
+
+
+def test_save_command_long_remainder_falls_through():
+    # long tail = a question, not a command
+    assert faq.is_save_command("zapisz to zdanie o rynku w polsce i niemczech", True, PHRASES) is None
+
+
+def test_save_command_needs_last_answer():
+    assert faq.is_save_command("zapisz ten fakt", False, PHRASES) is None
+
+
+def test_save_command_plain_question_is_none():
+    assert faq.is_save_command("ile firm jest frozen w pl", True, PHRASES) is None

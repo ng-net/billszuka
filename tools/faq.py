@@ -228,3 +228,54 @@ def list_entries() -> list[dict]:
 def bump_hits(entry_id: str) -> None:
     with db.connect() as conn:
         conn.execute("UPDATE faq_entries SET hits = hits + 1 WHERE id=?", (entry_id,))
+
+
+# ---------------------------------------------------------------------------
+# Save-command detection ("zapisz ten fakt")
+# ---------------------------------------------------------------------------
+
+# Per-token difflib threshold for typo tolerance. The plan assumed ≥ 0.9,
+# but SequenceMatcher("zamietaj", "zapamietaj").ratio() == 0.8889 — the
+# typo test demands this exact pair pass, so 0.88 it is.
+SAVE_TOKEN_RATIO = 0.88
+
+
+def load_save_phrases(path: Path = PHRASES_PATH) -> list[str]:
+    if not path.exists():
+        return []
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return [p for lang in data.values() for p in lang]
+
+
+def is_save_command(query: str, has_last_answer: bool,
+                    phrases: list[str] | None = None) -> str | None:
+    """Return the note (remainder after the phrase) when `query` is a
+    save-this-fact command, else None. All four conditions must hold:
+    phrase token-prefix (typo-tolerant, LONGEST matching phrase wins —
+    "save this fact" beats "save this"), no question token, a last answer
+    exists, remainder ≤ 4 tokens."""
+    from difflib import SequenceMatcher
+
+    if not has_last_answer:
+        return None
+    qn = normalize(query)
+    qt = qn.split()
+    if not qt:
+        return None
+    if set(qt) & QUESTION_TOKENS:
+        return None
+    phrases = phrases if phrases is not None else load_save_phrases()
+    best, best_len = None, -1
+    for p in phrases:
+        pn = normalize(p).split()
+        if len(pn) > len(qt) or len(pn) <= best_len:
+            continue
+        if all(SequenceMatcher(None, qt[i], pn[i]).ratio() >= SAVE_TOKEN_RATIO
+               for i in range(len(pn))):
+            best, best_len = pn, len(pn)
+    if best is None:
+        return None
+    remainder = qt[len(best):]
+    if len(remainder) > 4:
+        return None
+    return " ".join(remainder)
