@@ -1,0 +1,7 @@
+related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,tier,wolumen,flagi
+,2022,PL-A-001,A1,FIRMA ALFA,PL,hurtownik,duży,"2026-08-18 ✅ FROZEN (API)"
+,2023,PL-B-001,B4,FIRMA BETA,PL,hurtownik,średni,"2026-08-18 ✅ FROZEN (API)"
+,2021,PL-C-001,A2,FIRMA GAMMA,PL,reseller,mały,"2026-08-18 ⚠️ DO-WERYFIKACJI (API)"
+,2020,CZ-A-001,B8,FIRMA DELTA,CZ,hurtownik,duży,"2026-08-18 ✅ FROZEN (API)"
+,2019,CZ-B-001,B9,FIRMA EPSILON,CZ,producent,brak,"2026-08-18 ⏳ PENDING_API"
+,2018,DE-A-001,A1,FIRMA ZETA,DE,hurtownik,brak,"🆕 NEW 2026-08-19"
