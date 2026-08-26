@@ -21,3 +21,13 @@ if str(TOOLS) not in sys.path:
 
 # Repo root for any tests that need to read data/
 ROOT = Path(__file__).resolve().parent.parent
+
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def _isolated_db(tmp_path, monkeypatch):
+    """Every test gets a throwaway SQLite store — never data/billszuka.db."""
+    import db
+
+    monkeypatch.setattr(db, "DB_PATH", tmp_path / "billszuka-test.db")

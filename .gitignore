@@ -79,3 +79,8 @@ data/verification/vies_*.json
 # BILLSzuka pre-clean snapshots (intermediate states from cleanup scripts)
 data/**/catalog-*-pre-*.csv
 data/.pre-clean-notatki/
+
+# BILLSzuka FAQ SQLite store (generated at runtime — schema lives in tools/db.py)
+data/billszuka.db
+data/billszuka.db-wal
+data/billszuka.db-shm
