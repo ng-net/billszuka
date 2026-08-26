@@ -84,7 +84,10 @@ export function DataTable({
         // of checked labels. Match: cell contains ANY of the selected labels.
         filterFn = "enumContains";
       } else if (colType === "number") {
-        filterFn = "inNumberRange";
+        // Custom: TanStack's built-in `inNumberRange` expects [min, max] tuple,
+        // but the NumberRangeFilter emits { min, max } (consistent with our
+        // { from, to } date filter). Use a custom fn so the UI shape works.
+        filterFn = "numberRange";
       } else if (colType === "date") {
         filterFn = "dateRange";
       }
@@ -156,7 +159,11 @@ export function DataTable({
     onSortingChange: setSortStack,
     onGlobalFilterChange: () => {},
     globalFilterFn: "includesString",
-    filterFns: { dateRange: dateRangeFilter, enumContains: enumContainsFilter },
+    filterFns: {
+      dateRange: dateRangeFilter,
+      enumContains: enumContainsFilter,
+      numberRange: numberRangeFilter,
+    },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -561,6 +568,26 @@ const dateRangeFilter = (row, columnId, filterValue) => {
     const toMs = new Date(filterValue.to).getTime();
     if (!isNaN(toMs) && cellMs > toMs) return false;
   }
+  return true;
+};
+
+/**
+ * Custom filterFn for number-range columns. Filter value is {min?, max?}.
+ * Same shape as the date filter ({min,max} vs {from,to}) so the UI logic
+ * is uniform. TanStack's built-in `inNumberRange` expects a [min,max] tuple
+ * which doesn't match what NumberRangeFilter emits.
+ */
+const numberRangeFilter = (row, columnId, filterValue) => {
+  if (!filterValue) return true;
+  const raw = row.getValue(columnId);
+  if (raw == null) return false;
+  // Cells are already typed to number by applySchema() in lib/csv.js, but
+  // fall back to Number() coercion in case a row slipped through (e.g.
+  // empty string → null after coerce, but a stray "1,5" → NaN).
+  const n = typeof raw === "number" ? raw : Number(String(raw).replace(",", "."));
+  if (isNaN(n)) return false;
+  if (filterValue.min != null && n < filterValue.min) return false;
+  if (filterValue.max != null && n > filterValue.max) return false;
   return true;
 };
 
