@@ -28,6 +28,8 @@ import { cn } from "@/lib/utils";
 
 const STICKY_COLS_MOBILE = 2; // first 2 cols sticky on mobile
 
+const DIVIDER_AFTER_COLS = ["www", "powinowactwo_nabijarki", "kanal_zamiennik", "notatki", "tiktok"];
+
 export function DataTable({
   columns,
   rows,
@@ -90,6 +92,12 @@ export function DataTable({
         filterFn = "numberRange";
       } else if (colType === "date") {
         filterFn = "dateRange";
+      } else {
+        // text / url / email / phone — explicit `includesString` (case-insensitive
+        // substring). Without an explicit fn, TanStack's default `auto` silently
+        // failed to match string filters in v8.21.x, leaving the table unfiltered
+        // even though the parent state held the value.
+        filterFn = "includesString";
       }
       return {
         id: colId,
@@ -175,7 +183,7 @@ export function DataTable({
   const visibleColumns = table.getVisibleLeafColumns();
   const visibleColumnIds = visibleColumns.map((c) => c.id);
   const tableRows = table.getRowModel().rows;
-  const rowHeight = density === "compact" ? 32 : 44;
+  const rowHeight = density === "compact" ? 28 : 44;
 
   // Cumulative left-offset (px) for the first STICKY_COLS_MOBILE visible
   // columns, so id_unikalne + nazwa_firmy stay pinned together (header AND
@@ -287,7 +295,10 @@ export function DataTable({
           onScroll={() => setMenu(null)}
           onClick={() => menu && setMenu(null)}
         >
-          <table className="border-collapse text-sm" style={{ tableLayout: "fixed", width: totalTableWidth }}>
+          <table
+            className={cn("border-collapse", density === "compact" ? "text-[11px] leading-tight" : "text-sm")}
+            style={{ tableLayout: "fixed", width: totalTableWidth }}
+          >
             <thead className="sticky top-0 z-30 bg-card">
               <SortableContext
                 items={visibleColumnIds}
@@ -297,10 +308,12 @@ export function DataTable({
                   {visibleColumns.map((column, j) => {
                     if (!column) return null;
                     const sortIndex = (sortStack || []).findIndex((s) => s && s.id === column.id);
+                    const isDivider = DIVIDER_AFTER_COLS.includes(column.id);
                     return (
                       <SortableHeader
                         key={column.id}
                         column={column}
+                        isDivider={isDivider}
                         sortIndex={sortIndex >= 0 ? sortIndex : null}
                         stickyLeft={j < STICKY_COLS_MOBILE ? stickyLeftOffsets[j] : null}
                         onContextMenu={handleHeaderContextMenu}
@@ -321,6 +334,7 @@ export function DataTable({
                   const colType = column.columnDef.meta?.type || "text";
                   const enumVals = enumValuesByColumn[column.id];
                   const stickyLeft = j < STICKY_COLS_MOBILE ? stickyLeftOffsets[j] : null;
+                  const isDivider = DIVIDER_AFTER_COLS.includes(column.id);
                   return (
                     <th
                       key={column.id}
@@ -330,7 +344,8 @@ export function DataTable({
                         ...(stickyLeft != null ? { left: stickyLeft } : {}),
                       }}
                       className={cn(
-                        "px-1.5 py-1 border-r border-border",
+                        "px-1.5 py-1 border-border",
+                        isDivider ? "border-r-[6px]" : "border-r",
                         stickyLeft != null && "sticky z-20 bg-muted/30 md:static"
                       )}
                     >
@@ -359,6 +374,7 @@ export function DataTable({
                     row={row}
                     index={i}
                     rowHeight={rowHeight}
+                    density={density}
                     isSelected={isSelected}
                     onClick={onRowClick}
                     showSettle={showSettle}
@@ -436,7 +452,7 @@ function isNabijarkaRow(row) {
   return NABIJARKA_BRANDS.some((b) => brands.includes(b));
 }
 
-const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, showSettle, stickyLeftOffsets }) {
+const Row = memo(function Row({ row, index, rowHeight, density, isSelected, onClick, showSettle, stickyLeftOffsets }) {
   const settleDelay = showSettle && index < 60 ? index * 4 : 0;
   const isNabijarka = isNabijarkaRow(row.original);
   return (
@@ -467,7 +483,9 @@ const Row = memo(function Row({ row, index, rowHeight, isSelected, onClick, show
               ...(stickyLeft != null ? { left: stickyLeft } : {}),
             }}
             className={cn(
-              "px-3 align-middle border-r border-border/30 overflow-hidden text-ellipsis whitespace-nowrap",
+              density === "compact" ? "px-2 text-[11px]" : "px-3 text-sm",
+              "align-middle border-border/30 overflow-hidden text-ellipsis whitespace-nowrap",
+              DIVIDER_AFTER_COLS.includes(cell.column.id) ? "border-r-[6px]" : "border-r",
               isSticky &&
                 cn(
                   "sticky z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-border/50 after:shadow-[2px_0_4px_-2px_rgba(0,0,0,0.05)] md:static md:after:hidden",

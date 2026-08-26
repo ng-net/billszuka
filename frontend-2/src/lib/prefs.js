@@ -8,6 +8,7 @@ const KEY = "czat-table.prefs.v1";
 
 const DEFAULTS = {
   version: 1,
+  activeTab: "table", // "table" | "analytics"
   density: "compact", // "compact" | "comfortable"
   theme: "system", // "light" | "dark" | "system"
   columnOrder: null, // array of column ids, null = default order
@@ -19,7 +20,7 @@ const DEFAULTS = {
 };
 
 export function loadPrefs() {
-  if (typeof window === "undefined") return { ...DEFAULTS };
+  if (typeof localStorage === "undefined") return { ...DEFAULTS };
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return { ...DEFAULTS };
@@ -32,10 +33,11 @@ export function loadPrefs() {
 }
 
 export function savePrefs(prefs) {
-  if (typeof window === "undefined") return;
+  if (typeof localStorage === "undefined") return;
   try {
     const trimmed = {
       version: 1,
+      activeTab: prefs.activeTab,
       density: prefs.density,
       theme: prefs.theme,
       columnOrder: prefs.columnOrder,
@@ -52,7 +54,7 @@ export function savePrefs(prefs) {
 }
 
 export function clearPrefs() {
-  if (typeof window === "undefined") return;
+  if (typeof localStorage === "undefined") return;
   try {
     localStorage.removeItem(KEY);
   } catch {}

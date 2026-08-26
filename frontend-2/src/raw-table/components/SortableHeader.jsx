@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * `column` is a TanStack v8 Column object (from getVisibleLeafColumns()),
  * not a Header. Columns have .id, .columnDef, .getCanSort(), .getIsSorted() directly.
  */
-export function SortableHeader({ column, sortIndex, stickyLeft, onContextMenu, onClick, focused, onHide, filterProps }) {
+export function SortableHeader({ column, sortIndex, stickyLeft, onContextMenu, onClick, focused, onHide, filterProps, isDivider }) {
   // Hooks must be called unconditionally on every render. The previous
   // version had `if (!column) return null` before `useSortable` — a rules
   // of-hooks violation that could crash if column was ever falsy.
@@ -57,7 +57,7 @@ export function SortableHeader({ column, sortIndex, stickyLeft, onContextMenu, o
       }}
       className={cn(
         "group relative overflow-hidden text-left align-middle font-medium text-muted-foreground select-none",
-        "border-r border-border",
+        isDivider ? "border-r-[6px] border-border" : "border-r border-border",
         focused && "ring-2 ring-primary/50 ring-inset",
         stickyLeft != null && "sticky z-20 bg-card md:static"
       )}

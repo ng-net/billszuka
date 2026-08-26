@@ -30,7 +30,7 @@ export function CommandPalette({ open, onOpenChange, context, onAction }) {
       {
         group: "Akcje",
         items: [
-          { id: "upload", label: "Wgraj plik", icon: Upload, shortcut: "⌘O" },
+          { id: "upload", label: "Upload CSV", icon: Upload, shortcut: "⌘O" },
           { id: "clear-filters", label: "Wyczyść filtry", icon: XCircle, shortcut: "R" },
           { id: "clear-sort", label: "Wyczyść sortowanie", icon: ArrowUpDown },
           { id: "reset", label: "Reset widoku", icon: Trash2, destructive: true },

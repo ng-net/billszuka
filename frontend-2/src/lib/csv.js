@@ -204,5 +204,23 @@ export function getEnumValues(rows, columnId, max = 50) {
     set.add(s);
     if (set.size > max) return null;
   }
-  return Array.from(set).sort();
+  const arr = Array.from(set);
+  
+  if (columnId === "wolumen" || columnId === "wolumen_szac") {
+    const order = {
+      "mały": 1,
+      "mały-średni": 2,
+      "średni": 3,
+      "średni-duży": 4,
+      "duży": 5
+    };
+    return arr.sort((a, b) => {
+      const rankA = order[a.toLowerCase()] || 99;
+      const rankB = order[b.toLowerCase()] || 99;
+      if (rankA !== rankB) return rankA - rankB;
+      return a.localeCompare(b);
+    });
+  }
+  
+  return arr.sort();
 }

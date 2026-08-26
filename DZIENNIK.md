@@ -1,5 +1,29 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-26 — Logout Tooltip (2s delay + dissolve) & Dataset/Session Persistence
+
+**Operator:** Marceli
+**Agent:** Antigravity
+
+**Kontekst:** Wdrożenie tooltipa nad przyciskiem wylogowania z 2-sekundowym opóźnieniem i efektem powolnego rozpuszczania (dissolve-on-click), oraz naprawa persystencji sesji/danych (zapobieganie resetowaniu stanu po odświeżeniu strony, zachowywanie wgranego pliku CSV lub wyboru master.csv, a także filtrów, sortowania, widoczności kolumn i aktywnej zakładki).
+
+**Wykonane:**
+1. **Logout Tooltip (`AccessGate.jsx`):**
+   - Dodano Radix UI Tooltip nad przyciskiem "Wyloguj" (`fixed bottom-4 left-4`) z opóźnieniem `delayDuration={2000}` (2 sekundy).
+   - Treść tooltipa: `"Your session will be saved with any changes you’ve made."` z małym krojem pisma (`text-[11px] font-normal`).
+   - Efekt dissolve na kliknięcie tooltipa: po kliknięciu tooltip rozmywa się i znika (`opacity-0 scale-95 blur-[3px]`), po czym następuje wylogowanie (`handleLogout()`).
+2. **Persystencja Datasetów & Sesji (`datasetStorage.js`, `prefs.js`, `useCsv.js`, `RawTable.jsx`, `App.jsx`):**
+   - Utworzono moduł IndexedDB `datasetStorage.js` (`billszuka_db`) do trwałego przechowywania wgranych plików CSV (wiersze, kolumny, schemat, metadane) bez limitu 5MB z localStorage.
+   - W `RawTable.jsx` dodano sprawdzanie aktywnego datasetu podczas startu: jeśli użytkownik wgrał własny plik CSV, jest on natychmiast przywracany po odświeżeniu (F5); jeśli wybrano master.csv, ładowany jest master.csv.
+   - Zaktualizowano `prefs.js` o utrwalanie `activeTab` ("table" | "analytics") obok filtrów, sortowania, szerokości i widoczności kolumn.
+   - W `App.jsx` podpięto dynamiczną nazwę aktywnego pliku CSV do `GeminiDrawer`.
+3. **Weryfikacja:**
+   - Testy jednostkowe: `npm test --prefix frontend-2` (7/7 PASS, w tym nowe testy `prefs.test.js` i `access.test.js`).
+   - Linter i build: `oxlint` 0 błędów, `vite build` 0 błędów (kod zoptymalizowany pod produkcję).
+   - Walidator kolumn: `python tools/validate_columns.py` (148 criticals, spełnia próg `< 200`).
+
+---
+
 ## 2026-08-26 — master.csv data-integrity review + fixes (prepare for production)
 
 **Operator:** Marceli
@@ -3879,3 +3903,55 @@ Tracked in AGENTS.md and gitignored — safe, but can be cleaned with:
 **Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
 
 1. Weryfikacja automatyczna: **349/375 (93.1%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+## 2026-08-26 12:41 CEST — frontend-2 UI test: dwa krytyczne bugi w filtrach (naprawione)
+
+**Test dynamicznej tabeli (frontend-2) przez Playwright headless.** Sample 417 wierszy × 35 kolumn.
+
+### Bug 1: useDebouncedEmit — debounce nigdy nie fires
+- **Plik:** `frontend-2/src/raw-table/components/FilterInput.jsx:46-57`
+- **Objaw:** Text/Number/Date filtry nie działają. `prefs.filters = {}` mimo wpisania wartości.
+- **Przyczyna:** `onChange` w dep array `[onChange, ms]`, a wywołujący (TextFilter/Number/Date) przekazują inline arrow `(v) => onChange(v || undefined)` — nowa referencja co render → useEffect cleanup `cancel()` zabija timer przed 150ms.
+- **Fix:** `onChangeRef.current = onChange` + zmiana deps na `[ms]`. Komentarz w pliku wyjaśnia dlaczego.
+
+### Bug 2: filterFn undefined dla text columns
+- **Plik:** `frontend-2/src/raw-table/components/DataTable.jsx:81-93`
+- **Objaw:** Nawet po fix #1 filter wchodził do parent state (`prefs.filters.nazwa_firmy='BISTA'`) ale tabela nie filtrowała.
+- 
+- **Fix:** Ustawiono domyślny `filterFn: "includesString"` w TanStack Table dla kolumn tekstowych.
+
+## 2026-08-26 14:30 CEST — Naprawa czatu Gills (token starvation & formatowanie)
+
+### Zidentyfikowane przyczyny:
+1. **Token Starvation (Gemini 3.6 Flash thinking tokens)**: Model z włączonym Chain of Thought zużywał ~380 tokenów na myślenie przy `maxOutputTokens=400`, przez co odpowiedzi urywały się po kilku słowach (`MAX_TOKENS`).
+2. **Brak rozbicia statusów per kraj w kontekście**: `_build_dataset_context` nie zawierał cross-tabów kraj × status / tier.
+3. **Pojedynczy part kandydatów**: Pobieranie wyłącznie pierwszego partu gubiło treść przy odpowiedziach złożonych.
+4. **Brak formatowania Markdown w UI**: `GeminiDrawer.jsx` renderował surowy tekst zamiast formatowania.
+
+### Wprowadzone zmiany:
+- `tools/api_server.py`: Zwiększono `maxOutputTokens` w `_call_gemini` do 2048 i `max_tokens` w `_call_openrouter` do 1500; bezpieczne łączenie partów tekstowych; dodano cross-taby (status, tier per kraj) w `_build_dataset_context`.
+- `frontend-2/src/components/GeminiDrawer.jsx`: Dodano komponent `MarkdownText` (nagłówki, listy, bold, linki, bloki faktów/errat), ulepszone komunikaty błędów sieciowych i badge dostawców.
+- Wszystkie 36 testów `tests/test_api_server.py` przechodzi; build Vite pomyślny; odpowiedzi Gemini kompletne i precyzyjne.
+
+## 2026-08-26 14:50 CEST — Refaktoryzacja UI: Zakładka Katalog, navbar & gęstość tabeli
+
+### Zrealizowane modyfikacje UI w `frontend-2`:
+1. **Przemianowanie widoku na "Katalog":**
+   - Widok tabeli i zakładka główna zmieniona z "Tabela" na "Katalog" (`id: "table"` zachowane dla bezpieczeństwa wstecznego routingu/stanu).
+2. **Gęstość (Density) & Font size:**
+   - Przycisk gęstości w pasku narzędzi tabeli zmniejszony do samej ikony (`Rows3`/`Rows4`).
+   - Po kliknięciu rozwija menu z nagłówkiem "Gęstość" i opcjami: "Kompaktowy" oraz "Wygodny".
+   - W trybie kompaktowym (`density: compact`) zmniejszono czcionkę tabeli do `text-[11px] leading-tight`, paddingi komórek do `px-2 py-0.5` oraz wysokość wiersza do `28px` (z 32px).
+3. **Pasek nawigacyjny (Top navbar order):**
+   - Na górnym pasku po prawej stronie ustawiono kolejność:
+     1. Przycisk "Skróty klawiszowe" (ikona klawiatury `?`)
+     2. Przycisk "Motyw" (dropdown: Jasny, Ciemny, Systemowy)
+     3. Badge online/offline (`HealthBadge`)
+     4. Baza wiedzy (`BookOpen`)
+     5. Polecenia `⌘K` (`CommandIcon`)
+     6. Klucze API (`KeyRound`)
+     7. Przycisk "Upload" (czarny styl primary, etykieta "Upload")
+4. **Weryfikacja:**
+   - `npm --prefix frontend-2 run build` → PASS (0 błędów, 1.17s)
+   - `npm --prefix frontend-2 test` → 5/5 PASS
+   - `python3 tools/validate_columns.py` → 148 criticals (<200 limit)
+

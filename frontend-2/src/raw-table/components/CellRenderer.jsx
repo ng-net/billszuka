@@ -148,7 +148,35 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
     return <span className="text-muted-foreground/40">—</span>;
   }
 
-  const display = String(value);
+  let display = String(value);
+
+  // Transform rok_zalozenia: e.g. "1992" -> "1992 (34 lat)"
+  if (columnId === "rok_zalozenia") {
+    const year = parseInt(display, 10);
+    if (!isNaN(year) && year > 1000) {
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - year;
+      if (age >= 0) {
+        display = `${year} (${age} lat)`;
+      }
+    }
+  }
+
+  // Transform decydent: e.g. "Jan Kowalski" -> "Jan Ko***i"
+  if (columnId === "decydent" && display.trim().length > 0) {
+    const parts = display.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      const surname = parts[parts.length - 1];
+      if (surname.length > 3) {
+        const maskedSurname = surname.substring(0, 2) + "***" + surname.substring(surname.length - 1);
+        parts[parts.length - 1] = maskedSurname;
+      } else if (surname.length === 3) {
+        const maskedSurname = surname.substring(0, 1) + "***" + surname.substring(surname.length - 1);
+        parts[parts.length - 1] = maskedSurname;
+      }
+      display = parts.join(" ");
+    }
+  }
   const handleClick = (e) => {
     e.stopPropagation();
     copyToClipboard(display);

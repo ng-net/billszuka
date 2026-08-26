@@ -42,17 +42,27 @@ export function FilterInput({ type, value, onChange, enumValues, placeholder }) 
 /**
  * Helper: emit a value upward through a debounce, recording it so
  * the parent's echo is recognised and ignored.
+ *
+ * `onChange` is captured in a ref so the debounce survives re-renders.
+ * Previously `onChange` was a useEffect dep — TextFilter/Number/Date
+ * callers pass an inline arrow, which is a new ref every render, so
+ * the effect cleanup ran on every keystroke and cancelled the timer
+ * before the 150ms elapsed. Filters never fired (prefs.filters stayed
+ * `{}`). Now the effect only depends on `ms`, and the ref always holds
+ * the latest onChange so the trailing call still reaches the parent.
  */
 function useDebouncedEmit(onChange, ms) {
   const debouncedRef = useRef();
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
   const lastEmittedRef = useRef(undefined);
   useEffect(() => {
     debouncedRef.current = debounce((...args) => {
       lastEmittedRef.current = args[0];
-      onChange(...args);
+      onChangeRef.current(...args);
     }, ms);
     return () => debouncedRef.current?.cancel();
-  }, [onChange, ms]);
+  }, [ms]);
   return { emit: (...args) => debouncedRef.current?.(...args), lastEmitted: lastEmittedRef };
 }
 

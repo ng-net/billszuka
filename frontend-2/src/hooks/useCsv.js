@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { parseCsvFile, parseCsvUrl } from "@/lib/csv";
+import { saveCustomDataset } from "@/lib/datasetStorage";
 
 /**
  * Hook: load + parse CSV with progress + cancel.
@@ -31,6 +32,21 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
     setStartedAt(null);
   }, []);
 
+  const loadParsedData = useCallback((stored) => {
+    if (!stored || !stored.rows) return;
+    if (abortRef.current) abortRef.current.abort();
+    setStatus("ready");
+    setError(null);
+    setData({
+      columns: stored.columns || [],
+      rows: stored.rows || [],
+      schema: stored.schema || [],
+    });
+    setParseTimeMs(stored.parseTimeMs || 0);
+    setFileMeta({ name: stored.name || "uploaded.csv", size: stored.size || 0 });
+    setProgress({ rowsParsed: (stored.rows || []).length, bytesParsed: stored.size || 0 });
+  }, []);
+
   const loadFile = useCallback(async (file) => {
     if (!file) return;
     if (abortRef.current) abortRef.current.abort();
@@ -56,6 +72,16 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
       setData({ columns: result.columns, rows: result.rows, schema: result.schema });
       setParseTimeMs(result.parseTimeMs);
       setStatus("ready");
+
+      // Save to IndexedDB so uploaded files persist across reload and logout
+      await saveCustomDataset({
+        name: file.name,
+        size: file.size,
+        rows: result.rows,
+        columns: result.columns,
+        schema: result.schema,
+        parseTimeMs: result.parseTimeMs,
+      });
     } catch (e) {
       if (e?.name === "AbortError") {
         setStatus("idle");
@@ -115,5 +141,5 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
     };
   }, []);
 
-  return { status, ...data, parseTimeMs, error, progress, fileMeta, startedAt, loadFile, loadUrl, reset, cancel };
+  return { status, ...data, parseTimeMs, error, progress, fileMeta, startedAt, loadFile, loadUrl, loadParsedData, reset, cancel };
 }

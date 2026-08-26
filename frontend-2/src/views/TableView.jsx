@@ -13,7 +13,7 @@ import { RawTable } from "@/raw-table/RawTable";
  * React.lazy() + Suspense at the App level, so no local mount gate is
  * needed here — by the time this renders, the chunk is loaded.
  */
-export const TableView = forwardRef(function TableView(_props, ref) {
+export const TableView = forwardRef(function TableView(props, ref) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 6 }}
@@ -21,7 +21,7 @@ export const TableView = forwardRef(function TableView(_props, ref) {
       transition={{ duration: 0.18 }}
       className="h-full"
     >
-      <RawTable ref={ref} />
+      <RawTable ref={ref} {...props} />
     </motion.div>
   );
 });

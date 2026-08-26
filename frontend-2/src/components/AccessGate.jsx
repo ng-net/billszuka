@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Loader2, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { verifyName, verifyCompany, isGranted, grant, revoke } from "@/lib/access";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 /**
  * AccessGate — two full-page questions (name → company) before the app.
@@ -15,6 +22,15 @@ export function AccessGate({ children }) {
   const [value, setValue] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [isDissolving, setIsDissolving] = useState(false);
+  const dissolveTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (dissolveTimeoutRef.current) clearTimeout(dissolveTimeoutRef.current);
+    };
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -53,20 +69,55 @@ export function AccessGate({ children }) {
     setStep("name");
     setValue("");
     setError(null);
+    setIsDissolving(false);
+    setTooltipOpen(false);
+  }
+
+  function handleTooltipClick(e) {
+    e.stopPropagation();
+    if (isDissolving) return;
+    setIsDissolving(true);
+    dissolveTimeoutRef.current = setTimeout(() => {
+      handleLogout();
+    }, 280);
   }
 
   if (granted) {
     return (
       <>
         {children}
-        <button
-          onClick={handleLogout}
-          className="fixed bottom-4 left-4 z-50 flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur hover:text-foreground"
-          title="Wyloguj"
-        >
-          <LogOut className="h-3.5 w-3.5" />
-          Wyloguj
-        </button>
+        <TooltipProvider delayDuration={2000}>
+          <Tooltip
+            open={isDissolving ? true : tooltipOpen}
+            onOpenChange={(open) => {
+              if (!isDissolving) setTooltipOpen(open);
+            }}
+          >
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleLogout}
+                className="fixed bottom-4 left-4 z-50 flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur hover:text-foreground shadow-sm transition-colors cursor-pointer"
+                aria-label="Wyloguj"
+              >
+                <LogOut className="h-3.5 w-3.5" />
+                Wyloguj
+              </button>
+            </TooltipTrigger>
+            <TooltipContent
+              side="top"
+              sideOffset={8}
+              onClick={handleTooltipClick}
+              className={cn(
+                "cursor-pointer select-none text-[11px] font-normal leading-normal max-w-xs px-2.5 py-1.5 shadow-md transition-all duration-300 ease-out",
+                isDissolving
+                  ? "opacity-0 scale-95 blur-[3px] pointer-events-none"
+                  : "opacity-100 scale-100 blur-none"
+              )}
+            >
+              Your session will be saved with any changes you’ve made.
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </>
     );
   }

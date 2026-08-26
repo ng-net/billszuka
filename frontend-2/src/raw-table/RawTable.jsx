@@ -4,12 +4,8 @@ import { toast, Toaster } from "sonner";
 import {
   Search,
   X,
-  Sun,
-  Moon,
-  Monitor,
   Rows3,
   Rows4,
-  Keyboard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,13 +16,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -35,12 +24,13 @@ import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { debounce } from "@/lib/utils";
 
 import { EmptyState } from "./components/EmptyState";
-import { UploadButton } from "./components/UploadButton";
 import { DataTable } from "./components/DataTable";
 import { ColumnToggle } from "./components/ColumnToggle";
 import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
+
+import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
 
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
@@ -54,33 +44,76 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
-  // Automatic data pre-load after the gate: try the full master.csv from
-  // the backend first; if unreachable, fall back to the bundled sample;
-  // if that also fails, leave the EmptyState's manual button for the user.
-  const bootRef = useRef(0); // 0 = try master, 1 = master pending, 2 = settled
-  useEffect(() => {
-    if (bootRef.current === 0 && csv.status === "idle") {
-      bootRef.current = 1;
-      csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
-    } else if (bootRef.current === 1 && csv.status === "error") {
-      bootRef.current = 2;
-      csv.loadUrl(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
-    } else if (bootRef.current === 1 && csv.status === "ready") {
-      bootRef.current = 2;
-    }
-  }, [csv, csv.status]);
+  // Automatic data pre-load after the gate:
+  // 1. Check if the user previously uploaded a custom CSV (stored in IndexedDB).
+  // 2. If not, try the full master.csv from backend; if unreachable, fall back to sample;
+  // 3. If that also fails, leave the EmptyState's manual button for the user.
+  const bootRef = useRef(0); // 0 = try load, 1 = pending, 2 = settled
+  const loadUrl = csv.loadUrl;
+  const loadUrlRef = useRef(loadUrl);
+  loadUrlRef.current = loadUrl;
+  const loadParsedData = csv.loadParsedData;
+  const loadParsedDataRef = useRef(loadParsedData);
+  loadParsedDataRef.current = loadParsedData;
 
-  // Manual refresh: re-fetch master.csv with cache-buster. Used after
-  // Marceli edits data/master.csv and wants to see changes without
-  // doing a full page reload (preserves prefs, scroll, selection).
-  const _refreshMaster = useCallback(() => {
-    bootRef.current = 1;
-    csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
+  useEffect(() => {
+    let cancelled = false;
+    async function boot() {
+      if (bootRef.current === 0 && csv.status === "idle") {
+        bootRef.current = 1;
+        try {
+          const activeInfo = await getActiveDatasetInfo();
+          if (cancelled) return;
+          if (activeInfo?.type === "custom") {
+            const stored = await getCustomDataset();
+            if (cancelled) return;
+            if (stored && stored.rows && stored.rows.length > 0) {
+              loadParsedDataRef.current(stored);
+              bootRef.current = 2;
+              return;
+            }
+          }
+        } catch {
+          // fall through to master.csv
+        }
+        loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0);
+      } else if (bootRef.current === 1 && csv.status === "error") {
+        bootRef.current = 2;
+        loadUrlRef.current(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
+      } else if (bootRef.current === 1 && csv.status === "ready") {
+        bootRef.current = 2;
+      }
+    }
+    boot();
+    return () => {
+      cancelled = true;
+    };
+  }, [csv.status]);
+
+  // Manual trigger for the empty-state button. Clears custom upload,
+  // re-arms bootRef and resets csv state so master.csv is loaded.
+  const tryLoadData = useCallback(async () => {
+    await clearCustomDataset();
+    bootRef.current = 0;
+    csv.reset();
   }, [csv]);
+
+  const onCsvStateChangeRef = useRef(_props.onCsvStateChange);
+  onCsvStateChangeRef.current = _props.onCsvStateChange;
+
+  useEffect(() => {
+    onCsvStateChangeRef.current?.({
+      status: csv.status,
+      progress: csv.progress,
+      fileMeta: csv.fileMeta,
+      activeDataset: csv.fileMeta?.name || "master.csv",
+      cancel: csv.cancel,
+      loadFile: csv.loadFile,
+    });
+  }, [csv.status, csv.progress?.bytesParsed, csv.progress?.rowsParsed, csv.fileMeta?.name, csv.cancel, csv.loadFile]);
   const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
-  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [focusedColumn, setFocusedColumn] = useState(null);
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
   const [toolbarVisible, setToolbarVisible] = useState(true);
@@ -249,16 +282,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       }
       if (e.key === "Escape") {
         if (paletteOpen) setPaletteOpen(false);
-        else if (shortcutsOpen) setShortcutsOpen(false);
         else if (globalSearch) onGlobalSearchChange("");
         return;
       }
       if (isInput) return;
-      if (e.key === "?") {
-        e.preventDefault();
-        setShortcutsOpen(true);
-        return;
-      }
       if (e.key.toLowerCase() === "d") {
         e.preventDefault();
         setDensity(prefs.density === "compact" ? "comfortable" : "compact");
@@ -285,13 +312,17 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [prefs.density, paletteOpen, shortcutsOpen, focusedColumn, globalSearch, csv.status, csv.rows.length]);
+  }, [prefs.density, paletteOpen, focusedColumn, globalSearch, csv.status, csv.rows.length]);
 
-  // Expose openCommandPalette() so the App-level navbar can open the palette
-  // without prop-drilling its visibility state.
+  // Expose methods for App-level controls (⌘K, Upload, etc.)
   useImperativeHandle(ref, () => ({
     openCommandPalette: () => setPaletteOpen(true),
-  }), []);
+    loadFile: (file) => csv.loadFile(file),
+    cancelUpload: () => csv.cancel(),
+    csvStatus: csv.status,
+    csvProgress: csv.progress,
+    fileMeta: csv.fileMeta,
+  }), [csv]);
 
   // Persist last focused column. Done inline in the change handler so
   // we don't need a setState-in-effect.
@@ -388,9 +419,14 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-1.5 hidden sm:flex">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8 hidden sm:inline-flex"
+                  aria-label="Gęstość"
+                  title="Gęstość"
+                >
                   {prefs.density === "compact" ? <Rows3 className="h-4 w-4" /> : <Rows4 className="h-4 w-4" />}
-                  <span className="hidden md:inline capitalize">{prefs.density}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -403,51 +439,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="h-8 w-8">
-                  {prefs.theme === "light" && <Sun className="h-4 w-4" />}
-                  {prefs.theme === "dark" && <Moon className="h-4 w-4" />}
-                  {prefs.theme === "system" && <Monitor className="h-4 w-4" />}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Motyw</DropdownMenuLabel>
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                  <Sun className="h-4 w-4 mr-2" /> Jasny {prefs.theme === "light" && "✓"}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                  <Moon className="h-4 w-4 mr-2" /> Ciemny {prefs.theme === "dark" && "✓"}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                  <Monitor className="h-4 w-4 mr-2" /> Systemowy {prefs.theme === "system" && "✓"}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Button
-              variant="outline"
-              size="icon"
-              className="hidden h-8 w-8 sm:inline-flex"
-              onClick={() => setShortcutsOpen(true)}
-              title="Skróty klawiszowe (?)"
-              aria-label="Skróty klawiszowe"
-            >
-              <Keyboard className="h-4 w-4" />
-            </Button>
           </>
-        )}
-
-        {csv.status === "ready" && (
-          <UploadButton
-            onFile={csv.loadFile}
-            status={csv.status}
-            progress={csv.progress}
-            fileMeta={csv.fileMeta}
-            onCancel={csv.cancel}
-            compact
-          />
         )}
       </div>
     </motion.header>
@@ -465,9 +457,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
           {csv.status === "idle" && (
             <EmptyState
               onFile={csv.loadFile}
-              onLoadSample={() => csv.loadUrl(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE)}
+              onLoadSample={tryLoadData}
               hasSample
-              sampleSize={SAMPLE_SIZE}
+              sampleSize={0}
             />
           )}
 
@@ -558,32 +550,6 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
             theme: prefs.theme,
           }}
         />
-
-        <Dialog open={shortcutsOpen} onOpenChange={setShortcutsOpen}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle>Skróty klawiszowe</DialogTitle>
-              <DialogDescription>Szybsze nawigowanie po tabeli</DialogDescription>
-            </DialogHeader>
-            <div className="space-y-3 text-sm">
-              {[
-                ["⌘K", "Polecenia"],
-                ["⌘O", "Wgraj plik"],
-                ["⌘F", "Fokus na filtr kolumny"],
-                ["D", "Zmień gęstość"],
-                ["R", "Wyczyść filtry i sortowanie"],
-                ["↑ ↓", "Nawigacja po wierszach"],
-                ["Esc", "Wyczyść fokus / zamknij"],
-                ["?", "Pokaż te skróty"],
-              ].map(([k, v]) => (
-                <div key={k} className="flex items-center justify-between">
-                  <span className="text-muted-foreground">{v}</span>
-                  <kbd className="px-2 py-0.5 rounded bg-muted text-xs font-mono">{k}</kbd>
-                </div>
-              ))}
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
     </TooltipProvider>
   );

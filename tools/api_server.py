@@ -1099,7 +1099,7 @@ async def _call_openrouter(req: ChatRequest, api_key: str) -> ChatResponse | Non
     import urllib.error
     import urllib.request
 
-    context = _build_dataset_context(req.active_dataset)
+    context = _build_dataset_context(req.active_dataset, req.query)
 
     body = json.dumps({
         "model": "deepseek/deepseek-chat",
@@ -1111,7 +1111,7 @@ async def _call_openrouter(req: ChatRequest, api_key: str) -> ChatResponse | Non
             )},
             {"role": "user", "content": req.query + context},
         ],
-        "max_tokens": 400,
+        "max_tokens": 1500,
     }).encode("utf-8")
 
     def _do() -> dict[str, Any]:
@@ -1129,9 +1129,13 @@ async def _call_openrouter(req: ChatRequest, api_key: str) -> ChatResponse | Non
 
     try:
         data = await asyncio.to_thread(_do)
-        text = data["choices"][0]["message"]["content"].strip()
-        return ChatResponse(response=text, provider="openrouter")
-    except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError):
+        choices = data.get("choices", [])
+        if choices and isinstance(choices, list):
+            text = choices[0].get("message", {}).get("content", "").strip()
+            if text:
+                return ChatResponse(response=text, provider="openrouter")
+        return None
+    except (urllib.error.URLError, KeyError, TimeoutError, json.JSONDecodeError, IndexError):
         return None
 
 
@@ -1153,7 +1157,7 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
     import urllib.error
     import urllib.request
 
-    context = _build_dataset_context(req.active_dataset)
+    context = _build_dataset_context(req.active_dataset, req.query)
     knowledge_refs = _resolve_knowledge_refs(req.knowledge_ids)
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
@@ -1209,7 +1213,7 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
         payload: dict[str, Any] = {
             "systemInstruction": {"parts": [{"text": system_text}]},
             "contents": [{"role": "user", "parts": user_parts}],
-            "generationConfig": {"maxOutputTokens": 400},
+            "generationConfig": {"maxOutputTokens": 2048},
         }
         return json.dumps(payload).encode("utf-8")
 
@@ -1221,10 +1225,6 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
             return json.loads(resp.read())
 
     def _is_file_404(err: "urllib.error.HTTPError") -> bool:
-        # Gemini returns 404 for "not found" but 403 (PERMISSION_DENIED) for
-        # expired/deleted files with a body mentioning "may not exist".
-        # Either way, the user-visible effect is the same: the file_data
-        # part is unusable. Trigger auto-recovery.
         if err.code not in (403, 404):
             return False
         try:
@@ -1237,7 +1237,7 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
             or "not_found" in body_low
             or "not exist" in body_low
             or "expired" in body_low
-            or "permission" in body_low  # 403 PERMISSION_DENIED on a file
+            or "permission" in body_low
         )
 
     async def _refresh_all_refs() -> int:
@@ -1285,22 +1285,24 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
         body = _build_payload(knowledge_refs)
         try:
             data = await asyncio.to_thread(_do_request, body)
-            text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            candidates = data.get("candidates", [])
+            if not candidates or not isinstance(candidates, list):
+                return None
+            cand = candidates[0]
+            parts = cand.get("content", {}).get("parts", [])
+            text = "".join(p.get("text", "") for p in parts if isinstance(p, dict) and "text" in p).strip()
+            if not text:
+                return None
             suffix = f" (+{len(knowledge_refs)} file)" if knowledge_refs else ""
             if attempt == 1 and knowledge_refs:
                 suffix += " (auto-recovered)"
             return ChatResponse(response=text, provider="gemini" + suffix)
         except urllib.error.HTTPError as e:
-            # Quota / billing errors — remember the key is hot so the
-            # chain handler can skip it for the next ~60s and the user
-            # gets a clear "all keys quota'd" message instead of a silent
-            # openrouter hallucination.
             if e.code == 429 or e.code == 402:
                 _stamp_quota_error(api_key)
             if attempt == 0 and knowledge_refs and _is_file_404(e):
                 refreshed = await _refresh_all_refs()
                 if refreshed:
-                    # Re-resolve refs (they have fresh URIs now) and retry
                     knowledge_refs = _resolve_knowledge_refs(req.knowledge_ids)
                     continue
             return None
@@ -1309,13 +1311,12 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
     return None
 
 
-def _build_dataset_context(active_dataset: str | None) -> str:
-    """Aggregate stats for the active dataset, formatted for the LLM.
+def _build_dataset_context(active_dataset: str | None, query: str | None = None) -> str:
+    """Aggregate stats and query-matched rows for the active dataset, formatted for the LLM.
 
-    The point of this is to anchor the model in real numbers so it can't
-    hallucinate when answering "how many / how is X distributed" type
-    questions. We pre-compute count + the most useful breakdowns (kraj,
-    tier, wolumen, status) once per call and pass the full picture.
+    The point of this is to anchor the model in real numbers and exact entity
+    records so it can't hallucinate when answering "how many / how is X distributed"
+    or specific company/entity/contact questions.
     """
     if not active_dataset:
         return ""
@@ -1359,7 +1360,7 @@ def _build_dataset_context(active_dataset: str | None) -> str:
         f"\n\n=== Active dataset: {clean} ===",
         f"Total rows: {total}",
     ]
-    # Only include columns that actually have data
+    # 1D marginal distributions
     for field, label in [
         ("kraj", "By kraj"),
         ("tier", "By tier"),
@@ -1370,6 +1371,83 @@ def _build_dataset_context(active_dataset: str | None) -> str:
         hist = _hist(field)
         if hist:
             parts.append(_format_hist(label, hist))
+
+    # Cross-tabulations: status & tier & volume by top countries
+    kraj_counts = _hist("kraj")
+    top_kraje = [k for k, _ in kraj_counts[:6] if k != "(puste)"]
+    if top_kraje:
+        lines_cross = ["  Cross-tab per country (kraj -> status & tier):"]
+        for k in top_kraje:
+            k_rows = [r for r in rows if (r.get("kraj") or "").strip().upper() == k.upper()]
+            frozen = sum(1 for r in k_rows if "FROZEN" in (r.get("flagi") or "").upper())
+            doweryf = sum(1 for r in k_rows if "DO-WERYFIKACJI" in (r.get("flagi") or "").upper())
+            pending = sum(1 for r in k_rows if "PENDING_API" in (r.get("flagi") or "").upper())
+            tiers = {}
+            for r in k_rows:
+                t = (r.get("tier") or "").strip()
+                if t:
+                    tiers[t] = tiers.get(t, 0) + 1
+            tier_summary = ", ".join(f"{tk}={tv}" for tk, tv in sorted(tiers.items(), key=lambda x: -x[1])[:3])
+            tier_str = f" [tiers: {tier_summary}]" if tiers else ""
+            lines_cross.append(f"    - {k} ({len(k_rows)} total): FROZEN={frozen}, DO-WERYFIKACJI={doweryf}, PENDING_API={pending}{tier_str}")
+        parts.append("\n".join(lines_cross))
+
+    # Search for specific matching entity records in the dataset
+    if query:
+        q_raw = query.strip()
+        # Extract potential search terms (alphanumeric sequences >= 3 chars)
+        terms = [t.lower() for t in re.findall(r"[A-Za-z0-9żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}", q_raw)]
+        stopwords = {"kto", "jest", "jaki", "jakie", "jaka", "gdzie", "ile", "firm", "firmie", "firmy", "kiedy", "oraz", "albo", "przez", "dla", "tego", "jego", "oraz", "masz", "maszynki", "tytoniu", "katalogu", "dane", "kontaktowe", "znajdz", "pokaz", "wypisz", "wszystkie"}
+        useful_terms = [t for t in terms if t not in stopwords]
+
+        matched_rows: list[tuple[int, dict[str, str]]] = []
+        for r in rows:
+            score = 0
+            searchable = " ".join([
+                str(r.get("nazwa_firmy") or ""),
+                str(r.get("id_unikalne") or ""),
+                str(r.get("nip_vat") or ""),
+                str(r.get("rejestr_id") or ""),
+                str(r.get("decydent") or ""),
+                str(r.get("miasto") or ""),
+                str(r.get("email") or ""),
+                str(r.get("telefon") or ""),
+                str(r.get("www") or ""),
+                str(r.get("marki_nabijarki") or ""),
+                str(r.get("notatki") or ""),
+            ]).lower()
+
+            for ut in useful_terms:
+                if ut in searchable:
+                    score += 2
+                    # Extra weight for exact match in company name or decydent or NIP
+                    if ut in str(r.get("nazwa_firmy") or "").lower():
+                        score += 3
+                    if ut in str(r.get("decydent") or "").lower():
+                        score += 3
+                    if ut in str(r.get("nip_vat") or "").lower():
+                        score += 4
+            if score > 0:
+                matched_rows.append((score, r))
+
+        matched_rows.sort(key=lambda x: -x[0])
+        top_matches = [r for _, r in matched_rows[:8]]
+
+        if top_matches:
+            lines_entity = ["\n  Specific matching records from catalog for this query:"]
+            for r in top_matches:
+                rec_parts = []
+                for k in [
+                    "id_unikalne", "nazwa_firmy", "kraj", "miasto", "adres",
+                    "nip_vat", "rejestr_id", "decydent", "stanowisko",
+                    "email", "telefon", "www", "tier", "marki_nabijarki",
+                    "notatki", "flagi"
+                ]:
+                    val = (r.get(k) or "").strip()
+                    if val and val.lower() not in {"brak", "n/a"}:
+                        rec_parts.append(f"{k}: {val}")
+                lines_entity.append(f"    - [{r.get('id_unikalne', '')}] " + " | ".join(rec_parts))
+            parts.append("\n".join(lines_entity))
 
     return "\n".join(parts)
 
