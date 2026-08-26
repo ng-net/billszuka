@@ -8,6 +8,7 @@ is claimed with an atomic UPDATE so only one generation session runs.
 from __future__ import annotations
 
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
 
 DB_PATH = Path(__file__).resolve().parent.parent / "data" / "billszuka.db"
@@ -69,15 +70,29 @@ CREATE TABLE IF NOT EXISTS faq_rejects (
 """
 
 
-def connect(db_path: Path | str | None = None) -> sqlite3.Connection:
+@contextmanager
+def connect(db_path: Path | str | None = None):
     # NOTE: default resolved at call time (not a bound default arg) so
     # tests can monkeypatch db.DB_PATH.
+    # The plan returned the raw Connection — its `with` protocol commits
+    # but never CLOSES, so every statement emitted "unclosed database"
+    # ResourceWarnings via GC (fatal under pytest filterwarnings=error).
+    # Wrapping in a context manager preserves commit-on-success semantics
+    # and closes the handle deterministically.
     path = Path(db_path) if db_path is not None else DB_PATH
     conn = sqlite3.connect(str(path), timeout=5.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA busy_timeout=5000")
     conn.execute("PRAGMA journal_mode=WAL")
-    return conn
+    try:
+        yield conn
+    except BaseException:
+        conn.rollback()
+        raise
+    else:
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def init(db_path: Path | str | None = None) -> None:
