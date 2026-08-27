@@ -15,7 +15,8 @@ import {
   Monitor,
   User,
   LogOut,
-  Camera
+  Camera,
+  FolderOpen
 } from "lucide-react";
 import { getActiveProfile, setActiveProfile } from "@/lib/auth";
 import { ProfileSelector } from "@/components/ProfileSelector";
@@ -25,6 +26,7 @@ import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { GeminiDrawer } from "@/components/GeminiDrawer";
 import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
+import { FilesDrawer } from "@/components/FilesDrawer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { UploadButton } from "@/raw-table/components/UploadButton";
 import { Button } from "@/components/ui/button";
@@ -73,6 +75,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(() => loadPrefs(activeProfile)?.activeTab || "table");
   const [snapshotsOpen, setSnapshotsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [filesOpen, setFilesOpen] = useState(false);
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [theme, setTheme] = useState(() => loadPrefs().theme || "system");
@@ -299,6 +302,15 @@ export default function App() {
           <Button
             variant="ghost"
             size="icon"
+            onClick={() => setFilesOpen(true)}
+            aria-label="Moje Pliki"
+            title="Moje Pliki"
+          >
+            <FolderOpen className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setSettingsOpen(true)}
             aria-label="Klucze API"
             title="Klucze API"
@@ -398,6 +410,7 @@ export default function App() {
            // the dataset will be loaded by RawTable's boot function on mount since it's now in customDataset
         }}
       />
+      <FilesDrawer open={filesOpen} onOpenChange={setFilesOpen} />
       <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} onVaultChange={handleVaultChange} />
     </div>
   );

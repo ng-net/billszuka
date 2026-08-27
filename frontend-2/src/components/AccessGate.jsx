@@ -22,6 +22,7 @@ export function AccessGate({ children }) {
   const [value, setValue] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [userName, setUserName] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [isDissolving, setIsDissolving] = useState(false);
   const dissolveTimeoutRef = useRef(null);
@@ -45,6 +46,7 @@ export function AccessGate({ children }) {
           setError("Nie znamy tego imienia. Spróbuj ponownie.");
           return;
         }
+        setUserName(v);
         setStep("company");
         setValue("");
       } else {
@@ -53,7 +55,7 @@ export function AccessGate({ children }) {
           setError("Nie znamy tej firmy. Spróbuj ponownie.");
           return;
         }
-        grant();
+        grant(userName);
         setGranted(true);
       }
     } catch (err) {
@@ -96,7 +98,7 @@ export function AccessGate({ children }) {
             <TooltipTrigger asChild>
               <button
                 onClick={handleLogout}
-                className="fixed bottom-4 left-4 z-50 flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur hover:text-foreground shadow-sm transition-colors cursor-pointer"
+                className="fixed bottom-12 left-4 z-50 flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur hover:text-foreground shadow-sm transition-colors cursor-pointer"
                 aria-label="Wyloguj"
               >
                 <LogOut className="h-3.5 w-3.5" />
@@ -122,6 +124,7 @@ export function AccessGate({ children }) {
     );
   }
 
+  const isName = step === "name";
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center bg-background text-foreground px-6">
       <div className="w-full max-w-sm space-y-10 text-center">
@@ -129,11 +132,30 @@ export function AccessGate({ children }) {
           <h1 className="text-2xl font-semibold tracking-tight">BILLSzuka</h1>
           <p className="text-[10px] text-muted-foreground">Katalog leadów B2B/B2C</p>
         </div>
-        <div className="space-y-8">
-          <Button onClick={() => window.location.href = "http://localhost:3003/login"} className="w-full">
-            Przejdź do logowania
+
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              {isName ? "Jak masz na imię?" : "Dla jakiej firmy pracujesz?"}
+            </p>
+            <Input
+              autoFocus
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder={isName ? "Imię" : "Nazwa firmy"}
+              disabled={busy}
+              className="h-11 text-center"
+            />
+            {error && <p className="text-xs text-red-600">{error}</p>}
+          </div>
+
+          <Button type="submit" disabled={busy || !value.trim()} className="w-full">
+            {busy && <Loader2 className="h-4 w-4 animate-spin" />}
+            {busy ? "Sprawdzam…" : "Dalej"}
           </Button>
-        </div>
+        </form>
+
+        <p className="text-[10px] text-muted-foreground">{isName ? "Krok 1 z 2" : "Krok 2 z 2"}</p>
       </div>
     </div>
   );

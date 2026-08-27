@@ -6,6 +6,8 @@ import {
   X,
   Rows3,
   Rows4,
+  Undo2,
+  Redo2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +23,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useCsv } from "@/hooks/useCsv";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
+import { useUndoRedo } from "@/lib/useUndoRedo";
 import { debounce } from "@/lib/utils";
 
 import { EmptyState } from "./components/EmptyState";
@@ -44,6 +47,13 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
+  const history = useUndoRedo(loadPrefs());
+  const prefs = history.state;
+
+  const setPrefs = useCallback((updater) => {
+    history.set(typeof updater === "function" ? updater(history.state) : updater);
+  }, [history]);
+
   // Automatic data pre-load after the gate:
   // 1. Check if the user previously uploaded a custom CSV (stored in IndexedDB).
   // 2. If not, try the full master.csv from backend; if unreachable, fall back to sample;
@@ -117,7 +127,6 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     csv.cancel,
     csv.loadFile,
   ]);
-  const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [focusedColumn, setFocusedColumn] = useState(null);
@@ -434,6 +443,37 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               onChange={setColumnVisibility}
               schema={csv.schema}
             />
+
+            <div className="flex items-center gap-1">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                disabled={!history.canUndo}
+                onClick={() => {
+                  history.undo();
+                  toast.info("Cofnięto zmianę", { duration: 1000 });
+                }}
+                aria-label="Cofnij (Cmd+Z)"
+                title="Cofnij (Cmd+Z)"
+              >
+                <Undo2 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                disabled={!history.canRedo}
+                onClick={() => {
+                  history.redo();
+                  toast.info("Przywrócono zmianę", { duration: 1000 });
+                }}
+                aria-label="Ponów (Cmd+Shift+Z)"
+                title="Ponów (Cmd+Shift+Z)"
+              >
+                <Redo2 className="h-4 w-4" />
+              </Button>
+            </div>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

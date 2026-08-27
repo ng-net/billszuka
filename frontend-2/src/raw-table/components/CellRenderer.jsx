@@ -150,14 +150,20 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
 
   let display = String(value);
 
-  // Transform rok_zalozenia: e.g. "1992" -> "1992 (34 lat)"
-  if (columnId === "rok_zalozenia") {
+  // Transform rok_zalozenia and other incorporation dates: e.g. "1992" -> "1992 (34 lat)"
+  if (
+    columnId === "rok_zalozenia" ||
+    columnId.includes("rejestracji") ||
+    columnId.includes("rozpoczecia") ||
+    columnId.includes("incorporation") ||
+    columnId.includes("start_date")
+  ) {
     const year = parseInt(display, 10);
     if (!isNaN(year) && year > 1000) {
       const currentYear = new Date().getFullYear();
       const age = currentYear - year;
       if (age >= 0) {
-        display = `${year} (${age} lat)`;
+        display = `${display} (${age} lat)`;
       }
     }
   }

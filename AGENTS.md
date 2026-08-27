@@ -60,7 +60,7 @@ Canonical remote: `github.com/marlink/BILLSzuka` (private). Backup mirror: `gith
 
 - **`.env` is bootstrapped into the vault on every server start** (idempotent): `OPENROUTER_API_KEY`, `GEMINI_API_KEY_1`, `GEMINI_API_KEY_2`, … Each becomes one vault entry tagged `source: ".env"`. User-added keys are `source: "ui"`. Deleting a `.env`-key from the vault via UI sticks (it's not auto-re-imported) — to re-import, edit `.env`, delete the vault entry, restart.
 
-- **Knowledge base** (`data/knowledge/`) — files uploaded via the book-icon drawer → `/api/knowledge/upload` → Gemini Files API. The chat auto-promotes Gemini to the front of the provider chain when `knowledge_ids` are present (openrouter path doesn't see the files). Local copies live in `data/knowledge/files/<id>__<filename>` so the bot can re-upload if Gemini expires the file (48h TTL). NEVER run a global cache-purge that would touch `data/knowledge/` — that would orphan the local copies and lose the Gemini file refs (the same "lost custom model" gotcha from Qoder). 50 MB per file, types: pdf, csv, txt, md, xlsx, xls, docx.
+- **Knowledge base & User Files** (`data/users/<username>/knowledge/` and `data/users/<username>/catalogs/`) — files are scoped per user under `data/users/<username>/` (catalogs and knowledge). Uploads via the Files drawer (`/api/knowledge/upload` or `/api/upload`) track file counts and size against a 500 MB per-user quota. Chat auto-promotes Gemini to the front when `knowledge_ids` are present. Local copies live in `data/users/<username>/knowledge/<id>__<filename>` (or `data/knowledge/files/`) so the bot can re-upload if Gemini expires (48h TTL). NEVER run a global cache-purge touching `data/knowledge/` or `data/users/`.
 
 
 

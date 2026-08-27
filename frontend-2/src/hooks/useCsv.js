@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { parseCsvFile, parseCsvUrl } from "@/lib/csv";
 import { saveCustomDataset } from "@/lib/datasetStorage";
+import { apiUrl, getAuthHeader } from "@/lib/api";
 
 /**
  * Hook: load + parse CSV with progress + cancel.
@@ -73,16 +74,29 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
       setParseTimeMs(result.parseTimeMs);
       setStatus("ready");
 
-      // Save to IndexedDB so uploaded files persist across reload and logout
-      await saveCustomDataset({
-        name: file.name,
-        size: file.size,
-        rows: result.rows,
-        columns: result.columns,
-        schema: result.schema,
-        parseTimeMs: result.parseTimeMs,
-      });
-    } catch (e) {
+        // Save to IndexedDB so uploaded files persist across reload and logout
+        await saveCustomDataset(null, {
+          name: file.name,
+          size: file.size,
+          rows: result.rows,
+          columns: result.columns,
+          schema: result.schema,
+          parseTimeMs: result.parseTimeMs,
+        });
+
+        // Also upload to backend for quota/storage management
+        try {
+          const form = new FormData();
+          form.append("file", file);
+          await fetch(apiUrl("/api/upload"), {
+            method: "POST",
+            headers: getAuthHeader(),
+            body: form
+          });
+        } catch (backendErr) {
+          console.error("Backend upload failed:", backendErr);
+        }
+      } catch (e) {
       if (e?.name === "AbortError") {
         setStatus("idle");
         setFileMeta(null);

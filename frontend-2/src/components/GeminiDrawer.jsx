@@ -21,10 +21,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/lib/api";
+import { getUserName } from "@/lib/access";
 
 /**
  * GeminiDrawer — floating-action-button chat panel for "Gills — twój skowronek".
@@ -89,14 +89,11 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
     knowledgeIdsRef.current = knowledgeIds;
   }, [knowledgeIds]);
 
-  // Autoscroll on new messages — Radix ScrollArea's Viewport is the actual
-  // scrollable node, so we locate it by data-slot after each render.
+  // Autoscroll on new messages
   useEffect(() => {
-    if (!scrollRef.current) return;
-    const viewport = scrollRef.current.querySelector(
-      '[data-slot="scroll-area-viewport"]',
-    );
-    if (viewport) viewport.scrollTop = viewport.scrollHeight;
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [messages, busy]);
 
   async function sendQuery(q) {
@@ -145,9 +142,11 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
     toast.success("Skopiowano", { duration: 800 });
   }
 
+  const userName = getUserName();
+  const botName = userName ? `Gill ${userName}` : "Gills";
+
   return (
     <>
-      {/* Floating Action Button */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <motion.button
@@ -157,8 +156,8 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="fixed right-6 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg hover:shadow-xl transition-shadow"
-            aria-label="Otwórz Gills — twój skowronek"
-            title="Gills — twój skowronek"
+            aria-label={`Otwórz ${botName} — twój skowronek`}
+            title={`${botName} — twój skowronek`}
           >
             <Bird className="h-6 w-6" />
           </motion.button>
@@ -173,7 +172,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
               <SheetTitle className="flex items-center gap-2">
                 <Bird className="h-5 w-5 text-violet-500" />
                 <span>
-                  Gills <span className="text-muted-foreground font-normal text-sm">— twój skowronek</span>
+                  {botName} <span className="text-muted-foreground font-normal text-sm">— twój skowronek</span>
                 </span>
               </SheetTitle>
               <div className="flex items-center gap-1">
@@ -207,8 +206,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             </SheetDescription>
           </SheetHeader>
 
-          {/* Thread */}
-          <ScrollArea className="flex-1 px-5 py-3" ref={scrollRef}>
+          <div className="flex-1 overflow-y-auto px-5 py-3" ref={scrollRef}>
             {messages.length === 0 ? (
               <EmptyState onPick={sendQuery} />
             ) : (
@@ -224,13 +222,10 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                 )}
               </div>
             )}
-          </ScrollArea>
+          </div>
 
-          {/* Quick-prompt pills — visible while thread is empty or after a
-              reply so the user can keep firing one-click questions. */}
           <QuickPrompts onPick={sendQuery} disabled={busy} />
 
-          {/* Input */}
           <div className="border-t p-3 flex gap-2 items-end">
             <Input
               value={input}
@@ -300,8 +295,6 @@ function EmptyState({ onPick }) {
 }
 
 function QuickPrompts({ onPick, disabled }) {
-  // Show a single horizontal strip of the most useful prompts so the
-  // user always has a shortcut, even mid-conversation.
   const featured = [
     "Ile firm jest FROZEN w PL?",
     "Rozkład firm wg kraju",
@@ -340,7 +333,6 @@ function PromptPill({ q, onPick, disabled = false, compact = false }) {
 function MarkdownText({ content }) {
   if (!content) return null;
 
-  // Split lines into blocks
   const lines = content.split("\n");
   const elements = [];
   let inCodeBlock = false;
@@ -348,7 +340,6 @@ function MarkdownText({ content }) {
   let codeBlockLines = [];
 
   const formatInline = (text) => {
-    // Regex for bold **text** and links [text](url)
     const parts = [];
     let lastIndex = 0;
     const regex = /(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g;
@@ -393,11 +384,8 @@ function MarkdownText({ content }) {
 
   lines.forEach((line, idx) => {
     const trimmed = line.trim();
-
-    // Code / Callout block toggle
     if (trimmed.startsWith("```")) {
       if (inCodeBlock) {
-        // Close code block
         const blockContent = codeBlockLines.join("\n");
         const type = codeBlockType;
         if (type === "fakt") {
@@ -437,7 +425,6 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Headings
     if (trimmed.startsWith("## ")) {
       elements.push(
         <h4 key={idx} className="font-semibold text-sm mt-2.5 mb-1 text-foreground">
@@ -455,7 +442,6 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Bullet list
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       elements.push(
         <div key={idx} className="flex items-start gap-1.5 ml-1 my-0.5 text-xs leading-relaxed">
@@ -466,7 +452,6 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Numbered list
     const numMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
     if (numMatch) {
       elements.push(
@@ -478,13 +463,11 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Empty line
     if (!trimmed) {
       elements.push(<div key={idx} className="h-1.5" />);
       return;
     }
 
-    // Standard paragraph
     elements.push(
       <p key={idx} className="my-0.5 text-xs leading-relaxed">
         {formatInline(line)}
@@ -535,25 +518,25 @@ function Bubble({ msg, onCopy }) {
 
 function ProviderTag({ provider }) {
   const palette = {
-    openrouter: { label: "OpenRouter", color: "bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-950 dark:text-blue-200" },
-    gemini: { label: "Gemini 3.6 Flash", color: "bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-950 dark:text-purple-200" },
-    "gemini-3.6-flash": { label: "Gemini 3.6 Flash", color: "bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-950 dark:text-purple-200" },
-    "gemini-2.5-flash": { label: "Gemini 2.5 Flash", color: "bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-950 dark:text-purple-200" },
-    faq: { label: "FAQ Cache (0 tokenów)", color: "bg-emerald-100 text-emerald-700 border-emerald-300 dark:bg-emerald-950 dark:text-emerald-200" },
-    save: { label: "Zapisano fakt", color: "bg-emerald-100 text-emerald-700 border-emerald-300 dark:bg-emerald-950 dark:text-emerald-200" },
-    mock: { label: "Mock", color: "bg-gray-100 text-gray-700 border-gray-300 dark:bg-gray-800 dark:text-gray-200" },
-    "mock-gemini-quota": { label: "Mock (limit Gemini)", color: "bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-950 dark:text-amber-200" },
-    "mock-fallback": { label: "Mock (fallback)", color: "bg-gray-100 text-gray-700 border-gray-300 dark:bg-gray-800 dark:text-gray-200" },
-    "openrouter-fallback": { label: "OpenRouter (fallback)", color: "bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-950 dark:text-blue-200" },
-    "gemini-fallback": { label: "Gemini (fallback)", color: "bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-950 dark:text-purple-200" },
-    error: { label: "Błąd", color: "bg-red-100 text-red-700 border-red-300 dark:bg-red-950 dark:text-red-200" },
+    openrouter: { label: "OpenRouter" },
+    gemini: { label: "Gemini 3.6 Flash" },
+    "gemini-3.6-flash": { label: "Gemini 3.6 Flash" },
+    "gemini-2.5-flash": { label: "Gemini 2.5 Flash" },
+    faq: { label: "FAQ Cache" },
+    save: { label: "Zapisano fakt" },
+    mock: { label: "Mock" },
+    "mock-gemini-quota": { label: "Mock (limit)" },
+    "mock-fallback": { label: "Mock" },
+    "openrouter-fallback": { label: "OpenRouter" },
+    "gemini-fallback": { label: "Gemini" },
+    error: { label: "Błąd" },
   };
   const base = String(provider).split(" ")[0].replace("(+1file)", "").replace("(+1 file)", "");
   const p = palette[base] || palette[provider] || { label: provider, color: "bg-gray-100 text-gray-700 border-gray-300" };
   return (
-    <Badge variant="outline" className={`text-[10px] h-4.5 px-1.5 ${p.color}`}>
+    <span className="text-[9px] text-muted-foreground/60 font-normal px-1 mt-0.5">
       {p.label}
-    </Badge>
+    </span>
   );
 }
 

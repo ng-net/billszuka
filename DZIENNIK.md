@@ -3955,3 +3955,11 @@ Tracked in AGENTS.md and gitignored — safe, but can be cleaned with:
    - `npm --prefix frontend-2 test` → 5/5 PASS
    - `python3 tools/validate_columns.py` → 148 criticals (<200 limit)
 
+
+## 2026-08-27 — AGENTS.md & Storage documentation update
+
+**Modyfikacja w AGENTS.md:**
+- Zaktualizowano wpis dotyczący bazy wiedzy i plików użytkowników: ścieżki są teraz scoped per user (`data/users/<username>/knowledge/` i `data/users/<username>/catalogs/`).
+- Udokumentowano limit kwoty 500 MB per użytkownik oraz śledzenie statystyk plików (`/api/files`).
+- Wszyscy agenci i sesje otrzymały spójną informację w standardowym zestawie instrukcji.
+

@@ -140,10 +140,35 @@ ALLOWED_KNOWLEDGE_EXTS = {".pdf", ".csv", ".txt", ".md", ".markdown", ".xlsx", "
 # FastAPI app
 # ---------------------------------------------------------------------------
 
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: clean old catalogs
+    def _clean_old():
+        with db.connect() as conn:
+            cutoff = (datetime.now(timezone.utc).timestamp() - (30 * 24 * 3600))
+            rows = conn.execute("SELECT filename, uploaded_by, uploaded_at FROM catalog_files").fetchall()
+            for r in rows:
+                try:
+                    ts = datetime.fromisoformat(r["uploaded_at"]).timestamp()
+                    if ts < cutoff:
+                        user = r["uploaded_by"]
+                        fname = r["filename"]
+                        target = DATA / "users" / user / "catalogs" / fname
+                        if target.exists():
+                            target.unlink()
+                        conn.execute("DELETE FROM catalog_files WHERE filename=? AND uploaded_by=?", (fname, user))
+                except Exception:
+                    pass
+    asyncio.create_task(asyncio.to_thread(_clean_old))
+    yield
+
 app = FastAPI(
     title="BILLSzuka API",
     description="Backend for the BILLSzuka Dashboard Hub frontend.",
     version="0.1.0",
+    lifespan=lifespan,
 )
 
 # CORS for Vite dev server (and any explicit browser access)
@@ -621,18 +646,39 @@ async def get_dataset(filename: str, limit: int = DEFAULT_PAGE_SIZE) -> dict[str
 
 
 @app.post("/api/upload")
-async def upload_csv(file: UploadFile = File(...)) -> dict[str, Any]:
-    """Save an uploaded CSV to data/. Rejects if file already exists."""
+async def upload_csv(
+    file: UploadFile = File(...),
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+) -> dict[str, Any]:
+    """Save an uploaded CSV to user's catalog dir and track in DB."""
     if not file.filename:
         raise HTTPException(status_code=400, detail="no filename in upload")
+    user = _require_user(x_billszuka_user)
     clean = _validate_filename(file.filename)
-    target = DATA / clean
+    
+    import user_files_routes
+    file_size = 0
+    if hasattr(file.file, "seek") and hasattr(file.file, "tell"):
+        file.file.seek(0, 2)
+        file_size = file.file.tell()
+        file.file.seek(0)
+    user_files_routes.check_quota(user, file_size)
+
+    target_dir = DATA / "users" / user / "catalogs"
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target = target_dir / clean
+    
     if target.exists():
-        raise HTTPException(status_code=409, detail=f"{clean} already exists in data/")
+        raise HTTPException(status_code=409, detail=f"{clean} already exists.")
 
     def _save() -> int:
         body = file.file.read()
         target.write_bytes(body)
+        with db.connect() as conn:
+            conn.execute(
+                "INSERT OR IGNORE INTO catalog_files (filename, uploaded_by, uploaded_at, size_bytes) VALUES (?, ?, ?, ?)",
+                (clean, user, datetime.now(timezone.utc).isoformat(), len(body))
+            )
         return len(body)
 
     size = await asyncio.to_thread(_save)
@@ -701,6 +747,9 @@ async def upload_knowledge(
     if not body:
         raise HTTPException(status_code=400, detail="empty file")
 
+    import user_files_routes
+    user_files_routes.check_quota(user, len(body))
+
     mime_type, _ = mimetypes.guess_type(raw_name)
     if not mime_type:
         mime_type = "application/octet-stream"
@@ -717,7 +766,10 @@ async def upload_knowledge(
     safe_name = re.sub(r"[^A-Za-z0-9_.\-]+", "_", Path(raw_name).name)
     if not safe_name or safe_name.startswith("."):
         safe_name = f"upload_{file_id}{ext or '.bin'}"
-    local_path = KNOWLEDGE_FILES_DIR / f"{file_id}__{safe_name}"
+        
+    user_know_dir = DATA / "users" / user / "knowledge"
+    user_know_dir.mkdir(parents=True, exist_ok=True)
+    local_path = user_know_dir / f"{file_id}__{safe_name}"
     local_path.write_bytes(body)
 
     # Push to Gemini Files API
@@ -1839,3 +1891,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+import user_files_routes
+app.include_router(user_files_routes.router)
+

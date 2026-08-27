@@ -67,6 +67,12 @@ CREATE TABLE IF NOT EXISTS faq_rejects (
   reason TEXT,
   rejected_at TEXT
 );
+CREATE TABLE IF NOT EXISTS catalog_files (
+  filename TEXT PRIMARY KEY,
+  uploaded_by TEXT NOT NULL,
+  uploaded_at TEXT NOT NULL,
+  size_bytes INTEGER NOT NULL
+);
 """
 
 

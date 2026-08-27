@@ -82,7 +82,7 @@ CANONICAL_SCHEMA = [
 # clean 28-column view. Users can re-enable any column via the Column toggle.
 # Audit 2026-08-23 fill rates: tiktok 0.2%, kanal_zamiennik 1.9%, linkedin 2.2%,
 # related_to 3.4%, instagram 3.8%, marka_wlasna_oem 5.8%, facebook 9.4%.
-HIDDEN_COLUMNS = []
+HIDDEN_COLUMNS = ["related_to", "kanal_zamiennik"]
 
 # Country Code -> Directory Name mapping
 COUNTRY_MAP = {

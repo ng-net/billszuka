@@ -5,7 +5,7 @@
 // localStorage prefs — no hardcoded HIDDEN_COLUMNS override here.
 
 /** Always-empty — removed to avoid confusing overrides. Visibility is CSV-driven. */
-export const HIDDEN_COLUMNS = [];
+export const HIDDEN_COLUMNS = ["related_to", "kanal_zamiennik"];
 
 /** Identity pass-through — no hardcoded filtering applied to CSV columns. */
 export function visibleColumns(columns) {

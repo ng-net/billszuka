@@ -52,13 +52,22 @@ export async function verifyCompany(input) {
 }
 
 export function isGranted() {
-  try { return localStorage.getItem(GRANT_KEY) === "granted"; } catch { return false; }
+  try { return localStorage.getItem(GRANT_KEY) !== null; } catch { return false; }
 }
 
-export function grant() {
-  try { localStorage.setItem(GRANT_KEY, "granted"); } catch { /* private mode */ }
+export function grant(name) {
+  try { localStorage.setItem(GRANT_KEY, name || "granted"); } catch { /* private mode */ }
 }
 
 export function revoke() {
   try { localStorage.removeItem(GRANT_KEY); } catch { /* private mode */ }
+}
+
+export function getUserName() {
+  try {
+    const val = localStorage.getItem(GRANT_KEY);
+    if (!val || val === "granted") return null;
+    // Capitalize first letter
+    return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+  } catch { return null; }
 }

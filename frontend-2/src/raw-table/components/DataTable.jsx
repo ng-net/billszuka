@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import {
@@ -51,6 +52,8 @@ export function DataTable({
   selectedRowIndex,
   onRowClick,
   globalFilter,
+  pagination,
+  setPagination,
 }) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
@@ -160,11 +163,20 @@ export function DataTable({
       sorting: sortStack,
       globalFilter: deferredGlobalFilter,
       columnFilters,
+      ...(pagination
+        ? {
+            pagination: {
+              pageIndex: pagination.pageIndex ?? 0,
+              pageSize: pagination.pageSize === 0 ? 999999 : (pagination.pageSize ?? 100),
+            },
+          }
+        : {}),
     },
     getRowId,
     onColumnOrderChange: setColumnOrder,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSortStack,
+    onPaginationChange: setPagination,
     onGlobalFilterChange: () => {},
     globalFilterFn: "includesString",
     filterFns: {
@@ -175,6 +187,7 @@ export function DataTable({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     enableMultiSort: true,
     isMultiSortEvent: (e) => Boolean(e?.shiftKey),
     enableColumnResizing: false,
@@ -183,6 +196,7 @@ export function DataTable({
   const visibleColumns = table.getVisibleLeafColumns();
   const visibleColumnIds = visibleColumns.map((c) => c.id);
   const tableRows = table.getRowModel().rows;
+  const filteredRowsCount = table.getFilteredRowModel().rows.length;
   const rowHeight = density === "compact" ? 28 : 44;
 
   // Cumulative left-offset (px) for the first STICKY_COLS_MOBILE visible
@@ -225,8 +239,8 @@ export function DataTable({
 
   // Report filtered count up
   useEffect(() => {
-    onFilteredCountChange?.(tableRows.length);
-  }, [tableRows.length, onFilteredCountChange]);
+    onFilteredCountChange?.(filteredRowsCount);
+  }, [filteredRowsCount, onFilteredCountChange]);
 
   // Column reorder (dnd-kit)
   const handleDragEnd = useCallback(
@@ -355,6 +369,7 @@ export function DataTable({
                         value={filters[column.id]}
                         onChange={(v) => updateColumnFilter(column.id, v)}
                         enumValues={enumVals}
+                        placeholder={`Filtruj ${column.id.replace(/_/g, " ")}…`}
                       />
                     </th>
                   );
@@ -513,11 +528,11 @@ const Row = memo(function Row({ row, index, rowHeight, density, isSelected, onCl
 
 function defaultWidth(colId, type) {
   if (colId === "id_unikalne") return 130;
-  if (colId === "nazwa_firmy") return 280;
-  if (colId === "adres") return 240;
-  if (colId === "notatki" || colId === "flagi" || colId === "zrodlo_danych") return 260;
-  if (colId === "www") return 200;
-  if (colId === "email") return 220;
+  if (colId === "nazwa_firmy") return 420;
+  if (colId === "adres") return 360;
+  if (colId === "notatki" || colId === "flagi" || colId === "zrodlo_danych") return 390;
+  if (colId === "www") return 300;
+  if (colId === "email") return 330;
   if (colId === "telefon") return 160;
   if (colId === "linkedin" || colId === "facebook" || colId === "instagram" || colId === "tiktok") return 180;
   if (colId === "nip_vat") return 140;

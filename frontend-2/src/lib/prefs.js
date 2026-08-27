@@ -4,7 +4,7 @@
  * Versioned: if schema changes, bump key suffix and ignore old data.
  */
 
-import { getActiveProfile } from "./auth";
+import { getActiveProfile } from "./auth.js";
 
 function getKey(profileId = getActiveProfile() || "default") {
   return `czat-table.prefs.v1.${profileId}`;
@@ -15,6 +15,7 @@ const DEFAULTS = {
   activeTab: "table", // "table" | "analytics"
   density: "compact", // "compact" | "comfortable"
   theme: "system", // "light" | "dark" | "system"
+  pageSize: 100, // 50 | 100 | 250 | 0 (all)
   columnOrder: null, // array of column ids, null = default order
   columnVisibility: null, // { [colId]: boolean }, null = all visible
   columnWidths: null, // { [colId]: number px }, null = auto
@@ -44,6 +45,7 @@ export function savePrefs(prefs, profileId) {
       activeTab: prefs.activeTab,
       density: prefs.density,
       theme: prefs.theme,
+      pageSize: prefs.pageSize ?? 100,
       columnOrder: prefs.columnOrder,
       columnVisibility: prefs.columnVisibility,
       columnWidths: prefs.columnWidths,
