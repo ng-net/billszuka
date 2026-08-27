@@ -54,7 +54,9 @@ export function FilterInput({ type, value, onChange, enumValues, placeholder }) 
 function useDebouncedEmit(onChange, ms) {
   const debouncedRef = useRef();
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
   const lastEmittedRef = useRef(undefined);
   useEffect(() => {
     debouncedRef.current = debounce((...args) => {

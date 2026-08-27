@@ -163,12 +163,12 @@ i implementacja ekranu logowania (frontend-only gate; OAuth pozniej).
   jego niezcommitowane zmiany nietkniete.
 
 **Nastepne kroki (deferred):**
-- GET /api/master.csv w api_server.py (raw CSV, pelny master) —
-  po zakonczeniu rundy agenta knowledge; do tego czasu gate
-  auto-fallbuje do sample.
+- ~~GET /api/master.csv w api_server.py (raw CSV, pelny master) —~~
+  ~~po zakonczeniu rundy agenta knowledge; do tego czasu gate~~
+  ~~auto-fallbuje do sample.~~
 - CORS dla domeny Netlify, VITE_API_BASE_URL, token/OAuth backendu.
-- UI: Netlify → Base directory = frontend-2;
-  Render → New Blueprint z render.yaml.
+- ~~UI: Netlify → Base directory = frontend-2;~~
+  ~~Render → New Blueprint z render.yaml.~~
 
 
 ## 2026-08-19 — INSTRUKCJA.md v1.1 + INSTRUKCJA.pdf v1.1 (Marceli request)

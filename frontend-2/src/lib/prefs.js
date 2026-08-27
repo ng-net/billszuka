@@ -4,7 +4,11 @@
  * Versioned: if schema changes, bump key suffix and ignore old data.
  */
 
-const KEY = "czat-table.prefs.v1";
+import { getActiveProfile } from "./auth";
+
+function getKey(profileId = getActiveProfile() || "default") {
+  return `czat-table.prefs.v1.${profileId}`;
+}
 
 const DEFAULTS = {
   version: 1,
@@ -19,10 +23,10 @@ const DEFAULTS = {
   lastFocusedColumn: null,
 };
 
-export function loadPrefs() {
+export function loadPrefs(profileId) {
   if (typeof localStorage === "undefined") return { ...DEFAULTS };
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(getKey(profileId));
     if (!raw) return { ...DEFAULTS };
     const parsed = JSON.parse(raw);
     if (parsed.version !== 1) return { ...DEFAULTS };
@@ -32,7 +36,7 @@ export function loadPrefs() {
   }
 }
 
-export function savePrefs(prefs) {
+export function savePrefs(prefs, profileId) {
   if (typeof localStorage === "undefined") return;
   try {
     const trimmed = {
@@ -47,15 +51,15 @@ export function savePrefs(prefs) {
       filters: prefs.filters,
       lastFocusedColumn: prefs.lastFocusedColumn,
     };
-    localStorage.setItem(KEY, JSON.stringify(trimmed));
+    localStorage.setItem(getKey(profileId), JSON.stringify(trimmed));
   } catch {
     // quota or disabled — silently ignore
   }
 }
 
-export function clearPrefs() {
+export function clearPrefs(profileId) {
   if (typeof localStorage === "undefined") return;
   try {
-    localStorage.removeItem(KEY);
+    localStorage.removeItem(getKey(profileId));
   } catch {}
 }

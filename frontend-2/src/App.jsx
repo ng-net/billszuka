@@ -13,12 +13,19 @@ import {
   Sun,
   Moon,
   Monitor,
+  User,
+  LogOut,
+  Camera
 } from "lucide-react";
+import { getActiveProfile, setActiveProfile } from "@/lib/auth";
+import { ProfileSelector } from "@/components/ProfileSelector";
+import { SnapshotsDialog } from "@/components/SnapshotsDialog";
 import { fetchSettings } from "@/lib/secretsApi";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { GeminiDrawer } from "@/components/GeminiDrawer";
 import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { UploadButton } from "@/raw-table/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -62,7 +69,9 @@ const TABS = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState(() => loadPrefs().activeTab || "table");
+  const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
+  const [activeTab, setActiveTab] = useState(() => loadPrefs(activeProfile)?.activeTab || "table");
+  const [snapshotsOpen, setSnapshotsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -161,6 +170,18 @@ export default function App() {
     setVaultError(null);
   }, []);
 
+  if (!activeProfile) {
+    return (
+      <ProfileSelector
+        onSelect={(id) => {
+          setActiveProfile(id);
+          setActiveProfileState(id);
+          setActiveTab(loadPrefs(id)?.activeTab || "table");
+        }}
+      />
+    );
+  }
+
   return (
     <div className="flex h-dvh flex-col bg-background text-foreground">
       <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
@@ -226,6 +247,30 @@ export default function App() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" title={`Profil: ${activeProfile}`}>
+                <User className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Zalogowany jako {activeProfile}</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => tableRef.current?.saveSnapshot?.(activeProfile)}>
+                <Camera className="h-4 w-4 mr-2" /> Zapisz zrzut tabeli
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSnapshotsOpen(true)}>
+                <BookOpen className="h-4 w-4 mr-2" /> Historia sesji (Zrzuty)
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {
+                // Auto-save snapshot on logout if possible
+                tableRef.current?.saveSnapshot?.();
+                setActiveProfile(null);
+                setActiveProfileState(null);
+              }}>
+                <LogOut className="h-4 w-4 mr-2" /> Wyloguj się
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <HealthBadge vault={vault} error={vaultError} />
           <Button
             variant="ghost"
@@ -275,35 +320,37 @@ export default function App() {
         </div>
       </header>
 
-      <main className="relative flex-1 overflow-hidden">
-        <Suspense
-          fallback={
-            <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground">
-              <Loader2 className="h-5 w-5 animate-spin" />
-              <span>Ładowanie…</span>
-            </div>
-          }
-        >
-          <AnimatePresence mode="wait">
-            {TABS.map(({ id, View }) =>
-              id === activeTab ? (
-                <motion.div
-                  key={id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.12 }}
-                  className="absolute inset-0 overflow-auto"
-                >
-                  <View
-                    ref={id === "table" ? tableRef : undefined}
-                    onCsvStateChange={id === "table" ? setCsvState : undefined}
-                  />
-                </motion.div>
-              ) : null,
-            )}
-          </AnimatePresence>
-        </Suspense>
+      <main className="flex-1 min-h-0 relative">
+        <ErrorBoundary>
+          <Suspense
+            fallback={
+              <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Ładowanie…</span>
+              </div>
+            }
+          >
+            <AnimatePresence mode="wait">
+              {TABS.map(({ id, View }) =>
+                id === activeTab ? (
+                  <motion.div
+                    key={id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.12 }}
+                    className="absolute inset-0 overflow-auto"
+                  >
+                    <View
+                      ref={id === "table" ? tableRef : undefined}
+                      onCsvStateChange={id === "table" ? setCsvState : undefined}
+                    />
+                  </motion.div>
+                ) : null,
+              )}
+            </AnimatePresence>
+          </Suspense>
+        </ErrorBoundary>
       </main>
 
       <Dialog open={shortcutsOpen} onOpenChange={setShortcutsOpen}>
@@ -341,6 +388,15 @@ export default function App() {
         open={knowledgeOpen}
         onOpenChange={setKnowledgeOpen}
         onSelectionChange={setKnowledgeIds}
+      />
+      <SnapshotsDialog
+        open={snapshotsOpen}
+        onOpenChange={setSnapshotsOpen}
+        onRestore={() => {
+           // On restore, simply reload the preferences and refresh
+           setActiveTab(loadPrefs(activeProfile)?.activeTab || "table");
+           // the dataset will be loaded by RawTable's boot function on mount since it's now in customDataset
+        }}
       />
       <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} onVaultChange={handleVaultChange} />
     </div>

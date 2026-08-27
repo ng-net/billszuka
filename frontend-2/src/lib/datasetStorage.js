@@ -1,17 +1,12 @@
 /**
- * datasetStorage.js — IndexedDB storage for preserving uploaded CSV datasets
- * and active dataset selection across reloads and logout/login sessions.
- *
- * Uses IndexedDB to bypass the 5MB localStorage quota limit, allowing datasets
- * with thousands of rows / megabytes of data to persist smoothly.
+ * datasetStorage.js — IndexedDB storage for preserving uploaded CSV datasets,
+ * active dataset selection, and table snapshots across sessions per profile.
  */
+import { getActiveProfile } from "./auth";
 
 const DB_NAME = "billszuka_db";
 const DB_VERSION = 1;
 const STORE_NAME = "datasets";
-
-const KEY_ACTIVE_INFO = "active_info";
-const KEY_CUSTOM_DATASET = "custom_dataset";
 
 function openDB() {
   return new Promise((resolve, reject) => {
@@ -31,10 +26,17 @@ function openDB() {
   });
 }
 
-/**
- * Save an uploaded CSV dataset (parsed rows, columns, schema, metadata).
- */
-export async function saveCustomDataset({ name, size, rows, columns, schema, parseTimeMs = 0 }) {
+function getActiveInfoKey(profileId) {
+  return `active_info_${profileId || getActiveProfile() || "default"}`;
+}
+function getCustomDatasetKey(profileId) {
+  return `custom_dataset_${profileId || getActiveProfile() || "default"}`;
+}
+function getSnapshotsKey(profileId) {
+  return `snapshots_${profileId || getActiveProfile() || "default"}`;
+}
+
+export async function saveCustomDataset(profileId, { name, size, rows, columns, schema, parseTimeMs = 0 }) {
   try {
     const db = await openDB();
     if (!db) return;
@@ -58,47 +60,41 @@ export async function saveCustomDataset({ name, size, rows, columns, schema, par
     await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readwrite");
       const store = tx.objectStore(STORE_NAME);
-      store.put(datasetPayload, KEY_CUSTOM_DATASET);
-      store.put(activeInfo, KEY_ACTIVE_INFO);
+      store.put(datasetPayload, getCustomDatasetKey(profileId));
+      store.put(activeInfo, getActiveInfoKey(profileId));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   } catch (err) {
-    console.warn("Failed to persist custom dataset to IndexedDB:", err);
+    console.warn("Failed to persist custom dataset:", err);
   }
 }
 
-/**
- * Get the stored custom dataset if available.
- */
-export async function getCustomDataset() {
+export async function getCustomDataset(profileId) {
   try {
     const db = await openDB();
     if (!db) return null;
     return await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readonly");
       const store = tx.objectStore(STORE_NAME);
-      const req = store.get(KEY_CUSTOM_DATASET);
+      const req = store.get(getCustomDatasetKey(profileId));
       req.onsuccess = () => resolve(req.result || null);
       req.onerror = () => reject(req.error);
     });
   } catch (err) {
-    console.warn("Failed to retrieve custom dataset from IndexedDB:", err);
+    console.warn("Failed to retrieve custom dataset:", err);
     return null;
   }
 }
 
-/**
- * Get active dataset metadata ({ type: "master" | "custom", name: string, size?: number }).
- */
-export async function getActiveDatasetInfo() {
+export async function getActiveDatasetInfo(profileId) {
   try {
     const db = await openDB();
     if (!db) return { type: "master", name: "master.csv" };
     return await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readonly");
       const store = tx.objectStore(STORE_NAME);
-      const req = store.get(KEY_ACTIVE_INFO);
+      const req = store.get(getActiveInfoKey(profileId));
       req.onsuccess = () => resolve(req.result || { type: "master", name: "master.csv" });
       req.onerror = () => reject(req.error);
     });
@@ -107,10 +103,7 @@ export async function getActiveDatasetInfo() {
   }
 }
 
-/**
- * Set active dataset type ("master" or "custom").
- */
-export async function setActiveDatasetType(type, meta = {}) {
+export async function setActiveDatasetType(profileId, type, meta = {}) {
   try {
     const db = await openDB();
     if (!db) return;
@@ -123,7 +116,7 @@ export async function setActiveDatasetType(type, meta = {}) {
     await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readwrite");
       const store = tx.objectStore(STORE_NAME);
-      store.put(activeInfo, KEY_ACTIVE_INFO);
+      store.put(activeInfo, getActiveInfoKey(profileId));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
@@ -132,22 +125,70 @@ export async function setActiveDatasetType(type, meta = {}) {
   }
 }
 
-/**
- * Clear custom uploaded dataset and reset active selection to master.csv.
- */
-export async function clearCustomDataset() {
+export async function clearCustomDataset(profileId) {
   try {
     const db = await openDB();
     if (!db) return;
     await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readwrite");
       const store = tx.objectStore(STORE_NAME);
-      store.delete(KEY_CUSTOM_DATASET);
-      store.put({ type: "master", name: "master.csv", updatedAt: Date.now() }, KEY_ACTIVE_INFO);
+      store.delete(getCustomDatasetKey(profileId));
+      store.put({ type: "master", name: "master.csv", updatedAt: Date.now() }, getActiveInfoKey(profileId));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   } catch (err) {
     console.warn("Failed to clear custom dataset:", err);
+  }
+}
+
+// --- Snapshots / Time-travel ---
+
+export async function saveSnapshot(profileId, snapshotData) {
+  try {
+    const db = await openDB();
+    if (!db) return;
+    
+    // First get existing snapshots
+    let snapshots = await getSnapshots(profileId);
+    
+    // Add new snapshot
+    snapshots.push({
+      ...snapshotData,
+      id: Date.now().toString(),
+      timestamp: Date.now()
+    });
+    
+    // Keep only last 3
+    if (snapshots.length > 3) {
+      snapshots = snapshots.slice(-3);
+    }
+    
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readwrite");
+      const store = tx.objectStore(STORE_NAME);
+      store.put(snapshots, getSnapshotsKey(profileId));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch (err) {
+    console.warn("Failed to save snapshot:", err);
+  }
+}
+
+export async function getSnapshots(profileId) {
+  try {
+    const db = await openDB();
+    if (!db) return [];
+    return await new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readonly");
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.get(getSnapshotsKey(profileId));
+      req.onsuccess = () => resolve(req.result || []);
+      req.onerror = () => reject(req.error);
+    });
+  } catch (err) {
+    console.warn("Failed to retrieve snapshots:", err);
+    return [];
   }
 }

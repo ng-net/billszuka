@@ -100,7 +100,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
                 className="gap-2"
               >
                 <Sparkles className="h-4 w-4" />
-                Załaduj master.csv
+                Załaduj główną bazę (master.csv)
                 {sampleSize > 0 && (
                   <span className="text-xs text-muted-foreground ml-1">
                     ({Math.round(sampleSize / 1024)} KB)

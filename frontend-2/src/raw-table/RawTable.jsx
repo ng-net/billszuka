@@ -30,7 +30,7 @@ import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
 
-import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
+import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset, saveSnapshot } from "@/lib/datasetStorage";
 
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
@@ -98,11 +98,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     csv.reset();
   }, [csv]);
 
-  const onCsvStateChangeRef = useRef(_props.onCsvStateChange);
-  onCsvStateChangeRef.current = _props.onCsvStateChange;
+  const onCsvStateChange = _props.onCsvStateChange;
 
   useEffect(() => {
-    onCsvStateChangeRef.current?.({
+    onCsvStateChange?.({
       status: csv.status,
       progress: csv.progress,
       fileMeta: csv.fileMeta,
@@ -110,7 +109,14 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       cancel: csv.cancel,
       loadFile: csv.loadFile,
     });
-  }, [csv.status, csv.progress?.bytesParsed, csv.progress?.rowsParsed, csv.fileMeta?.name, csv.cancel, csv.loadFile]);
+  }, [
+    onCsvStateChange,
+    csv.status,
+    csv.progress,
+    csv.fileMeta,
+    csv.cancel,
+    csv.loadFile,
+  ]);
   const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -322,7 +328,19 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     csvStatus: csv.status,
     csvProgress: csv.progress,
     fileMeta: csv.fileMeta,
-  }), [csv]);
+    saveSnapshot: async (profileId) => {
+      await saveSnapshot(profileId, {
+         name: csv.fileMeta?.name || "master.csv",
+         size: csv.fileMeta?.size || 0,
+         columns: csv.columns,
+         rows: csv.rows,
+         schema: csv.schema,
+         prefs: prefs,
+         parseTimeMs: csv.parseTimeMs
+      });
+      toast.success("Zapisano zrzut sesji", { duration: 2000 });
+    }
+  }), [csv, prefs]);
 
   // Persist last focused column. Done inline in the change handler so
   // we don't need a setState-in-effect.
