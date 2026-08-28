@@ -74,12 +74,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         } catch {
           // fall through to master.csv
         }
-        loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0);
-      } else if (bootRef.current === 1 && csv.status === "error") {
-        bootRef.current = 2;
-        // Fall back to static public/master.csv or sample.csv
         loadUrlRef.current(withCacheBuster(STATIC_MASTER_URL), "master.csv", 0);
-      } else if (bootRef.current === 1 && csv.status === "ready") {
+      } else if (bootRef.current === 1 && (csv.status === "error" || csv.status === "ready")) {
         bootRef.current = 2;
       }
     }
@@ -94,7 +90,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const tryLoadData = useCallback(async () => {
     await clearCustomDataset();
     bootRef.current = 1;
-    csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
+    csv.loadUrl(withCacheBuster(STATIC_MASTER_URL), "master.csv", 0);
   }, [csv]);
 
   const onCsvStateChangeRef = useRef(_props.onCsvStateChange);

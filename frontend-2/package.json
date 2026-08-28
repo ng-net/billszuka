@@ -7,7 +7,9 @@
     "node": ">=20.19.0"
   },
   "scripts": {
+    "predev": "node scripts/sync-data.js",
     "dev": "vite",
+    "prebuild": "node scripts/sync-data.js",
     "build": "vite build",
     "lint": "oxlint",
     "test": "node --test 'src/lib/**/*.test.js'",
