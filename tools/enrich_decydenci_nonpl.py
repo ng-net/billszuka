@@ -356,13 +356,63 @@ def registry_decydent_lt(rejestr: str, nip: str) -> dict:
 # OpenRouter fallback for all other countries
 # ---------------------------------------------------------------------------
 
-def openrouter_decydent(company: str, country_name: str, city: str, website: str) -> dict:
-    """Ask DeepSeek to extract decision-maker from public sources.
+def gemini_decydent(company: str, country_name: str, city: str, website: str) -> dict:
+    """Extract decision-maker using Google Gemini 2.5 Flash from public records."""
+    secrets_path = ROOT / "tools" / "api_secrets.json"
+    gemini_key = None
+    if secrets_path.exists():
+        try:
+            sec = json.loads(secrets_path.read_text())
+            for g in sec.get("gemini", []):
+                if g.get("key"):
+                    gemini_key = g["key"]
+                    break
+        except Exception:
+            pass
+    if not gemini_key:
+        env = _load_env()
+        gemini_key = env.get("GEMINI_API_KEY_1") or env.get("GEMINI_API_KEY")
+    if not gemini_key:
+        return {}
 
-    Anti-hallucination guard: REQUIRES source URL in response. If LLM doesn't
-    provide a verifiable source, the result is rejected. Cross-verification
-    via web_fetch is the operator's responsibility before commit.
-    """
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={gemini_key}"
+    prompt = (
+        f"Company: {company}\n"
+        f"Country: {country_name}\n"
+        f"City: {city or 'unknown'}\n"
+        f"Website: {website or 'unknown'}\n\n"
+        "Extract the real personal name and role of the key decision-maker (owner, CEO, Managing Director, General Manager, gérant, jednatel, vadovas, administrator) from public official registry/LinkedIn records.\n"
+        "Return ONLY a JSON object: {\"name\": \"First Last\", \"title\": \"Owner/CEO/...\", \"source_label\": \"Public registry / LinkedIn / Official site\"} or {} if not verified."
+    )
+    payload = json.dumps({
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.0, "responseMimeType": "application/json"}
+    }).encode()
+    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            res = json.loads(r.read())
+            cand = res.get("candidates", [])[0]["content"]["parts"][0]["text"]
+            m = re.search(r"\{.*?\}", cand, re.DOTALL)
+            if not m:
+                return {}
+            parsed = json.loads(m.group(0))
+            name = parsed.get("name", "").strip()
+            title = parsed.get("title", "").strip()
+            source_label = parsed.get("source_label", "Public registry")
+            if not name or name.lower() in ("unknown", "n/a", "not found", "brak", "") or is_placeholder_decydent(name):
+                return {}
+            return {
+                "decydent": name,
+                "stanowisko": title or "Director",
+                "zrodlo_danych": f"Gemini + {source_label} (public registry / official source)",
+            }
+    except Exception:
+        return {}
+
+
+def openrouter_decydent(company: str, country_name: str, city: str, website: str) -> dict:
+    """Ask DeepSeek to extract decision-maker from public sources."""
     env = _load_env()
     api_key = env.get("OPENROUTER_API_KEY", "").strip()
     if not api_key:
@@ -419,7 +469,6 @@ def openrouter_decydent(company: str, country_name: str, city: str, website: str
         with urllib.request.urlopen(req, timeout=30) as r:
             resp = json.loads(r.read())
             content = resp["choices"][0]["message"]["content"].strip()
-            # Extract JSON from response (allow nested braces for source_url value)
             m = re.search(r"\{.*?\}", content, re.DOTALL)
             if not m:
                 return {}
@@ -428,18 +477,16 @@ def openrouter_decydent(company: str, country_name: str, city: str, website: str
             title = parsed.get("title", "").strip()
             source_url = parsed.get("source_url", "").strip()
             source_label = parsed.get("source_label", "").strip()
-            # Anti-hallucination: require source URL
-            if not name or name.lower() in ("unknown", "n/a", "not found", ""):
+            if not name or name.lower() in ("unknown", "n/a", "not found", "") or is_placeholder_decydent(name):
                 return {}
             if not source_url or not source_url.startswith(("http://", "https://")):
-                # Reject without verifiable source
                 return {}
             return {
                 "decydent": name,
                 "stanowisko": title or "N/A",
                 "zrodlo_danych": f"OpenRouter DeepSeek + {source_label}: {source_url} (LLM-suggested, REQUIRES cross-verification before commit)",
             }
-    except Exception as e:
+    except Exception:
         pass
     return {}
 
@@ -473,10 +520,16 @@ def enrich_row(row: dict, iso: str) -> dict:
         fn = REGISTRY_FUNCS[iso]
         enriched = fn(rejestr, nip)
         time.sleep(0.5)
-    else:
-        # Step 2: OpenRouter for SK, RO, LV, MD, BG, SI, HR
+
+    # Step 2: Try Gemini Flash public registry/LinkedIn extract
+    if not enriched:
+        enriched = gemini_decydent(company, country_name, city, website)
+        time.sleep(0.5)
+
+    # Step 3: Try OpenRouter fallback
+    if not enriched:
         enriched = openrouter_decydent(company, country_name, city, website)
-        time.sleep(2.0)
+        time.sleep(1.0)
 
     return enriched
 

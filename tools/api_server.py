@@ -1161,7 +1161,7 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
     knowledge_refs = _resolve_knowledge_refs(req.knowledge_ids)
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"gemini-3.6-flash:generateContent?key={api_key}"
+        f"gemini-2.5-flash:generateContent?key={api_key}"
     )
 
     def _build_payload(refs: list[dict[str, Any]]) -> bytes:
