@@ -217,21 +217,33 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   // Effective column visibility — whatever the user last set in localStorage.
   const columnVisibility = prefs.columnVisibility || {};
-  const [pageIndex, setPageIndex] = useState(() => prefs.pageIndex ?? 0);
-  const pageSize = prefs.pageSize ?? 0;
+  const [pageIndex, setPageIndex] = useState(() => (typeof prefs.pageIndex === "number" ? prefs.pageIndex : 0));
+  const pageSize = typeof prefs.pageSize === "number" ? prefs.pageSize : 0;
   const pagination = useMemo(() => ({
-    pageIndex,
-    pageSize,
+    pageIndex: typeof pageIndex === "number" ? pageIndex : 0,
+    pageSize: typeof pageSize === "number" ? pageSize : 0,
   }), [pageIndex, pageSize]);
 
+  const onPaginationChange = useCallback((updater) => {
+    setPageIndex((old) => {
+      const current = typeof old === "number" ? old : 0;
+      const next = typeof updater === "function" ? updater({ pageIndex: current, pageSize }) : updater;
+      const nextIndex = typeof next === "number" ? next : (typeof next?.pageIndex === "number" ? next.pageIndex : 0);
+      setPrefs((p) => ({ ...p, pageIndex: nextIndex }));
+      return nextIndex;
+    });
+  }, [pageSize, setPrefs]);
+
   const onPageChange = useCallback((newPageIndex) => {
-    setPageIndex(newPageIndex);
-    setPrefs((p) => ({ ...p, pageIndex: newPageIndex }));
+    const idx = typeof newPageIndex === "number" ? newPageIndex : 0;
+    setPageIndex(idx);
+    setPrefs((p) => ({ ...p, pageIndex: idx }));
   }, [setPrefs]);
 
   const onPageSizeChange = useCallback((newSize) => {
+    const size = typeof newSize === "number" ? newSize : 0;
     setPageIndex(0);
-    setPrefs((p) => ({ ...p, pageSize: newSize, pageIndex: 0 }));
+    setPrefs((p) => ({ ...p, pageSize: size, pageIndex: 0 }));
   }, [setPrefs]);
 
   const setColumnOrder = useCallback((updater) =>
@@ -623,7 +635,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                   onRowClick={onRowClick}
                   globalFilter={globalFilter}
                   pagination={pagination}
-                  setPagination={onPageChange}
+                  setPagination={onPaginationChange}
                 />
               </div>
               <StatusBar

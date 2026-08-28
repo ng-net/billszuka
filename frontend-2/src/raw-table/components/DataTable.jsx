@@ -163,12 +163,13 @@ export function DataTable({
       ...(pagination
         ? {
             pagination: {
-              pageIndex: pagination.pageIndex ?? 0,
-              pageSize: pagination.pageSize === 0 ? 999999 : (pagination.pageSize ?? 100),
+              pageIndex: typeof pagination.pageIndex === "number" && !isNaN(pagination.pageIndex) ? Math.max(0, pagination.pageIndex) : 0,
+              pageSize: pagination.pageSize === 0 ? 999999 : (typeof pagination.pageSize === "number" ? pagination.pageSize : 100),
             },
           }
         : {}),
     },
+    autoResetPageIndex: false,
     getRowId,
     onColumnOrderChange: setColumnOrder,
     onColumnVisibilityChange: setColumnVisibility,
