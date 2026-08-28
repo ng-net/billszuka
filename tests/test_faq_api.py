@@ -119,10 +119,17 @@ def test_save_command_writes_inbox(client, monkeypatch):
     # Mock _last_chat_response directly to avoid CI/Linux/SQLite WAL
     # visibility races. The test is about the save-command path; mocking
     # the prior-response lookup keeps the test deterministic and fast.
-    monkeypatch.setattr(api_server, "_last_chat_response", lambda: "MOCK-ODP")
+    def fake_last_response():
+        return "MOCK-ODP"
+    monkeypatch.setattr(api_server, "_last_chat_response", fake_last_response)
+    # Debug: prove the patch took effect at the test boundary
+    assert api_server._last_chat_response() == "MOCK-ODP", (
+        f"monkeypatch didn't apply: got {api_server._last_chat_response()!r}")
     r = client.post("/api/chat", json={"query": "zapisz ten fakt"}, headers=_headers())
     body = r.json()
-    assert body["provider"] == "save" and "Zapisano" in body["response"]
+    assert body["provider"] == "save" and "Zapisano" in body["response"], (
+        f"expected save, got provider={body.get('provider')!r}, "
+        f"response={body.get('response', '')[:120]!r}")
     files = list(md_corpus.INBOX_DIR.glob("fact-*.md"))
     assert len(files) == 1
     assert "saved_by: marceli" in files[0].read_text(encoding="utf-8")
