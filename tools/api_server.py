@@ -51,7 +51,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, Header, HTTPException, UploadFile
+from fastapi import FastAPI, File, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
@@ -643,6 +643,45 @@ async def get_dataset(filename: str, limit: int = DEFAULT_PAGE_SIZE) -> dict[str
     payload["filename"] = clean
     payload["limit"] = limit
     return payload
+
+
+class LoginEventRequest(BaseModel):
+    user: str
+    company: str | None = None
+
+
+@app.post("/api/auth/login")
+async def record_login(req: LoginEventRequest, request: Request) -> dict[str, Any]:
+    """Record a verified user login event to SQLite for session tracking."""
+    user = _verified_user(req.user)
+    if not user:
+        raise HTTPException(status_code=403, detail="unrecognized user name")
+
+    now_iso = datetime.now(timezone.utc).isoformat()
+    ip = request.client.host if request.client else None
+    ua = request.headers.get("user-agent")
+
+    with db.connect(DATA / "billszuka.db") as conn:
+        conn.execute(
+            "INSERT INTO user_logins (user, company, login_at, user_agent, ip) VALUES (?, ?, ?, ?, ?)",
+            (user, req.company or "", now_iso, ua, ip),
+        )
+    return {"status": "ok", "user": user, "logged_at": now_iso}
+
+
+@app.get("/api/auth/logins")
+async def get_login_history(
+    x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
+    limit: int = 50,
+) -> list[dict[str, Any]]:
+    """Get the recent login history for all users."""
+    _require_user(x_billszuka_user)
+    with db.connect(DATA / "billszuka.db") as conn:
+        rows = conn.execute(
+            "SELECT id, user, company, login_at, ip, user_agent FROM user_logins ORDER BY id DESC LIMIT ?",
+            (min(max(limit, 1), 200),),
+        ).fetchall()
+        return [dict(r) for r in rows]
 
 
 @app.post("/api/upload")

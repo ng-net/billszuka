@@ -3,6 +3,8 @@ import { Loader2, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { verifyName, verifyCompany, isGranted, grant, revoke } from "@/lib/access";
+import { apiUrl } from "@/lib/api";
+import { setActiveProfile } from "@/lib/auth";
 import {
   Tooltip,
   TooltipContent,
@@ -56,6 +58,12 @@ export function AccessGate({ children }) {
           return;
         }
         grant(userName);
+        setActiveProfile(userName);
+        fetch(apiUrl("/api/auth/login"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: userName, company: v }),
+        }).catch((err) => console.warn("Failed to record login:", err));
         setGranted(true);
       }
     } catch (err) {
@@ -67,6 +75,7 @@ export function AccessGate({ children }) {
 
   function handleLogout() {
     revoke();
+    setActiveProfile(null);
     setGranted(false);
     setStep("name");
     setValue("");

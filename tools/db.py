@@ -73,6 +73,14 @@ CREATE TABLE IF NOT EXISTS catalog_files (
   uploaded_at TEXT NOT NULL,
   size_bytes INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS user_logins (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user TEXT NOT NULL,
+  company TEXT,
+  login_at TEXT NOT NULL,
+  user_agent TEXT,
+  ip TEXT
+);
 """
 
 
