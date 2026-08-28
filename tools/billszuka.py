@@ -139,7 +139,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="BILLSzuka Unified Pipeline CLI")
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(dest="command")
 
     # Compile
     p_compile = subparsers.add_parser("compile", help="Validate catalog schemas and rebuild data/master.csv")
