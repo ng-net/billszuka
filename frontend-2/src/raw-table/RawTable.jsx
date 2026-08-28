@@ -217,7 +217,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   // Effective column visibility — whatever the user last set in localStorage.
   const columnVisibility = prefs.columnVisibility || {};
-  const [pageIndex, setPageIndex] = useState(0);
+  const [pageIndex, setPageIndex] = useState(() => prefs.pageIndex ?? 0);
   const pageSize = prefs.pageSize ?? 0;
   const pagination = useMemo(() => ({
     pageIndex,
@@ -226,11 +226,12 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   const onPageChange = useCallback((newPageIndex) => {
     setPageIndex(newPageIndex);
-  }, []);
+    setPrefs((p) => ({ ...p, pageIndex: newPageIndex }));
+  }, [setPrefs]);
 
   const onPageSizeChange = useCallback((newSize) => {
     setPageIndex(0);
-    setPrefs((p) => ({ ...p, pageSize: newSize }));
+    setPrefs((p) => ({ ...p, pageSize: newSize, pageIndex: 0 }));
   }, [setPrefs]);
 
   const setColumnOrder = useCallback((updater) =>
@@ -240,28 +241,29 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const setSortStack = useCallback((updater) => {
     setPageIndex(0);
     startSortTransition(() =>
-      setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater }))
+      setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater, pageIndex: 0 }))
     );
   }, [setPrefs]);
   const setFilters = useCallback((updater) => {
     setPageIndex(0);
     startFilterTransition(() =>
-      setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater }))
+      setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater, pageIndex: 0 }))
     );
   }, [setPrefs]);
   const setDensity = useCallback((d) => setPrefs((p) => ({ ...p, density: d })), [setPrefs]);
   const setTheme = useCallback((t) => setPrefs((p) => ({ ...p, theme: t })), [setPrefs]);
 
   // Global filter (across all visible cells) — debounced
-  const [globalSearch, setGlobalSearch] = useState("");
+  const [globalSearch, setGlobalSearch] = useState(() => prefs.globalSearch || "");
   const debouncedGlobalRef = useRef();
   useEffect(() => {
     debouncedGlobalRef.current = debounce((v) => {
       setPageIndex(0);
       setGlobalFilter(v);
+      setPrefs((p) => ({ ...p, globalSearch: v, pageIndex: 0 }));
     }, 200);
     return () => debouncedGlobalRef.current?.cancel();
-  }, []);
+  }, [setPrefs]);
   const onGlobalSearchChange = (v) => {
     setGlobalSearch(v);
     debouncedGlobalRef.current?.(v);

@@ -15,7 +15,9 @@ const DEFAULTS = {
   activeTab: "table", // "table" | "analytics"
   density: "compact", // "compact" | "comfortable"
   theme: "system", // "light" | "dark" | "system"
-  pageSize: 100, // 50 | 100 | 250 | 0 (all)
+  pageSize: 0, // 50 | 100 | 250 | 0 (all)
+  pageIndex: 0,
+  globalSearch: "",
   columnOrder: null, // array of column ids, null = default order
   columnVisibility: null, // { [colId]: boolean }, null = all visible
   columnWidths: null, // { [colId]: number px }, null = auto
@@ -45,7 +47,9 @@ export function savePrefs(prefs, profileId) {
       activeTab: prefs.activeTab,
       density: prefs.density,
       theme: prefs.theme,
-      pageSize: prefs.pageSize ?? 100,
+      pageSize: prefs.pageSize ?? 0,
+      pageIndex: prefs.pageIndex ?? 0,
+      globalSearch: prefs.globalSearch ?? "",
       columnOrder: prefs.columnOrder,
       columnVisibility: prefs.columnVisibility,
       columnWidths: prefs.columnWidths,

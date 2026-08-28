@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState, lazy, Suspense } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Table as TableIcon,
   BarChart3,
@@ -342,25 +341,23 @@ export default function App() {
               </div>
             }
           >
-            <AnimatePresence mode="wait">
-              {TABS.map(({ id, View }) =>
-                id === activeTab ? (
-                  <motion.div
-                    key={id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.12 }}
-                    className="absolute inset-0 overflow-auto"
-                  >
-                    <View
-                      ref={id === "table" ? tableRef : undefined}
-                      onCsvStateChange={id === "table" ? setCsvState : undefined}
-                    />
-                  </motion.div>
-                ) : null,
-              )}
-            </AnimatePresence>
+            <div className="relative w-full h-full">
+              {TABS.map(({ id, View }) => (
+                <div
+                  key={id}
+                  className={`absolute inset-0 overflow-auto transition-opacity duration-150 ${
+                    id === activeTab
+                      ? "opacity-100 pointer-events-auto z-10"
+                      : "opacity-0 pointer-events-none z-0 hidden"
+                  }`}
+                >
+                  <View
+                    ref={id === "table" ? tableRef : undefined}
+                    onCsvStateChange={id === "table" ? setCsvState : undefined}
+                  />
+                </div>
+              ))}
+            </div>
           </Suspense>
         </ErrorBoundary>
       </main>
