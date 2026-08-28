@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { verifyName, verifyCompany, isGranted, grant, revoke } from "@/lib/access";
 import { apiUrl } from "@/lib/api";
-import { setActiveProfile } from "@/lib/auth";
+import { getActiveProfile, setActiveProfile } from "@/lib/auth";
+import { clearPrefs } from "@/lib/prefs";
+import { clearCustomDataset } from "@/lib/datasetStorage";
 import {
   Tooltip,
   TooltipContent,
@@ -73,7 +75,18 @@ export function AccessGate({ children }) {
     }
   }
 
-  function handleLogout() {
+  async function handleLogout() {
+    try {
+      const currentProf = getActiveProfile();
+      if (currentProf) {
+        clearPrefs(currentProf);
+        await clearCustomDataset(currentProf);
+      }
+      clearPrefs("default");
+      await clearCustomDataset("default");
+    } catch (err) {
+      console.warn("Error clearing session view preferences:", err);
+    }
     revoke();
     setActiveProfile(null);
     setGranted(false);
