@@ -246,10 +246,11 @@ def bump_hits(entry_id: str) -> None:
 SAVE_TOKEN_RATIO = 0.88
 
 
-def load_save_phrases(path: Path = PHRASES_PATH) -> list[str]:
-    if not path.exists():
+def load_save_phrases(path: Path | None = None) -> list[str]:
+    target = path if path is not None else PHRASES_PATH
+    if not target.exists():
         return []
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(target.read_text(encoding="utf-8"))
     return [p for lang in data.values() for p in lang]
 
 
