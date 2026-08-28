@@ -36,8 +36,8 @@ Canonical remote: `github.com/marlink/BILLSzuka` (private). Backup mirror: `gith
 
 ## Iron rules
 
+- **Never output raw user login details or credentials in chat** — always use generic placeholders like `[user]`, `[company]` or `[credentials]`.
 - **Always run `verify-data` skill** on new data in `data/{Kraj}/catalog-*.csv` or
-
   `data/relationships.csv`, on edits, after every research session, after bulk imports.
 
 - **Decydent = public sources only** (KRS, LinkedIn, official registries). Don't ask
