@@ -101,11 +101,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [csv.status]);
 
   // Manual trigger for the empty-state button. Clears custom upload,
-  // re-arms bootRef and resets csv state so master.csv is loaded.
+  // and directly loads master.csv from the backend.
   const tryLoadData = useCallback(async () => {
     await clearCustomDataset();
-    bootRef.current = 0;
-    csv.reset();
+    bootRef.current = 2;
+    csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
   }, [csv]);
 
   const onCsvStateChange = _props.onCsvStateChange;
@@ -395,14 +395,20 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       setFilters({});
       setGlobalFilter("");
       setGlobalSearch("");
+      setPageIndex(0);
+      toast.success("Wyczyszczono wszystkie filtry", { duration: 1200 });
     } else if (item.id === "clear-sort") {
       setSortStack([]);
+      setPageIndex(0);
+      toast.success("Wyczyszczono sortowanie", { duration: 1200 });
     } else if (item.id === "reset") {
       setFilters({});
       setSortStack([]);
       setColumnVisibility({});
       setGlobalFilter("");
       setGlobalSearch("");
+      setPageIndex(0);
+      toast.success("Zresetowano cały widok (filtry, kolumny i sortowanie)", { duration: 1500 });
     } else if (item.id === "density-compact") {
       setDensity("compact");
     } else if (item.id === "density-comfortable") {
