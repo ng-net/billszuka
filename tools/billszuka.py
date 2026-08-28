@@ -169,7 +169,14 @@ def main():
     p_sync.add_argument("--interval", type=int, default=60, help="Watch interval in seconds (default: 60)")
     p_sync.set_defaults(func=cmd_sync)
 
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stdout)
+        return 0
+
     args = parser.parse_args()
+    if not hasattr(args, "func"):
+        parser.print_help(sys.stdout)
+        return 0
     return args.func(args)
 
 
