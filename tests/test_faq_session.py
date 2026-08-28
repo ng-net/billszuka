@@ -110,6 +110,9 @@ def test_run_session_answer_failure_skips_question(tmp_path, monkeypatch):
     monkeypatch.setattr(db, "DB_PATH", tmp_path / "t.db")
     monkeypatch.setattr(md_corpus, "CORPUS_DIR", tmp_path / "md")
     monkeypatch.setattr(md_corpus, "INBOX_DIR", tmp_path / "md" / "inbox")
+    monkeypatch.setattr(faq, "MASTER_CSV", FIXTURE)      # CI: data/master.csv is gitignored
+    monkeypatch.setattr(faq, "_facts_cache", (None, None))  # clear cache for isolation
+    monkeypatch.setattr(faq, "DATA_DIR", tmp_path / "data")  # prevent accidental real-data writes
     monkeypatch.setattr(fbs, "ARTIFACT_JSON", tmp_path / "faq.json")
     monkeypatch.setattr(fbs, "ARTIFACT_CSV", tmp_path / "faq.csv")
     monkeypatch.setattr(fbs, "build_numeric_bank", lambda facts: [])

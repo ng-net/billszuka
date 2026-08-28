@@ -26,6 +26,7 @@ def client(monkeypatch, tmp_path):
     monkeypatch.setattr(api_server, "KNOWLEDGE_INDEX_PATH", tmp_path / "knowledge" / "index.json")
     monkeypatch.setattr(faq, "MASTER_CSV", FIXTURE)
     monkeypatch.setattr(faq, "PHRASES_PATH", tmp_path / "save-phrases.json")
+    monkeypatch.setattr(faq, "_facts_cache", (None, None))   # clear cache for isolation
     monkeypatch.setattr(md_corpus, "CORPUS_DIR", tmp_path / "knowledge" / "md")
     monkeypatch.setattr(md_corpus, "INBOX_DIR", tmp_path / "knowledge" / "md" / "inbox")
     monkeypatch.setattr(md_corpus, "_cache", {})
