@@ -116,7 +116,16 @@ def test_chat_faq_stale_numeric_falls_through(client):
 
 
 def test_save_command_writes_inbox(client):
-    client.post("/api/chat", json={"query": "co to jest maszynka"}, headers=_headers())
+    # Seed chat_log directly with a previous response (don't depend on the
+    # chain round-trip — it's a separate concern; the test is about the save
+    # command path, not the LLM chain).
+    with db.connect() as conn:
+        conn.execute(
+            "INSERT INTO chat_log (ts, user, query, response, provider, dataset, "
+            "knowledge_ids, faq_hit, sources) VALUES "
+            "(datetime('now'), 'marceli', 'co to jest maszynka', 'MOCK-ODP', 'mock', "
+            "'master.csv', '[]', 0, '[]')"
+        )
     r = client.post("/api/chat", json={"query": "zapisz ten fakt"}, headers=_headers())
     body = r.json()
     assert body["provider"] == "save" and "Zapisano" in body["response"]
