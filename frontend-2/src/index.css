@@ -119,6 +119,10 @@
   }
   html, body, #root {
     height: 100%;
+    /* Use dvh (dynamic viewport height) so iOS Safari's address-bar
+       show/hide doesn't collapse fixed/full-height layouts. Falls back
+       to 100% for browsers without dvh support (Chrome <108). */
+    min-height: 100dvh;
   }
   body {
     background-color: var(--background);
@@ -127,6 +131,9 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent iOS Safari overscroll bounce on the body — individual
+       scroll containers handle their own overscroll. */
+    overscroll-behavior: none;
   }
 }
 
@@ -160,6 +167,28 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Momentum / kinetic scroll for horizontal table wrappers on iOS.
+     Without -webkit-overflow-scrolling: touch the table feels sticky
+     on Safari/iOS — one finger drag stops the moment you lift. */
+  .touch-scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Lock axis so the gesture doesn't accidentally trigger page pull-to-refresh. */
+    touch-action: pan-x;
+    /* Contain overscroll so it doesn't bubble up to the page body. */
+    overscroll-behavior-x: contain;
+  }
+
+  /* Full-height containers that respect iOS dynamic viewport height.
+     Use on anything that should fill the viewport without being
+     squashed by the iOS address bar appearing/disappearing. */
+  .h-dvh {
+    height: 100dvh;
+  }
+  .min-h-dvh {
+    min-height: 100dvh;
   }
 }
 

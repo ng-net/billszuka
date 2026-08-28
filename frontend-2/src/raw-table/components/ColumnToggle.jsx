@@ -49,7 +49,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-72 p-0" align="end">
+      <PopoverContent className="w-[min(18rem,calc(100vw-2rem))] p-0" align="end">
         <div className="p-3 border-b space-y-2">
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium">Widoczne kolumny</p>

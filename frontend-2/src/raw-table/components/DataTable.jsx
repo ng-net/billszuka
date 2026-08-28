@@ -25,6 +25,7 @@ import { FilterInput } from "./FilterInput";
 import { SortableHeader } from "./SortableHeader";
 import { getEnumValues } from "@/lib/csv";
 import { cn } from "@/lib/utils";
+import { ArrowUp, ArrowDown, X, Pin, EyeOff } from "lucide-react";
 
 const STICKY_COLS_MOBILE = 2; // first 2 cols sticky on mobile
 
@@ -291,7 +292,7 @@ export function DataTable({
       >
         <div
           ref={tableContainerRef}
-          className="h-full overflow-auto scrollbar-thin"
+          className="h-full overflow-auto scrollbar-thin touch-scroll-x"
           onScroll={() => setMenu(null)}
           onClick={() => menu && setMenu(null)}
         >
@@ -648,32 +649,32 @@ function HeaderContextMenu({ x, y, onAction }) {
         onClick={() => onAction("sort-asc")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <span>↑</span> Sortuj rosnąco
+        <ArrowUp className="h-3.5 w-3.5 shrink-0" /> Sortuj rosnąco
       </button>
       <button
         onClick={() => onAction("sort-desc")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <span>↓</span> Sortuj malejąco
+        <ArrowDown className="h-3.5 w-3.5 shrink-0" /> Sortuj malejąco
       </button>
       <button
         onClick={() => onAction("clear-sort")}
-        className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
+        className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left text-muted-foreground"
       >
-        <span className="opacity-50">×</span> Wyczyść sort
+        <X className="h-3.5 w-3.5 shrink-0" /> Wyczyść sort
       </button>
       <div className="border-t my-1" />
       <button
         onClick={() => onAction("pin")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <span>📌</span> Przypnij do lewej
+        <Pin className="h-3.5 w-3.5 shrink-0" /> Przypiń do lewej
       </button>
       <button
         onClick={() => onAction("hide")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left text-destructive"
       >
-        <span>👁</span> Ukryj kolumnę
+        <EyeOff className="h-3.5 w-3.5 shrink-0" /> Ukryj kolumnę
       </button>
     </div>
   );

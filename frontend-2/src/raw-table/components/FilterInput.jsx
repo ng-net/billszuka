@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -54,7 +54,12 @@ export function FilterInput({ type, value, onChange, enumValues, placeholder }) 
 function useDebouncedEmit(onChange, ms) {
   const debouncedRef = useRef();
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
+  // Assign in a layout effect so the ref update never happens during render.
+  // useLayoutEffect fires synchronously after DOM paint and before any user
+  // events, so the ref is always fresh when the debounced callback fires.
+  useLayoutEffect(() => {
+    onChangeRef.current = onChange;
+  });
   const lastEmittedRef = useRef(undefined);
   useEffect(() => {
     debouncedRef.current = debounce((...args) => {

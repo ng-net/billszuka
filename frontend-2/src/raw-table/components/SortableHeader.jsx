@@ -59,7 +59,7 @@ export function SortableHeader({ column, sortIndex, stickyLeft, onContextMenu, o
         "group relative overflow-hidden text-left align-middle font-medium text-muted-foreground select-none",
         isDivider ? "border-r-[6px] border-border" : "border-r border-border",
         focused && "ring-2 ring-primary/50 ring-inset",
-        stickyLeft != null && "sticky z-20 bg-card md:static"
+        stickyLeft != null && "sticky z-20 bg-card lg:static"
       )}
       onContextMenu={(e) => onContextMenu?.(e, column)}
     >

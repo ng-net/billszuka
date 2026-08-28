@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef, useTransition, forwardRef, useImperativeHandle } from "react";
+import { useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef, useTransition, forwardRef, useImperativeHandle } from "react";
 import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import {
@@ -32,8 +32,6 @@ import { LoadingState } from "./components/LoadingState";
 
 import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
 
-const SAMPLE_URL = "/sample.csv";
-const SAMPLE_SIZE = 214000; // approximate
 const STATIC_MASTER_URL = "/master.csv";
 // The master dataset is served by FastAPI via /api/master.csv. The Date.now()
 // query param is the belt-and-braces guarantee that after Marceli edits
@@ -99,7 +97,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [csv]);
 
   const onCsvStateChangeRef = useRef(_props.onCsvStateChange);
-  onCsvStateChangeRef.current = _props.onCsvStateChange;
+  // Safe to assign in a layout effect — fires synchronously after DOM paint,
+  // never during the render phase (avoids react-compiler ref-during-render warning).
+  useLayoutEffect(() => {
+    onCsvStateChangeRef.current = _props.onCsvStateChange;
+  });
 
   useEffect(() => {
     onCsvStateChangeRef.current?.({
@@ -110,7 +112,12 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       cancel: csv.cancel,
       loadFile: csv.loadFile,
     });
-  }, [csv.status, csv.progress?.bytesParsed, csv.progress?.rowsParsed, csv.fileMeta?.name, csv.cancel, csv.loadFile]);
+    // Depend on the primitive status + the stable function refs. Listing
+    // sub-property paths (csv.progress?.bytesParsed) caused oxlint to
+    // flag missing parent dependencies; using the parent objects directly
+    // is correct — progress/fileMeta are replaced by reference on each
+    // update, so this fires whenever any field changes.
+  }, [csv.status, csv.progress, csv.fileMeta, csv.cancel, csv.loadFile]);
   const [prefs, setPrefs] = useState(() => loadPrefs());
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);

@@ -147,7 +147,7 @@ export function AccessGate({ children }) {
             {error && <p className="text-xs text-red-600">{error}</p>}
           </div>
 
-          <Button type="submit" disabled={busy || !value.trim()} className="w-full">
+          <Button type="submit" disabled={busy || !value.trim()} size="lg" className="w-full h-11">
             {busy && <Loader2 className="h-4 w-4 animate-spin" />}
             {busy ? "Sprawdzam…" : "Dalej"}
           </Button>

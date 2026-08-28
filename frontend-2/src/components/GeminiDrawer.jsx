@@ -325,14 +325,16 @@ function PromptPill({ q, onPick, disabled = false, compact = false }) {
       onClick={() => !disabled && onPick(q)}
       disabled={disabled}
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border bg-background text-left",
+        "inline-flex min-w-0 items-center gap-1 rounded-full border bg-background text-left",
         "hover:bg-accent hover:border-violet-300 hover:text-foreground",
         "disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
         compact ? "px-2.5 py-0.5 text-[11px]" : "px-3 py-1.5 text-xs",
       )}
     >
       {compact && <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />}
-      <span className="truncate">{q}</span>
+      {/* max-w prevents a single long prompt from stretching the pill
+          beyond the container width on narrow iOS viewports. */}
+      <span className="truncate max-w-[28ch]">{q}</span>
     </button>
   );
 }

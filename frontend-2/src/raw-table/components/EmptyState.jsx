@@ -27,7 +27,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-3.5rem)] p-6">
+    <div className="flex items-center justify-center min-h-[calc(100dvh-3.5rem)] p-6">
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}

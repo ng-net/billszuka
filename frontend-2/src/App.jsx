@@ -197,6 +197,7 @@ export default function App() {
             onClick={() => setShortcutsOpen(true)}
             aria-label="Skróty klawiszowe"
             title="Skróty klawiszowe (?)"
+            className="hidden sm:inline-flex"
           >
             <Keyboard className="h-4 w-4" />
           </Button>
@@ -226,7 +227,9 @@ export default function App() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <HealthBadge vault={vault} error={vaultError} />
+          <span className="hidden sm:contents">
+            <HealthBadge vault={vault} error={vaultError} />
+          </span>
           <Button
             variant="ghost"
             size="icon"
