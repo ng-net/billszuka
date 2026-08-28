@@ -96,11 +96,8 @@ export function DataTable({
       } else if (colType === "date") {
         filterFn = "dateRange";
       } else {
-        // text / url / email / phone — explicit `includesString` (case-insensitive
-        // substring). Without an explicit fn, TanStack's default `auto` silently
-        // failed to match string filters in v8.21.x, leaving the table unfiltered
-        // even though the parent state held the value.
-        filterFn = "includesString";
+        // text / url / email / phone — robust case-insensitive substring filter
+        filterFn = "textFilter";
       }
       return {
         id: colId,
@@ -178,11 +175,13 @@ export function DataTable({
     onSortingChange: setSortStack,
     onPaginationChange: setPagination,
     onGlobalFilterChange: () => {},
-    globalFilterFn: "includesString",
+    globalFilterFn: globalSearchFilter,
     filterFns: {
       dateRange: dateRangeFilter,
       enumContains: enumContainsFilter,
       numberRange: numberRangeFilter,
+      textFilter: textFilter,
+      globalSearch: globalSearchFilter,
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -583,22 +582,49 @@ function getSortingFn(type) {
 }
 
 /**
+ * Robust case-insensitive substring filter for text/url/email/phone columns.
+ */
+const textFilter = (row, columnId, filterValue) => {
+  if (filterValue == null || filterValue === "") return true;
+  const raw = row.getValue(columnId);
+  if (raw == null || raw === "") return false;
+  const cellStr = String(raw).toLowerCase();
+  const searchStr = String(filterValue).toLowerCase().trim();
+  return cellStr.includes(searchStr);
+};
+
+/**
+ * Global search filter across all column cells.
+ */
+const globalSearchFilter = (row, columnId, filterValue) => {
+  if (!filterValue) return true;
+  const searchStr = String(filterValue).toLowerCase().trim();
+  if (!searchStr) return true;
+  const raw = row.getValue(columnId);
+  if (raw == null || raw === "") return false;
+  return String(raw).toLowerCase().includes(searchStr);
+};
+
+/**
  * Custom filterFn for date-range columns. Filter value is {from?, to?}.
  * Coerces both the row value and the bound inputs to Date.getTime() so
  * {min,max} numeric comparison works on dates.
  */
 const dateRangeFilter = (row, columnId, filterValue) => {
-  if (!filterValue) return true;
+  if (!filterValue || (!filterValue.from && !filterValue.to)) return true;
   const raw = row.getValue(columnId);
-  if (raw == null) return false;
-  const cellMs = raw instanceof Date ? raw.getTime() : new Date(raw).getTime();
+  if (raw == null || raw === "") return false;
+  const d = raw instanceof Date ? raw : new Date(raw);
+  const cellMs = d.getTime();
   if (isNaN(cellMs)) return true;
   if (filterValue.from) {
     const fromMs = new Date(filterValue.from).getTime();
     if (!isNaN(fromMs) && cellMs < fromMs) return false;
   }
   if (filterValue.to) {
-    const toMs = new Date(filterValue.to).getTime();
+    const toDate = new Date(filterValue.to);
+    toDate.setHours(23, 59, 59, 999);
+    const toMs = toDate.getTime();
     if (!isNaN(toMs) && cellMs > toMs) return false;
   }
   return true;
@@ -607,37 +633,46 @@ const dateRangeFilter = (row, columnId, filterValue) => {
 /**
  * Custom filterFn for number-range columns. Filter value is {min?, max?}.
  * Same shape as the date filter ({min,max} vs {from,to}) so the UI logic
- * is uniform. TanStack's built-in `inNumberRange` expects a [min,max] tuple
- * which doesn't match what NumberRangeFilter emits.
+ * is uniform.
  */
 const numberRangeFilter = (row, columnId, filterValue) => {
   if (!filterValue) return true;
   const raw = row.getValue(columnId);
-  if (raw == null) return false;
-  // Cells are already typed to number by applySchema() in lib/csv.js, but
-  // fall back to Number() coercion in case a row slipped through (e.g.
-  // empty string → null after coerce, but a stray "1,5" → NaN).
+  if (raw == null || raw === "") return false;
   const n = typeof raw === "number" ? raw : Number(String(raw).replace(",", "."));
   if (isNaN(n)) return false;
-  if (filterValue.min != null && n < filterValue.min) return false;
-  if (filterValue.max != null && n > filterValue.max) return false;
+  if (filterValue.min != null && filterValue.min !== "" && !isNaN(Number(filterValue.min))) {
+    if (n < Number(filterValue.min)) return false;
+  }
+  if (filterValue.max != null && filterValue.max !== "" && !isNaN(Number(filterValue.max))) {
+    if (n > Number(filterValue.max)) return false;
+  }
   return true;
 };
 
 /**
  * Custom filterFn for enum columns. Cell values are comma-separated strings
- * ("A, B, C"); filter value is an array of checked labels ["A", "B"].
- * Match: the cell contains AT LEAST ONE of the selected labels (OR logic).
+ * ("A, B, C"); filter value is an array of checked labels ["A", "B"] or string.
+ * Match: the cell contains AT LEAST ONE of the selected labels (OR logic within column).
  */
 const enumContainsFilter = (row, columnId, filterValue) => {
-  if (!filterValue || filterValue.length === 0) return true;
+  if (!filterValue || (Array.isArray(filterValue) && filterValue.length === 0)) return true;
   const raw = row.getValue(columnId);
   if (raw == null || raw === "") return false;
-  // Cell may be a string ("A, B") or already an array.
-  const cellItems = Array.isArray(raw) ? raw : String(raw).split(",").map((s) => s.trim());
-  return filterValue.some((label) =>
-    cellItems.some((item) => item.toLowerCase() === label.toLowerCase())
-  );
+
+  const cellItems = Array.isArray(raw)
+    ? raw.map((s) => String(s).trim().toLowerCase())
+    : String(raw).split(",").map((s) => s.trim().toLowerCase());
+
+  if (Array.isArray(filterValue)) {
+    return filterValue.some((label) => {
+      const target = String(label).trim().toLowerCase();
+      return cellItems.some((item) => item === target || item.includes(target));
+    });
+  }
+
+  const strVal = String(filterValue).trim().toLowerCase();
+  return cellItems.some((item) => item.includes(strVal));
 };
 
 function mergeSort(stack, id, desc) {

@@ -275,15 +275,11 @@ function DateRangeFilter({ value, onChange }) {
 }
 
 function EnumFilter({ value, onChange, enumValues, columnId }) {
-  // Local Set so multi-toggle is instant and synchronous. The parent gets
-  // a debounced, single-emit array on each commit, not one transition per
-  // toggle.
   const [selected, setSelected] = useState(() => new Set(value || []));
+  const [search, setSearch] = useState("");
   const debouncedRef = useRef();
+
   useEffect(() => {
-    // Only resync when the parent value isn't the echo of our own emit.
-    // Without this guard, every parent state write would reset the local Set
-    // and clobber a user's mid-tap selection.
     if (!value || value.length === 0) {
       if (selected.size === 0) return;
       setSelected(new Set());
@@ -310,6 +306,12 @@ function EnumFilter({ value, onChange, enumValues, columnId }) {
     });
   };
 
+  const selectAll = () => {
+    const all = new Set(enumValues);
+    setSelected(all);
+    debouncedRef.current?.([...all]);
+  };
+
   const clear = () => {
     setSelected(new Set());
     debouncedRef.current?.([]);
@@ -319,30 +321,58 @@ function EnumFilter({ value, onChange, enumValues, columnId }) {
   const [open, setOpen] = useState(false);
   const descriptions = columnId ? ENUM_DESCRIPTIONS[columnId] : null;
 
+  const filteredEnums = useMemo(() => {
+    if (!search.trim()) return enumValues;
+    const q = search.trim().toLowerCase();
+    return enumValues.filter((v) => {
+      const desc = descriptions?.[v] || descriptions?.[String(v).toLowerCase()] || "";
+      return String(v).toLowerCase().includes(q) || String(desc).toLowerCase().includes(q);
+    });
+  }, [enumValues, search, descriptions]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button
           className={cn(
             "h-7 w-full px-2 text-xs rounded-md border border-input bg-background hover:bg-muted/50 flex items-center justify-between gap-1 transition-colors",
-            count > 0 && "border-primary/50 bg-primary/5"
+            count > 0 && "border-primary/50 bg-primary/10 font-medium text-foreground"
           )}
         >
           <span className="truncate flex items-center gap-1.5">
-            <FilterIcon className="h-3 w-3 opacity-50" />
+            <FilterIcon className={cn("h-3 w-3", count > 0 ? "text-primary" : "opacity-50")} />
             {count > 0 ? `${count} / ${enumValues.length}` : "Wszystkie"}
           </span>
-          <ChevronDown className="h-3 w-3 opacity-50" />
+          <ChevronDown className="h-3 w-3 opacity-50 shrink-0" />
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-72 sm:w-80 p-2" align="start">
-        <div className="space-y-1 max-h-80 overflow-y-auto">
-          {enumValues.map((v) => {
+        {enumValues.length > 6 && (
+          <div className="relative mb-2">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground/50" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Szukaj opcji…"
+              className="h-7 pl-7 pr-6 text-xs"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
+              >
+                <X className="h-3 w-3" />
+              </button>
+            )}
+          </div>
+        )}
+        <div className="space-y-1 max-h-72 overflow-y-auto pr-0.5">
+          {filteredEnums.map((v) => {
             const desc = descriptions?.[v] || descriptions?.[String(v).toLowerCase()];
             return (
               <label
                 key={v}
-                className="flex items-start gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-muted/60 cursor-pointer text-xs group transition-colors"
+                className="flex items-start gap-2.5 px-2 py-1.5 rounded-md hover:bg-muted/60 cursor-pointer text-xs group transition-colors"
               >
                 <Checkbox
                   checked={selected.has(v)}
@@ -360,19 +390,32 @@ function EnumFilter({ value, onChange, enumValues, columnId }) {
               </label>
             );
           })}
+          {filteredEnums.length === 0 && (
+            <div className="text-xs text-muted-foreground text-center py-4">
+              Brak pasujących opcji
+            </div>
+          )}
         </div>
-        {count > 0 && (
-          <div className="border-t pt-2 mt-2">
+        <div className="border-t pt-2 mt-2 flex items-center justify-between gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-6 text-[11px] px-2"
+            onClick={selectAll}
+          >
+            Zaznacz wszystkie
+          </Button>
+          {count > 0 && (
             <Button
               variant="ghost"
               size="sm"
-              className="w-full h-7 text-xs"
+              className="h-6 text-[11px] px-2 text-destructive hover:text-destructive"
               onClick={clear}
             >
-              Wyczyść
+              Wyczyść ({count})
             </Button>
-          </div>
-        )}
+          )}
+        </div>
       </PopoverContent>
     </Popover>
   );

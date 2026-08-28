@@ -217,18 +217,38 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   // Effective column visibility — whatever the user last set in localStorage.
   const columnVisibility = prefs.columnVisibility || {};
+  const [pageIndex, setPageIndex] = useState(0);
+  const pageSize = prefs.pageSize ?? 0;
+  const pagination = useMemo(() => ({
+    pageIndex,
+    pageSize,
+  }), [pageIndex, pageSize]);
+
+  const onPageChange = useCallback((newPageIndex) => {
+    setPageIndex(newPageIndex);
+  }, []);
+
+  const onPageSizeChange = useCallback((newSize) => {
+    setPageIndex(0);
+    setPrefs((p) => ({ ...p, pageSize: newSize }));
+  }, [setPrefs]);
+
   const setColumnOrder = (updater) =>
     setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater }));
   const setColumnVisibility = (updater) =>
     setPrefs((p) => ({ ...p, columnVisibility: typeof updater === "function" ? updater(p.columnVisibility || {}) : updater }));
-  const setSortStack = (updater) =>
+  const setSortStack = (updater) => {
+    setPageIndex(0);
     startSortTransition(() =>
       setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater }))
     );
-  const setFilters = (updater) =>
+  };
+  const setFilters = (updater) => {
+    setPageIndex(0);
     startFilterTransition(() =>
       setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater }))
     );
+  };
   const setDensity = (d) => setPrefs((p) => ({ ...p, density: d }));
   const setTheme = (t) => setPrefs((p) => ({ ...p, theme: t }));
 
@@ -236,7 +256,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const [globalSearch, setGlobalSearch] = useState("");
   const debouncedGlobalRef = useRef();
   useEffect(() => {
-    debouncedGlobalRef.current = debounce((v) => setGlobalFilter(v), 200);
+    debouncedGlobalRef.current = debounce((v) => {
+      setPageIndex(0);
+      setGlobalFilter(v);
+    }, 200);
     return () => debouncedGlobalRef.current?.cancel();
   }, []);
   const onGlobalSearchChange = (v) => {
@@ -403,8 +426,18 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   };
 
   const activeFilterCount = useMemo(() => {
-    let n = Object.keys(filters).length;
-    if (globalFilter) n += 1;
+    let n = 0;
+    for (const [k, v] of Object.entries(filters || {})) {
+      if (v == null || v === "") continue;
+      if (Array.isArray(v)) {
+        if (v.length > 0) n += 1;
+      } else if (typeof v === "object") {
+        if (v.min != null || v.max != null || v.from != null || v.to != null) n += 1;
+      } else {
+        n += 1;
+      }
+    }
+    if (globalFilter && String(globalFilter).trim()) n += 1;
     return n;
   }, [filters, globalFilter]);
 
@@ -580,6 +613,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 selectedRowIndex={selectedRowIndex}
                 onRowClick={onRowClick}
                 globalFilter={globalFilter}
+                pagination={pagination}
+                setPagination={onPageChange}
               />
               <StatusBar
                 totalRows={csv.rows.length}
@@ -591,6 +626,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 parseTimeMs={csv.parseTimeMs}
                 density={prefs.density}
                 fileMeta={csv.fileMeta}
+                pagination={pagination}
+                onPageChange={onPageChange}
+                onPageSizeChange={onPageSizeChange}
               />
             </>
           )}
