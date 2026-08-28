@@ -30,7 +30,7 @@ def find_latest_walkthrough() -> Path | None:
         return ROOT / "walkthrough.md"
     
     # Search in brain directories
-    brain_dir = Path("/Users/ciepolml/.gemini/antigravity-ide/brain")
+    brain_dir = Path.home() / ".gemini" / "antigravity-ide" / "brain"
     if brain_dir.exists():
         walkthroughs = sorted(brain_dir.glob("*/walkthrough.md"), key=lambda p: p.stat().st_mtime, reverse=True)
         if walkthroughs:

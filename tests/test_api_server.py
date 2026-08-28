@@ -65,6 +65,15 @@ def client(tmp_data, monkeypatch, tmp_path):
     # And ensure regenerate_master() writes to our tmp dir, not the real one
     monkeypatch.setattr(verify_run, "DATA", tmp_data)
     monkeypatch.setattr(verify_run, "MASTER_CSV", tmp_data / "master.csv")
+    # Ensure access.json exists with marceli's hash for auth
+    import hashlib
+    import json
+    import db
+    db.init()
+    (isolated_root / "frontend-2" / "public").mkdir(parents=True, exist_ok=True)
+    (isolated_root / "frontend-2" / "public" / "access.json").write_text(
+        json.dumps({"names": [hashlib.sha256(b"marceli").hexdigest()]}), encoding="utf-8"
+    )
     return TestClient(api_server.app)
 
 
@@ -175,30 +184,37 @@ class TestUpload:
         r = client.post(
             "/api/upload",
             files={"file": ("new_upload.csv", io.BytesIO(body.encode()), "text/csv")},
+            headers={"X-Billszuka-User": "marceli"},
         )
         assert r.status_code == 200, r.text
         data = r.json()
         assert data["ok"] is True
         assert data["filename"] == "new_upload.csv"
-        # File should actually be on disk
-        assert (tmp_data / "new_upload.csv").exists()
-        assert (tmp_data / "new_upload.csv").read_text() == body
+        # File should actually be on disk in user catalogs directory
+        user_catalog = tmp_data / "users" / "marceli" / "catalogs" / "new_upload.csv"
+        assert user_catalog.exists()
+        assert user_catalog.read_text() == body
 
     def test_duplicate_rejected(self, client, tmp_data):
-        # sales_data.csv already exists from fixture
+        # Create existing catalog for marceli
+        cat_dir = tmp_data / "users" / "marceli" / "catalogs"
+        cat_dir.mkdir(parents=True, exist_ok=True)
+        (cat_dir / "sales_data.csv").write_text("month,revenue\n2026-01,1000\n")
         body = "month,revenue\n2026-03,3000\n"
         r = client.post(
             "/api/upload",
             files={"file": ("sales_data.csv", io.BytesIO(body.encode()), "text/csv")},
+            headers={"X-Billszuka-User": "marceli"},
         )
         assert r.status_code == 409
         # Original content must not be overwritten
-        assert (tmp_data / "sales_data.csv").read_text().startswith("month,revenue\n2026-01")
+        assert (cat_dir / "sales_data.csv").read_text().startswith("month,revenue\n2026-01")
 
     def test_non_csv_rejected(self, client):
         r = client.post(
             "/api/upload",
             files={"file": ("evil.txt", io.BytesIO(b"hello"), "text/plain")},
+            headers={"X-Billszuka-User": "marceli"},
         )
         assert r.status_code == 400
 
@@ -206,6 +222,7 @@ class TestUpload:
         r = client.post(
             "/api/upload",
             files={"file": ("../escape.csv", io.BytesIO(b"a,b\n1,2\n"), "text/csv")},
+            headers={"X-Billszuka-User": "marceli"},
         )
         assert r.status_code == 400
 
@@ -213,6 +230,7 @@ class TestUpload:
         r = client.post(
             "/api/upload",
             files={"file": (".hidden.csv", io.BytesIO(b"a,b\n"), "text/csv")},
+            headers={"X-Billszuka-User": "marceli"},
         )
         assert r.status_code == 400
 
