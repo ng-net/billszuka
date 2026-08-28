@@ -15,7 +15,16 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -46,6 +55,7 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
   const [snapshot, setSnapshot] = useState(null);
   const [loading, setLoading] = useState(false);
   const [busyAlias, setBusyAlias] = useState(null); // "openrouter:alias" | "gemini:alias"
+  const [addDialog, setAddDialog] = useState({ open: false, provider: null });
 
   // Refresh vault. Always fetch on open to pick up external changes; pass
   // the result up via onVaultChange so the HealthBadge stays accurate.
@@ -71,27 +81,16 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  async function onAdd(provider) {
-    const alias = window.prompt(
-      provider === "gemini"
-        ? "Alias (np. personal-free, work-friend):"
-        : "Alias (np. primary, backup-1):",
-      provider === "gemini" ? "personal-free" : "primary"
-    );
-    if (!alias) return;
-    const key = window.prompt(
-      provider === "gemini"
-        ? "Klucz Gemini (zaczyna się od AIza...):"
-        : "Klucz OpenRouter (zaczyna się od sk-or-v1-...):"
-    );
-    if (!key) return;
-    const project = provider === "gemini"
-      ? (window.prompt("Projekt/etykieta (opcjonalnie, np. billszuka):") || undefined)
-      : undefined;
+  function onAddClick(provider) {
+    setAddDialog({ open: true, provider });
+  }
+
+  async function handleAddSubmit(provider, values) {
     try {
-      await addKey(provider, { alias: alias.trim(), key: key.trim(), project });
-      toast.success("Klucz dodany", { description: `${provider}:${alias}` });
+      await addKey(provider, values);
+      toast.success("Klucz dodany", { description: `${provider}:${values.alias}` });
       await refresh({ silent: true });
+      setAddDialog({ open: false, provider: null });
     } catch (e) {
       toast.error("Błąd dodawania", { description: e.message });
     }
@@ -168,7 +167,7 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
               items={snapshot?.openrouter || []}
               loading={loading}
               busyAlias={busyAlias}
-              onAdd={() => onAdd("openrouter")}
+              onAdd={() => onAddClick("openrouter")}
               onDelete={(alias) => onDelete("openrouter", alias)}
               onTest={(alias) => onTest("openrouter", alias)}
               emptyHint="Brak kluczy. OpenRouter agreguje wiele modeli — dobry wybór 'primary'."
@@ -183,7 +182,7 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
               items={snapshot?.gemini || []}
               loading={loading}
               busyAlias={busyAlias}
-              onAdd={() => onAdd("gemini")}
+              onAdd={() => onAddClick("gemini")}
               onDelete={(alias) => onDelete("gemini", alias)}
               onTest={(alias) => onTest("gemini", alias)}
               renderExtra={(it) =>
@@ -198,6 +197,15 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
           </div>
         </ScrollArea>
       </SheetContent>
+
+      {addDialog.open && (
+        <AddKeyDialog
+          open={addDialog.open}
+          provider={addDialog.provider}
+          onOpenChange={(v) => setAddDialog((prev) => ({ ...prev, open: v }))}
+          onSubmit={handleAddSubmit}
+        />
+      )}
     </Sheet>
   );
 }
@@ -310,4 +318,87 @@ function LastStatus({ ok, err }) {
     );
   }
   return <span className="text-[10px] text-muted-foreground">—</span>;
+}
+
+function AddKeyDialog({ open, provider, onOpenChange, onSubmit }) {
+  const [alias, setAlias] = useState("");
+  const [key, setKey] = useState("");
+  const [project, setProject] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setAlias(provider === "gemini" ? "personal-free" : "primary");
+      setKey("");
+      setProject("");
+    }
+  }, [open, provider]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!alias.trim() || !key.trim()) return;
+    onSubmit(provider, {
+      alias: alias.trim(),
+      key: key.trim(),
+      project: provider === "gemini" ? project.trim() : undefined,
+    });
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <form onSubmit={handleSubmit}>
+          <DialogHeader>
+            <DialogTitle>Dodaj klucz {provider === "gemini" ? "Gemini" : "OpenRouter"}</DialogTitle>
+            <DialogDescription>
+              {provider === "gemini"
+                ? "Klucz Gemini powinien zaczynać się od AIza..."
+                : "Klucz OpenRouter powinien zaczynać się od sk-or-v1-..."}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label htmlFor="alias" className="text-sm font-medium">Alias</label>
+              <Input
+                id="alias"
+                value={alias}
+                onChange={(e) => setAlias(e.target.value)}
+                placeholder={provider === "gemini" ? "np. personal-free, work" : "np. primary, backup-1"}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="key" className="text-sm font-medium">Klucz API</label>
+              <Input
+                id="key"
+                type="password"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+                placeholder={provider === "gemini" ? "AIza..." : "sk-or-v1-..."}
+                required
+              />
+            </div>
+            {provider === "gemini" && (
+              <div className="space-y-2">
+                <label htmlFor="project" className="text-sm font-medium">Projekt (opcjonalnie)</label>
+                <Input
+                  id="project"
+                  value={project}
+                  onChange={(e) => setProject(e.target.value)}
+                  placeholder="np. billszuka"
+                />
+              </div>
+            )}
+          </div>
+          <DialogFooter className="mt-2">
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              Anuluj
+            </Button>
+            <Button type="submit" disabled={!alias.trim() || !key.trim()}>
+              Zapisz
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
 }
