@@ -635,12 +635,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 sortStack={sortStack}
                 parseTimeMs={csv.parseTimeMs}
                 density={prefs.density}
-                onDensityChange={setDensity}
-                onResetView={resetView}
-                onResetSort={() => setSortStack([])}
-                onResetFilters={() => setFilters({})}
-                pageIndex={pagination.pageIndex}
-                pageSize={pagination.pageSize}
+                fileMeta={csv.fileMeta}
+                pagination={pagination}
                 onPageChange={onPageChange}
                 onPageSizeChange={onPageSizeChange}
               />
