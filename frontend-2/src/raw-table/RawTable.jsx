@@ -547,12 +547,12 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // Render
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="h-screen flex flex-col bg-background text-foreground transition-theme">
+      <div className="h-full flex flex-col bg-background text-foreground transition-theme overflow-hidden">
         <Toaster position="bottom-right" theme={prefs.theme === "system" ? "system" : prefs.theme} richColors closeButton />
 
         {Header}
 
-        <main className="flex-1 min-h-0 relative">
+        <main className="flex-1 min-h-0 relative flex flex-col">
           {csv.status === "idle" && (
             <EmptyState
               onFile={csv.loadFile}
@@ -586,44 +586,46 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
           {csv.status === "ready" && (
             <>
-              <DataTable
-                columns={columnOrder}
-                rows={csv.rows}
-                schema={csv.schema}
-                columnOrder={columnOrder}
-                columnVisibility={columnVisibility}
-                setColumnOrder={setColumnOrder}
-                setColumnVisibility={setColumnVisibility}
-                onFilteredCountChange={setFilteredCount}
-                onColumnHide={(id) => {
-                  toast(`Ukryto kolumnę: ${id}`, {
-                    description: "Kliknij „Pokaż\", żeby przywrócić",
-                    duration: 4000,
-                    action: {
-                      label: "Pokaż",
-                      onClick: () => {
-                        setColumnVisibility((prev) => {
-                          const next = { ...prev };
-                          delete next[id];
-                          return next;
-                        });
+              <div className="flex-1 min-h-0 relative">
+                <DataTable
+                  columns={columnOrder}
+                  rows={csv.rows}
+                  schema={csv.schema}
+                  columnOrder={columnOrder}
+                  columnVisibility={columnVisibility}
+                  setColumnOrder={setColumnOrder}
+                  setColumnVisibility={setColumnVisibility}
+                  onFilteredCountChange={setFilteredCount}
+                  onColumnHide={(id) => {
+                    toast(`Ukryto kolumnę: ${id}`, {
+                      description: "Kliknij „Pokaż\", żeby przywrócić",
+                      duration: 4000,
+                      action: {
+                        label: "Pokaż",
+                        onClick: () => {
+                          setColumnVisibility((prev) => {
+                            const next = { ...prev };
+                            delete next[id];
+                            return next;
+                          });
+                        },
                       },
-                    },
-                  });
-                }}
-                sortStack={sortStack}
-                setSortStack={setSortStack}
-                filters={effectiveFilters}
-                setFilters={setFilters}
-                density={prefs.density}
-                onFocusedColumnChange={onFocusedColumnChange}
-                focusedColumn={focusedColumn}
-                selectedRowIndex={selectedRowIndex}
-                onRowClick={onRowClick}
-                globalFilter={globalFilter}
-                pagination={pagination}
-                setPagination={onPageChange}
-              />
+                    });
+                  }}
+                  sortStack={sortStack}
+                  setSortStack={setSortStack}
+                  filters={effectiveFilters}
+                  setFilters={setFilters}
+                  density={prefs.density}
+                  onFocusedColumnChange={onFocusedColumnChange}
+                  focusedColumn={focusedColumn}
+                  selectedRowIndex={selectedRowIndex}
+                  onRowClick={onRowClick}
+                  globalFilter={globalFilter}
+                  pagination={pagination}
+                  setPagination={onPageChange}
+                />
+              </div>
               <StatusBar
                 totalRows={csv.rows.length}
                 filteredRows={filteredCount}
@@ -633,8 +635,12 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 sortStack={sortStack}
                 parseTimeMs={csv.parseTimeMs}
                 density={prefs.density}
-                fileMeta={csv.fileMeta}
-                pagination={pagination}
+                onDensityChange={setDensity}
+                onResetView={resetView}
+                onResetSort={() => setSortStack([])}
+                onResetFilters={() => setFilters({})}
+                pageIndex={pagination.pageIndex}
+                pageSize={pagination.pageSize}
                 onPageChange={onPageChange}
                 onPageSizeChange={onPageSizeChange}
               />
