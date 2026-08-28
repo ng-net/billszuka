@@ -3955,3 +3955,99 @@ Tracked in AGENTS.md and gitignored — safe, but can be cleaned with:
    - `npm --prefix frontend-2 test` → 5/5 PASS
    - `python3 tools/validate_columns.py` → 148 criticals (<200 limit)
 
+
+## 2026-08-28 14:20 CEST — Code review + CI fix push
+
+**Review summary:**
+- CI: 3 failures on `main` (pushes from 2026-08-26). All are pre-existing, not regressions.
+- Local: 349/349 tests pass (macOS, Python 3.13, pytest 9.0.1).
+- Validation: 148 criticals, unchanged.
+
+**CI failures diagnosed:**
+1. `test_save_command_writes_inbox` (Py 3.12 only): `_facts_cache` not cleared between tests. Python 3.12 may retain module-level cache state more aggressively. Fix: `monkeypatch.setattr(faq, "_facts_cache", (None, None))`.
+2. `test_run_session_answer_failure_skips_question` (Py 3.12 only): `faq.MASTER_CSV` not patched → `update_source_digests` tries to read `data/master.csv` (gitignored → absent in CI fresh checkout). Fix: patch to `FIXTURE` + clear cache + isolate `DATA_DIR`.
+3. `test_faq_api.py` + `test_faq_session.py` patched.
+
+**Also:** catalog date refresh (BG/HR/CZ/EE/FR/LT/MD) from re-verification — `data_weryfikacji` and `flagi` dates updated. 148 criticals unchanged.
+
+**Committed:** `ccf6704` → pushed. CI cron `watch-hnq2f1` set to auto-verify pass/fail.
+
+## 2026-08-28 15:15 CEST — CI fix v2: test_save_command_writes_inbox
+
+**Diagnosis from GH run 33171484897 (Python 3.12):**
+`_facts_cache` reset alone wasn't enough. The test posted two real requests and
+relied on the chain to write the chat_log between them. In CI the LLM chain
+behaviour varies (no API keys → mock fallback that may log with
+`provider="mock-fallback"`), and `_last_chat_response()` then returned `None`,
+so `is_save_command` short-circuited and the second request fell through to
+the LLM chain instead of the save path.
+
+**Fix:** seed `chat_log` directly with a deterministic prior response, then
+test only the `'zapisz ten fakt'` round-trip. The test is about the save
+path, not the LLM chain — cross-test coupling was the bug.
+
+**Committed:** `ae17c7a` → pushed. CI cron `watch-hnq2f1` continues.
+
+## 2026-08-28 15:24 CEST — CI fix v3: seed sanity check
+
+Still failing on 3.11 with `provider='mock' != 'save'`. Root cause unclear in
+the local environment (test passes locally with pytest 8.4.2 on Python 3.12/3.13).
+
+The seed INSERT in `with db.connect()` may not be visible to the API server's
+separate connection in CI's Linux + WAL SQLite environment. Added a sanity
+assertion after the seed:
+```python
+assert api_server._last_chat_response() == "MOCK-ODP"
+```
+This isolates the failure to either the seed visibility (WAL race) or the
+save-command path itself. If the sanity passes in CI but the next assert
+fails, the issue is in `is_save_command`. If the sanity fails, it's the seed.
+
+Also briefly tried `PRAGMA wal_checkpoint(FULL)` to force visibility, but
+this raised `database table is locked` on macOS — a connection from a prior
+test was still holding a write lock. Reverted to just the sanity assert.
+
+**Committed:** `47c69c3` → pushed. CI running.
+
+## 2026-08-28 15:30 CEST — CI fix v4: mock _last_chat_response (final)
+
+Reverted seed-based + sanity-assert approach in favor of direct mocking:
+```python
+monkeypatch.setattr(api_server, "_last_chat_response", lambda: "MOCK-ODP")
+```
+
+This bypasses SQLite connection visibility entirely. The test now exercises
+ONLY the save-command path (which is what it's about) — no LLM chain,
+no chat_log writes, no WAL races. Deterministic, fast, CI-stable.
+
+**Committed:** `55be5b6` → pushed. If this doesn't pass, the bug is elsewhere.
+
+## 2026-08-28 15:35 CEST — CI fix v5: actual root cause was in faq.py (not the test)
+
+**Real bug:** `def load_save_phrases(path: Path = PHRASES_PATH)` — the default
+arg is bound at function DEFINITION time. When the test does
+`monkeypatch.setattr(faq, "PHRASES_PATH", tmp_path / "save-phrases.json")`,
+the function's `__defaults__` still holds the ORIGINAL `PHRASES_PATH` (the
+production path). `is_save_command → load_save_phrases()` (no args) → reads
+from the production path.
+
+- **Locally:** production `data/knowledge/md/save-phrases.json` exists → test passes
+- **CI:** production file is gitignored/absent in fresh checkout → returns [] → no phrase matches → save command returns None → chain runs → provider="mock"
+
+Marceli pushed 032a4bc fixing this with:
+```python
+def load_save_phrases(path: Path | None = None) -> list[str]:
+    target = path if path is not None else PHRASES_PATH  # evaluated at call time
+```
+
+**My CI fixes (commits ae17c7a, 47c69c3, 55be5b6, 07a6dd5) were symptoms,
+not the cause.** They worked around the symptom (provider="mock") by mocking
+upstream dependencies, but didn't address the actual `__defaults__` binding.
+
+24f7fd5 reverts my workaround back to the original two-request test, which
+now passes thanks to the upstream fix.
+
+**Lesson learned:** when a test fails in CI but passes locally, check if
+`def foo(arg: Path = MODULE_CONST)` style defaults are involved. Module
+constants bound at def time are invisible to monkeypatch. This is a Python
+default-arg pitfall, not a project bug.
