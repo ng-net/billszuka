@@ -115,21 +115,15 @@ def test_chat_faq_stale_numeric_falls_through(client):
     assert r.json()["provider"] == "mock"          # fell through — no stale number served
 
 
-def test_save_command_writes_inbox(client, monkeypatch):
-    # Mock _last_chat_response directly to avoid CI/Linux/SQLite WAL
-    # visibility races. The test is about the save-command path; mocking
-    # the prior-response lookup keeps the test deterministic and fast.
-    def fake_last_response():
-        return "MOCK-ODP"
-    monkeypatch.setattr(api_server, "_last_chat_response", fake_last_response)
-    # Debug: prove the patch took effect at the test boundary
-    assert api_server._last_chat_response() == "MOCK-ODP", (
-        f"monkeypatch didn't apply: got {api_server._last_chat_response()!r}")
+def test_save_command_writes_inbox(client):
+    # Two requests: first logs a previous response, second is the save
+    # command. The save path requires both `_last_chat_response` to find the
+    # prior row and `load_save_phrases` to find the "zapisz ten fakt" phrase.
+    # Both depend on monkeypatched paths being respected at call time.
+    client.post("/api/chat", json={"query": "co to jest maszynka"}, headers=_headers())
     r = client.post("/api/chat", json={"query": "zapisz ten fakt"}, headers=_headers())
     body = r.json()
-    assert body["provider"] == "save" and "Zapisano" in body["response"], (
-        f"expected save, got provider={body.get('provider')!r}, "
-        f"response={body.get('response', '')[:120]!r}")
+    assert body["provider"] == "save" and "Zapisano" in body["response"]
     files = list(md_corpus.INBOX_DIR.glob("fact-*.md"))
     assert len(files) == 1
     assert "saved_by: marceli" in files[0].read_text(encoding="utf-8")
