@@ -66,6 +66,13 @@ def cmd_compile(args: argparse.Namespace) -> int:
 
     tmp_master.replace(master_file)
 
+    # Sync static copies into frontend-2/public/ for instant UI access
+    public_dir = ROOT / "frontend-2" / "public"
+    if public_dir.is_dir():
+        import shutil
+        shutil.copy2(master_file, public_dir / "master.csv")
+        shutil.copy2(master_file, public_dir / "sample.csv")
+
     print(f"✅ Compilation complete!")
     print(f"   Catalogs processed: {file_count}/{len(COUNTRY_MAP) * 2}")
     print(f"   Total master rows:  {len(all_rows)}")

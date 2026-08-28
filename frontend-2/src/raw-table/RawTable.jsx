@@ -34,9 +34,8 @@ import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/li
 
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
-// Append ?v=Date.now() on every load to bust browser + vite proxy cache.
-// The API also sends Cache-Control: no-cache (see api_server.py), but
-// some browser/cache layers still ignore that for CSV MIME; the version
+const STATIC_MASTER_URL = "/master.csv";
+// The master dataset is served by FastAPI via /api/master.csv. The Date.now()
 // query param is the belt-and-braces guarantee that after Marceli edits
 // data/master.csv manually, the next reload picks up the new content.
 const MASTER_URL = "/api/master.csv";
@@ -46,8 +45,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
   // Automatic data pre-load after the gate:
   // 1. Check if the user previously uploaded a custom CSV (stored in IndexedDB).
-  // 2. If not, try the full master.csv from backend; if unreachable, fall back to sample;
-  // 3. If that also fails, leave the EmptyState's manual button for the user.
+  // 2. If not, try the full master.csv from backend; if unreachable, fall back to public/master.csv;
+  // 3. If that also fails, fall back to sample.csv;
   const bootRef = useRef(0); // 0 = try load, 1 = pending, 2 = settled
   const loadUrl = csv.loadUrl;
   const loadUrlRef = useRef(loadUrl);
@@ -79,7 +78,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0);
       } else if (bootRef.current === 1 && csv.status === "error") {
         bootRef.current = 2;
-        loadUrlRef.current(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
+        // Fall back to static public/master.csv or sample.csv
+        loadUrlRef.current(withCacheBuster(STATIC_MASTER_URL), "master.csv", 0);
       } else if (bootRef.current === 1 && csv.status === "ready") {
         bootRef.current = 2;
       }
@@ -91,11 +91,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [csv.status]);
 
   // Manual trigger for the empty-state button. Clears custom upload,
-  // re-arms bootRef and resets csv state so master.csv is loaded.
+  // directly invokes loadUrl for master.csv.
   const tryLoadData = useCallback(async () => {
     await clearCustomDataset();
-    bootRef.current = 0;
-    csv.reset();
+    bootRef.current = 1;
+    csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
   }, [csv]);
 
   const onCsvStateChangeRef = useRef(_props.onCsvStateChange);
