@@ -233,24 +233,24 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     setPrefs((p) => ({ ...p, pageSize: newSize }));
   }, [setPrefs]);
 
-  const setColumnOrder = (updater) =>
-    setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater }));
-  const setColumnVisibility = (updater) =>
-    setPrefs((p) => ({ ...p, columnVisibility: typeof updater === "function" ? updater(p.columnVisibility || {}) : updater }));
-  const setSortStack = (updater) => {
+  const setColumnOrder = useCallback((updater) =>
+    setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater })), [setPrefs, csv.columns]);
+  const setColumnVisibility = useCallback((updater) =>
+    setPrefs((p) => ({ ...p, columnVisibility: typeof updater === "function" ? updater(p.columnVisibility || {}) : updater })), [setPrefs]);
+  const setSortStack = useCallback((updater) => {
     setPageIndex(0);
     startSortTransition(() =>
       setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater }))
     );
-  };
-  const setFilters = (updater) => {
+  }, [setPrefs]);
+  const setFilters = useCallback((updater) => {
     setPageIndex(0);
     startFilterTransition(() =>
       setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater }))
     );
-  };
-  const setDensity = (d) => setPrefs((p) => ({ ...p, density: d }));
-  const setTheme = (t) => setPrefs((p) => ({ ...p, theme: t }));
+  }, [setPrefs]);
+  const setDensity = useCallback((d) => setPrefs((p) => ({ ...p, density: d })), [setPrefs]);
+  const setTheme = useCallback((t) => setPrefs((p) => ({ ...p, theme: t })), [setPrefs]);
 
   // Global filter (across all visible cells) — debounced
   const [globalSearch, setGlobalSearch] = useState("");
@@ -350,7 +350,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [prefs.density, paletteOpen, focusedColumn, globalSearch, csv.status, csv.rows.length]);
+  }, [prefs.density, paletteOpen, focusedColumn, globalSearch, csv.status, csv.rows.length, setDensity, setFilters, setSortStack]);
 
   // Expose methods for App-level controls (⌘K, Upload, etc.)
   useImperativeHandle(ref, () => ({
@@ -379,7 +379,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const onFocusedColumnChange = useCallback((colId) => {
     setFocusedColumn(colId);
     if (colId) setPrefs((p) => ({ ...p, lastFocusedColumn: colId }));
-  }, []);
+  }, [setPrefs]);
 
   // Per-column filters and sort are derived from prefs (cleaned of any
   // column references that no longer exist in the CSV). The setters
@@ -433,7 +433,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   const activeFilterCount = useMemo(() => {
     let n = 0;
-    for (const [k, v] of Object.entries(filters || {})) {
+    for (const [, v] of Object.entries(filters || {})) {
       if (v == null || v === "") continue;
       if (Array.isArray(v)) {
         if (v.length > 0) n += 1;

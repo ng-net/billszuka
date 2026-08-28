@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Undo2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
 
@@ -9,7 +8,7 @@ export function StatusBar({
   totalColumns,
   activeFilters,
   sortStack,
-  parseTimeMs,
+  parseTimeMs: _parseTimeMs,
   density,
   fileMeta,
   filtersHistory = [],

@@ -4,7 +4,7 @@ import { savePrefs } from "@/lib/prefs";
 import { getActiveProfile } from "@/lib/auth";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Clock, DownloadCloud } from "lucide-react";
+import { Clock } from "lucide-react";
 import { toast } from "sonner";
 
 export function SnapshotsDialog({ open, onOpenChange, onRestore }) {
