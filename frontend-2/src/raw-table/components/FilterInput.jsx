@@ -236,10 +236,15 @@ function EnumFilter({ value, onChange, enumValues }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  const onChangeRef = useRef(onChange);
+  useLayoutEffect(() => {
+    onChangeRef.current = onChange;
+  });
+
   useEffect(() => {
-    debouncedRef.current = debounce((arr) => onChange(arr.length > 0 ? arr : undefined), 80);
+    debouncedRef.current = debounce((arr) => onChangeRef.current(arr.length > 0 ? arr : undefined), 80);
     return () => debouncedRef.current?.cancel();
-  }, [onChange]);
+  }, []);
 
   const toggle = (v) => {
     setSelected((prev) => {
