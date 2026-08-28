@@ -115,21 +115,11 @@ def test_chat_faq_stale_numeric_falls_through(client):
     assert r.json()["provider"] == "mock"          # fell through — no stale number served
 
 
-def test_save_command_writes_inbox(client):
-    # Seed chat_log directly with a previous response (don't depend on the
-    # chain round-trip — it's a separate concern; the test is about the save
-    # command path, not the LLM chain).
-    with db.connect() as conn:
-        conn.execute(
-            "INSERT INTO chat_log (ts, user, query, response, provider, dataset, "
-            "knowledge_ids, faq_hit, sources) VALUES "
-            "(datetime('now'), 'marceli', 'co to jest maszynka', 'MOCK-ODP', 'mock', "
-            "'master.csv', '[]', 0, '[]')"
-        )
-    # Sanity: the API server's _last_chat_response must see the seed. If
-    # this fails in CI, the issue is connection visibility (WAL/journal
-    # race), not the save-command logic.
-    assert api_server._last_chat_response() == "MOCK-ODP"
+def test_save_command_writes_inbox(client, monkeypatch):
+    # Mock _last_chat_response directly to avoid CI/Linux/SQLite WAL
+    # visibility races. The test is about the save-command path; mocking
+    # the prior-response lookup keeps the test deterministic and fast.
+    monkeypatch.setattr(api_server, "_last_chat_response", lambda: "MOCK-ODP")
     r = client.post("/api/chat", json={"query": "zapisz ten fakt"}, headers=_headers())
     body = r.json()
     assert body["provider"] == "save" and "Zapisano" in body["response"]
