@@ -31,12 +31,13 @@ import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
 
 import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
+import { apiUrl } from "@/lib/api";
 
 const STATIC_MASTER_URL = "/master.csv";
 // The master dataset is served by FastAPI via /api/master.csv. The Date.now()
 // query param is the belt-and-braces guarantee that after Marceli edits
 // data/master.csv manually, the next reload picks up the new content.
-const MASTER_URL = "/api/master.csv";
+const MASTER_URL = apiUrl("/api/master.csv");
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {

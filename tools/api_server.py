@@ -146,17 +146,24 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# CORS for Vite dev server (and any explicit browser access)
+# CORS for Vite dev server, Cloudflare Pages, and remote deployments
+cors_origins = [
+    "http://localhost:3000", "http://127.0.0.1:3000",
+    "http://localhost:3001", "http://127.0.0.1:3001",
+]
+custom_origin = os.environ.get("CORS_ORIGIN")
+if custom_origin:
+    cors_origins.extend([o.strip() for o in custom_origin.split(",") if o.strip()])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-            "http://localhost:3000", "http://127.0.0.1:3000",
-            "http://localhost:3001", "http://127.0.0.1:3001",
-        ],
+    allow_origins=cors_origins,
+    allow_origin_regex=r"https://.*\.pages\.dev|https://.*\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 # ---------------------------------------------------------------------------
