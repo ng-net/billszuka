@@ -126,6 +126,10 @@ def test_save_command_writes_inbox(client):
             "(datetime('now'), 'marceli', 'co to jest maszynka', 'MOCK-ODP', 'mock', "
             "'master.csv', '[]', 0, '[]')"
         )
+    # Sanity: the API server's _last_chat_response must see the seed. If
+    # this fails in CI, the issue is connection visibility (WAL/journal
+    # race), not the save-command logic.
+    assert api_server._last_chat_response() == "MOCK-ODP"
     r = client.post("/api/chat", json={"query": "zapisz ten fakt"}, headers=_headers())
     body = r.json()
     assert body["provider"] == "save" and "Zapisano" in body["response"]
