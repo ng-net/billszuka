@@ -219,23 +219,32 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
   };
 
   // URL — click opens in new tab. No popover needed; full URL is in title.
-  if (type === "url" || /^https?:\/\//i.test(display)) {
+  const isUrlLike =
+    type === "url" ||
+    /^https?:\/\//i.test(display) ||
+    /^(www\.|linkedin\.com|facebook\.com|instagram\.com|tiktok\.com|[a-z0-9-]+\.(pl|cz|sk|com|de|eu|co\.uk|org|net|io|app))/i.test(display.trim()) ||
+    ["www", "linkedin", "facebook", "instagram", "tiktok"].includes(columnId);
+
+  if (isUrlLike && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(display)) {
+    const rawUrl = display.trim();
+    const href = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
+    const cleanDisplay = rawUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
     return (
       <Tooltip delayDuration={250}>
         <TooltipTrigger asChild>
           <a
-            href={display}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="inline-flex items-center gap-1 text-primary hover:underline font-mono text-xs"
           >
-            <span className="truncate max-w-[200px]">{display.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
+            <span className="truncate max-w-[200px]">{cleanDisplay}</span>
             <ExternalLink className="h-3 w-3 shrink-0 opacity-60" />
           </a>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-md">
-          <p className="text-xs break-all">{display}</p>
+          <p className="text-xs break-all">{href}</p>
         </TooltipContent>
       </Tooltip>
     );

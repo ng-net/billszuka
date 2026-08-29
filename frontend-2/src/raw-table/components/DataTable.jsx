@@ -24,6 +24,7 @@ import { CellRenderer } from "./CellRenderer";
 import { FilterInput } from "./FilterInput";
 import { SortableHeader } from "./SortableHeader";
 import { getEnumValues } from "@/lib/csv";
+import { getColumnLabel } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown, X, Pin, EyeOff } from "lucide-react";
 
@@ -102,7 +103,7 @@ export function DataTable({
       return {
         id: colId,
         accessorKey: colId,
-        header: colId,
+        header: getColumnLabel(colId),
         enableSorting: true,
         sortingFn: getSortingFn(colType),
         filterFn,
