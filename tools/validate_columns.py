@@ -563,6 +563,12 @@ def cross_check(row: dict[str, str], catalog_type: str | None) -> list[str]:
             issues.append("B row missing powinowactwo_nabijarki (1-5)")
         if _is_empty(row.get("cross_sell_potential")):
             issues.append("B row missing cross_sell_potential (wysoki/średni/niski)")
+    # marki_nabijarki consistency (added per task 5)
+    marki = normalize_non_value(row.get("marki_nabijarki"))
+    if catalog_type == "B" and marki:
+        issues.append(f"B row has marki_nabijarki='{row.get('marki_nabijarki')}' (should be empty for B)")
+    if catalog_type == "A" and not marki:
+        issues.append("A row missing marki_nabijarki (should list brands)")
     return issues
 
 
