@@ -12,7 +12,9 @@
     "prebuild": "node scripts/sync-data.js",
     "build": "vite build",
     "lint": "oxlint",
-    "test": "node --test 'src/lib/**/*.test.js'",
+    "test:lib": "node --test 'src/lib/**/*.test.js'",
+    "test:components": "node scripts/test-jsx.mjs",
+    "test": "npm run test:lib && npm run test:components",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -39,10 +41,13 @@
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "happy-dom": "^20.11.15",
     "oxlint": "^1.75.0",
-    "vite": "^8.2.0"
+    "vite": "^8.2.0",
+    "vite-node": "^6.0.0"
   }
 }
