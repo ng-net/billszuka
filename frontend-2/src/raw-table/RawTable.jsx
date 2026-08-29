@@ -148,10 +148,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     }
   }, [prefs.theme]);
 
-  // Persist prefs (debounced)
+  // Persist prefs immediately on every change so page refresh never loses state.
   useEffect(() => {
-    const t = setTimeout(() => savePrefs(prefs), 300);
-    return () => clearTimeout(t);
+    savePrefs(prefs);
   }, [prefs]);
 
   // Initialize column order from CSV columns when loaded.
