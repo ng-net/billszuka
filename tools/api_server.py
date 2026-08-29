@@ -1215,6 +1215,9 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
             "Kluczowe fakty umieszczaj w bloku ```fakt … ```, ostrzeżenia lub "
             "errata w bloku ```errata … ```, a grupy krótkich pozycji do ułożenia "
             "w kolumnach w bloku ```cols … ``` (jedna pozycja w linii). "
+            "Jeśli pasuje do kontekstu, na KOŃCU odpowiedzi możesz dodać blok "
+            "```followup … ``` z 2-3 krótkimi pytaniami (po jednym w linii), "
+            "które użytkownik może kliknąć, żeby drążyć temat. "
             "Nie używaj żadnego innego formatowania."
         )
         payload: dict[str, Any] = {
