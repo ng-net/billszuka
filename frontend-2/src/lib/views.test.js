@@ -1,0 +1,117 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { DEFAULT_VIEWS, topValues } from "./views.js";
+import fs from "fs";
+import Papa from "papaparse";
+
+// Reuse master.csv via relative path so the test reflects production data.
+const csv = fs.readFileSync("../data/master.csv", "utf8");
+const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
+
+/**
+ * Apply a view's filters to rows. __brand uses classifyBrand.
+ */
+import { classifyBrand } from "./brand.js";
+
+function applyViewFilters(view, sourceRows) {
+  const filters = view.filters || {};
+  const brandFilter = filters.__brand;
+  return sourceRows.filter((row) => {
+    if (brandFilter) {
+      const b = classifyBrand(row);
+      if (Array.isArray(brandFilter) ? !brandFilter.includes(b) : b !== brandFilter) {
+        return false;
+      }
+    }
+    for (const [key, val] of Object.entries(filters)) {
+      if (key === "__brand") continue;
+      const cell = row[key];
+      if (Array.isArray(val)) {
+        if (!val.includes(cell)) return false;
+      } else if (cell !== val) {
+        return false;
+      }
+    }
+    return true;
+  });
+}
+
+test("default views: each one returns at least one row on master.csv", () => {
+  for (const view of DEFAULT_VIEWS) {
+    const matched = applyViewFilters(view, rows);
+    assert.ok(
+      matched.length > 0,
+      `View "${view.name}" matched 0 rows — filter is broken: ${JSON.stringify(view.filters)}`
+    );
+  }
+});
+
+test("default views: PowerMatic view returns 50+ rows", () => {
+  const v = DEFAULT_VIEWS.find((v) => v.id === "view-powermatic");
+  const matched = applyViewFilters(v, rows);
+  assert.ok(matched.length >= 50, `Got ${matched.length}`);
+});
+
+test("default views: Big players view returns some rows", () => {
+  const v = DEFAULT_VIEWS.find((v) => v.id === "view-big-players");
+  const matched = applyViewFilters(v, rows);
+  assert.ok(matched.length > 0, `Got ${matched.length}`);
+});
+
+test("default views: Marketplace fishes view returns some rows", () => {
+  const v = DEFAULT_VIEWS.find((v) => v.id === "view-marketplace");
+  const matched = applyViewFilters(v, rows);
+  assert.ok(matched.length > 0, `Got ${matched.length}`);
+});
+
+test("default views: per-country views (PL/CZ/SK) return rows", () => {
+  for (const code of ["PL", "CZ", "SK"]) {
+    const v = DEFAULT_VIEWS.find((v) => v.id === `view-${code.toLowerCase()}`);
+    const matched = applyViewFilters(v, rows);
+    assert.ok(matched.length > 0, `${code} view returned 0 rows`);
+  }
+});
+
+test("topValues: returns sorted frequency list, skipping empty", () => {
+  const data = [
+    { tier: "hurtownik" },
+    { tier: "hurtownik" },
+    { tier: "marketplace" },
+    { tier: "" },
+    { tier: "brak" },
+    { tier: "producent" },
+  ];
+  const result = topValues(data, "tier");
+  assert.equal(result[0].value, "hurtownik");
+  assert.equal(result[0].count, 2);
+  // Should not include empty/brak
+  assert.ok(!result.find((r) => r.value === "" || r.value === "brak"));
+});
+
+import { toggleFilterValue } from "./views.js";
+
+test("toggleFilterValue: from undefined adds scalar", () => {
+  assert.equal(toggleFilterValue(undefined, "PL"), "PL");
+  assert.equal(toggleFilterValue(null, "PL"), "PL");
+  assert.equal(toggleFilterValue("", "PL"), "PL");
+});
+
+test("toggleFilterValue: scalar same value returns undefined", () => {
+  assert.equal(toggleFilterValue("PL", "PL"), undefined);
+});
+
+test("toggleFilterValue: scalar different value returns array of two", () => {
+  assert.deepEqual(toggleFilterValue("PL", "CZ"), ["PL", "CZ"]);
+});
+
+test("toggleFilterValue: array add a value", () => {
+  assert.deepEqual(toggleFilterValue(["PL"], "CZ"), ["PL", "CZ"]);
+});
+
+test("toggleFilterValue: array remove a value collapses to scalar", () => {
+  assert.deepEqual(toggleFilterValue(["PL", "CZ"], "CZ"), "PL");
+});
+
+test("toggleFilterValue: array remove last value returns undefined", () => {
+  assert.equal(toggleFilterValue(["PL"], "PL"), undefined);
+});
