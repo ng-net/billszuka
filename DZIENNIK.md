@@ -1,5 +1,39 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-29 — UI Table Views, Saved Views, QuickChips, Video Demos, Logo & Error Boundary
+
+**Operator:** Marceli
+**Agent:** Antigravity
+
+**Kontekst:** Kompleksowa rozbudowa i stabilizacja interfejsu `frontend-2` (branch `feature/ui-table-views`): dedykowany system zapisanych widoków (Saved Views), interaktywne filtry QuickChips, natychmiastowa persystencja w localStorage, ochrona widoków przez React ErrorBoundary, integracja wideo dem dla maszyn nabijających w zakładce Eksperyment oraz oficjalne logo `bill-tbird.svg`.
+
+**Wykonane:**
+1. **Saved Views & QuickChips (`RawTable.jsx`, `ViewSwitcher.jsx`, `QuickChips.jsx`, `views.js`, `prefs.js`):**
+   - Wdrożono dropdown widoków z gotowymi filtrami: *PowerMatic + Hawk*, *Duże podmioty*, *Marketplace / Resellerzy*, *PL*, *CZ*, *SK*.
+   - Dodano możliwość tworzenia, zapisywania i usuwania własnych widoków użytkownika.
+   - Dodano pasek szybkich filtrów QuickChips (Kraj, Marka, Rola) z dynamicznymi licznikami i obsługą multi-selectu.
+   - Naprawiono błędy filtrów TanStack (rozbijanie stringów na znaki w `normalizeEnumSet` oraz odporność `enumContainsFilter` na skalary i tablice).
+   - Przełączono persystencję `localStorage` (`czat-table.prefs.v2`) na tryb natychmiastowy (usunięto 300ms debounce powodujący utratę stanu przy szybkim odświeżeniu F5).
+2. **Ochrona przed awariami widoku & Analityka (`App.jsx`, `AnalyticsView.jsx`):**
+   - Zdiagnozowano i naprawiono błąd `ReferenceError: frozenPct is not defined` w `AnalyticsView.jsx`.
+   - Dodano komponent `ViewErrorBoundary` w `App.jsx` z przyciskami powrotu do katalogu i odświeżenia, eliminując ryzyko pustego białego ekranu (blank screen).
+3. **Zakładka Eksperyment & Wideo Demos (`ExperimentView.jsx`):**
+   - Zbudowano widok LeadsTable z przypiętymi kolumnami (`id`, `Nazwa`), kolorowymi badge'ami i interaktywnymi akcjami (kopiowanie, mailto, tel).
+   - Zastąpiono brakujące ikony marek z `lucide-react` dedykowanymi komponentami SVG (LinkedIn, Facebook, Instagram, TikTok).
+   - Wdrożono interaktywne wideo dema dla **LEAD-1000** (*PowerMatic III+*) oraz **LEAD-1001** (*Hawk Electric Roller*) z modalem odtwarzacza wideo, parametrami technicznymi i filtrem `▶ Wideo Demos`.
+4. **Branding & Polskie Etykiety (`bill-tbird.svg`, `App.jsx`, `AccessGate.jsx`, `EmptyState.jsx`, `StatusBar.jsx`):**
+   - Skopiowano oficjalne logo `bill-tbird.svg` do `frontend-2/public/bill-tbird.svg`, `frontend-2/src/assets/` oraz `frontend-2/public/favicon.svg`.
+   - Zintegrowano logo w nagłówku `App.jsx` oraz na ekranie logowania `AccessGate.jsx`.
+   - Zaktualizowano etykiety kolumn tabeli: `nazwa_firmy` ➔ **Nazwa**, `id_unikalne` ➔ **id**, `rok_zalozenia` ➔ **start**.
+   - Usunięto przestarzały napis `(~5k wierszy)` z przycisku ładowania próbki w `EmptyState.jsx`.
+   - Dodano `scrollbar-gutter: stable` w `index.css` zapobiegające przesunięciom układu (CLS) podczas przewijania.
+5. **Weryfikacja & CI:**
+   - Skonfigurowano pre-commit hook `.git/hooks/pre-commit` uruchamiający `npm test` przed każdym commitem.
+   - Wszystkie 38 testów jednostkowych przechodzi (`npm test`).
+   - Wszystkie zmiany zatwierdzone i wypchnięte do brancha `feature/ui-table-views` na `github.com/marlink/BILLSzuka`.
+
+---
+
 ## 2026-08-26 — Logout Tooltip (2s delay + dissolve) & Dataset/Session Persistence
 
 **Operator:** Marceli
