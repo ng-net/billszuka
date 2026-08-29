@@ -585,7 +585,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               onFile={csv.loadFile}
               onLoadSample={tryLoadData}
               hasSample
-              sampleSize={0}
+              sampleSize={216000}
             />
           )}
 

@@ -34,16 +34,18 @@ export function LoadingState({
     return () => clearTimeout(t);
   }, [minDisplayMs]);
 
-  // Derived stats
+  // Derived stats - realistic for large master.csv (~5k rows, 216 KB)
   const pct = fileSize
     ? Math.min(100, Math.round((progress.bytesParsed / fileSize) * 100))
     : 0;
   const elapsedMs = startedAt ? now - startedAt : 0;
   const rowsPerSec = elapsedMs > 100 ? (progress.rowsParsed / (elapsedMs / 1000)) : 0;
-  const remainingRows = fileSize && progress.rowsParsed
-    ? Math.max(0, Math.round((fileSize * (progress.rowsParsed / Math.max(1, progress.bytesParsed))) - progress.rowsParsed))
-    : 0;
-  const etaSec = rowsPerSec > 0 ? remainingRows / rowsPerSec : 0;
+  // Better ETA: use bytes-based estimate for remaining rows when size known (avoids over/under-estimation on large files)
+  const estimatedTotalRows = fileSize && progress.bytesParsed > 0
+    ? Math.round(progress.rowsParsed * (fileSize / progress.bytesParsed))
+    : progress.rowsParsed;
+  const remainingRows = Math.max(0, estimatedTotalRows - progress.rowsParsed);
+  const etaSec = rowsPerSec > 5 ? remainingRows / rowsPerSec : 0;
 
   return (
     <motion.div
@@ -88,7 +90,7 @@ export function LoadingState({
           <Stat
             icon={Clock}
             label="Pozostało"
-            value={etaSec > 0.1 ? `~${etaSec.toFixed(1)}s` : minTimePassed ? "✓" : "…"}
+            value={etaSec > 1 ? `~${Math.round(etaSec)}s` : minTimePassed ? "✓ Gotowe" : "…"}
           />
         </div>
 
