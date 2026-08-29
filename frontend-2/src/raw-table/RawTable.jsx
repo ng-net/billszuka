@@ -177,7 +177,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   );
   const filters = useMemo(
     () => Object.fromEntries(
-      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k))
+      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k) || k.startsWith("__"))
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.filters, csv.columns]
