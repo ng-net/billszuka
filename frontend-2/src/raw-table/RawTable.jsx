@@ -32,6 +32,7 @@ import { DataTable } from "./components/DataTable";
 import { ColumnToggle } from "./components/ColumnToggle";
 import { ViewSwitcher } from "./components/ViewSwitcher";
 import { QuickChips } from "./components/QuickChips";
+import { CollapsibleFilters } from "./components/CollapsibleFilters";
 import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
@@ -263,6 +264,28 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     }
     return map;
   }, [csv.rows]);
+
+  // Build filter group values for the collapsible filter panel.
+  // Each group is { kraj: [...], __brand: [...], tier: [...] } sorted by frequency.
+  const filterGroups = useMemo(() => {
+    const collect = (key, transform) => {
+      const counts = new Map();
+      for (const row of csv.rows) {
+        const raw = key === "__brand" ? brandByRow.get(row.id_unikalne) : row[key];
+        const v = transform ? transform(raw) : raw;
+        if (v === null || v === undefined || v === "") continue;
+        counts.set(v, (counts.get(v) || 0) + 1);
+      }
+      return [...counts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .map(([value]) => value);
+    };
+    return {
+      kraj: collect("kraj"),
+      __brand: collect("__brand"),
+      tier: collect("tier"),
+    };
+  }, [csv.rows, brandByRow]);
 
   // Pre-filter rows by synthetic columns (currently only __brand) before
   // passing to DataTable. This keeps TanStack's filter machinery focused on
@@ -548,31 +571,13 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               </DropdownMenu>
             </div>
 
-            {/* Quick filter chips row — one-click toggles for tier/kraj/brand */}
-            <div className="flex items-center gap-3 flex-wrap min-w-0">
-              <QuickChips
-                label="Kraj"
-                columnId="kraj"
-                rows={csv.rows}
-                filter={filters.kraj}
-                onToggle={(v) => toggleQuickFilter("kraj", v)}
-              />
-              <QuickChips
-                label="Marka"
-                columnId="__brand"
-                rows={csv.rows}
-                filter={filters.__brand}
-                onToggle={(v) => toggleQuickFilter("__brand", v)}
-                limit={5}
-              />
-              <QuickChips
-                label="Rola"
-                columnId="tier"
-                rows={csv.rows}
-                filter={filters.tier}
-                onToggle={(v) => toggleQuickFilter("tier", v)}
-              />
-            </div>
+            {/* Collapsible filter panel — wraps kraj/marka/tier in one card with expand/collapse */}
+            <CollapsibleFilters
+              groups={filterGroups}
+              filters={filters}
+              onToggle={toggleQuickFilter}
+              className="min-w-0 flex-1"
+            />
           </>
         )}
       </div>
