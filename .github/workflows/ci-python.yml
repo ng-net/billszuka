@@ -119,5 +119,9 @@ jobs:
         working-directory: frontend-2
 
       - name: Run JS tests
-        run: npm test
+        # Bump V8 old-space to 4 GB. The default ~2 GB on the GitHub
+        # runner OOMs while loading framer-motion + radix-ui + happy-dom
+        # in vite-node (see OOM in run 33260055027). 4 GB is enough for
+        # the current 21 component tests without slowing them down.
+        run: NODE_OPTIONS=--max-old-space-size=4096 npm test
         working-directory: frontend-2
