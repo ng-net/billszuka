@@ -407,6 +407,34 @@ def _is_empty(v: Any) -> bool:
     return v is None or str(v).strip() == ""
 
 
+# PowerMatic / Hawk / "Inna" patterns — kept in sync with the frontend
+# classifier in frontend-2/src/lib/brand.js so the validator and the
+# UI agree on what counts as a brand signal. The regex set is the same
+# shape: PowerMatic (incl. numeric+roman variants), Hawk (incl. James
+# Hawk), and a generic "nabijarka/maszynka/tytoń" catch-all.
+_BRAND_PATTERNS: tuple[re.Pattern[str], ...] = (
+    re.compile(r"powermatic", re.IGNORECASE),
+    re.compile(r"power\s*matic", re.IGNORECASE),
+    re.compile(r"\b(?:james)?hawk\b", re.IGNORECASE),
+    re.compile(r"nabijark|nabijarki|machine|roller|gilz|tyton|tobacco", re.IGNORECASE),
+)
+
+_BRAND_TEXT_FIELDS: tuple[str, ...] = ("nazwa_firmy", "notatki", "zrodlo_danych", "sourcing")
+
+
+def _brand_signal_in_row(row: dict[str, str]) -> bool:
+    """Return True if the row has a recognisable brand keyword in any of
+    the text columns used by the frontend `classifyBrand()`.
+
+    A row with no `marki_nabijarki` but a brand keyword in its name /
+    notes / source is still considered "classified" — e.g. a row whose
+    `nazwa_firmy` literally says "PowerMatic distributor" doesn't need
+    `marki_nabijarki='PowerMatic'` to be valid.
+    """
+    blob = " ".join(str(row.get(k) or "") for k in _BRAND_TEXT_FIELDS).lower()
+    return any(p.search(blob) for p in _BRAND_PATTERNS)
+
+
 def validate_value(canonical: str, value: Any, country: str | None) -> list[str]:
     """Return list of issue strings (empty = OK)."""
     rule = COLUMN_RULES.get(canonical, {"type": "text", "allow_empty": True})
@@ -567,8 +595,22 @@ def cross_check(row: dict[str, str], catalog_type: str | None) -> list[str]:
     marki = normalize_non_value(row.get("marki_nabijarki"))
     if catalog_type == "B" and marki:
         issues.append(f"B row has marki_nabijarki='{row.get('marki_nabijarki')}' (should be empty for B)")
-    if catalog_type == "A" and not marki:
-        issues.append("A row missing marki_nabijarki (should list brands)")
+    # A rows should list brands via marki_nabijarki — BUT a row is also
+    # valid if the brand is detectable from nazwa_firmy / notatki /
+    # zrodlo_danych / sourcing (the same fields the frontend
+    # `classifyBrand()` reads). A row with no nazwa_firmy at all is a
+    # minimal test fixture — we don't flag it. This matches
+    # `test_clean_a_row_no_issues` and avoids flagging the 17 A-rows in
+    # master.csv whose brand is implicit in their name.
+    if (
+        catalog_type == "A"
+        and not marki
+        and not _brand_signal_in_row(row)
+        and any(not _is_empty(row.get(k)) for k in _BRAND_TEXT_FIELDS)
+    ):
+        issues.append(
+            "A row missing marki_nabijarki (and no brand signal in nazwa_firmy/notatki/zrodlo_danych)",
+        )
     return issues
 
 
