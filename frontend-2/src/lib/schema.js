@@ -5,8 +5,8 @@
 /** Friendly, professional human-readable Polish labels for all canonical columns. */
 export const COLUMN_LABELS = {
   kraj: "Kraj",
-  id_unikalne: "ID Unikalne",
-  nazwa_firmy: "Nazwa firmy",
+  id_unikalne: "id",
+  nazwa_firmy: "Nazwa",
   miasto: "Miasto",
   adres: "Adres",
   www: "Strona WWW",
@@ -14,7 +14,7 @@ export const COLUMN_LABELS = {
   confidence_wolumen: "Pewność wolumenu",
   rejestr_id: "Nr rejestru (KRS/IČO)",
   nip_vat: "NIP / VAT",
-  rok_zalozenia: "Rok założenia",
+  rok_zalozenia: "start",
   tier: "Rola w kanale",
   marki_nabijarki: "Marki maszynek",
   marka_wlasna_oem: "Marka własna / OEM",
