@@ -285,7 +285,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   const activateView = useCallback((view) => {
     if (!view) {
-      setPrefs((p) => ({ ...p, activeView: null, filters: {}, sortStack: [] }));
+      // Deactivate view but preserve the user's manual sort — only clear filters.
+      setPrefs((p) => ({ ...p, activeView: null, filters: {} }));
       setGlobalFilter("");
       setGlobalSearch("");
       return;
@@ -297,6 +298,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       ...p,
       activeView: view.id,
       filters: nextFilters,
+      // Apply view's own sort if it has one; otherwise keep the user's current sort.
       sortStack: view.sortStack || p.sortStack || [],
     }));
     setGlobalFilter("");
@@ -504,6 +506,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               <ViewSwitcher
                 views={allViews}
                 activeView={prefs.activeView}
+                activeViewDef={allViews.find((v) => v.id === prefs.activeView)}
+                currentFilters={prefs.filters}
                 onActivate={activateView}
                 onSave={saveCurrentView}
                 onDelete={deleteView}

@@ -9,18 +9,29 @@ import { cn } from "@/lib/utils";
  * ViewSwitcher — saved views for the table.
  *
  * Props:
- *   views       — array of saved views { id, name, filters, columns? }
- *   activeView  — id of currently active view (null = "Wszystko")
- *   onActivate  — (view | null) => void  (null = reset to no view)
- *   onSave      — (name) => void  (saves current filters+columns as new view)
- *   onDelete    — (viewId) => void
+ *   views          — array of saved views { id, name, filters, columns? }
+ *   activeView     — id of currently active view (null = "Wszystko")
+ *   activeViewDef  — the full view object for the active view (or undefined)
+ *   currentFilters — current prefs.filters (to detect "view modified" state)
+ *   onActivate     — (view | null) => void  (null = reset to no view)
+ *   onSave         — (name) => void  (saves current filters+columns as new view)
+ *   onDelete       — (viewId) => void
  */
-export function ViewSwitcher({ views = [], activeView, onActivate, onSave, onDelete }) {
+export function ViewSwitcher({ views = [], activeView, activeViewDef, currentFilters, onActivate, onSave, onDelete }) {
   const [open, setOpen] = useState(false);
   const [saveName, setSaveName] = useState("");
 
   const active = views.find((v) => v.id === activeView);
   const label = active?.name || "Wszystko";
+
+  // Detect if the user has drifted from the view's canonical filters.
+  // Compare JSON of the view's filters vs current filters (order-insensitive
+  // by sorting keys before serialising).
+  const isModified = Boolean(
+    activeViewDef &&
+      JSON.stringify(sortKeys(activeViewDef.filters || {})) !==
+        JSON.stringify(sortKeys(currentFilters || {}))
+  );
 
   const handleSave = () => {
     const name = saveName.trim();
@@ -32,9 +43,15 @@ export function ViewSwitcher({ views = [], activeView, onActivate, onSave, onDel
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
+        <Button variant="outline" size="sm" className="gap-1.5 relative">
           <LayoutGrid className="h-4 w-4" />
           <span className="hidden sm:inline">{label}</span>
+          {isModified && (
+            <span
+              className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-amber-400 border border-background"
+              title="Filtry różnią się od zapisanego widoku"
+            />
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[min(18rem,calc(100vw-2rem))] p-0" align="end">
@@ -80,7 +97,10 @@ export function ViewSwitcher({ views = [], activeView, onActivate, onSave, onDel
                   <Eye className="h-3.5 w-3.5 opacity-60" />
                   <span className="truncate">{v.name}</span>
                 </button>
-                {v.id === activeView && <Check className="h-3.5 w-3.5 text-primary" />}
+                {v.id === activeView && !isModified && <Check className="h-3.5 w-3.5 text-primary" />}
+                {v.id === activeView && isModified && (
+                  <span className="text-[10px] text-amber-500 font-medium">zmod.</span>
+                )}
                 {v.userDefined && onDelete && (
                   <button
                     onClick={() => onDelete?.(v.id)}
@@ -119,5 +139,15 @@ export function ViewSwitcher({ views = [], activeView, onActivate, onSave, onDel
         )}
       </PopoverContent>
     </Popover>
+  );
+}
+
+/** Sort object keys alphabetically for stable JSON comparison. */
+function sortKeys(obj) {
+  if (!obj || typeof obj !== "object") return obj;
+  return Object.fromEntries(
+    Object.entries(obj)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([k, v]) => [k, Array.isArray(v) ? [...v].sort() : v])
   );
 }

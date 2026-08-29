@@ -7,7 +7,7 @@
 const KEY = "czat-table.prefs.v2";
 
 const DEFAULTS = {
-  version: 1,
+  version: 2,
   activeTab: "table", // "table" | "analytics"
   density: "compact", // "compact" | "comfortable"
   theme: "system", // "light" | "dark" | "system"
