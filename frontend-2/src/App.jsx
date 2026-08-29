@@ -13,6 +13,7 @@ import {
   Sun,
   Moon,
   Monitor,
+  Sparkles,
 } from "lucide-react";
 import { fetchSettings } from "@/lib/secretsApi";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
@@ -55,10 +56,12 @@ import { cn } from "@/lib/utils";
 
 const TableView = lazy(() => import("@/views/TableView").then((m) => ({ default: m.TableView })));
 const AnalyticsView = lazy(() => import("@/views/AnalyticsView").then((m) => ({ default: m.AnalyticsView })));
+const ExperimentView = lazy(() => import("@/views/ExperimentView").then((m) => ({ default: m.ExperimentView })));
 
 const TABS = [
   { id: "table", label: "Katalog", icon: TableIcon, View: TableView },
   { id: "analytics", label: "Analityka", icon: BarChart3, View: AnalyticsView },
+  { id: "experiment", label: "Eksperyment", icon: Sparkles, View: ExperimentView },
 ];
 
 export default function App() {
