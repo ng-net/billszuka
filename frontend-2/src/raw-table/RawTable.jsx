@@ -529,7 +529,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-8 w-8 hidden sm:inline-flex"
+                    className="h-8 w-8 inline-flex shrink-0"
                     aria-label="Gęstość"
                     title="Gęstość"
                   >

@@ -190,8 +190,8 @@ export default function App() {
                 )}
                 aria-pressed={activeTab === id}
               >
-                <Icon className="h-4 w-4" />
-                <span className="hidden sm:inline">{label}</span>
+                <Icon className="h-4 w-4 shrink-0" />
+                <span className="hidden md:inline whitespace-nowrap">{label}</span>
               </button>
             ))}
           </nav>

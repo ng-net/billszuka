@@ -47,7 +47,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="gap-1.5">
           <Columns3 className="h-4 w-4" />
-          <span className="hidden sm:inline">Kolumny</span>
+          <span className="hidden md:inline">Kolumny</span>
           <span className="text-xs text-muted-foreground tabular-nums">
             {visibleCount}/{columns.length}
           </span>

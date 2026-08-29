@@ -45,7 +45,7 @@ export function ViewSwitcher({ views = [], activeView, activeViewDef, currentFil
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="gap-1.5 relative">
           <LayoutGrid className="h-4 w-4" />
-          <span className="hidden sm:inline">{label}</span>
+          <span className="hidden md:inline">{label}</span>
           {isModified && (
             <span
               className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-amber-400 border border-background"
