@@ -174,6 +174,7 @@ export function AnalyticsView() {
   const maxByTier = Math.max(...tiles.byTier.map((r) => r.count), 1);
   const maxByBrand = Math.max(...tiles.byBrand.map((r) => r.count), 1);
   const maxByStatus = Math.max(...tiles.byStatus.map((r) => r.count), 1);
+  const frozenPct = tiles.total > 0 ? Math.round((tiles.frozenCount / tiles.total) * 100) : 0;
   const statusColor = (s) => ({
     FROZEN: "#16a34a",
     "DO-WERYFIKACJI": "#eab308",

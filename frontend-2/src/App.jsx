@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, lazy, Suspense } from "react";
+import React, { useCallback, useEffect, useRef, useState, lazy, Suspense, Component } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Table as TableIcon,
@@ -282,34 +282,36 @@ export default function App() {
       </header>
 
       <main className="relative flex-1 overflow-hidden">
-        <Suspense
-          fallback={
-            <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground">
-              <Loader2 className="h-5 w-5 animate-spin" />
-              <span>Ładowanie…</span>
-            </div>
-          }
-        >
-          <AnimatePresence mode="wait">
-            {TABS.map(({ id, View }) =>
-              id === activeTab ? (
-                <motion.div
-                  key={id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.12 }}
-                  className="absolute inset-0 overflow-auto"
-                >
-                  <View
-                    ref={id === "table" ? tableRef : undefined}
-                    onCsvStateChange={id === "table" ? setCsvState : undefined}
-                  />
-                </motion.div>
-              ) : null,
-            )}
-          </AnimatePresence>
-        </Suspense>
+        <ViewErrorBoundary onReset={() => setActiveTab("table")}>
+          <Suspense
+            fallback={
+              <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Ładowanie…</span>
+              </div>
+            }
+          >
+            <AnimatePresence mode="wait">
+              {TABS.map(({ id, View }) =>
+                id === activeTab ? (
+                  <motion.div
+                    key={id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.12 }}
+                    className="absolute inset-0 overflow-auto"
+                  >
+                    <View
+                      ref={id === "table" ? tableRef : undefined}
+                      onCsvStateChange={id === "table" ? setCsvState : undefined}
+                    />
+                  </motion.div>
+                ) : null,
+              )}
+            </AnimatePresence>
+          </Suspense>
+        </ViewErrorBoundary>
       </main>
 
       <Dialog open={shortcutsOpen} onOpenChange={setShortcutsOpen}>
@@ -385,5 +387,55 @@ function HealthBadge({ vault, error }) {
       OK
     </Badge>
   );
+}
+
+class ViewErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("ViewErrorBoundary caught error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex h-full items-center justify-center p-6 bg-background">
+          <div className="max-w-md w-full p-6 border rounded-xl bg-card text-center space-y-3 shadow-sm">
+            <AlertCircle className="mx-auto h-10 w-10 text-rose-500" />
+            <h3 className="font-semibold text-base text-foreground">Wystąpił błąd w widoku</h3>
+            <p className="text-xs text-muted-foreground break-words">
+              {this.state.error?.message || "Nieoczekiwany błąd komponentu"}
+            </p>
+            <div className="flex items-center justify-center gap-2 pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  this.setState({ hasError: false, error: null });
+                  this.props.onReset?.();
+                }}
+              >
+                Wróć do katalogu
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => window.location.reload()}
+              >
+                Odśwież stronę
+              </Button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
