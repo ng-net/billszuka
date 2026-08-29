@@ -119,3 +119,108 @@ export function colorFor(key, palette = Object.values(COUNTRY_COLORS)) {
   for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
   return palette[h % palette.length];
 }
+/**
+ * Numeric weight for ordering rows in top-N lists.
+ * Uses confidence_wolumen (parsed as % 0-100) if available, else a fallback
+ * by tier / wolumen.
+ */
+function rowScore(row, metric) {
+  if (metric === "confidence_wolumen" || metric == null) {
+    const raw = row?.confidence_wolumen;
+    if (raw == null || raw === "") return 0;
+    const s = String(raw).replace(/[^\d.]/g, "");
+    const n = parseFloat(s);
+    return Number.isFinite(n) ? n : 0;
+  }
+  if (metric === "wolumen") {
+    const v = String(row?.wolumen || "").toLowerCase().trim();
+    if (v.startsWith("duż")) return 4;
+    if (v.startsWith("śred")) return 2;
+    if (v.startsWith("mał")) return 1;
+    return 0;
+  }
+  return 0;
+}
+
+/**
+ * Return top N rows per country, grouped by country.
+ *
+ * @param {Array<Object>} rows
+ * @param {number} [n=5] — how many per country
+ * @param {string} [metric='wolumen'] — sort metric key
+ * @returns {Array<{country: string, rows: Array<Object>}>}
+ */
+export function topByCountry(rows, n = 5, metric = "wolumen") {
+  if (!Array.isArray(rows) || rows.length === 0) return [];
+  const buckets = new Map();
+  for (const r of rows) {
+    const c = (r?.kraj || "").toString().trim() || "—";
+    if (!buckets.has(c)) buckets.set(c, []);
+    buckets.get(c).push(r);
+  }
+  const out = [];
+  for (const [country, list] of buckets) {
+    const sorted = list
+      .slice()
+      .sort((a, b) => rowScore(b, metric) - rowScore(a, metric));
+    out.push({ country, rows: sorted.slice(0, n) });
+  }
+  out.sort((a, b) => a.country.localeCompare(b.country));
+  return out;
+}
+
+const CLAIM_PATTERNS = [
+  /\bdystrybutor/i,
+  /\bdystrybuuj/i,
+  /\bdystrybu\b/i,
+  /\bdistributor/i,
+  /\bdistribu/i,
+  /\bsprzedaż\s+hurtowa/i,
+  /\bsprzedajemy\s+i\s+dystrybu/i,
+];
+
+/**
+ * Companies that *claim* in their notes they are distributors / wholesalers.
+ * Returns rows annotated with match_term.
+ *
+ * @param {Array<Object>} rows
+ * @returns {Array<Object>}
+ */
+export function claimDistributors(rows) {
+  if (!Array.isArray(rows) || rows.length === 0) return [];
+  const out = [];
+  for (const r of rows) {
+    const notes = String(r?.notatki || "").trim();
+    if (!notes) continue;
+    for (const pat of CLAIM_PATTERNS) {
+      const m = notes.match(pat);
+      if (m) {
+        out.push({ ...r, match_term: m[0] });
+        break;
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Companies listing PowerMatic in their roller machine brands.
+ * Annotates each row with brand_variant (PowerMatic / PowerMatic + Hawk / etc.)
+ *
+ * @param {Array<Object>} rows
+ * @returns {Array<Object>}
+ */
+export function powerMaticListings(rows) {
+  if (!Array.isArray(rows) || rows.length === 0) return [];
+  const out = [];
+  for (const r of rows) {
+    const raw = String(r?.marki_nabijarki || "").trim();
+    if (!raw) continue;
+    const lower = raw.toLowerCase();
+    if (!lower.includes("powermatic")) continue;
+    let variant = "PowerMatic";
+    if (/\bhawk\b/i.test(raw)) variant = "PowerMatic + Hawk";
+    out.push({ ...r, brand_variant: variant });
+  }
+  return out;
+}

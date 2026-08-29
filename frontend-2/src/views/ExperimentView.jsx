@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/dialog";
 import { ModernLeadsTable } from "./ModernLeadsTable";
 import { ExperimentViewV3 } from "./ExperimentViewV3";
+import { getSampleLeads } from "@/lib/sampleLeads";
 
 const LinkedinIcon = ({ size = 14, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -181,18 +182,18 @@ export function ExperimentView() {
 
       {/* Render Selected Experiment */}
       {activeExperiment === "modern" ? (
-        <ModernLeadsTable />
+        <ModernLeadsTable leads={getSampleLeads()} />
       ) : activeExperiment === "v3" ? (
-        <ExperimentViewV3 leads={generateLeads(50)} />
+        <ExperimentViewV3 leads={getSampleLeads()} />
       ) : (
-        <VideoGridExperiment />
+        <VideoGridExperiment leads={getSampleLeads()} />
       )}
     </div>
   );
 }
 
-function VideoGridExperiment() {
-  const [leads] = useState(() => generateLeads(50));
+function VideoGridExperiment({ leads: leadsProp }) {
+  const [leads] = useState(() => leadsProp || generateLeads(50));
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCountryFilters, setActiveCountryFilters] = useState([]);
   const [countryFilterOpen, setCountryFilterOpen] = useState(false);

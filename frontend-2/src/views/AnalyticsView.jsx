@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Bird, BarChart3, AlertCircle, Loader2, Layers, MapPin, Building2, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { parseCsvUrl } from "@/lib/csv";
-import { groupBy, deriveStatus, COUNTRY_COLORS, colorFor } from "@/lib/analytics";
+import { groupBy, deriveStatus, COUNTRY_COLORS, colorFor, topByCountry, claimDistributors, powerMaticListings } from "@/lib/analytics";
 import { classifyBrand } from "@/lib/brand";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -128,6 +128,12 @@ export function AnalyticsView() {
     const frozenCount = statusCounts.get("FROZEN") || 0;
     const frozenPct = rows.length ? Math.round((frozenCount / rows.length) * 100) : 0;
 
+    // Highlighted insight tiles
+    const claims = claimDistributors(rows);
+    const pmListings = powerMaticListings(rows);
+    const top5 = topByCountry(rows, 5, "confidence_wolumen");
+    const top10 = topByCountry(rows, 10, "confidence_wolumen");
+
     return {
       total: rows.length,
       countryCount,
@@ -139,6 +145,10 @@ export function AnalyticsView() {
       byBrand,
       byStatus,
       coverageRows,
+      claims,
+      pmListings,
+      top5,
+      top10,
     };
   }, [state.rows]);
 
@@ -337,6 +347,166 @@ export function AnalyticsView() {
           )}
         </CardContent>
       </Card>
+
+      {/* Distributors who claim it in their notes (highlight) */}
+      <Card className="border-amber-200/60 dark:border-amber-900/40 bg-amber-50/30 dark:bg-amber-950/20">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base flex items-center gap-2">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500/20 text-amber-600">★</span>
+            Twierdzą że są dystrybutorami
+            <span className="ml-auto text-xs font-mono tabular-nums text-muted-foreground">
+              {tiles.claims.length} z {tiles.total}
+            </span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {tiles.claims.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Brak firm deklarujących dystrybucję.</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {tiles.claims.map((r) => (
+                <div
+                  key={r.id_unikalne}
+                  className="flex items-center gap-3 px-3 py-2 rounded-md bg-white dark:bg-card border border-amber-200 dark:border-amber-900/40"
+                >
+                  <span className="text-[10px] font-mono font-bold tabular-nums text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/60 px-1.5 py-0.5 rounded">
+                    {r.kraj}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium truncate">{r.nazwa_firmy}</div>
+                    <div className="text-[11px] text-muted-foreground truncate">
+                      {r.tier} · {r.miasto || "—"} · dopasowanie: „{r.match_term}"
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* PowerMatic listings */}
+      <Card className="border-violet-200/60 dark:border-violet-900/40 bg-violet-50/30 dark:bg-violet-950/20">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base flex items-center gap-2">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded bg-violet-500/20 text-violet-600 font-bold text-[10px]">PM</span>
+            Firmy z PowerMatic w ofercie
+            <span className="ml-auto text-xs font-mono tabular-nums text-muted-foreground">
+              {tiles.pmListings.length} z {tiles.total}
+            </span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {tiles.pmListings.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Brak firm z PowerMatic w bazie.</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {tiles.pmListings.map((r) => (
+                <div
+                  key={r.id_unikalne}
+                  className={
+                    "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border " +
+                    (r.brand_variant === "PowerMatic + Hawk"
+                      ? "bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 border-violet-300 dark:border-violet-800"
+                      : "bg-white dark:bg-card text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/40")
+                  }
+                  title={`${r.nazwa_firmy} · ${r.marki_nabijarki}`}
+                >
+                  <span className="font-mono text-[10px] opacity-60">{r.kraj}</span>
+                  <span className="truncate max-w-[180px]">{r.nazwa_firmy}</span>
+                  <span className="text-[9px] uppercase tracking-wider opacity-70">·{r.brand_variant}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Top 5 / Top 10 per country */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Bird className="h-4 w-4 text-indigo-500" />
+              Top 5 per kraj
+              <span className="ml-auto text-[11px] text-muted-foreground font-normal">
+                wg wolumenu
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {tiles.top5.map((g) => (
+              <div key={g.country} className="border-l-2 border-indigo-300 dark:border-indigo-800 pl-3">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[10px] font-mono font-bold tabular-nums bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded">
+                    {g.country}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    {g.rows.length} firm
+                  </span>
+                </div>
+                <ol className="space-y-1">
+                  {g.rows.map((r, i) => (
+                    <li key={r.id_unikalne} className="flex items-center gap-2 text-[12px]">
+                      <span className="text-[10px] font-mono tabular-nums text-muted-foreground w-4">
+                        {i + 1}.
+                      </span>
+                      <span className="flex-1 truncate font-medium">{r.nazwa_firmy}</span>
+                      <span className="text-[10px] text-muted-foreground tabular-nums">
+                        {r.confidence_wolumen || r.wolumen}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+            {tiles.top5.length === 0 && (
+              <p className="text-sm text-muted-foreground">Brak danych.</p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Layers className="h-4 w-4 text-emerald-500" />
+              Top 10 per kraj
+              <span className="ml-auto text-[11px] text-muted-foreground font-normal">
+                pełna lista
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {tiles.top10.map((g) => (
+                <details key={g.country} className="group border border-slate-200 dark:border-border rounded-md">
+                  <summary className="cursor-pointer px-3 py-1.5 flex items-center gap-2 text-[12px] font-medium hover:bg-slate-50 dark:hover:bg-muted/40">
+                    <span className="font-mono text-[10px] tabular-nums bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 rounded">
+                      {g.country}
+                    </span>
+                    <span className="text-muted-foreground">{g.rows.length}</span>
+                    <span className="ml-auto text-[10px] group-open:rotate-90 transition-transform">▶</span>
+                  </summary>
+                  <ol className="px-3 py-2 space-y-0.5 text-[11.5px]">
+                    {g.rows.map((r, i) => (
+                      <li key={r.id_unikalne} className="flex items-center gap-2 truncate">
+                        <span className="font-mono tabular-nums text-muted-foreground w-5">{i + 1}.</span>
+                        <span className="truncate">{r.nazwa_firmy}</span>
+                        <span className="ml-auto text-[10px] text-muted-foreground tabular-nums">
+                          {r.confidence_wolumen || ""}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </details>
+              ))}
+            </div>
+            {tiles.top10.length === 0 && (
+              <p className="text-sm text-muted-foreground">Brak danych.</p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Footer hint */}
       <div className="flex items-center gap-2 text-xs text-muted-foreground pt-2">

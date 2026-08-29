@@ -92,8 +92,8 @@ const generateLeads = (count) =>
     flagi: ["Verified"],
   }));
 
-export function ModernLeadsTable() {
-  const [leads] = useState(() => generateLeads(50));
+export function ModernLeadsTable({ leads: leadsProp }) {
+  const [leads] = useState(() => leadsProp || generateLeads(50));
   const [expandedRow, setExpandedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Wszystkie");
@@ -660,7 +660,7 @@ export function ModernLeadsTable() {
                                     className="p-2 bg-[#0077b5] text-white rounded hover:opacity-90 transition-opacity"
                                     title="LinkedIn"
                                   >
-                                    <Linkedin size={16} />
+                                    <LinkedinIcon size={16} />
                                   </a>
                                   <a
                                     href={lead.facebook}
@@ -669,7 +669,7 @@ export function ModernLeadsTable() {
                                     className="p-2 bg-[#1877F2] text-white rounded hover:opacity-90 transition-opacity"
                                     title="Facebook"
                                   >
-                                    <Facebook size={16} />
+                                    <FacebookIcon size={16} />
                                   </a>
                                   <a
                                     href={lead.instagram}
@@ -678,7 +678,7 @@ export function ModernLeadsTable() {
                                     className="p-2 bg-gradient-to-tr from-yellow-500 to-purple-600 text-white rounded hover:opacity-90 transition-opacity"
                                     title="Instagram"
                                   >
-                                    <Instagram size={16} />
+                                    <InstagramIcon size={16} />
                                   </a>
                                   <a
                                     href={lead.tiktok}
@@ -687,7 +687,7 @@ export function ModernLeadsTable() {
                                     className="p-2 bg-black text-white rounded hover:opacity-90 transition-opacity border border-zinc-700"
                                     title="TikTok"
                                   >
-                                    <Video size={16} />
+                                    <TikTokIcon size={16} />
                                   </a>
                                 </div>
                               </div>
