@@ -13,8 +13,20 @@ import {
   Video,
   Sparkles,
   Download,
+  Play,
+  Pause,
+  Volume2,
+  Maximize2,
+  Film,
 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const LinkedinIcon = ({ size = 14, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -44,44 +56,69 @@ const TikTokIcon = ({ size = 14, className }) => (
   </svg>
 );
 
-// --- Mock Data Generator (for demonstration fallback) ---
+// --- Mock Data Generator (with video demos for LEAD-1000 and LEAD-1001) ---
 const generateLeads = (count) =>
-  Array.from({ length: count }, (_, i) => ({
-    id_unikalne: `LEAD-${1000 + i}`,
-    nazwa_firmy: `Firma Handlowa ${i + 1} Sp. z o.o.`,
-    kraj: i % 3 === 0 ? "Polska" : i % 3 === 1 ? "Czechy" : "Słowacja",
-    miasto: i % 2 === 0 ? "Warszawa" : "Praga",
-    adres: `ul. Przemysłowa ${i}, 00-001 ${i % 2 === 0 ? "Warszawa" : "Praga"}`,
-    www: "https://example.com",
-    wolumen: i % 4 === 0 ? "Duży" : i % 4 === 1 ? "Średni" : "Mały",
-    confidence_wolumen: "85%",
-    rejestr_id: `KRS 0000${100000 + i}`,
-    nip_vat: `PL${1000000000 + i}`,
-    rok_zalozenia: 2010 + (i % 10),
-    tier: i % 5 === 0 ? "Producent" : i % 5 === 1 ? "Hurtownik" : "Detalista",
-    marki_nabijarki: i % 3 === 0 ? "PowerMatic, Hawk" : "Brak danych",
-    marka_wlasna_oem: i % 2 === 0 ? "Tak" : "Nie",
-    powinowactwo_nabijarki: i % 3 === 0 ? "Wysoki" : "Niski",
-    cross_sell_potential: i % 4 === 0 ? "High" : "Low",
-    kategoria: "A1",
-    rynek_skala: "Lokalny",
-    kanal_sprzedaży: "Stacjonarny + Online",
-    decydent: "Jan Kowalski",
-    stanowisko: "Prezes Zarządu",
-    email_decydent: `jan.k${i}@firma.pl`,
-    email: `biuro@firma${i}.pl`,
-    telefon: `+48 500 000 ${10 + i}`,
-    notatki: "Klient zainteresowany maszynami automatycznymi.",
-    linkedin: "https://linkedin.com",
-    facebook: "https://facebook.com",
-    instagram: "https://instagram.com",
-    tiktok: "https://tiktok.com",
-    data_weryfikacji: "2023-10-25",
-    sourcing: "Cold Call",
-    zrodlo_danych: "KRS Online",
-    flagi: ["Verified"],
-    related_to: null,
-  }));
+  Array.from({ length: count }, (_, i) => {
+    const id = `LEAD-${1000 + i}`;
+    const isDemo1 = id === "LEAD-1000";
+    const isDemo2 = id === "LEAD-1001";
+    const hasVideo = isDemo1 || isDemo2;
+    return {
+      id_unikalne: id,
+      nazwa_firmy: isDemo1
+        ? "PowerMatic Polska Distribution Sp. z o.o."
+        : isDemo2
+        ? "Hawk Rollers Europe B2B"
+        : `Firma Handlowa ${i + 1} Sp. z o.o.`,
+      kraj: isDemo1 ? "Polska" : isDemo2 ? "Czechy" : i % 3 === 0 ? "Polska" : i % 3 === 1 ? "Czechy" : "Słowacja",
+      miasto: isDemo1 ? "Warszawa" : isDemo2 ? "Praga" : i % 2 === 0 ? "Warszawa" : "Praga",
+      adres: `ul. Przemysłowa ${i}, 00-001 ${i % 2 === 0 ? "Warszawa" : "Praga"}`,
+      www: "https://example.com",
+      wolumen: isDemo1 || isDemo2 ? "Duży" : i % 4 === 0 ? "Duży" : i % 4 === 1 ? "Średni" : "Mały",
+      confidence_wolumen: "95%",
+      rejestr_id: `KRS 0000${100000 + i}`,
+      nip_vat: `PL${1000000000 + i}`,
+      rok_zalozenia: isDemo1 ? 2012 : isDemo2 ? 2015 : 2010 + (i % 10),
+      tier: isDemo1 ? "Dystrybutor Główny" : isDemo2 ? "Hurtownik" : i % 5 === 0 ? "Producent" : i % 5 === 1 ? "Hurtownik" : "Detalista",
+      marki_nabijarki: isDemo1 ? "PowerMatic III+, PowerMatic II+" : isDemo2 ? "Hawk Electric Roller, PowerMatic" : i % 3 === 0 ? "PowerMatic, Hawk" : "Brak danych",
+      marka_wlasna_oem: "Tak",
+      powinowactwo_nabijarki: "Bardzo wysoki",
+      cross_sell_potential: "High",
+      kategoria: "A1",
+      rynek_skala: "Krajowy / UE",
+      kanal_sprzedaży: "Hurt + Sieci Sklepów",
+      decydent: isDemo1 ? "Marek Wiśniewski" : isDemo2 ? "Tomáš Novák" : "Jan Kowalski",
+      stanowisko: isDemo1 ? "Dyrektor Handlowy" : isDemo2 ? "Head of Procurement" : "Prezes Zarządu",
+      email_decydent: isDemo1 ? "m.wisniewski@powermatic-pl.com" : isDemo2 ? "t.novak@hawk-eu.cz" : `jan.k${i}@firma.pl`,
+      email: isDemo1 ? "kontakt@powermatic-pl.com" : isDemo2 ? "b2b@hawk-eu.cz" : `biuro@firma${i}.pl`,
+      telefon: isDemo1 ? "+48 22 800 10 20" : isDemo2 ? "+420 220 500 600" : `+48 500 000 ${10 + i}`,
+      notatki: isDemo1
+        ? "Oficjalny dystrybutor maszyn PowerMatic. Dostępne pełne wideo demo automatycznego cyklu ubijania i nabijania."
+        : isDemo2
+        ? "Czołowy hurtownik maszyn Hawk. Wideo demo przedstawia test obciążeniowy (120 gilz/min)."
+        : "Klient zainteresowany maszynami automatycznymi.",
+      linkedin: "https://linkedin.com",
+      facebook: "https://facebook.com",
+      instagram: "https://instagram.com",
+      tiktok: "https://tiktok.com",
+      data_weryfikacji: "2026-08-28",
+      sourcing: "Weryfikacja bezpośrednia B2B",
+      zrodlo_danych: "KRS / ASO",
+      flagi: hasVideo ? ["Verified", "Wideo Demo"] : ["Verified"],
+      has_video_demo: hasVideo,
+      video_demo_title: isDemo1
+        ? "PowerMatic III+ — Test Pracy Cyklu Automatycznego"
+        : "Hawk Electric Roller — Przemysłowy Test Wydajności B2B",
+      video_demo_duration: isDemo1 ? "03:45" : "02:18",
+      video_demo_specs: isDemo1
+        ? ["Elektroniczny podajnik tytoniu", "Tytanowe ostrze tnące", "Licznik dzienny/całkowity", "Regulacja gęstości 3-stopniowa"]
+        : ["Wydajność: do 120 gilz/min", "Wzmocniona przekładnia metalowa", "Obsługa gilz 84mm i 100mm", "Cicha praca <62dB"],
+      video_demo_desc: isDemo1
+        ? "Oficjalny materiał prezentujący automatyczne napełnianie gilz standardowych i 100mm z cyfrową kontrolą ubicia."
+        : "Prezentacja pracy nabijarki Hawk w warunkach ciągłej eksploatacji hurtowej z demonstracją podajnika taśmowego.",
+      related_to: null,
+    };
+  });
 
 export function ExperimentView() {
   const [leads] = useState(() => generateLeads(50));
@@ -90,10 +127,14 @@ export function ExperimentView() {
   const [countryFilterOpen, setCountryFilterOpen] = useState(false);
   const [tierFilter, setTierFilter] = useState(null);
   const [volumeFilter, setVolumeFilter] = useState(null);
+  const [videoOnlyFilter, setVideoOnlyFilter] = useState(false);
+  const [selectedVideoLead, setSelectedVideoLead] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   // --- Filtering ---
   const filteredLeads = useMemo(() => {
     return leads.filter((lead) => {
+      if (videoOnlyFilter && !lead.has_video_demo) return false;
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         const match =
@@ -253,8 +294,26 @@ export function ExperimentView() {
             </div>
           </div>
 
-          {/* --- QUICK CHIPS & POPOVER AREA --- */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* QuickChips (Country, Tier, Volume, Video Demo) */}
+          <div className="flex items-center gap-2 flex-wrap text-xs">
+            <span className="text-gray-400 dark:text-muted-foreground font-medium mr-1">Filtry:</span>
+
+            {/* Video Demo Quick Chip */}
+            <button
+              onClick={() => setVideoOnlyFilter((prev) => !prev)}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all shadow-sm ${
+                videoOnlyFilter
+                  ? "bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-rose-500/25 ring-2 ring-rose-400/40"
+                  : "bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-100"
+              }`}
+            >
+              <Film className="h-3 w-3" />
+              <span>Wideo Demos</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${videoOnlyFilter ? "bg-white/20 text-white" : "bg-rose-200/60 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200 font-bold"}`}>
+                2
+              </span>
+            </button>
+
             <span className="text-xs font-semibold text-gray-500 dark:text-muted-foreground uppercase tracking-wider mr-1">
               Aktywne filtry:
             </span>
@@ -397,8 +456,23 @@ export function ExperimentView() {
 
                   {/* 2. Company Name (Sticky) */}
                   <td className="sticky left-28 z-10 bg-white dark:bg-card group-hover:bg-blue-50/30 dark:group-hover:bg-muted/40 p-3 border-r border-gray-200 dark:border-border">
-                    <div className="font-semibold text-gray-900 dark:text-foreground truncate max-w-[220px]" title={lead.nazwa_firmy}>
-                      {lead.nazwa_firmy}
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-gray-900 dark:text-foreground truncate max-w-[220px]" title={lead.nazwa_firmy}>
+                        {lead.nazwa_firmy}
+                      </span>
+                      {lead.has_video_demo && (
+                        <button
+                          onClick={() => {
+                            setSelectedVideoLead(lead);
+                            setIsPlaying(true);
+                          }}
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-sm hover:scale-105 active:scale-95 transition-transform shrink-0"
+                          title="Odtwórz wideo demo"
+                        >
+                          <Play className="h-2.5 w-2.5 fill-current" />
+                          <span>Demo ({lead.video_demo_duration})</span>
+                        </button>
+                      )}
                     </div>
                     <div className="flex items-center gap-2 mt-1">
                       {lead.marki_nabijarki !== "Brak danych" && (
@@ -575,6 +649,117 @@ export function ExperimentView() {
           </div>
         </div>
       </div>
+
+      {/* --- Interactive Video Demo Modal --- */}
+      <Dialog
+        open={Boolean(selectedVideoLead)}
+        onOpenChange={(open) => !open && setSelectedVideoLead(null)}
+      >
+        <DialogContent className="max-w-3xl p-0 overflow-hidden bg-zinc-950 border-zinc-800 text-zinc-100">
+          {selectedVideoLead && (
+            <div>
+              <DialogHeader className="p-4 bg-zinc-900/80 border-b border-zinc-800/80">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded">
+                        {selectedVideoLead.id_unikalne}
+                      </span>
+                      <span className="text-xs text-zinc-400 font-mono">
+                        {selectedVideoLead.kraj} · {selectedVideoLead.tier}
+                      </span>
+                    </div>
+                    <DialogTitle className="text-lg font-bold text-white">
+                      {selectedVideoLead.video_demo_title}
+                    </DialogTitle>
+                    <DialogDescription className="text-xs text-zinc-400">
+                      {selectedVideoLead.nazwa_firmy} — {selectedVideoLead.video_demo_desc}
+                    </DialogDescription>
+                  </div>
+                </div>
+              </DialogHeader>
+
+              {/* Simulated Video Player Screen */}
+              <div className="relative aspect-video bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center border-b border-zinc-800 overflow-hidden group/player">
+                {/* Visual Ambient Glow */}
+                <div className="absolute inset-0 bg-radial-gradient from-rose-500/10 via-transparent to-transparent pointer-events-none" />
+
+                {/* Animated Graphic Center */}
+                <div className="text-center space-y-3 z-10">
+                  <div className="relative inline-flex items-center justify-center">
+                    <div className={`absolute -inset-4 bg-rose-500/20 rounded-full blur-xl ${isPlaying ? "animate-pulse" : ""}`} />
+                    <button
+                      onClick={() => setIsPlaying(!isPlaying)}
+                      className="relative h-16 w-16 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-600/40 transition-transform hover:scale-105 active:scale-95"
+                    >
+                      {isPlaying ? <Pause className="h-7 w-7" /> : <Play className="h-7 w-7 ml-1 fill-current" />}
+                    </button>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-white">
+                      {isPlaying ? "Odtwarzanie demonstracji live..." : "Wstrzymano"}
+                    </p>
+                    <p className="text-xs text-zinc-400 font-mono">
+                      1080p 60fps · Auto-Feed Sensor Active
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Video Controls Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-2">
+                  {/* Progress bar */}
+                  <div className="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden cursor-pointer">
+                    <div
+                      className={`h-full bg-gradient-to-r from-rose-500 to-amber-500 ${isPlaying ? "w-2/3 animate-pulse" : "w-1/3"}`}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-zinc-400">
+                    <div className="flex items-center gap-3">
+                      <button onClick={() => setIsPlaying(!isPlaying)} className="hover:text-white">
+                        {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                      </button>
+                      <Volume2 className="h-4 w-4" />
+                      <span className="font-mono text-[11px]">01:14 / {selectedVideoLead.video_demo_duration}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-1.5 py-0.5 rounded bg-zinc-800 text-[10px] font-bold text-zinc-300">HD</span>
+                      <Maximize2 className="h-4 w-4 hover:text-white cursor-pointer" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Technical Details Footer */}
+              <div className="p-4 bg-zinc-900/50 space-y-3">
+                <div className="text-xs font-semibold text-zinc-300">Specyfikacja techniczna i parametry testu:</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {selectedVideoLead.video_demo_specs?.map((spec, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-xs text-zinc-300 bg-zinc-800/60 px-2.5 py-1.5 rounded border border-zinc-700/50">
+                      <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                      <span>{spec}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between pt-2 border-t border-zinc-800">
+                  <div className="text-xs text-zinc-400">
+                    Decydent: <span className="text-zinc-200 font-medium">{selectedVideoLead.decydent}</span> ({selectedVideoLead.telefon})
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        window.open(`mailto:${selectedVideoLead.email_decydent}?subject=B2B Inquiry: ${selectedVideoLead.video_demo_title}`, "_blank");
+                      }}
+                      className="px-3 py-1.5 text-xs font-semibold bg-rose-600 hover:bg-rose-500 text-white rounded shadow transition-colors"
+                    >
+                      Skontaktuj się w sprawie maszyn
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
