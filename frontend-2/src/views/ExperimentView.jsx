@@ -18,6 +18,7 @@ import {
   Volume2,
   Maximize2,
   Film,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -28,6 +29,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ModernLeadsTable } from "./ModernLeadsTable";
+import { ExperimentViewV3 } from "./ExperimentViewV3";
 
 const LinkedinIcon = ({ size = 14, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -155,6 +157,21 @@ export function ExperimentView() {
             <Film size={14} className="text-rose-500" />
             <span>Video Demos & Sticky Grid</span>
           </button>
+
+          <button
+            onClick={() => setActiveExperiment("v3")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+              activeExperiment === "v3"
+                ? "bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
+                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+            }`}
+          >
+            <Layers size={14} className="text-emerald-500" />
+            <span>Compact · Filter Rail · Faceted</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800">
+              Nowość
+            </span>
+          </button>
         </div>
 
         <div className="text-xs text-slate-500 dark:text-slate-400 pr-2 hidden md:block">
@@ -163,7 +180,13 @@ export function ExperimentView() {
       </div>
 
       {/* Render Selected Experiment */}
-      {activeExperiment === "modern" ? <ModernLeadsTable /> : <VideoGridExperiment />}
+      {activeExperiment === "modern" ? (
+        <ModernLeadsTable />
+      ) : activeExperiment === "v3" ? (
+        <ExperimentViewV3 leads={generateLeads(50)} />
+      ) : (
+        <VideoGridExperiment />
+      )}
     </div>
   );
 }
