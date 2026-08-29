@@ -24,6 +24,7 @@ import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { classifyBrand } from "@/lib/brand";
 import { DEFAULT_VIEWS, toggleFilterValue } from "@/lib/views";
 import { debounce } from "@/lib/utils";
+import { getColumnLabel } from "@/lib/schema";
 import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
 
 import { EmptyState } from "./components/EmptyState";
@@ -630,7 +631,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 setColumnVisibility={setColumnVisibility}
                 onFilteredCountChange={setFilteredCount}
                 onColumnHide={(id) => {
-                  toast(`Ukryto kolumnę: ${id}`, {
+                  toast(`Ukryto kolumnę: ${getColumnLabel(id)}`, {
                     description: "Kliknij „Pokaż\", żeby przywrócić",
                     duration: 4000,
                     action: {

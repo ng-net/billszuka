@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Undo2 } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
+import { getColumnLabel } from "@/lib/schema";
 
 export function StatusBar({
   totalRows,
@@ -51,7 +52,7 @@ export function StatusBar({
             <>
               <span className="text-muted-foreground/40">·</span>
               <span className="hidden sm:inline">
-                Sort: {sortStack.map((s) => `${s.id} ${s.desc ? "↓" : "↑"}`).join(" · ")}
+                Sortowanie: {sortStack.map((s) => `${getColumnLabel(s.id)} ${s.desc ? "↓" : "↑"}`).join(" · ")}
               </span>
             </>
           )}
