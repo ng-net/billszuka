@@ -168,9 +168,12 @@ export default function App() {
     <div className="flex h-dvh flex-col bg-background text-foreground">
       <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-          <div className="shrink-0 leading-tight">
-            <div className="font-semibold tracking-tight">BILLSzuka</div>
-            <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <img src="/bill-tbird.svg" alt="BILLS Logo" className="h-7 w-auto object-contain" />
+            <div className="leading-tight">
+              <div className="font-semibold tracking-tight">BILLSzuka</div>
+              <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
+            </div>
           </div>
           <nav className="flex items-center gap-1">
             {TABS.map(({ id, label, icon: Icon }) => (
