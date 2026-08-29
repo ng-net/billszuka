@@ -394,9 +394,9 @@ export function ModernLeadsTable({ leads: leadsProp }) {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/90 dark:bg-zinc-800/80 backdrop-blur-md border-b border-slate-200 dark:border-zinc-800 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold sticky top-0 z-20">
-                <th className="p-4 w-12 text-center"></th> {/* Expand Toggle */}
+                <th className="p-4 w-12 text-center" aria-label="Expand"></th>
                 <th className="p-4 min-w-[280px] sticky left-0 z-30 bg-slate-50 dark:bg-zinc-800 border-r border-slate-200 dark:border-zinc-700 shadow-[1px_0_3px_rgba(0,0,0,0.05)]">
-                  Firma & ID
+                  Firma &amp; ID
                 </th>
                 <th className="p-4 min-w-[150px]">Lokalizacja</th>
                 <th className="p-4 min-w-[140px]">Wolumen</th>
