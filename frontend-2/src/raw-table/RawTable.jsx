@@ -330,6 +330,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, []);
 
   // Toggle a value into the prefs.filters entry for a column.
+  // Also clear the global text search — the combination of a chip filter
+  // and a full-text search is rarely intentional and often leaves 0 results.
   const toggleQuickFilter = useCallback((columnId, value) => {
     setPrefs((p) => {
       const current = (p.filters || {})[columnId];
@@ -339,6 +341,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       else filters[columnId] = next;
       return { ...p, filters };
     });
+    setGlobalFilter("");
+    setGlobalSearch("");
   }, []);
 
   // Toolbar pinned — previously hid on scroll, removed because controls
