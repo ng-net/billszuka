@@ -101,7 +101,6 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize
               >
                 <Sparkles className="h-4 w-4" />
                 Załaduj master.csv
-                <span className="text-xs text-muted-foreground ml-1">(~5k wierszy)</span>
               </Button>
             )}
           </div>
