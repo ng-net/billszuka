@@ -104,9 +104,21 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
     setFileMeta({ name: displayName || url, size: sizeHint || 0 });
     setStartedAt(performance.now());
     const start = performance.now();
+    // Track whether we've already updated fileMeta with the real size from
+    // the response Content-Length (only needs to happen once).
+    let sizeResolved = Boolean(sizeHint);
     try {
       const result = await parseCsvUrl(url, {
-        onProgress: (p) => setProgress(p),
+        onProgress: (p) => {
+          // parseCsvUrl now passes totalBytes on every progress tick.
+          // On the first event that has a real size, patch fileMeta so
+          // LoadingState can compute a meaningful progress percentage.
+          if (!sizeResolved && p.totalBytes > 0) {
+            sizeResolved = true;
+            setFileMeta((prev) => ({ ...prev, size: p.totalBytes }));
+          }
+          setProgress(p);
+        },
         signal: ac.signal,
       });
       if (ac.signal.aborted) return;

@@ -171,14 +171,27 @@ export function parseCsvFile(file, { onProgress, signal } = {}) {
 }
 
 /**
- * Fetch + parse a URL (e.g. /sample.csv). Streams via fetch.
+ * Fetch + parse a URL (e.g. /api/master.csv). Reads Content-Length so the
+ * caller can show a real progress percentage. Falls back gracefully when
+ * Content-Length is absent (chunked encoding, CORS, etc.).
  */
 export async function parseCsvUrl(url, { onProgress, signal } = {}) {
   const res = await fetch(url, { signal });
   if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+
+  // Try to get file size from headers so the progress ring shows a real %.
+  const contentLength = Number(res.headers.get("content-length") || 0);
+
   const blob = await res.blob();
+  // Use the actual blob size as a reliable fallback (blob.size is always known
+  // once the download finishes, even if Content-Length was missing).
+  const totalBytes = contentLength || blob.size || 0;
+
   const file = new File([blob], url.split("/").pop() || "sample.csv", { type: "text/csv" });
-  return parseCsvFile(file, { onProgress, signal });
+  return parseCsvFile(file, {
+    signal,
+    onProgress: (p) => onProgress?.({ ...p, totalBytes }),
+  });
 }
 
 /**
