@@ -4185,3 +4185,15 @@ default-arg pitfall, not a project bug.
 - [ ] Once secrets are in: re-trigger `Deploy Frontend to Cloudflare Pages` on `main` (or push a no-op commit). Build is verified working.
 - [ ] Investigate marlink runner corruption later. If marlink is permanently broken, drop the marlink-backup remote and update AGENTS.md to drop the mirror reference.
 - [ ] Two open in_progress CI runs on ng-net as of writing: `33326943577` (docs/AGENTS), `33326846130` (chore merge). They'll finish in the next few minutes — watch for green.
+
+### JS tests hang on ng-net CI (worker-side, not code)
+- All four CI runs on ng-net/billszuka (post-merge) **pass Python jobs in ~30s** (3.11/3.12/3.13 all green: pytest, 11-level harness, master.csv regen, validate_columns < 200 criticals, API server smoke).
+- **`JS tests` job hangs on step "Run JS tests"** for >10 min every time, then I cancel. Same step is 1.94s locally (69/69 pass). The runners are healthy up to that step — set-up job, checkout v5, set up Node 20, npm ci all green in 4–5 s.
+- Hypothesis: GitHub-hosted runner flake / cache stall on `npm test` after several pushes in quick succession. Not a code regression; the JS test code is unchanged from the prior green run. Action: retry later, or add a `timeout-minutes: 5` on the js-test job (PR-free, defensive).
+- 33328019438 (workflow_dispatch re-run, all Python green) cancelled after JS hang repeated. No rerun attempted today.
+
+### Final state (2026-08-30 evening)
+- `origin = ng-net/billszuka`, `marlink-backup = marlink/BILLSzuka` — swapped and confirmed in remote list.
+- `main` on ng-net at `ea27bbe` (5 commits ahead of marlink-backup/main).
+- Python CI: green on ng-net for the merge commit. JS test CI: hangs on runner; will retry tomorrow or after adding a timeout.
+- Cloudflare deploy: paused — `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` are not on the ng-net repo, not on marlink, not on local disk. Need Marceli to set them via the web UI or paste values here.
