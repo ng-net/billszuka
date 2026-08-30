@@ -1043,9 +1043,26 @@ async def chat(
     x_billszuka_user: str | None = Header(None, alias="X-Billszuka-User"),
 ) -> ChatResponse:
     """Gills chat: save-command → FAQ lookup → LLM chain. Every Q&A is
-    logged to chat_log; FAQ hits and saves cost zero tokens."""
+    logged to chat_log; FAQ hits and saves cost zero tokens.
+
+    Only `active_dataset == "master.csv"` (or None → defaults to master)
+    is allowed. Uploaded/temporary datasets are session-only and never
+    become persistent knowledge — questions about them can be proposed
+    via /api/chat/propose, but not asked directly through the LLM chain.
+    """
     if not req.query.strip():
         raise HTTPException(status_code=400, detail="empty query")
+
+    ds = req.active_dataset or "master.csv"
+    if ds != "master.csv":
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Pytania przez Gills działają tylko na master.csv (trwała baza). "
+                "Dla załadowanego CSV skorzystaj z wyszukiwarki w tabeli, "
+                "albo zaproponuj nowe pytanie przez \u270e przy podpowiedzi."
+            ),
+        )
 
     user = _verified_user(x_billszuka_user)  # None for anonymous — log only
 
@@ -1159,6 +1176,125 @@ async def chat(
     _log_chat(user, req.query, result.response, result.provider, req.active_dataset,
               req.knowledge_ids, 0, "[]")
     return result
+
+
+# ---------------------------------------------------------------------------
+# Chat: propose a new follow-up question for the admin to review.
+#
+# Follow-up pills suggested by the LLM (the "```followup```" blocks at the
+# end of each answer) and any question the user types but doesn't want to
+# send go here. The admin of BILLSzuka reads data/proposals/queue.jsonl
+# and decides which ones to fold into the FAQ / knowledge corpus.
+#
+# This is the only sanctioned way to grow the knowledge base from the UI
+# — direct edits to master.csv are reserved for research sessions.
+# ---------------------------------------------------------------------------
+
+class ProposeRequest(BaseModel):
+    question: str
+    # Dataset the user was looking at when the question was proposed.
+    # Used to filter out questions that reference temporary/uploaded data
+    # — we only keep proposals rooted in the persistent base (master.csv).
+    source_dataset: str | None = None
+
+
+_PROPOSALS_DIR = DATA / "proposals"
+_PROPOSALS_FILE = _PROPOSALS_DIR / "queue.jsonl"
+
+
+@app.post("/api/chat/propose")
+async def chat_propose(req: ProposeRequest) -> dict[str, Any]:
+    """Append a proposed follow-up question to the admin review queue.
+
+    Returns {ok, id, msg}. Duplicates (same question text from the same
+    user within the last 24h) are silently skipped so the queue stays
+    scannable — admin will see one row, not 30.
+    """
+    q = (req.question or "").strip()
+    if not q:
+        raise HTTPException(status_code=400, detail="empty question")
+    if len(q) > 500:
+        raise HTTPException(status_code=400, detail="question too long (>500 chars)")
+
+    src = (req.source_dataset or "master.csv").strip()
+    if src != "master.csv":
+        # Per project policy: only master.csv-rooted questions can grow
+        # into persistent knowledge. Uploaded CSVs are session-only.
+        return {
+            "ok": False,
+            "id": None,
+            "msg": (
+                "Propozycje nowych pytań działają tylko dla master.csv. "
+                "Dla załadowanego CSV użyj wyszukiwarki w tabeli."
+            ),
+        }
+
+    _PROPOSALS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Dedupe: same question text in the last 24h = skip.
+    now = time.time()
+    cutoff = now - 86400
+    try:
+        with _PROPOSALS_FILE.open("r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                ts = rec.get("ts_epoch", 0)
+                if ts < cutoff:
+                    continue
+                if rec.get("question") == q:
+                    return {
+                        "ok": True,
+                        "id": rec.get("id"),
+                        "msg": "Już zaproponowane — czeka na recenzję admina.",
+                    }
+    except FileNotFoundError:
+        pass
+
+    ts_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    pid = hashlib.sha256(f"{ts_iso}|{q}".encode("utf-8")).hexdigest()[:12]
+    rec = {
+        "id": pid,
+        "ts": ts_iso,
+        "ts_epoch": int(now),
+        "question": q,
+        "source_dataset": src,
+        "status": "pending",
+    }
+    with _PROPOSALS_FILE.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return {
+        "ok": True,
+        "id": pid,
+        "msg": "Dodano do kolejki propozycji — admin BILLSzuka przejrzy.",
+    }
+
+
+@app.get("/api/chat/propose")
+async def chat_propose_list() -> dict[str, Any]:
+    """List pending proposals. Admin reads this when triaging the queue.
+
+    Capped at 200 most-recent entries to keep the response small — admin
+    can grep the jsonl directly for full history."""
+    if not _PROPOSALS_FILE.exists():
+        return {"count": 0, "items": []}
+    items: list[dict[str, Any]] = []
+    with _PROPOSALS_FILE.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                items.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    items.sort(key=lambda r: r.get("ts_epoch", 0), reverse=True)
+    return {"count": len(items), "items": items[:200]}
 
 
 # ---------------------------------------------------------------------------

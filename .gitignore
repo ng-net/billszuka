@@ -85,6 +85,10 @@ data/billszuka.db
 data/billszuka.db-wal
 data/billszuka.db-shm
 
+# BILLSzuka admin proposal queue (written by /api/chat/propose when users
+# click 📥 on a follow-up pill; admin reads + triages locally — not versioned)
+data/proposals/
+
 # Session artifacts (generated per research session, regenerated on next run)
 data/faq-*.json
 data/faq-*.csv
