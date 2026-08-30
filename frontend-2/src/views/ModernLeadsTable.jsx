@@ -11,7 +11,6 @@ import {
   ChevronRight,
   MapPin,
   Building2,
-  Video,
   ShieldCheck,
   TrendingUp,
   Download,

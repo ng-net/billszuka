@@ -6,7 +6,7 @@ import { cn, formatNumber } from "@/lib/utils";
 
 const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
 
-export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize = 0 }) {
+export function EmptyState({ onFile, onLoadSample, hasSample = false }) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState(null);
   const inputRef = useRef(null);

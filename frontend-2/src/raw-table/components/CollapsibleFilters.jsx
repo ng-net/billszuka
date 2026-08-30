@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown, ChevronRight, Filter, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Filter, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 function valueMatches(value, filterVal) {
   if (!filterVal) return false;

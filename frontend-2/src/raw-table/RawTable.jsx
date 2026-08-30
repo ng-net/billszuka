@@ -31,7 +31,6 @@ import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
 import { ColumnToggle } from "./components/ColumnToggle";
 import { ViewSwitcher } from "./components/ViewSwitcher";
-import { QuickChips } from "./components/QuickChips";
 import { CollapsibleFilters } from "./components/CollapsibleFilters";
 import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
@@ -598,7 +597,6 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               onFile={csv.loadFile}
               onLoadSample={tryLoadData}
               hasSample
-              sampleSize={216000}
             />
           )}
 

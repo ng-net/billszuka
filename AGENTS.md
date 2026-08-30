@@ -62,6 +62,8 @@ Canonical remote: `github.com/marlink/BILLSzuka` (private). Backup mirror: `gith
 
 - **Knowledge base** (`data/knowledge/`) — files uploaded via the book-icon drawer → `/api/knowledge/upload` → Gemini Files API. The chat auto-promotes Gemini to the front of the provider chain when `knowledge_ids` are present (openrouter path doesn't see the files). Local copies live in `data/knowledge/files/<id>__<filename>` so the bot can re-upload if Gemini expires the file (48h TTL). NEVER run a global cache-purge that would touch `data/knowledge/` — that would orphan the local copies and lose the Gemini file refs (the same "lost custom model" gotcha from Qoder). 50 MB per file, types: pdf, csv, txt, md, xlsx, xls, docx.
 
+- **HTTP Basic Auth** — `BILLSZUKA_PASSWORD` env var enables Basic Auth gate on all `/api/*` routes. Browser shows a login popup. Render: set `BILLSZUKA_PASSWORD` in Render dashboard → Environment. Keep-alive: `GET /ping` requires no auth and returns `{"ok":"pong"}` — use this for cron-job.org pings (every 10 min) to prevent Render free-tier spin-down.
+
 
 
 ## Memory rules

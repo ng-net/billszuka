@@ -1,6 +1,7 @@
 """Tests for tools/validate_columns.py — header mapping + value validators."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 sys.path.insert(0, "tools")
@@ -347,3 +348,111 @@ class TestInferCountry:
         assert vc.infer_country(p, {}) == "CZ"
         p2 = Path("./relative/catalog-A-HR.csv")
         assert vc.infer_country(p2, {}) == "HR"
+
+
+class TestBrandPatternSync:
+    """Drift guard: _BRAND_PATTERNS in validate_columns.py must agree with
+    POWERMATIC_PATTERNS / HAWK_PATTERNS in frontend-2/src/lib/brand.js.
+
+    The two implementations use different regex flavours (Python vs JS),
+    so we can't compare ASTs directly. Instead we run a fixed corpus of
+    Polish/non-Polish strings through both classifiers and assert the
+    match/no-match decisions agree on every string. If somebody adds a
+    pattern on one side and forgets the other, this test fails."""
+
+    BRAND_JS = Path(__file__).resolve().parent.parent / "frontend-2/src/lib/brand.js"
+
+    @classmethod
+    def _extract_js_patterns(cls):
+        """Pull POWERMATIC_PATTERNS / HAWK_PATTERNS source text out of brand.js,
+        plus the inline "Inna" fallback regex that lives inside classifyBrand.
+
+        Returns dict[label -> list[str]] of literal regex source strings.
+        Used so a developer reading the failure can paste the exact JS
+        pattern into a Python REPL to debug."""
+        text = cls.BRAND_JS.read_text(encoding="utf-8")
+        blocks = {}
+        for label in ("POWERMATIC_PATTERNS", "HAWK_PATTERNS"):
+            m = re.search(rf"const {label} = \[(.+?)\];", text, re.DOTALL)
+            assert m, f"{label} block not found in brand.js"
+            blocks[label] = re.findall(r"/(.+?)/[a-z]*", m.group(1))
+        # The "Inna" catch-all is inline inside classifyBrand as
+        #   if (/nabijark|.../i.test(text)) return "Inna";
+        # — not in a const array. Extract it by source pattern.
+        # Source shape: if (/PATTERN/FLAGS.test(text))
+        m = re.search(r"if \(\/(.+?)\/[a-z]*\.test\(text\)\)", text)
+        assert m, "Inna catch-all regex not found in brand.js classifyBrand"
+        blocks["INNA_FALLBACK"] = [m.group(1)]
+        return blocks
+
+    @classmethod
+    def _load_brand_js_classifier(cls):
+        """Compile the JS regexes into Python regexes and return a callable
+        that mimics classifyBrand's "any pattern matches in any text field"
+        decision — i.e. _brand_signal_in_row without the brand-name → label
+        mapping. We only need the yes/no decision for drift detection."""
+        js = cls._extract_js_patterns()
+        compiled = []
+        for src in js["POWERMATIC_PATTERNS"]:
+            # JS \\b behaves like Python \\b for ASCII; JS (?i) inline flag
+            # is preserved by re.IGNORECASE — same effect on the pattern.
+            compiled.append(re.compile(src, re.IGNORECASE))
+        for src in js["HAWK_PATTERNS"]:
+            compiled.append(re.compile(src, re.IGNORECASE))
+        # The "Inna" catch-all is what makes brand.js say "yes, this row
+        # has a brand signal" for nabijarka/tytoń/machine mentions that
+        # aren't PowerMatic/Hawk. _BRAND_PATTERNS mirrors it as pattern
+        # #4 — so the Python side catches the same cases.
+        for src in js["INNA_FALLBACK"]:
+            compiled.append(re.compile(src, re.IGNORECASE))
+        def js_classify(row):
+            blob = " ".join(str(row.get(k) or "") for k in vc._BRAND_TEXT_FIELDS).lower()
+            return any(p.search(blob) for p in compiled)
+        return js_classify
+
+    def test_python_and_js_brand_patterns_agree(self):
+        js_classify = self._load_brand_js_classifier()
+        corpus = [
+            # PowerMatic direct mentions
+            {"nazwa_firmy": "PowerMatic Polska"},
+            {"notatki": "sprzedaż PowerMatic"},
+            {"nazwa_firmy": "POWERMATIC"},
+            {"notatki": "Power Matic"},
+            # PowerMatic numeric / roman variants — the pattern that
+            # was missing in Python until we synced it.
+            {"notatki": "PowerMatic 4+"},
+            {"notatki": "PowerMatic 3 IV"},
+            {"notatki": "PowerMatic 5"},
+            # Hawk variants
+            {"nazwa_firmy": "jameshawk.pl"},
+            {"notatki": "Hawk importer"},
+            {"nazwa_firmy": "James Hawk"},
+            # Brand catch-all (nabijarka / tytoń / etc.) → "Inna" in JS,
+            # positive signal in Python via pattern #4. Both sides agree
+            # on the positive decision — that's all we care about here.
+            {"notatki": "nabijarki i gilzy"},
+            {"notatki": "maszynka rolling"},
+            {"notatki": "tytoń do skrętów"},
+            # Negative cases — nothing should match on either side
+            {"nazwa_firmy": "Sklep papierniczy"},
+            {"notatki": "Kawa, herbata, przyprawy"},
+            {"nazwa_firmy": "Targowisko Miejskie"},
+            {"notatki": "biuro rachunkowe"},
+            {"nazwa_firmy": "", "notatki": "", "zrodlo_danych": ""},
+        ]
+        for row in corpus:
+            py_hit = vc._brand_signal_in_row(row)
+            js_hit = js_classify(row)
+            assert py_hit == js_hit, (
+                f"drift on row {row!r}: python={py_hit} js={js_hit}\n"
+                f"JS patterns: {self._extract_js_patterns()}"
+            )
+
+    def test_python_pattern_count_matches_comment(self):
+        # The module comment claims 5 brand-signal categories. If we
+        # add a 6th, the comment must move with it — this catches the
+        # "comment forgotten, code updated" version of drift.
+        assert len(vc._BRAND_PATTERNS) == 5, (
+            f"_BRAND_PATTERNS has {len(vc._BRAND_PATTERNS)} entries; "
+            "the doc-comment above lists 5 categories. Update both."
+        )

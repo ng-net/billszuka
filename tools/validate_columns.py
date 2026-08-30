@@ -415,6 +415,9 @@ def _is_empty(v: Any) -> bool:
 _BRAND_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"powermatic", re.IGNORECASE),
     re.compile(r"power\s*matic", re.IGNORECASE),
+    # numeric (I-V) and variant forms like 3+, 4 IV; must mirror
+    # frontend-2/src/lib/brand.js POWERMATIC_PATTERNS[2]
+    re.compile(r"\b(?:1|2|3|4|5)[+\s]*[ivx]?\b", re.IGNORECASE),
     re.compile(r"\b(?:james)?hawk\b", re.IGNORECASE),
     re.compile(r"nabijark|nabijarki|machine|roller|gilz|tyton|tobacco", re.IGNORECASE),
 )
