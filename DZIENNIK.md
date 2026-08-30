@@ -1,5 +1,49 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-30 — Koniec sesji: merge do ng-net main + czyszczenie stash
+
+**Operator:** Marceli
+**Agent:** TRAE (MiniMax-M3)
+**Gałąź:** `main`
+**Decyzja:** Marceli: „end of session save changes to local git and github"
+
+### Co zostało zrobione
+
+1. **Merge `feat/per-user-sessions` → `main` lokalnie** (commit `6100cad7`, --no-ff). Wciąga per-user auth commit + revert + DZIENNIK review notes.
+
+2. **Push `main` do `origin` (ng-net, canonical)** — `cce714bb..6100cad7  main -> main` na `https://github.com/ng-net/billszuka.git`. AGENTS.md zaktualizowane wcześniej w sesji (canonical flipped ng-net ← marlink).
+
+3. **Design-projects zachowany** poza repo:
+   - `design-projects/leads-table/` (5 plików) → `~/Documents/BILLSzuka-archive/design-projects/leads-table/`
+   - Pliki: `colors_and_type.css`, `leads-table.design`, `pages/leads.html`, `validation-report.json`, `.preflight/preflight.html`
+   - Powód: redesign UI tabeli, nie commitnięty w historii, Marceli chce zachować poza projektem.
+
+4. **Stash `stash@{0}` usunięty** — `git stash drop`. Wcześniej zawierał wadliwy rollback ficzerów GeminiDrawera (auth-related), `.venv/`, `.pytest_cache/`, `data/.snapshots/`, `data/.pre-normalize-*/`. Wszystko niepotrzebne lub nadpisanie przez revert.
+
+### Stan końcowy sesji
+
+- **Branch:** `main` na `c2f5730d` (po fetch: dociągnięte `merge: feat/proposal-queue-master-csv-only` + `merge: chore/oxlint-actions-brand-sync`)
+- **Working tree:** czysty
+- **Stash:** pusty
+- **`tools/auth.py`:** usunięte (per-user auth wycofane)
+- **Origin/main (ng-net):** zsynchronizowany z lokalnym `main` ✅
+- **Marlink-backup/main (backup):** `ahead 20` — nie pushnięte (backup per AGENTS.md, nie synchronizowany automatycznie)
+
+### Weryfikacja
+
+- **Python tests:** 351/351 PASS
+- **JS tests:** 69/69 PASS (po `npm install` — papaparse było missing w node_modules)
+- **AGENTS.md:** canonical = ng-net/billszuka, backup = marlink/BILLSzuka
+
+### Otwarte follow-upy (na następną sesję)
+
+1. Rozważyć synchronizację marlink-backup z ng-net (push 20 commitów), albo zmienić konfigurację żeby jeden remote pushuje do obu.
+2. Sprawdzić czy frontend odwołuje się do usuniętych endpointów (`grep /api/me /api/bookmarks bookmark frontend-2/src/`).
+3. Wyczyścić tabele auth z produkcyjnej bazy jeśli istnieją: `users`, `sessions`, `user_activity`, `bookmarks`, `lead_deletions` (`sqlite3 ... "DROP TABLE ..."`).
+4. `git branch -d feat/per-user-sessions` — feature branch po merge'u jest zbędny.
+
+---
+
 ## 2026-08-30 — Revert per-user auth (zostajemy na password Basic Auth)
 
 **Operator:** Marceli
