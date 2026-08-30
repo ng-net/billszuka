@@ -195,6 +195,34 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
     toast.success("Wątek wyczyszczony");
   }, []);
 
+  // Send a follow-up question to the admin proposal queue
+  // (data/proposals/queue.jsonl). Backend route /api/chat/propose
+  // rejects anything not rooted in master.csv.
+  async function proposeQuestion(q) {
+    const text = (q || "").trim();
+    if (!text) return;
+    try {
+      const res = await fetch(apiUrl("/api/chat/propose"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: text,
+          source_dataset: activeDataset || "master.csv",
+        }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.ok === false) {
+        toast.error("Nie dodano do kolejki", {
+          description: body.detail || body.msg || res.statusText,
+        });
+        return;
+      }
+      toast.success(body.msg || "Dodano do kolejki propozycji");
+    } catch (e) {
+      toast.error("Błąd sieci", { description: e.message || String(e) });
+    }
+  }
+
   // Edit-last-message: when the input is empty and the user hits ArrowUp,
   // copy the most recent user message into the input for re-editing.
   // Standard chat-UX convention (terminal, Slack, every LLM client).
@@ -343,7 +371,16 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             ) : (
               <div className="space-y-3">
                 {messages.map((m, i) => (
-                  <Bubble key={i} msg={m} onCopy={copyMsg} onFollowup={sendQuery} />
+                  <Bubble
+                    key={i}
+                    msg={m}
+                    onCopy={copyMsg}
+                    onFill={(q) => {
+                      setInput(q);
+                      requestAnimationFrame(() => inputRef.current?.focus());
+                    }}
+                    onPropose={(q) => proposeQuestion(q)}
+                  />
                 ))}
                 {busy && (
                   <div className="flex items-center gap-2 text-xs text-muted-foreground pl-1">
@@ -797,7 +834,7 @@ export function MarkdownText({ content }) {
   return <div className="space-y-0.5">{elements}</div>;
 }
 
-function Bubble({ msg, onCopy, onFollowup }) {
+function Bubble({ msg, onCopy, onFill, onPropose }) {
   const isUser = msg.role === "user";
   const rendered = !isUser ? <MarkdownText content={msg.text} /> : null;
   const followups = !isUser && rendered && typeof rendered === "object" ? rendered.followups : null;
@@ -834,26 +871,47 @@ function Bubble({ msg, onCopy, onFollowup }) {
         )}
       </div>
       {!isUser && followups && followups.length > 0 && (
-        <FollowupPills items={followups} onPick={onFollowup} />
+        <FollowupPills items={followups} onFill={onFill} onPropose={onPropose} />
       )}
       {!isUser && msg.provider && <ProviderTag provider={msg.provider} />}
     </motion.div>
   );
 }
 
-export function FollowupPills({ items, onPick }) {
+export function FollowupPills({ items, onFill, onPropose }) {
+  // Each pill has TWO actions:
+  //   - Click the question text → fills the input box (so the user can
+  //     review/edit before sending). This is the safer default — never
+  //     auto-fires an LLM call.
+  //   - Click the small 📥 button → adds the question to the admin
+  //     proposal queue (data/proposals/queue.jsonl) for future inclusion
+  //     in the FAQ / knowledge corpus. Admin of BILLSzuka reviews and
+  //     approves manually.
   return (
     <div className="flex flex-wrap gap-1.5 max-w-[88%] pl-1">
       {items.slice(0, 4).map((q, i) => (
-        <button
+        <div
           key={i}
-          onClick={() => onPick(q)}
-          className="inline-flex items-center gap-1 rounded-full border bg-background px-2.5 py-1 text-[11px] text-left hover:bg-accent hover:border-violet-300 hover:text-foreground transition-colors"
+          className="inline-flex items-center rounded-full border bg-background hover:border-violet-300 transition-colors"
           title={q}
         >
-          <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />
-          <span className="truncate max-w-[36ch]">{q}</span>
-        </button>
+          <button
+            onClick={() => onFill(q)}
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] text-left rounded-l-full hover:bg-accent transition-colors"
+            aria-label={`Wstaw pytanie: ${q}`}
+          >
+            <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />
+            <span className="truncate max-w-[36ch]">{q}</span>
+          </button>
+          <button
+            onClick={() => onPropose(q)}
+            className="px-1.5 py-1 text-[11px] border-l text-muted-foreground hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300 rounded-r-full transition-colors"
+            aria-label={`Zaproponuj pytanie do bazy wiedzy: ${q}`}
+            title="Zaproponuj pytanie adminowi BILLSzuka"
+          >
+            📥
+          </button>
+        </div>
       ))}
     </div>
   );

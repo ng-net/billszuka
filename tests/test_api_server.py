@@ -22,7 +22,11 @@ from fastapi.testclient import TestClient
 
 @pytest.fixture
 def tmp_data(monkeypatch, tmp_path):
-    """Redirect DATA to a temp dir; pre-populate with test CSVs."""
+    """Redirect DATA to a temp dir; pre-populate with test CSVs.
+
+    Seeds BOTH catalog-A-PL.csv (for /api/sync tests) AND master.csv
+    (for /api/chat tests — chat is master.csv-only as of 2026-08-30).
+    The chat tests no longer depend on test ordering vs sync tests."""
     import api_server
     monkeypatch.setattr(api_server, "DATA", tmp_path)
     # Build a fake country structure
@@ -34,6 +38,13 @@ def tmp_data(monkeypatch, tmp_path):
         w.writerow(["PL", "BILLS SP ZOO", "PL1234567890", "FROZEN"])
         w.writerow(["PL", "TEST SA", "PL9999999999", "DO-WERYFIKACJI"])
     (tmp_path / "sales_data.csv").write_text("month,revenue\n2026-01,1000\n2026-02,2000\n")
+    # Seed master.csv directly so /api/chat tests can pass active_dataset=
+    # "master.csv" without first hitting /api/sync to regenerate it.
+    with (tmp_path / "master.csv").open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["kraj", "nazwa_firmy", "nip_vat", "flagi"])
+        w.writerow(["PL", "BILLS SP ZOO", "PL1234567890", "FROZEN"])
+        w.writerow(["PL", "TEST SA", "PL9999999999", "DO-WERYFIKACJI"])
     return tmp_path
 
 
@@ -223,8 +234,9 @@ class TestUpload:
 
 class TestSync:
     def test_sync_regenerates_master(self, client, tmp_data):
-        # master.csv shouldn't exist yet
-        assert not (tmp_data / "master.csv").exists()
+        # master.csv must not exist yet — remove the seed from tmp_data
+        # fixture so we exercise the regen path, not the seed path.
+        (tmp_data / "master.csv").unlink()
         r = client.post("/api/sync", json={"source_type": "master"})
         assert r.status_code == 200
         data = r.json()
@@ -254,7 +266,7 @@ class TestChat:
     def test_count_query(self, client):
         r = client.post("/api/chat", json={
             "query": "ile firm jest w tym datasecie?",
-            "active_dataset": "catalog-A-PL.csv",
+            "active_dataset": "master.csv",
         })
         assert r.status_code == 200
         data = r.json()
@@ -266,7 +278,7 @@ class TestChat:
     def test_status_query(self, client):
         r = client.post("/api/chat", json={
             "query": "pokaż status frozen",
-            "active_dataset": "catalog-A-PL.csv",
+            "active_dataset": "master.csv",
         })
         assert r.status_code == 200
         data = r.json()
@@ -275,18 +287,19 @@ class TestChat:
         assert "DO-WERYFIKACJI=1" in data["response"]
 
     def test_missing_dataset(self, client):
+        # Per project policy /api/chat is master.csv-only — any other
+        # dataset (real or ghost) gets a 400 with an actionable hint.
         r = client.post("/api/chat", json={
             "query": "ile firm?",
             "active_dataset": "ghost.csv",
         })
-        assert r.status_code == 200  # mock handles gracefully
-        data = r.json()
-        assert "ghost" in data["response"].lower() or "nie widzę" in data["response"].lower()
+        assert r.status_code == 400
+        assert "master.csv" in r.json()["detail"]
 
     def test_generic_query_returns_nudge(self, client):
         r = client.post("/api/chat", json={
             "query": "co sądzisz o życiu?",
-            "active_dataset": "catalog-A-PL.csv",
+            "active_dataset": "master.csv",
         })
         assert r.status_code == 200
         data = r.json()
@@ -296,7 +309,7 @@ class TestChat:
     def test_country_grouping(self, client):
         r = client.post("/api/chat", json={
             "query": "rozkład wg kraj",
-            "active_dataset": "catalog-A-PL.csv",
+            "active_dataset": "master.csv",
         })
         assert r.status_code == 200
         data = r.json()
@@ -304,6 +317,104 @@ class TestChat:
         assert "PL" in data["response"]
 
 
+
+    def test_chat_allows_master_csv(self, client):
+        # Sanity check: the master.csv guard is permissive for the
+        # canonical dataset (default behavior preserved).
+        r = client.post("/api/chat", json={
+            "query": "ile firm jest w tym datasecie?",
+            "active_dataset": "master.csv",
+        })
+        assert r.status_code == 200
+
+    def test_chat_rejects_uploaded_csv_with_hint(self, client):
+        # Uploaded/temporary datasets are session-only — questions about
+        # them never grow into persistent knowledge, so the LLM chain
+        # refuses. The error points the user at the proposal queue.
+        r = client.post("/api/chat", json={
+            "query": "ile firm?",
+            "active_dataset": "uploaded.csv",
+        })
+        assert r.status_code == 400
+        detail = r.json()["detail"]
+        assert "master.csv" in detail
+        assert "proponuj" in detail.lower() or "wyszukiwark" in detail.lower()
+
+
+# ---------------------------------------------------------------------------
+# /api/chat/propose — admin proposal queue for new follow-up questions
+# ---------------------------------------------------------------------------
+
+class TestChatPropose:
+    """Follow-up pills and user-typed questions can be added to the admin
+    proposal queue (data/proposals/queue.jsonl). The admin of BILLSzuka
+    reviews pending entries and folds approved ones into the FAQ / KB.
+
+    Only master.csv-rooted questions can be proposed — uploaded CSVs are
+    session-only and never become persistent knowledge."""
+
+    PROPOSALS_PATH = None  # patched per-test via tmp_path
+
+    @pytest.fixture
+    def isolated_proposals(self, tmp_path, monkeypatch):
+        """Each test gets a fresh proposals dir. monkeypatch auto-restores
+        the module attribute on test teardown so later tests don't see
+        state from earlier ones."""
+        import api_server
+        monkeypatch.setattr(api_server, "_PROPOSALS_DIR", tmp_path)
+        monkeypatch.setattr(api_server, "_PROPOSALS_FILE", tmp_path / "queue.jsonl")
+        return tmp_path
+
+    def test_propose_new_question(self, client, isolated_proposals):
+        r = client.post("/api/chat/propose", json={
+            "question": "Ile firm PowerMatic jest w CZ?",
+            "source_dataset": "master.csv",
+        })
+        assert r.status_code == 200
+        data = r.json()
+        assert data["ok"] is True
+        assert data["id"] and len(data["id"]) == 12
+        assert "kolejki propozycji" in data["msg"].lower() or "admin" in data["msg"].lower()
+
+    def test_propose_dedupes_within_24h(self, client, isolated_proposals):
+        body = {"question": "Top 5 hurtowników w PL", "source_dataset": "master.csv"}
+        first = client.post("/api/chat/propose", json=body).json()
+        second = client.post("/api/chat/propose", json=body).json()
+        assert first["ok"] is True
+        assert second["ok"] is True
+        assert first["id"] == second["id"]
+        assert "już zaproponowane" in second["msg"].lower()
+
+    def test_propose_rejects_uploaded_dataset(self, client, isolated_proposals):
+        r = client.post("/api/chat/propose", json={
+            "question": "Coś o moim CSV",
+            "source_dataset": "uploaded.csv",
+        })
+        assert r.status_code == 200
+        data = r.json()
+        assert data["ok"] is False
+        assert "master.csv" in data["msg"]
+
+    def test_propose_rejects_empty(self, client):
+        r = client.post("/api/chat/propose", json={"question": "  "})
+        assert r.status_code == 400
+
+    def test_propose_rejects_too_long(self, client):
+        r = client.post("/api/chat/propose", json={"question": "x" * 501})
+        assert r.status_code == 400
+
+    def test_propose_list_returns_recent(self, client, isolated_proposals):
+        for q in ("Pytanie A", "Pytanie B", "Pytanie C"):
+            client.post("/api/chat/propose", json={
+                "question": q, "source_dataset": "master.csv",
+            })
+        r = client.get("/api/chat/propose")
+        assert r.status_code == 200
+        data = r.json()
+        assert data["count"] == 3
+        assert {it["question"] for it in data["items"]} == {"Pytanie A", "Pytanie B", "Pytanie C"}
+        # All pending
+        assert all(it["status"] == "pending" for it in data["items"])
 # ---------------------------------------------------------------------------
 # /api/settings — secrets vault (multi-provider LLM keys)
 # ---------------------------------------------------------------------------
