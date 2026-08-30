@@ -3963,3 +3963,20 @@ Tracked in AGENTS.md and gitignored — safe, but can be cleaned with:
 - Udokumentowano limit kwoty 500 MB per użytkownik oraz śledzenie statystyk plików (`/api/files`).
 - Wszyscy agenci i sesje otrzymały spójną informację w standardowym zestawie instrukcji.
 
+
+## 2026-08-30 21:30 CEST — Merged all 4 branches to main, pushed to ng-net
+
+**Status after merge:** 359/359 Python tests, 33/33 JS tests, 148 criticals (no new).
+
+**Merges (in order):**
+1. `chore/oxlint-actions-brand-sync` → `23fd6d2d` (DZIENNIK conflict, took HEAD)
+2. `feat/proposal-queue-master-csv-only` → `c2f5730d` (clean)
+3. `fix-tooltip-and-login` → `7b62cc5e` (10 conflict files + post-merge fixups)
+
+**fix-tooltip-and-login post-merge fixups** (incoming had broken intermediate state):
+- `prefs.js`: incoming regressed to v1 schema, restored main's v2
+- `prefs.test.js`: kept main's v2 test (works with restored v2 prefs.js)
+- Deleted 4 stale `.test.jsx` files (FollowupPills, KnowledgeFilesChip, MarkdownText, SessionFooter) — their source components were deleted in the incoming branch
+- `AGENTS.md` canonical remote: incoming had `marlink`, patched back to `ng-net`
+
+**Pushed to:** origin (ng-net/billszuka) only. marlink-backup not updated.
