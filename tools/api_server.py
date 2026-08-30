@@ -50,15 +50,13 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from fastapi import FastAPI, File, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from starlette.middleware.base import BaseHTTPMiddleware
-
-import auth as _auth  # per-user identity (bookmarks, activity, soft-delete)
 
 # Sibling modules — same dir
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -591,104 +589,6 @@ async def ping() -> dict[str, str]:
     return {"ok": "pong"}
 
 
-# ---------------------------------------------------------------------------
-# Per-user auth (login/logout/me) — sits inside Basic Auth
-# ---------------------------------------------------------------------------
-
-class _LoginBody(BaseModel):
-    username: str
-
-
-@app.post("/api/auth/login")
-async def login(body: _LoginBody, request: Request) -> JSONResponse:
-    """Login by username only. The allowlist is the TEAM_USERS env var
-    (comma-separated). On success, sets the bsz_sid cookie and returns
-    the user record."""
-    username = _auth.normalize_username(body.username)
-    if not username:
-        raise HTTPException(status_code=400, detail="username is required")
-    if not _auth.is_allowed(username):
-        # Same response shape whether the user doesn't exist or isn't allowed.
-        # Don't leak which usernames are valid.
-        raise HTTPException(status_code=403, detail="username not in team allowlist")
-    with db.connect() as conn:
-        user = _auth.get_or_create_user(conn, username)
-    token = _auth.create_session(user["id"], request.headers.get("user-agent", ""))
-    resp = JSONResponse({
-        "user": {
-            "id": user["id"],
-            "username": user["username"],
-            "display_name": user["display_name"] or user["username"],
-            "role": user["role"],
-        }
-    })
-    # HttpOnly cookie so JS can't read it. SameSite=Lax so it survives
-    # cross-origin POSTs from the dev frontend. Secure when behind HTTPS
-    # (Render sets the right scheme via X-Forwarded-Proto).
-    is_https = request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
-    resp.set_cookie(
-        key=_auth.COOKIE_NAME,
-        value=token,
-        max_age=_auth.SESSION_TTL_DAYS * 24 * 3600,
-        httponly=True,
-        samesite="lax",
-        secure=is_https,
-        path="/",
-    )
-    return resp
-
-
-@app.post("/api/auth/logout")
-async def logout(request: Request) -> JSONResponse:
-    token = request.cookies.get(_auth.COOKIE_NAME)
-    if token:
-        _auth.destroy_session(token)
-    resp = JSONResponse({"ok": True})
-    resp.delete_cookie(_auth.COOKIE_NAME, path="/")
-    return resp
-
-
-@app.get("/api/me")
-async def me(request: Request) -> dict[str, Any]:
-    """Return the current user + the last 20 activity rows. Anonymous
-    request returns {"user": null} (still 200, not 401 — so the frontend
-    can render the login prompt without a hard error)."""
-    user = _auth.current_user(request)
-    if not user:
-        return {"user": None, "activity": []}
-    with db.connect() as conn:
-        rows = conn.execute(
-            "SELECT id, ts, kind, lead_id, target_kind, target_id, payload "
-            "FROM user_activity WHERE user_id = ? ORDER BY id DESC LIMIT 20",
-            (user["user_id"],),
-        ).fetchall()
-    activity = []
-    for r in rows:
-        item = {
-            "id": r["id"],
-            "ts": r["ts"],
-            "kind": r["kind"],
-            "lead_id": r["lead_id"],
-            "target_kind": r["target_kind"],
-            "target_id": r["target_id"],
-        }
-        if r["payload"]:
-            try:
-                item["payload"] = json.loads(r["payload"])
-            except (ValueError, TypeError):
-                item["payload"] = None
-        activity.append(item)
-    return {
-        "user": {
-            "id": user["user_id"],
-            "username": user["username"],
-            "display_name": user["display_name"],
-            "role": user["role"],
-        },
-        "activity": activity,
-    }
-
-
 @app.get("/api/datasets")
 async def list_datasets() -> dict[str, Any]:
     """List all CSV files in data/ (and the derived master.csv at top)."""
@@ -731,138 +631,7 @@ async def list_datasets() -> dict[str, Any]:
     return {"datasets": datasets, "count": len(datasets)}
 
 
-# ---------------------------------------------------------------------------
-# Per-user actions: bookmarks + soft-delete lead + add-to-knowledge
-# All require a logged-in session.
-# ---------------------------------------------------------------------------
-
-class _BookmarkBody(BaseModel):
-    note: Optional[str] = None
-
-
-def _is_valid_lead_id(lead_id: str) -> bool:
-    """Sanity check: lead ids look like 'PL-B-001' or 'CZ-A-027'. We don't
-    hard-fail if a non-conforming id is passed (the data could be in flux),
-    but we do block obvious garbage so a typo can't write a million rows."""
-    if not lead_id or not isinstance(lead_id, str):
-        return False
-    s = lead_id.strip()
-    if len(s) < 4 or len(s) > 32:
-        return False
-    # Allow alphanumerics, hyphen, underscore (covers PL-B-001, CZ-A-027, etc.)
-    return all(c.isalnum() or c in "-_." for c in s)
-
-
-def _lead_exists_in_catalogs(lead_id: str) -> bool:
-    """Cheap existence check: does any catalog-*.csv have this id?
-    Catalog files are the source of truth, so this catches typos before
-    we let someone bookmark a phantom lead."""
-    from verify_run import find_lead_row  # reuse the helper if available
-    try:
-        return find_lead_row(lead_id) is not None
-    except Exception:
-        return True  # if the helper is broken, don't block — soft-allow
-
-
-@app.post("/api/leads/{lead_id}/bookmark")
-async def bookmark_lead(lead_id: str, request: Request, body: _BookmarkBody = _BookmarkBody()) -> dict[str, Any]:
-    user = _auth.require_user(request)
-    if not _is_valid_lead_id(lead_id):
-        raise HTTPException(status_code=400, detail="invalid lead id")
-    note = (body.note or "").strip()[:500] or None
-    with db.connect() as conn:
-        conn.execute(
-            "INSERT INTO bookmarks (user_id, lead_id, created_at, note) "
-            "VALUES (?, ?, ?, ?) "
-            "ON CONFLICT(user_id, lead_id) DO UPDATE SET note = excluded.note",
-            (user["user_id"], lead_id.strip(), _now_iso(), note),
-        )
-    _auth.log_activity(
-        user["user_id"], "bookmark",
-        session_id=user["session_id"], lead_id=lead_id,
-        payload={"note": note},
-    )
-    return {"ok": True, "lead_id": lead_id}
-
-
-@app.delete("/api/leads/{lead_id}/bookmark")
-async def unbookmark_lead(lead_id: str, request: Request) -> dict[str, Any]:
-    user = _auth.require_user(request)
-    if not _is_valid_lead_id(lead_id):
-        raise HTTPException(status_code=400, detail="invalid lead id")
-    with db.connect() as conn:
-        cur = conn.execute(
-            "DELETE FROM bookmarks WHERE user_id = ? AND lead_id = ?",
-            (user["user_id"], lead_id.strip()),
-        )
-    _auth.log_activity(
-        user["user_id"], "unbookmark",
-        session_id=user["session_id"], lead_id=lead_id,
-    )
-    return {"ok": True, "deleted": cur.rowcount, "lead_id": lead_id}
-
-
-@app.get("/api/bookmarks")
-async def list_bookmarks(request: Request) -> dict[str, Any]:
-    user = _auth.require_user(request)
-    with db.connect() as conn:
-        rows = conn.execute(
-            "SELECT lead_id, note, created_at FROM bookmarks "
-            "WHERE user_id = ? ORDER BY created_at DESC",
-            (user["user_id"],),
-        ).fetchall()
-    return {"bookmarks": [dict(r) for r in rows], "count": len(rows)}
-
-
-class _DeleteBody(BaseModel):
-    reason: Optional[str] = None
-
-
-@app.delete("/api/leads/{lead_id}")
-async def soft_delete_lead(
-    lead_id: str,
-    request: Request,
-    reason: Optional[str] = None,
-) -> dict[str, Any]:
-    """Hide a lead from this user's view. The data itself is untouched —
-    other team members still see it unless they also delete it. Restore
-    via the same endpoint with a future 'restore' action (TODO if needed).
-
-    DELETE bodies are awkward in clients/browsers, so we accept the reason
-    as a query param (?reason=...) which is the more common pattern.
-    """
-    user = _auth.require_user(request)
-    if not _is_valid_lead_id(lead_id):
-        raise HTTPException(status_code=400, detail="invalid lead id")
-    reason_clean = (reason or "").strip()[:200] or None
-    with db.connect() as conn:
-        conn.execute(
-            "INSERT OR REPLACE INTO lead_deletions (user_id, lead_id, deleted_at, reason) "
-            "VALUES (?, ?, ?, ?)",
-            (user["user_id"], lead_id.strip(), _now_iso(), reason_clean),
-        )
-    _auth.log_activity(
-        user["user_id"], "delete_lead",
-        session_id=user["session_id"], lead_id=lead_id,
-        payload={"reason": reason_clean},
-    )
-    return {"ok": True, "lead_id": lead_id}
-
-
-@app.get("/api/me/deletions")
-async def list_deletions(request: Request) -> dict[str, Any]:
-    user = _auth.require_user(request)
-    with db.connect() as conn:
-        rows = conn.execute(
-            "SELECT lead_id, deleted_at, reason FROM lead_deletions "
-            "WHERE user_id = ? ORDER BY deleted_at DESC",
-            (user["user_id"],),
-        ).fetchall()
-    return {"deletions": [dict(r) for r in rows], "count": len(rows)}
-
-
-def _now_iso() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+@app.get("/api/master.csv")
 async def get_master_csv_raw() -> FileResponse:
     """Raw master.csv bytes for the frontend's boot-time fetch (RawTable.jsx
     parses this directly with PapaParse). Distinct from /api/dataset/{name},
