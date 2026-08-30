@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import base64
 import csv
 import hashlib
 import json
@@ -51,10 +52,11 @@ import time
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, Header, HTTPException, UploadFile
+from fastapi import FastAPI, File, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
+from starlette.middleware.base import BaseHTTPMiddleware
 
 # Sibling modules — same dir
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -163,6 +165,62 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Basic Auth gate — set BILLSZUKA_PASSWORD env var to enable
+_password = os.environ.get("BILLSZUKA_PASSWORD", "")
+if _password:
+    app.add_middleware(BillsAuthMiddleware)
+    print("[auth] HTTP Basic Auth enabled — BILLSZUKA_PASSWORD is set")
+else:
+    print("[auth] WARNING: no BILLSZUKA_PASSWORD env var — app is open to anyone with the URL")
+
+
+class BillsAuthMiddleware(BaseHTTPMiddleware):
+    """HTTP Basic Auth gate. Password is BILLSZUKA_PASSWORD env var.
+    Render's native Basic Auth injects `Authorization: Basic <base64>` and
+    we validate the decoded credentials here — no separate Render header config needed."""
+
+    # Paths that bypass auth (docs + health)
+    PUBLIC_PATHS = frozenset({"/", "/docs", "/openapi.json", "/redoc", "/ping"})
+
+    async def dispatch(self, request: Request, call_next):
+        # Skip auth for public paths
+        if request.url.path in self.PUBLIC_PATHS:
+            return await call_next(request)
+
+        # Also skip health checks from Render's internal pinging
+        user_agent = request.headers.get("user-agent", "")
+        if "Render" in user_agent and request.url.path in ("/", "/api/datasets"):
+            return await call_next(request)
+
+        auth_header = request.headers.get("authorization", "")
+
+        # Accept both:
+        # 1. Render-injected: Authorization: Basic base64("user:pass")
+        # 2. Direct browser:    Authorization: Basic base64("pass")  (no username)
+        password = os.environ.get("BILLSZUKA_PASSWORD", "")
+        if password:
+            if not auth_header.startswith("Basic "):
+                return self._401()
+
+            try:
+                decoded = base64.b64decode(auth_header[6:]).decode("utf-8")
+                # Render injects "user:pass", direct browser may send just "pass"
+                credentials = decoded.split(":", 1)
+                provided = credentials[-1] if credentials else ""
+                if provided != password:
+                    return self._401()
+            except (ValueError, OSError):
+                return self._401()
+
+        return await call_next(request)
+
+    def _401(self) -> JSONResponse:
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Unauthorized"},
+            headers={"WWW-Authenticate": 'Basic realm="BILLSzuka"'},
+        )
 
 
 
@@ -524,6 +582,12 @@ def _bootstrap_vault_from_env() -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
+
+@app.get("/ping")
+async def ping() -> dict[str, str]:
+    """Lightweight keep-alive ping — no auth required, used by cron-job.org."""
+    return {"ok": "pong"}
+
 
 @app.get("/api/datasets")
 async def list_datasets() -> dict[str, Any]:
