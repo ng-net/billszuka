@@ -33,6 +33,7 @@ import {
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/lib/api";
+import { resolveAttachedFilenames } from "@/lib/knowledgeFiles";
 
 /**
  * GeminiDrawer — floating-action-button chat panel for "Gills — twój skowronek".
@@ -431,21 +432,14 @@ export function SessionFooter({ stats, knowledgeCount, knowledgeIndex }) {
 }
 
 /**
- * Pure helper: resolve the set of selected knowledge ids to a list of
- * filenames, skipping unknown ids. Extracted so the unit tests can
- * exercise the contract without spinning up Radix Tooltip (which is
- * awkward to drive from happy-dom — see KnowledgeFilesChip.test.jsx).
- */
-export function resolveAttachedFilenames(index, parentsSelected) {
-  if (!Array.isArray(index) || !Array.isArray(parentsSelected)) return [];
-  const sel = new Set(parentsSelected);
-  return index.filter((it) => sel.has(it.id)).map((it) => it.filename).filter(Boolean);
-}
-
-/**
  * KnowledgeFilesChip — shows how many KB files are attached and lists them
  * on hover. Without this, the user has to open KnowledgeDrawer to confirm
  * which files are flying in /api/chat.
+ *
+ * The pure resolver `resolveAttachedFilenames` lives in
+ * `lib/knowledgeFiles.js` — keeping it out of this file means React Fast
+ * Refresh doesn't get confused by a non-component export, and unit tests
+ * don't have to import the whole drawer (which pulls framer-motion).
  */
 export function KnowledgeFilesChip({ count, index, parentsSelected = [] }) {
   // Hooks first — never after a conditional return (rules-of-hooks).

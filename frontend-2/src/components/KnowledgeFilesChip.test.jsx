@@ -13,7 +13,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { KnowledgeFilesChip, resolveAttachedFilenames } from "./GeminiDrawer.jsx";
+import { KnowledgeFilesChip } from "./GeminiDrawer.jsx";
+import { resolveAttachedFilenames } from "@/lib/knowledgeFiles";
 
 const KB_INDEX = [
   { id: "a", filename: "rynek-PL-2024.pdf" },

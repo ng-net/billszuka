@@ -5,12 +5,9 @@ import {
   Mail,
   Phone,
   Globe,
-  Filter,
   ChevronDown,
   Check,
   Search,
-  MoreHorizontal,
-  Video,
   Sparkles,
   Download,
   Play,
@@ -238,7 +235,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
       if (volumeFilter && lead.wolumen !== volumeFilter) return false;
       return true;
     });
-  }, [leads, searchQuery, activeCountryFilters, tierFilter, volumeFilter]);
+  }, [leads, searchQuery, activeCountryFilters, tierFilter, volumeFilter, videoOnlyFilter]);
 
   const toggleCountry = (country) => {
     setActiveCountryFilters((prev) =>
