@@ -29,6 +29,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ModernLeadsTable } from "./ModernLeadsTable";
+import { ModernLeadsTableV2 } from "./ModernLeadsTableV2";
 import { ExperimentViewV3 } from "./ExperimentViewV3";
 import { getSampleLeads } from "@/lib/sampleLeads";
 
@@ -125,13 +126,28 @@ const generateLeads = (count) =>
   });
 
 export function ExperimentView() {
-  const [activeExperiment, setActiveExperiment] = useState("modern");
+  const [activeExperiment, setActiveExperiment] = useState("modern-v2");
 
   return (
     <div className="p-4 space-y-4 max-w-full">
       {/* Top Sub-Navigation Tabs for Experiments */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-2 rounded-2xl shadow-sm">
         <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-zinc-800 rounded-xl">
+          <button
+            onClick={() => setActiveExperiment("modern-v2")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+              activeExperiment === "modern-v2"
+                ? "bg-white dark:bg-zinc-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+            }`}
+          >
+            <Sparkles size={14} className="text-indigo-500" />
+            <span>Modern Leads V2 (Progressive)</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-bold">
+              v2
+            </span>
+          </button>
+
           <button
             onClick={() => setActiveExperiment("modern")}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
@@ -142,9 +158,6 @@ export function ExperimentView() {
           >
             <Sparkles size={14} className="text-indigo-500" />
             <span>Modern Leads (Progressive Disclosure)</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800">
-              Nowość
-            </span>
           </button>
 
           <button
@@ -181,7 +194,9 @@ export function ExperimentView() {
       </div>
 
       {/* Render Selected Experiment */}
-      {activeExperiment === "modern" ? (
+      {activeExperiment === "modern-v2" ? (
+        <ModernLeadsTableV2 leads={getSampleLeads()} />
+      ) : activeExperiment === "modern" ? (
         <ModernLeadsTable leads={getSampleLeads()} />
       ) : activeExperiment === "v3" ? (
         <ExperimentViewV3 leads={getSampleLeads()} />

@@ -1,5 +1,79 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-29 — ExperimentView audit: pomysły do pożyczenia + ModernLeadsTable v2
+
+**Operator:** Marceli
+**Agent:** Antigravity
+
+**Kontekst:** Audyt trzech eksperymentalnych widoków w `frontend-2/src/views/` (`ExperimentView.jsx`, `ModernLeadsTable.jsx`, `ExperimentViewV3.jsx`). Cel: wylistować pomysły UX wartę pożyczenia do produkcyjnej tabeli leadów oraz stworzyć progresywnie ulepszoną wersję `ModernLeadsTable`.
+
+### Pomysły do pożyczenia (audit eksperymentów)
+
+**Z `VideoGridExperiment` (ExperimentView.jsx):**
+1. **Sticky anchors (ID + Firma)** — ID i Nazwa przypięte do lewej krawędzi podczas przewijania w poziomie. Rozwiązuje problem „gubienia się" w szerokich tabelach.
+2. **1-click copy na komórkach** — ikona ołówka / Copy przy każdym identyfikatorze (NIP, KRS, email, telefon). Brak zaznaczania myszką.
+3. **Kolorystyczne badge'e dla Tieru / Wolumenu / Potencjału** — semantyczne kolory (purple=Producent, blue=Hurtownik, green=Duży/High, amber=Średni).
+4. **Aktywne linki tel:/mailto:/WWW** — bezpośrednie akcje, bez kopiowania.
+5. **Pasek postępu pewności dla wolumenu** (`confidence_wolumen`) — wizualizacja wiarygodności danych.
+6. **Maskowanie nazwisk decydentów** — `Jan K***i` dla ochrony RODO/GDPR w widokach demo / share-screen.
+7. **QuickChips dla filtrów** (Kraj, Tier, Wolumen, Video Demo) — szybkie przełączanie bez otwierania paneli.
+8. **Design rationale banner** — wyjaśnienie UI/UX nad tabelą (pomaga w demo dla stakeholderów).
+
+**Z `ExperimentViewV3` (Faceted Filter Rail):**
+9. **Lewy rail z faceted search + liczniki** — drzewko filtrowania z liczbą dopasowań per wartość (np. *Polska (12)*, *Czechy (8)*).
+10. **Mini-bary częstości** przy wartościach faceta — wizualna reprezentacja dystrybucji.
+11. **Aktywne filtry jako removable pills** z licznikiem (X do zdjęcia).
+12. **Density switcher (Compact / Cozy / Comfy)** — tryb gęstości wierszy dla power-userów.
+13. **Top-level bookmarki (Wszystko / PowerMatic / Hawk)** z licznikiem — szybki pivot na markę.
+14. **Kbd hint „/" dla search** — power-user shortcut.
+15. **Multi-value chips z kolorowaniem wg faceta** — wizualne odróżnienie aktywnych filtrów.
+16. **Zwijane sekcje filtra (accordion)** — user kontroluje co widzi.
+
+**Z `ModernLeadsTable` (baseline do ulepszenia):**
+17. **Progressive disclosure (expand row)** — tylko 7-8 kolumn na widok, reszta w rozwijanym panelu z 3 sub-kartami (Dane / Kontakt / Notatki).
+18. **Sticky lewa kolumna z avatar-fallbackiem** — inicjał firmy w kolorowej kwadratowej płytce.
+19. **Volume confidence bar (gradient)** — pasek % pewności wolumenu (np. 75%).
+20. **Tooltip na hover dla decydenta** (avatar + tooltip z imieniem i stanowiskiem).
+21. **Akcje reveal-on-hover** (mailto/tel/www pojawiają się po najechaniu na wiersz).
+22. **Notatki w bursztynowej karcie** (amber) — wizualne wyróżnienie sekcji.
+23. **StatusBadge color-coded dla wszystkich stanów** (tier, cross-sell, powinowactwo).
+24. **Glassmorphism sticky header** (`backdrop-blur-md`).
+25. **Export CSV z polskimi znakami** (UTF-8 BOM, dzisiejsza data w nazwie pliku).
+26. **Active filter chips z X do usunięcia pojedynczego filtra** + globalny „Resetuj".
+27. **Avatar z gradientem (indigo→violet)** dla marki firmy.
+
+### Priorytet wdrożenia (plan v2)
+- Wysoki: #1 (sticky), #3 (badges), #11 (active filter pills), #19 (volume bar), #22 (notes card)
+- Średni: #5 (confidence), #9 (faceted rail jako alternatywa), #17 (progressive disclosure), #24 (glass header)
+- Niski: #8 (rationale banner — UI noise), #12 (density — out of scope na teraz)
+
+### Wdrożenie ModernLeadsTableV2 — zakończone
+
+**Nowy plik:** [ModernLeadsTableV2.jsx](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/views/ModernLeadsTableV2.jsx) (~700 LOC)
+**Test:** [ModernLeadsTableV2.test.jsx](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/views/ModernLeadsTableV2.test.jsx) — 12/12 PASS
+
+**Wdrożone ulepszenia (progressive enhancement):**
+
+1. **Top-level brand bookmarks z licznikami** (z V3) — pasek *Wszystko (3) / PowerMatic (1) / PowerMatic + Hawk (1) / Hawk (2)*, multi-select, gradient dla PM+Hawk.
+2. **Maskowanie nazwisk decydentów (RODO)** (z VideoGrid) — domyślnie `Marek Wi***i`, przełącznik Maskuj/Odkryj w nagłówku, maska również w tooltipie i w rozwiniętym panelu.
+3. **1-click CopyableId** (z VideoGrid) — przycisk kopiuj przy `id_unikalne` (ikona Copy → Check na 1.2s po kliknięciu).
+4. **Dodatkowy Copy NIP w wierszu akcji** (reveal-on-hover) — ikona Copy obok mailto/tel/www.
+5. **Brand chip per wiersz** (z V3 kolorystyka) — kolorowy badge PowerMatic/Hawk/Inna przy każdej firmie.
+6. **Pill „Aktywne filtry" z indywidualnym X** (z V3) — usuwanie jednego filtra bez resetu, działa dla: kraj, tier, brand.
+7. **Rozszerzony tier dropdown** — wszystkie 6 typów (Producent/hurtownik/reseller/detalista/marketplace/autoryzowany).
+8. **StatusBadge mapowanie dla tierów PL-lowercase** — obsługa `hurtownik`/`reseller` (spójność z master.csv).
+9. **BOM UTF-8 w CSV export** — polskie znaki nie psują się w Excelu.
+10. **Stop propagation na wszystkich przyciskach akcji** — kliknięcie nie rozwijaja wiersza.
+
+**Integracja:** dodano zakładkę *Modern Leads V2 (Progressive)* w [ExperimentView.jsx](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/views/ExperimentView.jsx) jako domyślną (zastąpiła `modern` jako pierwszy tab). Trzy warianty widoczne obok siebie: `Modern Leads V2` ↔ `Modern Leads` (baseline) ↔ `Video Grid` ↔ `Compact · Faceted (V3)`.
+
+**Weryfikacja:**
+- `npm test`: **69/69 PASS** (12 nowych testów V2 + 57 istniejących).
+- `npm run lint`: **0 errors**, 11 warnings (pre-existing, niezwiązane).
+- `npm run build`: ✓ built in 3.02s, wszystkie chunki zoptymalizowane.
+
+---
+
 ## 2026-08-29 — UI Table Views, Saved Views, QuickChips, Video Demos, Logo & Error Boundary
 
 **Operator:** Marceli
