@@ -4159,3 +4159,29 @@ now passes thanks to the upstream fix.
 `def foo(arg: Path = MODULE_CONST)` style defaults are involved. Module
 constants bound at def time are invisible to monkeypatch. This is a Python
 default-arg pitfall, not a project bug.
+
+## 2026-08-30 — Remote flip: ng-net/billszuka is canonical again; CI green, deploy paused for secrets
+
+**Operator:** Marceli
+**Agent:** Antigravity
+
+### What happened
+1. **Local → marlink** worked initially. Pushed `feature/ui-table-views` and merged to `main` (`dc61f92`) on `origin = marlink`.
+2. **marlink CI started failing 2s** with empty `steps[]`. Workflow IDs 339246667 / 344902170 look healthy in `gh workflow list`, but every new run from this branch fails at startup with no steps logged. Looks like a workflow registration / runner cache corruption on marlink — same "phantom workflow" symptom we saw on ng-net in 2026-08-21, just on the other repo.
+3. **marlink deploy step**: same — install + checkout + setup-node + npm ci + build all green, then deploy step dies in <1s with no log. Suggests missing/expired secrets at the workflow registration layer.
+4. **Flipped canonical back to ng-net**:
+   - `git remote rename origin marlink-backup` → `git remote rename ng-net origin`
+   - Pushed `chore/oxlint-actions-brand-sync` (2 waiting commits: HTTP Basic Auth + /ping endpoint; brand-sync drift guard + Actions v5/v6 + oxlint cleanup).
+   - Merged chore into `main` (`3f46080`) → pushed → ng-net CI triggered and runs healthy (5+ min, real jobs, real steps).
+   - Updated AGENTS.md (`8086628`) → pushed.
+5. **ng-net deploy failed at the Cloudflare step** (58s, all other steps green). Reason: `gh secret list --repo ng-net/billszuka` returns empty. `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` are not set. Also missing from marlink repo and from local disk — so this isn't a "copy from one to the other" job; the tokens live somewhere else (someone else's account / Cloudflare dashboard). Per Marceli's call: **skip deploy, deal with secrets later**.
+
+### Local branch state
+- `main` is ahead of `marlink-backup/main` by 3 commits (`3f46080`, `8086628`, plus the original `dc61f92` feature merge). Don't push main to marlink-backup yet — marlink runner is broken anyway and it would just enqueue failing runs.
+- `feature/ui-table-views` is 1 commit ahead of `marlink-backup/feature/ui-table-views` (the V2 commit, `c95b2df`).
+
+### Action items
+- [ ] Marceli: set `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` on ng-net (Settings → Secrets → Actions in web UI, or `gh secret set --repo ng-net/billszuka` once tokens are sourced).
+- [ ] Once secrets are in: re-trigger `Deploy Frontend to Cloudflare Pages` on `main` (or push a no-op commit). Build is verified working.
+- [ ] Investigate marlink runner corruption later. If marlink is permanently broken, drop the marlink-backup remote and update AGENTS.md to drop the mirror reference.
+- [ ] Two open in_progress CI runs on ng-net as of writing: `33326943577` (docs/AGENTS), `33326846130` (chore merge). They'll finish in the next few minutes — watch for green.
