@@ -1,5 +1,47 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-29 — GeminiDrawer review + koniec sesji
+
+**Operator:** Marceli
+**Agent:** TRAE (MiniMax-M3)
+**Gałąź:** `feat/per-user-sessions`
+
+### Co zrobione
+
+Audyt [GeminiDrawer.jsx](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx) — lista rzeczy, które warto poprawić. Marceli poprosił o review, po czym o zakończenie sesji.
+
+### Uwaga o wersji pliku
+
+Review napisany **na bazie stanu w working tree** (560 linii, bez `KnowledgeFilesChip` / `SessionFooter` / dynamicznych promptów / keyboard shortcuts). W HEAD (`508a1aa`) jest wersja **lepsza** — 884 linie, z tymi ficzerami. W working tree ktoś zaczął rollback ficzerów (`-412` linii) i nie skończył. **Nie commitowałem tych nieskończonych zmian** — tylko DZIENNIK. Triage working-tree'a zostaje dla Marcela.
+
+### Top 4 punktów do poprawy (priorytet)
+
+1. 🔴 **Brak pamięci rozmów** — `useState([])` w [L79](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L79) → reload czyści wątek. Fix: localStorage per dataset, cap 20 tur (~30 min). Rozwiązuje 80% problemu.
+2. 🟠 **Brak streamingu** — `sendQuery` czeka na pełną odpowiedź ([L102](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L102)). Przy 500-tok analizie 5-15s ciszy. Fix: SSE w `/api/chat` + append-chunk reducer w kliencie (~3h). Odblokuje też #3.
+3. 🟠 **Hand-rolled MarkdownText** — 156 linii regex w [L342-498](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L342-L498). Brak escakowania, nie obsługuje italic/code/tabel. Fix: `marked` (~20KB) + thin postprocess dla bloków `fakt`/`errata` (~1h).
+4. 🟡 **Zero wglądu w tokeny / koszt** — `HealthBadge` pokazuje tylko `OK/OFFLINE`. Brak: który provider, ile tokenów w sesji, który klucz z vault był użyty. Fix: response shape `{provider, model, tokens_in, tokens_out, latency_ms}` + per-bubble chip + session counter w nagłówku drawera (~1.5h).
+
+### Mniejsze sprawy (nice-to-have)
+
+- `navigator.clipboard?.writeText` w [L143](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L143) — cichy fail na starym Safari, dodać try/catch.
+- Re-run / edit / export całego wątku — przydatne przy codziennym użyciu.
+- Skrót klawiszowy do FAB (`⌘/` albo `⌘.`), analogicznie do `⌘K` dla command palette.
+- Header drawera: badge `📎 N załączonych` (globalny istnieje, ale mały w FAB) + `📊 master.csv · 142 firm`.
+- Provider-tag w [L553](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L553) — za dużo zgadywania co jest w `provider` stringu. Ścisnąć kontrakt: `{provider, model, finish_reason}`.
+
+### Sugerowana kolejność implementacji
+
+1. Streaming + abort (3h) → największy odczuwalny zysk
+2. localStorage per-dataset (30 min) → najczęściej pytany ficzer
+3. Token + provider stats (1.5h) → widoczność kosztu
+4. `marked` zamiast MarkdownText (1h) → spłata długu
+
+### Decyzja o pushu
+
+Commit **tylko** `DZIENNIK.md` — review notatki. Reszta working tree (`feat/per-user-sessions` branch) ma nieskończone zmiany z poprzedniej sesji (rollback ficzerów GeminiDrawera, modyfikacje `api_server.py` / `validate_columns.py`, skasowane testy). Te zostawiam dla Marcela do triage na następnej sesji.
+
+---
+
 ## 2026-08-29 — ExperimentView audit: pomysły do pożyczenia + ModernLeadsTable v2
 
 **Operator:** Marceli
