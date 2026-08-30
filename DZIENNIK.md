@@ -3980,3 +3980,13 @@ Tracked in AGENTS.md and gitignored — safe, but can be cleaned with:
 - `AGENTS.md` canonical remote: incoming had `marlink`, patched back to `ng-net`
 
 **Pushed to:** origin (ng-net/billszuka) only. marlink-backup not updated.
+
+## 2026-08-30 21:48 CEST — Cloudflare deploy: secrets added, deploy green
+
+**Action by Marceli:** added `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as ng-net repo secrets.
+
+**Re-ran** failed `Deploy Frontend to Cloudflare Pages` job from run 33331011663:
+- `cloudflare/pages-action@v1` succeeded in 34s
+- Live URL: https://billszuka.pages.dev (200 OK, behind Cloudflare Access — `winter-poetry-64f2.cloudflareaccess.com`)
+
+**Open action item remaining:** main CI job (matrix) is still `cancelled` (5-min JS test runner stall from the same 33331011675 run). Next push will trigger a fresh full CI run. The Python + JS pre-commit checks all pass locally; the only CI issue is the runner flake.
