@@ -16,7 +16,7 @@ for PowerMatic rolling machines + Hawk across PL first, then CZ/SK/UK/etc.
 
 Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
 
-Canonical remote: `github.com/marlink/BILLSzuka` (private). Backup mirror: `github.com/ng-net/billszuka`. 2026-08-21 recovery: ng-net had GitHub phantom workflow ID cache bug (59/59 runs `startup_failure` for 9 days despite file rename + recreate). Switched canonical to `marlink/BILLSzuka` — clean workflow registration, no phantom cache. `marlink` OAuth token has scopes: `admin:gpg_key, admin:org, admin:ssh_signing_key, project, repo, workflow, write:packages` (more permissive than ng-net's). Pre-migration snapshot of marlink preserved as local branch `backup/marlink-pre-migration` (commit `73c766b`, 2026-08-10).
+Canonical remote: `github.com/ng-net/billszuka` (private) — `origin`. Backup mirror: `github.com/marlink/BILLSzuka` — `marlink-backup`. 2026-08-21: ng-net had phantom-workflow-ID cache bug → flipped canonical to marlink. 2026-08-30: marlink runs started failing 2s with empty `steps[]` (workflow registration/cache corruption). CI runs healthy on ng-net, builds OK, only missing `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` secrets on ng-net. Switched canonical back to ng-net/billszuka; renamed marlink to `marlink-backup`. Action: ask Marceli to set Cloudflare secrets on ng-net repo (`gh secret set --repo ng-net/billszuka`).
 
 
 
