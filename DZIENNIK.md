@@ -4207,3 +4207,16 @@ default-arg pitfall, not a project bug.
 - `main` (origin = ng-net) at `98d96ca`, 6 commits ahead of `marlink-backup/main`.
 - `chore/oxlint-actions-brand-sync` is now orphaned at `ea27bbe` — its commits are already on main via the merge. Can delete: `git push origin --delete chore/oxlint-actions-brand-sync` once you confirm.
 - `feature/ui-table-views` at `c95b2df` — branch lives on both remotes, no further action.
+
+## 2026-08-30 — JS-test job timeout-minutes: 5 on ng-net CI
+
+**Operator:** Marceli
+**Agent:** Antigravity
+
+Following the user instruction to add `timeout-minutes: 5` to the `js-test` job so a stuck runner fails fast. Local: 69/69 in 1.94s. CI normal: 4–8 min. If a runner hangs >10 min again (as it did today), the job will now time out at 5 min instead of eating Actions minutes.
+
+- File: `.github/workflows/ci-python.yml`, job `js-test`.
+- Comment added above the timeout explaining local-vs-CI baseline.
+- Job name left as "JS tests" (the chore branch had renamed it from "JS tests (Node 20)" because the runner is no longer pinned to Node 20).
+- Commit: `faa2511` on `main`, pushed to ng-net.
+- Push triggered CI run `33328759453`. Watching for: either JS tests pass in <5 min (runner recovered), or the timeout kicks in at 5 min and the job fails fast.
