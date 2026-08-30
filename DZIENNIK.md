@@ -4197,3 +4197,13 @@ default-arg pitfall, not a project bug.
 - `main` on ng-net at `ea27bbe` (5 commits ahead of marlink-backup/main).
 - Python CI: green on ng-net for the merge commit. JS test CI: hangs on runner; will retry tomorrow or after adding a timeout.
 - Cloudflare deploy: paused — `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` are not on the ng-net repo, not on marlink, not on local disk. Need Marceli to set them via the web UI or paste values here.
+
+### Stash from chore branch
+- On checkout to `main` from `chore/oxlint-actions-brand-sync` the working tree had uncommitted changes: `tools/api_server.py` (+235 lines), `tools/db.py` (+53 lines), new `tools/auth.py`. Author: Marlink CI Bot from an earlier session — these are NOT in any branch on ng-net or marlink-backup.
+- Stashed as `stash@{0}: On main: uncommitted api_server.py + db.py + auth.py from bot session`.
+- Looks like a per-user auth layer (login/logout/me endpoints) on top of the HTTP Basic Auth gate added in `506386b`. Do NOT drop the stash silently — if Marceli asks "where did the auth code go?" the answer is in there. Verify before merging or rewriting.
+
+### Branch status (final 2026-08-30)
+- `main` (origin = ng-net) at `98d96ca`, 6 commits ahead of `marlink-backup/main`.
+- `chore/oxlint-actions-brand-sync` is now orphaned at `ea27bbe` — its commits are already on main via the merge. Can delete: `git push origin --delete chore/oxlint-actions-brand-sync` once you confirm.
+- `feature/ui-table-views` at `c95b2df` — branch lives on both remotes, no further action.
