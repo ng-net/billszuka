@@ -3990,3 +3990,24 @@ Tracked in AGENTS.md and gitignored — safe, but can be cleaned with:
 - Live URL: https://billszuka.pages.dev (200 OK, behind Cloudflare Access — `winter-poetry-64f2.cloudflareaccess.com`)
 
 **Open action item remaining:** main CI job (matrix) is still `cancelled` (5-min JS test runner stall from the same 33331011675 run). Next push will trigger a fresh full CI run. The Python + JS pre-commit checks all pass locally; the only CI issue is the runner flake.
+
+## 2026-08-30 21:55 CEST — Dropped marlink/BILLSzuka (was backup remote)
+
+**Decision by Marceli:** drop the marlink GitHub mirror. ng-net is the sole remote now.
+
+**Why:**
+- marlink account billing is broken ("recent account payments have failed" — every CI run since 19:52 returns this on the marlink side).
+- marlink CI is unusable even when the code is in sync.
+- ng-net has full functionality: Cloudflare Pages deploy (since 21:48, secrets added), Python + JS CI matrix, custom domain path.
+- The phantom workflow cache bug (2026-08-12..21) is what made us add marlink in the first place; that recovery path is no longer needed.
+
+**Action taken:**
+- `git remote remove marlink-backup` — only `origin` (ng-net) remains
+- Deleted local `backup/marlink-pre-migration` branch (commit `73c766b`, the last good marlink state from 2026-08-10)
+- Updated `AGENTS.md` canonical remote line and CI workflow reference
+
+**Final remote state:**
+- `origin` = `github.com/ng-net/billszuka.git` (canonical, sole)
+- No backup mirror
+
+**Cron:** `watch-ng-net-merge` continues to watch ng-net CI (the JS test 5-min stall is unrelated to remote config).

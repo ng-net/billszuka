@@ -16,7 +16,7 @@ for PowerMatic rolling machines + Hawk across PL first, then CZ/SK/UK/etc.
 
 Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
 
-Canonical remote: `github.com/ng-net/billszuka` (private, 2026-08-30). Backup: `github.com/marlink/BILLSzuka`. ng-net had GitHub phantom workflow ID cache bug 2026-08-12..21 (59/59 runs `startup_failure` for 9 days); recovered 2026-08-21 by switching to marlink; switched back 2026-08-30 per Marceli's instruction. Pre-migration snapshot of marlink preserved as local branch `backup/marlink-pre-migration` (commit `73c766b`, 2026-08-10).
+Canonical remote: `github.com/ng-net/billszuka` (private, sole remote since 2026-08-30 21:55). History: ng-net had GitHub phantom workflow ID cache bug 2026-08-12..21 (59/59 runs `startup_failure` for 9 days); recovered 2026-08-21 by switching to marlink; switched back 2026-08-30 per Marceli's instruction; marlink dropped 2026-08-30 21:55 (marlink account billing broken, CI unusable, redundant with Cloudflare deploy on ng-net). Pre-migration snapshot of marlink preserved as local branch `backup/marlink-pre-migration` (commit `73c766b`, 2026-08-10) — deleted 2026-08-30 21:55 along with the marlink remote.
 
 
 
@@ -52,7 +52,7 @@ Canonical remote: `github.com/ng-net/billszuka` (private, 2026-08-30). Backup: `
 
   Western EU → Scandinavia → Balkans.
 
-- **CI workflow** is `.github/workflows/ci-python.yml` on `ng-net/billszuka` (canonical). Threshold: `assert critical < 200` (realistic floor for real B2B data). For Actions minutes (`/users/marlink/settings/billing/actions`) `user` scope is also needed — add with `gh auth refresh -s user` (one-time, browser auth). Helper: `tools/check-actions-minutes.sh`.
+- **CI workflow** is `.github/workflows/ci-python.yml` on `ng-net/billszuka` (canonical, sole remote). Threshold: `assert critical < 200` (realistic floor for real B2B data). Helper: `tools/check-actions-minutes.sh`.
 
 - **Frontend canonical = `frontend-2/`** (3-view shell + Analytics + Gemini + Settings drawers). `frontend/` is DEPRECATED. Backend: `tools/api_server.py` binds `127.0.0.1:8000` with `/api` proxy from vite (port 3001). 7 columns <10% fill in master.csv are hidden by default in the viewer (tiktok, kanal_zamiennik, linkedin, related_to, instagram, marka_wlasna_oem, facebook) — see `tools/config.py:HIDDEN_COLUMNS` and `frontend-2/src/lib/schema.js` (keep in sync).
 
