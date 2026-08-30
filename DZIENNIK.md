@@ -1,5 +1,107 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-30 — Revert per-user auth (zostajemy na password Basic Auth)
+
+**Operator:** Marceli
+**Agent:** TRAE (MiniMax-M3)
+**Gałąź:** `feat/per-user-sessions`
+**Decyzja:** Marceli: „let's resolve conflicts, we can remove any work on auth, we go with password anyw3ay"
+
+### Co zostało zrobione
+
+1. **Stash** `wip-bad-rollback-of-508a1aa-and-design-projects-2026-08-29` — working tree zawierał niedokończony rollback ficzerów GeminiDrawera (KnowledgeFilesChip, SessionFooter, dynamiczne prompt'y, keyboard shortcuts, testy komponentów) plus usunięte testy (`FollowupPills.test.jsx`, `KnowledgeFilesChip.test.jsx`, `MarkdownText.test.jsx`, `SessionFooter.test.jsx`) i `frontend-2/src/lib/knowledgeFiles.js`. Plus nieśledzony katalog `design-projects/`. Wszystko zachowane w stash jako safety-net.
+
+2. **Clean revert `508a1aa`** (commit `c9d8354`) — czyści commit per-user auth: usunięte `tools/auth.py` (193 linii), wycofane 235 linii z `tools/api_server.py`, wycofane 53 linii z `tools/db.py`. Razem: `-479` linii, `+2`. **Zero konfliktów** — revert poszedł gładko, bo working tree został wcześniej zstashowany.
+
+3. **Co zostawiamy (NIE ruszamy):**
+   - `506386b` **HTTP Basic Auth** (username+password, env-var allowlist) — **to jest password, na który przechodzimy**. Wszystkie endpointy `/api/*` wymagają Basic Auth od tego commit'a.
+   - `AccessGate.jsx`, `lib/access.js` — frontend login gate dla Basic Auth (istnieją od dawna).
+   - Wszystkie ficzery z `dae6814` (GeminiDrawer UX batch) — footer stats, KB chip, export, follow-ups, 36 testów komponentów.
+   - Wszystkie ficzery z `3f46080` (merge brand-sync) — oxlint, Actions v5/v6, brand-sync drift guard.
+
+### Uwaga o WIP w stashu
+
+Stash `wip-bad-rollback-of-508a1aa-and-design-projects-2026-08-29` zawiera NIESKO�CZONY rollback, który **nie powinien być commitowany** w obecnej formie:
+- Kasuje pliki, które wróciły po revercie (np. `knowledgeFiles.js`).
+- Modyfikacje `GeminiDrawer.jsx` cofają lepszą wersję z `dae6814` do prostszej.
+- Modyfikacje `api_server.py` / `validate_columns.py` były częścią tego samego wadliwego rollbacku.
+- `design-projects/` — nieśledzony katalog, nie wiem co w nim jest.
+
+**Marceli:** jeśli chcesz coś z tego odzyskać, daj znać konkretnie co. W przeciwnym razie stash może zostać usunięty (`git stash drop stash@{0}`).
+
+### Weryfikacja po revercie
+
+- **Python tests:** 351/351 PASS (~3.6s)
+- **JS tests:** 69/69 PASS (~1.9s) — po `npm install` (papaparse był zadeklarowany w `package.json`, ale brakowało go w `node_modules` — pre-existing, niezwiązane z revertem).
+- **Working tree:** czysty.
+- **`tools/auth.py`:** usunięty (jedyne źródło tej funkcjonalności).
+
+### Konsekwencje dla API
+
+Endpointy **usunięte** razem z `508a1aa`:
+- `POST /api/auth/login`, `POST /api/auth/logout`
+- `GET /api/me`
+- `POST /api/leads/{id}/bookmark`, `DELETE /api/leads/{id}/bookmark`
+- `GET /api/bookmarks`
+- `DELETE /api/leads/{id}` (soft-delete)
+- `GET /api/me/deletions`
+
+Tabele **usunięte** z `tools/db.py`: `users`, `sessions`, `user_activity`, `bookmarks`, `lead_deletions`.
+
+Jeśli ktokolwiek (lub frontend) używał tych endpointów, trzeba:
+- UI: usunąć odwołania do `bookmark` toggle, soft-delete UI.
+- Migracja: skasować te tabele z produkcyjnej bazy (`sqlite3 ... "DROP TABLE ..."`).
+
+### Następne kroki (follow-up)
+
+1. Sprawdzić czy frontend odwołuje się do usuniętych endpointów (grep `/api/me`, `/api/bookmarks`, `bookmark`).
+2. Rozważyć `git stash drop stash@{0}` po potwierdzeniu, że nic z niego nie potrzebujemy.
+3. Rozważyć `git branch -d feat/per-user-sessions` po merge'ie do main (jeśli to feature branch).
+
+---
+
+## 2026-08-29 — GeminiDrawer review + koniec sesji
+
+**Operator:** Marceli
+**Agent:** TRAE (MiniMax-M3)
+**Gałąź:** `feat/per-user-sessions`
+
+### Co zrobione
+
+Audyt [GeminiDrawer.jsx](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx) — lista rzeczy, które warto poprawić. Marceli poprosił o review, po czym o zakończenie sesji.
+
+### Uwaga o wersji pliku
+
+Review napisany **na bazie stanu w working tree** (560 linii, bez `KnowledgeFilesChip` / `SessionFooter` / dynamicznych promptów / keyboard shortcuts). W HEAD (`508a1aa`) jest wersja **lepsza** — 884 linie, z tymi ficzerami. W working tree ktoś zaczął rollback ficzerów (`-412` linii) i nie skończył. **Nie commitowałem tych nieskończonych zmian** — tylko DZIENNIK. Triage working-tree'a zostaje dla Marcela.
+
+### Top 4 punktów do poprawy (priorytet)
+
+1. 🔴 **Brak pamięci rozmów** — `useState([])` w [L79](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L79) → reload czyści wątek. Fix: localStorage per dataset, cap 20 tur (~30 min). Rozwiązuje 80% problemu.
+2. 🟠 **Brak streamingu** — `sendQuery` czeka na pełną odpowiedź ([L102](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L102)). Przy 500-tok analizie 5-15s ciszy. Fix: SSE w `/api/chat` + append-chunk reducer w kliencie (~3h). Odblokuje też #3.
+3. 🟠 **Hand-rolled MarkdownText** — 156 linii regex w [L342-498](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L342-L498). Brak escakowania, nie obsługuje italic/code/tabel. Fix: `marked` (~20KB) + thin postprocess dla bloków `fakt`/`errata` (~1h).
+4. 🟡 **Zero wglądu w tokeny / koszt** — `HealthBadge` pokazuje tylko `OK/OFFLINE`. Brak: który provider, ile tokenów w sesji, który klucz z vault był użyty. Fix: response shape `{provider, model, tokens_in, tokens_out, latency_ms}` + per-bubble chip + session counter w nagłówku drawera (~1.5h).
+
+### Mniejsze sprawy (nice-to-have)
+
+- `navigator.clipboard?.writeText` w [L143](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L143) — cichy fail na starym Safari, dodać try/catch.
+- Re-run / edit / export całego wątku — przydatne przy codziennym użyciu.
+- Skrót klawiszowy do FAB (`⌘/` albo `⌘.`), analogicznie do `⌘K` dla command palette.
+- Header drawera: badge `📎 N załączonych` (globalny istnieje, ale mały w FAB) + `📊 master.csv · 142 firm`.
+- Provider-tag w [L553](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/frontend-2/src/components/GeminiDrawer.jsx#L553) — za dużo zgadywania co jest w `provider` stringu. Ścisnąć kontrakt: `{provider, model, finish_reason}`.
+
+### Sugerowana kolejność implementacji
+
+1. Streaming + abort (3h) → największy odczuwalny zysk
+2. localStorage per-dataset (30 min) → najczęściej pytany ficzer
+3. Token + provider stats (1.5h) → widoczność kosztu
+4. `marked` zamiast MarkdownText (1h) → spłata długu
+
+### Decyzja o pushu
+
+Commit **tylko** `DZIENNIK.md` — review notatki. Reszta working tree (`feat/per-user-sessions` branch) ma nieskończone zmiany z poprzedniej sesji (rollback ficzerów GeminiDrawera, modyfikacje `api_server.py` / `validate_columns.py`, skasowane testy). Te zostawiam dla Marcela do triage na następnej sesji.
+
+---
+
 ## 2026-08-29 — ExperimentView audit: pomysły do pożyczenia + ModernLeadsTable v2
 
 **Operator:** Marceli
