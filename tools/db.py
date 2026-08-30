@@ -67,6 +67,59 @@ CREATE TABLE IF NOT EXISTS faq_rejects (
   reason TEXT,
   rejected_at TEXT
 );
+-- Per-user identity + activity (added 2026-08-30).
+-- Layered on top of Basic Auth: anyone with the team password can hit
+-- /api/*, but per-user features (bookmarks, soft-delete, knowledge
+-- attribution, activity) require a logged-in session.
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL UNIQUE,
+  display_name TEXT,
+  invite_code_hash TEXT,
+  role TEXT NOT NULL DEFAULT 'member',
+  created_at TEXT NOT NULL,
+  last_seen_at TEXT,
+  disabled_at TEXT
+);
+CREATE TABLE IF NOT EXISTS sessions (
+  id TEXT PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  created_at TEXT NOT NULL,
+  last_seen_at TEXT NOT NULL,
+  expires_at TEXT NOT NULL,
+  user_agent TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+CREATE TABLE IF NOT EXISTS user_activity (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ts TEXT NOT NULL,
+  user_id INTEGER NOT NULL,
+  session_id TEXT,
+  kind TEXT NOT NULL,
+  lead_id TEXT,
+  target_kind TEXT,
+  target_id TEXT,
+  payload TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_activity_user_ts ON user_activity(user_id, ts DESC);
+CREATE TABLE IF NOT EXISTS bookmarks (
+  user_id INTEGER NOT NULL,
+  lead_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  note TEXT,
+  PRIMARY KEY (user_id, lead_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS lead_deletions (
+  user_id INTEGER NOT NULL,
+  lead_id TEXT NOT NULL,
+  deleted_at TEXT NOT NULL,
+  reason TEXT,
+  PRIMARY KEY (user_id, lead_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 """
 
 
