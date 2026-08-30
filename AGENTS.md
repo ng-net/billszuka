@@ -1,51 +1,96 @@
 # AGENTS.md — BILLSzuka
 
+
+
 Loaded by Mavis at session start. Stable prefix — every line bills on every turn.
+
 Keep this under 40 lines.
+
+
 
 ## What this is
 
 B2B research project for BILLS Sp. z o.o. (Ostrzeszów, PL). Goal: distribution partners
+
 for PowerMatic rolling machines + Hawk across PL first, then CZ/SK/UK/etc.
+
 Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
 
-## Core files (read sections on demand, not whole files)
+Canonical remote: `github.com/ng-net/billszuka` (private, 2026-08-30). Backup: `github.com/marlink/BILLSzuka`. ng-net had GitHub phantom workflow ID cache bug 2026-08-12..21 (59/59 runs `startup_failure` for 9 days); recovered 2026-08-21 by switching to marlink; switched back 2026-08-30 per Marceli's instruction. Pre-migration snapshot of marlink preserved as local branch `backup/marlink-pre-migration` (commit `73c766b`, 2026-08-10).
+
+
+
+## Core files (don't read whole — read sections on demand)
 
 - `methodology.md` — how to research, A1-A6 / B1-B9 framework
-- `RUNBOOK.md` — verification toolbox per country, deploy/auth/keep-alive setup (CANONICAL)
+
+- `RUNBOOK.md` — verification toolbox per country (CANONICAL)
+
 - `INTEL.md` — strategic discoveries, partner data, market insights (append only)
-- `DZIENNIK.md` — session log, progress, feedback, action items, migration history
+
+- `DZIENNIK.md` — session log, progress, feedback, action items
+
 - `SETUP-REGON-KEY.md` — how to get the Polish REGON API key
+
+
 
 ## Iron rules
 
-- **Canonical remote:** `github.com/ng-net/billszuka` (private, 2026-08-30). Backup: `github.com/marlink/BILLSzuka`.
-- **Always run `verify-data` skill** on new/edited data in `data/{Kraj}/catalog-*.csv`
-  or `data/relationships.csv`, after every research session and bulk import.
-- Run `python tools/validate_columns.py` after every research session — same rule,
-  see `tools/fix_validation_criticals.py` for bulk fixes. Don't merge these two checks.
+- **Never output raw user login details or credentials in chat** — always use generic placeholders like `[user]`, `[company]` or `[credentials]`.
+- **Always run `verify-data` skill** on new data in `data/{Kraj}/catalog-*.csv` or
+  `data/relationships.csv`, on edits, after every research session, after bulk imports.
+
 - **Decydent = public sources only** (KRS, LinkedIn, official registries). Don't ask
+
   Marceli to supply company lists.
-- Search volumes in `SŁOWNIK-WYSZUKIWAŃ.md` are estimates (szac.), not real Keyword
-  Planner data. For real numbers use Ahrefs / Senuto / Google Trends.
+
+- **Search volumes in SŁOWNIK-WYSZUKIWAŃ.md are estimates (szac.)** — not real Keyword
+
+  Planner data. For real keyword research use Ahrefs / Senuto / Google Trends.
+
 - **Skip Germany** unless Marceli explicitly says otherwise. Order: PL → CZ → SK → UK →
+
   Western EU → Scandinavia → Balkans.
-- **Frontend canonical = `frontend-2/`**; `frontend/` is DEPRECATED. Backend:
-  `tools/api_server.py` on `127.0.0.1:8000`, proxied by vite on port 3001.
-- **LLM keys** live only in `tools/api_secrets.json` (gitignored, 0600), managed via the
-  Settings drawer — never env files directly. Provider chain default is
-  `gemini → mock → openrouter` (OpenRouter's free DeepSeek hallucinates on structured
-  data). Full `.env` bootstrap / knowledge-base / Basic Auth setup details → `RUNBOOK.md`.
-- **Never run a global cache-purge touching `data/knowledge/`** — it orphans local file
-  copies and loses Gemini file refs (same failure mode as the Qoder "lost custom model" bug).
+
+- **CI workflow** is `.github/workflows/ci-python.yml` on `ng-net/billszuka` (canonical). Threshold: `assert critical < 200` (realistic floor for real B2B data). For Actions minutes (`/users/marlink/settings/billing/actions`) `user` scope is also needed — add with `gh auth refresh -s user` (one-time, browser auth). Helper: `tools/check-actions-minutes.sh`.
+
+- **Frontend canonical = `frontend-2/`** (3-view shell + Analytics + Gemini + Settings drawers). `frontend/` is DEPRECATED. Backend: `tools/api_server.py` binds `127.0.0.1:8000` with `/api` proxy from vite (port 3001). 7 columns <10% fill in master.csv are hidden by default in the viewer (tiktok, kanal_zamiennik, linkedin, related_to, instagram, marka_wlasna_oem, facebook) — see `tools/config.py:HIDDEN_COLUMNS` and `frontend-2/src/lib/schema.js` (keep in sync).
+
+- **LLM keys live in `tools/api_secrets.json`** (gitignored, 0600). Manage via Settings drawer (gear icon, top-right) — never via env files. **Default chain order: `gemini → mock → openrouter`** (NOT `openrouter → gemini → mock` — OpenRouter's free-tier DeepSeek hallucinates on structured-data Q&A; mock is deterministic, never fabricates numbers). Add OpenRouter (`sk-or-v1-...`) and/or Gemini (free tier from aistudio.google.com) keys there. The current default model is **`gemini-3.6-flash`** (2.5-flash returns *"no longer available to new users"*). Hidden `prefer_openrouter=True` flag in `ChatRequest` bypasses the reorder for power users.
+
+- **`.env` is bootstrapped into the vault on every server start** (idempotent): `OPENROUTER_API_KEY`, `GEMINI_API_KEY_1`, `GEMINI_API_KEY_2`, … Each becomes one vault entry tagged `source: ".env"`. User-added keys are `source: "ui"`. Deleting a `.env`-key from the vault via UI sticks (it's not auto-re-imported) — to re-import, edit `.env`, delete the vault entry, restart.
+
+- **Knowledge base & User Files** (`data/users/<username>/knowledge/` and `data/users/<username>/catalogs/`) — files are scoped per user under `data/users/<username>/` (catalogs and knowledge). Uploads via the Files drawer (`/api/knowledge/upload` or `/api/upload`) track file counts and size against a 500 MB per-user quota. Chat auto-promotes Gemini to the front when `knowledge_ids` are present. Local copies live in `data/users/<username>/knowledge/<id>__<filename>` (or `data/knowledge/files/`) so the bot can re-upload if Gemini expires (48h TTL). NEVER run a global cache-purge touching `data/knowledge/` or `data/users/`.
+
+
 
 ## Memory rules
 
-- Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log) — never
-  only in chat, and never in agent/user memory.
-- One question at a time when asking Marceli (he's busy); batch multi-part questions.
+- Every insight lands in `INTEL.md` (strategic) or `DZIENNIK.md` (work log). Don't let
 
-## Cache hygiene
+  discoveries stay only in chat.
 
-- Don't re-read `INTEL.md` or `DZIENNIK.md` unless asked — large, changes often.
-- `data/` is verified output — read it but don't re-verify unless changed.
+- When asked "remember this" — append to the right file, not to user/agent memory.
+
+- Output: Excel/GS + CSV. Multi-country CEE/EU coverage.
+
+
+
+## Cache hygiene for this project
+
+- Don't re-read `INTEL.md` or `DZIENNIK.md` unless asked — they're large and change often.
+
+- `data/` is the verified output — read it but don't re-verify unless changed.
+
+- One question at a time when asking Marceli (he's busy).
+
+- Batch multi-part questions into single messages.
+
+
+
+## Verification skill
+
+`skills/verify-data/SKILL.md` — every CSV entry must pass through it.
+
+## Column validator
+`tools/validate_columns.py` — validates all catalog CSVs against the canonical schema. Run after every research session (`python tools/validate_columns.py`). Known sentinel values (`brak`, `n/a`, `do weryfikacji`, etc.) are normalised to empty. Remaining criticals (<200) are genuine data quality issues requiring human research. See `tools/fix_validation_criticals.py` for bulk data fixes.

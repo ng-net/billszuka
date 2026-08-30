@@ -3,6 +3,10 @@ import { Loader2, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { verifyName, verifyCompany, isGranted, grant, revoke } from "@/lib/access";
+import { apiUrl } from "@/lib/api";
+import { getActiveProfile, setActiveProfile } from "@/lib/auth";
+import { clearPrefs } from "@/lib/prefs";
+import { clearCustomDataset } from "@/lib/datasetStorage";
 import {
   Tooltip,
   TooltipContent,
@@ -22,6 +26,7 @@ export function AccessGate({ children }) {
   const [value, setValue] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [userName, setUserName] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [isDissolving, setIsDissolving] = useState(false);
   const dissolveTimeoutRef = useRef(null);
@@ -45,6 +50,7 @@ export function AccessGate({ children }) {
           setError("Nie znamy tego imienia. Spróbuj ponownie.");
           return;
         }
+        setUserName(v);
         setStep("company");
         setValue("");
       } else {
@@ -53,7 +59,13 @@ export function AccessGate({ children }) {
           setError("Nie znamy tej firmy. Spróbuj ponownie.");
           return;
         }
-        grant();
+        grant(userName);
+        setActiveProfile(userName);
+        fetch(apiUrl("/api/auth/login"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: userName, company: v }),
+        }).catch((err) => console.warn("Failed to record login:", err));
         setGranted(true);
       }
     } catch (err) {
@@ -63,8 +75,20 @@ export function AccessGate({ children }) {
     }
   }
 
-  function handleLogout() {
+  async function handleLogout() {
+    try {
+      const currentProf = getActiveProfile();
+      if (currentProf) {
+        clearPrefs(currentProf);
+        await clearCustomDataset(currentProf);
+      }
+      clearPrefs("default");
+      await clearCustomDataset("default");
+    } catch (err) {
+      console.warn("Error clearing session view preferences:", err);
+    }
     revoke();
+    setActiveProfile(null);
     setGranted(false);
     setStep("name");
     setValue("");
@@ -96,7 +120,7 @@ export function AccessGate({ children }) {
             <TooltipTrigger asChild>
               <button
                 onClick={handleLogout}
-                className="fixed bottom-4 left-4 z-50 flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur hover:text-foreground shadow-sm transition-colors cursor-pointer"
+                className="fixed bottom-12 left-4 z-50 flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur hover:text-foreground shadow-sm transition-colors cursor-pointer"
                 aria-label="Wyloguj"
               >
                 <LogOut className="h-3.5 w-3.5" />

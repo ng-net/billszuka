@@ -10,8 +10,9 @@ import sys
 sys.path.insert(0, str(__file__.rsplit("/", 1)[0]))
 from validate_columns import normalize_non_value
 import csv
+from pathlib import Path
 
-ROOT = "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka-24-Aug"
+ROOT = str(Path(__file__).resolve().parent.parent)
 
 
 def load_rows(path):

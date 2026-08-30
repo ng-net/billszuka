@@ -24,7 +24,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { cn, formatBytes } from "@/lib/utils";
-import { apiUrl } from "@/lib/api";
+import { apiUrl, getAuthHeader } from "@/lib/api";
 
 const ALLOWED_EXTS = [".pdf", ".csv", ".txt", ".md", ".xlsx", ".xls", ".docx"];
 
@@ -53,7 +53,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(apiUrl("/api/knowledge"));
+      const res = await fetch(apiUrl("/api/knowledge"), { headers: getAuthHeader() });
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
       const body = await res.json();
       const next = Array.isArray(body.items) ? body.items : [];
@@ -100,7 +100,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
       const form = new FormData();
       form.append("file", file);
       try {
-        const res = await fetch(apiUrl("/api/knowledge/upload"), { method: "POST", body: form });
+        const res = await fetch(apiUrl("/api/knowledge/upload"), { method: "POST", headers: getAuthHeader(), body: form });
         const body = await res.json().catch(() => ({}));
         if (!res.ok) {
           throw new Error(body?.detail || res.statusText);
@@ -136,7 +136,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     const item = items.find((it) => it.id === id);
     if (!item) return;
     try {
-      const res = await fetch(apiUrl(`/api/knowledge/${id}`), { method: "DELETE" });
+      const res = await fetch(apiUrl(`/api/knowledge/${id}`), { method: "DELETE", headers: getAuthHeader() });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body?.detail || res.statusText);
       toast.success("Usunięto", { description: item.filename });
@@ -156,7 +156,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
     if (refreshing.has(id)) return;
     setRefreshing((prev) => new Set(prev).add(id));
     try {
-      const res = await fetch(apiUrl(`/api/knowledge/${id}/refresh`), { method: "POST" });
+      const res = await fetch(apiUrl(`/api/knowledge/${id}/refresh`), { method: "POST", headers: getAuthHeader() });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body?.detail || res.statusText);
       toast.success("Odświeżono", { description: body.filename });

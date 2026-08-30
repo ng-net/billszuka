@@ -67,6 +67,23 @@ CREATE TABLE IF NOT EXISTS faq_rejects (
   reason TEXT,
   rejected_at TEXT
 );
+CREATE TABLE IF NOT EXISTS catalog_files (
+  filename TEXT PRIMARY KEY,
+  uploaded_by TEXT NOT NULL,
+  uploaded_at TEXT NOT NULL,
+  size_bytes INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS user_logins (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user TEXT NOT NULL,
+  company TEXT,
+  login_at TEXT NOT NULL,
+  user_agent TEXT,
+  ip TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_chat_log_user_ts ON chat_log (user, ts DESC);
+CREATE INDEX IF NOT EXISTS idx_user_logins_user ON user_logins (user, login_at DESC);
+CREATE INDEX IF NOT EXISTS idx_catalog_files_user ON catalog_files (uploaded_by);
 """
 
 

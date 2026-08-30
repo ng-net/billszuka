@@ -214,6 +214,9 @@ python3 tools/krs_search.py --krs 0001074645 --financials  # + URL do bilansu
 - Zwraca **HTTP 204** dla starych/słabo zindeksowanych wpisów
 - **Nie obsługuje wyszukiwania po NIP** — chain REGON API → KRS rozwiązuje ten problem (`tools/krs_search.py`)
 
+### Web Scraping / Kompass
+- `bg.kompass.com` bezpośrednie pobieranie zawartości (direct fetch) zwraca błąd `403 Forbidden`. Rozwiązanie: Należy korzystać z narzędzia `web_search` jako mechanizmu wyszukiwania i omijania blokad.
+
 ### Verify_run vs verify_api precedence
 - `verify_api.py` oznacza wiersze markerem `(API)`: `✅ FROZEN (API)`
 - `verify_run.py` pomija wiersze z markerem `(API)`, chyba że podano flagę `--force`

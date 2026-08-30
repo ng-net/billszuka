@@ -4,9 +4,9 @@
 # Automatically recompiles master.csv if drift detected.
 #
 # Cron example (every 30 min):
-#   */30 * * * * /bin/bash "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka-24-Aug/tools/run_sync_check.sh"
+#   */30 * * * * /bin/bash "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/tools/run_sync_check.sh"
 # Or (every 2 hours):
-#   0 */2 * * *  /bin/bash "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka-24-Aug/tools/run_sync_check.sh"
+#   0 */2 * * *  /bin/bash "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/tools/run_sync_check.sh"
 
 set -euo pipefail
 

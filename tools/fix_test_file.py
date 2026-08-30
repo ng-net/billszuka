@@ -3,7 +3,8 @@
 import sys
 sys.path.insert(0, str(__file__.rsplit("/", 1)[0]))
 
-path = "/Users/ciepolml/Documents/Bills-Drive/BILLSzuka-24-Aug/tests/test_validate_columns.py"
+from pathlib import Path
+path = str(Path(__file__).resolve().parent.parent / "tests" / "test_validate_columns.py")
 with open(path, encoding="utf-8") as f:
     lines = f.readlines()
 

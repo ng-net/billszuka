@@ -6,7 +6,7 @@ import { cn, formatNumber } from "@/lib/utils";
 
 const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
 
-export function EmptyState({ onFile, onLoadSample, hasSample = false }) {
+export function EmptyState({ onFile, onLoadSample, hasSample = false, sampleSize = 0 }) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState(null);
   const inputRef = useRef(null);
@@ -27,7 +27,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false }) {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100dvh-3.5rem)] p-6">
+    <div className="flex items-center justify-center min-h-[calc(100vh-3.5rem)] p-6">
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false }) {
               className="gap-2"
             >
               <Upload className="h-4 w-4" />
-              Wybierz plik
+              Upload new
             </Button>
             {hasSample && (
               <Button
@@ -100,7 +100,12 @@ export function EmptyState({ onFile, onLoadSample, hasSample = false }) {
                 className="gap-2"
               >
                 <Sparkles className="h-4 w-4" />
-                Załaduj master.csv
+                Załaduj katalog Bills
+                {sampleSize > 0 && (
+                  <span className="text-xs text-muted-foreground ml-1">
+                    ({Math.round(sampleSize / 1024)} KB)
+                  </span>
+                )}
               </Button>
             )}
           </div>

@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, lazy, Suspense, Component } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useCallback, useEffect, useRef, useState, lazy, Suspense } from "react";
 import {
   Table as TableIcon,
   BarChart3,
@@ -13,13 +12,21 @@ import {
   Sun,
   Moon,
   Monitor,
-  Sparkles,
+  User,
+  LogOut,
+  Camera,
+  FolderOpen
 } from "lucide-react";
+import { getActiveProfile, setActiveProfile } from "@/lib/auth";
+import { ProfileSelector } from "@/components/ProfileSelector";
+import { SnapshotsDialog } from "@/components/SnapshotsDialog";
 import { fetchSettings } from "@/lib/secretsApi";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { GeminiDrawer } from "@/components/GeminiDrawer";
 import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
+import { FilesDrawer } from "@/components/FilesDrawer";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { UploadButton } from "@/raw-table/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -56,17 +63,18 @@ import { cn } from "@/lib/utils";
 
 const TableView = lazy(() => import("@/views/TableView").then((m) => ({ default: m.TableView })));
 const AnalyticsView = lazy(() => import("@/views/AnalyticsView").then((m) => ({ default: m.AnalyticsView })));
-const ExperimentView = lazy(() => import("@/views/ExperimentView").then((m) => ({ default: m.ExperimentView })));
 
 const TABS = [
   { id: "table", label: "Katalog", icon: TableIcon, View: TableView },
   { id: "analytics", label: "Analityka", icon: BarChart3, View: AnalyticsView },
-  { id: "experiment", label: "Eksperyment", icon: Sparkles, View: ExperimentView },
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState(() => loadPrefs().activeTab || "table");
+  const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
+  const [activeTab, setActiveTab] = useState(() => loadPrefs(activeProfile)?.activeTab || "table");
+  const [snapshotsOpen, setSnapshotsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [filesOpen, setFilesOpen] = useState(false);
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [theme, setTheme] = useState(() => loadPrefs().theme || "system");
@@ -164,16 +172,25 @@ export default function App() {
     setVaultError(null);
   }, []);
 
+  if (!activeProfile) {
+    return (
+      <ProfileSelector
+        onSelect={(id) => {
+          setActiveProfile(id);
+          setActiveProfileState(id);
+          setActiveTab(loadPrefs(id)?.activeTab || "table");
+        }}
+      />
+    );
+  }
+
   return (
     <div className="flex h-dvh flex-col bg-background text-foreground">
       <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-          <div className="flex items-center gap-2.5 shrink-0">
-            <img src="/bill-tbird.svg" alt="BILLS Logo" className="h-7 w-auto object-contain" />
-            <div className="leading-tight">
-              <div className="font-semibold tracking-tight">BILLSzuka</div>
-              <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
-            </div>
+          <div className="shrink-0 leading-tight">
+            <div className="font-semibold tracking-tight">BILLSzuka</div>
+            <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
           </div>
           <nav className="flex items-center gap-1">
             {TABS.map(({ id, label, icon: Icon }) => (
@@ -190,8 +207,8 @@ export default function App() {
                 )}
                 aria-pressed={activeTab === id}
               >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span className="hidden md:inline whitespace-nowrap">{label}</span>
+                <Icon className="h-4 w-4" />
+                <span className="hidden sm:inline">{label}</span>
               </button>
             ))}
           </nav>
@@ -203,7 +220,6 @@ export default function App() {
             onClick={() => setShortcutsOpen(true)}
             aria-label="Skróty klawiszowe"
             title="Skróty klawiszowe (?)"
-            className="hidden sm:inline-flex"
           >
             <Keyboard className="h-4 w-4" />
           </Button>
@@ -233,9 +249,31 @@ export default function App() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <span className="hidden sm:contents">
-            <HealthBadge vault={vault} error={vaultError} />
-          </span>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" title={`Profil: ${activeProfile}`}>
+                <User className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Zalogowany jako {activeProfile}</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => tableRef.current?.saveSnapshot?.(activeProfile)}>
+                <Camera className="h-4 w-4 mr-2" /> Zapisz zrzut tabeli
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSnapshotsOpen(true)}>
+                <BookOpen className="h-4 w-4 mr-2" /> Historia sesji (Zrzuty)
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {
+                // Auto-save snapshot on logout if possible
+                tableRef.current?.saveSnapshot?.();
+                setActiveProfile(null);
+                setActiveProfileState(null);
+              }}>
+                <LogOut className="h-4 w-4 mr-2" /> Wyloguj się
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <HealthBadge vault={vault} error={vaultError} />
           <Button
             variant="ghost"
             size="icon"
@@ -263,6 +301,15 @@ export default function App() {
           <Button
             variant="ghost"
             size="icon"
+            onClick={() => setFilesOpen(true)}
+            aria-label="Moje Pliki"
+            title="Moje Pliki"
+          >
+            <FolderOpen className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setSettingsOpen(true)}
             aria-label="Klucze API"
             title="Klucze API"
@@ -284,8 +331,8 @@ export default function App() {
         </div>
       </header>
 
-      <main className="relative flex-1 overflow-hidden">
-        <ViewErrorBoundary onReset={() => setActiveTab("table")}>
+      <main className="flex-1 min-h-0 relative">
+        <ErrorBoundary>
           <Suspense
             fallback={
               <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground">
@@ -294,27 +341,25 @@ export default function App() {
               </div>
             }
           >
-            <AnimatePresence mode="wait">
-              {TABS.map(({ id, View }) =>
-                id === activeTab ? (
-                  <motion.div
-                    key={id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.12 }}
-                    className="absolute inset-0 overflow-auto"
-                  >
-                    <View
-                      ref={id === "table" ? tableRef : undefined}
-                      onCsvStateChange={id === "table" ? setCsvState : undefined}
-                    />
-                  </motion.div>
-                ) : null,
-              )}
-            </AnimatePresence>
+            <div className="relative w-full h-full">
+              {TABS.map(({ id, View }) => (
+                <div
+                  key={id}
+                  className={`absolute inset-0 overflow-auto transition-opacity duration-150 ${
+                    id === activeTab
+                      ? "opacity-100 pointer-events-auto z-10"
+                      : "opacity-0 pointer-events-none z-0 hidden"
+                  }`}
+                >
+                  <View
+                    ref={id === "table" ? tableRef : undefined}
+                    onCsvStateChange={id === "table" ? setCsvState : undefined}
+                  />
+                </div>
+              ))}
+            </div>
           </Suspense>
-        </ViewErrorBoundary>
+        </ErrorBoundary>
       </main>
 
       <Dialog open={shortcutsOpen} onOpenChange={setShortcutsOpen}>
@@ -353,6 +398,16 @@ export default function App() {
         onOpenChange={setKnowledgeOpen}
         onSelectionChange={setKnowledgeIds}
       />
+      <SnapshotsDialog
+        open={snapshotsOpen}
+        onOpenChange={setSnapshotsOpen}
+        onRestore={() => {
+           // On restore, simply reload the preferences and refresh
+           setActiveTab(loadPrefs(activeProfile)?.activeTab || "table");
+           // the dataset will be loaded by RawTable's boot function on mount since it's now in customDataset
+        }}
+      />
+      <FilesDrawer open={filesOpen} onOpenChange={setFilesOpen} />
       <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} onVaultChange={handleVaultChange} />
     </div>
   );
@@ -390,55 +445,5 @@ function HealthBadge({ vault, error }) {
       OK
     </Badge>
   );
-}
-
-class ViewErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error("ViewErrorBoundary caught error:", error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="flex h-full items-center justify-center p-6 bg-background">
-          <div className="max-w-md w-full p-6 border rounded-xl bg-card text-center space-y-3 shadow-sm">
-            <AlertCircle className="mx-auto h-10 w-10 text-rose-500" />
-            <h3 className="font-semibold text-base text-foreground">Wystąpił błąd w widoku</h3>
-            <p className="text-xs text-muted-foreground break-words">
-              {this.state.error?.message || "Nieoczekiwany błąd komponentu"}
-            </p>
-            <div className="flex items-center justify-center gap-2 pt-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  this.setState({ hasError: false, error: null });
-                  this.props.onReset?.();
-                }}
-              >
-                Wróć do katalogu
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => window.location.reload()}
-              >
-                Odśwież stronę
-              </Button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
 }
 

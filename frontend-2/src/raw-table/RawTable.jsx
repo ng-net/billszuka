@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef, useTransition, forwardRef, useImperativeHandle } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, useTransition, forwardRef, useImperativeHandle } from "react";
 import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import {
@@ -6,6 +6,8 @@ import {
   X,
   Rows3,
   Rows4,
+  Undo2,
+  Redo2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,23 +23,23 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useCsv } from "@/hooks/useCsv";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
-import { classifyBrand } from "@/lib/brand";
-import { DEFAULT_VIEWS, toggleFilterValue } from "@/lib/views";
+import { useUndoRedo } from "@/lib/useUndoRedo";
 import { debounce } from "@/lib/utils";
-import { getColumnLabel } from "@/lib/schema";
-import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
 
 import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
 import { ColumnToggle } from "./components/ColumnToggle";
-import { ViewSwitcher } from "./components/ViewSwitcher";
-import { CollapsibleFilters } from "./components/CollapsibleFilters";
 import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
 
-const STATIC_MASTER_URL = "/master.csv";
-// The master dataset is served by FastAPI via /api/master.csv. The Date.now()
+import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset, saveSnapshot } from "@/lib/datasetStorage";
+
+const SAMPLE_URL = "/sample.csv";
+const SAMPLE_SIZE = 214000; // approximate
+// Append ?v=Date.now() on every load to bust browser + vite proxy cache.
+// The API also sends Cache-Control: no-cache (see api_server.py), but
+// some browser/cache layers still ignore that for CSV MIME; the version
 // query param is the belt-and-braces guarantee that after Marceli edits
 // data/master.csv manually, the next reload picks up the new content.
 const MASTER_URL = "/api/master.csv";
@@ -45,10 +47,17 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
+  const history = useUndoRedo(loadPrefs());
+  const prefs = history.state;
+
+  const setPrefs = useCallback((updater) => {
+    history.set(typeof updater === "function" ? updater(history.state) : updater);
+  }, [history]);
+
   // Automatic data pre-load after the gate:
   // 1. Check if the user previously uploaded a custom CSV (stored in IndexedDB).
-  // 2. If not, try the full master.csv from backend; if unreachable, fall back to public/master.csv;
-  // 3. If that also fails, fall back to sample.csv;
+  // 2. If not, try the full master.csv from backend; if unreachable, fall back to sample;
+  // 3. If that also fails, leave the EmptyState's manual button for the user.
   const bootRef = useRef(0); // 0 = try load, 1 = pending, 2 = settled
   const loadUrl = csv.loadUrl;
   const loadUrlRef = useRef(loadUrl);
@@ -80,8 +89,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0);
       } else if (bootRef.current === 1 && csv.status === "error") {
         bootRef.current = 2;
-        // Fall back to static public/master.csv
-        loadUrlRef.current(withCacheBuster(STATIC_MASTER_URL), "master.csv", 0);
+        loadUrlRef.current(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
       } else if (bootRef.current === 1 && csv.status === "ready") {
         bootRef.current = 2;
       }
@@ -93,22 +101,17 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [csv.status]);
 
   // Manual trigger for the empty-state button. Clears custom upload,
-  // directly invokes loadUrl for master.csv.
+  // and directly loads master.csv from the backend.
   const tryLoadData = useCallback(async () => {
     await clearCustomDataset();
-    bootRef.current = 1;
-    csv.loadUrl(withCacheBuster(STATIC_MASTER_URL), "master.csv", 0);
+    bootRef.current = 2;
+    csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
   }, [csv]);
 
-  const onCsvStateChangeRef = useRef(_props.onCsvStateChange);
-  // Safe to assign in a layout effect — fires synchronously after DOM paint,
-  // never during the render phase (avoids react-compiler ref-during-render warning).
-  useLayoutEffect(() => {
-    onCsvStateChangeRef.current = _props.onCsvStateChange;
-  });
+  const onCsvStateChange = _props.onCsvStateChange;
 
   useEffect(() => {
-    onCsvStateChangeRef.current?.({
+    onCsvStateChange?.({
       status: csv.status,
       progress: csv.progress,
       fileMeta: csv.fileMeta,
@@ -116,18 +119,21 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       cancel: csv.cancel,
       loadFile: csv.loadFile,
     });
-    // Depend on the primitive status + the stable function refs. Listing
-    // sub-property paths (csv.progress?.bytesParsed) caused oxlint to
-    // flag missing parent dependencies; using the parent objects directly
-    // is correct — progress/fileMeta are replaced by reference on each
-    // update, so this fires whenever any field changes.
-  }, [csv.status, csv.progress, csv.fileMeta, csv.cancel, csv.loadFile]);
-  const [prefs, setPrefs] = useState(() => loadPrefs());
+  }, [
+    onCsvStateChange,
+    csv.status,
+    csv.progress,
+    csv.fileMeta,
+    csv.cancel,
+    csv.loadFile,
+  ]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [focusedColumn, setFocusedColumn] = useState(null);
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
+  const [toolbarVisible, setToolbarVisible] = useState(true);
   const [filteredCount, setFilteredCount] = useState(0);
+  const lastScrollY = useRef(0);
 
   // Apply theme to <html>
   useEffect(() => {
@@ -149,9 +155,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     }
   }, [prefs.theme]);
 
-  // Persist prefs immediately on every change so page refresh never loses state.
+  // Persist prefs (debounced)
   useEffect(() => {
-    savePrefs(prefs);
+    const t = setTimeout(() => savePrefs(prefs), 300);
+    return () => clearTimeout(t);
   }, [prefs]);
 
   // Initialize column order from CSV columns when loaded.
@@ -177,7 +184,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   );
   const filters = useMemo(
     () => Object.fromEntries(
-      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k) || k.startsWith("__"))
+      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k))
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.filters, csv.columns]
@@ -210,28 +217,65 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   // Effective column visibility — whatever the user last set in localStorage.
   const columnVisibility = prefs.columnVisibility || {};
-  const setColumnOrder = (updater) =>
-    setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater }));
-  const setColumnVisibility = (updater) =>
-    setPrefs((p) => ({ ...p, columnVisibility: typeof updater === "function" ? updater(p.columnVisibility || {}) : updater }));
-  const setSortStack = (updater) =>
+  const [pageIndex, setPageIndex] = useState(() => (typeof prefs.pageIndex === "number" ? prefs.pageIndex : 0));
+  const pageSize = typeof prefs.pageSize === "number" ? prefs.pageSize : 0;
+  const pagination = useMemo(() => ({
+    pageIndex: typeof pageIndex === "number" ? pageIndex : 0,
+    pageSize: typeof pageSize === "number" ? pageSize : 0,
+  }), [pageIndex, pageSize]);
+
+  const onPaginationChange = useCallback((updater) => {
+    setPageIndex((old) => {
+      const current = typeof old === "number" ? old : 0;
+      const next = typeof updater === "function" ? updater({ pageIndex: current, pageSize }) : updater;
+      const nextIndex = typeof next === "number" ? next : (typeof next?.pageIndex === "number" ? next.pageIndex : 0);
+      setPrefs((p) => ({ ...p, pageIndex: nextIndex }));
+      return nextIndex;
+    });
+  }, [pageSize, setPrefs]);
+
+  const onPageChange = useCallback((newPageIndex) => {
+    const idx = typeof newPageIndex === "number" ? newPageIndex : 0;
+    setPageIndex(idx);
+    setPrefs((p) => ({ ...p, pageIndex: idx }));
+  }, [setPrefs]);
+
+  const onPageSizeChange = useCallback((newSize) => {
+    const size = typeof newSize === "number" ? newSize : 0;
+    setPageIndex(0);
+    setPrefs((p) => ({ ...p, pageSize: size, pageIndex: 0 }));
+  }, [setPrefs]);
+
+  const setColumnOrder = useCallback((updater) =>
+    setPrefs((p) => ({ ...p, columnOrder: typeof updater === "function" ? updater(p.columnOrder || csv.columns) : updater })), [setPrefs, csv.columns]);
+  const setColumnVisibility = useCallback((updater) =>
+    setPrefs((p) => ({ ...p, columnVisibility: typeof updater === "function" ? updater(p.columnVisibility || {}) : updater })), [setPrefs]);
+  const setSortStack = useCallback((updater) => {
+    setPageIndex(0);
     startSortTransition(() =>
-      setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater }))
+      setPrefs((p) => ({ ...p, sortStack: typeof updater === "function" ? updater(p.sortStack) : updater, pageIndex: 0 }))
     );
-  const setFilters = (updater) =>
+  }, [setPrefs]);
+  const setFilters = useCallback((updater) => {
+    setPageIndex(0);
     startFilterTransition(() =>
-      setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater }))
+      setPrefs((p) => ({ ...p, filters: typeof updater === "function" ? updater(p.filters) : updater, pageIndex: 0 }))
     );
-  const setDensity = (d) => setPrefs((p) => ({ ...p, density: d }));
-  const setTheme = (t) => setPrefs((p) => ({ ...p, theme: t }));
+  }, [setPrefs]);
+  const setDensity = useCallback((d) => setPrefs((p) => ({ ...p, density: d })), [setPrefs]);
+  const setTheme = useCallback((t) => setPrefs((p) => ({ ...p, theme: t })), [setPrefs]);
 
   // Global filter (across all visible cells) — debounced
-  const [globalSearch, setGlobalSearch] = useState("");
+  const [globalSearch, setGlobalSearch] = useState(() => prefs.globalSearch || "");
   const debouncedGlobalRef = useRef();
   useEffect(() => {
-    debouncedGlobalRef.current = debounce((v) => setGlobalFilter(v), 200);
+    debouncedGlobalRef.current = debounce((v) => {
+      setPageIndex(0);
+      setGlobalFilter(v);
+      setPrefs((p) => ({ ...p, globalSearch: v, pageIndex: 0 }));
+    }, 200);
     return () => debouncedGlobalRef.current?.cancel();
-  }, []);
+  }, [setPrefs]);
   const onGlobalSearchChange = (v) => {
     setGlobalSearch(v);
     debouncedGlobalRef.current?.(v);
@@ -247,129 +291,19 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     }
   }, []);
 
-  // Synthetic filter columns (e.g. __brand) are computed from row data
-  // and handled by pre-filtering rows before TanStack sees them.
-  // Strip them from the TanStack-bound filters so it doesn't choke.
-  const effectiveFilters = useMemo(
-    () => Object.fromEntries(Object.entries(filters).filter(([k]) => !k.startsWith("__"))),
-    [filters]
-  );
-
-  // Map row.id_unikalne -> brand label (computed once per dataset change).
-  const brandByRow = useMemo(() => {
-    const map = new Map();
-    for (const row of csv.rows) {
-      map.set(row.id_unikalne, classifyBrand(row));
-    }
-    return map;
-  }, [csv.rows]);
-
-  // Build filter group values for the collapsible filter panel.
-  // Each group is { kraj: [...], __brand: [...], tier: [...] } sorted by frequency.
-  const filterGroups = useMemo(() => {
-    const collect = (key, transform) => {
-      const counts = new Map();
-      for (const row of csv.rows) {
-        const raw = key === "__brand" ? brandByRow.get(row.id_unikalne) : row[key];
-        const v = transform ? transform(raw) : raw;
-        if (v === null || v === undefined || v === "") continue;
-        counts.set(v, (counts.get(v) || 0) + 1);
-      }
-      return [...counts.entries()]
-        .sort((a, b) => b[1] - a[1])
-        .map(([value]) => value);
+  // Toolbar hide-on-scroll
+  useEffect(() => {
+    if (csv.status !== "ready") return;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastScrollY.current;
+      if (delta > 8 && y > 100) setToolbarVisible(false);
+      else if (delta < -4) setToolbarVisible(true);
+      lastScrollY.current = y;
     };
-    return {
-      kraj: collect("kraj"),
-      __brand: collect("__brand"),
-      tier: collect("tier"),
-    };
-  }, [csv.rows, brandByRow]);
-
-  // Pre-filter rows by synthetic columns (currently only __brand) before
-  // passing to DataTable. This keeps TanStack's filter machinery focused on
-  // real CSV columns.
-  const visibleRows = useMemo(() => {
-    const brandFilter = filters.__brand;
-    if (!brandFilter) return csv.rows;
-    if (Array.isArray(brandFilter)) {
-      if (brandFilter.length === 0) return csv.rows;
-      return csv.rows.filter((r) => brandFilter.includes(brandByRow.get(r.id_unikalne)));
-    }
-    return csv.rows.filter((r) => brandByRow.get(r.id_unikalne) === brandFilter);
-  }, [csv.rows, filters.__brand, brandByRow]);
-
-  // Saved views = default views + user-defined views.
-  const allViews = useMemo(
-    () => [...DEFAULT_VIEWS, ...(prefs.savedViews || [])],
-    [prefs.savedViews]
-  );
-
-  const activateView = useCallback((view) => {
-    if (!view) {
-      // Deactivate view but preserve the user's manual sort — only clear filters.
-      setPrefs((p) => ({ ...p, activeView: null, filters: {} }));
-      setGlobalFilter("");
-      setGlobalSearch("");
-      return;
-    }
-    // Merge view filters with brand-classification: __brand entries are
-    // replaced with a filterFn that matches the derived brand label.
-    const nextFilters = { ...(view.filters || {}) };
-    setPrefs((p) => ({
-      ...p,
-      activeView: view.id,
-      filters: nextFilters,
-      // Apply view's own sort if it has one; otherwise keep the user's current sort.
-      sortStack: view.sortStack || p.sortStack || [],
-    }));
-    setGlobalFilter("");
-    setGlobalSearch("");
-  }, []);
-
-  const saveCurrentView = useCallback(
-    (name) => {
-      const id = `view-user-${Date.now()}`;
-      setPrefs((p) => ({
-        ...p,
-        savedViews: [
-          ...(p.savedViews || []),
-          { id, name, userDefined: true, filters: p.filters || {}, columns: csv.columns },
-        ],
-        activeView: id,
-      }));
-      toast.success(`Zapisano widok: ${name}`, { duration: 1500 });
-    },
-    [csv.columns]
-  );
-
-  const deleteView = useCallback((viewId) => {
-    setPrefs((p) => ({
-      ...p,
-      savedViews: (p.savedViews || []).filter((v) => v.id !== viewId),
-      activeView: p.activeView === viewId ? null : p.activeView,
-    }));
-  }, []);
-
-  // Toggle a value into the prefs.filters entry for a column.
-  // Also clear the global text search — the combination of a chip filter
-  // and a full-text search is rarely intentional and often leaves 0 results.
-  const toggleQuickFilter = useCallback((columnId, value) => {
-    setPrefs((p) => {
-      const current = (p.filters || {})[columnId];
-      const next = toggleFilterValue(current, value);
-      const filters = { ...(p.filters || {}) };
-      if (next === undefined) delete filters[columnId];
-      else filters[columnId] = next;
-      return { ...p, filters };
-    });
-    setGlobalFilter("");
-    setGlobalSearch("");
-  }, []);
-
-  // Toolbar pinned — previously hid on scroll, removed because controls
-  // (search, filters, view switcher) should stay reachable while exploring
-  // a long table.
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [csv.status]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -430,7 +364,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [prefs.density, paletteOpen, focusedColumn, globalSearch, csv.status, csv.rows.length]);
+  }, [prefs.density, paletteOpen, focusedColumn, globalSearch, csv.status, csv.rows.length, setDensity, setFilters, setSortStack]);
 
   // Expose methods for App-level controls (⌘K, Upload, etc.)
   useImperativeHandle(ref, () => ({
@@ -440,20 +374,32 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     csvStatus: csv.status,
     csvProgress: csv.progress,
     fileMeta: csv.fileMeta,
-  }), [csv]);
+    saveSnapshot: async (profileId) => {
+      await saveSnapshot(profileId, {
+         name: csv.fileMeta?.name || "master.csv",
+         size: csv.fileMeta?.size || 0,
+         columns: csv.columns,
+         rows: csv.rows,
+         schema: csv.schema,
+         prefs: prefs,
+         parseTimeMs: csv.parseTimeMs
+      });
+      toast.success("Zapisano zrzut sesji", { duration: 2000 });
+    }
+  }), [csv, prefs]);
 
   // Persist last focused column. Done inline in the change handler so
   // we don't need a setState-in-effect.
   const onFocusedColumnChange = useCallback((colId) => {
     setFocusedColumn(colId);
     if (colId) setPrefs((p) => ({ ...p, lastFocusedColumn: colId }));
-  }, []);
+  }, [setPrefs]);
 
   // Per-column filters and sort are derived from prefs (cleaned of any
   // column references that no longer exist in the CSV). The setters
   // above still write to the underlying prefs; these derived values
   // automatically reflect the writes.
-  // (effectiveFilters is declared earlier — it strips synthetic __ keys.)
+  const effectiveFilters = filters;
 
   // Handle palette actions
   const handlePaletteAction = (item) => {
@@ -463,14 +409,20 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       setFilters({});
       setGlobalFilter("");
       setGlobalSearch("");
+      setPageIndex(0);
+      toast.success("Wyczyszczono wszystkie filtry", { duration: 1200 });
     } else if (item.id === "clear-sort") {
       setSortStack([]);
+      setPageIndex(0);
+      toast.success("Wyczyszczono sortowanie", { duration: 1200 });
     } else if (item.id === "reset") {
       setFilters({});
       setSortStack([]);
       setColumnVisibility({});
       setGlobalFilter("");
       setGlobalSearch("");
+      setPageIndex(0);
+      toast.success("Zresetowano cały widok (filtry, kolumny i sortowanie)", { duration: 1500 });
     } else if (item.id === "density-compact") {
       setDensity("compact");
     } else if (item.id === "density-comfortable") {
@@ -494,8 +446,18 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   };
 
   const activeFilterCount = useMemo(() => {
-    let n = Object.keys(filters).length;
-    if (globalFilter) n += 1;
+    let n = 0;
+    for (const [, v] of Object.entries(filters || {})) {
+      if (v == null || v === "") continue;
+      if (Array.isArray(v)) {
+        if (v.length > 0) n += 1;
+      } else if (typeof v === "object") {
+        if (v.min != null || v.max != null || v.from != null || v.to != null) n += 1;
+      } else {
+        n += 1;
+      }
+    }
+    if (globalFilter && String(globalFilter).trim()) n += 1;
     return n;
   }, [filters, globalFilter]);
 
@@ -503,80 +465,91 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const Header = (
     <motion.header
       initial={false}
-      animate={{ height: "auto", opacity: 1 }}
+      animate={{ height: toolbarVisible ? "auto" : 0, opacity: toolbarVisible ? 1 : 0 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
       className="sticky top-0 z-40 border-b bg-card/80 backdrop-blur-md overflow-hidden"
     >
-      <div className="flex flex-col gap-1.5 py-2 px-3 sm:px-4">
+      <div className="h-14 flex items-center gap-2 sm:gap-3 px-3 sm:px-4">
         {csv.status === "ready" && (
           <>
-            <div className="flex items-center gap-2 sm:gap-3 h-8">
-              <div className="relative flex-1 max-w-md min-w-0">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
-                <Input
-                  value={globalSearch}
-                  onChange={(e) => onGlobalSearchChange(e.target.value)}
-                  placeholder="Szukaj we wszystkich kolumnach…"
-                  className="h-8 pl-8 pr-7 text-sm"
-                />
-                {globalSearch && (
-                  <button
-                    onClick={() => onGlobalSearchChange("")}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
-                  >
-                    <X className="h-3.5 w-3.5" />
-                  </button>
-                )}
-              </div>
-
-              <ViewSwitcher
-                views={allViews}
-                activeView={prefs.activeView}
-                activeViewDef={allViews.find((v) => v.id === prefs.activeView)}
-                currentFilters={prefs.filters}
-                onActivate={activateView}
-                onSave={saveCurrentView}
-                onDelete={deleteView}
+            <div className="relative flex-1 max-w-md min-w-0">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+              <Input
+                value={globalSearch}
+                onChange={(e) => onGlobalSearchChange(e.target.value)}
+                placeholder="Szukaj we wszystkich kolumnach…"
+                className="h-8 pl-8 pr-7 text-sm"
               />
-
-              <ColumnToggle
-                columns={csv.columns}
-                visibility={columnVisibility}
-                onChange={setColumnVisibility}
-                schema={csv.schema}
-              />
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 inline-flex shrink-0"
-                    aria-label="Gęstość"
-                    title="Gęstość"
-                  >
-                    {prefs.density === "compact" ? <Rows3 className="h-4 w-4" /> : <Rows4 className="h-4 w-4" />}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Gęstość</DropdownMenuLabel>
-                  <DropdownMenuItem onClick={() => setDensity("compact")}>
-                    <Rows3 className="h-4 w-4 mr-2" /> Kompaktowy {prefs.density === "compact" && "✓"}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setDensity("comfortable")}>
-                    <Rows4 className="h-4 w-4 mr-2" /> Wygodny {prefs.density === "comfortable" && "✓"}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {globalSearch && (
+                <button
+                  onClick={() => onGlobalSearchChange("")}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
             </div>
 
-            {/* Collapsible filter panel — wraps kraj/marka/tier in one card with expand/collapse */}
-            <CollapsibleFilters
-              groups={filterGroups}
-              filters={filters}
-              onToggle={toggleQuickFilter}
-              className="min-w-0 flex-1"
+            <ColumnToggle
+              columns={csv.columns}
+              visibility={columnVisibility}
+              onChange={setColumnVisibility}
+              schema={csv.schema}
             />
+
+            <div className="flex items-center gap-1">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                disabled={!history.canUndo}
+                onClick={() => {
+                  history.undo();
+                  toast.info("Cofnięto zmianę", { duration: 1000 });
+                }}
+                aria-label="Cofnij (Cmd+Z)"
+                title="Cofnij (Cmd+Z)"
+              >
+                <Undo2 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                disabled={!history.canRedo}
+                onClick={() => {
+                  history.redo();
+                  toast.info("Przywrócono zmianę", { duration: 1000 });
+                }}
+                aria-label="Ponów (Cmd+Shift+Z)"
+                title="Ponów (Cmd+Shift+Z)"
+              >
+                <Redo2 className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8 hidden sm:inline-flex"
+                  aria-label="Gęstość"
+                  title="Gęstość"
+                >
+                  {prefs.density === "compact" ? <Rows3 className="h-4 w-4" /> : <Rows4 className="h-4 w-4" />}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Gęstość</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => setDensity("compact")}>
+                  <Rows3 className="h-4 w-4 mr-2" /> Kompaktowy {prefs.density === "compact" && "✓"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setDensity("comfortable")}>
+                  <Rows4 className="h-4 w-4 mr-2" /> Wygodny {prefs.density === "comfortable" && "✓"}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         )}
       </div>
@@ -586,17 +559,18 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // Render
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="h-screen flex flex-col bg-background text-foreground transition-theme">
+      <div className="h-full flex flex-col bg-background text-foreground transition-theme overflow-hidden">
         <Toaster position="bottom-right" theme={prefs.theme === "system" ? "system" : prefs.theme} richColors closeButton />
 
         {Header}
 
-        <main className="flex-1 min-h-0 relative">
+        <main className="flex-1 min-h-0 relative flex flex-col">
           {csv.status === "idle" && (
             <EmptyState
               onFile={csv.loadFile}
               onLoadSample={tryLoadData}
               hasSample
+              sampleSize={0}
             />
           )}
 
@@ -624,42 +598,46 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
           {csv.status === "ready" && (
             <>
-              <DataTable
-                columns={columnOrder}
-                rows={visibleRows}
-                schema={csv.schema}
-                columnOrder={columnOrder}
-                columnVisibility={columnVisibility}
-                setColumnOrder={setColumnOrder}
-                setColumnVisibility={setColumnVisibility}
-                onFilteredCountChange={setFilteredCount}
-                onColumnHide={(id) => {
-                  toast(`Ukryto kolumnę: ${getColumnLabel(id)}`, {
-                    description: "Kliknij „Pokaż\", żeby przywrócić",
-                    duration: 4000,
-                    action: {
-                      label: "Pokaż",
-                      onClick: () => {
-                        setColumnVisibility((prev) => {
-                          const next = { ...prev };
-                          delete next[id];
-                          return next;
-                        });
+              <div className="flex-1 min-h-0 relative">
+                <DataTable
+                  columns={columnOrder}
+                  rows={csv.rows}
+                  schema={csv.schema}
+                  columnOrder={columnOrder}
+                  columnVisibility={columnVisibility}
+                  setColumnOrder={setColumnOrder}
+                  setColumnVisibility={setColumnVisibility}
+                  onFilteredCountChange={setFilteredCount}
+                  onColumnHide={(id) => {
+                    toast(`Ukryto kolumnę: ${id}`, {
+                      description: "Kliknij „Pokaż\", żeby przywrócić",
+                      duration: 4000,
+                      action: {
+                        label: "Pokaż",
+                        onClick: () => {
+                          setColumnVisibility((prev) => {
+                            const next = { ...prev };
+                            delete next[id];
+                            return next;
+                          });
+                        },
                       },
-                    },
-                  });
-                }}
-                sortStack={sortStack}
-                setSortStack={setSortStack}
-                filters={effectiveFilters}
-                setFilters={setFilters}
-                density={prefs.density}
-                onFocusedColumnChange={onFocusedColumnChange}
-                focusedColumn={focusedColumn}
-                selectedRowIndex={selectedRowIndex}
-                onRowClick={onRowClick}
-                globalFilter={globalFilter}
-              />
+                    });
+                  }}
+                  sortStack={sortStack}
+                  setSortStack={setSortStack}
+                  filters={effectiveFilters}
+                  setFilters={setFilters}
+                  density={prefs.density}
+                  onFocusedColumnChange={onFocusedColumnChange}
+                  focusedColumn={focusedColumn}
+                  selectedRowIndex={selectedRowIndex}
+                  onRowClick={onRowClick}
+                  globalFilter={globalFilter}
+                  pagination={pagination}
+                  setPagination={onPaginationChange}
+                />
+              </div>
               <StatusBar
                 totalRows={csv.rows.length}
                 filteredRows={filteredCount}
@@ -670,6 +648,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 parseTimeMs={csv.parseTimeMs}
                 density={prefs.density}
                 fileMeta={csv.fileMeta}
+                pagination={pagination}
+                onPageChange={onPageChange}
+                onPageSizeChange={onPageSizeChange}
               />
             </>
           )}

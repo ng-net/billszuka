@@ -12,11 +12,40 @@ export function isEmptyLike(v) {
   return s === "" || EMPTY_LIKE.has(s);
 }
 
+/** Known column types for BILLSzuka canonical schemas */
+export const CANONICAL_COLUMN_TYPES = {
+  kraj: "enum",
+  kategoria: "enum",
+  tier: "enum",
+  wolumen: "enum",
+  confidence_wolumen: "enum",
+  powinowactwo_nabijarki: "enum",
+  cross_sell_potential: "enum",
+  rynek_skala: "enum",
+  flagi: "enum",
+  marka_wlasna_oem: "enum",
+  sourcing: "enum",
+  rok_zalozenia: "number",
+  data_weryfikacji: "date",
+  www: "url",
+  email: "email",
+  email_decydent: "email",
+  telefon: "phone",
+  linkedin: "url",
+  facebook: "url",
+  instagram: "url",
+  tiktok: "url",
+};
+
 /**
  * Column type detection. Sniffs the first ~200 non-empty values.
  * Returns one of: text | number | date | url | email | phone | enum
  */
-export function inferColumnType(values) {
+export function inferColumnType(values, columnId) {
+  if (columnId && CANONICAL_COLUMN_TYPES[columnId]) {
+    return CANONICAL_COLUMN_TYPES[columnId];
+  }
+
   const sample = values.filter((v) => !isEmptyLike(v)).slice(0, 200);
   if (sample.length === 0) return "text";
 
@@ -26,8 +55,8 @@ export function inferColumnType(values) {
   const dateLike = sample.filter((v) => /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:?\d{2})?)?$|^\d{4}\/\d{2}\/\d{2}$/.test(String(v).trim()));
   if (dateLike.length / n > 0.85) return "date";
 
-  // URL (with protocol)
-  const urlLike = sample.filter((v) => /^https?:\/\/[^\s]+$/i.test(String(v).trim()));
+  // URL (with protocol or domain)
+  const urlLike = sample.filter((v) => /^(https?:\/\/|[a-zA-Z0-9-]+\.[a-zA-Z]{2,})[^\s]*$/i.test(String(v).trim()));
   if (urlLike.length / n > 0.85) return "url";
 
   // Email
@@ -43,20 +72,27 @@ export function inferColumnType(values) {
   });
   if (phoneLike.length / n > 0.85) return "phone";
 
-  // Number — must be 100% numeric. If even a few rows are categorical
-  // ("wysoki"/"średni"), the column is really mixed-type and the non-numeric
-  // values would coerce to null and show as "—" — losing information.
-  // 100% threshold is the honest rule; users can still re-type in column settings.
+  // Number — 100% numeric
   const numLike = sample.filter((v) => {
     const s = String(v).trim();
     return /^-?\d+(\.\d+)?$/.test(s);
   });
   if (numLike.length === n) return "number";
 
-  // Enum: ≤15 unique non-empty values across the column (raised from 10 to catch
-  // categorical columns like kategoria that have 11 values A1..B9)
-  const uniques = new Set(sample.map((v) => String(v).trim()));
-  if (uniques.size > 0 && uniques.size <= 15 && sample.length >= 20) return "enum";
+  // Enum: ≤30 unique non-empty values across the column
+  const uniques = new Set();
+  for (const v of sample) {
+    const s = String(v).trim();
+    if (s.includes(",") && !["adres", "nazwa_firmy", "notatki"].includes(columnId)) {
+      s.split(",").forEach((t) => {
+        const item = t.trim();
+        if (item && !isEmptyLike(item)) uniques.add(item);
+      });
+    } else {
+      uniques.add(s);
+    }
+  }
+  if (uniques.size > 0 && uniques.size <= 30 && sample.length >= 10) return "enum";
 
   return "text";
 }
@@ -68,7 +104,7 @@ export function inferColumnType(values) {
 export function inferSchema(columns, rows) {
   return columns.map((col) => {
     const values = rows.map((r) => r[col]);
-    return { id: col, type: inferColumnType(values) };
+    return { id: col, type: inferColumnType(values, col) };
   });
 }
 
@@ -214,7 +250,17 @@ export function getEnumValues(rows, columnId, max = 50) {
     if (v == null) continue;
     const s = String(v).trim();
     if (!s || EMPTY_LIKE.has(s.toLowerCase())) continue;
-    set.add(s);
+    
+    if (s.includes(",") && !["adres", "nazwa_firmy", "notatki", "miasto"].includes(columnId)) {
+      s.split(",").forEach((item) => {
+        const trimmed = item.trim();
+        if (trimmed && !EMPTY_LIKE.has(trimmed.toLowerCase())) {
+          set.add(trimmed);
+        }
+      });
+    } else {
+      set.add(s);
+    }
     if (set.size > max) return null;
   }
   const arr = Array.from(set);

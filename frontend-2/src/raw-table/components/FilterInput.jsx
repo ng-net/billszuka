@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -26,9 +26,71 @@ import { Button } from "@/components/ui/button";
  */
 const ENUM_FILTER_MAX = 50;
 
-export function FilterInput({ type, value, onChange, enumValues, placeholder }) {
+const ENUM_DESCRIPTIONS = {
+  kategoria: {
+    A1: "Tylko PowerMatic (autoryzowani / sub-dystr.)",
+    A2: "Tylko Hawk (potencjał dla marki Hawk)",
+    A3: "PowerMatic + Hawk (najcenniejsi partnerzy)",
+    A4: "Multi-brand z PM/Hawk (resellerzy wielu marek)",
+    A5: "Własna marka / OEM z Chin (konkurencja cenowa)",
+    A6: "Multi-brand bez PM/Hawk (kandydaci do pozyskania)",
+    B1: "Tytoń liście / do skręcania (wysoki cross-sell)",
+    B2: "Bibułki papierosowe (palacze skręcający)",
+    B3: "Filtry / gilzy (wysokie powinowactwo)",
+    B4: "Akcesoria tytoniowe (zapalniczki, fajki)",
+    B5: "Shisha / hookah (wspólny kanał retail)",
+    B6: "E-papierosy / vape (shared channel)",
+    B7: "Saszetki nikotynowe / snus",
+    B8: "Pełne hurtownie tytoniowe (najwyższy priorytet)",
+    B9: "CBD / konopie / susz (jointy z suszu)",
+  },
+  kraj: {
+    PL: "Polska",
+    CZ: "Czechy",
+    SK: "Słowacja",
+    RO: "Rumunia",
+    LT: "Litwa",
+    LV: "Łotwa",
+    EE: "Estonia",
+    FR: "Francja",
+    MD: "Mołdawia",
+    BG: "Bułgaria",
+    SI: "Słowenia",
+    HR: "Chorwacja",
+    RS: "Serbia (out-of-scope intel)",
+  },
+  tier: {
+    dystrybutor: "Główny importer / dystrybutor",
+    hurtownik: "Hurtownia B2B",
+    reseller: "Sub-dystrybutor / reseller",
+    detalista: "Sklepy detaliczne / stacjonarne",
+    sieć: "Sieć salonów / punktów sprzedaży",
+  },
+  sourcing: {
+    "Chiny (import)": "Bezpośredni import z Chin",
+    "Polska": "Krajowa dystrybucja",
+    "UE": "Dystrybucja unijna",
+  },
+  wolumen: {
+    duży: "Duży wolumen obrotu",
+    średni: "Średni wolumen obrotu",
+    mały: "Mniejsza skala / detal",
+  },
+  confidence_wolumen: {
+    "🟢": "Wysoka pewność (zweryfikowane)",
+    "🟡": "Średnia pewność (szacunki)",
+    "🔴": "Niska pewność (do weryfikacji)",
+  },
+  rynek_skala: {
+    duży: "Duży rynek (PL, CZ, FR)",
+    średni: "Średni rynek (RO, BG, HR, SI, SK, RS)",
+    mały: "Mniejszy rynek (LT, LV, EE, MD)",
+  },
+};
+
+export function FilterInput({ type, value, onChange, enumValues, placeholder, columnId }) {
   if (type === "enum" && enumValues && enumValues.length > 0 && enumValues.length <= ENUM_FILTER_MAX) {
-    return <EnumFilter value={value} onChange={onChange} enumValues={enumValues} />;
+    return <EnumFilter value={value} onChange={onChange} enumValues={enumValues} columnId={columnId} />;
   }
   if (type === "number") {
     return <NumberRangeFilter value={value} onChange={onChange} />;
@@ -54,12 +116,9 @@ export function FilterInput({ type, value, onChange, enumValues, placeholder }) 
 function useDebouncedEmit(onChange, ms) {
   const debouncedRef = useRef();
   const onChangeRef = useRef(onChange);
-  // Assign in a layout effect so the ref update never happens during render.
-  // useLayoutEffect fires synchronously after DOM paint and before any user
-  // events, so the ref is always fresh when the debounced callback fires.
-  useLayoutEffect(() => {
+  useEffect(() => {
     onChangeRef.current = onChange;
-  });
+  }, [onChange]);
   const lastEmittedRef = useRef(undefined);
   useEffect(() => {
     debouncedRef.current = debounce((...args) => {
@@ -79,8 +138,7 @@ function isIncomingEcho(incoming, lastEmitted) {
 }
 
 function TextFilter({ value, onChange, placeholder }) {
-  const displayValue = Array.isArray(value) ? value.join(", ") : (value || "");
-  const [local, setLocal] = useState(displayValue);
+  const [local, setLocal] = useState(value || "");
   const { emit, lastEmitted } = useDebouncedEmit(
     (v) => onChange(v || undefined),
     150
@@ -90,8 +148,7 @@ function TextFilter({ value, onChange, placeholder }) {
   // our own emit. Skipping the echo avoids a redundant re-render.
   useEffect(() => {
     if (!isIncomingEcho(value, lastEmitted.current)) {
-      const nextDisplay = Array.isArray(value) ? value.join(", ") : (value || "");
-      setLocal(nextDisplay);
+      setLocal(value || "");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -217,43 +274,27 @@ function DateRangeFilter({ value, onChange }) {
   );
 }
 
-function normalizeEnumSet(val) {
-  if (!val) return new Set();
-  if (Array.isArray(val)) return new Set(val);
-  if (typeof val === "string") return new Set([val]);
-  return new Set();
-}
-
-function EnumFilter({ value, onChange, enumValues }) {
-  // Local Set so multi-toggle is instant and synchronous. The parent gets
-  // a debounced, single-emit array on each commit, not one transition per
-  // toggle.
-  const [selected, setSelected] = useState(() => normalizeEnumSet(value));
+function EnumFilter({ value, onChange, enumValues, columnId }) {
+  const [selected, setSelected] = useState(() => new Set(value || []));
+  const [search, setSearch] = useState("");
   const debouncedRef = useRef();
+
   useEffect(() => {
-    // Only resync when the parent value isn't the echo of our own emit.
-    // Without this guard, every parent state write would reset the local Set
-    // and clobber a user's mid-tap selection.
-    if (!value || (Array.isArray(value) && value.length === 0)) {
+    if (!value || value.length === 0) {
       if (selected.size === 0) return;
       setSelected(new Set());
       return;
     }
-    const incoming = normalizeEnumSet(value);
+    const incoming = new Set(value);
     if (incoming.size === selected.size && [...incoming].every((v) => selected.has(v))) return;
     setSelected(incoming);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  const onChangeRef = useRef(onChange);
-  useLayoutEffect(() => {
-    onChangeRef.current = onChange;
-  });
-
   useEffect(() => {
-    debouncedRef.current = debounce((arr) => onChangeRef.current(arr.length > 0 ? arr : undefined), 80);
+    debouncedRef.current = debounce((arr) => onChange(arr.length > 0 ? arr : undefined), 80);
     return () => debouncedRef.current?.cancel();
-  }, []);
+  }, [onChange]);
 
   const toggle = (v) => {
     setSelected((prev) => {
@@ -265,6 +306,12 @@ function EnumFilter({ value, onChange, enumValues }) {
     });
   };
 
+  const selectAll = () => {
+    const all = new Set(enumValues);
+    setSelected(all);
+    debouncedRef.current?.([...all]);
+  };
+
   const clear = () => {
     setSelected(new Set());
     debouncedRef.current?.([]);
@@ -272,6 +319,16 @@ function EnumFilter({ value, onChange, enumValues }) {
 
   const count = selected.size;
   const [open, setOpen] = useState(false);
+  const descriptions = columnId ? ENUM_DESCRIPTIONS[columnId] : null;
+
+  const filteredEnums = useMemo(() => {
+    if (!search.trim()) return enumValues;
+    const q = search.trim().toLowerCase();
+    return enumValues.filter((v) => {
+      const desc = descriptions?.[v] || descriptions?.[String(v).toLowerCase()] || "";
+      return String(v).toLowerCase().includes(q) || String(desc).toLowerCase().includes(q);
+    });
+  }, [enumValues, search, descriptions]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -279,43 +336,86 @@ function EnumFilter({ value, onChange, enumValues }) {
         <button
           className={cn(
             "h-7 w-full px-2 text-xs rounded-md border border-input bg-background hover:bg-muted/50 flex items-center justify-between gap-1 transition-colors",
-            count > 0 && "border-primary/50 bg-primary/5"
+            count > 0 && "border-primary/50 bg-primary/10 font-medium text-foreground"
           )}
         >
           <span className="truncate flex items-center gap-1.5">
-            <FilterIcon className="h-3 w-3 opacity-50" />
+            <FilterIcon className={cn("h-3 w-3", count > 0 ? "text-primary" : "opacity-50")} />
             {count > 0 ? `${count} / ${enumValues.length}` : "Wszystkie"}
           </span>
-          <ChevronDown className="h-3 w-3 opacity-50" />
+          <ChevronDown className="h-3 w-3 opacity-50 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-56 p-2" align="start">
-        <div className="space-y-1 max-h-72 overflow-y-auto">
-          {enumValues.map((v) => (
-            <label
-              key={v}
-              className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-muted/50 cursor-pointer text-xs"
-            >
-              <Checkbox
-                checked={selected.has(v)}
-                onCheckedChange={() => toggle(v)}
-              />
-              <span className="truncate flex-1">{v}</span>
-            </label>
-          ))}
+      <PopoverContent className="w-72 sm:w-80 p-2" align="start">
+        {enumValues.length > 6 && (
+          <div className="relative mb-2">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground/50" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Szukaj opcji…"
+              className="h-7 pl-7 pr-6 text-xs"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
+              >
+                <X className="h-3 w-3" />
+              </button>
+            )}
+          </div>
+        )}
+        <div className="space-y-1 max-h-72 overflow-y-auto pr-0.5">
+          {filteredEnums.map((v) => {
+            const desc = descriptions?.[v] || descriptions?.[String(v).toLowerCase()];
+            return (
+              <label
+                key={v}
+                className="flex items-start gap-2.5 px-2 py-1.5 rounded-md hover:bg-muted/60 cursor-pointer text-xs group transition-colors"
+              >
+                <Checkbox
+                  checked={selected.has(v)}
+                  onCheckedChange={() => toggle(v)}
+                  className="mt-0.5"
+                />
+                <div className="flex flex-col min-w-0 flex-1 leading-tight">
+                  <span className="font-semibold text-foreground">{v}</span>
+                  {desc && (
+                    <span className="text-[11px] text-muted-foreground/80 mt-0.5 leading-snug">
+                      {desc}
+                    </span>
+                  )}
+                </div>
+              </label>
+            );
+          })}
+          {filteredEnums.length === 0 && (
+            <div className="text-xs text-muted-foreground text-center py-4">
+              Brak pasujących opcji
+            </div>
+          )}
         </div>
-        {count > 0 && (
-          <div className="border-t pt-2 mt-2">
+        <div className="border-t pt-2 mt-2 flex items-center justify-between gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-6 text-[11px] px-2"
+            onClick={selectAll}
+          >
+            Zaznacz wszystkie
+          </Button>
+          {count > 0 && (
             <Button
               variant="ghost"
               size="sm"
-              className="w-full h-7 text-xs"
+              className="h-6 text-[11px] px-2 text-destructive hover:text-destructive"
               onClick={clear}
             >
-              Wyczyść
+              Wyczyść ({count})
             </Button>
-          </div>
-        )}
+          )}
+        </div>
       </PopoverContent>
     </Popover>
   );

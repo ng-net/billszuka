@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import {
@@ -24,9 +25,7 @@ import { CellRenderer } from "./CellRenderer";
 import { FilterInput } from "./FilterInput";
 import { SortableHeader } from "./SortableHeader";
 import { getEnumValues } from "@/lib/csv";
-import { getColumnLabel } from "@/lib/schema";
 import { cn } from "@/lib/utils";
-import { ArrowUp, ArrowDown, X, Pin, EyeOff } from "lucide-react";
 
 const STICKY_COLS_MOBILE = 2; // first 2 cols sticky on mobile
 
@@ -53,6 +52,8 @@ export function DataTable({
   selectedRowIndex,
   onRowClick,
   globalFilter,
+  pagination,
+  setPagination,
 }) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
@@ -95,15 +96,13 @@ export function DataTable({
       } else if (colType === "date") {
         filterFn = "dateRange";
       } else {
-        // text / url / email / phone — custom multiIncludes that supports
-        // both single search strings and arrays of values (e.g. from QuickChips
-        // or saved multi-value views) without crashing.
-        filterFn = "multiIncludes";
+        // text / url / email / phone — robust case-insensitive substring filter
+        filterFn = "textFilter";
       }
       return {
         id: colId,
         accessorKey: colId,
-        header: getColumnLabel(colId),
+        header: colId,
         enableSorting: true,
         sortingFn: getSortingFn(colType),
         filterFn,
@@ -147,7 +146,7 @@ export function DataTable({
   const columnFilters = useMemo(
     () =>
       Object.entries(filters || {})
-        .filter(([id, value]) => columns.includes(id) && value != null && value !== "" && (!Array.isArray(value) || value.length > 0))
+        .filter(([id]) => columns.includes(id))
         .map(([id, value]) => ({ id, value })),
     [filters, columns]
   );
@@ -161,22 +160,34 @@ export function DataTable({
       sorting: sortStack,
       globalFilter: deferredGlobalFilter,
       columnFilters,
+      ...(pagination
+        ? {
+            pagination: {
+              pageIndex: typeof pagination.pageIndex === "number" && !isNaN(pagination.pageIndex) ? Math.max(0, pagination.pageIndex) : 0,
+              pageSize: pagination.pageSize === 0 ? 999999 : (typeof pagination.pageSize === "number" ? pagination.pageSize : 100),
+            },
+          }
+        : {}),
     },
+    autoResetPageIndex: false,
     getRowId,
     onColumnOrderChange: setColumnOrder,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSortStack,
+    onPaginationChange: setPagination,
     onGlobalFilterChange: () => {},
-    globalFilterFn: "includesString",
+    globalFilterFn: globalSearchFilter,
     filterFns: {
       dateRange: dateRangeFilter,
       enumContains: enumContainsFilter,
       numberRange: numberRangeFilter,
-      multiIncludes: multiIncludesFilter,
+      textFilter: textFilter,
+      globalSearch: globalSearchFilter,
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     enableMultiSort: true,
     isMultiSortEvent: (e) => Boolean(e?.shiftKey),
     enableColumnResizing: false,
@@ -185,6 +196,7 @@ export function DataTable({
   const visibleColumns = table.getVisibleLeafColumns();
   const visibleColumnIds = visibleColumns.map((c) => c.id);
   const tableRows = table.getRowModel().rows;
+  const filteredRowsCount = table.getFilteredRowModel().rows.length;
   const rowHeight = density === "compact" ? 28 : 44;
 
   // Cumulative left-offset (px) for the first STICKY_COLS_MOBILE visible
@@ -227,8 +239,8 @@ export function DataTable({
 
   // Report filtered count up
   useEffect(() => {
-    onFilteredCountChange?.(tableRows.length);
-  }, [tableRows.length, onFilteredCountChange]);
+    onFilteredCountChange?.(filteredRowsCount);
+  }, [filteredRowsCount, onFilteredCountChange]);
 
   // Column reorder (dnd-kit)
   const handleDragEnd = useCallback(
@@ -293,7 +305,7 @@ export function DataTable({
       >
         <div
           ref={tableContainerRef}
-          className="h-full overflow-auto scrollbar-thin touch-scroll-x"
+          className="h-full overflow-auto scrollbar-thin"
           onScroll={() => setMenu(null)}
           onClick={() => menu && setMenu(null)}
         >
@@ -357,6 +369,7 @@ export function DataTable({
                         value={filters[column.id]}
                         onChange={(v) => updateColumnFilter(column.id, v)}
                         enumValues={enumVals}
+                        placeholder={`Filtruj ${column.id.replace(/_/g, " ")}…`}
                       />
                     </th>
                   );
@@ -515,11 +528,11 @@ const Row = memo(function Row({ row, index, rowHeight, density, isSelected, onCl
 
 function defaultWidth(colId, type) {
   if (colId === "id_unikalne") return 130;
-  if (colId === "nazwa_firmy") return 280;
-  if (colId === "adres") return 240;
-  if (colId === "notatki" || colId === "flagi" || colId === "zrodlo_danych") return 260;
-  if (colId === "www") return 200;
-  if (colId === "email") return 220;
+  if (colId === "nazwa_firmy") return 420;
+  if (colId === "adres") return 360;
+  if (colId === "notatki" || colId === "flagi" || colId === "zrodlo_danych") return 390;
+  if (colId === "www") return 300;
+  if (colId === "email") return 330;
   if (colId === "telefon") return 160;
   if (colId === "linkedin" || colId === "facebook" || colId === "instagram" || colId === "tiktok") return 180;
   if (colId === "nip_vat") return 140;
@@ -570,22 +583,49 @@ function getSortingFn(type) {
 }
 
 /**
+ * Robust case-insensitive substring filter for text/url/email/phone columns.
+ */
+const textFilter = (row, columnId, filterValue) => {
+  if (filterValue == null || filterValue === "") return true;
+  const raw = row.getValue(columnId);
+  if (raw == null || raw === "") return false;
+  const cellStr = String(raw).toLowerCase();
+  const searchStr = String(filterValue).toLowerCase().trim();
+  return cellStr.includes(searchStr);
+};
+
+/**
+ * Global search filter across all column cells.
+ */
+const globalSearchFilter = (row, columnId, filterValue) => {
+  if (!filterValue) return true;
+  const searchStr = String(filterValue).toLowerCase().trim();
+  if (!searchStr) return true;
+  const raw = row.getValue(columnId);
+  if (raw == null || raw === "") return false;
+  return String(raw).toLowerCase().includes(searchStr);
+};
+
+/**
  * Custom filterFn for date-range columns. Filter value is {from?, to?}.
  * Coerces both the row value and the bound inputs to Date.getTime() so
  * {min,max} numeric comparison works on dates.
  */
 const dateRangeFilter = (row, columnId, filterValue) => {
-  if (!filterValue) return true;
+  if (!filterValue || (!filterValue.from && !filterValue.to)) return true;
   const raw = row.getValue(columnId);
-  if (raw == null) return false;
-  const cellMs = raw instanceof Date ? raw.getTime() : new Date(raw).getTime();
+  if (raw == null || raw === "") return false;
+  const d = raw instanceof Date ? raw : new Date(raw);
+  const cellMs = d.getTime();
   if (isNaN(cellMs)) return true;
   if (filterValue.from) {
     const fromMs = new Date(filterValue.from).getTime();
     if (!isNaN(fromMs) && cellMs < fromMs) return false;
   }
   if (filterValue.to) {
-    const toMs = new Date(filterValue.to).getTime();
+    const toDate = new Date(filterValue.to);
+    toDate.setHours(23, 59, 59, 999);
+    const toMs = toDate.getTime();
     if (!isNaN(toMs) && cellMs > toMs) return false;
   }
   return true;
@@ -594,60 +634,30 @@ const dateRangeFilter = (row, columnId, filterValue) => {
 /**
  * Custom filterFn for number-range columns. Filter value is {min?, max?}.
  * Same shape as the date filter ({min,max} vs {from,to}) so the UI logic
- * is uniform. TanStack's built-in `inNumberRange` expects a [min,max] tuple
- * which doesn't match what NumberRangeFilter emits.
+ * is uniform.
  */
 const numberRangeFilter = (row, columnId, filterValue) => {
   if (!filterValue) return true;
   const raw = row.getValue(columnId);
-  if (raw == null) return false;
-  // Cells are already typed to number by applySchema() in lib/csv.js, but
-  // fall back to Number() coercion in case a row slipped through (e.g.
-  // empty string → null after coerce, but a stray "1,5" → NaN).
+  if (raw == null || raw === "") return false;
   const n = typeof raw === "number" ? raw : Number(String(raw).replace(",", "."));
   if (isNaN(n)) return false;
-  if (filterValue.min != null && n < filterValue.min) return false;
-  if (filterValue.max != null && n > filterValue.max) return false;
+  if (filterValue.min != null && filterValue.min !== "" && !isNaN(Number(filterValue.min))) {
+    if (n < Number(filterValue.min)) return false;
+  }
+  if (filterValue.max != null && filterValue.max !== "" && !isNaN(Number(filterValue.max))) {
+    if (n > Number(filterValue.max)) return false;
+  }
   return true;
 };
 
 /**
- * Custom filterFn for text / URL / email / phone columns.
- * Supports:
- * - single search string (case-insensitive substring)
- * - array of search strings (matches if cell contains ANY of the terms, OR logic)
- */
-const multiIncludesFilter = (row, columnId, filterValue) => {
-  if (filterValue == null || filterValue === "" || (Array.isArray(filterValue) && filterValue.length === 0)) {
-    return true;
-  }
-  const raw = row.getValue(columnId);
-  if (raw == null || raw === "") return false;
-  const rawStr = String(raw).toLowerCase();
-
-  if (Array.isArray(filterValue)) {
-    return filterValue.some((target) => {
-      if (target == null || target === "") return false;
-      return rawStr.includes(String(target).trim().toLowerCase());
-    });
-  }
-
-  if (typeof filterValue === "object") {
-    return true;
-  }
-
-  return rawStr.includes(String(filterValue).trim().toLowerCase());
-};
-
-/**
  * Custom filterFn for enum columns. Cell values are comma-separated strings
- * ("A, B, C"); filter value may be a scalar string ("A") or an array (["A", "B"]).
- * Match: the cell contains AT LEAST ONE of the selected labels (OR logic).
+ * ("A, B, C"); filter value is an array of checked labels ["A", "B"] or string.
+ * Match: the cell contains AT LEAST ONE of the selected labels (OR logic within column).
  */
 const enumContainsFilter = (row, columnId, filterValue) => {
-  if (filterValue == null || filterValue === "" || (Array.isArray(filterValue) && filterValue.length === 0)) {
-    return true;
-  }
+  if (!filterValue || (Array.isArray(filterValue) && filterValue.length === 0)) return true;
   const raw = row.getValue(columnId);
   if (raw == null || raw === "") return false;
 
@@ -655,15 +665,15 @@ const enumContainsFilter = (row, columnId, filterValue) => {
     ? raw.map((s) => String(s).trim().toLowerCase())
     : String(raw).split(",").map((s) => s.trim().toLowerCase());
 
-  const filterList = (Array.isArray(filterValue) ? filterValue : [filterValue])
-    .filter((v) => v != null && v !== "")
-    .map((v) => String(v).trim().toLowerCase());
+  if (Array.isArray(filterValue)) {
+    return filterValue.some((label) => {
+      const target = String(label).trim().toLowerCase();
+      return cellItems.some((item) => item === target || item.includes(target));
+    });
+  }
 
-  if (filterList.length === 0) return true;
-
-  return filterList.some((label) =>
-    cellItems.includes(label) || cellItems.some((item) => item.includes(label))
-  );
+  const strVal = String(filterValue).trim().toLowerCase();
+  return cellItems.some((item) => item.includes(strVal));
 };
 
 function mergeSort(stack, id, desc) {
@@ -689,32 +699,32 @@ function HeaderContextMenu({ x, y, onAction }) {
         onClick={() => onAction("sort-asc")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <ArrowUp className="h-3.5 w-3.5 shrink-0" /> Sortuj rosnąco
+        <span>↑</span> Sortuj rosnąco
       </button>
       <button
         onClick={() => onAction("sort-desc")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <ArrowDown className="h-3.5 w-3.5 shrink-0" /> Sortuj malejąco
+        <span>↓</span> Sortuj malejąco
       </button>
       <button
         onClick={() => onAction("clear-sort")}
-        className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left text-muted-foreground"
+        className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <X className="h-3.5 w-3.5 shrink-0" /> Wyczyść sort
+        <span className="opacity-50">×</span> Wyczyść sort
       </button>
       <div className="border-t my-1" />
       <button
         onClick={() => onAction("pin")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left"
       >
-        <Pin className="h-3.5 w-3.5 shrink-0" /> Przypiń do lewej
+        <span>📌</span> Przypnij do lewej
       </button>
       <button
         onClick={() => onAction("hide")}
         className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-accent text-left text-destructive"
       >
-        <EyeOff className="h-3.5 w-3.5 shrink-0" /> Ukryj kolumnę
+        <span>👁</span> Ukryj kolumnę
       </button>
     </div>
   );
