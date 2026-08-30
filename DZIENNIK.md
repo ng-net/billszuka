@@ -4322,3 +4322,22 @@ Following the user instruction to add `timeout-minutes: 5` to the `js-test` job 
 - Job name left as "JS tests" (the chore branch had renamed it from "JS tests (Node 20)" because the runner is no longer pinned to Node 20).
 - Commit: `faa2511` on `main`, pushed to ng-net.
 - Push triggered CI run `33328759453`. Watching for: either JS tests pass in <5 min (runner recovered), or the timeout kicks in at 5 min and the job fails fast.
+
+## 2026-08-30 — Session end: wrap-up after revert
+
+**Operator:** Marceli
+**Agent:** Mavis
+
+End-of-session housekeeping. Found that during the time between Mavis sessions, three merges landed on `main` (`chore/oxlint-actions-brand-sync` → `feat/per-user-sessions` revert → `feat/proposal-queue-master-csv-only`) and a fourth (`fix-tooltip-and-login`) was in progress with 10 unmerged files. The auth work Mavis had pushed earlier was already reverted by the prior session, and the team decision (logged in `e969c620` DZIENNIK entry) was to keep the password Basic Auth only — no per-user identity.
+
+Actions taken:
+- Resolved DZIENNIK.md conflict on the `main` merge (took the merge side which contains the revert log).
+- Completed `main` push to `ng-net/billszuka` (`6100cad7..c2f5730d`).
+- **Aborted** the in-progress `fix-tooltip-and-login` merge: 10 unmerged files, started by another agent, out of scope for this session. The branch is intact locally and the merge can be re-attempted by whoever owns it.
+- Did **not** force-push `feat/per-user-sessions` to align with the local revert — remote still points at the original `508a1aad` commit. Per AGENTS.md iron rules (no force-push without explicit approval). The local/remote divergence on this branch is documented in the reflog and is harmless (the feature was reverted on main, so the remote branch is stale by design).
+- Working tree clean. `main` is at `c2f5730d`, ahead of `marlink-backup/main` by 20 commits (marlink is a historical snapshot, not a push target).
+
+Carry-over items for next session:
+- Resolve the `fix-tooltip-and-login` merge on `main` (10 files: AGENTS.md, DZIENNIK.md, package-lock.json, App.jsx, GeminiDrawer.jsx, prefs.js, RawTable.jsx, DataTable.jsx, EmptyState.jsx, FilterInput.jsx).
+- Decide whether to delete the stale remote `feat/per-user-sessions` branch or leave it for archival.
+- Original Mavis question still open: per-user identity in the BILLSzuka frontend is now **on hold** — the team explicitly chose password Basic Auth only. Reopen only if Marceli asks again.
