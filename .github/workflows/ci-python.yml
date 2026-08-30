@@ -104,6 +104,10 @@ jobs:
   js-test:
     name: JS tests
     runs-on: ubuntu-latest
+    # Local: 69/69 in 1.94s. CI normal: 4–8 min. 5 min hard cap so
+    # a stuck runner (we've seen npm test hang >10 min on ng-net)
+    # fails fast instead of eating Actions minutes.
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v5
 
