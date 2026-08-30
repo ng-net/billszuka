@@ -1,5 +1,65 @@
 # BILLSzuka — Dziennik Projektu
 
+## 2026-08-30 — Revert per-user auth (zostajemy na password Basic Auth)
+
+**Operator:** Marceli
+**Agent:** TRAE (MiniMax-M3)
+**Gałąź:** `feat/per-user-sessions`
+**Decyzja:** Marceli: „let's resolve conflicts, we can remove any work on auth, we go with password anyw3ay"
+
+### Co zostało zrobione
+
+1. **Stash** `wip-bad-rollback-of-508a1aa-and-design-projects-2026-08-29` — working tree zawierał niedokończony rollback ficzerów GeminiDrawera (KnowledgeFilesChip, SessionFooter, dynamiczne prompt'y, keyboard shortcuts, testy komponentów) plus usunięte testy (`FollowupPills.test.jsx`, `KnowledgeFilesChip.test.jsx`, `MarkdownText.test.jsx`, `SessionFooter.test.jsx`) i `frontend-2/src/lib/knowledgeFiles.js`. Plus nieśledzony katalog `design-projects/`. Wszystko zachowane w stash jako safety-net.
+
+2. **Clean revert `508a1aa`** (commit `c9d8354`) — czyści commit per-user auth: usunięte `tools/auth.py` (193 linii), wycofane 235 linii z `tools/api_server.py`, wycofane 53 linii z `tools/db.py`. Razem: `-479` linii, `+2`. **Zero konfliktów** — revert poszedł gładko, bo working tree został wcześniej zstashowany.
+
+3. **Co zostawiamy (NIE ruszamy):**
+   - `506386b` **HTTP Basic Auth** (username+password, env-var allowlist) — **to jest password, na który przechodzimy**. Wszystkie endpointy `/api/*` wymagają Basic Auth od tego commit'a.
+   - `AccessGate.jsx`, `lib/access.js` — frontend login gate dla Basic Auth (istnieją od dawna).
+   - Wszystkie ficzery z `dae6814` (GeminiDrawer UX batch) — footer stats, KB chip, export, follow-ups, 36 testów komponentów.
+   - Wszystkie ficzery z `3f46080` (merge brand-sync) — oxlint, Actions v5/v6, brand-sync drift guard.
+
+### Uwaga o WIP w stashu
+
+Stash `wip-bad-rollback-of-508a1aa-and-design-projects-2026-08-29` zawiera NIESKO�CZONY rollback, który **nie powinien być commitowany** w obecnej formie:
+- Kasuje pliki, które wróciły po revercie (np. `knowledgeFiles.js`).
+- Modyfikacje `GeminiDrawer.jsx` cofają lepszą wersję z `dae6814` do prostszej.
+- Modyfikacje `api_server.py` / `validate_columns.py` były częścią tego samego wadliwego rollbacku.
+- `design-projects/` — nieśledzony katalog, nie wiem co w nim jest.
+
+**Marceli:** jeśli chcesz coś z tego odzyskać, daj znać konkretnie co. W przeciwnym razie stash może zostać usunięty (`git stash drop stash@{0}`).
+
+### Weryfikacja po revercie
+
+- **Python tests:** 351/351 PASS (~3.6s)
+- **JS tests:** 69/69 PASS (~1.9s) — po `npm install` (papaparse był zadeklarowany w `package.json`, ale brakowało go w `node_modules` — pre-existing, niezwiązane z revertem).
+- **Working tree:** czysty.
+- **`tools/auth.py`:** usunięty (jedyne źródło tej funkcjonalności).
+
+### Konsekwencje dla API
+
+Endpointy **usunięte** razem z `508a1aa`:
+- `POST /api/auth/login`, `POST /api/auth/logout`
+- `GET /api/me`
+- `POST /api/leads/{id}/bookmark`, `DELETE /api/leads/{id}/bookmark`
+- `GET /api/bookmarks`
+- `DELETE /api/leads/{id}` (soft-delete)
+- `GET /api/me/deletions`
+
+Tabele **usunięte** z `tools/db.py`: `users`, `sessions`, `user_activity`, `bookmarks`, `lead_deletions`.
+
+Jeśli ktokolwiek (lub frontend) używał tych endpointów, trzeba:
+- UI: usunąć odwołania do `bookmark` toggle, soft-delete UI.
+- Migracja: skasować te tabele z produkcyjnej bazy (`sqlite3 ... "DROP TABLE ..."`).
+
+### Następne kroki (follow-up)
+
+1. Sprawdzić czy frontend odwołuje się do usuniętych endpointów (grep `/api/me`, `/api/bookmarks`, `bookmark`).
+2. Rozważyć `git stash drop stash@{0}` po potwierdzeniu, że nic z niego nie potrzebujemy.
+3. Rozważyć `git branch -d feat/per-user-sessions` po merge'ie do main (jeśli to feature branch).
+
+---
+
 ## 2026-08-29 — GeminiDrawer review + koniec sesji
 
 **Operator:** Marceli
