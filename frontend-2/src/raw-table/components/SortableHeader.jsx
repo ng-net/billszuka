@@ -5,6 +5,7 @@ import { ArrowUp, ArrowDown, ArrowUpDown, GripVertical, X, Filter as FilterIcon 
 import { flexRender } from "@tanstack/react-table";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { FilterInput } from "./FilterInput";
+import { getColumnLabel } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 
 /**
@@ -133,8 +134,8 @@ export function SortableHeader({ column, sortIndex, stickyLeft, onContextMenu, o
               onHide(colId);
             }}
             className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity h-5 w-5 -mr-1 inline-flex items-center justify-center rounded hover:bg-destructive/10 hover:text-destructive"
-            title={`Ukryj kolumnę ${colId}`}
-            aria-label={`Ukryj kolumnę ${colId}`}
+            title={`Ukryj kolumnę: ${getColumnLabel(colId)} (${colId})`}
+            aria-label={`Ukryj kolumnę: ${getColumnLabel(colId)} (${colId})`}
           >
             <X className="h-3 w-3" />
           </button>
@@ -180,15 +181,16 @@ function ColumnFilterTrigger({ columnId, type, value, enumValues, onChange }) {
         onClick={(e) => e.stopPropagation()}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-mono mb-1.5 px-1">
-          Filtruj: {columnId}
+        <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium mb-1.5 px-1 flex items-center justify-between gap-2">
+          <span>Filtruj: {getColumnLabel(columnId)}</span>
+          <span className="font-mono text-[9px] opacity-50">{columnId}</span>
         </div>
         <FilterInput
           type={type}
           value={value}
           onChange={onChange}
           enumValues={enumValues}
-          placeholder={`Filtruj ${columnId}…`}
+          placeholder={`Filtruj ${getColumnLabel(columnId)}…`}
         />
       </PopoverContent>
     </Popover>

@@ -21,23 +21,27 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useCsv } from "@/hooks/useCsv";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
+import { classifyBrand } from "@/lib/brand";
+import { DEFAULT_VIEWS, toggleFilterValue } from "@/lib/views";
 import { debounce } from "@/lib/utils";
+import { getColumnLabel } from "@/lib/schema";
+import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
 
 import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
 import { ColumnToggle } from "./components/ColumnToggle";
+import { ViewSwitcher } from "./components/ViewSwitcher";
+import { QuickChips } from "./components/QuickChips";
+import { CollapsibleFilters } from "./components/CollapsibleFilters";
 import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
-
-import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset } from "@/lib/datasetStorage";
-import { apiUrl } from "@/lib/api";
 
 const STATIC_MASTER_URL = "/master.csv";
 // The master dataset is served by FastAPI via /api/master.csv. The Date.now()
 // query param is the belt-and-braces guarantee that after Marceli edits
 // data/master.csv manually, the next reload picks up the new content.
-const MASTER_URL = apiUrl("/api/master.csv");
+const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
@@ -74,8 +78,12 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         } catch {
           // fall through to master.csv
         }
+        loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0);
+      } else if (bootRef.current === 1 && csv.status === "error") {
+        bootRef.current = 2;
+        // Fall back to static public/master.csv
         loadUrlRef.current(withCacheBuster(STATIC_MASTER_URL), "master.csv", 0);
-      } else if (bootRef.current === 1 && (csv.status === "error" || csv.status === "ready")) {
+      } else if (bootRef.current === 1 && csv.status === "ready") {
         bootRef.current = 2;
       }
     }
@@ -120,9 +128,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [focusedColumn, setFocusedColumn] = useState(null);
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
-  const [toolbarVisible, setToolbarVisible] = useState(true);
   const [filteredCount, setFilteredCount] = useState(0);
-  const lastScrollY = useRef(0);
 
   // Apply theme to <html>
   useEffect(() => {
@@ -144,10 +150,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     }
   }, [prefs.theme]);
 
-  // Persist prefs (debounced)
+  // Persist prefs immediately on every change so page refresh never loses state.
   useEffect(() => {
-    const t = setTimeout(() => savePrefs(prefs), 300);
-    return () => clearTimeout(t);
+    savePrefs(prefs);
   }, [prefs]);
 
   // Initialize column order from CSV columns when loaded.
@@ -173,7 +178,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   );
   const filters = useMemo(
     () => Object.fromEntries(
-      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k))
+      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k) || k.startsWith("__"))
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.filters, csv.columns]
@@ -243,19 +248,129 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     }
   }, []);
 
-  // Toolbar hide-on-scroll
-  useEffect(() => {
-    if (csv.status !== "ready") return;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - lastScrollY.current;
-      if (delta > 8 && y > 100) setToolbarVisible(false);
-      else if (delta < -4) setToolbarVisible(true);
-      lastScrollY.current = y;
+  // Synthetic filter columns (e.g. __brand) are computed from row data
+  // and handled by pre-filtering rows before TanStack sees them.
+  // Strip them from the TanStack-bound filters so it doesn't choke.
+  const effectiveFilters = useMemo(
+    () => Object.fromEntries(Object.entries(filters).filter(([k]) => !k.startsWith("__"))),
+    [filters]
+  );
+
+  // Map row.id_unikalne -> brand label (computed once per dataset change).
+  const brandByRow = useMemo(() => {
+    const map = new Map();
+    for (const row of csv.rows) {
+      map.set(row.id_unikalne, classifyBrand(row));
+    }
+    return map;
+  }, [csv.rows]);
+
+  // Build filter group values for the collapsible filter panel.
+  // Each group is { kraj: [...], __brand: [...], tier: [...] } sorted by frequency.
+  const filterGroups = useMemo(() => {
+    const collect = (key, transform) => {
+      const counts = new Map();
+      for (const row of csv.rows) {
+        const raw = key === "__brand" ? brandByRow.get(row.id_unikalne) : row[key];
+        const v = transform ? transform(raw) : raw;
+        if (v === null || v === undefined || v === "") continue;
+        counts.set(v, (counts.get(v) || 0) + 1);
+      }
+      return [...counts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .map(([value]) => value);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [csv.status]);
+    return {
+      kraj: collect("kraj"),
+      __brand: collect("__brand"),
+      tier: collect("tier"),
+    };
+  }, [csv.rows, brandByRow]);
+
+  // Pre-filter rows by synthetic columns (currently only __brand) before
+  // passing to DataTable. This keeps TanStack's filter machinery focused on
+  // real CSV columns.
+  const visibleRows = useMemo(() => {
+    const brandFilter = filters.__brand;
+    if (!brandFilter) return csv.rows;
+    if (Array.isArray(brandFilter)) {
+      if (brandFilter.length === 0) return csv.rows;
+      return csv.rows.filter((r) => brandFilter.includes(brandByRow.get(r.id_unikalne)));
+    }
+    return csv.rows.filter((r) => brandByRow.get(r.id_unikalne) === brandFilter);
+  }, [csv.rows, filters.__brand, brandByRow]);
+
+  // Saved views = default views + user-defined views.
+  const allViews = useMemo(
+    () => [...DEFAULT_VIEWS, ...(prefs.savedViews || [])],
+    [prefs.savedViews]
+  );
+
+  const activateView = useCallback((view) => {
+    if (!view) {
+      // Deactivate view but preserve the user's manual sort — only clear filters.
+      setPrefs((p) => ({ ...p, activeView: null, filters: {} }));
+      setGlobalFilter("");
+      setGlobalSearch("");
+      return;
+    }
+    // Merge view filters with brand-classification: __brand entries are
+    // replaced with a filterFn that matches the derived brand label.
+    const nextFilters = { ...(view.filters || {}) };
+    setPrefs((p) => ({
+      ...p,
+      activeView: view.id,
+      filters: nextFilters,
+      // Apply view's own sort if it has one; otherwise keep the user's current sort.
+      sortStack: view.sortStack || p.sortStack || [],
+    }));
+    setGlobalFilter("");
+    setGlobalSearch("");
+  }, []);
+
+  const saveCurrentView = useCallback(
+    (name) => {
+      const id = `view-user-${Date.now()}`;
+      setPrefs((p) => ({
+        ...p,
+        savedViews: [
+          ...(p.savedViews || []),
+          { id, name, userDefined: true, filters: p.filters || {}, columns: csv.columns },
+        ],
+        activeView: id,
+      }));
+      toast.success(`Zapisano widok: ${name}`, { duration: 1500 });
+    },
+    [csv.columns]
+  );
+
+  const deleteView = useCallback((viewId) => {
+    setPrefs((p) => ({
+      ...p,
+      savedViews: (p.savedViews || []).filter((v) => v.id !== viewId),
+      activeView: p.activeView === viewId ? null : p.activeView,
+    }));
+  }, []);
+
+  // Toggle a value into the prefs.filters entry for a column.
+  // Also clear the global text search — the combination of a chip filter
+  // and a full-text search is rarely intentional and often leaves 0 results.
+  const toggleQuickFilter = useCallback((columnId, value) => {
+    setPrefs((p) => {
+      const current = (p.filters || {})[columnId];
+      const next = toggleFilterValue(current, value);
+      const filters = { ...(p.filters || {}) };
+      if (next === undefined) delete filters[columnId];
+      else filters[columnId] = next;
+      return { ...p, filters };
+    });
+    setGlobalFilter("");
+    setGlobalSearch("");
+  }, []);
+
+  // Toolbar pinned — previously hid on scroll, removed because controls
+  // (search, filters, view switcher) should stay reachable while exploring
+  // a long table.
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -339,7 +454,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // column references that no longer exist in the CSV). The setters
   // above still write to the underlying prefs; these derived values
   // automatically reflect the writes.
-  const effectiveFilters = filters;
+  // (effectiveFilters is declared earlier — it strips synthetic __ keys.)
 
   // Handle palette actions
   const handlePaletteAction = (item) => {
@@ -389,60 +504,80 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const Header = (
     <motion.header
       initial={false}
-      animate={{ height: toolbarVisible ? "auto" : 0, opacity: toolbarVisible ? 1 : 0 }}
+      animate={{ height: "auto", opacity: 1 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
       className="sticky top-0 z-40 border-b bg-card/80 backdrop-blur-md overflow-hidden"
     >
-      <div className="h-14 flex items-center gap-2 sm:gap-3 px-3 sm:px-4">
+      <div className="flex flex-col gap-1.5 py-2 px-3 sm:px-4">
         {csv.status === "ready" && (
           <>
-            <div className="relative flex-1 max-w-md min-w-0">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
-              <Input
-                value={globalSearch}
-                onChange={(e) => onGlobalSearchChange(e.target.value)}
-                placeholder="Szukaj we wszystkich kolumnach…"
-                className="h-8 pl-8 pr-7 text-sm"
+            <div className="flex items-center gap-2 sm:gap-3 h-8">
+              <div className="relative flex-1 max-w-md min-w-0">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+                <Input
+                  value={globalSearch}
+                  onChange={(e) => onGlobalSearchChange(e.target.value)}
+                  placeholder="Szukaj we wszystkich kolumnach…"
+                  className="h-8 pl-8 pr-7 text-sm"
+                />
+                {globalSearch && (
+                  <button
+                    onClick={() => onGlobalSearchChange("")}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+
+              <ViewSwitcher
+                views={allViews}
+                activeView={prefs.activeView}
+                activeViewDef={allViews.find((v) => v.id === prefs.activeView)}
+                currentFilters={prefs.filters}
+                onActivate={activateView}
+                onSave={saveCurrentView}
+                onDelete={deleteView}
               />
-              {globalSearch && (
-                <button
-                  onClick={() => onGlobalSearchChange("")}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
+
+              <ColumnToggle
+                columns={csv.columns}
+                visibility={columnVisibility}
+                onChange={setColumnVisibility}
+                schema={csv.schema}
+              />
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 inline-flex shrink-0"
+                    aria-label="Gęstość"
+                    title="Gęstość"
+                  >
+                    {prefs.density === "compact" ? <Rows3 className="h-4 w-4" /> : <Rows4 className="h-4 w-4" />}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Gęstość</DropdownMenuLabel>
+                  <DropdownMenuItem onClick={() => setDensity("compact")}>
+                    <Rows3 className="h-4 w-4 mr-2" /> Kompaktowy {prefs.density === "compact" && "✓"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setDensity("comfortable")}>
+                    <Rows4 className="h-4 w-4 mr-2" /> Wygodny {prefs.density === "comfortable" && "✓"}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
-            <ColumnToggle
-              columns={csv.columns}
-              visibility={columnVisibility}
-              onChange={setColumnVisibility}
-              schema={csv.schema}
+            {/* Collapsible filter panel — wraps kraj/marka/tier in one card with expand/collapse */}
+            <CollapsibleFilters
+              groups={filterGroups}
+              filters={filters}
+              onToggle={toggleQuickFilter}
+              className="min-w-0 flex-1"
             />
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-8 w-8 hidden sm:inline-flex"
-                  aria-label="Gęstość"
-                  title="Gęstość"
-                >
-                  {prefs.density === "compact" ? <Rows3 className="h-4 w-4" /> : <Rows4 className="h-4 w-4" />}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Gęstość</DropdownMenuLabel>
-                <DropdownMenuItem onClick={() => setDensity("compact")}>
-                  <Rows3 className="h-4 w-4 mr-2" /> Kompaktowy {prefs.density === "compact" && "✓"}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setDensity("comfortable")}>
-                  <Rows4 className="h-4 w-4 mr-2" /> Wygodny {prefs.density === "comfortable" && "✓"}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </>
         )}
       </div>
@@ -463,7 +598,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               onFile={csv.loadFile}
               onLoadSample={tryLoadData}
               hasSample
-              sampleSize={0}
+              sampleSize={216000}
             />
           )}
 
@@ -493,7 +628,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
             <>
               <DataTable
                 columns={columnOrder}
-                rows={csv.rows}
+                rows={visibleRows}
                 schema={csv.schema}
                 columnOrder={columnOrder}
                 columnVisibility={columnVisibility}
@@ -501,7 +636,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 setColumnVisibility={setColumnVisibility}
                 onFilteredCountChange={setFilteredCount}
                 onColumnHide={(id) => {
-                  toast(`Ukryto kolumnę: ${id}`, {
+                  toast(`Ukryto kolumnę: ${getColumnLabel(id)}`, {
                     description: "Kliknij „Pokaż\", żeby przywrócić",
                     duration: 4000,
                     action: {

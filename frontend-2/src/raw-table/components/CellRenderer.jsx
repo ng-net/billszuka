@@ -4,9 +4,43 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { formatDate, truncate, formatNumber } from "@/lib/utils";
+import { formatDate, truncate, formatNumber, cn } from "@/lib/utils";
+import { highlightKeywords } from "@/lib/brand";
 import { Mail, Phone, ExternalLink, Copy, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
+
+const KEYWORD_CLASS = {
+  tyton: "bg-amber-200/70 dark:bg-amber-900/60 text-foreground",
+  gilza: "bg-emerald-200/70 dark:bg-emerald-900/60 text-foreground",
+  bibulki: "bg-blue-200/70 dark:bg-blue-900/60 text-foreground",
+};
+
+/**
+ * Renders text with keyword segments highlighted via colored spans.
+ * Falls back to plain text if no keywords matched.
+ */
+function HighlightedText({ text, className }) {
+  const segments = highlightKeywords(text);
+  const hasHighlight = segments.some((s) => s.type);
+  if (!hasHighlight) return <span className={className}>{text}</span>;
+  return (
+    <span className={className}>
+      {segments.map((s, i) =>
+        s.type ? (
+          <mark
+            key={i}
+            data-keyword={s.type}
+            className={cn("px-0.5 rounded", KEYWORD_CLASS[s.type])}
+          >
+            {s.text}
+          </mark>
+        ) : (
+          <span key={i}>{s.text}</span>
+        )
+      )}
+    </span>
+  );
+}
 
 const TIER_COLORS = {
   "wyłączność": "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/20",
@@ -71,7 +105,7 @@ function LongTextCell({ value, display, columnId, truncated }) {
               className="cursor-pointer hover:text-primary"
               title={value}
             >
-              {display}
+              <HighlightedText text={display} />
               {truncated && (
                 <Maximize2 className="inline h-2.5 w-2.5 ml-1 opacity-0 group-hover:opacity-50" />
               )}
@@ -97,7 +131,7 @@ function LongTextCell({ value, display, columnId, truncated }) {
         </div>
         <ScrollArea className="max-h-80 px-3 py-2">
           <div className="text-sm whitespace-pre-wrap break-words leading-relaxed">
-            {value}
+            <HighlightedText text={value} />
           </div>
         </ScrollArea>
         <div className="px-3 py-2 border-t flex items-center justify-end gap-2">
@@ -185,23 +219,32 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
   };
 
   // URL — click opens in new tab. No popover needed; full URL is in title.
-  if (type === "url" || /^https?:\/\//i.test(display)) {
+  const isUrlLike =
+    type === "url" ||
+    /^https?:\/\//i.test(display) ||
+    /^(www\.|linkedin\.com|facebook\.com|instagram\.com|tiktok\.com|[a-z0-9-]+\.(pl|cz|sk|com|de|eu|co\.uk|org|net|io|app))/i.test(display.trim()) ||
+    ["www", "linkedin", "facebook", "instagram", "tiktok"].includes(columnId);
+
+  if (isUrlLike && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(display)) {
+    const rawUrl = display.trim();
+    const href = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
+    const cleanDisplay = rawUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
     return (
       <Tooltip delayDuration={250}>
         <TooltipTrigger asChild>
           <a
-            href={display}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="inline-flex items-center gap-1 text-primary hover:underline font-mono text-xs"
           >
-            <span className="truncate max-w-[200px]">{display.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
+            <span className="truncate max-w-[200px]">{cleanDisplay}</span>
             <ExternalLink className="h-3 w-3 shrink-0 opacity-60" />
           </a>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-md">
-          <p className="text-xs break-all">{display}</p>
+          <p className="text-xs break-all">{href}</p>
         </TooltipContent>
       </Tooltip>
     );

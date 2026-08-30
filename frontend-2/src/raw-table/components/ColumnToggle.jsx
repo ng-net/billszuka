@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Columns3, Search, RotateCcw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getColumnLabel } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 
 export function ColumnToggle({ columns, visibility, onChange, schema }) {
@@ -15,7 +16,10 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
   const filtered = useMemo(() => {
     if (!search) return columns;
     const q = search.toLowerCase();
-    return columns.filter((c) => c.toLowerCase().includes(q));
+    return columns.filter((c) => {
+      const label = getColumnLabel(c).toLowerCase();
+      return c.toLowerCase().includes(q) || label.includes(q);
+    });
   }, [columns, search]);
 
   const visibleCount = columns.filter((c) => visibility[c] !== false).length;
@@ -43,7 +47,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="gap-1.5">
           <Columns3 className="h-4 w-4" />
-          <span className="hidden sm:inline">Kolumny</span>
+          <span className="hidden md:inline">Kolumny</span>
           <span className="text-xs text-muted-foreground tabular-nums">
             {visibleCount}/{columns.length}
           </span>
@@ -107,7 +111,10 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
                       checked={isVisible}
                       onCheckedChange={() => toggle(col)}
                     />
-                    <span className="flex-1 truncate font-mono text-xs">{col}</span>
+                    <div className="flex-1 min-w-0 flex flex-col">
+                      <span className="truncate text-xs font-medium">{getColumnLabel(col)}</span>
+                      <span className="truncate text-[10px] text-muted-foreground/60 font-mono">{col}</span>
+                    </div>
                     {type && type !== "text" && (
                       <span className="text-[10px] text-muted-foreground uppercase tracking-wide">
                         {type}

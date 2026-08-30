@@ -34,7 +34,6 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
-          if (id.includes('recharts')) return 'recharts';
           if (id.includes('framer-motion')) return 'framer';
           if (id.includes('cmdk')) return 'cmdk';
           if (id.includes('@tanstack')) return 'tanstack';

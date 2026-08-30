@@ -126,7 +126,8 @@ export function AccessGate({ children }) {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center bg-background text-foreground px-6">
       <div className="w-full max-w-sm space-y-10 text-center">
-        <div className="space-y-2">
+        <div className="space-y-3">
+          <img src="/bill-tbird.svg" alt="BILLS Logo" className="mx-auto h-12 w-auto object-contain drop-shadow-sm" />
           <h1 className="text-2xl font-semibold tracking-tight">BILLSzuka</h1>
           <p className="text-[10px] text-muted-foreground">Katalog leadów B2B/B2C</p>
         </div>

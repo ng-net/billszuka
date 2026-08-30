@@ -1,0 +1,153 @@
+import { useState } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Eye, BookmarkPlus, Check, LayoutGrid } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * ViewSwitcher — saved views for the table.
+ *
+ * Props:
+ *   views          — array of saved views { id, name, filters, columns? }
+ *   activeView     — id of currently active view (null = "Wszystko")
+ *   activeViewDef  — the full view object for the active view (or undefined)
+ *   currentFilters — current prefs.filters (to detect "view modified" state)
+ *   onActivate     — (view | null) => void  (null = reset to no view)
+ *   onSave         — (name) => void  (saves current filters+columns as new view)
+ *   onDelete       — (viewId) => void
+ */
+export function ViewSwitcher({ views = [], activeView, activeViewDef, currentFilters, onActivate, onSave, onDelete }) {
+  const [open, setOpen] = useState(false);
+  const [saveName, setSaveName] = useState("");
+
+  const active = views.find((v) => v.id === activeView);
+  const label = active?.name || "Wszystko";
+
+  // Detect if the user has drifted from the view's canonical filters.
+  // Compare JSON of the view's filters vs current filters (order-insensitive
+  // by sorting keys before serialising).
+  const isModified = Boolean(
+    activeViewDef &&
+      JSON.stringify(sortKeys(activeViewDef.filters || {})) !==
+        JSON.stringify(sortKeys(currentFilters || {}))
+  );
+
+  const handleSave = () => {
+    const name = saveName.trim();
+    if (!name) return;
+    onSave?.(name);
+    setSaveName("");
+  };
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="sm" className="gap-1.5 relative">
+          <LayoutGrid className="h-4 w-4" />
+          <span className="hidden md:inline">{label}</span>
+          {isModified && (
+            <span
+              className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-amber-400 border border-background"
+              title="Filtry różnią się od zapisanego widoku"
+            />
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[min(18rem,calc(100vw-2rem))] p-0" align="end">
+        <div className="p-3 border-b space-y-2">
+          <p className="text-sm font-medium">Widoki</p>
+          <button
+            onClick={() => {
+              onActivate?.(null);
+              setOpen(false);
+            }}
+            className={cn(
+              "flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm hover:bg-muted/60",
+              !activeView && "bg-muted"
+            )}
+          >
+            <Eye className="h-3.5 w-3.5 opacity-60" />
+            <span className="flex-1 text-left">Wszystko</span>
+            {!activeView && <Check className="h-3.5 w-3.5 text-primary" />}
+          </button>
+        </div>
+
+        <div className="max-h-72 overflow-auto py-1">
+          {views.length === 0 ? (
+            <p className="text-xs text-muted-foreground text-center py-6">
+              Brak zapisanych widoków
+            </p>
+          ) : (
+            views.map((v) => (
+              <div
+                key={v.id}
+                className={cn(
+                  "flex items-center gap-2 px-3 py-1.5 text-sm hover:bg-muted/40",
+                  v.id === activeView && "bg-muted"
+                )}
+              >
+                <button
+                  onClick={() => {
+                    onActivate?.(v);
+                    setOpen(false);
+                  }}
+                  className="flex-1 flex items-center gap-2 text-left"
+                >
+                  <Eye className="h-3.5 w-3.5 opacity-60" />
+                  <span className="truncate">{v.name}</span>
+                </button>
+                {v.id === activeView && !isModified && <Check className="h-3.5 w-3.5 text-primary" />}
+                {v.id === activeView && isModified && (
+                  <span className="text-[10px] text-amber-500 font-medium">zmod.</span>
+                )}
+                {v.userDefined && onDelete && (
+                  <button
+                    onClick={() => onDelete?.(v.id)}
+                    className="text-xs text-muted-foreground hover:text-destructive"
+                    title="Usuń widok"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+
+        {onSave && (
+          <div className="p-3 border-t space-y-2">
+            <p className="text-xs text-muted-foreground">Zapisz bieżący widok</p>
+            <div className="flex gap-1.5">
+              <Input
+                value={saveName}
+                onChange={(e) => setSaveName(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSave()}
+                placeholder="np. PL Big players"
+                className="h-7 text-xs"
+              />
+              <Button
+                size="xs"
+                variant="outline"
+                onClick={handleSave}
+                disabled={!saveName.trim()}
+              >
+                <BookmarkPlus className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </div>
+        )}
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+/** Sort object keys alphabetically for stable JSON comparison. */
+function sortKeys(obj) {
+  if (!obj || typeof obj !== "object") return obj;
+  return Object.fromEntries(
+    Object.entries(obj)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([k, v]) => [k, Array.isArray(v) ? [...v].sort() : v])
+  );
+}

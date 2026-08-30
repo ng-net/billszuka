@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   Sparkles,
@@ -9,6 +9,8 @@ import {
   Settings as SettingsIcon,
   Loader2,
   Bird,
+  BookOpen,
+  Download,
 } from "lucide-react";
 import {
   Sheet,
@@ -22,6 +24,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/lib/api";
@@ -31,25 +39,34 @@ import { apiUrl } from "@/lib/api";
  * Triggered from any header that passes an onOpenSettings prop.
  *
  * Backend: POST /api/chat { query, active_dataset, knowledge_ids }
- *   Response: { response, provider }   (provider: openrouter | gemini | mock | mock-fallback | ...)
+ *   Response: { response, provider }   (provider: openrouter | gemini | mock | mock-fallback | faq | save | ...)
  *
  * Conversation is in-memory only (no persistence — by design per plan).
+ *
+ * UX additions vs the original (all four ship together — they're a coherent
+ * batch aimed at "Gills feels less like a black box"):
+ *   1. KnowledgeFilesChip in the header — shows which knowledge files are
+ *      attached to the next call (click to open the picker). Without this
+ *      the user has to guess whether their PDF is in scope.
+ *   2. SessionFooter — running totals: questions / FAQ-hits (0 tok.) /
+ *      LLM-calls / saves. Surfaces the cost-saving behaviour of FAQ so
+ *      the user learns to ask FAQ-shaped questions.
+ *   3. Keyboard shortcuts inside the panel: ⌘L clears, ↑ when input is
+ *      empty re-loads the last user message for editing.
+ *   4. DynamicQuickPrompts — pulls top countries from the active dataset
+ *      so the prompt bar matches whatever the user has loaded.
  */
 
-// Curated prompts the user can fire with one click. Grouped so the drawer
-// can label them. Each prompt is a complete, natural-language question —
-// the same thing the user would type themselves.
-const QUICK_PROMPTS = [
+// Curated prompts that don't depend on the dataset shape (used as the
+// fallback when the dataset fetch fails or returns no `kraj` column).
+const STATIC_PROMPTS = [
   {
     group: "Szukaj danych",
     icon: "🔍",
     items: [
-      "Ile firm jest FROZEN w PL?",
-      "Pokaż firmy z CZ które sprzedają PowerMatic",
-      "Top 5 firm w PL z tier=wyłączność",
-      "Lista hurtowników w CZ z wolumen=duży",
-      "Firmy z DE z kanałem online",
-      "Ile firm jest DO-WERYFIKACJI w RO?",
+      "Ile firm jest FROZEN?",
+      "Top 5 firm z tier=wyłączność",
+      "Status weryfikacji (FROZEN / DO-WERYFIKACJI)",
     ],
   },
   {
@@ -57,10 +74,8 @@ const QUICK_PROMPTS = [
     icon: "📋",
     items: [
       "Rozkład firm wg kraju",
-      "Status weryfikacji (FROZEN / DO-WERYFIKACJI)",
       "Tier × kraj",
       "Wolumen × kraj (mały/średni/duży)",
-      "Top 10 krajów wg liczby firm",
     ],
   },
   {
@@ -74,23 +89,55 @@ const QUICK_PROMPTS = [
   },
 ];
 
+const PROVIDER_FREE = new Set(["faq", "save"]);
+const PROVIDER_LLM = new Set([
+  "openrouter",
+  "gemini",
+  "gemini-3.6-flash",
+  "gemini-2.5-flash",
+  "openrouter-fallback",
+  "gemini-fallback",
+]);
+
 export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] }) {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([]); // [{role: "user"|"assistant", text, provider?}]
+  const [messages, setMessages] = useState([]);
+  // Per-message provider lets the SessionFooter aggregate without re-parsing
+  // the bubble list.
+  const [stats, setStats] = useState({ total: 0, free: 0, llm: 0 });
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  // Knowledge base index — fetched lazily on first open so the chip can
+  // show filenames. KnowledgeDrawer owns the canonical selection, but
+  // re-fetching here is cheap and avoids a parent-API contract change.
+  const [knowledgeIndex, setKnowledgeIndex] = useState([]);
   const scrollRef = useRef(null);
+  const inputRef = useRef(null);
 
-  // Mirror knowledgeIds into a ref so the send() callback always sees the
-  // latest selection without re-binding on every change. (App.jsx is the
-  // single source of truth — the drawer just consumes it.)
   const knowledgeIdsRef = useRef(knowledgeIds);
   useEffect(() => {
     knowledgeIdsRef.current = knowledgeIds;
   }, [knowledgeIds]);
 
-  // Autoscroll on new messages — Radix ScrollArea's Viewport is the actual
-  // scrollable node, so we locate it by data-slot after each render.
+  // Fetch knowledge index once when the drawer first opens, then refresh
+  // whenever the user toggles selection (so deletions propagate). The
+  // chip only needs the id→filename map.
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    fetch(apiUrl("/api/knowledge"))
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
+      .then((body) => {
+        if (!cancelled && Array.isArray(body?.items)) setKnowledgeIndex(body.items);
+      })
+      .catch(() => {
+        /* offline / no KB yet — chip just shows count without filenames */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, knowledgeIds.length]);
+
   useEffect(() => {
     if (!scrollRef.current) return;
     const viewport = scrollRef.current.querySelector(
@@ -117,10 +164,16 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.detail || res.statusText);
+      const provider = body.provider || "unknown";
       setMessages((m) => [
         ...m,
-        { role: "assistant", text: body.response || "(brak odpowiedzi)", provider: body.provider },
+        { role: "assistant", text: body.response || "(brak odpowiedzi)", provider },
       ]);
+      setStats((s) => ({
+        total: s.total + 1,
+        free: s.free + (PROVIDER_FREE.has(provider) ? 1 : 0),
+        llm: s.llm + (PROVIDER_LLM.has(provider) ? 1 : 0),
+      }));
     } catch (e) {
       const errMsg = e.message?.includes("Failed to fetch") || e.message?.includes("NetworkError")
         ? "Brak połączenia z serwerem API (127.0.0.1:8000). Upewnij się, że backend jest uruchomiony (`python tools/api_server.py`)."
@@ -135,19 +188,80 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
     }
   }
 
-  function clearThread() {
+  const clearThread = useCallback(() => {
     setMessages([]);
+    setStats({ total: 0, free: 0, llm: 0 });
     toast.success("Wątek wyczyszczony");
-  }
+  }, []);
+
+  // Edit-last-message: when the input is empty and the user hits ArrowUp,
+  // copy the most recent user message into the input for re-editing.
+  // Standard chat-UX convention (terminal, Slack, every LLM client).
+  const recallLastUser = useCallback(() => {
+    if (busy) return;
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].role === "user") {
+        setInput(messages[i].text);
+        requestAnimationFrame(() => inputRef.current?.focus());
+        return;
+      }
+    }
+  }, [messages, busy]);
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => {
+      const isMeta = e.metaKey || e.ctrlKey;
+      if (isMeta && e.key.toLowerCase() === "l") {
+        e.preventDefault();
+        if (messages.length > 0) clearThread();
+      } else if (
+        !isMeta &&
+        e.key === "ArrowUp" &&
+        input === "" &&
+        document.activeElement === inputRef.current
+      ) {
+        e.preventDefault();
+        recallLastUser();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [open, messages, input, clearThread, recallLastUser]);
 
   function copyMsg(text) {
     navigator.clipboard?.writeText(text);
     toast.success("Skopiowano", { duration: 800 });
   }
 
+  // Export the whole thread as a Markdown transcript. Useful for pasting
+  // into INTEL.md / an email — keeps provider tags so the recipient
+  // knows which answers were zero-token FAQ hits vs paid Gemini calls.
+  function exportTranscript() {
+    if (messages.length === 0) return;
+    const lines = [
+      `# Wątek Gills — ${new Date().toLocaleString("pl-PL")}`,
+      ``,
+      `> Dataset: \`${activeDataset || "master.csv"}\``,
+      `> Pliki wiedzy: ${knowledgeIds.length}`,
+      ``,
+    ];
+    messages.forEach((m, i) => {
+      const role = m.role === "user" ? "Ty" : `Gills${m.provider ? ` (${m.provider})` : ""}`;
+      lines.push(`## ${i + 1}. ${role}`);
+      lines.push("");
+      lines.push(m.text.trim());
+      lines.push("");
+    });
+    const md = lines.join("\n");
+    navigator.clipboard?.writeText(md);
+    toast.success("Transkrypt skopiowany do schowka", {
+      description: `${messages.length} wiadomości · Markdown`,
+    });
+  }
+
   return (
     <>
-      {/* Floating Action Button */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <motion.button
@@ -169,14 +283,26 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
           className="w-full sm:max-w-md p-0 flex flex-col gap-0"
         >
           <SheetHeader className="px-5 pt-5 pb-3 border-b">
-            <div className="flex items-center justify-between">
-              <SheetTitle className="flex items-center gap-2">
-                <Bird className="h-5 w-5 text-violet-500" />
-                <span>
+            <div className="flex items-center justify-between gap-2">
+              <SheetTitle className="flex items-center gap-2 min-w-0">
+                <Bird className="h-5 w-5 text-violet-500 shrink-0" />
+                <span className="truncate">
                   Gills <span className="text-muted-foreground font-normal text-sm">— twój skowronek</span>
                 </span>
               </SheetTitle>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 shrink-0">
+                {messages.length > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={exportTranscript}
+                    aria-label="Eksportuj transkrypt"
+                    title="Eksportuj transkrypt (do schowka, Markdown)"
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
+                )}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -202,19 +328,21 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
               </div>
             </div>
             <SheetDescription>
-              Pytaj o dane w master.csv albo załączone pliki. Gills ćwierka
-              konkretami z bazy wiedzy.
+              Pytaj o dane w <span className="font-mono text-[11px]">{activeDataset || "master.csv"}</span>
+              {knowledgeIds.length > 0 && (
+                <> · baza wiedzy aktywna ({knowledgeIds.length})</>
+              )}.
             </SheetDescription>
           </SheetHeader>
 
           {/* Thread */}
           <ScrollArea className="flex-1 px-5 py-3" ref={scrollRef}>
             {messages.length === 0 ? (
-              <EmptyState onPick={sendQuery} />
+              <EmptyState onPick={sendQuery} activeDataset={activeDataset} />
             ) : (
               <div className="space-y-3">
                 {messages.map((m, i) => (
-                  <Bubble key={i} msg={m} onCopy={copyMsg} />
+                  <Bubble key={i} msg={m} onCopy={copyMsg} onFollowup={sendQuery} />
                 ))}
                 {busy && (
                   <div className="flex items-center gap-2 text-xs text-muted-foreground pl-1">
@@ -226,13 +354,12 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             )}
           </ScrollArea>
 
-          {/* Quick-prompt pills — visible while thread is empty or after a
-              reply so the user can keep firing one-click questions. */}
           <QuickPrompts onPick={sendQuery} disabled={busy} />
 
           {/* Input */}
           <div className="border-t p-3 flex gap-2 items-end">
             <Input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
@@ -241,7 +368,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                   sendQuery();
                 }
               }}
-              placeholder="Albo wpisz własne pytanie…"
+              placeholder="Albo wpisz własne pytanie… (↑ ostatnie)"
               className="flex-1"
               disabled={busy}
             />
@@ -258,20 +385,118 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                 onClick={clearThread}
                 size="icon"
                 variant="ghost"
-                aria-label="Wyczyść wątek"
-                title="Wyczyść wątek"
+                aria-label="Wyczyść wątek (⌘L)"
+                title="Wyczyść wątek (⌘L)"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
             )}
           </div>
+
+          <SessionFooter stats={stats} knowledgeCount={knowledgeIds.length} knowledgeIndex={knowledgeIndex} parentsSelected={knowledgeIds} />
         </SheetContent>
       </Sheet>
     </>
   );
 }
 
-function EmptyState({ onPick }) {
+/**
+ * SessionFooter — compact running tally of this thread.
+ * "0 tok." badge is the call-to-action: when free > 0 the user learns
+ * that FAQ-shaped questions don't burn Gemini quota.
+ */
+export function SessionFooter({ stats, knowledgeCount, knowledgeIndex }) {
+  return (
+    <TooltipProvider delayDuration={200}>
+      <div className="border-t bg-muted/30 px-5 py-2 flex items-center justify-between text-[11px] text-muted-foreground">
+        <div className="flex items-center gap-3">
+          <span title="Pytań w tym wątku">
+            💬 <strong className="text-foreground tabular-nums">{stats.total}</strong>
+          </span>
+          {stats.free > 0 && (
+            <span title="Obsłużone przez FAQ lub 'zapisz' (0 tokenów)">
+              ✨ <strong className="text-emerald-600 dark:text-emerald-400 tabular-nums">{stats.free}</strong> 0 tok.
+            </span>
+          )}
+          {stats.llm > 0 && (
+            <span title="Wysłane do modelu (Gemini / OpenRouter)">
+              🧠 <strong className="text-violet-600 dark:text-violet-400 tabular-nums">{stats.llm}</strong> LLM
+            </span>
+          )}
+        </div>
+        <KnowledgeFilesChip count={knowledgeCount} index={knowledgeIndex} />
+      </div>
+    </TooltipProvider>
+  );
+}
+
+/**
+ * Pure helper: resolve the set of selected knowledge ids to a list of
+ * filenames, skipping unknown ids. Extracted so the unit tests can
+ * exercise the contract without spinning up Radix Tooltip (which is
+ * awkward to drive from happy-dom — see KnowledgeFilesChip.test.jsx).
+ */
+export function resolveAttachedFilenames(index, parentsSelected) {
+  if (!Array.isArray(index) || !Array.isArray(parentsSelected)) return [];
+  const sel = new Set(parentsSelected);
+  return index.filter((it) => sel.has(it.id)).map((it) => it.filename).filter(Boolean);
+}
+
+/**
+ * KnowledgeFilesChip — shows how many KB files are attached and lists them
+ * on hover. Without this, the user has to open KnowledgeDrawer to confirm
+ * which files are flying in /api/chat.
+ */
+export function KnowledgeFilesChip({ count, index, parentsSelected = [] }) {
+  // Hooks first — never after a conditional return (rules-of-hooks).
+  const names = useMemo(
+    () => (count ? resolveAttachedFilenames(index, parentsSelected) : []),
+    [count, index, parentsSelected],
+  );
+  if (!count) {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <span className="inline-flex items-center gap-1 opacity-60 cursor-help">
+            <BookOpen className="h-3 w-3" /> brak plików
+          </span>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="text-xs max-w-xs">
+          Żaden plik bazy wiedzy nie jest dołączany do następnej odpowiedzi.
+          Otwórz 📚 w headerze, żeby wybrać pliki PDF/CSV/MD.
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+  // Look up filenames by id (knowledgeIndex is [{id, filename, ...}])
+  // Note: the parent's selection set is the source of truth — the chip
+  // just renders whichever filenames it can resolve. Unknown ids are
+  // filtered out (e.g. expired files removed by KnowledgeDrawer).
+  const plural = count === 1 ? "" : count < 5 ? "i" : "ów";
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 cursor-help">
+          <BookOpen className="h-3 w-3" />
+          <strong className="tabular-nums">{count}</strong> plik{plural}
+        </span>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="text-xs max-w-xs">
+        {names.length > 0 ? (
+          <ul className="space-y-0.5">
+            {names.map((n) => (
+              <li key={n} className="truncate">📎 {n}</li>
+            ))}
+          </ul>
+        ) : (
+          "Pliki z bazy wiedzy dołączone do czatu."
+        )}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+function EmptyState({ onPick, activeDataset }) {
   return (
     <div className="py-6 space-y-5">
       <div className="text-center space-y-1.5">
@@ -281,33 +506,21 @@ function EmptyState({ onPick }) {
           Pytaj o firmy w katalogu albo o załączone dokumenty.
         </p>
       </div>
-      <div className="space-y-3">
-        {QUICK_PROMPTS.map((group) => (
-          <div key={group.group}>
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1.5 px-1">
-              {group.icon} {group.group}
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {group.items.map((q) => (
-                <PromptPill key={q} q={q} onPick={onPick} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <DynamicQuickPrompts onPick={onPick} activeDataset={activeDataset} />
     </div>
   );
 }
 
+/**
+ * QuickPrompts — a slim horizontal strip that stays visible while the
+ * thread has messages. Falls back to four curated questions that are
+ * useful regardless of dataset shape.
+ */
 function QuickPrompts({ onPick, disabled }) {
-  // Show a single horizontal strip of the most useful prompts so the
-  // user always has a shortcut, even mid-conversation.
-  const featured = [
-    "Ile firm jest FROZEN w PL?",
-    "Rozkład firm wg kraju",
-    "Top 5 firm z tier=wyłączność",
-    "Streść dokumenty",
-  ];
+  const featured = useMemo(
+    () => ["Rozkład firm wg kraju", "Top 5 firm z tier=wyłączność", "Streść dokumenty"],
+    [],
+  );
   return (
     <div className="px-3 pt-2 pb-1 border-t bg-muted/20">
       <div className="flex flex-wrap gap-1.5">
@@ -319,38 +532,127 @@ function QuickPrompts({ onPick, disabled }) {
   );
 }
 
-function PromptPill({ q, onPick, disabled = false, compact = false }) {
+/**
+ * DynamicQuickPrompts — three groups:
+ *   1. "Szukaj" — generic + top-3 countries pulled from the active dataset
+ *      (replaces the old hard-coded "Ile firm jest FROZEN w PL?" so the
+ *      bar matches the data the user actually has loaded).
+ *   2. "Widok" — pivot-style prompts that work with any dataset.
+ *   3. "Wiedza" — knowledge-base prompts (only shown when files are
+ *      attached, otherwise they'd be misleading).
+ *
+ * The dataset fetch is fire-and-forget; if it fails we render STATIC_PROMPTS.
+ */
+function DynamicQuickPrompts({ onPick, activeDataset }) {
+  const [topCountries, setTopCountries] = useState([]);
+  const [datasetFailed, setDatasetFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const ds = activeDataset || "master.csv";
+    setDatasetFailed(false);
+    fetch(apiUrl(`/api/dataset/${encodeURIComponent(ds)}?limit=2000`))
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
+      .then((body) => {
+        if (cancelled) return;
+        const cols = body?.columns || [];
+        const rows = body?.data || [];
+        const idx = cols.findIndex((c) => c && c.toLowerCase() === "kraj");
+        if (idx < 0 || rows.length === 0) return;
+        const counts = new Map();
+        for (const row of rows) {
+          const v = (row[idx] || "").trim();
+          if (!v) continue;
+          counts.set(v, (counts.get(v) || 0) + 1);
+        }
+        const top = [...counts.entries()]
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([k]) => k);
+        setTopCountries(top);
+      })
+      .catch(() => {
+        if (!cancelled) setDatasetFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [activeDataset]);
+
+  const groups = useMemo(() => {
+    if (datasetFailed || topCountries.length === 0) return STATIC_PROMPTS;
+    return STATIC_PROMPTS.map((g) => {
+      if (g.group !== "Szukaj danych") return g;
+      const countryPrompts = topCountries.flatMap((c) => [
+        `Ile firm jest w ${c}?`,
+        `Top firmy w ${c}`,
+      ]);
+      // Keep the generic questions + add the country ones; cap at 6 to
+      // keep the panel scannable.
+      return { ...g, items: [...g.items.slice(0, 1), ...countryPrompts].slice(0, 6) };
+    });
+  }, [topCountries, datasetFailed]);
+
   return (
-    <button
-      onClick={() => !disabled && onPick(q)}
-      disabled={disabled}
-      className={cn(
-        "inline-flex min-w-0 items-center gap-1 rounded-full border bg-background text-left",
-        "hover:bg-accent hover:border-violet-300 hover:text-foreground",
-        "disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
-        compact ? "px-2.5 py-0.5 text-[11px]" : "px-3 py-1.5 text-xs",
-      )}
-    >
-      {compact && <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />}
-      {/* max-w prevents a single long prompt from stretching the pill
-          beyond the container width on narrow iOS viewports. */}
-      <span className="truncate max-w-[28ch]">{q}</span>
-    </button>
+    <div className="space-y-3">
+      {groups.map((group) => (
+        <div key={group.group}>
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1.5 px-1">
+            {group.icon} {group.group}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {group.items.map((q) => (
+              <PromptPill key={q} q={q} onPick={onPick} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
-function MarkdownText({ content }) {
+function PromptPill({ q, onPick, disabled = false, compact = false }) {
+  return (
+    <TooltipProvider delayDuration={300}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={() => !disabled && onPick(q)}
+            disabled={disabled}
+            className={cn(
+              "inline-flex min-w-0 items-center gap-1 rounded-full border bg-background text-left",
+              "hover:bg-accent hover:border-violet-300 hover:text-foreground",
+              "disabled:opacity-50 disabled:cursor-not-allowed transition-colors",
+              compact ? "px-2.5 py-0.5 text-[11px]" : "px-3 py-1.5 text-xs",
+            )}
+          >
+            {compact && <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />}
+            <span className="truncate max-w-[28ch]">{q}</span>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="text-xs max-w-xs">
+          {q}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+export function MarkdownText({ content }) {
   if (!content) return null;
 
-  // Split lines into blocks
   const lines = content.split("\n");
   const elements = [];
   let inCodeBlock = false;
   let codeBlockType = "";
   let codeBlockLines = [];
+  // Pulled out of the bubble — shown as clickable pills below it.
+  // The model emits them in a ```followup … ``` block at the end of its
+  // answer (one question per line). Keeping them outside the bubble keeps
+  // the prose tight and makes the chips easier to scan.
+  const followups = [];
 
   const formatInline = (text) => {
-    // Regex for bold **text** and links [text](url)
     const parts = [];
     let lastIndex = 0;
     const regex = /(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g;
@@ -396,12 +698,21 @@ function MarkdownText({ content }) {
   lines.forEach((line, idx) => {
     const trimmed = line.trim();
 
-    // Code / Callout block toggle
     if (trimmed.startsWith("```")) {
       if (inCodeBlock) {
-        // Close code block
         const blockContent = codeBlockLines.join("\n");
         const type = codeBlockType;
+        if (type === "followup") {
+          // Each non-empty line is a suggested next question.
+          for (const line of blockContent.split("\n")) {
+            const q = line.replace(/^[-*\d.\s]+/, "").trim();
+            if (q) followups.push(q);
+          }
+          inCodeBlock = false;
+          codeBlockType = "";
+          codeBlockLines = [];
+          return;
+        }
         if (type === "fakt") {
           elements.push(
             <div key={`block-${idx}`} className="my-2 rounded-md border border-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 p-2.5 text-xs text-emerald-900 dark:text-emerald-100">
@@ -439,7 +750,6 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Headings
     if (trimmed.startsWith("## ")) {
       elements.push(
         <h4 key={idx} className="font-semibold text-sm mt-2.5 mb-1 text-foreground">
@@ -457,7 +767,6 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Bullet list
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       elements.push(
         <div key={idx} className="flex items-start gap-1.5 ml-1 my-0.5 text-xs leading-relaxed">
@@ -468,7 +777,6 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Numbered list
     const numMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
     if (numMatch) {
       elements.push(
@@ -480,13 +788,11 @@ function MarkdownText({ content }) {
       return;
     }
 
-    // Empty line
     if (!trimmed) {
       elements.push(<div key={idx} className="h-1.5" />);
       return;
     }
 
-    // Standard paragraph
     elements.push(
       <p key={idx} className="my-0.5 text-xs leading-relaxed">
         {formatInline(line)}
@@ -497,8 +803,11 @@ function MarkdownText({ content }) {
   return <div className="space-y-0.5">{elements}</div>;
 }
 
-function Bubble({ msg, onCopy }) {
+function Bubble({ msg, onCopy, onFollowup }) {
   const isUser = msg.role === "user";
+  const rendered = !isUser ? <MarkdownText content={msg.text} /> : null;
+  const followups = !isUser && rendered && typeof rendered === "object" ? rendered.followups : null;
+  const body = !isUser && rendered && typeof rendered === "object" ? rendered.elements : rendered;
   return (
     <motion.div
       initial={{ opacity: 0, y: 4 }}
@@ -516,7 +825,7 @@ function Bubble({ msg, onCopy }) {
         {isUser ? (
           <div className="whitespace-pre-wrap break-words text-xs">{msg.text}</div>
         ) : (
-          <MarkdownText content={msg.text} />
+          <div className="space-y-0.5">{body}</div>
         )}
         {!isUser && (
           <Button
@@ -530,8 +839,29 @@ function Bubble({ msg, onCopy }) {
           </Button>
         )}
       </div>
+      {!isUser && followups && followups.length > 0 && (
+        <FollowupPills items={followups} onPick={onFollowup} />
+      )}
       {!isUser && msg.provider && <ProviderTag provider={msg.provider} />}
     </motion.div>
+  );
+}
+
+export function FollowupPills({ items, onPick }) {
+  return (
+    <div className="flex flex-wrap gap-1.5 max-w-[88%] pl-1">
+      {items.slice(0, 4).map((q, i) => (
+        <button
+          key={i}
+          onClick={() => onPick(q)}
+          className="inline-flex items-center gap-1 rounded-full border bg-background px-2.5 py-1 text-[11px] text-left hover:bg-accent hover:border-violet-300 hover:text-foreground transition-colors"
+          title={q}
+        >
+          <Sparkles className="h-2.5 w-2.5 text-violet-500 shrink-0" />
+          <span className="truncate max-w-[36ch]">{q}</span>
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -558,4 +888,3 @@ function ProviderTag({ provider }) {
     </Badge>
   );
 }
-

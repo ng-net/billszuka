@@ -24,6 +24,7 @@ import { CellRenderer } from "./CellRenderer";
 import { FilterInput } from "./FilterInput";
 import { SortableHeader } from "./SortableHeader";
 import { getEnumValues } from "@/lib/csv";
+import { getColumnLabel } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown, X, Pin, EyeOff } from "lucide-react";
 
@@ -94,16 +95,15 @@ export function DataTable({
       } else if (colType === "date") {
         filterFn = "dateRange";
       } else {
-        // text / url / email / phone — explicit `includesString` (case-insensitive
-        // substring). Without an explicit fn, TanStack's default `auto` silently
-        // failed to match string filters in v8.21.x, leaving the table unfiltered
-        // even though the parent state held the value.
-        filterFn = "includesString";
+        // text / url / email / phone — custom multiIncludes that supports
+        // both single search strings and arrays of values (e.g. from QuickChips
+        // or saved multi-value views) without crashing.
+        filterFn = "multiIncludes";
       }
       return {
         id: colId,
         accessorKey: colId,
-        header: colId,
+        header: getColumnLabel(colId),
         enableSorting: true,
         sortingFn: getSortingFn(colType),
         filterFn,
@@ -147,7 +147,7 @@ export function DataTable({
   const columnFilters = useMemo(
     () =>
       Object.entries(filters || {})
-        .filter(([id]) => columns.includes(id))
+        .filter(([id, value]) => columns.includes(id) && value != null && value !== "" && (!Array.isArray(value) || value.length > 0))
         .map(([id, value]) => ({ id, value })),
     [filters, columns]
   );
@@ -172,6 +172,7 @@ export function DataTable({
       dateRange: dateRangeFilter,
       enumContains: enumContainsFilter,
       numberRange: numberRangeFilter,
+      multiIncludes: multiIncludesFilter,
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -611,18 +612,57 @@ const numberRangeFilter = (row, columnId, filterValue) => {
 };
 
 /**
+ * Custom filterFn for text / URL / email / phone columns.
+ * Supports:
+ * - single search string (case-insensitive substring)
+ * - array of search strings (matches if cell contains ANY of the terms, OR logic)
+ */
+const multiIncludesFilter = (row, columnId, filterValue) => {
+  if (filterValue == null || filterValue === "" || (Array.isArray(filterValue) && filterValue.length === 0)) {
+    return true;
+  }
+  const raw = row.getValue(columnId);
+  if (raw == null || raw === "") return false;
+  const rawStr = String(raw).toLowerCase();
+
+  if (Array.isArray(filterValue)) {
+    return filterValue.some((target) => {
+      if (target == null || target === "") return false;
+      return rawStr.includes(String(target).trim().toLowerCase());
+    });
+  }
+
+  if (typeof filterValue === "object") {
+    return true;
+  }
+
+  return rawStr.includes(String(filterValue).trim().toLowerCase());
+};
+
+/**
  * Custom filterFn for enum columns. Cell values are comma-separated strings
- * ("A, B, C"); filter value is an array of checked labels ["A", "B"].
+ * ("A, B, C"); filter value may be a scalar string ("A") or an array (["A", "B"]).
  * Match: the cell contains AT LEAST ONE of the selected labels (OR logic).
  */
 const enumContainsFilter = (row, columnId, filterValue) => {
-  if (!filterValue || filterValue.length === 0) return true;
+  if (filterValue == null || filterValue === "" || (Array.isArray(filterValue) && filterValue.length === 0)) {
+    return true;
+  }
   const raw = row.getValue(columnId);
   if (raw == null || raw === "") return false;
-  // Cell may be a string ("A, B") or already an array.
-  const cellItems = Array.isArray(raw) ? raw : String(raw).split(",").map((s) => s.trim());
-  return filterValue.some((label) =>
-    cellItems.some((item) => item.toLowerCase() === label.toLowerCase())
+
+  const cellItems = Array.isArray(raw)
+    ? raw.map((s) => String(s).trim().toLowerCase())
+    : String(raw).split(",").map((s) => s.trim().toLowerCase());
+
+  const filterList = (Array.isArray(filterValue) ? filterValue : [filterValue])
+    .filter((v) => v != null && v !== "")
+    .map((v) => String(v).trim().toLowerCase());
+
+  if (filterList.length === 0) return true;
+
+  return filterList.some((label) =>
+    cellItems.includes(label) || cellItems.some((item) => item.includes(label))
   );
 };
 

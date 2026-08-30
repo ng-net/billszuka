@@ -13,6 +13,7 @@ import {
   Rows3,
   Rows4,
 } from "lucide-react";
+import { getColumnLabel } from "@/lib/schema";
 
 export function CommandPalette({ open, onOpenChange, context, onAction }) {
   const [query, setQuery] = useState("");
@@ -79,13 +80,16 @@ export function CommandPalette({ open, onOpenChange, context, onAction }) {
       list.push({
         group: `Kolumny (${context.columns.length})`,
         items: context.columns
-          .filter((c) => !query || c.toLowerCase().includes(query.toLowerCase()))
+          .filter((c) => {
+            const label = getColumnLabel(c).toLowerCase();
+            return !query || c.toLowerCase().includes(query.toLowerCase()) || label.includes(query.toLowerCase());
+          })
           .slice(0, 20)
           .map((c) => {
             const visible = context.visibility?.[c] !== false;
             return {
               id: `col-${c}`,
-              label: c,
+              label: `${getColumnLabel(c)} (${c})`,
               icon: visible ? Eye : EyeOff,
               type: context.schema?.find((s) => s.id === c)?.type,
               groupType: true,
@@ -96,11 +100,14 @@ export function CommandPalette({ open, onOpenChange, context, onAction }) {
       list.push({
         group: "Sortuj po",
         items: context.columns
-          .filter((c) => !query || c.toLowerCase().includes(query.toLowerCase()))
+          .filter((c) => {
+            const label = getColumnLabel(c).toLowerCase();
+            return !query || c.toLowerCase().includes(query.toLowerCase()) || label.includes(query.toLowerCase());
+          })
           .slice(0, 15)
           .map((c) => ({
             id: `sort-${c}`,
-            label: c,
+            label: `${getColumnLabel(c)} (${c})`,
             icon: ArrowUpDown,
             sortCol: c,
           })),

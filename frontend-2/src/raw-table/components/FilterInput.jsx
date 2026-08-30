@@ -79,7 +79,8 @@ function isIncomingEcho(incoming, lastEmitted) {
 }
 
 function TextFilter({ value, onChange, placeholder }) {
-  const [local, setLocal] = useState(value || "");
+  const displayValue = Array.isArray(value) ? value.join(", ") : (value || "");
+  const [local, setLocal] = useState(displayValue);
   const { emit, lastEmitted } = useDebouncedEmit(
     (v) => onChange(v || undefined),
     150
@@ -89,7 +90,8 @@ function TextFilter({ value, onChange, placeholder }) {
   // our own emit. Skipping the echo avoids a redundant re-render.
   useEffect(() => {
     if (!isIncomingEcho(value, lastEmitted.current)) {
-      setLocal(value || "");
+      const nextDisplay = Array.isArray(value) ? value.join(", ") : (value || "");
+      setLocal(nextDisplay);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -215,22 +217,29 @@ function DateRangeFilter({ value, onChange }) {
   );
 }
 
+function normalizeEnumSet(val) {
+  if (!val) return new Set();
+  if (Array.isArray(val)) return new Set(val);
+  if (typeof val === "string") return new Set([val]);
+  return new Set();
+}
+
 function EnumFilter({ value, onChange, enumValues }) {
   // Local Set so multi-toggle is instant and synchronous. The parent gets
   // a debounced, single-emit array on each commit, not one transition per
   // toggle.
-  const [selected, setSelected] = useState(() => new Set(value || []));
+  const [selected, setSelected] = useState(() => normalizeEnumSet(value));
   const debouncedRef = useRef();
   useEffect(() => {
     // Only resync when the parent value isn't the echo of our own emit.
     // Without this guard, every parent state write would reset the local Set
     // and clobber a user's mid-tap selection.
-    if (!value || value.length === 0) {
+    if (!value || (Array.isArray(value) && value.length === 0)) {
       if (selected.size === 0) return;
       setSelected(new Set());
       return;
     }
-    const incoming = new Set(value);
+    const incoming = normalizeEnumSet(value);
     if (incoming.size === selected.size && [...incoming].every((v) => selected.has(v))) return;
     setSelected(incoming);
     // eslint-disable-next-line react-hooks/exhaustive-deps
