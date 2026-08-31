@@ -1239,3 +1239,10 @@ Why the new Worker is not being created:
 - +frontend-2/src/raw-table/RawTable.jsx (import + activeCountryIso + handleCountrySelect + render CountryPills).
 - +tests/test_validate_columns.py (1 fix).
 - +DZIENNIK.md (ta notatka).
+
+## 2026-09-01 ~01:46 — Manual search tick #5 (session mvs_a1ccebf385...)
+- 133 gems (was 132). 1 new catalog-B entry: SPiD CLiC SARL / GTP (FR).
+- GTP (Grossiste Presse Tabac): sells tubeuses (OCB Poweroll + others) and rolling accessories to French tobacco shops. Since 2009. Key PowerMatic prospect — already resells rolling machines.
+- CZ catalog-B deletion mystery: find_gems.py does NOT delete CZ file directly. Still investigating — file survives find_gems.py but disappears after commit. Possibly related to npm test or git hooks.
+- Skip: LUXFUX (Luxembourg, not in scope), Coesia (IT machinery, too large), CME/Senzani (IT packaging, too large), DM-INT (HR tobacco agent, too small).
+- Next tick ~01:55.
