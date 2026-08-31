@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Bird, BarChart3, Loader2, MapPin, Building2, Tag, AlertTriangle, Sparkles, Zap, ChevronDown, CheckCircle2, Info } from "lucide-react";
+import { Bird, BarChart3, Loader2, Layers, MapPin, Building2, Tag, AlertTriangle, Sparkles, Zap, ChevronDown, CheckCircle2, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parseCsvUrl } from "@/lib/csv";
