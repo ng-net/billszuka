@@ -1,0 +1,43 @@
+iso,country,name,url,http_code,time_sec,alive
+BG,Bułgaria,MAXLOGISTIC,https://health.ec.europa.eu/document/download/65dbb078-afbf-463e-9b6c-6237aa8b3b42_en,200,0.879347,1
+BG,Bułgaria,Orbico Bulgaria,https://health.ec.europa.eu/document/download/65dbb078-afbf-463e-9b6c-6237aa8b3b42_en,200,0.928653,1
+CZ,Czechy,CZECH TOBACCO CORPORATION a.s.,https://www.ctc-as.cz/,200,1.663847,1
+CZ,Czechy,CigarKings trade,https://www.cigarkings.de/trade,200,0.720181,1
+CZ,Czechy,EUROSPRO s.r.o.,https://www.eurospro.cz,200,1.146766,1
+CZ,Czechy,Etabak.com,https://etabak.com/velkoobchod/,200,0.589284,1
+CZ,Czechy,Horák Tabák,https://www.horaktabak.cz/velkoobchod/,200,0.503107,1
+CZ,Czechy,MORAVIA TOBACCO,https://www.moraviatb.cz/english/,200,0.415975,1
+CZ,Czechy,TABÁK RAST plus Teplice,https://www.rastplus.cz,200,0.768774,1
+CZ,Czechy,TTI Czech s.r.o. (Pöschl Tabak),http://www.tti-czech.cz/,200,0.491112,1
+CZ,Czechy,Tabacos.cz,https://www.tabacos.cz,200,0.773920,1
+CZ,Czechy,Velkoobchod Mečíř Trutnov,https://www.mecir.net,200,1.967866,1
+CZ,Czechy,Šebrle s.r.o.,https://www.sebrlesro.cz,200,1.494616,1
+EE,Estonia,AMER TOBACCO AS,https://www.europages.de/unternehmen/estland/tabakwaren%20und%20raucherbedarf.html,200,1.708720,1
+EE,Estonia,EUGESTA EESTI AS,https://www.europages.de/unternehmen/estland/tabakwaren%20und%20raucherbedarf.html,200,1.851928,1
+EE,Estonia,Jungent Estonia OÜ,https://www.jungent.eu/,200,0.896297,1
+HR,Chorwacja,AER WHOLESALE,https://www.europages.co.uk/companies/croatia/tobacco%20and%20smokers%20items.html,200,1.562528,1
+HR,Chorwacja,Logista d.o.o.,https://www.europages.co.uk/companies/croatia/tobacco%20and%20smokers%20items.html,200,1.605059,1
+LT,Litwa,UAB Europinis tabakas,https://rekvizitai.vz.lt/en/companies/tobacco/,200,0.652602,1
+LT,Litwa,UAB Tabakininkas,https://rekvizitai.vz.lt/en/companies/tobacco/,200,0.665032,1
+LT,Litwa,UAB Vape B2B,https://rekvizitai.vz.lt/en/companies/tobacco/,200,0.601089,1
+LV,Łotwa,Amber Distribution Latvia Ltd,https://www.kompass.com/z/lv/a/food-beverages-and-tobacco-wholesale/8125003/,403,0.206157,0
+LV,Łotwa,Baltstor Ltd,https://www.kompass.com/z/lv/a/food-beverages-and-tobacco-wholesale/8125003/,403,0.182927,0
+LV,Łotwa,British American Tobacco Latvia Ltd,https://dz.kompass.com/z/lv/a/tabac-et-produits-du-tabac/03990/,403,0.241569,0
+LV,Łotwa,Delos Plus SIA,https://balticexport.com/landingpage/delos-plus-sia,200,0.392074,1
+LV,Łotwa,G & P Tobacco SIA,https://balticexport.com/landingpage/g-p-tobacco-sia-272101,200,0.403660,1
+MD,Mołdawia,Casa del Tabaco (DMS SRL),https://casadeltabaco.net,000,0.035773,0
+MD,Mołdawia,DFM SRL,https://www.volza.com/p/hookah-tobacco-or-tobacco-products/buyers/buyers-in-moldova/,403,0.177956,0
+MD,Mołdawia,Le Bridge Duty Free,https://moodiedavittreport.com/moldovan-retailer-and-distributor-le-bridge-duty-free-prepares-to-open-border-and-airport-stores-131009/,200,0.555719,1
+MD,Mołdawia,Parse - Tutun SRL,https://www.kompass.com/z/md/a/tobacco-and-tobacco-products/03990/,403,0.302593,0
+MD,Mołdawia,Tabacco Trade SRL,https://www.kompass.com/z/md/a/tobacco-and-tobacco-products/03990/,403,0.217207,0
+MD,Mołdawia,Tutun - Premium SRL ICS,https://www.kompass.com/z/md/a/tobacco-and-tobacco-products/03990/,403,0.375738,0
+RO,Rumunia,Aquila (Imperial Tobacco distributor),https://csd.eu/fileadmin/user_upload/publications_library/files/2018_08/BRIEF_80_ENG.pdf,403,0.375160,0
+RO,Rumunia,Interbrands Marketing & Distribution (BAT+PMI),https://csd.eu/fileadmin/user_upload/publications_library/files/2018_08/BRIEF_80_ENG.pdf,403,0.157300,0
+RO,Rumunia,MANIAC DISTRIBUTION,https://www.europages.co.uk/companies/wholesaler/cigarette%20paper.html,200,1.516616,1
+RO,Rumunia,"Punctual Comimpex (BAT, JTI, PMI, China Tobacco)",https://csd.eu/fileadmin/user_upload/publications_library/files/2018_08/BRIEF_80_ENG.pdf,403,0.159618,0
+RO,Rumunia,Simba Invest SRL (PMI),https://csd.eu/fileadmin/user_upload/publications_library/files/2018_08/BRIEF_80_ENG.pdf,403,0.185541,0
+RS,Serbia,B.M.D. d.o.o.,https://www.europages.co.uk/companies/serbia/tobacco.html,200,1.402713,1
+RS,Serbia,CVIJIĆ KOMERC,https://www.europages.co.uk/companies/serbia/tobacco.html,200,1.277750,1
+RS,Serbia,INGRAS DOO,https://www.europages.co.uk/companies/serbia/tobacco.html,200,1.240295,1
+RS,Serbia,Julieta D.O.O.,https://julieta.biz,200,1.427314,1
+SI,Słowenia,AONIS d.o.o.,https://aonidoo.com,000,0.033436,0

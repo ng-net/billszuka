@@ -1,8 +1,8 @@
 # Gems — non-PL B2B partner candidates
 
-**Date:** 2026-08-31  
+**Date:** 2026-09-01 (re-run after +42 manual search entries)  
 **Source:** `tools/find_gems.py` sweep across 12 non-PL countries  
-**Total raw gems:** 112 across 9 countries with catalog-B data
+**Total raw gems:** 124 across 12 countries (was 112/9 — gained CZ, MD, RS, LV)
 
 ## Criteria (gate)
 - FROZEN flag (verifier-confirmed, not DO-WERYFIKACJI/PENDING/HALUCYNACJA)
@@ -14,24 +14,21 @@
 | ISO | Country | Gems | Top score | Actionable (score≥5, no multi) |
 |---|---|---|---|---|
 | BG | Bułgaria | 24 | 10 | 13 |
-| EE | Estonia | 19 | 9 | 3 |
-| SK | Słowacja | 15 | 10 | 11 |
+| EE | Estonia | 20 | 9 | 3 |
+| SK | Słowacja | 15 | 10 | 12 |
 | RO | Rumunia | 13 | 9 | 1 |
 | FR | Francja | 12 | 9 | 0 |
 | HR | Chorwacja | 11 | 10 | 6 |
 | LT | Litwa | 9 | 7 | 1 |
+| CZ | Czechy | 7 | 4 | 0 |
 | SI | Słowenia | 6 | 10 | 4 |
-| LV | Łotwa | 3 | 5 | 1 |
-
-**Empty / no catalog-B:** CZ Czechy, MD Mołdawia, RS Serbia
-
-Czechy uses `catalog-A-CZ.csv` only (no B-catalog yet). Mołdawia and Serbia
-have catalog-B but no rows passed FROZEN+contact+score≥3 gate.
+| LV | Łotwa | 5 | 5 | 1 |
+| MD | Mołdawia | 1 | 4 | 0 |
+| RS | Serbia | 1 | 4 | 0 |
 
 ## Top 5 actionable leads per country (multinationals filtered)
 
-Filter: score ≥ 5 AND name ∉ {Philip Morris, JTI, JT International, Imperial Tobacco, Imperial Brands, BAT (incl. BAT Adria), Logista, Japan Tobacco}.  
-Rationale: multinationals typically have corporate procurement, not local buying — usually unreachable for B2B partnership.
+Filter: score ≥ 5 AND name ∉ {Philip Morris, JTI, JT International, Imperial Tobacco, Imperial Brands, BAT (incl. BAT Adria), Logista, Japan Tobacco}.
 
 ### BG — Bułgaria (13 actionable)
 
@@ -51,15 +48,15 @@ Rationale: multinationals typically have corporate procurement, not local buying
 | 2 | 5 |  | OÜ SANITEX | 5 | Rae küla | sanitex.estonia@sanitex.eu |
 | 3 | 5 |  | Aleserk OÜ | 4 | Hüüru | info@aleserk.com |
 
-### SK — Słowacja (11 actionable)
+### SK — Słowacja (12 actionable)
 
 | # | Score | 🐋 | Name | Pow | City | Contact |
 |---|---|---|---|---|---|---|
 | 1 | 10 | ✓ | GECO, s. r. o. | 5 | Bratislava | info@geco.sk |
 | 2 | 10 | ✓ | NOBA – SMOKER, s.r.o. | 4 | Trenčín | smoker@smoker.sk |
-| 3 | 5 |  | TOPPRES D.A., spol. s r.o. | 4 | Banská Bystrica | toppres@toppres.sk |
-| 4 | 5 |  | T-PRESS, spol. s r.o. | 4 | Trnava | velkosklad@t-press.sk |
-| 5 | 5 |  | D.A. CZVEDLER, spol. s r.o. | 4 | Šamorín | sekretariat@czvedler.sk |
+| 3 | 10 | ✓ | JTI Slovak Republic, s.r.o. | 5 | Bratislava | info.sk@jti.com |
+| 4 | 5 |  | TOPPRES D.A., spol. s r.o. | 4 | Banská Bystrica | toppres@toppres.sk |
+| 5 | 5 |  | T-PRESS, spol. s r.o. | 4 | Trnava | velkosklad@t-press.sk |
 
 ### RO — Rumunia (1 actionable)
 
@@ -102,30 +99,39 @@ Rationale: multinationals typically have corporate procurement, not local buying
 
 Looking for cross-border leverage (one deal = multiple markets):
 
-- **Baltic tobacco wholesale (SANITEX group)**: 2 matches
-  - EE — OÜ SANITEX (score 5)
-  - LV — SIA SANITEX (score 5)
-
-- **BAT Adria network (Croatia)**: 2 matches
+- **BAT Adria network (HR + 8 Adria markets)**: 2 matches
   - HR — TDR d.o.o. (Tvornica duhana Rovinj / BAT Adria) (score 10)
   - HR — iNOVINE d.d. (BAT Adria Network) (score 10)
 
-- **Philip Morris regional**: 3 matches
-  - SK — Philip Morris Slovakia s.r.o. (score 10)
-  - SI — Philip Morris Ljubljana, d.o.o. (score 10)
-  - EE — Philip Morris Eesti (score 4)
-
-- **JTI regional**: 2 matches
-  - SK — JTI Slovak Republic, s.r.o. (score 10)
-  - SI — JT International Ljubljana, d.o.o. (score 10)
-
-- **Imperial Tobacco regional**: 3 matches
+- **Imperial Tobacco distribution (multi-country)**: 3 matches
   - SK — Imperial Brands Slovakia a. s. (score 10)
   - EE — Imperial Tobacco Estonia OÜ (score 9)
   - BG — IMPERIAL BRANDS BULGARIA EOOD (Imperial Tobacco) (score 4)
 
-- **Mercator (SI) → cross-border HR**: 1 matches
-  - SI — Poslovni sistem Mercator d.o.o. (Cash & Carry) (score 10)
+- **Sanitex group (LT+LV+EE)**: 2 matches
+  - EE — OÜ SANITEX (score 5)
+  - LV — SIA SANITEX (score 5)
+
+- **Pöschl Group (DE→CZ+SK)**: 1 matches
+  - FR — SAS BOUTTIER (Bouttier Ets) (score 4)
+
+- **Orbico group (BG+RO+HR+SI)**: 1 matches
+  - RO — INTERBRANDS ORBICO SRL (score 9)
+
+- **CigarKings distribution (20+ EU including CZ/HR/EE)**: 1 matches
+  - CZ — CigarKings trade (score 4)
+
+- **Baltic 3-country (Jungent EE+LV+LT)**: 1 matches
+  - EE — Jungent Estonia OÜ (score 4)
+
+- **Baltic 4-country (MV Group LT+LV+EE+PL)**: 1 matches
+  - LT — UAB MV GROUP Distribution LT (score 4)
+
+- **Baltic DaLIS alliance (LV Leversa + EE Interaltus + LT Sakalas)**: 1 matches
+  - LV — SIA Leversa (score 4)
+
+- **Romania BAT/PMI cluster (Interbrands)**: 1 matches
+  - RO — INTERBRANDS ORBICO SRL (score 9)
 
 - **Tobacco Trade Bulgaria chain (multi-city)**: 6 matches
   - BG — Табако Трейд Варна ООД (Tobacco Trade Varna Ltd) (score 5)

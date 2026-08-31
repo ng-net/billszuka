@@ -1,6 +1,6 @@
 # Gems — non-PL B2B partner candidates (2026-08-31)
 
-**Total gems found:** 112 across 9 countries
+**Total gems found:** 124 across 12 countries
 
 ## Gem criteria (all required)
 
@@ -21,16 +21,19 @@
 | ISO | Country | Gems | Top score |
 |---|---|---|---|
 | BG | Bułgaria | 24 | 10 |
-| EE | Estonia | 19 | 9 |
+| EE | Estonia | 20 | 9 |
 | SK | Słowacja | 15 | 10 |
 | RO | Rumunia | 13 | 9 |
 | FR | Francja | 12 | 9 |
 | HR | Chorwacja | 11 | 10 |
 | LT | Litwa | 9 | 7 |
+| CZ | Czechy | 7 | 4 |
 | SI | Słowenia | 6 | 10 |
-| LV | Łotwa | 3 | 5 |
+| LV | Łotwa | 5 | 5 |
+| MD | Mołdawia | 1 | 4 |
+| RS | Serbia | 1 | 4 |
 
-**Total: 112 gems** in 9 countries
+**Total: 124 gems** in 12 countries
 
 ## Top 20 gems (cross-country, by score)
 
@@ -86,7 +89,7 @@
 | 23 | 3 |  | GAGARIN COMPANY EOOD (ГАГАРИН КЪМПА | 5 | Plovdiv | B9 | info@gagarin.bg |
 | 24 | 3 |  | ПЕН ШОП ГРУП ЕООД (Pen Shop Group) | 3 | Sofia | B4 | office@giftgroup.bg |
 
-## EE — Estonia (19 gems)
+## EE — Estonia (20 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
@@ -109,6 +112,7 @@
 | 17 | 4 |  | CTB OÜ | 4 | Tallinn | B2 | info@ctb.ee |
 | 18 | 4 |  | ALPI EESTI OÜ | 3 | Lehmja | B8 | info@alpieesti.ee |
 | 19 | 4 |  | KML Distribution OÜ | 3 | Tallinn | B1 | kusti@reflekt.ee |
+| 20 | 4 |  | Jungent Estonia OÜ | 3 |  | B5 | informacija@jungent.eu |
 
 ## SK — Słowacja (15 gems)
 
@@ -195,6 +199,18 @@
 | 8 | 3 |  | MB Himalajai | 3 | Vilnius | B4 | info@rastamanas.lt |
 | 9 | 3 |  | UAB Reto | 1 | Vilnius | B5 | info@shamanas.lt |
 
+## CZ — Czechy (7 gems)
+
+| # | Score | 🐋 | Name | Pow | City | Category | Contact |
+|---|---|---|---|---|---|---|---|
+| 1 | 4 |  | CZECH TOBACCO CORPORATION a.s. | 3 |  | B5 | ctc@ctc-as.cz |
+| 2 | 4 |  | MORAVIA TOBACCO | 3 |  | B5 | info@moraviatb.cz |
+| 3 | 4 |  | Horák Tabák | 3 |  | B5 | +420734617787 |
+| 4 | 4 |  | Etabak.com | 3 |  | B5 | obchod@etabak.com |
+| 5 | 4 |  | Velkoobchod Mečíř Trutnov | 3 |  | B5 | obchod@mecir.net |
+| 6 | 4 |  | Šebrle s.r.o. | 3 |  | B5 | +420 499 622 321 |
+| 7 | 4 |  | CigarKings trade | 3 |  | B2 | kontakt@cigarkings.de |
+
 ## SI — Słowenia (6 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
@@ -206,11 +222,25 @@
 | 5 | 10 | ✓ | Philip Morris Ljubljana, d.o.o. | 5 | Ljubljana | B9 | infoline.si@pmi.com |
 | 6 | 5 |  | OTP, trgovina s tobakom, d.o.o. (Sc | 4 | Ljubljana | B8 | info.si@st-group.com |
 
-## LV — Łotwa (3 gems)
+## LV — Łotwa (5 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
 | 1 | 5 |  | SIA SANITEX | 5 | Rāmava (Ķekavas nova | B8 | sanitex@sanitex.eu |
 | 2 | 4 |  | SIA Leversa | 4 | Rīga | B8 | info@leversa.lv |
 | 3 | 4 |  | SIA Wellman Logistics | 4 | Salaspils | B8 | info@wellman.lv |
+| 4 | 4 |  | Delos Plus SIA | 3 |  | B5 | redakcija@heise.lv |
+| 5 | 4 |  | G & P Tobacco SIA | 3 |  | B5 | redakcija@heise.lv |
+
+## MD — Mołdawia (1 gems)
+
+| # | Score | 🐋 | Name | Pow | City | Category | Contact |
+|---|---|---|---|---|---|---|---|
+| 1 | 4 |  | Le Bridge Duty Free | 3 |  | B5 | dermot@moodiedavittreport.com |
+
+## RS — Serbia (1 gems)
+
+| # | Score | 🐋 | Name | Pow | City | Category | Contact |
+|---|---|---|---|---|---|---|---|
+| 1 | 4 |  | Julieta D.O.O. | 3 |  | B5 | davidoff_belgrade@julieta.biz |
 

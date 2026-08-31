@@ -1034,3 +1034,55 @@ Access deletion.
 `git commit --allow-empty -m "trigger redeploy" && git push`). The
 resulting new deployment should auto-alias to billszuka.pages.dev.
 
+
+---
+
+## 2026-09-01 00:55 — Gem expansion: 112 → 124 across 12 countries (3 new countries: CZ/MD/RS)
+
+**Kontekst:** Marceli poprosił "find more gems" o 00:50. Poprzedni sweep dał 112/9 krajów (CZ bez catalog-B = 0 gemów, MD/Serbia prawie puste). Nowy manual-search + multi-country group scan dodał 42 nowe firmy.
+
+**Wykonane:**
+1. **12 web_search** (parallel) — fokus: CZ/MD/RS wholesale, multi-country groups (BAT Adria, Sanitex, PMI/JTI/Imperial, TNG, MV Group, DaLIS, CigarKings).
+2. **Curated 50 candidates** → dedup vs istniejące katalogi → 42 unikalne nowe firmy.
+3. **HEAD-check 42** → 29/42 alive, 13 dead (kompass.com 403, EU docs 403, MD Casa del Tabaco timeout).
+4. **Backfilled contact** (curl + email/phone regex) na 28 alive → 10 emaili + 9 telefonów dodanych.
+5. **Dodano do catalog-B** (per-country): CZ +11, MD +6, LV +5, RO +5, RS +4, LT +3, EE +3, BG +2, HR +2, SI +1 = **42 nowe wpisy**.
+6. **Re-run tools/find_gems.py** → **124 gems w 12 krajach** (było 112 w 9). Zyski: CZ 7 (z 0!), MD 1, RS 1, LV +2 (5 z 3), EE +1.
+7. **Per-country CSV + INTEL-GEMS-NON-PL.md** zregenerowane z 12-krajowym coverage.
+
+**Nowe perły:**
+- 🇨🇿 **CZECH TOBACCO CORPORATION a.s.** — jeden z nejvýznamnějších velkoobchodních distributorů v ČR, 15 000 retail points
+- 🇨🇿 **TTI Czech s.r.o. (Pöschl Tabak)** — exclusive Pöschl/Davidoff/Mascotte importer CZ+SK+DE
+- 🇲🇩 **Casa del Tabaco (DMS SRL)** — MD exclusive Habanos importer od 2005
+- 🇲🇩 **Le Bridge Duty Free** — MD Imperial+BAT importer, 4 border stores + Chisinau airport
+- 🇷🇸 **Julieta D.O.O.** — RS leading premium cigars importer + La Casa del Habano franchise
+- 🇱🇻 **Tabakas Nams Grupa (TNG)** — LV one of largest FMCG wholesale+distribution groups (3500+ retail)
+- 🇷🇴 **INTERBRANDS ORBICO SRL** — RO Orbico group distribution (BAT+PMI)
+- 🇨🇿 **CigarKings trade** — premium cigars importer/distributor w 20+ EU (incl. CZ/HR/EE)
+- 🇸🇰 **CZ Tobacco Corp = duży 15k outlets** (score 4, FROZEN)
+- 🇲🇩 **Le Bridge Duty Free** (score 4, FROZEN)
+
+**Multi-country leverage dodane do INTEL-GEMS-NON-PL.md:**
+- BAT Adria (HR cluster, 8 Adria markets)
+- Pöschl Group (DE → CZ+SK via TTI)
+- CigarKings network (20+ EU)
+- Jungent (EE+LV+LT, 30 yrs)
+- MV Group (LT+LV+EE+PL, 200+ brands)
+- DaLIS alliance (LV Leversa + EE Interaltus + LT Sakalas)
+- Punctual Comimpex (RO, BAT+JTI+PMI+CTH)
+- Interbrands (RO BAT+PMI)
+- Tabakas Nams Grupa (LV)
+
+**Outputy:**
+- `data/verification/gems.csv` (124 rows, ranked)
+- `data/verification/gems_summary.md` (per-country + top 20)
+- `data/gems-NON-PL.csv` (combined, 124 rows)
+- `data/<Kraj>/gems-<ISO>.csv` × 12 (per-country split, now includes CZ/MD/RS)
+- `INTEL-GEMS-NON-PL.md` (zregenerowany)
+- `data/verification/manual-search-2026-08-31/new-leads-2026-09-01.csv` (50 candidates)
+- `data/verification/manual-search-2026-08-31/head-check-2026-09-01.csv` (42 statusy)
+- `data/verification/manual-search-2026-08-31/proposed-catalog-B-2026-09-01.csv` (42 nowe wpisy)
+- Nowe wpisy appended do `data/<Kraj>/catalog-B-<ISO>.csv` (10 krajów)
+- **Nowy plik**: `data/Czechy/catalog-B-CZ.csv` (utworzony od zera z 11 wpisami)
+
+**Lesson learned:** nowy cron-source-of-truth pozwala na "find more gems" → trigger manual search expansion. CZ przeszło z 0 do 7 gemów dzięki uzupełnieniu catalog-B. Multi-country group hints są ważne (1 deal = wiele rynków).
