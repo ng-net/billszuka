@@ -1140,3 +1140,14 @@ Why the new Worker is not being created:
 
 **Backend (Render) is unaffected:**
 - https://billszuka-api.onrender.com/api/datasets → 200, 28 datasets
+
+## 2026-09-01 01:13 — Manual search tick #3 (session mvs_a1ccebf385...)
+- 130 gems (was 124). 13 new catalog-B entries across CZ/MD/RS/RO/BG/EE.
+- RS gems: 1→2 (Julieta D.O.O. scored 10 pts — Habanos+Davidoff exclusive, 700+ retail points).
+- CZ gems: 7→10 (GECO a.s. 2000+ employees, FUMUS s.r.o. packing tobacco distributor).
+- Key find: **Unipack AD (BG)** — tobacco packaging manufacturer (cigarette blanks, al. foil, inner frame). Direct packaging supplier.
+- Key find: **I.M. International Tobacco SRL (MD)** — manufacturer with PACKAGE DESIGN service. powinowactwo 5.
+- Key find: **GECO a.s. (CZ)** — 2000+ employees, CZ major distributor.
+- Dead (skip): MANIAC DISTRIBUTION (RO), NEOSUPPLIES (RO), MAMACA (RO) — URLs dead/redirect.
+- Skip dup: MERCATA VT (RS) — same contact as Veletabak already in catalog.
+- Gate open: 14 min since last commit, files changed. Next tick 01:22.
