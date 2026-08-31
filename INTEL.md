@@ -429,3 +429,44 @@ Moduł `tools/checksums.py` zawiera dispatcher `validate_id(id, country)`:
 - Pre-flight L0 odrzuca 99% syntetycznych numerów podatkowych przed odpytaniem rejestrów
 
 **Status po live testach 2026-08-31:** PL/CZ/HR/FR/RO potwierdzone, SK/SI odrzucone (wzory nieznane), BG/EE/LV/LT/MD/RS = format-check only.
+
+---
+
+## 2026-08-31 — Central European PM Distribution Map (z manual search)
+
+### Kluczowy łańcuch dystrybucyjny CEE
+Z manual search wyłonił się wyraźny wzorzec:
+
+```
+FORTIS-DB s.r.o. (Plzeň, CZ, IČO 62586289)
+    └── Moosmayr Ges.m.b.H. (Eben 4, Hofkirchen/Tr., A47 16, AT)  ← AUSTRIACKA SIEDZIBA
+            └── vseprokoureni.cz
+            └── Shaman Tobacco s.r.o. (CZ) ← tworzy markę Hawkmatic (KONKURENCJA)
+            └── vseprokoureni.cz + Dalsi CZ resellery
+            └── tabaky.com (CZ)
+            └── plnicky-powermatic.cz (Jan Ševic — 15 lat, "największy w CZ/SK")
+```
+
+### Równoległe kanały:
+- **ZORR brand** (Plasti Temple, EU producent) — dystrybuowany przez: dobra-trafika.com, tabaky.com, smoking.fr, misterSmoke, kyset.com.ua, legalized.com.ua
+- **Hawk/Hawkmatic** — Shaman Tobacco CZ private label
+- **Hiper Trade d.o.o. (SI)** — prawdopodobnie lokalny dystrybutor z własnym importem
+
+### Wniosek strategiczny:
+Marceli = BILLS Sp. z o.o. (PL) jest autoryzowanym dystrybutorem PM na PL/CEE. Konkurencja w regionie:
+1. **FORTIS-DB/Moosmayr** (centralny łańcuch AT→CZ) — obsługuje większość dotychczasowych resellerów
+2. **Shaman Tobacco** (CZ, tworzy Hawkmatic) — wschodzący rywal z marką własną
+3. **ZORR** (private label EU) — dystrybuowany równolegle
+
+**Dla BILLS:** kluczowe jest znalezienie resellerów **poza** łańcuchem Moosmayr, np. tych którzy dowożą lokalnie bez współpracy z Moosmayr lub szukają alternatywy. Nowe leady z manual search (14 leadów) są w dużej mierze resellerami, których trzeba zweryfikować pod kątem łańcucha dostaw.
+
+### Kontakty warto follow-up:
+- **powermaticwholesale.com** (US Master Distributor, John/Debbie) — strategiczny punkt styku z fabryką Zico USA Inc.
+- **GGT a.s.** (SK-A-002) — już w katalogu, dystrybutor 2000+ trafik
+- **Hiper Trade (SI)** — duży lokalny dystrybutor SL
+
+### Mapowanie konkurencji (do follow-up):
+1. Kto importuje PM do PL/CEE? (BILLS vs FORTIS-DB vs kto?)
+2. Jaka jest różnica cenowa hurt-detat między BILLS a Moosmayr?
+3. Czy ZORR to ten sam produkt co PM czy kompletnie inny producent?
+4. Czy Hawkmatic to private label Shaman czy faktycznie inna fabryka?

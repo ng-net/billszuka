@@ -368,3 +368,52 @@ L0-L11 wyszukiwania (KRS/CEIDG → ARES/VIES → e-Äriregister → ...). Schema
 ## 2026-08-10 — Powstanie Projektu i Wzorzec 2-Tool Verification
 
 Projekt startuje. Sanitex group odkryty (1 partner = 3 kraje bałtyckie). KRS automation: NIP/REGON → REGON API → KRS API. Realne dane PL (Allegro/Ceneo/TikTok). 2-tool pattern: web_search + whois + rejestry API → FROZEN/DO-WERYFIKACJI.
+
+---
+
+## 2026-08-31 — Manual Search 20/wynik per 11 krajów (Marceli request)
+
+Marceli poprosił: *"I want to do manual search in google for 'powermatic nabijarka kup' or duckduck and copy first 20 results and review first 20 links if they are company that could be a lead for BILLS. for all countries, schedule this gently"*.
+
+Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak folderu) → FR → Baltik (EE/LV/LT) → Bałkany (BG/RO/HR/SI/MD/RS). Każdy kraj: 1 web_search + 20 wyników + ręczna klasyfikacja.
+
+**Wyniki per kraj (dodane do `data/{Kraj}/extra-leads-{ISO}.csv`):**
+- **CZ (2 leady):** Shaman Tobacco s.r.o. (David Fridrich, shamantobacco.cz, +420 777 680 670) — pełen asortyment PM + twórca marki Hawkmatic. **plnicky-powermatic.cz** (Jan Ševic, jan.sevic@seznam.cz, +420 608 062 713) — "największy sprzedawca PM w CZ/SK", 15 lat.
+- **FR (2 leady):** Smoking.fr (SIREN do ustalenia, 235 Allée Hector Pintus, 06610 La Gaude, +33 4 93 58 91 48) — 110k opinii, B2B Pack Premium. **SPi DCLiC / tubeuse-cigarette-electrique.fr** (SIREN 791551732, 83210 La Farlède, tce@spidclic.fr, +33 9 88 02 40 04) — dedykowany sklep + grossiste-presse-tabac.fr.
+- **LT (2 leady):** Medėja (Dariaus ir Girėno g. 3, Plungė), Skonis ir Kvapas (tabakas.skonis-kvapas.lt, sprzedaje "ZORR Deluxe").
+- **LV (2 leady):** **SIA Avalons / Tabakeria.lv** (Zasas iela 7, Rīga, +371 25 506 799, info@tabakeria.lv) — multilingual LV/RU/EN. Motivs.lv.
+- **RO (3 leady):** eTutun.ro (1660 RON za PM5+), TuburiAparate.ro (darmowa dostawa >200 RON), CotyShop.ro.
+- **SI (1 lead):** **Hiper Trade d.o.o. (hipertrade.si)** — pełen asortyment PM, jeden z największych dystrybutorów SI.
+- **MD (1 lead):** tabacco.md (Chișinău, 1550-2950 MDL).
+- **RS (1 lead):** GoldenMarket.rs (Belgrad, pełen PM).
+
+**Kraje bez nowych leadów (intentionally):**
+- **PL** — ma 80 PL-X już z web search 2026-08-19; manual search 2026-08-31 nic nie wniósł (zdominowane przez Allegro/Ceneo/marketplace; jedyne sygnały to Plimperia/SmokyHub bez NIP). Do follow-upu po NIP.
+- **SK** — Google zwraca głównie domeny CZ; GGT a.s. i Crazy Shopping/smokeshop.sk już w katalogu.
+- **BG** — tylko bazar.bg (OLX-style), brak dedykowanego sklepu.
+- **HR** — Njuškalo (OLX) + Slovenia-shipping; brak dedykowanego sklepu.
+- **EE** — brak dedykowanego .ee sklepu z PM.
+
+**Bonus — UK (poza 12-krajową listą BILLSzuka):**
+- **Mysmokingshop Ltd** (40c Liverpool Road, Penwortham, Preston PR1 0DQ; 01772 726888; info@mysmokingshop.co.uk) — UK reseller, real B2B.
+- **powermaticwholesale.com** (US Master Distributor, John/Debbie, 800-243-2737) — strategiczna informacja, nie lead.
+- **tobaccostuff.net** (Słowenia, +386 41 369 983) — SI lead dodany do SI-X-001.
+
+**Łącznie nowych leadów:** 14 (w 8 krajach z 12), plus UK bonus 1.
+
+**Discoveries strategiczne (INTEL):**
+1. **FORTIS-DB / Moosmayr Austria** = kanał dystrybucyjny który obsługuje vseprokoureni.cz i innych CZ resellerów. Marceli jeśli wchodzi do CZ musi konkurować z tym łańcuchem.
+2. **Shaman Tobacco tworzy markę Hawkmatic** — alternatywa dla naszego Hawk. Konkurencja w CZ.
+3. **Hiper Trade (SI)** + **Herman Hauser GmbH (Augsburg, DE)** + **Moosmayr** + **FORTIS-DB** = centralny kanał dystrybucyjny CEE. Warto zmapować całość.
+4. **Tabakeria.lv / SIA Avalons** (potwierdzony schema.org) = obecny gracz LV.
+
+**Pliki:**
+- `data/_intake/manual-search-2026-08-31/{ISO}-raw-20.md` × 8 (per kraj)
+- `data/_intake/manual-search-2026-08-31/{ISO}-shortlist.md` × 8
+- `data/_intake/manual-search-2026-08-31/README.md` (setup)
+
+**Następne kroki:**
+- ARES verification dla CZ-X-001, CZ-X-002 (Czech-X reestr)
+- SIREN verification dla FR-X-001, FR-X-002 (French registries)
+- Rejestr Litewski/Lotewski/Estoński verification
+- ARC Romania, AJPES Slovenia, APR Serbia

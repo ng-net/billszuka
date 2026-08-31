@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Copy,
   ExternalLink,
@@ -16,6 +16,10 @@ import {
   Maximize2,
   Film,
   Layers,
+  Loader2,
+  AlertCircle,
+  LayoutGrid,
+  PanelLeft,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -28,7 +32,10 @@ import {
 import { ModernLeadsTable } from "./ModernLeadsTable";
 import { ModernLeadsTableV2 } from "./ModernLeadsTableV2";
 import { ExperimentViewV3 } from "./ExperimentViewV3";
-import { getSampleLeads } from "@/lib/sampleLeads";
+import { useCsv } from "@/hooks/useCsv";
+
+const MASTER_URL = "/api/master.csv";
+const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 const LinkedinIcon = ({ size = 14, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -123,83 +130,133 @@ const generateLeads = (count) =>
   });
 
 export function ExperimentView() {
-  const [activeExperiment, setActiveExperiment] = useState("modern-v2");
+  const [activeExperiment, setActiveExperiment] = useState("progresywny");
+  const csv = useCsv();
+
+  // Boot: load master.csv once when the tab opens.
+  useEffect(() => {
+    if (csv.status === "idle") {
+      csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const leads = csv.rows || [];
 
   return (
-    <div className="p-4 space-y-4 max-w-full">
-      {/* Top Sub-Navigation Tabs for Experiments */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-2 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-zinc-800 rounded-xl">
-          <button
-            onClick={() => setActiveExperiment("modern-v2")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-              activeExperiment === "modern-v2"
-                ? "bg-white dark:bg-zinc-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-            }`}
-          >
-            <Sparkles size={14} className="text-indigo-500" />
-            <span>Modern Leads V2 (Progressive)</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-bold">
-              v2
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveExperiment("modern")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-              activeExperiment === "modern"
-                ? "bg-white dark:bg-zinc-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-            }`}
-          >
-            <Sparkles size={14} className="text-indigo-500" />
-            <span>Modern Leads (Progressive Disclosure)</span>
-          </button>
-
-          <button
-            onClick={() => setActiveExperiment("video-grid")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-              activeExperiment === "video-grid"
-                ? "bg-white dark:bg-zinc-900 text-rose-600 dark:text-rose-400 shadow-sm"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-            }`}
-          >
-            <Film size={14} className="text-rose-500" />
-            <span>Video Demos & Sticky Grid</span>
-          </button>
-
-          <button
-            onClick={() => setActiveExperiment("v3")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-              activeExperiment === "v3"
-                ? "bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-            }`}
-          >
-            <Layers size={14} className="text-emerald-500" />
-            <span>Compact · Filter Rail · Faceted</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800">
-              Nowość
-            </span>
-          </button>
-        </div>
-
-        <div className="text-xs text-slate-500 dark:text-slate-400 pr-2 hidden md:block">
-          Laboratorium UI/UX · BILLSzuka Experimental Hub
+    <div className="flex h-full flex-col gap-3 p-4 max-w-full">
+      {/* Sub-Navigation: 4 eksperymentalne warianty tabeli leadów.
+          Style dopasowany do głównego navbara (rounded-md, bg-muted). */}
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <nav className="inline-flex items-center gap-1 rounded-lg border border-border bg-card p-1">
+          <SubTab
+            id="progresywny"
+            label="Progresywny"
+            icon={Sparkles}
+            active={activeExperiment}
+            onSelect={setActiveExperiment}
+          />
+          <SubTab
+            id="modern"
+            label="Modern"
+            icon={LayoutGrid}
+            active={activeExperiment}
+            onSelect={setActiveExperiment}
+          />
+          <SubTab
+            id="sticky-grid"
+            label="Sticky Grid"
+            icon={Film}
+            active={activeExperiment}
+            onSelect={setActiveExperiment}
+          />
+          <SubTab
+            id="sidebar-filter"
+            label="Sidebar Filter"
+            icon={PanelLeft}
+            active={activeExperiment}
+            onSelect={setActiveExperiment}
+          />
+        </nav>
+        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          <span>
+            {leads.length} leadów z <code className="rounded bg-muted px-1">master.csv</code>
+          </span>
         </div>
       </div>
 
-      {/* Render Selected Experiment */}
-      {activeExperiment === "modern-v2" ? (
-        <ModernLeadsTableV2 leads={getSampleLeads()} />
-      ) : activeExperiment === "modern" ? (
-        <ModernLeadsTable leads={getSampleLeads()} />
-      ) : activeExperiment === "v3" ? (
-        <ExperimentViewV3 leads={getSampleLeads()} />
-      ) : (
-        <VideoGridExperiment leads={getSampleLeads()} />
-      )}
+      {/* Body */}
+      <div className="flex-1 min-h-0">
+        {csv.status === "loading" && <LoadingPanel progress={csv.progress} />}
+        {csv.status === "error" && <ErrorPanel error={csv.error} onRetry={() => csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0)} />}
+        {csv.status === "ready" && activeExperiment === "progresywny" && (
+          <ModernLeadsTableV2 leads={leads} />
+        )}
+        {csv.status === "ready" && activeExperiment === "modern" && (
+          <ModernLeadsTable leads={leads} />
+        )}
+        {csv.status === "ready" && activeExperiment === "sidebar-filter" && (
+          <ExperimentViewV3 leads={leads} />
+        )}
+        {csv.status === "ready" && activeExperiment === "sticky-grid" && (
+          <VideoGridExperiment leads={leads} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SubTab({ id, label, icon: Icon, active, onSelect }) {
+  const isActive = active === id;
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(id)}
+      aria-pressed={isActive}
+      className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+        isActive
+          ? "bg-muted text-foreground"
+          : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+      }`}
+    >
+      <Icon className="h-4 w-4 shrink-0" />
+      <span className="whitespace-nowrap">{label}</span>
+    </button>
+  );
+}
+
+function LoadingPanel({ progress }) {
+  const pct = progress?.totalBytes
+    ? Math.min(100, Math.round(((progress.bytesParsed || 0) / progress.totalBytes) * 100))
+    : null;
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="flex flex-col items-center gap-3 text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin" />
+        <div className="text-sm">Ładowanie master.csv…</div>
+        {pct !== null && (
+          <div className="text-xs tabular-nums opacity-70">{pct}%</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ErrorPanel({ error, onRetry }) {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="flex max-w-md flex-col items-center gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-6 text-center">
+        <AlertCircle className="h-6 w-6 text-destructive" />
+        <div className="text-sm font-medium">Nie udało się wczytać master.csv</div>
+        <div className="text-xs text-muted-foreground">{error}</div>
+        <button
+          type="button"
+          onClick={onRetry}
+          className="mt-2 inline-flex items-center gap-2 rounded-md bg-muted px-3 py-1.5 text-sm font-medium hover:bg-muted/70"
+        >
+          Spróbuj ponownie
+        </button>
+      </div>
     </div>
   );
 }
