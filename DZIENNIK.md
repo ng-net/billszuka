@@ -10,7 +10,7 @@
 | Metryka | Wartość |
 |---|---|
 | Git | `main` @ ng-net/billszuka, clean |
-| Tests | 401/401 PASS (Python pytest + node:test) |
+| Tests | 547/547 PASS (450 pytest + 97 node:test) |
 | master.csv | 376 wierszy × 35 kolumn, 12 krajów |
 | FROZEN | 323 (86.1%) |
 | DO-WERYFIKACJI | 52 (13.9%) — głównie halucynowane NIP/KRS z poprzednich enrichment passes |
@@ -518,3 +518,16 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 1. Dodać UK lead (Mysmokingshop Ltd) do `_intake/manual-search-2026-08-31/` jako side-effect candidate
 2. Paid Lursoft dla LT (rekvizitai.lt/JAR jest za SPA — brak publicznego API)
 3. Paid ANAF/termene.ro dla MD (brak publicznego API)
+
+---
+
+## 2026-08-31 09:55 — Review projektu, cleanup gałęzi, lint fix + test isolation
+
+**Zakres:**
+1. **Cleanup gałęzi:** Usunięto 8 zmergowanych gałęzi lokalnych (`dev`, `chore/oxlint-actions-brand-sync`, `feat/per-user-sessions`, `feat/per-user-sessions-restored`, `feat/proposal-queue-master-csv-only`, `feature/2026-optimizations`, `feature/ui-table-views`, `fix-tooltip-and-login`).
+2. **Frontend lint:** Wyczyszczono 9 ostrzeżeń oxlint `no-unused-vars` (usunięto nieużywane importy i zmienne w `UrlBadge`, `ModernLeadsTableV2`, `AnalyticsView`, `ExperimentView`, `analytics.js`).
+3. **Izolacja testów:** Naprawiono hermetyczność `test_read_env_keys_prefers_runtime_env` w `tests/test_api_server.py` (czyszczenie `GEMINI_API_KEY_*` / `OPENROUTER_API_KEY` z `os.environ` przed testem).
+4. **IDE resolution:** Dodano `pyrightconfig.json` z `extraPaths: ["tools"]` i `venv: ".venv"`, eliminując błędy importów modułów w edytorze IDE.
+5. **Git hygiene:** Dodano `data/users/` oraz `tools/data/` do `.gitignore`.
+6. **Weryfikacja:** 547/547 testów zielonych (450 pytest + 97 frontend), build Vite 2.1s, API proxy i backend serwer działające poprawnie.
+
