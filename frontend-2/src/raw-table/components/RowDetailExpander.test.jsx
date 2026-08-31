@@ -10,7 +10,7 @@ const { RowDetailExpander } = await import("./RowDetailExpander.jsx");
 
 const SAMPLE_LEAD = {
   id: "LEAD-1001",
-  nazwa_firmy: "PowerMatic Polska Sp. z o.o.",
+  nazwa: "PowerMatic Polska Sp. z o.o.",
   adres: "ul. Przemysłowa 10, 00-001 Warszawa",
   kraj: "Polska",
   miasto: "Warszawa",

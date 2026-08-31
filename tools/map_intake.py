@@ -8,7 +8,7 @@ Output: data/_intake/{ISO}/normalized.csv (37 cols, BILLSzuka master schema)
 Mapping (35 → 37):
   Marcel col             BILLSzuka col           Transform
   ─────────────────────  ──────────────────────  ─────────────────────────
-  Firma                  nazwa_firmy             1:1
+  Firma                  nazwa             1:1
   Region                 region_kod+region_nazwa split on first word
   Miasto                 miasto                  1:1
   Adres                  adres                   1:1
@@ -212,7 +212,7 @@ def map_row(marcel_row: dict, iso: str, seq_num: int = 1, skip_hallucinations: b
     out = {col: "" for col in MASTER_COLS}
 
     # Direct 1:1 mappings
-    out["nazwa_firmy"] = (marcel_row.get("Firma") or "").strip()
+    out["nazwa"] = (marcel_row.get("Firma") or "").strip()
     out["miasto"] = (marcel_row.get("Miasto") or "").strip()
     out["adres"] = (marcel_row.get("Adres") or "").strip()
     out["email"] = normalize_email(marcel_row.get("Email") or "")

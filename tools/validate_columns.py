@@ -41,7 +41,7 @@ from typing import Any
 # ---------------------------------------------------------------------------
 
 CANONICAL_COLUMNS: list[str] = [
-    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa_firmy",
+    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa",
     "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
     "www", "kanal_zamiennik", "email", "telefon", "linkedin",
     "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
@@ -63,7 +63,7 @@ DEFAULT_ALIASES: dict[str, list[str]] = {
                     "catalog id", "numer", "cislo"],
     "kategoria": ["kategoria", "category", "cat", "typ katalogu", "klasse", "categorie",
                   "categoria", "kategoria katalogu"],
-    "nazwa_firmy": ["nazwa firmy", "firma", "company", "company name", "name",
+    "nazwa": ["nazwa firmy", "firma", "company", "company name", "name",
                     "nazwa", "nazwa spolki", "unternehmen", "firme", "nom",
                     "societe", "ragione sociale", "obchodne meno", "naziv",
                     "ime podjetja", "ime firme", "naziv firme", "preduzece"],
@@ -144,7 +144,7 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
                   "values": ["A1", "A2", "A3", "A4", "A5", "A6",
                              "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
                   "allow_empty": False},
-    "nazwa_firmy": {"type": "text", "min_len": 2, "allow_empty": False},
+    "nazwa": {"type": "text", "min_len": 2, "allow_empty": False},
     "kraj": {"type": "enum",
              "values": ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "MD",
                         "BG", "SI", "HR", "RS"],
@@ -426,7 +426,7 @@ _BRAND_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"nabijark|nabijarki|machine|roller|gilz|tyton|tobacco", re.IGNORECASE),
 )
 
-_BRAND_TEXT_FIELDS: tuple[str, ...] = ("nazwa_firmy", "notatki", "zrodlo_danych", "sourcing")
+_BRAND_TEXT_FIELDS: tuple[str, ...] = ("nazwa", "notatki", "zrodlo_danych", "sourcing")
 
 
 def _brand_signal_in_row(row: dict[str, str]) -> bool:
@@ -435,7 +435,7 @@ def _brand_signal_in_row(row: dict[str, str]) -> bool:
 
     A row with no `marki_nabijarki` but a brand keyword in its name /
     notes / source is still considered "classified" — e.g. a row whose
-    `nazwa_firmy` literally says "PowerMatic distributor" doesn't need
+    `nazwa` literally says "PowerMatic distributor" doesn't need
     `marki_nabijarki='PowerMatic'` to be valid.
     """
     blob = " ".join(str(row.get(k) or "") for k in _BRAND_TEXT_FIELDS).lower()
@@ -603,9 +603,9 @@ def cross_check(row: dict[str, str], catalog_type: str | None) -> list[str]:
     if catalog_type == "B" and marki:
         issues.append(f"B row has marki_nabijarki='{row.get('marki_nabijarki')}' (should be empty for B)")
     # A rows should list brands via marki_nabijarki — BUT a row is also
-    # valid if the brand is detectable from nazwa_firmy / notatki /
+    # valid if the brand is detectable from nazwa / notatki /
     # zrodlo_danych / sourcing (the same fields the frontend
-    # `classifyBrand()` reads). A row with no nazwa_firmy at all is a
+    # `classifyBrand()` reads). A row with no nazwa at all is a
     # minimal test fixture — we don't flag it. This matches
     # `test_clean_a_row_no_issues` and avoids flagging the 17 A-rows in
     # master.csv whose brand is implicit in their name.
@@ -616,7 +616,7 @@ def cross_check(row: dict[str, str], catalog_type: str | None) -> list[str]:
         and any(not _is_empty(row.get(k)) for k in _BRAND_TEXT_FIELDS)
     ):
         issues.append(
-            "A row missing marki_nabijarki (and no brand signal in nazwa_firmy/notatki/zrodlo_danych)",
+            "A row missing marki_nabijarki (and no brand signal in nazwa/notatki/zrodlo_danych)",
         )
     return issues
 

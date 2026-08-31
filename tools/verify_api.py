@@ -282,7 +282,7 @@ def ares_enrich(row: dict) -> tuple[str, str]:
     Returns (status, reason) like other verify functions.
     Updates the row dict in-place if found.
     """
-    name = (row.get("nazwa_firmy") or "").strip()
+    name = (row.get("nazwa") or "").strip()
     if not name:
         return "DO-WERYFIKACJI", "Brak nazwy"
     # Wyczyść nazwę
@@ -428,7 +428,7 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
 
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
-    csv_nazwa_raw = row.get("nazwa_firmy", "")
+    csv_nazwa_raw = row.get("nazwa", "")
 
     # === Pre-flight 1: PL NIP mod-11 (offline, before any API call) ===
     # Per §1.1 — checksum fail means guaranteed hallucination. Don't even
@@ -526,7 +526,7 @@ def verify_cz_row(row: dict) -> tuple[str, str]:
         err = result.get("error", "brak") if result else "brak"
         return "DO-WERYFIKACJI", f"ARES: {err}"
 
-    csv_nazwa = row.get("nazwa_firmy", "")
+    csv_nazwa = row.get("nazwa", "")
     api_nazwa = result.get("nazwa", "")
     ok, score, reason = name_similarity(csv_nazwa, api_nazwa)
     if not ok:
@@ -548,7 +548,7 @@ def verify_vies_row(row: dict) -> tuple[str, str]:
 
     Note: VIES does NOT return the company name in most cases (member
     states' privacy laws differ). So we can only confirm VAT existence,
-    not match against CSV `nazwa_firmy`. This is still strong evidence:
+    not match against CSV `nazwa`. This is still strong evidence:
     a confirmed EU VAT ID is much harder to fabricate than a name string.
     """
     if vies_lookup is None:
@@ -633,7 +633,7 @@ def verify_fr_row(row: dict) -> tuple[str, str]:
         )
 
     # Fuzzy name match: strip French legal forms, check token overlap
-    csv_nazwa = normalize(row.get("nazwa_firmy", ""))
+    csv_nazwa = normalize(row.get("nazwa", ""))
     api_nazwa = normalize(result.get("nom_complet", ""))
     if csv_nazwa and api_nazwa:
         csv_tokens = set(csv_nazwa.split()) - _FR_LEGAL_TOKENS
@@ -677,7 +677,7 @@ def verify_apollo_row(row: dict) -> tuple[str, str]:
     if not APOLLO_AVAILABLE or _apollo_enrich_row is None:
         return PENDING_API, "Apollo module niedostępny (apollo_enrich.py nie załadowany)"
 
-    company = (row.get("nazwa_firmy") or "").strip()
+    company = (row.get("nazwa") or "").strip()
     if not company or company in ("brak", "do ustalenia", "n/a", ""):
         return PENDING_API, "Brak nazwy firmy — Apollo nie ma czego szukać"
 
@@ -775,7 +775,7 @@ def verify_ee_row(row: dict) -> tuple[str, str]:
     if ee_search is None and ee_detail is None:
         return PENDING_API, "EE module niedostępny (ee_ariregister.py nie załadowany)"
 
-    name_csv = (row.get("nazwa_firmy") or "").strip()
+    name_csv = (row.get("nazwa") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
     nip_csv = (row.get("nip_vat") or "").strip().upper()
     clean_nip = re.sub(r"[^0-9A-Z]", "", nip_csv)
@@ -906,7 +906,7 @@ def verify_lt_row(row: dict) -> tuple[str, str]:
     if lt_jar_lookup is None:
         return PENDING_API, "LT module niedostępny (lt_open_data.py nie załadowany)"
 
-    name_csv = (row.get("nazwa_firmy") or "").strip()
+    name_csv = (row.get("nazwa") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
     nip_csv = (row.get("nip_vat") or "").strip().upper()
     clean_nip = re.sub(r"[^0-9A-Z]", "", nip_csv)

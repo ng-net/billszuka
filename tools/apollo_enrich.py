@@ -250,7 +250,7 @@ def enrich_csv_row(row: dict[str, str], timeout: int = 15) -> dict[str, Any]:
     Back-fills: industry, employees, phone, linkedin, city, country.
     Does NOT back-fill: email, decision-maker (need paid plan).
     """
-    company = (row.get("nazwa_firmy") or "").strip()
+    company = (row.get("nazwa") or "").strip()
     www = (row.get("www") or "").strip()
 
     domain = derive_domain(company, www)
@@ -359,7 +359,7 @@ def bulk_enrich_csv(
     skipped_cached = 0
     for i, row in enumerate(rows, 1):
         id_ = (row.get("id") or "").strip()
-        name = (row.get("nazwa_firmy") or "").strip()
+        name = (row.get("nazwa") or "").strip()
         # Skip if cached
         if id_ in cache and cache[id_].get("org_matched"):
             results.append({**cache[id_], "cached": True})
@@ -370,7 +370,7 @@ def bulk_enrich_csv(
         print(f"  [{i}/{len(rows)}] {id_} {name[:30]:30s}", file=sys.stderr)
         r = enrich_csv_row(row, timeout=timeout)
         r["id"] = id_
-        r["nazwa_firmy"] = name
+        r["nazwa"] = name
         if r.get("org_matched"):
             matched += 1
         results.append(r)

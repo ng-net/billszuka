@@ -124,7 +124,7 @@ def parse_flagi(text: str) -> str:
 # --- Column renderers ---
 def col_firma(row: dict) -> str:
     """Company name (bolder) + ID + kategoria code (A1, A2, B3 etc.) below."""
-    name = row.get("nazwa_firmy", "").strip()
+    name = row.get("nazwa", "").strip()
     fid = row.get("id", "").strip()
     kat = row.get("kategoria", "").strip()  # e.g. "A1", "A4", "B8"
     parts = []
@@ -342,7 +342,7 @@ def build_lead_block(r: dict, tight: bool = False) -> Table:
     """
     # === Col 0 (row 1: Firma; rows 2-3: Marki+Sourcing spans 2 cells) ===
     firma_html = (
-        f'<font size="11"><b>{_sanitize_unicode(r.get("nazwa_firmy", "").strip() or "—")}</b></font>'
+        f'<font size="11"><b>{_sanitize_unicode(r.get("nazwa", "").strip() or "—")}</b></font>'
         f'<br/><font color="#4466aa" size="7.5">{_sanitize_unicode(r.get("id", "").strip())}</font>'
         f'<br/><font color="#1F1F1F" size="8"><b>{_sanitize_unicode(r.get("kategoria", "").strip())}</b></font>'
     )
@@ -529,7 +529,7 @@ def load_extra_leads(iso: str) -> list[dict]:
             norm = {
                 "id": row.get("id", "").strip(),
                 "kategoria": row.get("kategoria", "").strip(),
-                "nazwa_firmy": row.get("nazwa_firmy", "").strip(),
+                "nazwa": row.get("nazwa", "").strip(),
                 "kraj": iso,
                 "miasto": row.get("miasto", "").strip(),
                 "adres": row.get("adres", "").strip(),
@@ -553,7 +553,7 @@ def load_extra_leads(iso: str) -> list[dict]:
 
 def load_unverified(iso: str, limit: int = 20) -> list[dict]:
     """Load unverified leads from gmaps raw data, dedup by name, exclude master.csv, max `limit`.
-    Returns list of dicts: [{nazwa_firmy, miasto, www, telefon, adres, source_file}, ...]
+    Returns list of dicts: [{nazwa, miasto, www, telefon, adres, source_file}, ...]
     """
     import glob as _glob
     from collections import OrderedDict
@@ -564,7 +564,7 @@ def load_unverified(iso: str, limit: int = 20) -> list[dict]:
     if m_path.exists():
         with open(m_path, encoding="utf-8") as f:
             for r in csv.DictReader(f):
-                n = r.get("nazwa_firmy", "").strip().lower()
+                n = r.get("nazwa", "").strip().lower()
                 if n:
                     master_names.add(n)
 
@@ -580,7 +580,7 @@ def load_unverified(iso: str, limit: int = 20) -> list[dict]:
                 for r in csv.DictReader(fh):
                     if r.get("kraj", "").strip() != iso:
                         continue
-                    name = r.get("nazwa_firmy", "").strip()
+                    name = r.get("nazwa", "").strip()
                     if not name or len(name) < 3:
                         continue
                     name_l = name.lower()
@@ -593,7 +593,7 @@ def load_unverified(iso: str, limit: int = 20) -> list[dict]:
                     if name_l in seen:
                         continue
                     seen[name_l] = {
-                        "nazwa_firmy": name,
+                        "nazwa": name,
                         "miasto": r.get("miasto", "").strip(),
                         "adres": r.get("adres", "").strip(),
                         "www": www,
@@ -697,7 +697,7 @@ def build_unverified_block(r: dict, idx: int) -> Table:
     Columns: [#] [⚠️] [Nazwa | Miasto] [WWW] [Tel]
     No border (just thin line below), compact font, warning icon.
     """
-    name = r.get("nazwa_firmy", "").strip() or "—"
+    name = r.get("nazwa", "").strip() or "—"
     miasto = r.get("miasto", "").strip() or r.get("adres", "").split(",")[0].strip() or "—"
     www = r.get("www", "").strip()
     www_clean = www.replace("https://", "").replace("http://", "").rstrip("/") if www else "—"
@@ -747,7 +747,7 @@ def build_extra_simple_block(r: dict, idx: int) -> Table:
     Column 5: tier + wolumen for master firms; miasto for gmaps signals.
     Column 6: short notatka (master) or types (gmaps) or NIP/REGON if available.
     """
-    name = _sanitize_unicode(r.get("nazwa_firmy", "").strip()) or "—"
+    name = _sanitize_unicode(r.get("nazwa", "").strip()) or "—"
     email = _sanitize_unicode(r.get("email", "").strip()) or _sanitize_unicode(r.get("email_decydent", "").strip())
     tel = _sanitize_unicode(r.get("telefon", "").strip())
     contact_parts = []
@@ -1001,11 +1001,11 @@ def main():
         gmaps = load_unverified(iso, limit=args.unverified_limit)
         extra_web = load_extra_leads(iso)  # Web-researched 50 new leads
         # Dedupe: B5-B9 may overlap with gmaps names (e.g. company in master and gmaps)
-        master_names = {r.get("nazwa_firmy", "").strip().lower() for r in b_outside}
-        gmaps_filtered = [r for r in gmaps if r.get("nazwa_firmy", "").strip().lower() not in master_names]
+        master_names = {r.get("nazwa", "").strip().lower() for r in b_outside}
+        gmaps_filtered = [r for r in gmaps if r.get("nazwa", "").strip().lower() not in master_names]
         # Dedupe web extra against B5-B9 and gmaps
-        existing = master_names | {r.get("nazwa_firmy", "").strip().lower() for r in gmaps_filtered}
-        extra_web_filtered = [r for r in extra_web if r.get("nazwa_firmy", "").strip().lower() not in existing]
+        existing = master_names | {r.get("nazwa", "").strip().lower() for r in gmaps_filtered}
+        extra_web_filtered = [r for r in extra_web if r.get("nazwa", "").strip().lower() not in existing]
         extra_list = b_outside + gmaps_filtered + extra_web_filtered
         extra_mode = "simple"
         extra_label = "Lista dodatkowa"

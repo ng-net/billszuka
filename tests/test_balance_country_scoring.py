@@ -195,38 +195,38 @@ class TestInferConfidence:
 class TestInferVolume:
     def test_existing_duzy_preserved(self):
         row = {"wolumen": "duży", "tier": "detalista", "kategoria": "B4",
-               "notatki": "", "nazwa_firmy": ""}
+               "notatki": "", "nazwa": ""}
         assert bcs.infer_volume(row, "PL") == "duży"
 
     def test_existing_sredni_preserved(self):
         row = {"wolumen": "średni", "tier": "producent", "kategoria": "B8",
-               "notatki": "", "nazwa_firmy": ""}
+               "notatki": "", "nazwa": ""}
         assert bcs.infer_volume(row, "PL") == "średni"
 
     def test_empty_with_hurtownik_in_pl_is_duzy(self):
         row = {"wolumen": "", "tier": "hurtownik", "kategoria": "B8",
-               "notatki": "", "nazwa_firmy": ""}
+               "notatki": "", "nazwa": ""}
         assert bcs.infer_volume(row, "PL") == "duży"
 
     def test_empty_with_hurtownik_in_lt_is_sredni(self):
         row = {"wolumen": "", "tier": "hurtownik", "kategoria": "B8",
-               "notatki": "", "nazwa_firmy": ""}
+               "notatki": "", "nazwa": ""}
         # LT is "mały" market but B8 hurtownik → średni
         assert bcs.infer_volume(row, "LT") == "średni"
 
     def test_empty_with_lider_signal_is_duzy(self):
         row = {"wolumen": "", "tier": "", "kategoria": "",
-               "notatki": "lider rynku, 1000+ sklepów", "nazwa_firmy": ""}
+               "notatki": "lider rynku, 1000+ sklepów", "nazwa": ""}
         assert bcs.infer_volume(row, "PL") == "duży"
 
     def test_empty_with_kiosk_signal_is_maly(self):
         row = {"wolumen": "", "tier": "", "kategoria": "",
-               "notatki": "lokalny kiosk", "nazwa_firmy": ""}
+               "notatki": "lokalny kiosk", "nazwa": ""}
         assert bcs.infer_volume(row, "PL") == "mały"
 
     def test_brak_treated_as_empty(self):
         row = {"wolumen": "brak", "tier": "hurtownik", "kategoria": "B8",
-               "notatki": "", "nazwa_firmy": ""}
+               "notatki": "", "nazwa": ""}
         assert bcs.infer_volume(row, "PL") == "duży"
 
 
@@ -345,7 +345,7 @@ class TestCatalogBMarkiPreservation:
     def test_nie_preserved_by_infer_marki_for_cat_a(self):
         """infer_marki_for_cat_a is for Catalog A only — but it's safe
         to verify it doesn't accidentally emit 'nie' from a clean state."""
-        row = {"marki_nabijarki": "nie", "notatki": "", "nazwa_firmy": ""}
+        row = {"marki_nabijarki": "nie", "notatki": "", "nazwa": ""}
         # Existing 'nie' is preserved by the function (not a sentinel)
         assert bcs.infer_marki_for_cat_a(row) == "nie"
 
@@ -361,7 +361,7 @@ class TestBalanceCatalogFile:
         csv_path = tmp_path / "catalog-B-XX.csv"
         with open(csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=[
-                "kraj", "id", "nazwa_firmy", "tier", "kategoria",
+                "kraj", "id", "nazwa", "tier", "kategoria",
                 "rynek_skala", "wolumen", "confidence_wolumen",
                 "cross_sell_potential", "powinowactwo_nabijarki",
                 "marki_nabijarki", "marka_wlasna_oem", "notatki",
@@ -371,7 +371,7 @@ class TestBalanceCatalogFile:
             writer.writeheader()
             writer.writerow({
                 "kraj": "XX", "id": "XX-B-001",
-                "nazwa_firmy": "Test Co",
+                "nazwa": "Test Co",
                 "tier": "hurtownik", "kategoria": "B8",
                 "rynek_skala": "",
                 "wolumen": "",
@@ -421,7 +421,7 @@ class TestBalanceCatalogFile:
         csv_path = tmp_path / "catalog-B-YY.csv"
         with open(csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=[
-                "kraj", "id", "nazwa_firmy", "tier", "kategoria",
+                "kraj", "id", "nazwa", "tier", "kategoria",
                 "rynek_skala", "wolumen", "confidence_wolumen",
                 "cross_sell_potential", "powinowactwo_nabijarki",
                 "marki_nabijarki", "marka_wlasna_oem", "notatki",
@@ -431,7 +431,7 @@ class TestBalanceCatalogFile:
             writer.writeheader()
             writer.writerow({
                 "kraj": "YY", "id": "YY-B-001",
-                "nazwa_firmy": "Verified Co",
+                "nazwa": "Verified Co",
                 "tier": "hurtownik", "kategoria": "B8",
                 "rynek_skala": "",
                 "wolumen": "duży",
@@ -473,7 +473,7 @@ class TestBalanceCatalogFile:
         csv_path = tmp_path / "catalog-B-ZZ.csv"
         with open(csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=[
-                "kraj", "id", "nazwa_firmy", "tier", "kategoria",
+                "kraj", "id", "nazwa", "tier", "kategoria",
                 "rynek_skala", "wolumen", "confidence_wolumen",
                 "cross_sell_potential", "powinowactwo_nabijarki",
                 "marki_nabijarki", "marka_wlasna_oem", "notatki",
@@ -483,7 +483,7 @@ class TestBalanceCatalogFile:
             writer.writeheader()
             writer.writerow({
                 "kraj": "ZZ", "id": "ZZ-B-001",
-                "nazwa_firmy": "Generic Co",
+                "nazwa": "Generic Co",
                 "tier": "reseller", "kategoria": "B1",
                 "rynek_skala": "",
                 "wolumen": "",

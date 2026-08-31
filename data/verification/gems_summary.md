@@ -1,6 +1,6 @@
 # Gems — non-PL B2B partner candidates (2026-08-31)
 
-**Total gems found:** 130 across 12 countries
+**Total gems found:** 132 across 12 countries
 
 ## Gem criteria (all required)
 
@@ -22,18 +22,18 @@
 |---|---|---|---|
 | BG | Bułgaria | 25 | 10 |
 | EE | Estonia | 20 | 9 |
-| SK | Słowacja | 15 | 10 |
+| SK | Słowacja | 16 | 10 |
 | RO | Rumunia | 14 | 9 |
 | FR | Francja | 12 | 9 |
 | HR | Chorwacja | 11 | 10 |
 | CZ | Czechy | 10 | 5 |
 | LT | Litwa | 9 | 7 |
-| SI | Słowenia | 6 | 10 |
+| SI | Słowenia | 7 | 10 |
 | LV | Łotwa | 5 | 5 |
 | RS | Serbia | 2 | 10 |
 | MD | Mołdawia | 1 | 4 |
 
-**Total: 130 gems** in 12 countries
+**Total: 132 gems** in 12 countries
 
 ## Top 20 gems (cross-country, by score)
 
@@ -57,8 +57,8 @@
 | 16 | 10 | ✓ | SI | Poslovni sistem Mercator d.o.o. (Cash &  | 5 | info@mercator.si |
 | 17 | 10 | ✓ | SI | JT International Ljubljana, d.o.o. | 5 | info.slovenia@jti.com |
 | 18 | 10 | ✓ | SI | Philip Morris Ljubljana, d.o.o. | 5 | infoline.si@pmi.com |
-| 19 | 9 | ✓ | BG | Tobacco Distribution OOD | 5 | office@tobacco.bg |
-| 20 | 9 | ✓ | BG | ЕКСПРЕС ЛОГИСТИКА И ДИСТРИБУЦИЯ ЕООД (EL | 3 | office@eld.bg |
+| 19 | 10 | ✓ | SI | Tobačna Grosist d.o.o. | 5 | tobacna-grosist@si.imptob.com; tgna |
+| 20 | 9 | ✓ | BG | Tobacco Distribution OOD | 5 | office@tobacco.bg |
 
 ## BG — Bułgaria (25 gems)
 
@@ -115,7 +115,7 @@
 | 19 | 4 |  | KML Distribution OÜ | 3 | Tallinn | B1 | kusti@reflekt.ee |
 | 20 | 4 |  | Jungent Estonia OÜ | 3 |  | B5 | informacija@jungent.eu |
 
-## SK — Słowacja (15 gems)
+## SK — Słowacja (16 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
@@ -133,7 +133,8 @@
 | 12 | 5 |  | D.A. PRESS, spol. s r.o. | 4 | Malacky | B8 | dapress@dapress.sk |
 | 13 | 5 |  | SPODOS spol. s r. o. | 4 | Topoľčany | B8 | spodos@spodos.sk |
 | 14 | 5 |  | FINEST TOBACCO INTERNATIONAL GROUP  | 4 | Piešťany | B8 | info@finest-tobacco.com |
-| 15 | 4 |  | INN SMOKE s. r. o. | 3 | Banská Bystrica | B6 | info@cubapods.sk |
+| 15 | 5 |  | M+M Tabak (M+M s.r.o.) | 4 | Nitra | B2 | mplusm@mplusm.sk; objednavky@m |
+| 16 | 4 |  | INN SMOKE s. r. o. | 3 | Banská Bystrica | B6 | info@cubapods.sk |
 
 ## RO — Rumunia (14 gems)
 
@@ -191,16 +192,16 @@
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
-| 1 | 5 |  | FUMUS s.r.o. | 4 | Praha | B2 | info@fumus.cz |
-| 2 | 4 |  | CZECH TOBACCO CORPORATION a.s. | 3 |  | B5 | ctc@ctc-as.cz |
-| 3 | 4 |  | MORAVIA TOBACCO | 3 |  | B5 | info@moraviatb.cz |
-| 4 | 4 |  | Horák Tabák | 3 |  | B5 | +420734617787 |
-| 5 | 4 |  | Etabak.com | 3 |  | B5 | obchod@etabak.com |
-| 6 | 4 |  | Velkoobchod Mečíř Trutnov | 3 |  | B5 | obchod@mecir.net |
-| 7 | 4 |  | Šebrle s.r.o. | 3 |  | B5 | +420 499 622 321 |
-| 8 | 4 |  | CigarKings trade | 3 |  | B2 | kontakt@cigarkings.de |
-| 9 | 4 |  | GECO a.s. | 3 | Praha 8 | B2 | mail.box@geco.cz |
-| 10 | 4 |  | Velkoobchod Mečíř | 3 | Trutnov | B2 | obchod@mecir.net |
+| 1 | 5 |  |  | 4 | Praha | B2 | info@fumus.cz |
+| 2 | 4 |  |  | 3 |  | B5 | ctc@ctc-as.cz |
+| 3 | 4 |  |  | 3 |  | B5 | info@moraviatb.cz |
+| 4 | 4 |  |  | 3 |  | B5 | +420734617787 |
+| 5 | 4 |  |  | 3 |  | B5 | obchod@etabak.com |
+| 6 | 4 |  |  | 3 |  | B5 | obchod@mecir.net |
+| 7 | 4 |  |  | 3 |  | B5 | +420 499 622 321 |
+| 8 | 4 |  |  | 3 |  | B2 | kontakt@cigarkings.de |
+| 9 | 4 |  |  | 3 | Praha 8 | B2 | mail.box@geco.cz |
+| 10 | 4 |  |  | 3 | Trutnov | B2 | obchod@mecir.net |
 
 ## LT — Litwa (9 gems)
 
@@ -216,7 +217,7 @@
 | 8 | 3 |  | MB Himalajai | 3 | Vilnius | B4 | info@rastamanas.lt |
 | 9 | 3 |  | UAB Reto | 1 | Vilnius | B5 | info@shamanas.lt |
 
-## SI — Słowenia (6 gems)
+## SI — Słowenia (7 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
@@ -225,7 +226,8 @@
 | 3 | 10 | ✓ | Poslovni sistem Mercator d.o.o. (Ca | 5 | Ljubljana | B8 | info@mercator.si |
 | 4 | 10 | ✓ | JT International Ljubljana, d.o.o. | 5 | Ljubljana | B9 | info.slovenia@jti.com |
 | 5 | 10 | ✓ | Philip Morris Ljubljana, d.o.o. | 5 | Ljubljana | B9 | infoline.si@pmi.com |
-| 6 | 5 |  | OTP, trgovina s tobakom, d.o.o. (Sc | 4 | Ljubljana | B8 | info.si@st-group.com |
+| 6 | 10 | ✓ | Tobačna Grosist d.o.o. | 5 | Ljubljana | B2 | tobacna-grosist@si.imptob.com; |
+| 7 | 5 |  | OTP, trgovina s tobakom, d.o.o. (Sc | 4 | Ljubljana | B8 | info.si@st-group.com |
 
 ## LV — Łotwa (5 gems)
 

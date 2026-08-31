@@ -25,7 +25,7 @@ def clean_pl_specifics(rows: list[dict]) -> list[dict]:
     
     for r in rows:
         nip = re.sub(r"\W", "", r.get("nip_vat", "").upper())
-        name = r.get("nazwa_firmy", "")
+        name = r.get("nazwa", "")
         
         # Fix Selgros NIP (was Eurocash's NIP by mistake)
         if "Selgros" in name or "Transgourmet" in name:
@@ -98,10 +98,10 @@ def clean_all_catalogs():
                 rows = clean_pl_specifics(rows)
             elif iso == "LT" and cat_type == "B":
                 # Philip Morris Baltic is already in Catalog A
-                rows = [r for r in rows if r.get("nip_vat") != "LT100002442812" or "Lietuva" in r.get("nazwa_firmy", "")]
+                rows = [r for r in rows if r.get("nip_vat") != "LT100002442812" or "Lietuva" in r.get("nazwa", "")]
             elif iso == "MD" and cat_type == "B":
                 # Tutun-CTC is in Catalog A
-                rows = [r for r in rows if "Tutun-CTC" not in r.get("nazwa_firmy", "")]
+                rows = [r for r in rows if "Tutun-CTC" not in r.get("nazwa", "")]
             elif iso == "LV" and cat_type == "B":
                 # Tabakas Nams Grupa is in Catalog A
                 rows = [r for r in rows if r.get("nip_vat") != "LV50003223511"]

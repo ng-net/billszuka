@@ -115,7 +115,7 @@ def build_blocklist() -> set[str]:
                 continue
             try:
                 for row in csv.DictReader(open(fpath, encoding="utf-8")):
-                    name = row.get("nazwa_firmy", "").strip()
+                    name = row.get("nazwa", "").strip()
                     if name:
                         blocklist.add(normalize(name))
                     # Also block by rejestr_id (Place ID) if present

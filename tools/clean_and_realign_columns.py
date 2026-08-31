@@ -4,7 +4,7 @@ clean_and_realign_columns.py — Cleans company names, realigns misplaced data,
 and normalizes columns across BILLSzuka catalog files.
 
 Rules:
-1. Removes parenthetical website domains from nazwa_firmy -> populates www / notatki.
+1. Removes parenthetical website domains from nazwa -> populates www / notatki.
 2. Removes parenthetical descriptors (e.g. "(hurtownia tytoniu)", "(maszynki...)") -> populates notatki / marki_nabijarki.
 3. Fixes emails mistakenly placed in telefon field (e.g. CZ-X-002, PL-X-034, SI-X-001).
 4. Normalizes misplaced sourcing text (e.g. LT-B-011).
@@ -83,8 +83,8 @@ def clean_row(row: dict, filename: str) -> tuple[dict, list[str]]:
         row["notatki"] = (notatki + " | Profil/Sourcing: " + sourcing).strip(" |")
         changes.append(f"fixed verbose sourcing: {sourcing[:25]}... -> {row['sourcing']}")
 
-    # 3. Clean nazwa_firmy
-    nazwa = str(row.get("nazwa_firmy") or "").strip()
+    # 3. Clean nazwa
+    nazwa = str(row.get("nazwa") or "").strip()
     if nazwa:
         # Check for trailing parentheses: "Firma Sp. z o.o. (something)"
         m_paren = re.search(r"\s*\((.*?)\)\s*$", nazwa)
@@ -103,8 +103,8 @@ def clean_row(row: dict, filename: str) -> tuple[dict, list[str]]:
 
             if (is_domain or is_brand or is_product_desc) and not is_cyrillic_translit:
                 if len(clean_name) >= 3:
-                    row["nazwa_firmy"] = clean_name
-                    changes.append(f"cleaned nazwa_firmy: \"{nazwa}\" -> \"{clean_name}\"")
+                    row["nazwa"] = clean_name
+                    changes.append(f"cleaned nazwa: \"{nazwa}\" -> \"{clean_name}\"")
                     
                     # Handle domain
                     if is_domain:

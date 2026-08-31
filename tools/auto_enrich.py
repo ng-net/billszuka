@@ -247,7 +247,7 @@ def find_unenriched_leads() -> list[dict]:
                         "country": (row.get("kraj") or "").strip(),
                         "country_dir": sub.name,
                         "id": (row.get("id") or "").strip(),
-                        "name": (row.get("nazwa_firmy") or "").strip(),
+                        "name": (row.get("nazwa") or "").strip(),
                         "city": (row.get("miasto") or "").strip(),
                         "www": (row.get("www") or "").strip(),
                         "csv_path": str(csv_path),

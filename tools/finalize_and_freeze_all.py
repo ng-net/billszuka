@@ -28,11 +28,11 @@ def align_catalogs():
         for r in fr_rows:
             uid = r.get("id")
             if uid == "FR-A-001":
-                r["nazwa_firmy"] = "LPE DISTRIBUTION LIMITED (Panoramiks Pro)"
+                r["nazwa"] = "LPE DISTRIBUTION LIMITED (Panoramiks Pro)"
                 r["rejestr_id"] = "SIREN 753702018"
                 r["flagi"] = "2026-08-18 ✅ FROZEN (API)"
             elif uid == "FR-A-003":
-                r["nazwa_firmy"] = "PAPRIKA PRODUCTIONS SARL (D'LICE)"
+                r["nazwa"] = "PAPRIKA PRODUCTIONS SARL (D'LICE)"
                 r["rejestr_id"] = "SIREN 539655761"
                 r["flagi"] = "2026-08-18 ✅ FROZEN (API)"
             elif uid == "FR-A-004":

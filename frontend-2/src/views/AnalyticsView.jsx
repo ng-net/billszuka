@@ -851,7 +851,7 @@ export function AnalyticsView() {
                             {g.rows.map(r => (
                               <li key={r.id} className="flex items-center gap-1.5">
                                 <span className="font-mono text-[10px] bg-muted px-1 rounded">{r.kraj}</span>
-                                <span className="truncate">{r.nazwa_firmy}</span>
+                                <span className="truncate">{r.nazwa}</span>
                               </li>
                             ))}
                           </ul>
@@ -870,10 +870,10 @@ export function AnalyticsView() {
                           ? "bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 border-violet-300 dark:border-violet-800"
                           : "bg-white dark:bg-card text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-900/40"
                       )}
-                      title={`${r.nazwa_firmy} · ${r.marki_nabijarki}`}
+                      title={`${r.nazwa} · ${r.marki_nabijarki}`}
                     >
                       <span className="font-mono text-[10px] opacity-60">{r.kraj}</span>
-                      <span className="truncate max-w-[180px]">{r.nazwa_firmy}</span>
+                      <span className="truncate max-w-[180px]">{r.nazwa}</span>
                       <span className="text-[9px] uppercase tracking-wider opacity-70">·{r.brand_variant}</span>
                     </div>
                   ))}
@@ -907,7 +907,7 @@ export function AnalyticsView() {
                       {r.kraj}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate">{r.nazwa_firmy}</div>
+                      <div className="text-sm font-medium truncate">{r.nazwa}</div>
                       <div className="text-[11px] text-muted-foreground truncate">
                         {r.tier} · {r.miasto || "—"} · dopasowanie: „{r.match_term}"
                       </div>
@@ -957,7 +957,7 @@ export function AnalyticsView() {
                     {g.rows.map((r, i) => (
                       <li key={r.id} className="flex items-center gap-2 truncate">
                         <span className="text-[10px] font-mono tabular-nums text-muted-foreground w-4">{i + 1}.</span>
-                        <span className="flex-1 truncate font-medium">{r.nazwa_firmy}</span>
+                        <span className="flex-1 truncate font-medium">{r.nazwa}</span>
                         <span className="text-[10px] text-muted-foreground tabular-nums">
                           {r.confidence_wolumen || r.wolumen}
                         </span>

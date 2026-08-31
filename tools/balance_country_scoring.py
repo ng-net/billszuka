@@ -189,7 +189,7 @@ def infer_volume(row: dict, country: str) -> str:
 
     tier = (row.get("tier") or "").strip().lower()
     notes = (row.get("notatki") or "").lower()
-    name = (row.get("nazwa_firmy") or "").lower()
+    name = (row.get("nazwa") or "").lower()
     cat = (row.get("kategoria") or "").upper().strip()
 
     # Strong positive signals (only when notes/name actually carry them)
@@ -316,7 +316,7 @@ def infer_marki_for_cat_a(row: dict) -> str:
         return current
 
     notes = (row.get("notatki") or "").lower()
-    name = (row.get("nazwa_firmy") or "").lower()
+    name = (row.get("nazwa") or "").lower()
 
     if "powermatic" in notes or "hawk" in notes or "powermatic" in name:
         return "PowerMatic | Hawk | Akcesoria tytoniowe"

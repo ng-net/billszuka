@@ -273,7 +273,7 @@ class TestFindLeads:
         pa.mkdir()
         with (pa / "catalog-B-PL.csv").open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id", "kraj", "nazwa_firmy", "miasto",
+            w.writerow(["id", "kraj", "nazwa", "miasto",
                         "www", "decydent", "stanowisko"])
             w.writerow(["PL-1", "PL", "Alpha", "Warsaw", "x.pl",
                         "do ustalenia", "brak"])
@@ -284,7 +284,7 @@ class TestFindLeads:
         cz.mkdir()
         with (cz / "catalog-A-CZ.csv").open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id", "kraj", "nazwa_firmy", "decydent"])
+            w.writerow(["id", "kraj", "nazwa", "decydent"])
             w.writerow(["CZ-1", "CZ", "Gamma", "do ustalenia"])
         # Backup dir: should be ignored
         bk = tmp_path / "backups"
@@ -467,13 +467,13 @@ class TestFindUnenrichedLeads:
         canonical = country / "catalog-B-PL.csv"
         with canonical.open("w", newline="", encoding="utf-8") as f:
             w = _csv.writer(f)
-            w.writerow(["id", "kraj", "nazwa_firmy", "miasto", "www", "decydent"])
+            w.writerow(["id", "kraj", "nazwa", "miasto", "www", "decydent"])
             w.writerow(["PL-A-1", "PL", "Foo sp. z o.o.", "Wawa", "", "do ustalenia"])
         # Pre-clean snapshot (should be ignored)
         pre = country / "catalog-B-PL-pre-clean-20260811_023054.csv"
         with pre.open("w", newline="", encoding="utf-8") as f:
             w = _csv.writer(f)
-            w.writerow(["id", "kraj", "nazwa_firmy", "miasto", "www", "decydent"])
+            w.writerow(["id", "kraj", "nazwa", "miasto", "www", "decydent"])
             w.writerow(["PL-B-1", "PL", "Old", "Wawa", "", "do ustalenia"])
         # AppleDouble file (should be ignored)
         doubled = country / "._catalog-B-PL.csv"

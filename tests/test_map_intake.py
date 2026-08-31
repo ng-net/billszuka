@@ -96,7 +96,7 @@ class TestMapRow(unittest.TestCase):
             "Rank": "5",
         }
         out = mi.map_row(row, "CZ", seq_num=5)
-        self.assertEqual(out["nazwa_firmy"], "Test Co s.r.o.")
+        self.assertEqual(out["nazwa"], "Test Co s.r.o.")
         self.assertEqual(out["kraj"], "CZ")
         self.assertEqual(out["id"], "CZ-B-005")
         self.assertEqual(out["rejestr_id"], "ARES IČO 25775634")

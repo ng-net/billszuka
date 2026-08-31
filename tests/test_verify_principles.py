@@ -282,7 +282,7 @@ class TestPlRowHallucinationGate:
     """verify_pl_row() should catch PL NIP mod-11 hallucination as DO-WERYFIKACJI."""
 
     def _row(self, nip, krs="", name="TEST"):
-        return {"nip_vat": nip, "rejestr_id": krs, "nazwa_firmy": name}
+        return {"nip_vat": nip, "rejestr_id": krs, "nazwa": name}
 
     def test_hallucinated_nip_blocks_frozen(self):
         # PL-B-048 was the original bug — halucynacja should NEVER reach FROZEN

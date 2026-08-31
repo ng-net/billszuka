@@ -43,7 +43,7 @@ _cleaned = clean_apple_double(ROOT_DIR)
 CANONICAL_SCHEMA = [
     "kraj",
     "id",
-    "nazwa_firmy",
+    "nazwa",
     "miasto",
     "adres",
     "www",

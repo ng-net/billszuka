@@ -34,7 +34,7 @@ REMOVE_IDS = {
 
 UPDATES = {
     "PL-B-074": {
-        "nazwa_firmy": "BIURO HANDLOWE \"ELROY\" KRYSTYNA ROJEK, LESZEK ROJEK - SPÓŁKA JAWNA",
+        "nazwa": "BIURO HANDLOWE \"ELROY\" KRYSTYNA ROJEK, LESZEK ROJEK - SPÓŁKA JAWNA",
         "nip_vat": "PL8880000685",
         "rejestr_id": "KRS 0000009117",
         "adres": "ul. Wojska Polskiego 18A, 87-800 Włocławek",
@@ -43,7 +43,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000009117 | REGON 910503811",
     },
     "PL-B-100": {
-        "nazwa_firmy": "HURTOWNIA \"KIM\" KAZIMIERZ KRZEMIŃSKI, MAREK KRZEMIŃSKI, ANDRZEJ CHRZĄSZCZ SPÓŁKA JAWNA",
+        "nazwa": "HURTOWNIA \"KIM\" KAZIMIERZ KRZEMIŃSKI, MAREK KRZEMIŃSKI, ANDRZEJ CHRZĄSZCZ SPÓŁKA JAWNA",
         "nip_vat": "PL6550003840",
         "rejestr_id": "KRS 0000026856",
         "adres": "ul. Bohaterów Warszawy 106, 28-100 Busko-Zdrój",
@@ -52,7 +52,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000026856 | REGON 290012018",
     },
     "PL-B-161": {
-        "nazwa_firmy": "PASO POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
+        "nazwa": "PASO POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL7820007588",
         "rejestr_id": "KRS 0000444926",
         "adres": "ul. Skrajna 1, Sierosław, 62-080 Tarnowo Podgórne",

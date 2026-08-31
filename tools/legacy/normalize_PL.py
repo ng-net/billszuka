@@ -327,7 +327,7 @@ def normalize_row(r, idx):
         "region_kod": region_kod, "region_nazwa": region_nazwa,
         "region_typ": region_typ, "related_to": "", "rok_zalozenia": "",
         "id": "",  # assigned later
-        "kategoria": kategoria, "nazwa_firmy": firma, "kraj": "PL",
+        "kategoria": kategoria, "nazwa": firma, "kraj": "PL",
         "miasto": miasto, "adres": adres, "nip_vat": nip, "rejestr_id": krs,
         "www": www, "kanal_zamiennik": "", "email": email, "telefon": telefon,
         "linkedin": "", "facebook": "", "instagram": "", "tiktok": "",
@@ -357,7 +357,7 @@ def dedupe(rows):
     out = []
     for r in rows:
         nip = r.get("nip_vat", "")
-        firma = r.get("nazwa_firmy", "").lower().strip()
+        firma = r.get("nazwa", "").lower().strip()
         miasto = r.get("miasto", "").lower().strip()
         if nip and nip in seen_nip:
             # merge: keep first, add note to second

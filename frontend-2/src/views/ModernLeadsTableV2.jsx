@@ -155,7 +155,7 @@ const generateLeads = (count) =>
     const marki = brandPool[i % brandPool.length];
     return {
       id: `LEAD-${1000 + i}`,
-      nazwa_firmy:
+      nazwa:
         i === 0
           ? "PowerMatic Polska Distribution Sp. z o.o."
           : i === 1
@@ -371,7 +371,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const haystack = [
-          lead.nazwa_firmy,
+          lead.nazwa,
           lead.nip_vat,
           lead.miasto,
           lead.id,
@@ -452,7 +452,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         const kw = keywordById[l.id];
         return [
           escapeCsv(l.id),
-          escapeCsv(l.nazwa_firmy),
+          escapeCsv(l.nazwa),
           escapeCsv(l.kraj),
           escapeCsv(l.miasto),
           escapeCsv(l.nip_vat),
@@ -966,7 +966,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 const isExpanded = expandedRow === lead.id;
                 const brand = classifyBrand(lead.marki_nabijarki);
                 const confNum = confidenceToNumber(lead.confidence_wolumen) ?? getVolumePct(lead.wolumen);
-                const initial = (lead.nazwa_firmy || "?").trim().charAt(0).toUpperCase();
+                const initial = (lead.nazwa || "?").trim().charAt(0).toUpperCase();
 
                 return (
                   <React.Fragment key={lead.id}>
@@ -1001,7 +1001,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                           </div>
                           <div className="min-w-0">
                             <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm truncate">
-                              {lead.nazwa_firmy}
+                              {lead.nazwa}
                             </div>
                             <div className="flex items-center gap-2 mt-1 flex-wrap">
                               <CopyableId value={lead.id} label="ID" />

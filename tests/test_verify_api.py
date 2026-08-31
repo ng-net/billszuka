@@ -86,7 +86,7 @@ class TestVerifyPlRowKRS:
     def row_with_krs(self):
         # BILLS Sp. z o.o. — real NIP that passes mod-11
         return {
-            "nazwa_firmy": "ACME SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+            "nazwa": "ACME SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
             "nip_vat": "PL5140361901",  # BILLS Sp. z o.o. — real, mod-11 OK
             "rejestr_id": "KRS 0000123456",
         }
@@ -141,7 +141,7 @@ class TestVerifyPlRowKRS:
         monkeypatch.setattr(verify_api, "krs_lookup", fake_krs)
 
         row = {
-            "nazwa_firmy": "ACME",
+            "nazwa": "ACME",
             "nip_vat": "PL1234567890",  # mod-11 invalid (halucynacja)
             "rejestr_id": "KRS 0000123456",
         }
@@ -160,7 +160,7 @@ class TestVerifyPlRowCEIDG:
 
     def test_ceidg_nip_match(self, monkeypatch):
         row = {
-            "nazwa_firmy": "ALPIK RYSZARD TRZCIŃSKI",
+            "nazwa": "ALPIK RYSZARD TRZCIŃSKI",
             "nip_vat": "PL9551541914",
             "rejestr_id": "JDG (CEIDG)",
         }
@@ -176,7 +176,7 @@ class TestVerifyPlRowCEIDG:
 
     def test_ceidg_nip_mismatch(self, monkeypatch):
         row = {
-            "nazwa_firmy": "WRONG NAME",
+            "nazwa": "WRONG NAME",
             "nip_vat": "PL9551541914",
             "rejestr_id": "JDG (CEIDG)",
         }
@@ -191,7 +191,7 @@ class TestVerifyPlRowCEIDG:
 
     def test_no_nip_no_krs(self):
         row = {
-            "nazwa_firmy": "ORPHAN",
+            "nazwa": "ORPHAN",
             "nip_vat": "",
             "rejestr_id": "",
         }
@@ -209,7 +209,7 @@ class TestVerifyCzRow:
 
     def test_ares_match(self, monkeypatch):
         row = {
-            "nazwa_firmy": "FORTIS-DB, SPOL. S R.O.",
+            "nazwa": "FORTIS-DB, SPOL. S R.O.",
             "nip_vat": "CZ62586289",
             "rejestr_id": "ARES IČO 62586289",
         }
@@ -230,7 +230,7 @@ class TestVerifyCzRow:
         # CZ00000000 has s=0, expected=1 → INVALID_CHECKSUM before ARES.
         # We test that pre-flight catches it.
         row = {
-            "nazwa_firmy": "GHOST LTD.",
+            "nazwa": "GHOST LTD.",
             "nip_vat": "CZ00000000",  # 00000000 → INVALID_CHECKSUM (s=0, exp=1)
             "rejestr_id": "ARES IČO 00000000",
         }
@@ -249,7 +249,7 @@ class TestVerifyCzRow:
             return None  # ARES returns nothing for unknown IČO
         monkeypatch.setattr(verify_api, "ares_lookup", fake_ares)
         row = {
-            "nazwa_firmy": "GHOST LTD.",
+            "nazwa": "GHOST LTD.",
             "nip_vat": "CZ25775634",  # real IČO, passes mod-11
             "rejestr_id": "ARES IČO 25775634",
         }
@@ -261,7 +261,7 @@ class TestVerifyCzRow:
 
     def test_ares_name_mismatch(self, monkeypatch):
         row = {
-            "nazwa_firmy": "FORTIS-DB",
+            "nazwa": "FORTIS-DB",
             "nip_vat": "CZ62586289",
             "rejestr_id": "ARES IČO 62586289",
         }
@@ -279,7 +279,7 @@ class TestVerifyCzRow:
         from 'GECO, a.s.' that the CSV claims. Token Jaccard must catch this
         (substring 'in' check would NOT — see git history for the bug)."""
         row = {
-            "nazwa_firmy": "GECO, A.S.",
+            "nazwa": "GECO, A.S.",
             "nip_vat": "CZ60471484",
             "rejestr_id": "ARES IČO 60471484",
         }
@@ -297,7 +297,7 @@ class TestVerifyCzRow:
         different from 'PEAL a.s.' that the CSV claims. Real PEAL a.s. is
         IČO 25775634. Substring 'in' would let 'PEAL' match 'PEAL Real Estate'."""
         row = {
-            "nazwa_firmy": "PEAL A.S.",
+            "nazwa": "PEAL A.S.",
             "nip_vat": "CZ07752211",
             "rejestr_id": "ARES IČO 07752211",
         }
@@ -315,7 +315,7 @@ class TestVerifyCzRow:
         Jaccard score. Otherwise 'PEAL' vs 'PEAL Real Estate' could pass
         if 'PEAL' shares token with another entity also having 'A.S.'."""
         row = {
-            "nazwa_firmy": "ACME A.S.",
+            "nazwa": "ACME A.S.",
             "nip_vat": "CZ12345678",
             "rejestr_id": "ARES IČO 12345678",
         }
@@ -460,7 +460,7 @@ class TestVerifyViesRow:
             lambda vat: {"valid": True, "name": "ACME SRO", "vat_number": "12345678",
                          "country_code": "SK"},
         )
-        row = {"nazwa_firmy": "ACME", "nip_vat": "SK12345678", "rejestr_id": ""}
+        row = {"nazwa": "ACME", "nip_vat": "SK12345678", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         assert status == "FROZEN"
         assert "VIES live" in reason
@@ -472,7 +472,7 @@ class TestVerifyViesRow:
             lambda vat: {"valid": False, "error": "VAT ID nieaktywny w VIES",
                          "vat_number": "00000000", "country_code": "SK"},
         )
-        row = {"nazwa_firmy": "GHOST", "nip_vat": "SK00000000", "rejestr_id": ""}
+        row = {"nazwa": "GHOST", "nip_vat": "SK00000000", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         assert status == "DO-WERYFIKACJI"
         assert "nieaktywny" in reason.lower() or "vies" in reason.lower()
@@ -482,7 +482,7 @@ class TestVerifyViesRow:
             verify_api, "vies_lookup",
             lambda vat: {"valid": False, "error": "VIES: Niepoprawny format VAT"},
         )
-        row = {"nazwa_firmy": "BROKEN", "nip_vat": "XX999", "rejestr_id": ""}
+        row = {"nazwa": "BROKEN", "nip_vat": "XX999", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         assert status == "DO-WERYFIKACJI"
         assert "Niepoprawny format" in reason or "format" in reason.lower()
@@ -492,7 +492,7 @@ class TestVerifyViesRow:
             verify_api, "vies_lookup",
             lambda vat: {"valid": False, "error": "VIES connection error: timeout"},
         )
-        row = {"nazwa_firmy": "ACME", "nip_vat": "SK12345678", "rejestr_id": ""}
+        row = {"nazwa": "ACME", "nip_vat": "SK12345678", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         # Network errors are NOT verification failures — they should
         # surface as PENDING_API so they're not confused with real misses.
@@ -504,7 +504,7 @@ class TestVerifyViesRow:
         def fail(vat):
             raise AssertionError("vies_lookup should not be called")
         monkeypatch.setattr(verify_api, "vies_lookup", fail)
-        row = {"nazwa_firmy": "EMPTY", "nip_vat": "", "rejestr_id": ""}
+        row = {"nazwa": "EMPTY", "nip_vat": "", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         assert status == verify_api.PENDING_API
 
@@ -513,21 +513,21 @@ class TestVerifyViesRow:
             raise AssertionError("vies_lookup should not be called")
         monkeypatch.setattr(verify_api, "vies_lookup", fail)
         for placeholder in ("do weryfikacji", "brak", "brak danych", "do ustalenia"):
-            row = {"nazwa_firmy": "X", "nip_vat": placeholder, "rejestr_id": ""}
+            row = {"nazwa": "X", "nip_vat": placeholder, "rejestr_id": ""}
             status, _ = verify_api.verify_vies_row(row)
             assert status == verify_api.PENDING_API, f"placeholder {placeholder!r} should yield PENDING_API"
 
     def test_module_unavailable_returns_pending_api(self, monkeypatch):
         # Simulate ImportError fallback path: vies_lookup is None
         monkeypatch.setattr(verify_api, "vies_lookup", None)
-        row = {"nazwa_firmy": "X", "nip_vat": "SK12345", "rejestr_id": ""}
+        row = {"nazwa": "X", "nip_vat": "SK12345", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         assert status == verify_api.PENDING_API
         assert "niedostępny" in reason.lower() or "niedost" in reason.lower()
 
     def test_vies_returns_none(self, monkeypatch):
         monkeypatch.setattr(verify_api, "vies_lookup", lambda vat: None)
-        row = {"nazwa_firmy": "X", "nip_vat": "SK12345", "rejestr_id": ""}
+        row = {"nazwa": "X", "nip_vat": "SK12345", "rejestr_id": ""}
         status, reason = verify_api.verify_vies_row(row)
         assert status == verify_api.PENDING_API
 
@@ -550,7 +550,7 @@ class TestVerifyFrRow:
                 "error": None,
             },
         )
-        row = {"nazwa_firmy": "PAPETERIE", "nip_vat": "931159206", "rejestr_id": ""}
+        row = {"nazwa": "PAPETERIE", "nip_vat": "931159206", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         assert status == "FROZEN"
         assert "FR live" in reason
@@ -569,7 +569,7 @@ class TestVerifyFrRow:
                 "activite_principale": "", "error": None,
             }
         monkeypatch.setattr(verify_api, "fr_search", fake_search)
-        row = {"nazwa_firmy": "PAPETERIE", "nip_vat": "FR931159206", "rejestr_id": ""}
+        row = {"nazwa": "PAPETERIE", "nip_vat": "FR931159206", "rejestr_id": ""}
         status, _ = verify_api.verify_fr_row(row)
         assert status == "FROZEN"
         # Should have been called with digits only, not "FR..."
@@ -580,7 +580,7 @@ class TestVerifyFrRow:
             verify_api, "fr_search",
             lambda q: {"found": False, "error": "brak wyników dla '999999999'"},
         )
-        row = {"nazwa_firmy": "GHOST", "nip_vat": "999999999", "rejestr_id": ""}
+        row = {"nazwa": "GHOST", "nip_vat": "999999999", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         assert status == "DO-WERYFIKACJI"
         assert "nie istnieje" in reason.lower() or "brak" in reason.lower()
@@ -590,7 +590,7 @@ class TestVerifyFrRow:
             verify_api, "fr_search",
             lambda q: {"found": False, "error": "HTTP 503: Service Unavailable"},
         )
-        row = {"nazwa_firmy": "X", "nip_vat": "123456789", "rejestr_id": ""}
+        row = {"nazwa": "X", "nip_vat": "123456789", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         # Network errors are NOT verification failures
         assert status == verify_api.PENDING_API
@@ -608,7 +608,7 @@ class TestVerifyFrRow:
                 "error": None,
             },
         )
-        row = {"nazwa_firmy": "OLD CORP", "nip_vat": "123456789", "rejestr_id": ""}
+        row = {"nazwa": "OLD CORP", "nip_vat": "123456789", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         assert status == "DO-WERYFIKACJI"
         assert "zamknięta" in reason.lower() or "fermé" in reason.lower()
@@ -626,7 +626,7 @@ class TestVerifyFrRow:
                 "error": None,
             },
         )
-        row = {"nazwa_firmy": "BILLS POLSKA SP ZOO", "nip_vat": "123456789", "rejestr_id": ""}
+        row = {"nazwa": "BILLS POLSKA SP ZOO", "nip_vat": "123456789", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         assert status == "DO-WERYFIKACJI"
         assert "mismatch" in reason.lower()
@@ -643,7 +643,7 @@ class TestVerifyFrRow:
                 "activite_principale": "", "error": None,
             },
         )
-        row = {"nazwa_firmy": "PAPETERIE SAS", "nip_vat": "931159206", "rejestr_id": ""}
+        row = {"nazwa": "PAPETERIE SAS", "nip_vat": "931159206", "rejestr_id": ""}
         status, _ = verify_api.verify_fr_row(row)
         assert status == "FROZEN"  # not DO-WERYFIKACJI from the mismatch path
 
@@ -652,13 +652,13 @@ class TestVerifyFrRow:
             raise AssertionError("fr_search should not be called")
         monkeypatch.setattr(verify_api, "fr_search", fail)
         for placeholder in ("", "brak", "do weryfikacji", "do ustalenia"):
-            row = {"nazwa_firmy": "X", "nip_vat": placeholder, "rejestr_id": ""}
+            row = {"nazwa": "X", "nip_vat": placeholder, "rejestr_id": ""}
             status, _ = verify_api.verify_fr_row(row)
             assert status == verify_api.PENDING_API
 
     def test_module_unavailable(self, monkeypatch):
         monkeypatch.setattr(verify_api, "fr_search", None)
-        row = {"nazwa_firmy": "X", "nip_vat": "123456789", "rejestr_id": ""}
+        row = {"nazwa": "X", "nip_vat": "123456789", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         assert status == verify_api.PENDING_API
         assert "niedostępny" in reason.lower()
@@ -675,7 +675,7 @@ class TestVerifyFrRow:
                 "activite_principale": "", "error": None,
             },
         )
-        row = {"nazwa_firmy": "PAPETERIE", "nip_vat": "931159206", "rejestr_id": ""}
+        row = {"nazwa": "PAPETERIE", "nip_vat": "931159206", "rejestr_id": ""}
         status, reason = verify_api.verify_fr_row(row)
         assert status == "FROZEN"
         assert "dirigeants" in reason
@@ -714,7 +714,7 @@ class TestVerifyEeRow:
         monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result())
         monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: self._good_result())
         row = {
-            "nazwa_firmy": "Sanitex OÜ",
+            "nazwa": "Sanitex OÜ",
             "nip_vat": "EE101376895",
             "rejestr_id": "e-Äriregister 11931003",
         }
@@ -728,7 +728,7 @@ class TestVerifyEeRow:
         monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result(name="Nicorex Baltic OÜ"))
         monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: {"found": False, "error": "skip"})
         row = {
-            "nazwa_firmy": "Nicorex Baltic OÜ",
+            "nazwa": "Nicorex Baltic OÜ",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -742,7 +742,7 @@ class TestVerifyEeRow:
             lambda q: self._good_result(name="COMPLETELY DIFFERENT OÜ"),
         )
         row = {
-            "nazwa_firmy": "Sanitex OÜ",
+            "nazwa": "Sanitex OÜ",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -755,7 +755,7 @@ class TestVerifyEeRow:
         monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result())
         monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: self._good_result())
         row = {
-            "nazwa_firmy": "Sanitex OÜ",
+            "nazwa": "Sanitex OÜ",
             "nip_vat": "EE999999999",
             "rejestr_id": "e-Äriregister 11931003",
         }
@@ -769,7 +769,7 @@ class TestVerifyEeRow:
             lambda q: self._good_result(status="K"),
         )
         row = {
-            "nazwa_firmy": "Sanitex OÜ",
+            "nazwa": "Sanitex OÜ",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -783,7 +783,7 @@ class TestVerifyEeRow:
             lambda q: {"found": False, "error": "brak wyników dla 'FAKE'"},
         )
         row = {
-            "nazwa_firmy": "FAKE BALTIC OÜ",
+            "nazwa": "FAKE BALTIC OÜ",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -797,7 +797,7 @@ class TestVerifyEeRow:
             lambda q: {"found": False, "error": "connection: timeout"},
         )
         row = {
-            "nazwa_firmy": "Sanitex OÜ",
+            "nazwa": "Sanitex OÜ",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -809,7 +809,7 @@ class TestVerifyEeRow:
         monkeypatch.setattr(verify_api, "ee_search", None)
         monkeypatch.setattr(verify_api, "ee_detail", None)
         row = {
-            "nazwa_firmy": "Sanitex OÜ",
+            "nazwa": "Sanitex OÜ",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -824,7 +824,7 @@ class TestVerifyEeRow:
         monkeypatch.setattr(verify_api, "ee_search", fail)
         monkeypatch.setattr(verify_api, "ee_detail", fail)
         row = {
-            "nazwa_firmy": "",
+            "nazwa": "",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -837,7 +837,7 @@ class TestVerifyEeRow:
         monkeypatch.setattr(verify_api, "ee_search", lambda q: self._good_result(name="Sanitex OÜ"))
         monkeypatch.setattr(verify_api, "ee_detail", lambda c, **kw: {"found": False, "error": "skip"})
         row = {
-            "nazwa_firmy": "Sanitex",
+            "nazwa": "Sanitex",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -875,7 +875,7 @@ class TestVerifyLtRow:
             lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
         )
         row = {
-            "nazwa_firmy": 'UAB "SANITEX"',
+            "nazwa": 'UAB "SANITEX"',
             "nip_vat": "LT110443493",
             "rejestr_id": "JAR 110443493",
         }
@@ -890,7 +890,7 @@ class TestVerifyLtRow:
             raise AssertionError("lt_jar_lookup should not be called")
         monkeypatch.setattr(verify_api, "lt_jar_lookup", fail)
         row = {
-            "nazwa_firmy": "UAB Tabakininkas",
+            "nazwa": "UAB Tabakininkas",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "do weryfikacji",
         }
@@ -904,7 +904,7 @@ class TestVerifyLtRow:
             lambda c: {"found": False, "error": "brak wyników dla ja_kodas=999999999"},
         )
         row = {
-            "nazwa_firmy": "UAB FAKE",
+            "nazwa": "UAB FAKE",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "JAR 999999999",
         }
@@ -918,7 +918,7 @@ class TestVerifyLtRow:
             lambda c: self._good_result(isreg_data="2020-01-15"),
         )
         row = {
-            "nazwa_firmy": 'UAB "SANITEX"',
+            "nazwa": 'UAB "SANITEX"',
             "nip_vat": "do weryfikacji",
             "rejestr_id": "JAR 110443493",
         }
@@ -934,7 +934,7 @@ class TestVerifyLtRow:
             lambda f, s: ("Uždaroji akcinė bendrovė", "Bankrutuojantis", 310, 5),
         )
         row = {
-            "nazwa_firmy": 'UAB "SANITEX"',
+            "nazwa": 'UAB "SANITEX"',
             "nip_vat": "do weryfikacji",
             "rejestr_id": "JAR 110443493",
         }
@@ -950,7 +950,7 @@ class TestVerifyLtRow:
             lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
         )
         row = {
-            "nazwa_firmy": "UAB ACME WHOLESALE",
+            "nazwa": "UAB ACME WHOLESALE",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "JAR 110443493",
         }
@@ -967,7 +967,7 @@ class TestVerifyLtRow:
             lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
         )
         row = {
-            "nazwa_firmy": "SANITEX",
+            "nazwa": "SANITEX",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "JAR 110443493",
         }
@@ -977,7 +977,7 @@ class TestVerifyLtRow:
     def test_module_unavailable(self, monkeypatch):
         monkeypatch.setattr(verify_api, "lt_jar_lookup", None)
         row = {
-            "nazwa_firmy": "UAB",
+            "nazwa": "UAB",
             "nip_vat": "do weryfikacji",
             "rejestr_id": "JAR 110443493",
         }
@@ -994,7 +994,7 @@ class TestVerifyLtRow:
             lambda f, s: ("Uždaroji akcinė bendrovė", "Teisinis statusas neįregistruotas", 310, 0),
         )
         row = {
-            "nazwa_firmy": 'UAB "SANITEX"',
+            "nazwa": 'UAB "SANITEX"',
             "nip_vat": "LT999999999",
             "rejestr_id": "JAR 110443493",
         }
@@ -1015,7 +1015,7 @@ class TestApplyApolloEnrichments:
     def test_no_enrichments_no_op(self, tmp_path):
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,,,Bratislava,\n"
         )
         assert verify_api.apply_apollo_enrichments(csv_path, {}) == 0
@@ -1025,7 +1025,7 @@ class TestApplyApolloEnrichments:
     def test_backfills_placeholders(self, tmp_path):
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,do weryfikacji,brak,do ustalenia,n/a\n"
         )
         enrichments = {
@@ -1048,7 +1048,7 @@ class TestApplyApolloEnrichments:
         """If a cell already has real data, Apollo must NOT overwrite it."""
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,+421 911 000 000,linkedin.com/existing,Kosice,ceo@existing.sk\n"
         )
         enrichments = {
@@ -1071,7 +1071,7 @@ class TestApplyApolloEnrichments:
     def test_unknown_id_ignored(self, tmp_path):
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,brak,brak,brak,brak\n"
         )
         enrichments = {
@@ -1098,7 +1098,7 @@ class TestVerifyApolloRow:
     def test_apollo_module_unavailable_returns_pending(self, monkeypatch):
         monkeypatch.setattr(verify_api, "APOLLO_AVAILABLE", False)
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", None)
-        row = {"id": "SK-1", "nazwa_firmy": "Foo s.r.o."}
+        row = {"id": "SK-1", "nazwa": "Foo s.r.o."}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "niedostępny" in reason.lower()
@@ -1115,7 +1115,7 @@ class TestVerifyApolloRow:
                 "city": "Bratislava",
             }
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", fake_enrich)
-        row = {"id": "SK-1", "nazwa_firmy": "Foo s.r.o."}
+        row = {"id": "SK-1", "nazwa": "Foo s.r.o."}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == "FROZEN"
         assert "org enrich" in reason
@@ -1129,14 +1129,14 @@ class TestVerifyApolloRow:
         def fake_enrich(row):
             return {"company": "X", "domain": "x", "matched": False, "org_matched": False, "org_error": "not in Apollo DB"}
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", fake_enrich)
-        row = {"id": "PL-X", "nazwa_firmy": "X"}
+        row = {"id": "PL-X", "nazwa": "X"}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "PL-X" not in verify_api.apollo_enrichments
 
     def test_empty_company_returns_pending(self, monkeypatch):
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", lambda r: {"org_matched": True, "phone": "x"})
-        row = {"id": "PL-X", "nazwa_firmy": ""}
+        row = {"id": "PL-X", "nazwa": ""}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "nazwy" in reason.lower() or "nazwa" in reason.lower()

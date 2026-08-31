@@ -7,7 +7,7 @@ import { ModernLeadsTableV2 } from "./ModernLeadsTableV2.jsx";
 const sampleLeads = [
   {
     id: "PL-B-001",
-    nazwa_firmy: "PowerMatic Polska Distribution",
+    nazwa: "PowerMatic Polska Distribution",
     kraj: "Polska",
     miasto: "Warszawa",
     adres: "ul. Przemysłowa 12, 00-001 Warszawa",
@@ -37,7 +37,7 @@ const sampleLeads = [
   },
   {
     id: "CZ-001",
-    nazwa_firmy: "Hawk Rollers CZ",
+    nazwa: "Hawk Rollers CZ",
     kraj: "Czechy",
     miasto: "Praga",
     adres: "ul. Prumyslova 1, 100 00 Praha",
@@ -67,7 +67,7 @@ const sampleLeads = [
   },
   {
     id: "PL-D-022",
-    nazwa_firmy: "BongGo Hurtownia",
+    nazwa: "BongGo Hurtownia",
     kraj: "Polska",
     miasto: "Kraków",
     adres: "ul. Floriańska 5, 30-001 Kraków",

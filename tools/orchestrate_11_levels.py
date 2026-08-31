@@ -121,7 +121,7 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
     row = {k: "" for k in fieldnames}
     row["id"] = make_id(country, catalog, counter)
     row["kategoria"] = category
-    row["nazwa_firmy"] = name
+    row["nazwa"] = name
     row["kraj"] = country
     row["nip_vat"] = nip_norm
     row["rejestr_id"] = rejestr_id if rejestr_id else "brak"

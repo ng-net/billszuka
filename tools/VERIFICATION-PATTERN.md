@@ -5,7 +5,7 @@
 For every lead in the master CSV, verify with **2 independent tools** before marking FROZEN.
 
 ### Tool 1: web_search (confirmation)
-Query: `"<nazwa_firmy>" "<miasto>" "<kraj>" tobacco wholesale verify site:<firma_www>`
+Query: `"<nazwa>" "<miasto>" "<kraj>" tobacco wholesale verify site:<firma_www>`
 Pass: company name, address, contact info match
 Fail: no result, or different company with same name
 

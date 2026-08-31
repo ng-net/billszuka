@@ -8,12 +8,12 @@ import {
 } from "./analytics.js";
 
 const ROWS = [
-  { id: "PL-1", kraj: "PL", nazwa_firmy: "Alpha", tier: "hurtownik", notatki: "jesteśmy dystrybutorem PowerMatic", marki_nabijarki: "PowerMatic III+", wolumen: "duży", miasto: "Warszawa", confidence_wolumen: "95%" },
-  { id: "PL-2", kraj: "PL", nazwa_firmy: "Beta", tier: "reseller", notatki: "sprzedajemy i dystrybuujemy", marki_nabijarki: "PowerMatic, Hawk", wolumen: "średni", miasto: "Kraków", confidence_wolumen: "70%" },
-  { id: "PL-3", kraj: "PL", nazwa_firmy: "Gamma", tier: "detalista", notatki: "sklep", marki_nabijarki: "Hawk", wolumen: "mały", miasto: "Gdańsk", confidence_wolumen: "50%" },
-  { id: "CZ-1", kraj: "CZ", nazwa_firmy: "Delta", tier: "hurtownik", notatki: "oficialni distributor", marki_nabijarki: "PowerMatic V", wolumen: "duży", miasto: "Praga", confidence_wolumen: "90%" },
-  { id: "CZ-2", kraj: "CZ", nazwa_firmy: "Epsilon", tier: "producent", notatki: "produkujemy", marki_nabijarki: "PowerMatic", wolumen: "średni", miasto: "Brno", confidence_wolumen: "60%" },
-  { id: "PL-4", kraj: "PL", nazwa_firmy: "Zeta", tier: "hurtownik", notatki: "dystrybutor", marki_nabijarki: "PowerMatic, Hawk", wolumen: "duży", miasto: "Wrocław", confidence_wolumen: "85%" },
+  { id: "PL-1", kraj: "PL", nazwa: "Alpha", tier: "hurtownik", notatki: "jesteśmy dystrybutorem PowerMatic", marki_nabijarki: "PowerMatic III+", wolumen: "duży", miasto: "Warszawa", confidence_wolumen: "95%" },
+  { id: "PL-2", kraj: "PL", nazwa: "Beta", tier: "reseller", notatki: "sprzedajemy i dystrybuujemy", marki_nabijarki: "PowerMatic, Hawk", wolumen: "średni", miasto: "Kraków", confidence_wolumen: "70%" },
+  { id: "PL-3", kraj: "PL", nazwa: "Gamma", tier: "detalista", notatki: "sklep", marki_nabijarki: "Hawk", wolumen: "mały", miasto: "Gdańsk", confidence_wolumen: "50%" },
+  { id: "CZ-1", kraj: "CZ", nazwa: "Delta", tier: "hurtownik", notatki: "oficialni distributor", marki_nabijarki: "PowerMatic V", wolumen: "duży", miasto: "Praga", confidence_wolumen: "90%" },
+  { id: "CZ-2", kraj: "CZ", nazwa: "Epsilon", tier: "producent", notatki: "produkujemy", marki_nabijarki: "PowerMatic", wolumen: "średni", miasto: "Brno", confidence_wolumen: "60%" },
+  { id: "PL-4", kraj: "PL", nazwa: "Zeta", tier: "hurtownik", notatki: "dystrybutor", marki_nabijarki: "PowerMatic, Hawk", wolumen: "duży", miasto: "Wrocław", confidence_wolumen: "85%" },
 ];
 
 test("topByCountry: returns n companies per country", () => {
@@ -47,7 +47,7 @@ test("claimDistributors: matches distributors in notatki", () => {
 test("claimDistributors: returns rows with country and tier", () => {
   const out = claimDistributors(ROWS);
   const row = out[0];
-  assert.ok(row.nazwa_firmy);
+  assert.ok(row.nazwa);
   assert.ok(row.kraj);
   assert.ok(row.tier);
   assert.ok(row.match_term);
@@ -55,7 +55,7 @@ test("claimDistributors: returns rows with country and tier", () => {
 
 test("claimDistributors: empty list when nothing claims distributor", () => {
   const out = claimDistributors([
-    { id: "X", kraj: "PL", nazwa_firmy: "Foo", notatki: "sklep" },
+    { id: "X", kraj: "PL", nazwa: "Foo", notatki: "sklep" },
   ]);
   assert.equal(out.length, 0);
 });
@@ -138,7 +138,7 @@ test("regionRollup: marks anomaly when total >= 30 and pm=0", () => {
   const bigNoPM = Array.from({ length: 35 }, (_, i) => ({
     id: `PL-${i}`,
     kraj: "PL",
-    nazwa_firmy: `Firm ${i}`,
+    nazwa: `Firm ${i}`,
     marki_nabijarki: "OCB",
     flagi: "FROZEN",
   }));
@@ -258,9 +258,9 @@ test("verificationTimeline: ignores invalid Date instances silently", () => {
 
 test("powerMaticGroups: groups cross-country parents", () => {
   const rows = [
-    { id: "BG-1", kraj: "BG", nazwa_firmy: "Tobacco Trading International Bulgaria EOOD", marki_nabijarki: "PowerMatic" },
-    { id: "RO-1", kraj: "RO", nazwa_firmy: "TOBACCO TRADING INTERNATIONAL RO SRL", marki_nabijarki: "PowerMatic" },
-    { id: "PL-1", kraj: "PL", nazwa_firmy: "Local Co", marki_nabijarki: "PowerMatic" },
+    { id: "BG-1", kraj: "BG", nazwa: "Tobacco Trading International Bulgaria EOOD", marki_nabijarki: "PowerMatic" },
+    { id: "RO-1", kraj: "RO", nazwa: "TOBACCO TRADING INTERNATIONAL RO SRL", marki_nabijarki: "PowerMatic" },
+    { id: "PL-1", kraj: "PL", nazwa: "Local Co", marki_nabijarki: "PowerMatic" },
   ];
   const out = powerMaticGroups(rows);
   assert.equal(out.groups.length, 1);

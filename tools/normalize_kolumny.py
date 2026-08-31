@@ -49,7 +49,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 
 CANONICAL_COLUMNS: list[str] = [
-    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa_firmy",
+    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa",
     "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
     "www", "kanal_zamiennik", "email", "telefon", "linkedin",
     "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",

@@ -51,7 +51,7 @@ def is_hallucinated(row: dict, iso: str) -> tuple[bool, str]:
     src = (row.get("zrodlo_danych") or "").strip()
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
-    name = (row.get("nazwa_firmy") or "").strip()
+    name = (row.get("nazwa") or "").strip()
     www = (row.get("www") or "").strip()
     
     # 1. LeadScout ungrounded discovery
@@ -171,7 +171,7 @@ def clean_catalogs(dry_run: bool = False):
             print(status_str)
             if dry_run and purged_records:
                 for p in purged_records:
-                    print(f"      - Purge candidate: '{p.get('nazwa_firmy', '')}' (NIP: '{p.get('nip_vat', '')}') -> {p.get('purge_reason', '')}")
+                    print(f"      - Purge candidate: '{p.get('nazwa', '')}' (NIP: '{p.get('nip_vat', '')}') -> {p.get('purge_reason', '')}")
             
     mode_label = " (DRY RUN - No files modified)" if dry_run else ""
     print(f"\n==========================================")

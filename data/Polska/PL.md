@@ -117,7 +117,7 @@ następna fala pracy — najpierw enrich A1/A2 (~163 firm), potem B1.
   (gdy ma). Owner: Marceli.
 - **A2. Investigate 2 DO-WERYFIKACJI** (jaccard mismatch na ARES) — to mogą
   być albo nazwy z literówkami albo prawdziwe FABRYKAT. Sprawdzić ręcznie
-  KRS po nip_vat, poprawić `nazwa_firmy` albo usunąć wiersz.
+  KRS po nip_vat, poprawić `nazwa` albo usunąć wiersz.
 
 #### 🟡 P1 — enrichement (1-2 tygodnie)
 - **A3. Back-fill 16 BILLSzuka PL rows missing email/phone/www** —

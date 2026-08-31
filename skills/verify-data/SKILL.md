@@ -109,7 +109,7 @@ Dla każdego wpisu w CSV — FROZEN wymaga WSZYSTKICH poniższych:
 
 | Pole | Wymaganie |
 |---|---|
-| `nazwa_firmy` | Zgodna z KRS lub CEIDG |
+| `nazwa` | Zgodna z KRS lub CEIDG |
 | `nip_vat` | Zweryfikowany w VIES lub KRS/CEIDG |
 | `rejestr_id` | KRS lub CEIDG numer |
 | `adres` | Zgodny z rejestrem lub Google Maps |

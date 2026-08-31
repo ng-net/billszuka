@@ -4,7 +4,7 @@ import { classifyBrand, highlightKeywords } from "./brand.js";
 
 test("brand: classifies PowerMatic mentions", () => {
   const row = {
-    nazwa_firmy: "PRODAP.PL (PowerMatic seller)",
+    nazwa: "PRODAP.PL (PowerMatic seller)",
     notatki: "Sklep z PowerMatic 4+",
     zrodlo_danych: "web search PowerMatic",
   };
@@ -22,7 +22,7 @@ test("brand: classifies PowerMatic + Hawk", () => {
 
 test("brand: classifies only Hawk", () => {
   const row = {
-    nazwa_firmy: "jameshawk.pl",
+    nazwa: "jameshawk.pl",
     notatki: "Hawk distributor only",
   };
   const result = classifyBrand(row);
@@ -61,10 +61,10 @@ test("keywords: highlights tytoń, gilza, bibułki", () => {
 // filter pipeline (only in the views.test.js helper).
 test("brand: __brand filter pipeline narrows rows via classifyBrand", () => {
   const rows = [
-    { id: "1", nazwa_firmy: "PowerMatic seller", __brand: classifyBrand({ nazwa_firmy: "PowerMatic seller" }) },
-    { id: "2", nazwa_firmy: "Hawk only", __brand: classifyBrand({ nazwa_firmy: "Hawk only" }) },
-    { id: "3", nazwa_firmy: "PowerMatic + Hawk", __brand: classifyBrand({ nazwa_firmy: "PowerMatic + Hawk" }) },
-    { id: "4", nazwa_firmy: "Generic shop", __brand: classifyBrand({ nazwa_firmy: "Generic shop" }) },
+    { id: "1", nazwa: "PowerMatic seller", __brand: classifyBrand({ nazwa: "PowerMatic seller" }) },
+    { id: "2", nazwa: "Hawk only", __brand: classifyBrand({ nazwa: "Hawk only" }) },
+    { id: "3", nazwa: "PowerMatic + Hawk", __brand: classifyBrand({ nazwa: "PowerMatic + Hawk" }) },
+    { id: "4", nazwa: "Generic shop", __brand: classifyBrand({ nazwa: "Generic shop" }) },
   ];
   const filter = "__brand";
   // Single value

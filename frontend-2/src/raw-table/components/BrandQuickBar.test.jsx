@@ -9,10 +9,10 @@ const { render, screen, cleanup, fireEvent } = await import("@testing-library/re
 const { BrandQuickBar } = await import("./BrandQuickBar.jsx");
 
 const SAMPLE_ROWS = [
-  { nazwa_firmy: "PowerMatic Polska Sp. z o.o.", notatki: "Dystrybutor" },
-  { nazwa_firmy: "Hawk Rollers B2B", notatki: "Sprzedawca maszyn" },
-  { nazwa_firmy: "Firma Handlowa PM+Hawk", notatki: "PowerMatic oraz Hawk" },
-  { nazwa_firmy: "Inna Hurtownia", notatki: "Brak maszynek" },
+  { nazwa: "PowerMatic Polska Sp. z o.o.", notatki: "Dystrybutor" },
+  { nazwa: "Hawk Rollers B2B", notatki: "Sprzedawca maszyn" },
+  { nazwa: "Firma Handlowa PM+Hawk", notatki: "PowerMatic oraz Hawk" },
+  { nazwa: "Inna Hurtownia", notatki: "Brak maszynek" },
 ];
 
 afterEach(() => cleanup());

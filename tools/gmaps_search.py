@@ -186,7 +186,7 @@ def main():
     out_file = intake_dir / f"gmaps_search_{country}_cat{catalog}_{timestamp}.csv"
 
     # Define simple raw columns for review
-    raw_schema = ["id", "nazwa_firmy", "adres", "miasto", "www", "telefon", "kraj", "types"]
+    raw_schema = ["id", "nazwa", "adres", "miasto", "www", "telefon", "kraj", "types"]
     
     written_count = 0
     with open(out_file, "w", encoding="utf-8", newline="") as f:
@@ -207,7 +207,7 @@ def main():
 
             writer.writerow({
                 "id": place_id,
-                "nazwa_firmy": name,
+                "nazwa": name,
                 "adres": address,
                 "miasto": city,
                 "www": www,

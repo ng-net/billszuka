@@ -76,7 +76,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
 
                 for row_idx, row in enumerate(reader, start=2):
                     uid = (row.get("id") or "").strip()
-                    name = (row.get("nazwa_firmy") or "").strip()
+                    name = (row.get("nazwa") or "").strip()
                     if not uid and not name:
                         continue  # Skip completely blank rows
 
@@ -122,7 +122,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
 
         for row_idx, row in enumerate(reader, start=2):
             uid = (row.get("id") or "").strip()
-            name = (row.get("nazwa_firmy") or "").strip()
+            name = (row.get("nazwa") or "").strip()
             if not uid and not name:
                 continue
 
@@ -146,7 +146,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
             results["missing_in_master"].append(
                 {
                     "id": uid,
-                    "nazwa_firmy": cat_row.get("nazwa_firmy", ""),
+                    "nazwa": cat_row.get("nazwa", ""),
                     "source": cat_row.get("_source_file", ""),
                 }
             )
@@ -162,7 +162,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
                 results["field_mismatches"].append(
                     {
                         "id": uid,
-                        "nazwa_firmy": cat_row.get("nazwa_firmy", ""),
+                        "nazwa": cat_row.get("nazwa", ""),
                         "source": cat_row.get("_source_file", ""),
                         "differences": diffs,
                     }
@@ -174,7 +174,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
             results["orphans_in_master"].append(
                 {
                     "id": uid,
-                    "nazwa_firmy": m_row.get("nazwa_firmy", ""),
+                    "nazwa": m_row.get("nazwa", ""),
                     "kraj": m_row.get("kraj", ""),
                 }
             )

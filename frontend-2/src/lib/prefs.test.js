@@ -50,7 +50,7 @@ test("prefs: migrates legacy v1 prefs to v2 (adds savedViews and activeView)", (
       activeTab: "analytics",
       density: "comfortable",
       theme: "dark",
-      columnOrder: ["kraj", "nazwa_firmy"],
+      columnOrder: ["kraj", "nazwa"],
       columnVisibility: { wolumen: false },
       sortStack: [{ id: "wolumen", desc: true }],
       filters: { kraj: ["PL", "CZ"] },
@@ -63,7 +63,7 @@ test("prefs: migrates legacy v1 prefs to v2 (adds savedViews and activeView)", (
   assert.equal(restored.activeTab, "analytics");
   assert.equal(restored.density, "comfortable");
   assert.equal(restored.theme, "dark");
-  assert.deepEqual(restored.columnOrder, ["kraj", "nazwa_firmy"]);
+  assert.deepEqual(restored.columnOrder, ["kraj", "nazwa"]);
   assert.deepEqual(restored.columnVisibility, { wolumen: false });
   assert.deepEqual(restored.sortStack, [{ id: "wolumen", desc: true }]);
   assert.deepEqual(restored.filters, { kraj: ["PL", "CZ"] });

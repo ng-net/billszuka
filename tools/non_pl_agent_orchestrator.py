@@ -173,7 +173,7 @@ def run_enrichment_wave(country_filter: str | None = None, max_items: int = 30) 
         modified = False
         for row in rows:
             uid = row.get("id", "").strip()
-            name = row.get("nazwa_firmy", "").strip()
+            name = row.get("nazwa", "").strip()
             city = row.get("miasto", "").strip()
             www = row.get("www", "").strip()
             dec = (row.get("decydent") or "").strip().lower()
@@ -374,7 +374,7 @@ def load_global_dedup_index() -> tuple[set, set, set]:
             with open(csv_file, "r", encoding="utf-8", newline="") as f:
                 reader = csv.DictReader(f)
                 for r in reader:
-                    n = (r.get("nazwa_firmy") or "").strip().lower()
+                    n = (r.get("nazwa") or "").strip().lower()
                     w = (r.get("www") or "").strip().lower()
                     nip_raw = (r.get("nip_vat") or r.get("rejestr_id") or "").strip()
                     nip = re.sub(r"\W", "", nip_raw.upper())
@@ -436,7 +436,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                 "Zwróć TYLKO poprawny JSON (tablicę obiektów):\n"
                 "[\n"
                 '  {\n'
-                '    "nazwa_firmy": "...",\n'
+                '    "nazwa": "...",\n'
                 '    "miasto": "...",\n'
                 '    "adres": "...",\n'
                 '    "www": "...",\n'
@@ -468,7 +468,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                     for cand in candidates:
                         if not isinstance(cand, dict):
                             continue
-                        c_name = (cand.get("nazwa_firmy") or "").strip()
+                        c_name = (cand.get("nazwa") or "").strip()
                         if not c_name or c_name.lower() in existing_names or len(c_name) < 3:
                             continue
                         
@@ -530,7 +530,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                         catalog_rows_count += 1
                         new_row = {col: "" for col in CANONICAL_SCHEMA}
                         new_row["id"] = make_id(iso, cand.get("kategoria", "B")[:1] or "B", catalog_rows_count)
-                        new_row["nazwa_firmy"] = c_name
+                        new_row["nazwa"] = c_name
                         new_row["kraj"] = country_name
                         new_row["miasto"] = cand.get("miasto", "").strip()
                         new_row["adres"] = cand.get("adres", "").strip()

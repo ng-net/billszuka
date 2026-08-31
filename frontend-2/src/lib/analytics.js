@@ -501,7 +501,7 @@ export function powerMaticGroups(rows) {
   const LEGAL_RE = /\b(S\.?R\.?L\.?|S\.?A\.?|EOOD|spol\.? ?s\.? ?r\.? ?o\.? ?|LTD|LLC|SARL|AS|BG|RO|S\.r\.o\.|sp\. ?z\. ?o\. ?o\. ?|OÜ|UAB|SIA|S\.p\.A\.)\b/gi;
   const buckets = new Map();
   for (const r of pm) {
-    const name = String(r.nazwa_firmy || "").replace(LEGAL_RE, "").replace(/\(.*?\)/g, "").trim();
+    const name = String(r.nazwa || "").replace(LEGAL_RE, "").replace(/\(.*?\)/g, "").trim();
     const words = name.split(/\s+/).filter(Boolean).slice(0, 2);
     if (words.length < 2) {
       buckets.set(`__singleton__${Math.random()}`, { parent: name, rows: [r] });

@@ -146,7 +146,7 @@ def main():
     for r in flagged:
         nip_csv = (r.get("nip_vat") or "").strip()
         krs_csv = (r.get("rejestr_id") or "").strip()
-        name_csv = (r.get("nazwa_firmy") or "").strip()
+        name_csv = (r.get("nazwa") or "").strip()
         flagi = r.get("flagi") or ""
 
         is_krs_hallucination = "KRS" in flagi and "inną firmę" in flagi

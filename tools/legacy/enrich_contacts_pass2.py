@@ -9,7 +9,7 @@ import csv, glob
 from pathlib import Path
 
 SCHEMA_COLUMNS = [
-    "related_to","rok_zalozenia","id","kategoria","nazwa_firmy",
+    "related_to","rok_zalozenia","id","kategoria","nazwa",
     "kraj","miasto","adres","nip_vat","rejestr_id",
     "www","kanal_zamiennik","email","telefon","linkedin",
     "facebook","instagram","tiktok","tier","marki_nabijarki",
@@ -102,7 +102,7 @@ def apply_patches():
                         changed = True
             row["data_weryfikacji"] = "2026-08-17"
             patched_total += 1
-            print(f"  ✏️  PATCHED {rid}: {row.get('nazwa_firmy','')[:50]}")
+            print(f"  ✏️  PATCHED {rid}: {row.get('nazwa','')[:50]}")
         
         if changed:
             with open(p, "w", encoding="utf-8", newline="") as f:

@@ -63,7 +63,7 @@ EN_TO_PL_NOTATKI = {
 }
 
 def is_retail_noise(row: dict) -> bool:
-    name = row.get("nazwa_firmy", "").lower()
+    name = row.get("nazwa", "").lower()
     www  = row.get("www", "").lower()
     combined = name + " " + www
 
@@ -105,7 +105,7 @@ def clean_catalog(filepath: Path) -> tuple[int, int, int]:
     removed_dups = 0
     for r in cleaned:
         rid = r.get("rejestr_id", "").strip()
-        key = (normalize_name(r.get("nazwa_firmy", "")), r.get("kraj", "").strip().upper())
+        key = (normalize_name(r.get("nazwa", "")), r.get("kraj", "").strip().upper())
         if rid and rid in seen_ids:
             removed_dups += 1
             continue

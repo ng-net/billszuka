@@ -21,7 +21,7 @@ REMOVE_IDS = {
 
 UPDATES = {
     "PL-B-022": {
-        "nazwa_firmy": "PRZEDSIĘBIORSTWO WIELOBRANŻOWE \"AMPEX\" Adam Flakus, Piotr Kołodziej",
+        "nazwa": "PRZEDSIĘBIORSTWO WIELOBRANŻOWE \"AMPEX\" Adam Flakus, Piotr Kołodziej",
         "nip_vat": "PL6450008134",
         "rejestr_id": "REGON 272001648",
         "adres": "ul. Górnicza 9, 42-600 Tarnowskie Góry",
@@ -30,7 +30,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 6450008134",
     },
     "PL-B-032": {
-        "nazwa_firmy": "Trafica-Hurt s.c.",
+        "nazwa": "Trafica-Hurt s.c.",
         "nip_vat": "PL9462539270",
         "rejestr_id": "REGON 060299794",
         "adres": "ul. Kowalska 7 / Krochmalna 22a, 20-115 Lublin",
@@ -39,7 +39,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 9462539270 | REGON 060299794",
     },
     "PL-B-042": {
-        "nazwa_firmy": "Przedsiębiorstwo Wielobranżowe \"Torys\" Tomasz Woliński",
+        "nazwa": "Przedsiębiorstwo Wielobranżowe \"Torys\" Tomasz Woliński",
         "nip_vat": "PL5630011137",
         "rejestr_id": "REGON 110006789",
         "adres": "ul. Lwowska 51, 22-100 Chełm",
@@ -48,7 +48,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 5630011137",
     },
     "PL-B-094": {
-        "nazwa_firmy": "ANIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "ANIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL8133193611",
         "rejestr_id": "KRS 0000089123",
         "adres": "ul. ks. Józefa Sondeja 13 / PCH Agrohurt Hala 4 lok. 11, 35-011 Rzeszów",
@@ -57,7 +57,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000089123 | NIP 8133193611 | Agrohurt Rzeszów",
     },
     "PL-B-099": {
-        "nazwa_firmy": "\"KRYMAR\" SPÓŁKA JAWNA K. BEGEDZA, M. DUSZKIEWICZ",
+        "nazwa": "\"KRYMAR\" SPÓŁKA JAWNA K. BEGEDZA, M. DUSZKIEWICZ",
         "nip_vat": "PL8390412311",
         "rejestr_id": "KRS 0000071571",
         "adres": "ul. Gdańska 18 B / Armii Krajowej 16, 76-200 Słupsk",
@@ -66,7 +66,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000071571 | REGON 770515191",
     },
     "PL-B-156": {
-        "nazwa_firmy": "EDDcom Edyta Świetlik (eddcom.pl)",
+        "nazwa": "EDDcom Edyta Świetlik (eddcom.pl)",
         "nip_vat": "PL9482063480",
         "rejestr_id": "REGON 672770200",
         "adres": "Polska",
@@ -75,7 +75,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 9482063480 | eddcom.pl",
     },
     "PL-B-164": {
-        "nazwa_firmy": "TOPARTNER – Krzysztof Sokołowski (topartner.pl)",
+        "nazwa": "TOPARTNER – Krzysztof Sokołowski (topartner.pl)",
         "nip_vat": "PL7310011912",
         "rejestr_id": "REGON 471001234",
         "adres": "ul. Warszawska 44/50, 95-200 Pabianice",
@@ -84,7 +84,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 7310011912 | topartner.pl",
     },
     "PL-B-171": {
-        "nazwa_firmy": "FORTRADE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "FORTRADE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL5492463919",
         "rejestr_id": "KRS 0000915882",
         "adres": "ul. Gen. Jarosława Dąbrowskiego 70, 32-600 Oświęcim",
@@ -93,7 +93,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000915882 | REGON 389741491 | fortrade.pl",
     },
     "PL-B-173": {
-        "nazwa_firmy": "Tobstore Sp. z o.o. (TwojePapierosy.pl)",
+        "nazwa": "Tobstore Sp. z o.o. (TwojePapierosy.pl)",
         "nip_vat": "PL9282109875",
         "rejestr_id": "REGON 527658007",
         "adres": "ul. Konopnickiej 7/1, 68-300 Jasień",

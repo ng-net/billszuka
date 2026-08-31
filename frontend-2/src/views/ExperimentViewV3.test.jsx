@@ -7,7 +7,7 @@ import { ExperimentViewV3 } from "./ExperimentViewV3.jsx";
 const sampleLeads = [
   {
     id: "PL-B-001",
-    nazwa_firmy: "PowerMatic Polska Distribution",
+    nazwa: "PowerMatic Polska Distribution",
     kraj: "Polska",
     miasto: "Warszawa",
     www: "https://powermatic.pl",
@@ -27,7 +27,7 @@ const sampleLeads = [
   },
   {
     id: "CZ-001",
-    nazwa_firmy: "Hawk Rollers CZ",
+    nazwa: "Hawk Rollers CZ",
     kraj: "Czechy",
     miasto: "Praga",
     www: "https://hawk.cz",

@@ -30,7 +30,7 @@ REMOVE_IDS = {
 
 UPDATES = {
     "PL-B-190": {
-        "nazwa_firmy": "\"DAMIMAR\" DANUTA KUŚ, MAREK KUŚ, MICHAŁ KUŚ SPÓŁKA JAWNA",
+        "nazwa": "\"DAMIMAR\" DANUTA KUŚ, MAREK KUŚ, MICHAŁ KUŚ SPÓŁKA JAWNA",
         "nip_vat": "PL8271833992",
         "rejestr_id": "KRS 0000098449",
         "adres": "al. Jana Pawła II 45, 98-200 Sieradz",
@@ -39,7 +39,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000098449 | REGON 730936305",
     },
     "PL-B-182": {
-        "nazwa_firmy": "SŁOMEX TOBACCO S.C. BOŻENA SŁOMA, ANDRZEJ SŁOMA",
+        "nazwa": "SŁOMEX TOBACCO S.C. BOŻENA SŁOMA, ANDRZEJ SŁOMA",
         "nip_vat": "PL9182163585",
         "rejestr_id": "REGON 360620689",
         "adres": "Polska",
@@ -48,7 +48,7 @@ UPDATES = {
         "zrodlo_danych": "Rejestr PPT Ministerstwa Finansów | NIP 9182163585 | REGON 360620689",
     },
     "PL-B-045": {
-        "nazwa_firmy": "P.P.H.U. Export-Import \"Alfa\" s.c. Aneta Starosta, Cezar Starosta",
+        "nazwa": "P.P.H.U. Export-Import \"Alfa\" s.c. Aneta Starosta, Cezar Starosta",
         "nip_vat": "PL5992541456",
         "rejestr_id": "REGON 211001648",
         "adres": "ul. Dąbrowskiej 3A / Piłsudskiego 2, 66-530 Drezdenko",
@@ -57,7 +57,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 5992541456 | REGON 211001648",
     },
     "PL-B-181": {
-        "nazwa_firmy": "AGROTAB S.C. MONIKA PIECZONKA, FABIAN STACHÓW",
+        "nazwa": "AGROTAB S.C. MONIKA PIECZONKA, FABIAN STACHÓW",
         "nip_vat": "PL7931626076",
         "rejestr_id": "REGON 380234567",
         "adres": "ul. Zielona 4C, 37-630 Oleszyce",

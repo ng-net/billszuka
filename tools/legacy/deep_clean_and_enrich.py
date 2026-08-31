@@ -13,7 +13,7 @@ import csv, glob
 from pathlib import Path
 
 SCHEMA_COLUMNS = [
-    "related_to","rok_zalozenia","id","kategoria","nazwa_firmy",
+    "related_to","rok_zalozenia","id","kategoria","nazwa",
     "kraj","miasto","adres","nip_vat","rejestr_id",
     "www","kanal_zamiennik","email","telefon","linkedin",
     "facebook","instagram","tiktok","tier","marki_nabijarki",
@@ -44,7 +44,7 @@ REMOVE_IDS = {
 UPDATES = {
     # ===== POLSKA =====
     "PL-B-027": {
-        "nazwa_firmy": "ROCH TRADE MAREK NATKANIEC SPÓŁKA KOMANDYTOWA",
+        "nazwa": "ROCH TRADE MAREK NATKANIEC SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL9452166123",
         "rejestr_id": "KRS 0000402439",
         "adres": "ul. Powstańców 62c/1, 31-670 Kraków",
@@ -57,7 +57,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów, tytoniu i kart GSM w Krakowie. Spółka komandytowa.",
     },
     "PL-B-029": {
-        "nazwa_firmy": "Carmen Sp. z o.o. (Hurtownia Tytoniowa)",
+        "nazwa": "Carmen Sp. z o.o. (Hurtownia Tytoniowa)",
         "nip_vat": "PL9372338579",
         "rejestr_id": "KRS 0000014510",
         "adres": "ul. Strumieńska 63, 43-385 Jasienica",
@@ -70,7 +70,7 @@ UPDATES = {
         "notatki": "Hurtownia tytoniowa, papierosowa i artykułów biurowych w Jasienicy k. Bielska-Białej.",
     },
     "PL-B-030": {
-        "nazwa_firmy": "P.H. Jacek Gmochowski (Hurtownia art. tytoniowych)",
+        "nazwa": "P.H. Jacek Gmochowski (Hurtownia art. tytoniowych)",
         "nip_vat": "PL8980024892",
         "rejestr_id": "REGON 930070242",
         "adres": "ul. Tęczowa 83, 53-601 Wrocław",
@@ -81,7 +81,7 @@ UPDATES = {
         "notatki": "Hurtownia artykułów tytoniowych i akcesoriów we Wrocławiu.",
     },
     "PL-B-034": {
-        "nazwa_firmy": "Hurtownia Papierosów „Jacek” Tomasz Pytel",
+        "nazwa": "Hurtownia Papierosów „Jacek” Tomasz Pytel",
         "nip_vat": "PL5862226779",
         "adres": "ul. Żwirki i Wigury 8B lok. 3, 81-393 Gdynia",
         "miasto": "Gdynia",
@@ -92,7 +92,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów i wyrobów tytoniowych w Gdyni.",
     },
     "PL-B-036": {
-        "nazwa_firmy": "Vape Arena (Platforma Hurtowa B2B)",
+        "nazwa": "Vape Arena (Platforma Hurtowa B2B)",
         "adres": "ul. Janiszowska 9B, 02-264 Warszawa",
         "miasto": "Warszawa",
         "www": "https://vapearena.pl",
@@ -103,7 +103,7 @@ UPDATES = {
         "notatki": "Platforma hurtowa B2B e-papierosów, liquidów i akcesoriów.",
     },
     "PL-B-039": {
-        "nazwa_firmy": "FHU Patryk Koksztys",
+        "nazwa": "FHU Patryk Koksztys",
         "nip_vat": "PL6112846076",
         "rejestr_id": "REGON 543043138",
         "adres": "ul. Cieplicka 21, 58-560 Jelenia Góra",
@@ -113,7 +113,7 @@ UPDATES = {
         "notatki": "Działalność handlowa w Jeleniej Górze (aktywna od 2025).",
     },
     "PL-B-041": {
-        "nazwa_firmy": "FIRMA HANDLOWA \"MAXIM\" BEATA KROPIELNICKA",
+        "nazwa": "FIRMA HANDLOWA \"MAXIM\" BEATA KROPIELNICKA",
         "nip_vat": "PL6111737037",
         "rejestr_id": "REGON 230380757",
         "adres": "ul. Groszowa 8/2, 58-500 Jelenia Góra",
@@ -123,7 +123,7 @@ UPDATES = {
         "notatki": "Firma handlowa w Jeleniej Górze.",
     },
     "PL-B-042": {
-        "nazwa_firmy": "Przedsiębiorstwo Wielobranżowe \"Torys\" Tomasz Woliński",
+        "nazwa": "Przedsiębiorstwo Wielobranżowe \"Torys\" Tomasz Woliński",
         "nip_vat": "PL5630011137",
         "rejestr_id": "REGON 110079019",
         "adres": "ul. Lwowska 51, 22-100 Chełm",
@@ -134,7 +134,7 @@ UPDATES = {
         "notatki": "Hurtownia wyrobów tytoniowych i chemii gospodarczej w Chełmie.",
     },
     "PL-B-043": {
-        "nazwa_firmy": "Przedsiębiorstwo Wielobranżowe „Rela” Sp. z o.o. (Unikat Sp. z o.o.)",
+        "nazwa": "Przedsiębiorstwo Wielobranżowe „Rela” Sp. z o.o. (Unikat Sp. z o.o.)",
         "nip_vat": "PL8921342248",
         "rejestr_id": "KRS 0000109132",
         "adres": "ul. Lipnowska 21A, 87-500 Rypin",
@@ -145,7 +145,7 @@ UPDATES = {
         "notatki": "Hurtownia artykułów spożywczych i papierosów w Rypinie.",
     },
     "PL-B-044": {
-        "nazwa_firmy": "HURTOWNIA GAMA ANDRZEJ GRZELAK",
+        "nazwa": "HURTOWNIA GAMA ANDRZEJ GRZELAK",
         "nip_vat": "PL8270002450",
         "rejestr_id": "REGON 005272370",
         "adres": "ul. Polskiej Organizacji Wojskowej 46/48, 98-200 Sieradz",
@@ -156,7 +156,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów i wyrobów tytoniowych w Sieradzu.",
     },
     "PL-B-045": {
-        "nazwa_firmy": "Alfa s.c. Hurtownia art. biurowych, papierniczych i papierosów",
+        "nazwa": "Alfa s.c. Hurtownia art. biurowych, papierniczych i papierosów",
         "nip_vat": "PL5992541456",
         "rejestr_id": "REGON 211001648",
         "adres": "ul. Piłsudskiego 2, 66-530 Drezdenko",
@@ -168,7 +168,7 @@ UPDATES = {
         "notatki": "Hurtownia artykułów papierniczych, biurowych i papierosów.",
     },
     "PL-B-046": {
-        "nazwa_firmy": "Aksel. FHU. Hurtownia papierosów i art. chemicznych",
+        "nazwa": "Aksel. FHU. Hurtownia papierosów i art. chemicznych",
         "nip_vat": "PL5211640331",
         "rejestr_id": "REGON 015635110",
         "adres": "ul. Niechodzka 4a, 06-400 Ciechanów",
@@ -180,7 +180,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów i artykułów chemicznych w Ciechanowie.",
     },
     "PL-B-047": {
-        "nazwa_firmy": "Zefir Sp. z o.o. (Hurtownia Papierosów i Chemii)",
+        "nazwa": "Zefir Sp. z o.o. (Hurtownia Papierosów i Chemii)",
         "nip_vat": "PL5422694571",
         "rejestr_id": "KRS 0000065192",
         "adres": "ul. Jagienki 4, 15-480 Białystok",
@@ -192,7 +192,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów, chemii gospodarczej i kosmetyków w Białymstoku.",
     },
     "PL-B-050": {
-        "nazwa_firmy": "MATPIO MARIUSZ WIELICZKO",
+        "nazwa": "MATPIO MARIUSZ WIELICZKO",
         "nip_vat": "PL5631361632",
         "rejestr_id": "REGON 364129654",
         "adres": "ul. Okszowska 41B, 22-100 Chełm",
@@ -202,7 +202,7 @@ UPDATES = {
         "notatki": "Przedsiębiorstwo handlowe w Chełmie.",
     },
     "PL-B-053": {
-        "nazwa_firmy": "Tabak Polska Sp. z o.o. (Sieć TRAFIKA / Partner IQOS)",
+        "nazwa": "Tabak Polska Sp. z o.o. (Sieć TRAFIKA / Partner IQOS)",
         "nip_vat": "PL6312331460",
         "rejestr_id": "KRS 0000059254",
         "adres": "ul. Fabryczna 14, 53-609 Wrocław (punkt: ul. Poznańska 100, Inowrocław)",
@@ -214,7 +214,7 @@ UPDATES = {
         "notatki": "Krajowy operator sieci saloników Trafika i dystrybutor wyrobów tytoniowych oraz IQOS.",
     },
     "PL-B-054": {
-        "nazwa_firmy": "Tobacco Trading International Poland Sp. z o.o.",
+        "nazwa": "Tobacco Trading International Poland Sp. z o.o.",
         "nip_vat": "PL6770082623",
         "rejestr_id": "KRS 0000142877",
         "adres": "ul. Częstochowska 38, 32-085 Modlnica",
@@ -227,7 +227,7 @@ UPDATES = {
         "notatki": "Polski oddział TTI — ogólnokrajowy dystrybutor marek Pöschl Tabak, akcesoriów i cygar.",
     },
     "PL-B-056": {
-        "nazwa_firmy": "„Supra” Sp.j. Firma Handlowa",
+        "nazwa": "„Supra” Sp.j. Firma Handlowa",
         "nip_vat": "PL7351001483",
         "rejestr_id": "REGON 490489040",
         "adres": "ul. Ludźmierska 29, 34-400 Nowy Targ",
@@ -240,7 +240,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów, wyrobów tytoniowych i chemii gospodarczej.",
     },
     "PL-B-087": {
-        "nazwa_firmy": "KDWT S.A. (Kompania Dystrybucyjna Wyrobów Tytoniowych)",
+        "nazwa": "KDWT S.A. (Kompania Dystrybucyjna Wyrobów Tytoniowych)",
         "nip_vat": "PL7772304755",
         "rejestr_id": "KRS 0000040385",
         "adres": "ul. Domaniewska 48, 02-672 Warszawa (oraz oddziały ogólnokrajowe)",
@@ -253,7 +253,7 @@ UPDATES = {
         "notatki": "Jeden z największych ogólnokrajowych dystrybutorów wyrobów tytoniowych w Polsce (grupa Imperial Brands).",
     },
     "PL-B-091": {
-        "nazwa_firmy": "Handel Hurtowy i Detaliczny Stanisław Dymek",
+        "nazwa": "Handel Hurtowy i Detaliczny Stanisław Dymek",
         "nip_vat": "PL8720001434",
         "rejestr_id": "REGON 850015549",
         "adres": "ul. Rzeszowska 147, 39-200 Dębica",
@@ -265,7 +265,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów i chemii gospodarczej w Dębicy.",
     },
     "PL-B-092": {
-        "nazwa_firmy": "Czecho-Max. PHU. Kobiela T.",
+        "nazwa": "Czecho-Max. PHU. Kobiela T.",
         "nip_vat": "PL6520002310",
         "rejestr_id": "REGON 003505491",
         "adres": "ul. Legionów 32a, 43-500 Czechowice-Dziedzice",
@@ -275,7 +275,7 @@ UPDATES = {
         "notatki": "Hurtownia tytoniowa w Czechowicach-Dziedzicach.",
     },
     "PL-B-094": {
-        "nazwa_firmy": "Ania Sp. z o.o. (Hurtownia Papierosów)",
+        "nazwa": "Ania Sp. z o.o. (Hurtownia Papierosów)",
         "adres": "ul. Lubelska 46 (PCH AGROHURT), Hala 4 lok. 11, 35-011 Rzeszów",
         "miasto": "Rzeszów",
         "telefon": "+48 17 852 66 73",
@@ -284,7 +284,7 @@ UPDATES = {
         "notatki": "Hurtownia papierosów i chemii gospodarczej w PCH Agrohurt Rzeszów.",
     },
     "PL-B-098": {
-        "nazwa_firmy": "Firma Wielobranżowa „SUŻYW” Sp. z o.o.",
+        "nazwa": "Firma Wielobranżowa „SUŻYW” Sp. z o.o.",
         "nip_vat": "PL5521003110",
         "rejestr_id": "KRS 0000044498",
         "adres": "ul. Nad Skawą 4, 34-200 Sucha Beskidzka",
@@ -297,7 +297,7 @@ UPDATES = {
         "notatki": "Regionalna hurtownia FMCG, alkoholi i wyrobów tytoniowych.",
     },
     "PL-B-154": {
-        "nazwa_firmy": "VAPE DROP Sp. z o.o.",
+        "nazwa": "VAPE DROP Sp. z o.o.",
         "nip_vat": "PL8842815439",
         "rejestr_id": "KRS 0000998124",
         "adres": "ul. Westerplatte 72, 58-100 Świdnica",
@@ -310,7 +310,7 @@ UPDATES = {
         "notatki": "Dystrybutor hurtowy B2B e-papierosów, liquidów i akcesoriów vape.",
     },
     "PL-B-157": {
-        "nazwa_firmy": "JUKA Akcesoria Tytoniowe",
+        "nazwa": "JUKA Akcesoria Tytoniowe",
         "nip_vat": "PL9531380750",
         "adres": "ul. Jabłoniowa 56B, 80-175 Gdańsk",
         "miasto": "Gdańsk",
@@ -322,7 +322,7 @@ UPDATES = {
         "notatki": "Specjalistyczna hurtownia i sklep akcesoriów tytoniowych (bibułki, gilzy, zapalniczki, akcesoria).",
     },
     "PL-B-158": {
-        "nazwa_firmy": "ARLGROUP SP. Z O.O. SP. K.",
+        "nazwa": "ARLGROUP SP. Z O.O. SP. K.",
         "nip_vat": "PL5272712651",
         "rejestr_id": "KRS 0000502538",
         "adres": "ul. Księcia Janusza 19/31 lok. 75, 01-452 Warszawa",
@@ -335,7 +335,7 @@ UPDATES = {
         "notatki": "Platforma hurtowa B2B e-papierosów, akcesoriów i liquidów.",
     },
     "PL-B-159": {
-        "nazwa_firmy": "ATG Dystrybucja Wojciech Pater",
+        "nazwa": "ATG Dystrybucja Wojciech Pater",
         "adres": "ul. Główna, Polska",
         "www": "https://atgdystrybucja.pl",
         "flagi": "✅ FROZEN (B2B Portal)",
@@ -345,7 +345,7 @@ UPDATES = {
 
     # ===== CZECHY (CZ) =====
     "CZ-A-004": {
-        "nazwa_firmy": "Ing. Jan Ševic (Plnicky-Powermatic.cz)",
+        "nazwa": "Ing. Jan Ševic (Plnicky-Powermatic.cz)",
         "nip_vat": "CZ7005132222",
         "rejestr_id": "IČO 45410003",
         "adres": "Fibichova 1327, 356 01 Sokolov, Czechy",
@@ -438,7 +438,7 @@ UPDATES = {
 
     # ===== RUMUNIA (RO) =====
     "RO-A-004": {
-        "nazwa_firmy": "SC GOLDEN TIP IMPORT EXPORT SRL (tuburipentrutigari.ro)",
+        "nazwa": "SC GOLDEN TIP IMPORT EXPORT SRL (tuburipentrutigari.ro)",
         "nip_vat": "RO31828233",
         "rejestr_id": "J12/1939/2013",
         "adres": "Strada Unirii 21/25, Cluj-Napoca, Județul Cluj",
@@ -450,7 +450,7 @@ UPDATES = {
         "notatki": "Główny rumuński sklep i hurtownia online gilz (Gizeh, OCB, Rizla) i maszynek do napełniania gilz.",
     },
     "RO-B-008": {
-        "nazwa_firmy": "TDG Prodimpex SRL",
+        "nazwa": "TDG Prodimpex SRL",
         "miasto": "Buzău",
         "telefon": "+40 238 715 656",
         "flagi": "✅ FROZEN (Kompass RO / ANAF)",
@@ -491,7 +491,7 @@ def execute():
             if rid in REMOVE_IDS:
                 total_removed += 1
                 changed = True
-                print(f"  🗑️  REMOVED {rid} from {p.name}: {row.get('nazwa_firmy','')[:45]} — {REMOVE_IDS[rid]}")
+                print(f"  🗑️  REMOVED {rid} from {p.name}: {row.get('nazwa','')[:45]} — {REMOVE_IDS[rid]}")
                 continue
 
             # Check update
@@ -503,7 +503,7 @@ def execute():
                     if col in row:
                         row[col] = val
                 row["data_weryfikacji"] = "2026-08-17"
-                print(f"  ✨ UPDATED {rid} in {p.name}: {row.get('nazwa_firmy','')[:45]}")
+                print(f"  ✨ UPDATED {rid} in {p.name}: {row.get('nazwa','')[:45]}")
 
             new_rows.append(row)
 

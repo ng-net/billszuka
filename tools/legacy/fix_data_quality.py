@@ -191,7 +191,7 @@ def clean_and_score_catalog(csv_path: Path, dry_run: bool = False) -> tuple[int,
 
     for row in rows:
         nip = (row.get("nip_vat") or "").strip().upper()
-        name = (row.get("nazwa_firmy") or "").strip()
+        name = (row.get("nazwa") or "").strip()
 
         # Deduplication check
         if nip and nip not in ("BRAK", "DO WERYFIKACJI") and nip in seen_nips:

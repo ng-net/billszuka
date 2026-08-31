@@ -652,7 +652,7 @@ Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 35 ko
 | 2 | `rok_zalozenia` | YYYY | Rok rejestracji |
 | 3 | `id` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001` (region-free) |
 | 4 | `kategoria` | enum | A1-A6 lub B1-B9 |
-| 5 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
+| 5 | `nazwa` | str | Pełna nazwa prawna lub handlowa |
 | 6 | `kraj` | ISO2 | Dwuliterowy kod |
 | 7 | `miasto` | str | |
 | 8 | `adres` | str | Ulica + numer + kod |
@@ -734,7 +734,7 @@ Narzędzia pomocnicze:
 
 ### Wypełnianie
 
-- **Minimum**: `id`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
+- **Minimum**: `id`, `kategoria`, `nazwa`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
 - **Pełne**: wszystkie kolumny + źródła zweryfikowane + flagi
 - **Częściowe**: kluczowe kolumny + notatka co jeszcze trzeba
 

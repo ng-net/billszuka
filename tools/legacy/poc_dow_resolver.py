@@ -288,10 +288,10 @@ def main():
             log(f"[{idx}/10] {fid} NOT IN MASTER — skip")
             continue
         f = rows_by_id[fid]
-        log(f"\n[{idx}/10] {fid}: {f['nazwa_firmy'][:50]}")
+        log(f"\n[{idx}/10] {fid}: {f['nazwa'][:50]}")
         result = {
             "id": fid,
-            "name": f["nazwa_firmy"],
+            "name": f["nazwa"],
             "input": {
                 "nip": f.get("nip_vat", "").strip(),
                 "rej": f.get("rejestr_id", "").strip(),
@@ -312,7 +312,7 @@ def main():
         # ── Step 1: NIP resolution
         have_nip = bool(result["input"]["nip"]) and result["input"]["nip"] != "brak"
         if not have_nip:
-            ceidg = ceidg_search(driver, f["nazwa_firmy"])
+            ceidg = ceidg_search(driver, f["nazwa"])
             if ceidg.get("nip") and nip_mod11_ok(ceidg["nip"]):
                 result["output"]["nip_resolved"] = ceidg["nip"]
                 result["output"]["source"] = "CEIDG"
@@ -339,7 +339,7 @@ def main():
                     result["output"]["source"] += "+KRS-pobierz"
             elif not result["output"]["nip_resolved"] and f.get("www", "").strip().startswith("http"):
                 # NIP dalej missing, spróbuj po nazwie na krs-pobierz
-                kp2 = krspobierz_search(driver, f["nazwa_firmy"])
+                kp2 = krspobierz_search(driver, f["nazwa"])
                 if kp2.get("krs"):
                     result["output"]["krs_resolved"] = kp2["krs"]
                     if kp2.get("nip") and nip_mod11_ok(kp2["nip"]):
@@ -353,11 +353,11 @@ def main():
             if v.get("valid"):
                 result["output"]["vies_valid"] = True
                 vname = v.get("name", "")
-                sim = name_similarity(f["nazwa_firmy"], vname)
+                sim = name_similarity(f["nazwa"], vname)
                 result["output"]["vies_name_match"] = round(sim, 2)
                 if sim < 0.5:
                     result["errors"].append(
-                        f"VIES name mismatch: '{vname}' vs '{f['nazwa_firmy'][:50]}' (sim={sim:.2f})"
+                        f"VIES name mismatch: '{vname}' vs '{f['nazwa'][:50]}' (sim={sim:.2f})"
                     )
             else:
                 result["output"]["vies_valid"] = False
@@ -369,11 +369,11 @@ def main():
         if result["output"]["krs_resolved"]:
             k = krs_lookup(result["output"]["krs_resolved"])
             if k.get("ok") and k.get("nazwa"):
-                sim = name_similarity(f["nazwa_firmy"], k["nazwa"])
+                sim = name_similarity(f["nazwa"], k["nazwa"])
                 result["output"]["krs_name_match"] = round(sim, 2)
                 if sim < 0.4:
                     result["errors"].append(
-                        f"KRS name mismatch: '{k['nazwa']}' vs '{f['nazwa_firmy'][:50]}' (sim={sim:.2f})"
+                        f"KRS name mismatch: '{k['nazwa']}' vs '{f['nazwa'][:50]}' (sim={sim:.2f})"
                     )
                 if k.get("nip") and nip_mod11_ok(k["nip"]):
                     if not result["output"]["nip_resolved"]:

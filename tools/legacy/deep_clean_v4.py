@@ -15,7 +15,7 @@ from config import CANONICAL_SCHEMA, COUNTRY_MAP, DATA_DIR
 UPDATES = {
     # ===== LITWA (LT) =====
     "LT-B-001": {
-        "nazwa_firmy": "UAB SANITEX",
+        "nazwa": "UAB SANITEX",
         "nip_vat": "LT104434917",
         "rejestr_id": "JAR 110443493",
         "adres": "Raudondvario pl. 131C, LT-47501 Kaunas",
@@ -26,7 +26,7 @@ UPDATES = {
 
     # ===== MOŁDAWIA (MD) =====
     "MD-B-001": {
-        "nazwa_firmy": "S.A. Tutun-CTC",
+        "nazwa": "S.A. Tutun-CTC",
         "nip_vat": "1002600010996",
         "rejestr_id": "IDNO 1002600010996",
         "adres": "str. Ismail 10, MD-2001 Chișinău",
@@ -37,7 +37,7 @@ UPDATES = {
 
     # ===== POLSKA (PL) =====
     "PL-B-070": {
-        "nazwa_firmy": "\"FREGA\" FREJOWSKI, GARBOL SPÓŁKA JAWNA",
+        "nazwa": "\"FREGA\" FREJOWSKI, GARBOL SPÓŁKA JAWNA",
         "nip_vat": "PL6570386005",
         "rejestr_id": "KRS 0000084815",
         "adres": "ul. Batalionów Chłopskich 172, 25-670 Kielce (Oddział Tarnów: ul. Czerwona 54A)",
@@ -46,7 +46,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000084815 | REGON 290500060 | frega24.pl",
     },
     "PL-B-075": {
-        "nazwa_firmy": "CARMEN POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "CARMEN POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL8370001711",
         "rejestr_id": "KRS 0000245817",
         "adres": "ul. Warszawska 93, 96-500 Sochaczew",
@@ -55,7 +55,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000245817 | REGON 750324012",
     },
     "PL-B-078": {
-        "nazwa_firmy": "LIQUIDER POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
+        "nazwa": "LIQUIDER POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL7773264101",
         "rejestr_id": "KRS 0000621078",
         "adres": "ul. Poznańska 21, 62-020 Jasin",
@@ -64,7 +64,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000621078 | REGON 364574621 | liquider.pl",
     },
     "PL-B-087": {
-        "nazwa_firmy": "EUROCASH SERWIS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (d. KDWT)",
+        "nazwa": "EUROCASH SERWIS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (d. KDWT)",
         "nip_vat": "PL7772304755",
         "rejestr_id": "KRS 0000519553",
         "adres": "ul. Wiśniowa 11, 62-052 Komorniki",
@@ -73,7 +73,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000519553 | REGON 631255378 | eurocash.pl",
     },
     "PL-B-168": {
-        "nazwa_firmy": "TABAK GRUPA SP. Z O.O. (SklepTytoniowy.pl)",
+        "nazwa": "TABAK GRUPA SP. Z O.O. (SklepTytoniowy.pl)",
         "nip_vat": "PL6181914183",
         "rejestr_id": "KRS 0000119343",
         "adres": "ul. Złota 126, 62-800 Kalisz",

@@ -141,7 +141,7 @@ def main():
                         "country": country,
                         "iso": ISO_MAP[country],
                         "id": r.get("id", ""),
-                        "name": r.get("nazwa_firmy", ""),
+                        "name": r.get("nazwa", ""),
                         "miasto": r.get("miasto", ""),
                         "www": r.get("www", ""),
                         "kategoria": r.get("kategoria", ""),

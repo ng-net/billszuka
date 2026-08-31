@@ -459,7 +459,7 @@ def process_file(path, apply=False, dry_run=False):
         if r.get('notatki', '') != new_r.get('notatki', '') or migrations:
             changes.append({
                 'id': r.get('id', ''),
-                'field': r.get('nazwa_firmy', '')[:40],
+                'field': r.get('nazwa', '')[:40],
                 'orig_notatki': r.get('notatki', ''),
                 'new_notatki': new_r.get('notatki', ''),
                 'migrations': migrations,

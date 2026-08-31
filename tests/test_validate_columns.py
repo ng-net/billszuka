@@ -30,7 +30,9 @@ class TestNormalize:
         assert vc._normalize("Zagreb") == "zagreb"  # Croatian đ — already covered
 
     def test_underscore_to_space(self):
-        assert vc._normalize("id") == "id unikalne"
+        # After the id_unikalne → id rename, "id" normalizes to "id".
+        # The previous expected value "id unikalne" reflected the old column name.
+        assert vc._normalize("id") == "id"
 
     def test_collapse_whitespace(self):
         assert vc._normalize("  foo   bar  ") == "foo bar"
@@ -47,20 +49,20 @@ class TestHeaderMapping:
     def test_alias_match_polish(self):
         lookup = vc._build_alias_lookup(vc.DEFAULT_ALIASES)
         canon, conf, source = vc.map_header("firma", lookup, {})
-        assert canon == "nazwa_firmy"
+        assert canon == "nazwa"
         assert source == "alias"
         assert conf >= 0.9
 
     def test_alias_match_english(self):
         lookup = vc._build_alias_lookup(vc.DEFAULT_ALIASES)
         canon, conf, source = vc.map_header("company", lookup, {})
-        assert canon == "nazwa_firmy"
+        assert canon == "nazwa"
         assert source == "alias"
 
     def test_alias_match_german(self):
         lookup = vc._build_alias_lookup(vc.DEFAULT_ALIASES)
         canon, conf, source = vc.map_header("unternehmen", lookup, {})
-        assert canon == "nazwa_firmy"
+        assert canon == "nazwa"
         assert source == "alias"
 
     def test_fuzzy_match(self):
@@ -77,8 +79,8 @@ class TestHeaderMapping:
 
     def test_manual_override(self):
         lookup = vc._build_alias_lookup(vc.DEFAULT_ALIASES)
-        canon, conf, source = vc.map_header("foo", lookup, {"foo": "nazwa_firmy"})
-        assert canon == "nazwa_firmy"
+        canon, conf, source = vc.map_header("foo", lookup, {"foo": "nazwa"})
+        assert canon == "nazwa"
         assert source == "manual"
         assert conf == 1.0
 
@@ -414,9 +416,9 @@ class TestBrandPatternSync:
         js_classify = self._load_brand_js_classifier()
         corpus = [
             # PowerMatic direct mentions
-            {"nazwa_firmy": "PowerMatic Polska"},
+            {"nazwa": "PowerMatic Polska"},
             {"notatki": "sprzedaż PowerMatic"},
-            {"nazwa_firmy": "POWERMATIC"},
+            {"nazwa": "POWERMATIC"},
             {"notatki": "Power Matic"},
             # PowerMatic numeric / roman variants — the pattern that
             # was missing in Python until we synced it.
@@ -424,9 +426,9 @@ class TestBrandPatternSync:
             {"notatki": "PowerMatic 3 IV"},
             {"notatki": "PowerMatic 5"},
             # Hawk variants
-            {"nazwa_firmy": "jameshawk.pl"},
+            {"nazwa": "jameshawk.pl"},
             {"notatki": "Hawk importer"},
-            {"nazwa_firmy": "James Hawk"},
+            {"nazwa": "James Hawk"},
             # Brand catch-all (nabijarka / tytoń / etc.) → "Inna" in JS,
             # positive signal in Python via pattern #4. Both sides agree
             # on the positive decision — that's all we care about here.
@@ -434,11 +436,11 @@ class TestBrandPatternSync:
             {"notatki": "maszynka rolling"},
             {"notatki": "tytoń do skrętów"},
             # Negative cases — nothing should match on either side
-            {"nazwa_firmy": "Sklep papierniczy"},
+            {"nazwa": "Sklep papierniczy"},
             {"notatki": "Kawa, herbata, przyprawy"},
-            {"nazwa_firmy": "Targowisko Miejskie"},
+            {"nazwa": "Targowisko Miejskie"},
             {"notatki": "biuro rachunkowe"},
-            {"nazwa_firmy": "", "notatki": "", "zrodlo_danych": ""},
+            {"nazwa": "", "notatki": "", "zrodlo_danych": ""},
         ]
         for row in corpus:
             py_hit = vc._brand_signal_in_row(row)

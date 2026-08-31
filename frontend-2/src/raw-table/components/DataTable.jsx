@@ -229,7 +229,7 @@ export function DataTable({
   const rowHeight = density === "compact" ? 28 : 44;
 
   // Cumulative left-offset (px) for the first STICKY_COLS_MOBILE visible
-  // columns, so id + nazwa_firmy stay pinned together (header AND
+  // columns, so id + nazwa stay pinned together (header AND
   // body) while horizontally scrolling on mobile — md:static cancels this
   // above the md breakpoint. Previously every sticky column used a fixed
   // `left-0`, so column 2 rendered on top of column 1 instead of after it,
@@ -588,7 +588,7 @@ const Row = memo(function Row({ row, index, rowHeight, density, isSelected, isEx
 
 function defaultWidth(colId, type) {
   if (colId === "id") return 130;
-  if (colId === "nazwa_firmy") return 420;
+  if (colId === "nazwa") return 420;
   if (colId === "adres") return 360;
   if (colId === "notatki" || colId === "flagi" || colId === "zrodlo_danych") return 390;
   if (colId === "www") return 300;

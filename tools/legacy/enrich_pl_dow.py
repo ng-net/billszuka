@@ -192,9 +192,9 @@ def main():
     for row in rows:
         if row.get("id") in name_corrections:
             new_name = name_corrections[row["id"]]
-            old_name = row.get("nazwa_firmy", "")
+            old_name = row.get("nazwa", "")
             if old_name != new_name:
-                row["nazwa_firmy"] = new_name
+                row["nazwa"] = new_name
                 print(f"  RENAME    {row['id']}: {old_name} → {new_name}")
                 results.append((row["id"], "RENAME", f"{old_name} → {new_name}"))
 

@@ -23,7 +23,7 @@ REMOVE_IDS = {
 
 UPDATES = {
     "PL-B-029": {
-        "nazwa_firmy": "\"CARMEN\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "\"CARMEN\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL9372338579",
         "rejestr_id": "KRS 0000014510",
         "adres": "ul. Strumieńska 63, 43-385 Jasienica",
@@ -32,7 +32,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000014510 | REGON 072713706",
     },
     "PL-B-043": {
-        "nazwa_firmy": "UNIKAT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (d. Rela Sp. z o.o.)",
+        "nazwa": "UNIKAT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (d. Rela Sp. z o.o.)",
         "nip_vat": "PL8921342248",
         "rejestr_id": "KRS 0000109132",
         "adres": "ul. Lipnowska 21A, 87-500 Rypin",
@@ -41,7 +41,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000109132 | REGON 910945070",
     },
     "PL-B-053": {
-        "nazwa_firmy": "\"TABAK POLSKA\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "\"TABAK POLSKA\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL6312331460",
         "rejestr_id": "KRS 0000059254",
         "adres": "ul. Fabryczna 14, 53-609 Wrocław",
@@ -50,7 +50,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000059254 | REGON 277658779",
     },
     "PL-B-056": {
-        "nazwa_firmy": "\"FIRMA HANDLOWA SUPRA. J.MOZDYNIEWICZ. A.RUDOLPHI. SPÓŁKA JAWNA\"",
+        "nazwa": "\"FIRMA HANDLOWA SUPRA. J.MOZDYNIEWICZ. A.RUDOLPHI. SPÓŁKA JAWNA\"",
         "nip_vat": "PL7351001483",
         "rejestr_id": "KRS 0000083756",
         "adres": "ul. Ludźmierska 29, 34-400 Nowy Targ",
@@ -59,7 +59,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000083756 | REGON 490489040",
     },
     "PL-B-073": {
-        "nazwa_firmy": "EUROCASH S.A. (Cash & Carry Wągrowiec)",
+        "nazwa": "EUROCASH S.A. (Cash & Carry Wągrowiec)",
         "nip_vat": "PL7791906082",
         "rejestr_id": "KRS 0000213765",
         "adres": "ul. Wiśniowa 11, 62-052 Komorniki (Oddział: ul. Gnieźnieńska 72, Wągrowiec)",

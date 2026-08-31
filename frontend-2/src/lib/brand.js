@@ -1,6 +1,6 @@
 /**
  * Brand classification + keyword highlighting.
- * All matching is case-insensitive and works across nazwa_firmy, notatki,
+ * All matching is case-insensitive and works across nazwa, notatki,
  * zrodlo_danych and sourcing columns. No data or backend changes.
  */
 
@@ -18,7 +18,7 @@ const BIBULKI_PATTERNS = [/bibułk/i, /bibulki/i, /rolling papers?/i, /bibuł/i]
 
 export function classifyBrand(row = {}) {
   const text = [
-    row.nazwa_firmy || "",
+    row.nazwa || "",
     row.notatki || "",
     row.zrodlo_danych || "",
     row.sourcing || "",

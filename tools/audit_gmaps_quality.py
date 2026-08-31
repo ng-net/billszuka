@@ -16,7 +16,7 @@ import glob
 from pathlib import Path
 
 SCHEMA_COLUMNS = [
-    "related_to","rok_zalozenia","id","kategoria","nazwa_firmy",
+    "related_to","rok_zalozenia","id","kategoria","nazwa",
     "kraj","miasto","adres","nip_vat","rejestr_id",
     "www","kanal_zamiennik","email","telefon","linkedin",
     "facebook","instagram","tiktok","tier","marki_nabijarki",
@@ -73,7 +73,7 @@ def audit_gmaps(flag_thin=True, min_signals=2):
                     report.append({
                         "action": "FLAGGED" if flag_thin else "REPORTED",
                         "id": rid,
-                        "name": row.get("nazwa_firmy","")[:50],
+                        "name": row.get("nazwa","")[:50],
                         "file": p.name,
                         "signals": signals,
                         "nip": row.get("nip_vat","")[:30],

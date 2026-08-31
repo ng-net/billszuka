@@ -59,7 +59,7 @@ from config import CANONICAL_SCHEMA, COUNTRY_MAP, COUNTRY_ORDER as CONF_COUNTRY_
 COUNTRY_ORDER: list[str] = [COUNTRY_MAP[iso] for iso in CONF_COUNTRY_ORDER]
 
 # Per the verify-data skill
-FROZEN_REQUIRED = ["nazwa_firmy", "nip_vat", "rejestr_id", "adres", "zrodlo_danych"]
+FROZEN_REQUIRED = ["nazwa", "nip_vat", "rejestr_id", "adres", "zrodlo_danych"]
 OFFICIAL_SOURCE_TOKENS = [
     "krs api", "krs.gov", "krs", "ceidg", "vies", "kas", "regon",
     "ares", "orsr", "rekvizitai", "ajpes", "matična",
@@ -275,7 +275,7 @@ def verify_row(row: dict) -> tuple[str, str]:
                 return "DO-WERYFIKACJI", (
                     f"KRS HALUCYNACJA: KRS {krs} → API NIP {krs_nip} "
                     f"({krs_data.get('nazwa','')[:30]}) ≠ CSV NIP {csv_nip} "
-                    f"({row.get('nazwa_firmy','')[:30]})"
+                    f"({row.get('nazwa','')[:30]})"
                 )
         elif krs_data and "error" in krs_data:
             # KRS API failed (404, timeout) — flag as DO-WERYFIKACJI with

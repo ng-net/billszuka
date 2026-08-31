@@ -103,7 +103,7 @@ def normalize(name: str) -> str:
 
 
 def is_hallucination_or_noise(row: dict) -> bool:
-    name = row.get("nazwa_firmy", "").strip()
+    name = row.get("nazwa", "").strip()
     norm = normalize(name)
     src = row.get("zrodlo_danych", "")
     www = row.get("www", "").lower().strip()
@@ -147,7 +147,7 @@ def clean_row_data(row: dict, iso: str, cat_type: str, idx: int) -> dict:
     if cat_type == "A" and not cleaned["kategoria"].startswith("A"):
         cleaned["kategoria"] = "A1"
     elif cat_type == "B" and not cleaned["kategoria"].startswith("B"):
-        cleaned["kategoria"] = "B8" if any(w in cleaned["nazwa_firmy"].lower() for w in ["grossiste", "wholesale", "distribution", "grosist", "veleprodaja", "didmena"]) else "B9"
+        cleaned["kategoria"] = "B8" if any(w in cleaned["nazwa"].lower() for w in ["grossiste", "wholesale", "distribution", "grosist", "veleprodaja", "didmena"]) else "B9"
 
     # Set default verification date if missing
     if not cleaned["data_weryfikacji"]:
@@ -187,7 +187,7 @@ def main():
                 total_removed += 1
                 continue
 
-            name = r.get("nazwa_firmy", "").strip()
+            name = r.get("nazwa", "").strip()
             norm_name = normalize(name)
             place_id = r.get("rejestr_id", "").strip()
 

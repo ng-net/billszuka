@@ -31,7 +31,7 @@ REMOVE_IDS = {
 
 UPDATES = {
     "PL-B-004": {
-        "nazwa_firmy": "CASISS KRZYSZTOF RZESZOWSKI SPÓŁKA JAWNA",
+        "nazwa": "CASISS KRZYSZTOF RZESZOWSKI SPÓŁKA JAWNA",
         "nip_vat": "PL8940050162",
         "rejestr_id": "KRS 0000061705",
         "adres": "ul. Bolesława Krzywoustego 300, 51-312 Wrocław",
@@ -40,7 +40,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000061705 | REGON 931501520",
     },
     "PL-B-033": {
-        "nazwa_firmy": "TOP-KART SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "TOP-KART SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL5422737004",
         "rejestr_id": "KRS 0001107489",
         "adres": "ul. Adama Mickiewicza 82/1, 15-232 Białystok",
@@ -49,7 +49,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0001107489 | REGON 052018703",
     },
     "PL-B-047": {
-        "nazwa_firmy": "ZEFIR SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "ZEFIR SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL5422694571",
         "rejestr_id": "KRS 0000065192",
         "adres": "ul. Handlowa 1, 15-399 Białystok",
@@ -58,7 +58,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000065192 | REGON 051982408",
     },
     "PL-B-103": {
-        "nazwa_firmy": "Drek Hurtownia Gilz Papierosowych i Akcesoriów",
+        "nazwa": "Drek Hurtownia Gilz Papierosowych i Akcesoriów",
         "nip_vat": "PL9481180350",
         "rejestr_id": "REGON 670937720",
         "adres": "ul. Kalińska 6 lok. 6a, 26-600 Radom",
@@ -67,7 +67,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 9481180350 | drek.pl",
     },
     "PL-B-105": {
-        "nazwa_firmy": "Tabak. Hurtownia papierosów i chemii gospodarczej. Łożyniak D.",
+        "nazwa": "Tabak. Hurtownia papierosów i chemii gospodarczej. Łożyniak D.",
         "nip_vat": "PL9251013660",
         "rejestr_id": "REGON 970471547",
         "adres": "ul. Szprotawska 18A, 67-120 Kożuchów",
@@ -76,7 +76,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 9251013660",
     },
     "PL-B-106": {
-        "nazwa_firmy": "PHU TABAK PIOTR FORNALA",
+        "nazwa": "PHU TABAK PIOTR FORNALA",
         "nip_vat": "PL8950017491",
         "rejestr_id": "REGON 930182225",
         "adres": "ul. Wierzchowicka 7, 51-127 Wrocław",
@@ -85,7 +85,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 8950017491",
     },
     "PL-B-107": {
-        "nazwa_firmy": "LOKIVAPE - DOMINIK NOWIKOWSKI",
+        "nazwa": "LOKIVAPE - DOMINIK NOWIKOWSKI",
         "nip_vat": "PL8481886316",
         "rejestr_id": "REGON 526205545",
         "adres": "ul. Armii Krajowej 9 lok. U11, 19-300 Ełk",
@@ -94,7 +94,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 8481886316 | lokivape.com",
     },
     "PL-B-110": {
-        "nazwa_firmy": "PHPU \"TEKS\" SA (Markowe Cygara)",
+        "nazwa": "PHPU \"TEKS\" SA (Markowe Cygara)",
         "nip_vat": "PL7960073210",
         "rejestr_id": "KRS 0000045612",
         "adres": "ul. Biznesowa 8, 26-612 Radom",

@@ -6,7 +6,7 @@
 export const COLUMN_LABELS = {
   kraj: "Kraj",
   id: "id",
-  nazwa_firmy: "Nazwa",
+  nazwa: "Nazwa",
   miasto: "Miasto",
   adres: "Adres",
   www: "Strona WWW",

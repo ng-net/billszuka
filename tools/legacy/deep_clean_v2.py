@@ -45,7 +45,7 @@ REMOVE_IDS = {
 UPDATES = {
     # ===== POLSKA (PL) =====
     "PL-A-005": {
-        "nazwa_firmy": "TABAK GRUPA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "TABAK GRUPA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL6181914183",
         "rejestr_id": "KRS 0000119343",
         "adres": "ul. Złota 126, 62-800 Kalisz",
@@ -54,7 +54,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000119343 | REGON 250974864",
     },
     "PL-A-006": {
-        "nazwa_firmy": "PRZEDSIĘBIORSTWO HANDLOWO-USŁUGOWE \"B.J.B.\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "PRZEDSIĘBIORSTWO HANDLOWO-USŁUGOWE \"B.J.B.\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL6692127776",
         "rejestr_id": "KRS 0000121182",
         "adres": "ul. Klonowa 1, 75-644 Koszalin",
@@ -63,7 +63,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000121182 | REGON 330555099",
     },
     "PL-A-008": {
-        "nazwa_firmy": "\"CK COMPLEX\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "\"CK COMPLEX\" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL9291744080",
         "rejestr_id": "KRS 0000237218",
         "adres": "ul. Naftowa 4, 65-705 Zielona Góra",
@@ -72,7 +72,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000237218 | REGON 080027815",
     },
     "PL-A-009": {
-        "nazwa_firmy": "IGNIS COMPANY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "IGNIS COMPANY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL5252995077",
         "rejestr_id": "KRS 0001091098",
         "adres": "ul. Szamocka 10C, 01-748 Warszawa",
@@ -81,7 +81,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0001091098 | REGON 527945830",
     },
     "PL-A-014": {
-        "nazwa_firmy": "PROMOTORZY TRADING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "PROMOTORZY TRADING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL5242751528",
         "rejestr_id": "KRS 0000422037",
         "adres": "ul. Odrowąża 15, 03-310 Warszawa",
@@ -90,7 +90,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000422037 | REGON 146139035",
     },
     "PL-A-017": {
-        "nazwa_firmy": "ALPERATA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "ALPERATA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL7282844071",
         "rejestr_id": "KRS 0000835586",
         "adres": "ul. Rewolucji 1905 r. 59, 90-216 Łódź",
@@ -99,7 +99,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000835586 | REGON 385884236",
     },
     "PL-A-018": {
-        "nazwa_firmy": "SPÓŁDZIELNIA \"BIELSIN\"",
+        "nazwa": "SPÓŁDZIELNIA \"BIELSIN\"",
         "nip_vat": "PL5470083919",
         "rejestr_id": "KRS 0000115372",
         "adres": "ul. Strażacka 35, 43-382 Bielsko-Biała",
@@ -108,7 +108,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000115372 | REGON 000876614",
     },
     "PL-A-020": {
-        "nazwa_firmy": "STOPOL SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
+        "nazwa": "STOPOL SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL5790006978",
         "rejestr_id": "KRS 0000536165",
         "adres": "al. Wojska Polskiego 494-496, 82-200 Malbork",
@@ -117,7 +117,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000536165 | REGON 008102527",
     },
     "PL-A-022": {
-        "nazwa_firmy": "STALCO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWO-AKCYJNA",
+        "nazwa": "STALCO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWO-AKCYJNA",
         "nip_vat": "PL6792455066",
         "rejestr_id": "KRS 0000425156",
         "adres": "ul. Ofiar Katynia 1, 32-050 Skawina",
@@ -126,7 +126,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000425156 | REGON 351398835",
     },
     "PL-B-059": {
-        "nazwa_firmy": "Selgros / Transgourmet Polska Sp. z o.o.",
+        "nazwa": "Selgros / Transgourmet Polska Sp. z o.o.",
         "nip_vat": "PL7791906082",
         "rejestr_id": "KRS 0000203325",
         "adres": "ul. Chorzowska 88a, 41-910 Bytom",
@@ -135,7 +135,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000203325 | selgros.pl",
     },
     "PL-B-062": {
-        "nazwa_firmy": "Polska Grupa Tytoniowa Sp. z o.o.",
+        "nazwa": "Polska Grupa Tytoniowa Sp. z o.o.",
         "nip_vat": "PL9532585250",
         "rejestr_id": "KRS 0000308003",
         "adres": "ul. Pińczowska 8, 85-877 Bydgoszcz",
@@ -144,7 +144,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000308003 | REGON 340456100",
     },
     "PL-B-064": {
-        "nazwa_firmy": "Mona Sp. z o.o. (Hurtownia Papierosów)",
+        "nazwa": "Mona Sp. z o.o. (Hurtownia Papierosów)",
         "nip_vat": "PL6792683072",
         "rejestr_id": "KRS 0000085800",
         "adres": "ul. Saska 27, 30-720 Kraków",
@@ -153,7 +153,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000085800 | CEIDG",
     },
     "PL-B-068": {
-        "nazwa_firmy": "Hurtownia Centrum Wiesław Sacharski",
+        "nazwa": "Hurtownia Centrum Wiesław Sacharski",
         "nip_vat": "PL7580003310",
         "rejestr_id": "REGON 550058690",
         "adres": "ul. Targowa 39G, 07-410 Ostrołęka",
@@ -162,7 +162,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 7580003310",
     },
     "PL-B-071": {
-        "nazwa_firmy": "Firma Handlowa Mariusz Kawa",
+        "nazwa": "Firma Handlowa Mariusz Kawa",
         "nip_vat": "PL8731006509",
         "rejestr_id": "REGON 850389332",
         "adres": "ul. Spokojna 20C, 33-100 Tarnów",
@@ -171,7 +171,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 8731006509",
     },
     "PL-B-072": {
-        "nazwa_firmy": "FLAJ Sklep i Hurtownia w Augustowie",
+        "nazwa": "FLAJ Sklep i Hurtownia w Augustowie",
         "nip_vat": "PL8461001460",
         "rejestr_id": "REGON 790172650",
         "adres": "ul. Tytoniowa 7, 16-300 Augustów",
@@ -180,7 +180,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 8461001460",
     },
     "PL-B-104": {
-        "nazwa_firmy": "VIVOPLAST Hurtownia Opakowań i Artykułów",
+        "nazwa": "VIVOPLAST Hurtownia Opakowań i Artykułów",
         "nip_vat": "PL6610001890",
         "rejestr_id": "REGON 290515150",
         "adres": "ul. Sienkiewicza 32, 27-400 Ostrowiec Świętokrzyski",
@@ -189,7 +189,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 6610001890",
     },
     "PL-B-109": {
-        "nazwa_firmy": "P.W. Kentdruk (KentDruk)",
+        "nazwa": "P.W. Kentdruk (KentDruk)",
         "nip_vat": "PL5490003504",
         "rejestr_id": "REGON 070440260",
         "adres": "ul. Marii Konopnickiej 6, 32-650 Kęty",
@@ -198,7 +198,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 5490003504",
     },
     "PL-B-114": {
-        "nazwa_firmy": "MILO S.A.",
+        "nazwa": "MILO S.A.",
         "nip_vat": "PL9590822602",
         "rejestr_id": "KRS 0000049457",
         "adres": "ul. Magazynowa 4, 25-565 Kielce",
@@ -207,7 +207,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000049457 | milo.com.pl",
     },
     "PL-B-118": {
-        "nazwa_firmy": "CARO Sp.j. R. i R. Niewczas",
+        "nazwa": "CARO Sp.j. R. i R. Niewczas",
         "nip_vat": "PL6610003937",
         "rejestr_id": "KRS 0000010839",
         "adres": "al. Jana Pawła II 63b, 27-400 Ostrowiec Świętokrzyski",
@@ -216,7 +216,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000010839 | REGON 290141690",
     },
     "PL-B-120": {
-        "nazwa_firmy": "BONUS Hurtownia Papierosów",
+        "nazwa": "BONUS Hurtownia Papierosów",
         "nip_vat": "PL6640003463",
         "rejestr_id": "REGON 290145260",
         "adres": "ul. Spółdzielcza 49, 27-200 Starachowice",
@@ -225,7 +225,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 6640003463",
     },
     "PL-B-122": {
-        "nazwa_firmy": "Hurtownia Papierosów \"DANA\"",
+        "nazwa": "Hurtownia Papierosów \"DANA\"",
         "nip_vat": "PL7310007883",
         "rejestr_id": "REGON 470877990",
         "adres": "ul. Łaska 46/48, 95-200 Pabianice",
@@ -234,7 +234,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 7310007883",
     },
     "PL-B-124": {
-        "nazwa_firmy": "Caro. Hurtownia papierosów. Żach K.",
+        "nazwa": "Caro. Hurtownia papierosów. Żach K.",
         "nip_vat": "PL7590004724",
         "rejestr_id": "REGON 550058890",
         "adres": "ul. Lubiejewska 51, 07-300 Ostrów Mazowiecka",
@@ -243,7 +243,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 7590004724",
     },
     "PL-B-134": {
-        "nazwa_firmy": "PPHU HITPOL / Zapalniczka.pl",
+        "nazwa": "PPHU HITPOL / Zapalniczka.pl",
         "nip_vat": "PL8131012373",
         "rejestr_id": "REGON 690278890",
         "adres": "Świlcza 145F, 36-072 Świlcza",
@@ -252,7 +252,7 @@ UPDATES = {
         "zrodlo_danych": "CEIDG NIP 8131012373 | zapalniczka.pl",
     },
     "PL-B-135": {
-        "nazwa_firmy": "VAPE POINT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "VAPE POINT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL8992850937",
         "rejestr_id": "KRS 0000750519",
         "adres": "ul. Powstańców Śląskich 95, 53-332 Wrocław",
@@ -261,7 +261,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000750519 | REGON 381445780",
     },
     "PL-B-169": {
-        "nazwa_firmy": "Don Marco International Sp. z o.o.",
+        "nazwa": "Don Marco International Sp. z o.o.",
         "nip_vat": "PL5833019808",
         "rejestr_id": "KRS 0000305881",
         "adres": "ul. Jodłowa 20, 80-633 Gdańsk",
@@ -270,7 +270,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000305881 | donmarco.pl",
     },
     "PL-B-170": {
-        "nazwa_firmy": "MRC Trade Sp. z o.o.",
+        "nazwa": "MRC Trade Sp. z o.o.",
         "nip_vat": "PL8792683935",
         "rejestr_id": "KRS 0000782346",
         "adres": "ul. Włocławska 171A, 87-100 Toruń",
@@ -279,7 +279,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000782346 | mrctrade.pl",
     },
     "PL-B-172": {
-        "nazwa_firmy": "Tobacco Concept Factory (TCF) Sp. z o.o.",
+        "nazwa": "Tobacco Concept Factory (TCF) Sp. z o.o.",
         "nip_vat": "PL5832791456",
         "rejestr_id": "KRS 0000125866",
         "adres": "ul. Marynarki Polskiej 59, 80-557 Gdańsk",
@@ -288,7 +288,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000125866 | REGON 192778840",
     },
     "PL-B-184": {
-        "nazwa_firmy": "NOVIS Sławomir Gągorowski, Sylwia Gągorowska Spółka Jawna",
+        "nazwa": "NOVIS Sławomir Gągorowski, Sylwia Gągorowska Spółka Jawna",
         "nip_vat": "PL8641951472",
         "rejestr_id": "KRS 0000754422",
         "adres": "ul. Sandomierska 107, 27-620 Dwikozy",
@@ -297,7 +297,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000754422 | REGON 381647890",
     },
     "PL-B-185": {
-        "nazwa_firmy": "BESTMAR RYDZ I PAWŁOWSKA SPÓŁKA JAWNA",
+        "nazwa": "BESTMAR RYDZ I PAWŁOWSKA SPÓŁKA JAWNA",
         "nip_vat": "PL5170409015",
         "rejestr_id": "KRS 0000858000",
         "adres": "ul. Wspólna 4, 35-205 Rzeszów",
@@ -306,7 +306,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000858000 | REGON 386923450",
     },
     "PL-B-186": {
-        "nazwa_firmy": "TORA VAPE POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
+        "nazwa": "TORA VAPE POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL1251742308",
         "rejestr_id": "KRS 0000998877",
         "adres": "al. Marszałka Józefa Piłsudskiego 257, 05-270 Marki",
@@ -315,7 +315,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000998877 | REGON 523489120",
     },
     "PL-B-187": {
-        "nazwa_firmy": "IGUANA GÓRSKI, KUREK SPÓŁKA KOMANDYTOWA",
+        "nazwa": "IGUANA GÓRSKI, KUREK SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL1251380928",
         "rejestr_id": "KRS 0000554433",
         "adres": "al. Jana Pawła II 41A m. 15, 01-001 Warszawa",
@@ -324,7 +324,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000554433 | REGON 140123450",
     },
     "PL-B-189": {
-        "nazwa_firmy": "WEST TRADING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "WEST TRADING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL9552074426",
         "rejestr_id": "KRS 0000181515",
         "adres": "ul. Limonkowa 1, Ustowo, 70-001 Szczecin",
@@ -333,7 +333,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000181515 | REGON 812674890",
     },
     "PL-B-191": {
-        "nazwa_firmy": "NAPO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (jameshawk.pl)",
+        "nazwa": "NAPO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (jameshawk.pl)",
         "nip_vat": "PL9721250921",
         "rejestr_id": "KRS 0000524433",
         "adres": "ul. Konstruktorska 11 mp. 6, 02-673 Warszawa",
@@ -342,7 +342,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000524433 | jameshawk.pl",
     },
     "PL-B-198": {
-        "nazwa_firmy": "TRAFIKA SPÓŁKA JAWNA HURTOWNIA PAPIEROSÓW KORSZEŃ T., WIŚNIEWSKI G.",
+        "nazwa": "TRAFIKA SPÓŁKA JAWNA HURTOWNIA PAPIEROSÓW KORSZEŃ T., WIŚNIEWSKI G.",
         "nip_vat": "PL8211005731",
         "rejestr_id": "KRS 0000072324",
         "adres": "ul. Brzeska 97, 08-110 Siedlce",
@@ -351,7 +351,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000072324 | REGON 710006740",
     },
     "PL-B-199": {
-        "nazwa_firmy": "TABAK POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "TABAK POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL8731567406",
         "rejestr_id": "KRS 0000066240",
         "adres": "ul. Szklana 26, 33-102 Tarnów",
@@ -360,7 +360,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000066240 | REGON 850456120",
     },
     "PL-B-205": {
-        "nazwa_firmy": "JAS-FBG SPÓŁKA AKCYJNA",
+        "nazwa": "JAS-FBG SPÓŁKA AKCYJNA",
         "nip_vat": "PL6340127847",
         "rejestr_id": "KRS 0000057037",
         "adres": "ul. Kolejowa 17, 40-022 Katowice",
@@ -369,7 +369,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000057037 | jasfbg.com.pl",
     },
     "PL-B-206": {
-        "nazwa_firmy": "ROHLIG SUUS LOGISTICS SPÓŁKA AKCYJNA",
+        "nazwa": "ROHLIG SUUS LOGISTICS SPÓŁKA AKCYJNA",
         "nip_vat": "PL5260036094",
         "rejestr_id": "KRS 0000045437",
         "adres": "ul. Równoległa 4A, 02-235 Warszawa",

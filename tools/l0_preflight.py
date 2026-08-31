@@ -3,7 +3,7 @@
 l0_preflight.py — FABRYKAT detection per methodology L0.
 
 Validates that each NIP+KRS pair in a per-kraj CSV actually points to a real
-company matching the CSV `nazwa_firmy`. Catches LLM hallucinations where the
+company matching the CSV `nazwa`. Catches LLM hallucinations where the
 KRS exists in registry but belongs to a completely different entity.
 
 Checks (defense in depth):
@@ -152,7 +152,7 @@ def name_match(csv_name: str, api_name: str) -> tuple[bool, str]:
 
 def check_row(row: dict, country: str, token: str) -> dict:
     """Run all L0 checks on a row. Returns {verdict, reason, details}."""
-    csv_nazwa = (row.get("nazwa_firmy") or "").strip()
+    csv_nazwa = (row.get("nazwa") or "").strip()
     nip = (row.get("nip_vat") or "").replace("PL", "").replace(" ", "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
 
@@ -240,7 +240,7 @@ def process_csv(csv_path: Path, country: str, token: str, retrofix: bool, dry_ru
 
     id_idx = header.index("id")
     flagi_idx = header.index("flagi")
-    name_idx = header.index("nazwa_firmy")
+    name_idx = header.index("nazwa")
     nip_idx = header.index("nip_vat")
     rejestr_idx = header.index("rejestr_id")
     zrodlo_idx = header.index("zrodlo_danych")
@@ -256,7 +256,7 @@ def process_csv(csv_path: Path, country: str, token: str, retrofix: bool, dry_ru
         if len(row) <= max(id_idx, flagi_idx, name_idx):
             continue
         row_dict = {
-            "nazwa_firmy": row[name_idx],
+            "nazwa": row[name_idx],
             "nip_vat": row[nip_idx],
             "rejestr_id": row[rejestr_idx],
             "id": row[id_idx],

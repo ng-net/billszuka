@@ -82,7 +82,7 @@ const generateLeads = (count) =>
     const hasVideo = isDemo1 || isDemo2;
     return {
       id: id,
-      nazwa_firmy: isDemo1
+      nazwa: isDemo1
         ? "PowerMatic Polska Distribution Sp. z o.o."
         : isDemo2
         ? "Hawk Rollers Europe B2B"
@@ -301,7 +301,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         const match =
-          (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
+          (lead.nazwa || "").toLowerCase().includes(q) ||
           (lead.nip_vat || "").toLowerCase().includes(q) ||
           (lead.id || "").toLowerCase().includes(q) ||
           (lead.miasto || "").toLowerCase().includes(q);
@@ -383,7 +383,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
       ["ID,Nazwa,Kraj,Miasto,NIP,Tier,Wolumen"]
         .concat(
           filteredLeads.map(
-            (l) => `${l.id},"${l.nazwa_firmy}",${l.kraj},${l.miasto},${l.nip_vat},${l.tier},${l.wolumen}`
+            (l) => `${l.id},"${l.nazwa}",${l.kraj},${l.miasto},${l.nip_vat},${l.tier},${l.wolumen}`
           )
         )
         .join("\n");
@@ -620,8 +620,8 @@ function VideoGridExperiment({ leads: leadsProp }) {
                   {/* 2. Company Name (Sticky) */}
                   <td className="sticky left-28 z-10 bg-white dark:bg-card group-hover:bg-blue-50/30 dark:group-hover:bg-muted/40 p-3 border-r border-gray-200 dark:border-border">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-gray-900 dark:text-foreground truncate max-w-[220px]" title={lead.nazwa_firmy}>
-                        {lead.nazwa_firmy}
+                      <span className="font-semibold text-gray-900 dark:text-foreground truncate max-w-[220px]" title={lead.nazwa}>
+                        {lead.nazwa}
                       </span>
                       {lead.has_video_demo && (
                         <button
@@ -836,7 +836,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
                       {selectedVideoLead.video_demo_title}
                     </DialogTitle>
                     <DialogDescription className="text-xs text-zinc-400">
-                      {selectedVideoLead.nazwa_firmy} — {selectedVideoLead.video_demo_desc}
+                      {selectedVideoLead.nazwa} — {selectedVideoLead.video_demo_desc}
                     </DialogDescription>
                   </div>
                 </div>

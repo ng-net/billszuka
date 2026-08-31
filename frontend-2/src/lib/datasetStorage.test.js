@@ -34,8 +34,8 @@ globalThis.localStorage = {
 
 function payload(overrides = {}) {
   return {
-    columns: [{ id: "kraj" }, { id: "nazwa_firmy" }],
-    rows: [{ kraj: "PL", nazwa_firmy: "ACME" }],
+    columns: [{ id: "kraj" }, { id: "nazwa" }],
+    rows: [{ kraj: "PL", nazwa: "ACME" }],
     schema: [],
     parseTimeMs: 12,
     size: 225319,
@@ -53,7 +53,7 @@ test("saveMasterCache then getMasterCache round-trips rows + columns", async () 
   const restored = await getMasterCache("test_profile_a");
   assert.ok(restored, "expected cache hit");
   assert.equal(restored.rows.length, 1);
-  assert.equal(restored.rows[0].nazwa_firmy, "ACME");
+  assert.equal(restored.rows[0].nazwa, "ACME");
   assert.equal(restored.columns.length, 2);
   assert.equal(restored.size, 225319);
 });
@@ -67,14 +67,14 @@ test("getMasterCache returns null when nothing has been saved", async () => {
 test("clearMasterCache removes only the master cache, not custom datasets", async () => {
   // Seed both kinds of data under the same profile
   await saveMasterCache("test_profile_b", payload());
-  await saveCustomDataset("test_profile_b", payload({ rows: [{ kraj: "CZ", nazwa_firmy: "Foo" }] }));
+  await saveCustomDataset("test_profile_b", payload({ rows: [{ kraj: "CZ", nazwa: "Foo" }] }));
 
   await clearMasterCache("test_profile_b");
 
   assert.equal(await getMasterCache("test_profile_b"), null, "master cache should be cleared");
   const custom = await getCustomDataset("test_profile_b");
   assert.ok(custom, "custom dataset should still exist");
-  assert.equal(custom.rows[0].nazwa_firmy, "Foo");
+  assert.equal(custom.rows[0].nazwa, "Foo");
 });
 
 test("clearCustomDataset wipes the master cache too (logout semantics)", async () => {
@@ -91,11 +91,11 @@ test("clearCustomDataset wipes the master cache too (logout semantics)", async (
 });
 
 test("different profiles get independent caches", async () => {
-  await saveMasterCache("test_profile_d1", payload({ rows: [{ kraj: "PL", nazwa_firmy: "D1" }] }));
-  await saveMasterCache("test_profile_d2", payload({ rows: [{ kraj: "PL", nazwa_firmy: "D2" }] }));
+  await saveMasterCache("test_profile_d1", payload({ rows: [{ kraj: "PL", nazwa: "D1" }] }));
+  await saveMasterCache("test_profile_d2", payload({ rows: [{ kraj: "PL", nazwa: "D2" }] }));
 
   const a = await getMasterCache("test_profile_d1");
   const b = await getMasterCache("test_profile_d2");
-  assert.equal(a.rows[0].nazwa_firmy, "D1");
-  assert.equal(b.rows[0].nazwa_firmy, "D2");
+  assert.equal(a.rows[0].nazwa, "D1");
+  assert.equal(b.rows[0].nazwa, "D2");
 });

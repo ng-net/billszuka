@@ -157,7 +157,7 @@ def tool3_registry(nip: str, country_code: str) -> dict:
 def verify_lead(lead: dict) -> dict:
     """Run all applicable tools on a lead. Returns verdict + evidence."""
     id_ = lead.get("id", "")
-    name = lead.get("nazwa_firmy", "")
+    name = lead.get("nazwa", "")
     country_code = lead.get("kraj", "")
     www = lead.get("www", "")
     nip = lead.get("nip_vat", "")
@@ -232,7 +232,7 @@ def main() -> int:
 
     if args.dry_run:
         for l in leads:
-            print(f"  {l.get('id')}: {l.get('nazwa_firmy')} ({l.get('kraj')})")
+            print(f"  {l.get('id')}: {l.get('nazwa')} ({l.get('kraj')})")
         return 0
 
     RUNS_DIR.mkdir(parents=True, exist_ok=True)

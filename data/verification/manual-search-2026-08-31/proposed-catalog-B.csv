@@ -1,4 +1,4 @@
-id,country,iso,nazwa_firmy,miasto,www,kategoria,tier,email,telefon,kanal_sprzedaży,decydent,powinowactwo_nabijarki,marki_nabijarki,notatki,sourcing,flagi,wolumen,confidence_wolumen,vat_id,address
+id,country,iso,nazwa,miasto,www,kategoria,tier,email,telefon,kanal_sprzedaży,decydent,powinowactwo_nabijarki,marki_nabijarki,notatki,sourcing,flagi,wolumen,confidence_wolumen,vat_id,address
 BG-B-027,Bułgaria,BG,Darimex Trading Ltd.,,https://www.darimex.net/cigarette-packaging,B5,średni,office@darimex.net,,B2B wholesale,,2,,,manual-google-search-2026-08-31,DO-WERYFIKACJI,,,,Varna
 BG-B-028,Bułgaria,BG,Skipter Ltd.,,https://skipter.bg/en/about-us/,B5,średni,info@skipter.bg,+359 897 944 222,B2B wholesale,,2,,,manual-google-search-2026-08-31,DO-WERYFIKACJI,,,,"1510 Sofia, Bulgaria"
 BG-B-029,Bułgaria,BG,Unipack AD,,https://www.unipackbg.com/en/product/tobacco-packaging,B5,średni,unipack@unipackbg.com,+359 610 51 104,B2B wholesale,,2,,,manual-google-search-2026-08-31,DO-WERYFIKACJI,,,,Pavlikeni

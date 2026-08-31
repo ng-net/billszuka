@@ -256,7 +256,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [prefs]);
 
   // Initialize column order from CSV columns when loaded.
-  // Move id and nazwa_firmy to the front (sticky on mobile).
+  // Move id and nazwa to the front (sticky on mobile).
   // We derive from prefs + csv.columns instead of mirroring into prefs —
   // this is a one-time migration done on the fly, and avoids the
   // setState-in-effect antipattern.
@@ -266,7 +266,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     const base = rawColumnOrder && rawColumnOrder.length > 0 && rawColumnOrder.every((c) => csv.columns.includes(c))
       ? rawColumnOrder
       : csv.columns;
-    const pinned = ["id", "nazwa_firmy"].filter((c) => base.includes(c));
+    const pinned = ["id", "nazwa"].filter((c) => base.includes(c));
     const rest = base.filter((c) => !pinned.includes(c));
     return [...pinned, ...rest];
   }, [rawColumnOrder, csv.columns]);

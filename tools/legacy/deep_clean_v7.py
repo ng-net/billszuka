@@ -26,7 +26,7 @@ REMOVE_IDS = {
 
 UPDATES = {
     "PL-B-150": {
-        "nazwa_firmy": "\"KAMEL A.K. DEPIŃSKA-FOŁDA\" SPÓŁKA JAWNA",
+        "nazwa": "\"KAMEL A.K. DEPIŃSKA-FOŁDA\" SPÓŁKA JAWNA",
         "nip_vat": "PL6652367882",
         "rejestr_id": "KRS 0000009417",
         "adres": "ul. Wioślarska 16, 62-510 Konin",
@@ -35,7 +35,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000009417 | REGON 311080171",
     },
     "PL-B-151": {
-        "nazwa_firmy": "MINOS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "MINOS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL7962427567",
         "rejestr_id": "KRS 0000189777",
         "adres": "ul. Lubelska 9, 26-600 Radom",
@@ -44,7 +44,7 @@ UPDATES = {
         "zrodlo_danych": "KRS 0000189777 | REGON 672718205",
     },
     "PL-B-166": {
-        "nazwa_firmy": "PAVOLT Paweł Dziurkowski (Pavolt.pl)",
+        "nazwa": "PAVOLT Paweł Dziurkowski (Pavolt.pl)",
         "nip_vat": "PL9492206509",
         "rejestr_id": "REGON 364031263",
         "adres": "ul. Główna 8, 42-256 Zrębice Pierwsze",

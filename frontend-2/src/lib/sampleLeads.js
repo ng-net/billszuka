@@ -155,7 +155,7 @@ export function getSampleLeads() {
 
     out.push({
       id: makeId(country, i),
-      nazwa_firmy: name,
+      nazwa: name,
       kraj: country,
       miasto: city,
       adres: `${street} ${streetNum}, ${postal} ${city}`,

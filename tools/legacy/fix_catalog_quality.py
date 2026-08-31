@@ -100,7 +100,7 @@ def normalize(s: str) -> str:
 
 
 def is_noise(row: dict) -> bool:
-    name = row.get("nazwa_firmy", "").lower().strip()
+    name = row.get("nazwa", "").lower().strip()
     www = row.get("www", "").lower()
     combined = name + " " + www
 
@@ -120,7 +120,7 @@ def load_place_ids_and_names(path: Path) -> tuple[set, set]:
         rid = row.get("rejestr_id", "").strip()
         if rid and rid != "brak" and rid.startswith("ChIJ"):
             place_ids.add(rid)
-        n = normalize(row.get("nazwa_firmy", ""))
+        n = normalize(row.get("nazwa", ""))
         if n:
             names.add(n)
     return place_ids, names
@@ -146,7 +146,7 @@ def fix_catalog(cat_path: Path, iso: str, cat_type: str,
     if cat_type == "B":
         for r in clean1:
             rid = r.get("rejestr_id", "").strip()
-            n = normalize(r.get("nazwa_firmy", ""))
+            n = normalize(r.get("nazwa", ""))
             if (rid and rid in a_place_ids) or (n and n in a_names):
                 stats["dup_a"] += 1
             else:
@@ -159,7 +159,7 @@ def fix_catalog(cat_path: Path, iso: str, cat_type: str,
     clean3 = []
     for r in clean2:
         rid = r.get("rejestr_id", "").strip()
-        n = normalize(r.get("nazwa_firmy", ""))
+        n = normalize(r.get("nazwa", ""))
         if rid and rid != "brak" and rid in seen_ids:
             stats["dup_self"] += 1
             continue

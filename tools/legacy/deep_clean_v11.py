@@ -14,49 +14,49 @@ from config import CANONICAL_SCHEMA, COUNTRY_MAP, DATA_DIR
 
 UPDATES = {
     "PL-A-013": {
-        "nazwa_firmy": "ENZO VAPE CITY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "ENZO VAPE CITY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL6722094396",
         "flagi": "✅ FROZEN (VIES / KRS)",
         "zrodlo_danych": "VIES PL6722094396 | KRS API",
     },
     "PL-A-023": {
-        "nazwa_firmy": "BEMAG K. WOŁOSZYN SPÓŁKA KOMANDYTOWA",
+        "nazwa": "BEMAG K. WOŁOSZYN SPÓŁKA KOMANDYTOWA",
         "nip_vat": "PL7891798278",
         "flagi": "✅ FROZEN (VIES / KRS)",
         "zrodlo_danych": "VIES PL7891798278 | KRS API",
     },
     "PL-A-024": {
-        "nazwa_firmy": "HORST SPÓŁKA CYWILNA ANNA KRAWCZYK, KRZYSZTOF PŁACZKIEWICZ",
+        "nazwa": "HORST SPÓŁKA CYWILNA ANNA KRAWCZYK, KRZYSZTOF PŁACZKIEWICZ",
         "nip_vat": "PL9492162686",
         "flagi": "✅ FROZEN (VIES / CEIDG)",
         "zrodlo_danych": "VIES PL9492162686 | CEIDG",
     },
     "PL-A-026": {
-        "nazwa_firmy": "PARROT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+        "nazwa": "PARROT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
         "nip_vat": "PL6772450396",
         "flagi": "✅ FROZEN (VIES / KRS)",
         "zrodlo_danych": "VIES PL6772450396 | KRS API",
     },
     "PL-A-027": {
-        "nazwa_firmy": "PLASTECH PAWEŁ WIŚNIEWSKI SPÓŁKA KOMANDYTOWO-AKCYJNA",
+        "nazwa": "PLASTECH PAWEŁ WIŚNIEWSKI SPÓŁKA KOMANDYTOWO-AKCYJNA",
         "nip_vat": "PL9562374503",
         "flagi": "✅ FROZEN (VIES / KRS)",
         "zrodlo_danych": "VIES PL9562374503 | KRS API",
     },
     "PL-A-029": {
-        "nazwa_firmy": "ZOLTA TRADE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (zolta.pl)",
+        "nazwa": "ZOLTA TRADE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (zolta.pl)",
         "nip_vat": "PL8172183841",
         "flagi": "✅ FROZEN (VIES / KRS)",
         "zrodlo_danych": "VIES PL8172183841 | KRS API | zolta.pl",
     },
     "PL-A-030": {
-        "nazwa_firmy": "PRIMA-TECH JERZY ROTT, SANDRA ROTT S.C. (primarket.pl)",
+        "nazwa": "PRIMA-TECH JERZY ROTT, SANDRA ROTT S.C. (primarket.pl)",
         "nip_vat": "PL9491922250",
         "flagi": "✅ FROZEN (VIES / CEIDG)",
         "zrodlo_danych": "VIES PL949192250 | CEIDG | primarket.pl",
     },
     "PL-A-031": {
-        "nazwa_firmy": "P&P CIGARRO.PL MARCIN PLESZKO TOMASZ PRZYGOŃSKI S.C. (cigarro.pl)",
+        "nazwa": "P&P CIGARRO.PL MARCIN PLESZKO TOMASZ PRZYGOŃSKI S.C. (cigarro.pl)",
         "nip_vat": "PL8513011898",
         "rejestr_id": "REGON 320355681",
         "flagi": "✅ FROZEN (CEIDG / KRS)",

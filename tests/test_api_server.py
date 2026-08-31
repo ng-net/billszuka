@@ -35,7 +35,7 @@ def tmp_data(monkeypatch, tmp_path):
     pl.mkdir()
     with (pl / "catalog-A-PL.csv").open("w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["kraj", "nazwa_firmy", "nip_vat", "flagi"])
+        w.writerow(["kraj", "nazwa", "nip_vat", "flagi"])
         w.writerow(["PL", "BILLS SP ZOO", "PL1234567890", "FROZEN"])
         w.writerow(["PL", "TEST SA", "PL9999999999", "DO-WERYFIKACJI"])
     (tmp_path / "sales_data.csv").write_text("month,revenue\n2026-01,1000\n2026-02,2000\n")
@@ -43,7 +43,7 @@ def tmp_data(monkeypatch, tmp_path):
     # "master.csv" without first hitting /api/sync to regenerate it.
     with (tmp_path / "master.csv").open("w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["kraj", "nazwa_firmy", "nip_vat", "flagi"])
+        w.writerow(["kraj", "nazwa", "nip_vat", "flagi"])
         w.writerow(["PL", "BILLS SP ZOO", "PL1234567890", "FROZEN"])
         w.writerow(["PL", "TEST SA", "PL9999999999", "DO-WERYFIKACJI"])
     return tmp_path
@@ -161,7 +161,7 @@ class TestDatasetDetail:
         assert r.status_code == 200
         data = r.json()
         assert data["filename"] == "catalog-A-PL.csv"
-        assert data["columns"] == ["kraj", "nazwa_firmy", "nip_vat", "flagi"]
+        assert data["columns"] == ["kraj", "nazwa", "nip_vat", "flagi"]
         assert data["total_rows"] == 2
         assert len(data["data"]) == 2
         assert data["data"][0][1] == "BILLS SP ZOO"

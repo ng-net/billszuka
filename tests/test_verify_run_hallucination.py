@@ -77,7 +77,7 @@ class TestVerifyRowMod11PreFlight:
         return {
             "kraj": "PL",
             "id": "PL-TEST",
-            "nazwa_firmy": "TEST FIRMA SP. Z O.O.",
+            "nazwa": "TEST FIRMA SP. Z O.O.",
             "nip_vat": nip,
             "rejestr_id": krs,
             "zrodlo_danych": zrodlo,
@@ -137,7 +137,7 @@ class TestVerifyRowKrsPreFlight:
         return {
             "kraj": "PL",
             "id": "PL-TEST",
-            "nazwa_firmy": name,
+            "nazwa": name,
             "nip_vat": nip,
             "rejestr_id": krs,
             "zrodlo_danych": f"{krs} | {name[:20]}",

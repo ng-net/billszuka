@@ -70,7 +70,7 @@ export function ExperimentViewV3({ leads = [] }) {
     return leads.filter((r) => {
       if (q) {
         const hay =
-          (r.nazwa_firmy || "") + " " + (r.miasto || "") + " " + (r.nip_vat || "");
+          (r.nazwa || "") + " " + (r.miasto || "") + " " + (r.nip_vat || "");
         if (!hay.toLowerCase().includes(q)) return false;
       }
       if (activeBrand === "PowerMatic" && !/powermatic/i.test(r.marki_nabijarki || "")) return false;
@@ -304,7 +304,7 @@ export function ExperimentViewV3({ leads = [] }) {
                 </tr>
               ) : (
                 filtered.map((r) => {
-                  const init = (r.nazwa_firmy || "?").trim().charAt(0).toUpperCase();
+                  const init = (r.nazwa || "?").trim().charAt(0).toUpperCase();
                   return (
                     <tr
                       key={r.id}
@@ -324,7 +324,7 @@ export function ExperimentViewV3({ leads = [] }) {
                           </div>
                           <div className="min-w-0">
                             <div className="font-semibold text-slate-900 text-[13px] truncate">
-                              {r.nazwa_firmy}
+                              {r.nazwa}
                             </div>
                             <div className="text-[11px] font-mono text-slate-400 truncate">
                               {r.id} · {r.www?.replace(/^https?:\/\//, "")}

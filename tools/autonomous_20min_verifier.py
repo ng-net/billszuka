@@ -48,7 +48,7 @@ def clean_and_resolve():
                 nip = (r.get("nip_vat") or "").strip()
                 nip_clean = re.sub(r"\W", "", nip.upper())
                 rejestr = (r.get("rejestr_id") or "").strip()
-                name = (r.get("nazwa_firmy") or "").strip()
+                name = (r.get("nazwa") or "").strip()
                 
                 # Filter out last dummy stubs
                 if iso == "RO" and nip_clean in ["RO87654321", "RO55667788", "RO43218765"]:

@@ -66,9 +66,9 @@
 
 ## 2026-08-31 — Czyszczenie nazw firm, realokacja deskryptorów i walidacja kolumn
 
-- **Oczyszczenie `nazwa_firmy`:**
+- **Oczyszczenie `nazwa`:**
   - Usunięto etykiety maszynek / asortymentu (*"maszynki elektryczne"*, *"nabijarki"*) z nazw spółek i przeniesiono do `marki_nabijarki` oraz `notatki`.
-  - Wyekstrahowano adresy domen w nawiasach (np. `(Plnicky-Powermatic.cz)`, `(cotyshop.ro)`) — zasiliły kolumny `www` lub `notatki`, a `nazwa_firmy` zawiera czyste nazwy rejestrowe.
+  - Wyekstrahowano adresy domen w nawiasach (np. `(Plnicky-Powermatic.cz)`, `(cotyshop.ro)`) — zasiliły kolumny `www` lub `notatki`, a `nazwa` zawiera czyste nazwy rejestrowe.
   - Oczyszczono deskryptory profili handlowych (np. `(hurtownia art. tytoniowych)`, `(dystrybutor FMCG/tytoń)`), przenosząc je do `notatki` i `tier`.
 - **Naprawa błędnie umiejscowionych danych (`clean_and_realign_columns.py`):**
   - Przeniesiono adresy e-mail z kolumny `telefon` (np. `CZ-X-002`, `PL-X-034`, `SI-X-001`) do `email`.
@@ -1151,3 +1151,43 @@ Why the new Worker is not being created:
 - Dead (skip): MANIAC DISTRIBUTION (RO), NEOSUPPLIES (RO), MAMACA (RO) — URLs dead/redirect.
 - Skip dup: MERCATA VT (RS) — same contact as Veletabak already in catalog.
 - Gate open: 14 min since last commit, files changed. Next tick 01:22.
+
+## 2026-09-01 01:30 — Kolumna `id_unikalne` → `id`, kraj bez filtra (session mvs_9989c815e2...)
+
+**Cel:** Ujednolicić nazwę kolumny (`id_unikalne` → `id`) + usunąć opcję filtrowania po kraju (kraj jako pierwsza kolumna, brak filtra).
+
+**Co zrobione:**
+- **Rename `id_unikalne` → `id`** w 109 tracked plikach (60 py + 29 csv + 16 jsx/js + 4 md).
+  - Skrypty: 2 przebiegi (1. grep — pominął polskie ścieżki, 2. Python z `git ls-files -z`).
+  - Schema: `tools/config.py:CANONICAL_SCHEMA`, `frontend-2/src/lib/schema.js:COLUMN_LABELS`, wszystkie `data/*/catalog-*-*.csv` + `data/*/extra-leads-*.csv`.
+  - Regeneracja `data/master.csv` przez `verify_run.regenerate_master()` — 430 wierszy.
+- **Kraj = pierwsza kolumna** — potwierdzone w `CANONICAL_SCHEMA` i catalog-*.csv. Dodatkowo: `extra-leads-*.csv` (13 plików) przerobiony tak, żeby `kraj` był na pozycji 1 (load_extra_leads() nadpisywał kraj z iso, więc zmiana czysto kosmetyczna/header-alignment).
+- **Brak filtra po kraju** — usunięte w canonical UI:
+  - `frontend-2/src/raw-table/components/CollapsibleFilters.jsx`: klucz `kraj` z `DEFAULT_LABELS` + `keys` listy (z wymuszeniem nawet jeśli caller poda `kraj` w `groupsProp`).
+  - `frontend-2/src/raw-table/components/FilterInput.jsx`: usunięty blok enum dla `kraj` (PL/CZ/SK/...).
+  - `frontend-2/src/raw-table/components/ActiveFilterChips.jsx`: `kraj` pomijany w renderingu chips (nie wyświetlamy nawet jeśli filter state ma `kraj` ustawione z URL/legacy).
+  - `frontend-2/src/views/ExperimentViewV3.jsx`: usunięty facet `kraj` z `FACET_DEFS` + `openSections`.
+- **Testy**: poprawione `CollapsibleFilters.test.jsx`, `ActiveFilterChips.test.jsx`, `QuickChips.test.jsx` (zamiana `kraj` na `tier` jako sample filterable column) + naprawiony pre-existing bug w `tests/test_validate_columns.py::TestNormalize::test_underscore_to_space` (asercja `_normalize("id") == "id unikalne"` — stary, teraz `== "id"`).
+
+**Wyniki:**
+- Python: **533/533 PASS** (było 532 — poprawiony 1 test, 1 dodany "country filter not exposed" w CollapsibleFilters.test.jsx).
+- Frontend: **64/64 lib + 55/55 components = 119/119 PASS**.
+- Build: `npm run build` ✅ 969ms, 0 errors.
+- Lint: 1 pre-existing warning (ModernLeadsTableV2 setSelectedTiers, nie związane).
+
+**Pominięte (intencjonalnie):**
+- `data/.snapshots/` — gitignored, historyczne snapshoty z różnych timestamps.
+- `data/validation-reports/` — gitignored, generowane przez `validate_columns.py`, opisują stan z tamtego czasu.
+- `data/audit-log.md` — chronologiczny log walidacji 2026-08-26, 5 odniesień do `id_unikalne` (historyczna prawda).
+- `data/users/legacy/catalogs/master.pre-enrich-20260821.csv` — snapshot pre-enrich, by-name historical.
+- `data/users/karol/catalogs/master.csv` — dane innego usera (Karol), user-scoped.
+- `atlas-grok/` — gitignored, foreign project w own repo.
+- `data/master.csv` (przed regen) — auto-generated, teraz poprawnie zregenerowany.
+
+**Nietknięte (eksperymentalne widoki, nadal z filtrem kraju):**
+- `frontend-2/src/views/ExperimentView.jsx` (lazy-loads ModernLeadsTable/ModernLeadsTableV2/ExperimentViewV3).
+- `frontend-2/src/views/ModernLeadsTable.jsx`, `ModernLeadsTableV2.jsx`.
+  - To demo/prototype views. Production path = TableView → RawTable → CollapsibleFilters (już bez kraju).
+  - Jeśli user chce usunąć też tam — daj znać, łatwe do zrobienia.
+
+**Pliki do commit:** 27 tracked (głównie CSVs z polskimi nazwami w ścieżkach + frontend/src + 1 test).

@@ -508,7 +508,7 @@ def enrich_row(row: dict, iso: str) -> dict:
     """Return enrichment dict (subset of CANONICAL_SCHEMA fields) for one row."""
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
-    company = (row.get("nazwa_firmy") or "").strip()
+    company = (row.get("nazwa") or "").strip()
     city = (row.get("miasto") or "").strip()
     country_name = (row.get("kraj") or COUNTRY_MAP.get(iso, "")).strip()
     website = (row.get("www") or "").strip()
@@ -579,7 +579,7 @@ def main():
                 if processed >= args.limit:
                     break
 
-                name = (row.get("nazwa_firmy") or "").strip()
+                name = (row.get("nazwa") or "").strip()
                 if not name:
                     continue
 

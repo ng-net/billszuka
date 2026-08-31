@@ -124,7 +124,7 @@ def load_catalog(path: Path) -> tuple[list[dict], list[str]]:
     if not path.exists():
         return [], []
     rows = list(csv.DictReader(open(path, encoding="utf-8")))
-    names = [normalize(r.get("nazwa_firmy", "")) for r in rows]
+    names = [normalize(r.get("nazwa", "")) for r in rows]
     return rows, names
 
 
@@ -178,7 +178,7 @@ def main():
         row = {k: "" for k in CANONICAL_SCHEMA}
         row["id"] = make_id(iso, cat, counter)
         row["kategoria"] = f"{cat}9" if cat == "B" else f"{cat}1"
-        row["nazwa_firmy"] = lead["name"]
+        row["nazwa"] = lead["name"]
         row["kraj"] = iso
         row["miasto"] = lead.get("city", "")
         row["www"] = lead.get("www", "")

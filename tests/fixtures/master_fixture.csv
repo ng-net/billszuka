@@ -1,4 +1,4 @@
-related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,tier,wolumen,flagi
+related_to,rok_zalozenia,id,kategoria,nazwa,kraj,tier,wolumen,flagi
 ,2022,PL-A-001,A1,FIRMA ALFA,PL,hurtownik,duży,"2026-08-18 ✅ FROZEN (API)"
 ,2023,PL-B-001,B4,FIRMA BETA,PL,hurtownik,średni,"2026-08-18 ✅ FROZEN (API)"
 ,2021,PL-C-001,A2,FIRMA GAMMA,PL,reseller,mały,"2026-08-18 ⚠️ DO-WERYFIKACJI (API)"

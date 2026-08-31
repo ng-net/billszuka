@@ -126,7 +126,7 @@ frontend-2/
 
 - 5,000 rows × 35 columns: parse ~100-300ms, virtualized render, sort/filter <50ms
 - Default visible columns: 28 (7 hidden by default, see above)
-- First 2 columns (`id`, `nazwa_firmy`) are pinned left on mobile
+- First 2 columns (`id`, `nazwa`) are pinned left on mobile
 - Type inference: text / number / date / url / email / phone / enum (≤10 unique values)
 - Cells: URL → clickable link, email → mailto, phone → tel, date → Polish locale, enum/tier → colored badge
 - Click any cell → copy to clipboard (toast)

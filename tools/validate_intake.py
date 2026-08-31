@@ -201,7 +201,7 @@ def load_existing_catalog(country: str) -> dict[str, dict]:
     for r in rows:
         rid = (r.get("rejestr_id") or "").strip()
         nip = (r.get("nip_vat") or "").strip()
-        nm = (r.get("nazwa_firmy") or "").strip().lower()
+        nm = (r.get("nazwa") or "").strip().lower()
         if rid:
             by_rejestr[rid] = r
         if nip:

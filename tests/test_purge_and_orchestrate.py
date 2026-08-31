@@ -95,18 +95,18 @@ class TestPurgeRegexAndAllowlist:
         assert "Dummy pattern in rejestr_id" in reason
 
         # 5. MD empty stub
-        res, reason = is_hallucinated({"nazwa_firmy": "Moldova Tobacco Trade"}, "MD")
+        res, reason = is_hallucinated({"nazwa": "Moldova Tobacco Trade"}, "MD")
         assert res is True
         assert "Empty stub" in reason
 
         # 6. Generic placeholder names
-        res, reason = is_hallucinated({"nazwa_firmy": "Smoke Shop"}, "PL")
+        res, reason = is_hallucinated({"nazwa": "Smoke Shop"}, "PL")
         assert res is True
         assert "Generic placeholder name" in reason
 
         # 7. Valid row
         valid_row = {
-            "nazwa_firmy": "BILLS Sp. z o.o.",
+            "nazwa": "BILLS Sp. z o.o.",
             "nip_vat": "5140361901",
             "rejestr_id": "0000854321",
             "zrodlo_danych": "KRS API",
@@ -124,7 +124,7 @@ class TestPurgeExecutionAndQuarantine:
         records = [
             {
                 "kraj": "PL",
-                "nazwa_firmy": "Fake Company",
+                "nazwa": "Fake Company",
                 "nip_vat": "123456",
                 "purge_reason": "Dummy pattern in NIP (123456)",
                 "purged_at": "2026-08-31T12:00:00Z"
@@ -137,7 +137,7 @@ class TestPurgeExecutionAndQuarantine:
             reader = csv.DictReader(f)
             rows = list(reader)
             assert len(rows) == 1
-            assert rows[0]["nazwa_firmy"] == "Fake Company"
+            assert rows[0]["nazwa"] == "Fake Company"
             assert rows[0]["purge_reason"] == "Dummy pattern in NIP (123456)"
             assert rows[0]["purged_at"] == "2026-08-31T12:00:00Z"
             assert "kraj" in rows[0]
@@ -208,7 +208,7 @@ class TestAddLeadDeduplication:
             # write row with NIP 5140361901
             row1 = {col: "" for col in CANONICAL_SCHEMA}
             row1["nip_vat"] = "5140361901"
-            row1["nazwa_firmy"] = "BILLS Sp. z o.o."
+            row1["nazwa"] = "BILLS Sp. z o.o."
             w.writerow(row1)
 
         test_plans = {
@@ -271,5 +271,5 @@ class TestAddLeadDeduplication:
         with open(csv_file, "r", encoding="utf-8") as f:
             rows = list(csv.DictReader(f))
             assert len(rows) == 2
-            assert rows[0]["nazwa_firmy"] == "Lead No NIP 1"
-            assert rows[1]["nazwa_firmy"] == "Lead No NIP 2"
+            assert rows[0]["nazwa"] == "Lead No NIP 1"
+            assert rows[1]["nazwa"] == "Lead No NIP 2"

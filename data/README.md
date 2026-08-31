@@ -46,7 +46,7 @@ Kody krajów w `id`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 | `rok_zalozenia` | YYYY | Rok rejestracji (KRS/CEIDG). Wiek = bieżący rok − rok. |
 | `id` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001`, `CZ-B-012` |
 | `kategoria` | enum | A1-A6 lub B1-B9 |
-| `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
+| `nazwa` | str | Pełna nazwa prawna lub handlowa |
 | `kraj` | ISO2 | Dwuliterowy kod |
 | `miasto` | str | |
 | `adres` | str | Ulica + numer + kod |
@@ -88,7 +88,7 @@ Kody krajów w `id`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 
 ## Wypełnianie
 
-- **Minimum** dla każdego rekordu: `id`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
+- **Minimum** dla każdego rekordu: `id`, `kategoria`, `nazwa`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
 - **Pełne dane**: wszystkie kolumny, źródła zweryfikowane, flagi ustawione
 - **Częściowe**: wypełnione kluczowe kolumny + notatka co jeszcze trzeba
 

@@ -1952,7 +1952,7 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
         for r in rows:
             score = 0
             searchable = " ".join([
-                str(r.get("nazwa_firmy") or ""),
+                str(r.get("nazwa") or ""),
                 str(r.get("id") or ""),
                 str(r.get("nip_vat") or ""),
                 str(r.get("rejestr_id") or ""),
@@ -1969,7 +1969,7 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
                 if ut in searchable:
                     score += 2
                     # Extra weight for exact match in company name or decydent or NIP
-                    if ut in str(r.get("nazwa_firmy") or "").lower():
+                    if ut in str(r.get("nazwa") or "").lower():
                         score += 3
                     if ut in str(r.get("decydent") or "").lower():
                         score += 3
@@ -1986,7 +1986,7 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
             for r in top_matches:
                 rec_parts = []
                 for k in [
-                    "id", "nazwa_firmy", "kraj", "miasto", "adres",
+                    "id", "nazwa", "kraj", "miasto", "adres",
                     "nip_vat", "rejestr_id", "decydent", "stanowisko",
                     "email", "telefon", "www", "tier", "marki_nabijarki",
                     "notatki", "flagi"

@@ -60,7 +60,7 @@ const TikTokIcon = ({ size = 16, className }) => (
 const generateLeads = (count) =>
   Array.from({ length: count }, (_, i) => ({
     id: `ID-${1000 + i}`,
-    nazwa_firmy:
+    nazwa:
       i === 0
         ? "PowerMatic Polska Distribution Sp. z o.o."
         : i === 1
@@ -124,7 +124,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matches =
-          (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
+          (lead.nazwa || "").toLowerCase().includes(q) ||
           (lead.nip_vat || "").toLowerCase().includes(q) ||
           (lead.miasto || "").toLowerCase().includes(q) ||
           (lead.id || "").toLowerCase().includes(q) ||
@@ -154,7 +154,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
     const rows = filteredLeads
       .map(
         (l) =>
-          `"${l.id}","${l.nazwa_firmy}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}"`
+          `"${l.id}","${l.nazwa}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}"`
       )
       .join("\n");
     const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8;" });
@@ -450,11 +450,11 @@ export function ModernLeadsTable({ leads: leadsProp }) {
                       <td className="p-4 sticky left-0 z-10 bg-white dark:bg-zinc-900 group-hover:bg-slate-50 dark:group-hover:bg-zinc-800/80 border-r border-slate-200 dark:border-zinc-700 transition-colors shadow-[1px_0_3px_rgba(0,0,0,0.03)]">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-100 to-slate-200 dark:from-indigo-900/60 dark:to-zinc-800 flex items-center justify-center text-slate-700 dark:text-indigo-200 font-bold text-lg shadow-inner shrink-0">
-                            {(lead.nazwa_firmy || "?").charAt(0)}
+                            {(lead.nazwa || "?").charAt(0)}
                           </div>
                           <div className="min-w-0">
                             <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm truncate">
-                              {lead.nazwa_firmy}
+                              {lead.nazwa}
                             </div>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">

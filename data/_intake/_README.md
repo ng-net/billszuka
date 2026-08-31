@@ -19,7 +19,7 @@ data/_intake/{ISO}/
 
 | Twój CSV (34) | Nasz master (37) | Co robimy |
 |---|---|---|
-| Kolumna 1:1 z naszą (np. `nazwa_firmy`) | ta sama | **bezpośrednio** — kopiujemy |
+| Kolumna 1:1 z naszą (np. `nazwa`) | ta sama | **bezpośrednio** — kopiujemy |
 | Kolumna u nas brak (extra info) | — | **decyzja per case**: jeśli verified → dopisz do `notatki`; jeśli śmieć → drop |
 | Nasza kolumna nieobecna u Ciebie | pusta w Twoim CSV | **uzupełniamy** z naszych źródeł (KRS/CEIDG/ARES) albo zostawiamy puste |
 | Kolumny specyficzne dla katalogu | rozróżniamy | `marki_nabijarki/marka_wlasna_oem` tylko w A; `powinowactwo_nabijarki/cross_sell_potential` tylko w B |

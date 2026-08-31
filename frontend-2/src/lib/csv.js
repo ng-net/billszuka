@@ -83,7 +83,7 @@ export function inferColumnType(values, columnId) {
   const uniques = new Set();
   for (const v of sample) {
     const s = String(v).trim();
-    if (s.includes(",") && !["adres", "nazwa_firmy", "notatki"].includes(columnId)) {
+    if (s.includes(",") && !["adres", "nazwa", "notatki"].includes(columnId)) {
       s.split(",").forEach((t) => {
         const item = t.trim();
         if (item && !isEmptyLike(item)) uniques.add(item);
@@ -251,7 +251,7 @@ export function getEnumValues(rows, columnId, max = 50) {
     const s = String(v).trim();
     if (!s || EMPTY_LIKE.has(s.toLowerCase())) continue;
     
-    if (s.includes(",") && !["adres", "nazwa_firmy", "notatki", "miasto"].includes(columnId)) {
+    if (s.includes(",") && !["adres", "nazwa", "notatki", "miasto"].includes(columnId)) {
       s.split(",").forEach((item) => {
         const trimmed = item.trim();
         if (trimmed && !EMPTY_LIKE.has(trimmed.toLowerCase())) {
