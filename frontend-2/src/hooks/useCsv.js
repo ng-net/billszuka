@@ -108,15 +108,17 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
     }
   }, [minLoadingMs]);
 
-  const loadUrl = useCallback(async (url, displayName, sizeHint) => {
+  const loadUrl = useCallback(async (url, displayName, sizeHint, { background = false } = {}) => {
     if (abortRef.current) abortRef.current.abort();
     const ac = new AbortController();
     abortRef.current = ac;
-    setStatus("loading");
+    if (!background) {
+      setStatus("loading");
+      setProgress({ rowsParsed: 0, bytesParsed: 0 });
+      setFileMeta({ name: displayName || url, size: sizeHint || 0 });
+      setStartedAt(performance.now());
+    }
     setError(null);
-    setProgress({ rowsParsed: 0, bytesParsed: 0 });
-    setFileMeta({ name: displayName || url, size: sizeHint || 0 });
-    setStartedAt(performance.now());
     const start = performance.now();
     // Track whether we've already updated fileMeta with the real size from
     // the response Content-Length (only needs to happen once).
@@ -124,35 +126,44 @@ export function useCsv({ minLoadingMs = MIN_LOADING_MS } = {}) {
     try {
       const result = await parseCsvUrl(url, {
         onProgress: (p) => {
-          // parseCsvUrl now passes totalBytes on every progress tick.
-          // On the first event that has a real size, patch fileMeta so
-          // LoadingState can compute a meaningful progress percentage.
-          if (!sizeResolved && p.totalBytes > 0) {
-            sizeResolved = true;
-            setFileMeta((prev) => ({ ...prev, size: p.totalBytes }));
+          if (!background) {
+            // parseCsvUrl now passes totalBytes on every progress tick.
+            // On the first event that has a real size, patch fileMeta so
+            // LoadingState can compute a meaningful progress percentage.
+            if (!sizeResolved && p.totalBytes > 0) {
+              sizeResolved = true;
+              setFileMeta((prev) => ({ ...prev, size: p.totalBytes }));
+            }
+            setProgress(p);
           }
-          setProgress(p);
         },
         signal: ac.signal,
       });
       if (ac.signal.aborted) return;
-      const elapsed = performance.now() - start;
-      if (elapsed < minLoadingMs) {
-        await new Promise((r) => setTimeout(r, minLoadingMs - elapsed));
+      if (!background) {
+        const elapsed = performance.now() - start;
+        if (elapsed < minLoadingMs) {
+          await new Promise((r) => setTimeout(r, minLoadingMs - elapsed));
+        }
       }
       if (ac.signal.aborted) return;
       setData({ columns: result.columns, rows: result.rows, schema: result.schema });
       setParseTimeMs(result.parseTimeMs);
+      setFileMeta({ name: displayName || url, size: result.size || sizeHint || 0 });
       setStatus("ready");
     } catch (e) {
       if (e?.name === "AbortError") {
-        setStatus("idle");
-        setFileMeta(null);
-        setStartedAt(null);
+        if (!background) {
+          setStatus("idle");
+          setFileMeta(null);
+          setStartedAt(null);
+        }
         return;
       }
-      setError(e?.message || String(e));
-      setStatus("error");
+      if (!background) {
+        setError(e?.message || String(e));
+        setStatus("error");
+      }
     }
   }, [minLoadingMs]);
 

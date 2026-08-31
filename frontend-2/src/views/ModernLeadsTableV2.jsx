@@ -193,8 +193,10 @@ const generateLeads = (count) =>
   });
 
 export function ModernLeadsTableV2({ leads: leadsProp }) {
-  const defaultMockLeads = useMemo(() => generateLeads(50), []);
-  const leads = leadsProp && leadsProp.length > 0 ? leadsProp : defaultMockLeads;
+  const leads = useMemo(
+    () => (leadsProp && leadsProp.length > 0 ? leadsProp : generateLeads(50)),
+    [leadsProp]
+  );
 
   const [expandedRow, setExpandedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");

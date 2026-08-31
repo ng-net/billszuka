@@ -121,6 +121,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     async function boot() {
       if (bootRef.current === 0 && csv.status === "idle") {
         bootRef.current = 1;
+        let hasCache = false;
         try {
           const activeInfo = await getActiveDatasetInfo();
           if (cancelled) return;
@@ -141,12 +142,12 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
           if (cancelled) return;
           if (masterCached && masterCached.rows && masterCached.rows.length > 0) {
             loadParsedDataRef.current(masterCached);
-            // Don't return — keep bootRef=1 so the background fetch still runs.
+            hasCache = true;
           }
         } catch {
           // fall through to master.csv
         }
-        loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0);
+        loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0, { background: hasCache });
       } else if (bootRef.current === 1 && csv.status === "error") {
         bootRef.current = 2;
         loadUrlRef.current(SAMPLE_URL, "master.csv (sample)", SAMPLE_SIZE);
@@ -261,8 +262,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // setState-in-effect antipattern.
   const rawColumnOrder = prefs.columnOrder;
   const columnOrder = useMemo(() => {
-    if (csv.columns.length === 0) return rawColumnOrder || csv.columns;
-    const base = rawColumnOrder && rawColumnOrder.every((c) => csv.columns.includes(c))
+    if (!csv.columns || csv.columns.length === 0) return rawColumnOrder || [];
+    const base = rawColumnOrder && rawColumnOrder.length > 0 && rawColumnOrder.every((c) => csv.columns.includes(c))
       ? rawColumnOrder
       : csv.columns;
     const pinned = ["id_unikalne", "nazwa_firmy"].filter((c) => base.includes(c));
@@ -292,7 +293,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   );
   // Filter out sort/filter entries that point to columns no longer in the CSV.
   const sortStack = useMemo(
-    () => (prefs.sortStack || []).filter((s) => csv.columns.includes(s.id)),
+    () => {
+      if (!csv.columns || csv.columns.length === 0) return prefs.sortStack || [];
+      return (prefs.sortStack || []).filter((s) => csv.columns.includes(s.id));
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.sortStack, csv.columns]
   );
@@ -300,11 +304,14 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // CSV columns. The CSV-column sanitizer stays for everything else so
   // stale filters don't sneak through after a schema change.
   const filters = useMemo(
-    () => Object.fromEntries(
-      Object.entries(prefs.filters || {}).filter(
-        ([k]) => k === SYNTHETIC_BRAND_COL || csv.columns.includes(k)
-      )
-    ),
+    () => {
+      if (!csv.columns || csv.columns.length === 0) return prefs.filters || {};
+      return Object.fromEntries(
+        Object.entries(prefs.filters || {}).filter(
+          ([k]) => k === SYNTHETIC_BRAND_COL || csv.columns.includes(k)
+        )
+      );
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.filters, csv.columns]
   );

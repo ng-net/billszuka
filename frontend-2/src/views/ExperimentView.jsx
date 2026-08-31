@@ -137,7 +137,19 @@ const generateLeads = (count) =>
   });
 
 export function ExperimentView() {
-  const [activeExperiment, setActiveExperiment] = useState("progresywny");
+  const [activeExperiment, setActiveExperiment] = useState(() => {
+    try {
+      return localStorage.getItem("czat-table.activeExperiment") || "progresywny";
+    } catch {
+      return "progresywny";
+    }
+  });
+  const handleSelectExperiment = (id) => {
+    setActiveExperiment(id);
+    try {
+      localStorage.setItem("czat-table.activeExperiment", id);
+    } catch {}
+  };
   const csv = useCsv();
 
   // Boot: load master.csv once when the tab opens.
@@ -161,28 +173,28 @@ export function ExperimentView() {
             label="Progresywny"
             icon={Sparkles}
             active={activeExperiment}
-            onSelect={setActiveExperiment}
+            onSelect={handleSelectExperiment}
           />
           <SubTab
             id="modern"
             label="Modern"
             icon={LayoutGrid}
             active={activeExperiment}
-            onSelect={setActiveExperiment}
+            onSelect={handleSelectExperiment}
           />
           <SubTab
             id="sticky-grid"
             label="Sticky Grid"
             icon={Film}
             active={activeExperiment}
-            onSelect={setActiveExperiment}
+            onSelect={handleSelectExperiment}
           />
           <SubTab
             id="sidebar-filter"
             label="Sidebar Filter"
             icon={PanelLeft}
             active={activeExperiment}
-            onSelect={setActiveExperiment}
+            onSelect={handleSelectExperiment}
           />
         </nav>
         <div className="flex items-center gap-3 text-xs text-muted-foreground">

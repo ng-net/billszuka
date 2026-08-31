@@ -101,7 +101,10 @@ const generateLeads = (count) =>
   }));
 
 export function ModernLeadsTable({ leads: leadsProp }) {
-  const [leads] = useState(() => leadsProp || generateLeads(50));
+  const leads = useMemo(
+    () => (leadsProp && leadsProp.length > 0 ? leadsProp : generateLeads(50)),
+    [leadsProp]
+  );
   const [expandedRow, setExpandedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Wszystkie");
