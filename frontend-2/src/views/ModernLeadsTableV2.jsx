@@ -19,6 +19,10 @@ import {
   EyeOff,
   LayoutGrid,
   ExternalLink,
+  CheckCircle2,
+  CircleDot,
+  CircleDashed,
+  Gauge,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UrlBadge } from "../components/UrlBadge";
@@ -194,7 +198,9 @@ const generateLeads = (count) =>
 
 export function ModernLeadsTableV2({ leads: leadsProp }) {
   const leads = useMemo(
-    () => (leadsProp && leadsProp.length > 0 ? leadsProp : generateLeads(50)),
+    // Fallback to demo data only when leadsProp is undefined (not passed).
+    // An explicit empty array `[]` means "no data" — render empty state.
+    () => (leadsProp === undefined ? generateLeads(50) : leadsProp),
     [leadsProp]
   );
 
@@ -615,8 +621,16 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Szukaj po nazwie, NIP, decydencie, telefonie lub mieście..."
-              className="w-full pl-10 pr-9 py-2 bg-slate-50 dark:bg-zinc-800/80 border-none rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900/10 dark:focus:ring-indigo-500/20 outline-none transition-all"
+              className="w-full pl-10 pr-20 py-2 bg-slate-50 dark:bg-zinc-800/80 border-none rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900/10 dark:focus:ring-indigo-500/20 outline-none transition-all"
             />
+            {!searchQuery && (
+              <kbd
+                aria-label="Skrót klawiaturowy: Command lub Control + K"
+                className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400 bg-white dark:bg-zinc-700 border border-slate-200 dark:border-zinc-600 rounded shadow-sm pointer-events-none"
+              >
+                ⌘K
+              </kbd>
+            )}
             {searchQuery && (
               <button
                 type="button"
@@ -634,38 +648,75 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
           {/* Filter Dropdowns */}
           <div className="relative">
             <button
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={countryDropdownOpen}
               onClick={() => {
                 setCountryDropdownOpen(!countryDropdownOpen);
                 setTierDropdownOpen(false);
                 setUrlDropdownOpen(false);
+                setConfidenceDropdownOpen(false);
               }}
               className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
             >
               <Globe size={16} className="text-slate-500 dark:text-slate-400" />
               <span>Kraj: {selectedCountry}</span>
+              {selectedCountries.length > 1 && (
+                <span className="ml-1 px-1.5 py-0.5 text-[10px] font-mono bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded">+{selectedCountries.length - 1}</span>
+              )}
               <ChevronDown size={14} className="text-slate-400" />
             </button>
-            {countryDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50 max-h-64 overflow-y-auto">
-                {countryOptions.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => {
-                      setSelectedCountry(c);
-                      setCountryDropdownOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
-                      selectedCountry === c
-                        ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
-                    }`}
-                  >
-                    <span>{c}</span>
-                    {selectedCountry === c && <Check size={14} />}
-                  </button>
-                ))}
-              </div>
-            )}
+            <div
+              role="listbox"
+              aria-label="Wybór kraju (Multi-select: kliknij kilka aby zaznaczyć)"
+              hidden={!countryDropdownOpen}
+              className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50 max-h-64 overflow-y-auto"
+            >
+                <p className="px-3 py-1 text-[10px] uppercase tracking-wide font-semibold text-slate-400 dark:text-slate-500">Multi-select</p>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={selectedCountries.length === 0}
+                  onClick={() => {
+                    setSelectedCountries([]);
+                    setSelectedCountry("Wszystkie");
+                    setCountryDropdownOpen(false);
+                  }}
+                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
+                    selectedCountries.length === 0
+                      ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                      : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                  }`}
+                >
+                  <span>Wszystkie</span>
+                  {selectedCountries.length === 0 && <Check size={14} />}
+                </button>
+                {countryOptions.map((c) => {
+                  const isSelected = selectedCountries.includes(c);
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => {
+                        setSelectedCountries((prev) =>
+                          isSelected ? prev.filter((x) => x !== c) : [...prev, c]
+                        );
+                        setSelectedCountry(c);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
+                        isSelected
+                          ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                      }`}
+                    >
+                      <span>{c}</span>
+                      {isSelected && <Check size={14} />}
+                    </button>
+                  );
+                })}
+            </div>
           </div>
 
           <div className="relative">
@@ -729,29 +780,102 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
             {urlDropdownOpen && (
               <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
                 {[
-                  { id: "Wszystkie", label: "Wszystkie WWW" },
-                  { id: "ok", label: "🟢 Działające (200 OK)" },
-                  { id: "error", label: "🔴 Błędy (4xx/5xx/DNS)" },
-                  { id: "none", label: "⚪ Brak / Nieznane" },
-                ].map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => {
-                      setSelectedUrlFilter(opt.id);
-                      setUrlDropdownOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
-                      selectedUrlFilter === opt.id
-                        ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
-                    }`}
-                  >
-                    <span>{opt.label}</span>
-                    {selectedUrlFilter === opt.id && <Check size={14} />}
-                  </button>
-                ))}
+                  { id: "Wszystkie", label: "Wszystkie WWW", icon: null },
+                  { id: "ok", label: "Działające (200 OK)", icon: CheckCircle2 },
+                  { id: "error", label: "Błędy (4xx/5xx/DNS)", icon: X },
+                  { id: "none", label: "Brak / Nieznane", icon: CircleDashed },
+                ].map((opt) => {
+                  const Icon = opt.icon;
+                  return (
+                    <button
+                      key={opt.id}
+                      onClick={() => {
+                        setSelectedUrlFilter(opt.id);
+                        setUrlDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
+                        selectedUrlFilter === opt.id
+                          ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                      }`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        {Icon && <Icon size={13} className="text-slate-400" />}
+                        {opt.label}
+                      </span>
+                      {selectedUrlFilter === opt.id && <Check size={14} />}
+                    </button>
+                  );
+                })}
               </div>
             )}
+          </div>
+
+          {/* Confidence dropdown (🟢/🟡/🔴) */}
+          <div className="relative">
+            <button
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={confidenceDropdownOpen}
+              onClick={() => {
+                setConfidenceDropdownOpen(!confidenceDropdownOpen);
+                setCountryDropdownOpen(false);
+                setTierDropdownOpen(false);
+                setUrlDropdownOpen(false);
+              }}
+              className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
+            >
+              <Gauge size={16} className="text-slate-500 dark:text-slate-400" />
+              <span>
+                Confidence:{" "}
+                {selectedConfidence === "green"
+                  ? "🟢 tylko"
+                  : selectedConfidence === "green_yellow"
+                  ? "🟢+🟡"
+                  : selectedConfidence === "none"
+                  ? "brak"
+                  : "wszystkie"}
+              </span>
+              <ChevronDown size={14} className="text-slate-400" />
+            </button>
+            <div
+              role="listbox"
+              aria-label="Filtr confidence"
+              hidden={!confidenceDropdownOpen}
+              className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50"
+            >
+                {[
+                  { id: "all", label: "Wszystkie", icon: CircleDot },
+                  { id: "green", label: "Tylko 🟢 zweryfikowane", icon: CheckCircle2 },
+                  { id: "green_yellow", label: "🟢 + 🟡 (bez 🔴)", icon: Gauge },
+                  { id: "none", label: "Bez znacznika", icon: CircleDashed },
+                ].map((opt) => {
+                  const Icon = opt.icon;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      role="option"
+                      aria-selected={selectedConfidence === opt.id}
+                      onClick={() => {
+                        setSelectedConfidence(opt.id);
+                        setConfidenceDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
+                        selectedConfidence === opt.id
+                          ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                      }`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <Icon size={13} className="text-slate-400" />
+                        {opt.label}
+                      </span>
+                      {selectedConfidence === opt.id && <Check size={14} />}
+                    </button>
+                  );
+                })}
+            </div>
           </div>
 
           <div className="flex-1"></div>
@@ -811,6 +935,33 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
+              {filteredLeads.length === 0 && (
+                <tr>
+                  <td colSpan={100} className="p-12 text-center">
+                    <div className="flex flex-col items-center gap-3 max-w-md mx-auto">
+                      <div className="p-3 bg-slate-100 dark:bg-zinc-800 rounded-full">
+                        <Search size={28} className="text-slate-400" />
+                      </div>
+                      <h3 className="text-base font-semibold text-slate-700 dark:text-slate-200">
+                        Brak wyników
+                      </h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Żaden lead nie pasuje do aktywnych filtrów. Spróbuj wyczyścić wszystkie filtry lub zawęzić szukanie.
+                      </p>
+                      {(activeFilters.length > 0 || searchQuery || leads.length === 0) && (
+                        <button
+                          type="button"
+                          onClick={resetAll}
+                          className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors"
+                        >
+                          <X size={14} />
+                          Wyczyść wszystkie filtry
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )}
               {filteredLeads.map((lead) => {
                 const isExpanded = expandedRow === lead.id_unikalne;
                 const brand = classifyBrand(lead.marki_nabijarki);
