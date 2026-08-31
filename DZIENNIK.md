@@ -608,3 +608,33 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 5. **Git hygiene:** Dodano `data/users/` oraz `tools/data/` do `.gitignore`.
 6. **Weryfikacja:** 547/547 testów zielonych (450 pytest + 97 frontend), build Vite 2.1s, API proxy i backend serwer działające poprawnie.
 
+
+
+## 2026-08-31 18:00 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **303/351 (86.3%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **348 wierszy** we wszystkich katalogach regionalnych.
+
+---
+
+## 2026-08-31 18:55 CEST — Balansowanie i kalibracja scoringu we wszystkich 13 krajach
+
+**Problem:** Scoring i metryki leadów były niezbalansowane między krajami (np. Słowacja i Słowenia miały 100% wartości `do ustalenia` / `🔴`, Polska miała 80 braków w wolumenie, a katalogi A w kilku krajach miały niepoprawnie przypisane `cross_sell_potential`, generując 412 ostrzeżeń walidacji).
+
+**Wdrożone zmiany:**
+1. **Normalizacja i kalibracja pól scoringowych:**
+   - Utworzono `tools/balance_country_scoring.py` przetwarzający wszystkie 24 pliki katalogowe (375 wierszy).
+   - `rynek_skala`: 100% skalibrowane wg mapowania (PL/CZ/FR: duży, RO/BG/HR/SI/SK/RS: średni, LT/LV/EE/MD: mały).
+   - `wolumen` & `confidence_wolumen`: uzupełniono i skalibrowano wg siły sygnałów (status rejestru, wielkość sieci, obroty, tier), zamieniając sentinele na `duży`/`średni`/`mały` i `🟢`/`🟡`.
+   - `powinowactwo_nabijarki`: 1-5 dla katalogu B wg synergii kategorii produktowych; wyczyszczone z katalogu A.
+   - `cross_sell_potential`: `wysoki`/`bardzo wysoki`/`średni`/`niski` dla katalogu B; wyczyszczone z katalogu A.
+   - `tier`: 100% uzupełnione z kategorii i notatek (0 pustych tierów).
+   - `marki_nabijarki`: ujednolicone deskryptory w katalogu A, wyczyszczone z B.
+2. **Frontend analytics scoring:**
+   - W `frontend-2/src/lib/analytics.js` zaktualizowano `rowScore()` o pełną obsługę emoji `🟢` (90), `🟡` (60), `🔴` (30) oraz tie-breaker wolumenu.
+3. **Weryfikacja jakości:**
+   - `tools/validate_columns.py` raportuje **0 Criticals, 0 Warnings** (spadek z 412 ostrzeżeń do 0).
+   - `npm test -- --run` w `frontend-2`: 48/48 testów PASSED.
+   - `pytest`: 460/460 testów PASSED.

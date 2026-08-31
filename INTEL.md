@@ -40,6 +40,8 @@
 | ⚡ | **Verify gate** (2026-08-31) — łapie halucynowane NIP/KRS przed FROZEN | Jakość |
 | ⚠️ | **NIP-halucynacja zagrożenie** — 19/129 PL-B (14.7%) miało halucynowane NIP-y (LLM = istniejący NIP innej firmy). Verify_principles.py to łapie. | Jakość |
 | 🔍 | **FABRYKAT detection** — name-match (Jaccard) NIP/KRS insufficient; potrzebny name match z rejestru | Workflow |
+| ⚡ | Weryfikacja automatyczna: 303/351 (86.3%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 348 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 

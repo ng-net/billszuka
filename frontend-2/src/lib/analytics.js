@@ -138,20 +138,41 @@ export function colorFor(key, palette = Object.values(COUNTRY_COLORS)) {
  * Uses confidence_wolumen (parsed as % 0-100) if available, else a fallback
  * by tier / wolumen.
  */
-function rowScore(row, metric) {
+export function rowScore(row, metric) {
   if (metric === "confidence_wolumen" || metric == null) {
     const raw = row?.confidence_wolumen;
-    if (raw == null || raw === "") return 0;
+    if (raw == null || raw === "") {
+      const v = String(row?.wolumen || "").toLowerCase().trim();
+      if (v.startsWith("duż")) return 40;
+      if (v.startsWith("śred")) return 20;
+      if (v.startsWith("mał")) return 10;
+      return 0;
+    }
     const s = String(raw).replace(/[^\d.]/g, "");
     const n = parseFloat(s);
-    return Number.isFinite(n) ? n : 0;
+    if (Number.isFinite(n)) return n;
+    if (raw.includes("🟢")) return 90;
+    if (raw.includes("🟡")) return 60;
+    if (raw.includes("🔴")) return 30;
+    return 0;
   }
   if (metric === "wolumen") {
     const v = String(row?.wolumen || "").toLowerCase().trim();
-    if (v.startsWith("duż")) return 4;
-    if (v.startsWith("śred")) return 2;
-    if (v.startsWith("mał")) return 1;
-    return 0;
+    let score = 0;
+    if (v.startsWith("duż")) score = 40;
+    else if (v.startsWith("śred")) score = 20;
+    else if (v.startsWith("mał")) score = 10;
+
+    const rawConf = row?.confidence_wolumen;
+    if (rawConf) {
+      const s = String(rawConf).replace(/[^\d.]/g, "");
+      const n = parseFloat(s);
+      if (Number.isFinite(n)) score += n / 10;
+      else if (rawConf.includes("🟢")) score += 9;
+      else if (rawConf.includes("🟡")) score += 6;
+      else if (rawConf.includes("🔴")) score += 3;
+    }
+    return score;
   }
   return 0;
 }
