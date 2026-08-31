@@ -25,6 +25,14 @@ import { UrlBadge } from "../components/UrlBadge";
 import { useUrlStatus } from "../hooks/useUrlStatus";
 import { useKeywordScan } from "../hooks/useKeywordScan";
 
+// data_weryfikacji can be a Date object (when useCsv applies schema) or
+// a plain string. Render either safely.
+const fmtDate = (v) => {
+  if (v == null || v === "") return "—";
+  if (v instanceof Date) return isNaN(v.getTime()) ? "—" : v.toISOString().slice(0, 10);
+  return String(v);
+};
+
 // --- Helpers ---
 function classifyBrand(marki) {
   const s = (marki || "").toLowerCase();
@@ -913,7 +921,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                 </div>
                                 <div className="mt-4 pt-3 border-t border-amber-200/60 dark:border-amber-800/40 flex justify-between items-center text-[11px] text-amber-800 dark:text-amber-400">
                                   <span>Źródło: {lead.zrodlo_danych}</span>
-                                  <span>Weryfikacja: {lead.data_weryfikacji}</span>
+                                  <span>Weryfikacja: {fmtDate(lead.data_weryfikacji)}</span>
                                 </div>
                               </div>
                             </div>

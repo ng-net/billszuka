@@ -19,6 +19,15 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+// data_weryfikacji can be a Date object (when useCsv applies schema) or
+// a plain string. Render either safely without throwing "Objects are not
+// valid as a React child".
+const fmtDate = (v) => {
+  if (v == null || v === "") return "—";
+  if (v instanceof Date) return isNaN(v.getTime()) ? "—" : v.toISOString().slice(0, 10);
+  return String(v);
+};
+
 const LinkedinIcon = ({ size = 16, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -709,7 +718,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
                                 </div>
                                 <div className="mt-4 pt-3 border-t border-amber-200/60 dark:border-amber-800/40 flex justify-between items-center text-[11px] text-amber-800 dark:text-amber-400">
                                   <span>Źródło: {lead.zrodlo_danych}</span>
-                                  <span>Weryfikacja: {lead.data_weryfikacji}</span>
+                                  <span>Weryfikacja: {fmtDate(lead.data_weryfikacji)}</span>
                                 </div>
                               </div>
                             </div>

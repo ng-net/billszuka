@@ -37,6 +37,14 @@ import { useCsv } from "@/hooks/useCsv";
 const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
+// data_weryfikacji can be a Date object (when useCsv applies schema) or
+// a plain string. Render either safely.
+const fmtDate = (v) => {
+  if (v == null || v === "") return "—";
+  if (v instanceof Date) return isNaN(v.getTime()) ? "—" : v.toISOString().slice(0, 10);
+  return String(v);
+};
+
 const LinkedinIcon = ({ size = 14, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -769,7 +777,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
 
                   {/* 12. Date */}
                   <td className="p-3 text-gray-500 dark:text-muted-foreground text-xs tabular-nums">
-                    {lead.data_weryfikacji}
+                    {fmtDate(lead.data_weryfikacji)}
                   </td>
                 </tr>
               ))}
