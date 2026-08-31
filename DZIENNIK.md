@@ -673,3 +673,26 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 - "Brak" ≠ "do wypełnienia domyślną wartością". Sentinel oznacza *nieznane*; default to fałsz.
 - `'nie'` (Polish "no") jest faktem — kasowanie go to data loss, nie cleanup.
 - Kategoryczne domyślne wartości scoringowe bez sygnału per-lead to halucynacja w przebraniu kalibracji.
+
+---
+
+## 2026-08-31 19:20 CEST — Manual search round 2 (12 krajów, "A oraz pochodne")
+
+**Kontekst:** Marceli 19:17 — *"continue opening searchers manually, first 20-30 links and look for powermatic"*. Kontynuacja po rundzie 1 (rano) z rozszerzonym query "powermatic + pochodne" (hawk, topomat, turbomatic, smok, tytoń, tabak, tabakas, sigaretes, tubakas, tütün, tytiun).
+
+**Metoda:** 6 web_search wywołań (SK, EE, BG, HR, LV, LT) + skan viss.lv/rekvizitai.lv/tyutyun.catalog.bg. Po 15-20 linków per kraj.
+
+**Nowe CSVs stworzone (10 nowych leadów):**
+- `data/Słowacja/extra-leads-SK.csv` — 2 leady: SmokeShop.sk (Bratislava), TifanTEX s.r.o. (Bratislava, B2B plničky + tabak)
+- `data/Estonia/extra-leads-EE.csv` — 3 leady: Nicorex Baltic OÜ (Tallinn, Sven Kotke juhatuse liige), RYO Paper & Tobacco OÜ (rollingpaper.ee, Nautica Keskus, info@tubakas.ee), Sigarimaja OÜ (cigarhouse.ee)
+- `data/Chorwacja/extra-leads-HR.csv` — 2 leady: Bazinga Shop d.o.o. (Osijek, multi-store), NLK trgovina i distribucija d.o.o. (Zagreb, 30+ lokala, partneri BAT/PMI/JTI/Imperial/Pöschl/Bista)
+- `data/Bułgaria/extra-leads-BG.csv` — 6 leadów: Тобако Импорт ООД (Sofia/Plovdiv, BAT/Imperial/PMI/Karelia), TTI Bulgaria (Sofia), M Табако (Plovdiv), Табак Логистик Груп АД (3 региона), Tobacco Trade Plovdiv (kompass), Kaliman Caribe (Sofia)
+- `data/Łotwa/extra-leads-LV.csv` — dopisane 3 nowe do istniejących 2 (Avalons, BS Trade): Tabakas Studija, Tabacomen SIA, Ecodumas (multi-lokacja)
+- `data/Litwa/extra-leads-LT.csv` — dopisane 3 nowe do istniejących 2 (Medėja, Skonis ir Kvapas): MV GROUP Distribution LT, RoyalSmoke (Hordus UAB), Alternatyvus tabakas
+
+**Wnioski:**
+1. **"powermatic" search alone is not enough** — w małych rynkach (EE/LV/LT/BG) zwraca głównie marketplace listings. Skuteczniejsze query: "tabak* OR cigaret* OR tytoń" + lokalny termin.
+2. **Baltik ma bardzo mało dedicated B2B dla PowerMatic** — większość to vape/SNUS shops (które mogą lub nie mogą dodać PM asortyment). Wymaga follow-up przez direct email.
+3. **BG = obfity rynek tytoniowy** — wielu B2B dystrybutorów (Tobacco Import, TTI, M Tabako, Tabak Logistic), Płowdiw jest hubem.
+4. **HR ma 3rd largest kiosk chain (NLK) z 30+ lokalami** — silny B2B kandydat na dystrybucję PM/Hawk.
+5. **Cross-country łańcuchy** — Ecodumas (LV/LT) i RoyalSmoke (LT/LV) to multi-country sieci — jeden deal pokrywa 2 rynki.

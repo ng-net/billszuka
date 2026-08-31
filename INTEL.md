@@ -39,6 +39,7 @@
 | 🚀 | **Places API sweep** — masowe pozyskanie leadów B z dedupikacją | Pipeline |
 | ⚡ | **Verify gate** (2026-08-31) — łapie halucynowane NIP/KRS przed FROZEN | Jakość |
 | ⚠️ | **NIP-halucynacja zagrożenie** — 19/129 PL-B (14.7%) miało halucynowane NIP-y (LLM = istniejący NIP innej firmy). Verify_principles.py to łapie. | Jakość |
+| ✅ | **Verifier reliability 100%** (2026-08-31) — `tools/verify_hallucinations.py` audit przeprowadzony: **26/26** flagów HALUCYNACJA potwierdzonych jako realne halucynacje (19× NIP fails mod-11 + KAS WL API reject; 7× KRS API zwraca NIP innej firmy). Zero false positives. | Jakość |
 | 🔍 | **FABRYKAT detection** — name-match (Jaccard) NIP/KRS insufficient; potrzebny name match z rejestru | Workflow |
 | ⚡ | Weryfikacja automatyczna: 303/351 (86.3%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 348 wierszy we wszystkich katalogach regionalnych. | Pipeline |
@@ -361,6 +362,7 @@ Per-user sessions/bookmarks/soft-delete/activity log wycofane. Powrót do Basic 
 | 2026-08-30 | Per-user auth revert (zostajemy przy Basic Auth) |
 | 2026-08-31 | **Verify gate** — `verify_principles.py` + `verify_run.py` pre-flight (NIP mod-11 + KRS cross-check) |
 | 2026-08-31 | URL status + keyword scan 12 krajów (297 URL-i, 77.8% green) |
+| 2026-08-31 | **Verifier reliability audit** — `tools/verify_hallucinations.py`: 26/26 flagów HALUCYNACJA potwierdzone, 0 false positives (7× KRS API mismatch, 19× NIP mod-11 fail + KAS WL API reject) |
 
 ---
 
@@ -544,3 +546,48 @@ Poprzednia sesja (Marceli's commit 190ee362) wstawiła do CSV pewne dane, który
 - Czy adresy/miasta są potwierdzone w oficjalnym rejestrze, czy tylko zgadnięte?
 
 **VIES jest najszybszym filtrem anty-halucynacyjnym** — każdy EU VAT można sprawdzić w 1-2 sekundy, dostajemy valid + name + address. Powinien być częścią każdego verify-data flow.
+
+---
+
+## 2026-08-31 — Manual search round 2: 12 krajów, nowe kanały B2B
+
+### Kluczowe nowe firmy per kraj
+
+**🇸🇰 SK (Słowacja) — 2 nowe:**
+- **SmokeShop.sk** (Bratislava) — e-shop plničky + tabak + RYO, prawdopodobnie niesie PowerMatic
+- **TifanTEX s.r.o.** (Bratislava) — B2B mlynčekov + plničiek + tabak (workdays 7-15)
+
+**🇪🇪 EE (Estonia) — 3 nowe:**
+- **Nicorex Baltic OÜ** (Tallinn) — Sven Kotke juhatuse liige, e-sigaretid + SNUS + nikotiininätsud, alternatywne produkty
+- **RYO Paper & Tobacco OÜ / rollingpaper.ee** (Tallinn, Ahtri 9 Nautica) — info@tubakas.ee (hulgimüük) + matti@cigars.ee (sigarid)
+- **Sigarimaja OÜ / cigarhouse.ee** (Tallinn) — retail, Pueblo RYO
+
+**🇭🇷 HR (Chorwacja) — 2 nowe:**
+- **Bazinga Shop d.o.o.** (Osijek) — multi-store tobacco shop, B2C głównie
+- **NLK trgovina i distribucija d.o.o.** (Zagreb) — 3rd largest kiosk chain w HR (30+ lokali), B2B i wholesale, partnerzy: BAT/TDR, PMI, JTI, Imperial, Pöschl, Bista LTD — **silny kandydat na PM/Hawk B2B**
+
+**🇧🇬 BG (Bułgaria) — 6 nowych (wiele B2B):**
+- **Тобако Импорт ООД** (Sofia + Plovdiv, office@tobacco-import.com) — офіц. dystrybutor Карелия/BAT/Imperial/PMI. Główny B2B gracz
+- **TTI Bulgaria** (Sofia, ul. Ангелов връх 22, office@ttibulgaria.com, +359 2 955 74 03) — Japan Tobacco International
+- **M Табако ООД** (Plovdiv, ул. Младежка 26, +359 32 642 441) — дистрибуция + внос
+- **Табак Логистик Груп АД** (Sofia/Pleven/Plovdiv) — цигари, рязан тютюн, 3 региона
+- **Tobacco Trade Plovdiv** (bul. Христо Ботев 49) — wholesale cigarettes/tobacco
+- **Kaliman Caribe** (Sofia, bul. България 118 Abacus BC) — внос + дистрибуция аксесоари
+
+**🇱🇻 LV (Łotwa) — 3 dopisane do istniejących 2:**
+- **Tabakas Studija** (t/c augusts, Rīga, tabakas.studija@inbox.lv) — specjalizowany sklep tytoniowy
+- **Tabacomen SIA** (Liepāja, tabacomen1@inbox.lv) — retail
+- **Ecodumas (tīkls)** — multi-lokacja w całej LV (Rīga, Jelgava, Liepāja, Daugavpils, Rēzekne, Jēkabpils, Jūrmala itd.), info@ecodumas.lv
+
+**🇱🇹 LT (Litwa) — 3 dopisane do istniejących 2:**
+- **MV GROUP Distribution LT** (Vilnius, Aukštaičių 7) — didmeninė prekyba + tabakas
+- **RoyalSmoke / Hordus UAB** (Vilnius, royalsmoke.lt) — e-cigarečių tinklas LT+LV od 2013
+- **Alternatyvus tabakas** (Vilnius, Upės 22-7) — mažmeninė
+
+### Strategiczne wnioski (dla przyszłych sesji)
+
+1. **Query strategy: mieszaj "powermatic" z "tabak/cigaret" + local.** "powermatic" sam w małych rynkach (EE/LV/LT/BG) daje głównie marketplace. Lepsze wyniki przez dywersyfikację queries.
+2. **Baltik to rynek niszowy.** EE/LV/LT łącznie mają ~6M ludzi, mało dedicated PM. Realne leady to vape/SNUS shops (Ecodumas, RoyalSmoke, Nicorex) — wymagają email follow-up czy dodadzą PM.
+3. **BG = obfity B2B tytoniowy rynek.** 6 nowych kanałów w jednym dniu. Пловдив jest hubem produkcyjnym (M Tobacco, Tobacco Trade, Kaliman).
+4. **Multi-country łańcuchy** — Ecodumas (LV+LT), RoyalSmoke (LT+LV) — jeden deal pokrywa 2-3 rynki. Priorytet outreach.
+5. **HR NLK** = najlepszy kandydat B2B: 30+ lokali, partnerzy już z BAT/PMI/JTI/Imperial/Pöschl (Pöschl konkuruje z PM), Bista LTD (Marceli zna).
