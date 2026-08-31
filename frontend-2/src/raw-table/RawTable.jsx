@@ -127,7 +127,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     csv.cancel,
     csv.loadFile,
   ]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  // Hydrate from persisted prefs so reload shows consistent input + filtered rows.
+  const [globalFilter, setGlobalFilter] = useState(() => prefs.globalSearch || "");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [focusedColumn, setFocusedColumn] = useState(null);
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
@@ -407,8 +408,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       document.querySelector('input[type="file"]')?.click();
     } else if (item.id === "clear-filters") {
       setFilters({});
-      setGlobalFilter("");
+      // Reset both states atomically so the search input and the table
+      // never desync (the input binds to globalSearch; the table binds
+      // to globalFilter).
       setGlobalSearch("");
+      setGlobalFilter("");
       setPageIndex(0);
       toast.success("Wyczyszczono wszystkie filtry", { duration: 1200 });
     } else if (item.id === "clear-sort") {
@@ -419,8 +423,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       setFilters({});
       setSortStack([]);
       setColumnVisibility({});
-      setGlobalFilter("");
       setGlobalSearch("");
+      setGlobalFilter("");
       setPageIndex(0);
       toast.success("Zresetowano cały widok (filtry, kolumny i sortowanie)", { duration: 1500 });
     } else if (item.id === "density-compact") {

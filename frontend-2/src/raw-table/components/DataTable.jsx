@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useEffect, useCallback, useDeferredValue, memo } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback, memo } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -62,11 +62,12 @@ export function DataTable({
 
   const tableContainerRef = useRef(null);
 
-  // Defer the global filter so typing stays snappy. The deferred value
-  // lags behind by one render, so the table re-filter happens at a
-  // lower priority than the input update.
-  const deferredGlobalFilter = useDeferredValue(globalFilter);
-  const isFilterStale = globalFilter !== deferredGlobalFilter;
+  // The search input is already debounced 200ms upstream (RawTable.jsx),
+  // so we don't need useDeferredValue here — that was double-deferring
+  // and causing visible "X wyników" lag behind the input.
+  // Keep the prop name local so the rest of the file is unchanged.
+  const deferredGlobalFilter = globalFilter;
+  const isFilterStale = false;
 
   // Stable row identity from id_unikalne. Without this, TanStack defaults
   // to the row's array index, so when the sort order changes the keys
@@ -661,9 +662,12 @@ const enumContainsFilter = (row, columnId, filterValue) => {
   const raw = row.getValue(columnId);
   if (raw == null || raw === "") return false;
 
+  // Split on comma / semicolon / pipe to match splitBrands() in the
+  // experiment views — without this, "PowerMatic" doesn't match a cell
+  // stored as "PowerMatic; Hawk".
   const cellItems = Array.isArray(raw)
     ? raw.map((s) => String(s).trim().toLowerCase())
-    : String(raw).split(",").map((s) => s.trim().toLowerCase());
+    : String(raw).split(/[,;|]/).map((s) => s.trim().toLowerCase()).filter(Boolean);
 
   if (Array.isArray(filterValue)) {
     return filterValue.some((label) => {
