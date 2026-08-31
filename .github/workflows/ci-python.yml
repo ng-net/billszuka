@@ -133,19 +133,27 @@ jobs:
         run: npm ci
         working-directory: frontend-2
 
-      - name: Run JS tests (30s per-test cap)
-        # Bump V8 old-space to 4 GB. The default ~2 GB on the GitHub
-        # runner OOMs while loading framer-motion + radix-ui + happy-dom
-        # in vite-node (see OOM in run 33260055027). 4 GB has plenty of
-        # headroom: scripts/test-jsx.mjs aliases framer-motion to a
-        # ~1 KB stub so the 57 component tests run in ~1.8 s.
-        #
-        # Per-test timeout is applied two ways (Node restricts --test-timeout
-        # via NODE_OPTIONS, so it's set per-script):
-        #   - test:lib forwards it to `node --test` as a CLI arg
-        #   - test:components forwards it to `run({ timeout })` programmatically
-        # A hung test now fails in 30s instead of waiting the full 5-min cap.
-        run: npm test
+      - name: Run JS lib tests (1 min cap, fast)
+        # test:lib is 40 sync tests (prefs, views, analytics, etc.) — local
+        # 1.2s. Runs via `node --test` directly (no vite-node). Per-test
+        # timeout via --test-timeout CLI arg, env-overridable.
+        # If this hangs >60s, the runner is broken — fail fast.
+        run: timeout 60 npm run test:lib
+        working-directory: frontend-2
+        env:
+          TEST_TIMEOUT_MS: "30000"
+
+      - name: Run JS component tests (3 min cap, vite-node)
+        # test:components is 33 component tests via vite-node — local 4.5s
+        # but has been hitting 5-min job cap on ng-net. Likely cause:
+        # vite-node's dep-graph resolution on a cold runner (we have
+        # ~30 transitive deps including 40MB lucide-react + 17MB
+        # happy-dom). Per-test timeout is set via run({ timeout }) in
+        # test-jsx.mjs, but the 30s cap doesn't cover the runner's
+        # startup phase. Outer `timeout 180` kills the whole process
+        # if vite-node itself hangs. If this step fails, the test:lib
+        # step above still produced a green signal.
+        run: timeout 180 npm run test:components
         working-directory: frontend-2
         env:
           NODE_OPTIONS: --max-old-space-size=4096
