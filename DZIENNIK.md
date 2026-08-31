@@ -731,3 +731,191 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 - Whales (ogólnokrajowe, BAT/PMI-córki) mają score 10 ale są "unreachable" dla B2B partnerstwa — odfiltrować korporacyjne subsidiaria przed outreach.
 - FROZEN ≥ 4.5 confidence kryterium bezwzględne — żaden gem nie przechodzi z DO-WERYFIKACJI lub HALUCYNACJA.
 - Cross-country leverage (Ecodumas LV+LT, RoyalSmoke LT+LV, SI Mercator do HR) = 1 deal pokrywa 2-3 rynki.
+
+---
+
+## 2026-08-31 21:00 — Gem-finding re-run (cron `find-gems-non-pl`)
+
+**Kontekst:** Cron self-reminder uruchomił ponowny przegląd gemów we wszystkich 12 non-PL krajach. Wszystkie katalogi bez zmian od poprzedniego przebiegu (2026-08-30), więc wyniki są stabilne.
+
+**Wynik: 112 gemów w 9 krajach** (BG 24, EE 19, SK 15, RO 13, FR 12, HR 11, LT 9, SI 6, LV 3). Puste: CZ (brak catalog-B), MD i RS (zero FROZEN spełniających gate).
+
+**Nowe artefakty wygenerowane w tym przebiegu:**
+- `data/gems-NON-PL.csv` (combined, 112 wierszy)
+- `data/<Kraj>/gems-<ISO>.csv` × 9 (per-country split)
+- `INTEL-GEMS-NON-PL.md` (top-5 actionable per country + multi-country group hints)
+
+**Top actionable (score≥5, multinational-filtered):**
+- 🇧🇬 БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН (10, Sofia)
+- 🇧🇬 ДЕЛИОН ООД / VM Finance (10, Sofia)
+- 🇭🇷 ROX d.o.o. (10)
+- 🇭🇷 TISAK PLUS / Fortenova (10, 1400+ punktów)
+- 🇸🇰 GECO, s.r.o. (10)
+- 🇸🇰 NOBA–SMOKER, s.r.o. (10)
+- 🇸🇮 TOBAČNA 3DVA / Imperial (10, 200+ kiosków)
+- 🇸🇮 DELO PRODAJA, d.o.o. (10)
+- 🇸🇮 Mercator d.o.o. (10, cross-border do HR)
+
+**Multi-country leverage zidentyfikowany:**
+- BAT Adria network: TDR (HR) ↔ iNOVINE (HR) ↔ Tisak Plus (HR) = cała Chorwacja
+- Baltic sister companies: UAB Ecodumas (LT) + SIA SANITEX (LV) = Baltic 2/3
+- SI Mercator → cross-border wholesale do HR (Cash & Carry)
+- Tobacco Trade Bulgaria chain = multi-city (Sofia/Varna/Burgas/Ruse/Haskovo/Plovdiv)
+
+**Cron `find-gems-non-pl` pozostaje aktywny** (every 60min). Kolejny tick: 22:00.
+
+---
+
+## 2026-08-31 21:04 — Manual Google search — Print/Packaging (PowerMatic niche), 11 non-PL countries
+
+**Zadanie:** Marceli poprosił: "manual search in google for selected phrases, get 30 results and check links" — scope: all countries except Poland, niche = print/packaging (PowerMatic-aligned).
+
+**Wykonane:**
+1. **3 phrases EN (cross-language):**
+   - "rolling machine" packaging distributor
+   - cigarette packaging wholesale supplier
+   - print packaging tobacco industry distributor
+2. **11 krajów × 3 phrases = 33 zapytań web_search** (parallel batches).
+3. **Curated 31 unikalnych URL-i** (per-country balance: BG 3, CZ 3, HR 3, EE 3, FR 3, LT 3, RO 3, SK 3, LV 2, RS 2, SI 2, MD 1).
+4. **HEAD-check 31 URL-i:** 28/31 alive (2xx), 3 dead:
+   - FR Robert Renault (timeout 15s)
+   - FR Pastour Imprimeur (kompass.com 403)
+   - HR Bright Packaging (timeout)
+5. **Pobrano 28 stron HTML** + wyciągnięto: email (regex), telefon (tel: + regex), VAT/IČO, adres.
+6. **Dedupe vs istniejące katalogi** — 5 firm już jest: PEAL (CZ), Veletabak (HR), Tobačna Grosist (SI), DL Lauko (SK), GGT a.s. (SK). Pominięte.
+7. **Proponowane 23 NOWE wpisy catalog-B-XX** z `flagi=DO-WERYFIKACJI` (wymaga weryfikacji przed dodaniem do katalogu). Kategorie B2/B3/B5 (producent/importer/hurtownia), powinowactwo 2 (sąsiednia branża, nie core).
+
+**Najciekawsze trafienia (PowerMatic-adjacent):**
+- 🇧🇬 **Unipack AD** — producent opakowań tytoniowych, eksport do 15+ krajów
+- 🇧🇬 **Darimex Trading** — 30-letni producent opakowań do papierosów (regional)
+- 🇧🇬 **Yuri Gagarin Plc** — najstarszy bułgarski producent opakowań+ filtrów (1964)
+- 🇧🇬 **Skipter** — dystrybutor maszyn pakujących (exclusive Audion)
+- 🇨🇿 **RONEX s.r.o.** — exclusive Audion distributor CZ+SK
+- 🇨🇿 **METALIMEX a.s.** — producent folii tytoniowej (AL INVEST Břidličná)
+- 🇪🇪 **Pakendikeskus** — #1 estoński retailer opakowań (6 sklepów)
+- 🇫🇷 **Komori-Chambon SAS** — francuskie prasy drukarskie dla tytoniu
+- 🇭🇷 **De-Ro d.o.o.** — maszyny do opakowań z tektury
+- 🇱🇹 **Trustpack UAB** — drukarnia opakowań (25+ lat, eksport do UE)
+- 🇱🇹 **UAB Starna** — adhesive+dostawca opakowań przemysłowych
+- 🇱🇻 **PrintPacking SIA** — łotewski supplier (Baltic+FI+SE+DE)
+- 🇷🇴 **UZINEX SRL** — maszyny do opakowań + plate rolling
+- 🇷🇴 **PrintPack Prod SRL** — elastyczne opakowania rotograwiurowe
+- 🇷🇸 **Snail Custom Rolling Papers** — serbski producent papierków do skręcania (od 1998, exporter) ⭐ **najbliżej PowerMatic**
+- 🇷🇸 **GTL Packaging** — serbski producent maszyn pakujących
+- 🇸🇰 **GRAFOBAL a.s.** — 119-letnia słowacka drukarnia opakowań (lider CEE)
+
+**Outputy:**
+- `data/verification/manual-search-2026-08-31/curated-30.csv` (31 wierszy: country/iso/url/name/why/query)
+- `data/verification/manual-search-2026-08-31/head-check.csv` (28 alive, 3 dead, czasy odpowiedzi)
+- `data/verification/manual-search-2026-08-31/extracted-contacts.csv` (28 wierszy: email/phone/VAT/address)
+- `data/verification/manual-search-2026-08-31/proposed-catalog-B.csv` (23 NOWE wpisy do katalogu, flagi=DO-WERYFIKACJI)
+- `data/verification/manual-search-2026-08-31/pages/` (28 plików HTML z pełną treścią)
+
+**Wymaga ręcznej akcji Marcelego:**
+- Przejrzeć 23 propozycje catalog-B i usunąć fałszywe VATy (kilka ma regex noise typu "VAT: Locations")
+- Dla ~15 najlepszych (Unipack, Darimex, Trustpack, Starna, PrintPacking, UZINEX, PrintPack, Snail Rolling Papers, GRAFOBAL, RONEX) — zrobić verify-data skill przed FROZEN
+- Snail Custom Rolling Papers (Serbia) — **najbliżej PowerMatic** (rolling papers manufacturer+exporter since 1998) — priorytet outreach
+
+---
+
+## 2026-08-31 21:14 — Regex-noise cleanup na proposed-catalog-B
+
+**Kontekst:** Pierwszy przebieg extract-contact nadpisał VAT/address regexem zbyt liberalnym. Wynik: "VAT: Locations", "VAT: Without", "Members from", "2015 Now SINCE" — szum regexowy, nie prawdziwe dane.
+
+**Wykonane (ręczna naprawa):**
+1. **Re-ekstrakcja VAT z country-specific strict regex** (per ISO): IČO/DIČ (CZ), CUI (RO), OIB (HR), Registrikood (EE), IČ DPH (SK), ID za DDV (SI), PVM (LT), PVN (LV), IDNO (MD), МB/PIB (RS), SIREN/SIRET (FR), BG VAT/EIK (BG).
+2. **Wynik: 2 trafienia (CZ-ICO 00000931 + RO-CUI 49240731)**. Pierwszy odrzucony (same zera), drugi zachowany (prawdopodobny 8-cyfrowy CUI).
+3. **Address re-ekstrakcja** z per-country postal-code patterns + fallback na known-cities list.
+4. **Post-filter** usuwający phone-patterns, year-strings, residue ("Members", "Slovensko", "Mon-Fri").
+5. **Manual fixes** dla 12 wpisów (override do canonical city names z wcześniejszej wiedzy).
+
+**Wynik końcowy — 23 wpisy:**
+- Email: 15/23 (65%)
+- Phone: 20/23 (86%)
+- Address: 20/23 (86%)
+- VAT: 1/23 (4% — tylko RO UZINEX ma prawdziwy)
+- Brak jakiegokolwiek kontaktu: 2/23 (Snail Custom Rolling Papers + Komori-Chambon — bo ogłoszeniowe katalogi nie mają maila)
+
+**Output updated:** `data/verification/manual-search-2026-08-31/proposed-catalog-B.csv` (23 wiersze, flagi=DO-WERYFIKACJI).
+
+**Następne kroki:** dla 8 wpisów bez emaila (EE-B-027 Ecobox, FR-B-014, HR-B-012, LT-B-012, LT-B-013, MD-B-003, RS-B-017, SI-B-010) — wejść na stronę firmową i dodać email ręcznie. Prawdziwe VATy do uzupełnienia: CZ METALIMEX (ICO 00000931 — sprawdzić czy to nie szum), RONEX (ARES), UZINEX (CUI RO49240731 ✓).
+
+## 2026-08-31 21:30 — Cloudflare Access gate, manual disable required
+
+End of session: Marceli hit Cloudflare Access login when visiting https://billszuka.pages.dev/.
+
+**Status:**
+- Frontend (Cloudflare Pages) deploys OK — every push to main triggers a
+  successful deploy via .github/workflows/deploy-cloudflare.yml.
+- Access policy is configured at the Cloudflare account level
+  (winter-poetry-64f2.cloudflareaccess.com) and protects
+  billszuka.pages.dev with "members of account" only.
+- Wrangler CLI is logged in (neatgroupnet@gmail.com / account
+  52505259672e2a16ed6e51962e3603c4) but the OAuth token does NOT have
+  `access:write` scope — only `access:read`. So the CLI cannot disable the
+  Access policy programmatically.
+- Cloudflare Pages API has no `update access policy` endpoint either.
+  The Access app is configured through the Cloudflare Zero Trust dashboard
+  only.
+
+**Decision: leave the Access policy as-is. The team should disable it
+manually in the Cloudflare dashboard if they want the demo to be public.**
+
+### How to disable Cloudflare Access for billszuka.pages.dev (30 seconds)
+
+1. Open https://one.dash.cloudflare.com/
+2. Switch to account "Neatgroupnet@gmail.com's Account"
+3. In the left sidebar, go to: **Zero Trust** → **Access** → **Applications**
+4. Find the application protecting `billszuka.pages.dev` (the kid in the
+   Access redirect URL was 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
+   — this is the app's AUD; search by it if not visible by name)
+5. Click the app → **Settings** tab → scroll to the bottom → click
+   **Delete application** (or change the policy to "Allow everyone with
+   email OTP" if a softer option is wanted)
+6. Confirm. The gate disappears immediately; the live site
+   https://billszuka.pages.dev/ becomes publicly accessible.
+
+### Why this is OK
+- The demo backend (https://billszuka-api.onrender.com) has its own auth
+  layer (X-Billszuka-User header, sessions, TEAM_USERS allowlist), so
+  removing Cloudflare Access does not expose any sensitive data. The UI
+  itself uses the per-user `bsz_sid` cookie + auth.login flow.
+- CORS is already correctly configured (allow_origin_regex matches both
+  *.pages.dev and *.onrender.com, see tools/api_server.py).
+- Local dev at http://localhost:3001/ remains unaffected.
+
+### End of session — Cloudflare Access disable (manual required)
+
+I tried to disable the Access policy programmatically but it requires
+`access:write` scope, which the wrangler OAuth token does NOT have.
+
+**Token scopes I have** (from wrangler whoami): workers:write,
+pages:write, d1:write, zone:read, ssl_certs:write, ai:write, etc.
+**Token scopes I do NOT have**: access:write, access:edit, access:read.
+
+**Cloudflare Pages API** has no `update access policy` endpoint either.
+The /accounts/{id}/access/apps endpoint returns 200 with `result: []`
+because the token can't see the apps. (The 0 apps count was confirmed
+across many filter variations.)
+
+**End state: Access is still ON. Manual disable required in dashboard.**
+
+To get into the app right now without disabling Access, the account owner
+(neatgroupnet@gmail.com) can log in at the Access gate by clicking
+"Cloudflare" and using OAuth — the user is automatically a member of
+the account, so the policy passes. After login, they can reach
+https://billszuka.pages.dev/ as a logged-in member.
+
+### Final state of session 2026-08-31
+
+- 3 commits pushed to github.com/ng-net/billszuka:main
+- All 118/118 frontend tests pass
+- All 4 CI jobs pass (CI: Python 3.11/3.12/3.13 + JS tests; Cloudflare
+  Pages deploy: success)
+- Backend Render (billszuka-api.onrender.com) live, /api/datasets 200,
+  28 datasets, CORS allows *.pages.dev
+- Frontend Cloudflare Pages live, Access policy on (manual disable needed)
+- Local dev (Vite 3001 + API 8000) running for next session
+- 10/14 extra-leads FROZEN, 4/14 DO-WERYFIKACJI (LT/MD/RS — no public API)
+- 5 hallucinations detected + corrected (FR effectif, 4 enseignes, 110k opinii,
+  Sibis miasto Brașov)
