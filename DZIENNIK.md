@@ -638,3 +638,38 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
    - `tools/validate_columns.py` raportuje **0 Criticals, 0 Warnings** (spadek z 412 ostrzeżeń do 0).
    - `npm test -- --run` w `frontend-2`: 48/48 testów PASSED.
    - `pytest`: 460/460 testów PASSED.
+
+---
+
+## 2026-08-31 19:10 CEST — Review + fix `balance_country_scoring.py` (verifier gate bypass)
+
+**Kontekst:** Code-review z sesji `18:55` wykazał, że pierwotna wersja `balance_country_scoring.py` (commit `0d118bfb`) nadpisywała zweryfikowane dane heurystykami. Po review **untracked working-tree** zawierał 24 zmienione katalogi + master.csv/sample.csv, ale commit `0d118bfb` sam w sobie zawierał już poprawioną wersję skryptu + testy. Różnica polegała na tym, że ten sam commit NIE zawierał zmian katalogów, więc working-tree był niespójny z commitem.
+
+**Realne bugi w working-tree (przed review):**
+1. **`HALUCYNACJA` w flagi → 🟢** (PL-B-061 KRS-hallucynacja, PL-B-075 NIP-hallucynacja + 6 innych) — skrypt czytał tylko `nip+www+rejestr` i ignorował flagę HALUCYNACJA.
+2. **DO-WERYFIKACJI w notatki/sourcing → 🟢** (PL-B-002, PL-B-003 + inne) — skrypt czytał flagi dla `FROZEN`/`PENDING`, ale nie czytał `sourcing='do weryfikacji'` ani markerów w `notatki`.
+3. **52× `cross_sell_potential: brak → wysoki`** (PL-B sam) — czysta halucynacja z domyślnej mapy kategorii bez sygnału.
+4. **`marki_nabijarki='nie' → ''`** (5 leadów PL-B) — kasowanie faktu ("nie" = jawna odmowa, nie placeholder).
+5. **80× `wolumen: brak → duży`** w PL-B — masa bez sygnału, tylko na podstawie `tier+hurtownik`.
+
+**Fix (`0d118bfb` + delta tej sesji):**
+1. **`infer_confidence()`** — explicit precedence: protected 🟢/🟡/🔴 → HALUCYNACJA→🔴 → DO-WERYFIKACJI→🟡/🔴 → FROZEN→🟢 → (structural+registry)→🟢 → 🟡 fallback. Nigdy nie nadpisuje zweryfikowanej wartości.
+2. **`has_pending_verification()`** — czyta flagi (`DO-WERYFIKACJI`/`PENDING_API`), `sourcing` (`do weryfikacji`) i `notatki` (markery inline).
+3. **`infer_cross_sell_signal()`** — sprawdza polskie rdzenie słów (`tyto*`, `gilz*`, `papier*`, `akcesor*`, `nabijar*`, `vapo*`, `ryo*`, `myo*`, `snus*`, `shish*`) + sourcing bez sentinela + marki≠`nie`. Bez sygnału pole **zostaje puste** (honest unknown).
+4. **`CATB_MARKI_PLACEHOLDERS`** — `'nie'` excluded; tylko sentinele (`brak`/`do ustalenia`/etc) są czyszczone z Catalog B.
+5. **Słowa kluczowe** — substring match z rdzeniem (`tyto` łapie `tytoniowa`), nie exact-word.
+
+**Wynik po re-run:**
+- PL-B: 60 🟢 / 24 🟡 / 45 🔴 (zamiast wypaczonych 109/2/18 z wersji pre-fix)
+- Wszystkie 8 leadów z HALUCYNACJA → 🔴 ✓
+- Wszystkie 5 `marki_nabijarki='nie'` → zachowane ✓
+- `master.csv` i `sample.csv` zregenerowane, 612 linii zmian (same cross_sell_potential/wolumen/rynek_skala — żadne nadpisanie confidence)
+- `tools/validate_columns.py`: 0 Criticals, 223 Warnings (vs 0/0 wcześniej) — warnings to **pre-existing data quality issue**: Catalog B w wielu krajach ma wpisane `marki_nabijarki` (np. "Marlboro | IQOS"), co validator traktuje jako niestandardowe. Wymaga **osobnej akcji** (migracja do `marki_konkurencji` albo notatki).
+
+**Testy:** `tests/test_balance_country_scoring.py` — 52 nowe testy pin wszystkie iron-rules (HALUCYNACJA, protected confidence, `nie` preservation, no-signal-no-cross-sell, end-to-end driver). Łącznie: **512 pytest + 48 frontend = 560/560 PASSED**.
+
+**Lesson learned (do powtórzenia):**
+- Skrypt scoringowy MUSI czytać `flagi`/`sourcing`/`notatki` dla każdego pola które nadpisuje. `FROZEN`/`PENDING`/`HALUCYNACJA` w flagi to nie decoration — to warunki walidacji.
+- "Brak" ≠ "do wypełnienia domyślną wartością". Sentinel oznacza *nieznane*; default to fałsz.
+- `'nie'` (Polish "no") jest faktem — kasowanie go to data loss, nie cleanup.
+- Kategoryczne domyślne wartości scoringowe bez sygnału per-lead to halucynacja w przebraniu kalibracji.
