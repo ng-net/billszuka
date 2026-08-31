@@ -518,8 +518,8 @@ function Bubble({ msg, onCopy }) {
 function ProviderTag({ provider }) {
   const palette = {
     openrouter: { label: "OpenRouter" },
-    gemini: { label: "Gemini 3.6 Flash" },
-    "gemini-3.6-flash": { label: "Gemini 3.6 Flash" },
+    gemini: { label: "Gemini 2.5 Flash Lite" },
+    "gemini-2.5-flash-lite": { label: "Gemini 2.5 Flash Lite" },
     "gemini-2.5-flash": { label: "Gemini 2.5 Flash" },
     faq: { label: "FAQ Cache" },
     save: { label: "Zapisano fakt" },

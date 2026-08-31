@@ -1459,7 +1459,7 @@ async def _call_gemini(req: ChatRequest, api_key: str) -> ChatResponse | None:
     knowledge_refs = _resolve_knowledge_refs(req.knowledge_ids)
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"gemini-2.5-flash:generateContent?key={api_key}"
+        f"gemini-2.5-flash-lite:generateContent?key={api_key}"
     )
 
     def _build_payload(refs: list[dict[str, Any]]) -> bytes:
@@ -2181,7 +2181,7 @@ async def _test_gemini(api_key: str) -> tuple[bool, str | None, str | None]:
     import urllib.request
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"gemini-3.6-flash:generateContent?key={api_key}"
+        f"gemini-2.5-flash-lite:generateContent?key={api_key}"
     )
     payload = {
         "contents": [{"role": "user", "parts": [{"text": "ping"}]}],
@@ -2197,7 +2197,7 @@ async def _test_gemini(api_key: str) -> tuple[bool, str | None, str | None]:
     try:
         data = await asyncio.to_thread(_do)
         if data and data.get("candidates"):
-            return True, "gemini-3.6-flash", None
+            return True, "gemini-2.5-flash-lite", None
         return False, None, "no candidates"
     except Exception as e:
         return False, None, type(e).__name__

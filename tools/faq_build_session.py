@@ -37,7 +37,7 @@ import faq         # noqa: E402
 import md_corpus   # noqa: E402
 from api_server import ChatRequest  # noqa: E402
 
-ANSWERER = "gemini-3.6-flash"            # free tier
+ANSWERER = "gemini-2.5-flash-lite"        # free tier, 3x cheaper than 2.5-flash
 JUDGE_MODEL = "deepseek/deepseek-chat"   # via OpenRouter (same as api_server)
 RETRY_LIMIT = 1
 BACKUP_KEEP = 5
