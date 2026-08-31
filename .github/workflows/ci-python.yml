@@ -140,9 +140,13 @@ jobs:
         # headroom: scripts/test-jsx.mjs aliases framer-motion to a
         # ~1 KB stub so the 57 component tests run in ~1.8 s.
         #
-        # --test-timeout=30000 fails individual tests after 30s instead
-        # of waiting the full 5-min job cap. A bad test now fails fast.
+        # Per-test timeout is applied two ways (Node restricts --test-timeout
+        # via NODE_OPTIONS, so it's set per-script):
+        #   - test:lib forwards it to `node --test` as a CLI arg
+        #   - test:components forwards it to `run({ timeout })` programmatically
+        # A hung test now fails in 30s instead of waiting the full 5-min cap.
         run: npm test
         working-directory: frontend-2
         env:
-          NODE_OPTIONS: --max-old-space-size=4096 --test-timeout=30000
+          NODE_OPTIONS: --max-old-space-size=4096
+          TEST_TIMEOUT_MS: "30000"
