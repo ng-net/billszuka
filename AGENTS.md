@@ -12,6 +12,7 @@ Operator: Marceli. Operator's company: BILLS Sp. z o.o. (NIP PL).
 - `RUNBOOK.md` — verification toolbox per country, `.env`/vault/knowledge-base setup (CANONICAL)
 - `INTEL.md` — strategic discoveries, partner data, market insights (append only)
 - `DZIENNIK.md` — session log, progress, feedback, action items, remote/migration history
+- `INTEL-archive.md` / `DZIENNIK-archive.md` — full old content, never delete (forensic fallback)
 - `SETUP-REGON-KEY.md` — how to get the Polish REGON API key
 
 ## Iron rules

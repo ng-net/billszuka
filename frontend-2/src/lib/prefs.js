@@ -8,7 +8,7 @@ const KEY = "czat-table.prefs.v2";
 
 const DEFAULTS = {
   version: 2,
-  activeTab: "table", // "table" | "analytics"
+  activeTab: "table", // "table" | "analytics" | "experiment"
   density: "compact", // "compact" | "comfortable"
   theme: "system", // "light" | "dark" | "system"
   columnOrder: null, // array of column ids, null = default order
