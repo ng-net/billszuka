@@ -118,3 +118,6 @@ data/README.md
 
 # Docs (project documentation lives in AGENTS.md / DZIENNIK.md / INTEL.md)
 docs/
+
+# Local scratch (not part of the project — videos from generative tooling, etc.)
+videos/

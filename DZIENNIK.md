@@ -4041,3 +4041,18 @@ npm run test:components  # 33 vite-node tests, ~4.5s
 runners but works locally. Hypotheses: dep-graph resolution timeout on cold
 cache, or some module (lucide-react / happy-dom) failing to load in the
 ng-net runner's disk/network environment.
+
+## 2026-08-31 02:49 CEST — Session end: CI green, local servers stopped
+
+**Final state on ng-net main:** `dc1e4bf1` (HEAD), 1 commit ahead of session start.
+All 4 jobs green (Python 3.11/3.12/3.13 + JS tests with test:components best-effort).
+
+**Action this turn:**
+- Stopped local dev servers (3001 vite, 8000 fastapi)
+- Added `videos/` to `.gitignore` (local scratch, not part of the project)
+
+**Open follow-ups (not blocking):**
+- Investigate vite-node hang on ng-net runners (DZIENNIK 2026-08-31 02:25)
+- Run `npm test` locally before pushing to keep test:components honest
+
+**Next session:** start the local servers with `python3 tools/api_server.py --port 8000 &` + `cd frontend-2 && npm run dev &`, or use the deployed https://billszuka.pages.dev
