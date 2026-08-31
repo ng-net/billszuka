@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   AlertCircle,
   Command as CommandIcon,
-  BookOpen,
   Keyboard,
   Sun,
   Moon,
@@ -16,13 +15,17 @@ import {
   LogOut,
   Camera,
   FolderOpen,
-  Sparkles
+  Sparkles,
+  History,
+  Bookmark,
+  Library,
 } from "lucide-react";
 import { getActiveProfile, setActiveProfile } from "@/lib/auth";
 import { ProfileSelector } from "@/components/ProfileSelector";
 import { SnapshotsDialog } from "@/components/SnapshotsDialog";
 import { fetchSettings } from "@/lib/secretsApi";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
+import { DEFAULT_VIEWS } from "@/lib/views";
 import { GeminiDrawer } from "@/components/GeminiDrawer";
 import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
@@ -37,6 +40,10 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
 import {
   Dialog,
@@ -175,6 +182,15 @@ export default function App() {
     setVaultError(null);
   }, []);
 
+  // Profile dropdown: lists built-in DEFAULT_VIEWS plus user-defined
+  // savedViews from prefs. Clicking one delegates to RawTable via the
+  // imperative ref — that's the single source of truth for "apply view".
+  const handleApplyView = useCallback((view) => {
+    if (activeTab !== "table") handleTabChange("table");
+    // RawTable owns filter state; defer to its imperative handle.
+    tableRef.current?.applyView?.(view);
+  }, [activeTab, handleTabChange]);
+
   if (!activeProfile) {
     return (
       <ProfileSelector
@@ -254,17 +270,90 @@ export default function App() {
           </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" title={`Profil: ${activeProfile}`}>
+              <Button
+                variant="ghost"
+                size="icon"
+                title={`Profil: ${activeProfile}`}
+                aria-label="Profil i konto"
+                className="relative"
+              >
                 <User className="h-4 w-4" />
+                {knowledgeIds.length > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-background" />
+                )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Zalogowany jako {activeProfile}</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => tableRef.current?.saveSnapshot?.(activeProfile)}>
-                <Camera className="h-4 w-4 mr-2" /> Zapisz zrzut tabeli
+            <DropdownMenuContent align="end" className="min-w-[16rem]">
+              <DropdownMenuLabel className="flex flex-col gap-0.5">
+                <span className="text-xs font-normal text-muted-foreground">Zalogowany jako</span>
+                <span className="font-semibold">{activeProfile}</span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setSettingsOpen(true)}>
+                <KeyRound className="h-4 w-4 mr-2" />
+                <span className="flex-1">Klucze API</span>
+                <span className="text-[10px] text-muted-foreground">
+                  {vault
+                    ? (vault.openrouter?.length || 0) + (vault.gemini?.length || 0)
+                    : "…"}
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setKnowledgeOpen(true)}>
+                <Library className="h-4 w-4 mr-2" />
+                <span className="flex-1">Baza wiedzy</span>
+                {knowledgeIds.length > 0 && (
+                  <span className="text-[10px] text-emerald-600 font-medium">
+                    {knowledgeIds.length} aktywnych
+                  </span>
+                )}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setSnapshotsOpen(true)}>
-                <BookOpen className="h-4 w-4 mr-2" /> Historia sesji (Zrzuty)
+                <History className="h-4 w-4 mr-2" />
+                <span className="flex-1">Historia sesji</span>
+                <span className="text-[10px] text-muted-foreground">Zrzuty + logowania</span>
+              </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <Bookmark className="h-4 w-4 mr-2" />
+                  <span className="flex-1">Zapisane widoki</span>
+                  <span className="text-[10px] text-muted-foreground">
+                    {DEFAULT_VIEWS.length + ((loadPrefs(activeProfile).savedViews) || []).length}
+                  </span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent className="max-h-80 overflow-auto">
+                  <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                    Wbudowane
+                  </DropdownMenuLabel>
+                  {DEFAULT_VIEWS.map((v) => (
+                    <DropdownMenuItem key={v.id} onClick={() => handleApplyView(v)}>
+                      <Bookmark className="h-3.5 w-3.5 mr-2" />
+                      {v.name}
+                    </DropdownMenuItem>
+                  ))}
+                  {(() => {
+                    const userViews = (loadPrefs(activeProfile).savedViews) || [];
+                    if (!userViews.length) return null;
+                    return (
+                      <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                          Moje
+                        </DropdownMenuLabel>
+                        {userViews.map((v) => (
+                          <DropdownMenuItem key={v.id} onClick={() => handleApplyView(v)}>
+                            <Bookmark className="h-3.5 w-3.5 mr-2 text-emerald-600" />
+                            {v.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </>
+                    );
+                  })()}
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => tableRef.current?.saveSnapshot?.(activeProfile)}>
+                <Camera className="h-4 w-4 mr-2" />
+                Zapisz zrzut tabeli
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => {
                 // Auto-save snapshot on logout if possible
@@ -272,24 +361,12 @@ export default function App() {
                 setActiveProfile(null);
                 setActiveProfileState(null);
               }}>
-                <LogOut className="h-4 w-4 mr-2" /> Wyloguj się
+                <LogOut className="h-4 w-4 mr-2" />
+                Wyloguj się
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <HealthBadge vault={vault} error={vaultError} />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setKnowledgeOpen(true)}
-            aria-label="Baza wiedzy"
-            title={`Baza wiedzy${knowledgeIds.length ? ` (${knowledgeIds.length} aktywnych)` : ""}`}
-            className="relative"
-          >
-            <BookOpen className="h-4 w-4" />
-            {knowledgeIds.length > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-background" />
-            )}
-          </Button>
           {activeTab === "table" && (
             <Button
               variant="ghost"
@@ -309,15 +386,6 @@ export default function App() {
             title="Moje Pliki"
           >
             <FolderOpen className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setSettingsOpen(true)}
-            aria-label="Klucze API"
-            title="Klucze API"
-          >
-            <KeyRound className="h-4 w-4" />
           </Button>
           <UploadButton
             onFile={(file) => {

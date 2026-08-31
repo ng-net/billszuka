@@ -25,6 +25,7 @@ import { useCsv } from "@/hooks/useCsv";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { useUndoRedo } from "@/lib/useUndoRedo";
 import { debounce } from "@/lib/utils";
+import { classifyBrand } from "@/lib/brand";
 
 import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
@@ -33,7 +34,7 @@ import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
 
-import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset, saveSnapshot } from "@/lib/datasetStorage";
+import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset, saveSnapshot, saveMasterCache, getMasterCache } from "@/lib/datasetStorage";
 
 const SAMPLE_URL = "/sample.csv";
 const SAMPLE_SIZE = 214000; // approximate
@@ -44,6 +45,13 @@ const SAMPLE_SIZE = 214000; // approximate
 // data/master.csv manually, the next reload picks up the new content.
 const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
+
+// Synthetic column id for the brand classifier (PowerMatic / Hawk / etc.).
+// Lives in `filters` as `__brand`, but DataTable declares it as a real
+// column so TanStack can run its filter pipeline. NEVER put it in
+// columnOrder or columnVisibility — keeping it out of the display path is
+// what makes it "filterable but invisible".
+const SYNTHETIC_BRAND_COL = "__brand";
 
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
@@ -56,8 +64,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
   // Automatic data pre-load after the gate:
   // 1. Check if the user previously uploaded a custom CSV (stored in IndexedDB).
-  // 2. If not, try the full master.csv from backend; if unreachable, fall back to sample;
-  // 3. If that also fails, leave the EmptyState's manual button for the user.
+  // 2. If not, restore the cached master.csv payload from IndexedDB — renders
+  //    instantly on refresh without waiting for the network.
+  // 3. Background: kick off a fresh /api/master.csv fetch so the cache stays
+  //    current; the rows swap in once the new parse completes.
+  // 4. If neither works, fall back to /sample.csv (bundled static copy).
   const bootRef = useRef(0); // 0 = try load, 1 = pending, 2 = settled
   const loadUrl = csv.loadUrl;
   const loadUrlRef = useRef(loadUrl);
@@ -83,6 +94,16 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               return;
             }
           }
+          // No active custom dataset — try the per-profile master cache so
+          // the user sees their last-known rows on refresh while the
+          // background fetch lands. Boot remains "pending" so the network
+          // load still fires below.
+          const masterCached = await getMasterCache();
+          if (cancelled) return;
+          if (masterCached && masterCached.rows && masterCached.rows.length > 0) {
+            loadParsedDataRef.current(masterCached);
+            // Don't return — keep bootRef=1 so the background fetch still runs.
+          }
         } catch {
           // fall through to master.csv
         }
@@ -99,6 +120,27 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       cancelled = true;
     };
   }, [csv.status]);
+
+  // Persist master.csv loads to IndexedDB after a successful parse so the
+  // next refresh restores instantly. Skip when the load came from the
+  // bundled sample fallback (no point caching a static file we already have)
+  // or from a custom user upload (those go through a separate save path in
+  // useCsv.loadFile).
+  useEffect(() => {
+    if (csv.status !== "ready" || !csv.rows || csv.rows.length === 0) return;
+    const name = csv.fileMeta?.name || "";
+    if (!name.startsWith("master.csv")) return; // skip sample + custom
+    saveMasterCache(undefined, {
+      columns: csv.columns,
+      rows: csv.rows,
+      schema: csv.schema,
+      parseTimeMs: csv.parseTimeMs,
+      size: csv.fileMeta?.size || 0,
+    });
+    // Intentionally only fires on (status, name, row count) — the row
+    // contents are deep so listing them would re-run on every cell change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [csv.status, csv.fileMeta?.name, csv.rows.length]);
 
   // Manual trigger for the empty-state button. Clears custom upload,
   // and directly loads master.csv from the backend.
@@ -177,15 +219,40 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     const rest = base.filter((c) => !pinned.includes(c));
     return [...pinned, ...rest];
   }, [rawColumnOrder, csv.columns]);
+
+  // Augment each row with the synthetic __brand classifier value once
+  // per (rows) change. classifyBrand() is regex-only, so 5k rows takes
+  // ~5ms — fine to run inline. Result is memoized so the table doesn't
+  // re-allocate when other state changes.
+  const rowsWithBrand = useMemo(() => {
+    if (!csv.rows || csv.rows.length === 0) return csv.rows;
+    return csv.rows.map((r) => {
+      if (r && r[SYNTHETIC_BRAND_COL] !== undefined) return r;
+      return { ...r, [SYNTHETIC_BRAND_COL]: classifyBrand(r) };
+    });
+  }, [csv.rows]);
+
+  // Columns the DataTable declares — csv.columns plus __brand. The
+  // synthetic entry is what lets saved views (which store
+  // filters: { __brand: "PowerMatic" }) actually narrow the table.
+  const tableColumnsList = useMemo(
+    () => (csv.columns.length > 0 ? [...csv.columns, SYNTHETIC_BRAND_COL] : csv.columns),
+    [csv.columns]
+  );
   // Filter out sort/filter entries that point to columns no longer in the CSV.
   const sortStack = useMemo(
     () => (prefs.sortStack || []).filter((s) => csv.columns.includes(s.id)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.sortStack, csv.columns]
   );
+  // Keep `__brand` filter entries (synthetic column) alongside real
+  // CSV columns. The CSV-column sanitizer stays for everything else so
+  // stale filters don't sneak through after a schema change.
   const filters = useMemo(
     () => Object.fromEntries(
-      Object.entries(prefs.filters || {}).filter(([k]) => csv.columns.includes(k))
+      Object.entries(prefs.filters || {}).filter(
+        ([k]) => k === SYNTHETIC_BRAND_COL || csv.columns.includes(k)
+      )
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.filters, csv.columns]
@@ -386,8 +453,24 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
          parseTimeMs: csv.parseTimeMs
       });
       toast.success("Zapisano zrzut sesji", { duration: 2000 });
-    }
-  }), [csv, prefs]);
+    },
+    applyView: (view) => {
+      if (!view || !view.filters) return;
+      // Apply filters; if the view lists columns, switch column visibility too.
+      // Sort is intentionally not touched — saved views are filter+column views.
+      setPrefs((p) => ({
+        ...p,
+        filters: { ...view.filters },
+        columnVisibility:
+          Array.isArray(view.columns) && view.columns.length
+            ? Object.fromEntries(csv.columns.map((c) => [c.id, view.columns.includes(c.id)]))
+            : p.columnVisibility,
+        activeView: view.id || null,
+      }));
+      // Make sure we're on the table tab (paranoia — caller is App).
+      setPaletteOpen(false);
+    },
+  }), [csv, prefs, setPrefs]);
 
   // Persist last focused column. Done inline in the change handler so
   // we don't need a setState-in-effect.
@@ -604,8 +687,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
             <>
               <div className="flex-1 min-h-0 relative">
                 <DataTable
-                  columns={columnOrder}
-                  rows={csv.rows}
+                  columns={tableColumnsList}
+                  rows={rowsWithBrand}
                   schema={csv.schema}
                   columnOrder={columnOrder}
                   columnVisibility={columnVisibility}

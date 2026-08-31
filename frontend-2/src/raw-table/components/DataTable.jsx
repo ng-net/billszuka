@@ -25,6 +25,7 @@ import { CellRenderer } from "./CellRenderer";
 import { FilterInput } from "./FilterInput";
 import { SortableHeader } from "./SortableHeader";
 import { getEnumValues } from "@/lib/csv";
+import { classifyBrand } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 const STICKY_COLS_MOBILE = 2; // first 2 cols sticky on mobile
@@ -80,9 +81,12 @@ export function DataTable({
 
   // Column defs — attach the right filterFn per type so TanStack knows how to
   // apply each filter value shape (array, {min,max}, {from,to}) against row data.
+  // `__brand` is a synthetic column: not in the CSV, never rendered, but
+  // declared so saved views (which use {__brand: "PowerMatic"}) actually
+  // narrow the table. See brandMatch filterFn below.
   const tableColumns = useMemo(() => {
     return columns.map((colId) => {
-      const colType = schema?.find((s) => s.id === colId)?.type || "text";
+      const colType = colId === "__brand" ? "text" : schema?.find((s) => s.id === colId)?.type || "text";
       const width = defaultWidth(colId, colType);
       let filterFn;
       if (colType === "enum") {
@@ -96,6 +100,8 @@ export function DataTable({
         filterFn = "numberRange";
       } else if (colType === "date") {
         filterFn = "dateRange";
+      } else if (colId === "__brand") {
+        filterFn = "brandMatch";
       } else {
         // text / url / email / phone — robust case-insensitive substring filter
         filterFn = "textFilter";
@@ -184,6 +190,7 @@ export function DataTable({
       numberRange: numberRangeFilter,
       textFilter: textFilter,
       globalSearch: globalSearchFilter,
+      brandMatch: brandMatchFilter,
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -593,6 +600,21 @@ const textFilter = (row, columnId, filterValue) => {
   const cellStr = String(raw).toLowerCase();
   const searchStr = String(filterValue).toLowerCase().trim();
   return cellStr.includes(searchStr);
+};
+
+/**
+ * Synthetic filter for `__brand`. TanStack calls this per row; we re-run
+ * classifyBrand() on the raw row object (the synthetic column's accessor
+ * returns this same value, but going through row.original keeps the
+ * implementation self-contained and matches the views.test.js contract).
+ */
+const brandMatchFilter = (row, _columnId, filterValue) => {
+  if (filterValue == null || filterValue === "") return true;
+  const b = classifyBrand(row.original);
+  if (Array.isArray(filterValue)) {
+    return filterValue.includes(b);
+  }
+  return b === filterValue;
 };
 
 /**

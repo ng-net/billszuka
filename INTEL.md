@@ -49,8 +49,8 @@
 > Weryfikacja rejestrowa na żywo: KRS, CEIDG, ARES, VIES, e-Äriregister, ONRC, ASP, Sudski registar.
 >
 > **Stan na 2026-08-31:**
-> - `data/master.csv` — **376 podmiotów** × 35 kolumn, 12 krajów (PL 157, EE 36, BG 34, SK 30, RO 24, LT 21, FR 21, HR 19, CZ 18, SI 16, LV 11, MD 7)
-> - **323 FROZEN (86.1%)** / **52 DO-WERYFIKACJI (13.9%)** / 1 PENDING
+> - `data/master.csv` — **353 podmiotów** × 35 kolumn, **12 krajów** (PL 129, EE 36, BG 33, SK 30, RO 23, LT 21, HR 19, RS 19, CZ 9, SI 16, LV 11, MD 7) — FR usunięte 2026-08-31 (poza scope)
+> - **281 FROZEN (80%)** / **72 DO-WERYFIKACJI (20%)** / 0 PENDING
 > - DO-WERYFIKACJI driver: halucynowane NIP/KRS z poprzednich enrichment passes (manual lookup needed)
 > - Sync 1:1 między katalogami a master.csv (sync_verifier cron, 30 min)
 
@@ -384,9 +384,9 @@ Per-user sessions/bookmarks/soft-delete/activity log wycofane. Powrót do Basic 
 | 🇧🇬 BG | BAT Bulgaria | Mila Marechkova | Country Manager | BAT |
 | 🇧🇬 BG | Philip Morris Bulgaria | Denys Strobykin | GM | +359 2 806 31 00 |
 | 🇧🇬 BG | JTI Bulgaria | Manos Koukourakis | GM | LinkedIn |
-| 🇫🇷 FR | Logista France | Mathilde GOFFARD (Keszey) | Président | 01 49 57 60 00 |
-| 🇫🇷 FR | ADNS SARL | Damien Claude Rousseau | — | api.gouv.fr SIREN 508404167 |
-| 🇫🇷 FR | SAS SODIP (Néodis) | Michel Bouyssy | — | api.gouv.fr SIREN 414971510 |
+| 🇫🇷 FR *future scope* | Logista France | Mathilde GOFFARD (Keszey) | Président | 01 49 57 60 00 |
+| 🇫🇷 FR *future scope* | ADNS SARL | Damien Claude Rousseau | — | api.gouv.fr SIREN 508404167 |
+| 🇫🇷 FR *future scope* | SAS SODIP (Néodis) | Michel Bouyssy | — | api.gouv.fr SIREN 414971510 |
 | 🇪🇪 EE | JT OÜ (JTI Estonia) | Jaan Lainurm | Juhatuse liige | ariregister.rik.ee |
 | 🇪🇪 EE | British American Tobacco EE | Michelangelo Perini | — | ariregister.rik.ee/10047451 |
 | 🇷🇴 RO | BAT România Trading | Ram Addanki | CEO | — |

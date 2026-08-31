@@ -168,7 +168,10 @@ Format per kraj: **Podstawowy** (nazwa/adres/status) · **Finansowy** (bilans) �
 - **Live check:** 10/10 zweryfikowane — 8 FROZEN, 2 DO-WERYFIKACJI (detal B2C, brak
   wpisu jako hurtownia).
 
-### 🇫🇷 FR
+### 🇫🇷 FR — *future scope (poza scope 12 krajów, 2026-08-31)*
+
+> **Status 2026-08-31:** FR ma 0 wierszy w `data/master.csv` (usunęliśmy 22 rekordy).
+> Ta sekcja jest zachowana jako playbook na wypadek powrotu FR do scope.
 
 - Podstawowy (oficjalny, darmowy): `annuaire-entreprises.data.gouv.fr` — SIREN/SIRET,
   dirigeants, bilans
@@ -176,6 +179,7 @@ Format per kraj: **Podstawowy** (nazwa/adres/status) · **Finansowy** (bilans) �
 - Legal announcements/upadłości: `bodacc.fr` · IP: `inpi.fr` · paid odpis: `infogreffe.fr`
 - **Format:** SIREN = 9 cyfr (firma), SIRET = 14 cyfr (z adresem).
 - **Kontekst branżowy:** rolling tobacco to duży segment we Francji.
+- **Dlaczego poza scope:** Marceli 2026-08-31 — projekt pozostaje przy 12 krajach V4+Balkans+Baltics.
 
 ### 🇲🇩 MD (poza UE)
 
@@ -217,8 +221,8 @@ Bez tych 5 → dane = "niepotwierdzone ⚠️".
 **Priorytet kolejności (po PL):** 1. SI (AJPES, pakiet kompletny) 2. EE
 (e-Äriregister, najlepszy UX) 3. CZ (ARES + VIES, blisko + duży rynek).
 
-**Brakujące integracje (budżet 100-200 PLN/mies. odblokowałby PL+FR pełną
-automatyzację):** rejestr.io API (PL, 0.5 zł/dok), Pappers.fr API (FR, paid),
+**Brakujące integracje (budżet 100-200 PLN/mies. odblokowałby PL pełną
+automatyzację; FR jest poza scope od 2026-08-31):** rejestr.io API (PL, 0.5 zł/dok), Pappers.fr API (FR, paid — future scope),
 AJPES API (SI, free — warto zrobić), Lursoft API (LV, paid).
 
 ---

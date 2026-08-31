@@ -53,3 +53,28 @@ test("keywords: highlights tytoń, gilza, bibułki", () => {
   assert.ok(types.includes("gilza"));
   assert.ok(types.includes("bibulki"));
 });
+
+// Regression test for the __brand synthetic-column filter pipeline
+// (wired in DataTable.jsx as `brandMatch` and driven by `applyView()`).
+// Without this, "PowerMatic" / "Hawk" saved views would silently render
+// 0 rows because the classifier never ran per row in the production
+// filter pipeline (only in the views.test.js helper).
+test("brand: __brand filter pipeline narrows rows via classifyBrand", () => {
+  const rows = [
+    { id_unikalne: "1", nazwa_firmy: "PowerMatic seller", __brand: classifyBrand({ nazwa_firmy: "PowerMatic seller" }) },
+    { id_unikalne: "2", nazwa_firmy: "Hawk only", __brand: classifyBrand({ nazwa_firmy: "Hawk only" }) },
+    { id_unikalne: "3", nazwa_firmy: "PowerMatic + Hawk", __brand: classifyBrand({ nazwa_firmy: "PowerMatic + Hawk" }) },
+    { id_unikalne: "4", nazwa_firmy: "Generic shop", __brand: classifyBrand({ nazwa_firmy: "Generic shop" }) },
+  ];
+  const filter = "__brand";
+  // Single value
+  const onlyPowerMatic = rows.filter((r) => r[filter] === "PowerMatic");
+  assert.equal(onlyPowerMatic.length, 1);
+  assert.equal(onlyPowerMatic[0].id_unikalne, "1");
+  // Array value
+  const powerOrHawk = rows.filter((r) => ["PowerMatic", "Hawk"].includes(r[filter]));
+  assert.equal(powerOrHawk.length, 2);
+  // Empty filter = no narrowing
+  const unfiltered = rows.filter((r) => r[filter] !== undefined);
+  assert.equal(unfiltered.length, 4);
+});

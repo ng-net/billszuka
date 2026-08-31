@@ -2,7 +2,7 @@
  * datasetStorage.js — IndexedDB storage for preserving uploaded CSV datasets,
  * active dataset selection, and table snapshots across sessions per profile.
  */
-import { getActiveProfile } from "./auth";
+import { getActiveProfile } from "./auth.js";
 
 const DB_NAME = "billszuka_db";
 const DB_VERSION = 1;
@@ -31,6 +31,9 @@ function getActiveInfoKey(profileId) {
 }
 function getCustomDatasetKey(profileId) {
   return `custom_dataset_${profileId || getActiveProfile() || "default"}`;
+}
+function getMasterCacheKey(profileId) {
+  return `master_cache_${profileId || getActiveProfile() || "default"}`;
 }
 function getSnapshotsKey(profileId) {
   return `snapshots_${profileId || getActiveProfile() || "default"}`;
@@ -129,16 +132,83 @@ export async function clearCustomDataset(profileId) {
   try {
     const db = await openDB();
     if (!db) return;
+    const key = profileId || getActiveProfile() || "default";
     await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readwrite");
       const store = tx.objectStore(STORE_NAME);
-      store.delete(getCustomDatasetKey(profileId));
-      store.put({ type: "master", name: "master.csv", updatedAt: Date.now() }, getActiveInfoKey(profileId));
+      // Wipe every cached dataset so the next session starts clean —
+      // both user uploads AND the cached master.csv payload. Marceli's
+      // call: logout = fresh slate, no leaked rows between profiles.
+      store.delete(getCustomDatasetKey(key));
+      store.delete(getMasterCacheKey(key));
+      store.put({ type: "master", name: "master.csv", updatedAt: Date.now() }, getActiveInfoKey(key));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   } catch (err) {
     console.warn("Failed to clear custom dataset:", err);
+  }
+}
+
+// --- Master.csv cache (per-profile) ---
+// Parsed payload of /api/master.csv so a refresh renders instantly from
+// IndexedDB before the background revalidation fetches the fresh file.
+
+export async function saveMasterCache(profileId, { columns, rows, schema, parseTimeMs = 0, size = 0 }) {
+  try {
+    const db = await openDB();
+    if (!db) return;
+    const key = profileId || getActiveProfile() || "default";
+    const payload = {
+      columns: columns || [],
+      rows: rows || [],
+      schema: schema || [],
+      parseTimeMs,
+      size,
+      updatedAt: Date.now(),
+    };
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readwrite");
+      const store = tx.objectStore(STORE_NAME);
+      store.put(payload, getMasterCacheKey(key));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch (err) {
+    console.warn("Failed to persist master cache:", err);
+  }
+}
+
+export async function getMasterCache(profileId) {
+  try {
+    const db = await openDB();
+    if (!db) return null;
+    return await new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readonly");
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.get(getMasterCacheKey(profileId));
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+  } catch (err) {
+    console.warn("Failed to retrieve master cache:", err);
+    return null;
+  }
+}
+
+export async function clearMasterCache(profileId) {
+  try {
+    const db = await openDB();
+    if (!db) return;
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readwrite");
+      const store = tx.objectStore(STORE_NAME);
+      store.delete(getMasterCacheKey(profileId));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch (err) {
+    console.warn("Failed to clear master cache:", err);
   }
 }
 

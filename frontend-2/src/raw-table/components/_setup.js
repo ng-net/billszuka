@@ -10,6 +10,11 @@
 // The setup replaces globalThis.window/document/Element/etc. so React
 // and RTL find a real DOM to mount into. Each test file imports this
 // once and the side effect installs fresh globals before its tests run.
+//
+// fake-indexeddb/auto polyfills globalThis.indexedDB (and friends) so
+// IndexedDB-backed code paths (datasetStorage, datasetStorage.test.js)
+// work under node:test. happy-dom does NOT ship indexedDB.
+import "fake-indexeddb/auto";
 import { Window } from "happy-dom";
 
 const w = new Window();

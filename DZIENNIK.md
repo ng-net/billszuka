@@ -417,3 +417,49 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 - SIREN verification dla FR-X-001, FR-X-002 (French registries)
 - Rejestr Litewski/Lotewski/Estoński verification
 - ARC Romania, AJPES Slovenia, APR Serbia
+
+## 2026-08-31 08:16 — Sesja: weryfikacja rejestrowa + finalizacja manual-search intake
+
+**Kontynuacja** po przerwie — wszystkie 12 krajów z manual-search mają zweryfikowane (lub udokumentowane jako DO-WERYFIKACJI) wpisy.
+
+### Weryfikacja (8 z 14 = 57% FROZEN)
+
+| Kraj | ID | Firma | Źródło rejestrowe | Status |
+|---|---|---|---|---|
+| CZ | CZ-X-001 | SHAMAN TOBACCO s.r.o. | ARES IČO 19858132 | ✅ FROZEN |
+| CZ | CZ-X-002 | Jan Ševic (OSVČ) | ARES IČO 45410003 | ✅ FROZEN |
+| FR | FR-X-001 | PROJECT WEB (Smoking.fr) | API Entreprises SIREN 499389146 | ✅ FROZEN |
+| FR | FR-X-002 | SPI D CLIC | API Entreprises SIREN 791551732 | ✅ FROZEN |
+| LV | LV-X-001 | SIA Avalons | Lursoft 40003545929 | ✅ FROZEN |
+| LV | LV-X-002 | SIA "BS Trade" (Motivs.lv) | Lursoft 40008225644 + imprint | ✅ FROZEN |
+| SI | SI-X-001 | Goran Jandrić s.p. (Hiper Trade) | hipertrade.si imprint | ✅ FROZEN (ale s.p.!) |
+| RO | RO-X-001 | Sibis Concept Company SRL (eTutun) | footer imprint CUI 38359096 | ✅ FROZEN |
+| LT | LT-X-001/002 | Medėja / Skonis ir Kvapas | brak publicznego API | ⚠️ DO-WERYFIKACJI |
+| RO | RO-X-002/003 | TuburiAparate / CotyShop | Cloudflare-blocked | ⚠️ DO-WERYFIKACJI |
+| MD | MD-X-001 | Tabacco.md | brak publicznego API | ⚠️ DO-WERYFIKACJI |
+| RS | RS-X-001 | Golden Market | 403 bot-blocked | ⚠️ DO-WERYFIKACJI |
+
+### Kluczowe odkrycia weryfikacyjne
+
+1. **SI-X-001 to s.p., NIE d.o.o.** — Goran Jandrić s.p., Brodarjev trg 13, 1000 Ljubljana. Wpływa na typ relacji: single-proprietor (niższy wolumen, mniej stabilna niż corporate), ale też szybsze decyzje i bezpośredni kontakt z właścicielem.
+2. **LV-X-002 to osobna firma BS Trade** — tabakeria.lv i motivs.lv to dwa różne podmioty. BS Trade jest importerem/dystrybutorem w Rīga, mają też inne brandy.
+3. **RO-X-001 to Sibis Concept Company SRL, CUI 38359096** — nazwa handlowa "eTutun" ale operator firmy to Sibis. Czy jest powiązany z innymi Sibis w branży tytoniowej RO? Do sprawdzenia.
+4. **LT bez publicznego API do scrapowania** — wszystkie litewskie serwisy firmowe (rekvizitai.lt, JAR, imones.lt) są za SPA/Cloudflare. Jedyna opcja: ręczne wpisanie nazwy w przeglądarce lub paid Lursoft (pokrywa LT/LV/EE).
+5. **MD i RS bez publicznego API** — podobnie jak LT, trzeba zaakceptować DO-WERYFIKACJI lub zapłacić za rejestry (companywall.rs za RS ma podstawowe dane za darmo).
+
+### Pliki zaktualizowane w tej sesji
+- `data/Łotwa/extra-leads-LV.csv` (2 wpisy FROZEN)
+- `data/Słowenia/extra-leads-SI.csv` (1 wpis FROZEN + korekta s.p. vs d.o.o.)
+- `data/Rumunia/extra-leads-RO.csv` (1 FROZEN, 2 DO-WERYFIKACJI)
+- `data/Mołdawia/extra-leads-MD.csv` (notatka o braku API)
+- `data/Serbia/extra-leads-RS.csv` (notatka o bot-blocked)
+- `data/audit-log.md` (pełny wpis sesji)
+
+### Walidacja końcowa
+- `tools/validate_columns.py` na wszystkich 9 extra-leads-*.csv → wygenerowane raporty per plik w `data/validation-reports/columns-extra-leads-{ISO}-*.md`
+- Krytyki oczekiwane: brak 18 kolumn ze schematu 35 (extra-leads ma 17-kolumnowy schemat intake) — nie do naprawy w obecnym formacie.
+
+### Następne kroki (nie w tej sesji)
+1. Rozważyć paid Lursoft (LT/LV/EE) — daje API dostęp do 3 rynków bałtyckich, ~$30/mies.
+2. Dla RO: ręcznie zweryfikować 2 cloudflare-blocked domeny (tuburiaparate.ro, cotyshop.ro) przez Google cache lub archive.org
+3. Rozważyć dodatkowe web search w MD (rumunский/ukraiński język) — bo mołdawski rynek jest under-served
