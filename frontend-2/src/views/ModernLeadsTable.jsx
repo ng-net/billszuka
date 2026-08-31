@@ -112,11 +112,11 @@ export function ModernLeadsTable({ leads: leadsProp }) {
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matches =
-          lead.nazwa_firmy.toLowerCase().includes(q) ||
-          lead.nip_vat.toLowerCase().includes(q) ||
-          lead.miasto.toLowerCase().includes(q) ||
-          lead.id_unikalne.toLowerCase().includes(q) ||
-          lead.decydent.toLowerCase().includes(q);
+          (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
+          (lead.nip_vat || "").toLowerCase().includes(q) ||
+          (lead.miasto || "").toLowerCase().includes(q) ||
+          (lead.id_unikalne || "").toLowerCase().includes(q) ||
+          (lead.decydent || "").toLowerCase().includes(q);
         if (!matches) return false;
       }
       return true;
@@ -438,7 +438,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
                       <td className="p-4 sticky left-0 z-10 bg-white dark:bg-zinc-900 group-hover:bg-slate-50 dark:group-hover:bg-zinc-800/80 border-r border-slate-200 dark:border-zinc-700 transition-colors shadow-[1px_0_3px_rgba(0,0,0,0.03)]">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-100 to-slate-200 dark:from-indigo-900/60 dark:to-zinc-800 flex items-center justify-center text-slate-700 dark:text-indigo-200 font-bold text-lg shadow-inner shrink-0">
-                            {lead.nazwa_firmy.charAt(0)}
+                            {(lead.nazwa_firmy || "?").charAt(0)}
                           </div>
                           <div className="min-w-0">
                             <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm truncate">
@@ -606,7 +606,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
                               <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
                                 <div className="text-xs text-slate-500 dark:text-slate-400 mb-1.5">Marki Maszynek</div>
                                 <div className="flex flex-wrap gap-1.5">
-                                  {lead.marki_nabijarki.split(",").map((m, i) => (
+                                  {(lead.marki_nabijarki || "").split(/[,;|]/).map((m, i) => (
                                     <span
                                       key={i}
                                       className="px-2 py-0.5 bg-slate-100 dark:bg-zinc-700 text-slate-700 dark:text-slate-200 rounded text-xs font-medium border border-slate-200 dark:border-zinc-600"

@@ -220,11 +220,11 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matches =
-          lead.nazwa_firmy.toLowerCase().includes(q) ||
-          lead.nip_vat.toLowerCase().includes(q) ||
-          lead.miasto.toLowerCase().includes(q) ||
-          lead.id_unikalne.toLowerCase().includes(q) ||
-          lead.decydent.toLowerCase().includes(q);
+          (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
+          (lead.nip_vat || "").toLowerCase().includes(q) ||
+          (lead.miasto || "").toLowerCase().includes(q) ||
+          (lead.id_unikalne || "").toLowerCase().includes(q) ||
+          (lead.decydent || "").toLowerCase().includes(q);
         if (!matches) return false;
       }
       return true;

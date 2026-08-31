@@ -279,10 +279,10 @@ function VideoGridExperiment({ leads: leadsProp }) {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         const match =
-          lead.nazwa_firmy.toLowerCase().includes(q) ||
-          lead.nip_vat.toLowerCase().includes(q) ||
-          lead.id_unikalne.toLowerCase().includes(q) ||
-          lead.miasto.toLowerCase().includes(q);
+          (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
+          (lead.nip_vat || "").toLowerCase().includes(q) ||
+          (lead.id_unikalne || "").toLowerCase().includes(q) ||
+          (lead.miasto || "").toLowerCase().includes(q);
         if (!match) return false;
       }
       if (activeCountryFilters.length > 0 && !activeCountryFilters.includes(lead.kraj)) {
@@ -670,7 +670,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
 
                   {/* 7. Brands */}
                   <td className="p-3 border-r border-gray-100 dark:border-border/50 text-xs text-gray-600 dark:text-muted-foreground">
-                    {lead.marki_nabijarki.split(",").map((m, i) => (
+                    {(lead.marki_nabijarki || "").split(/[,;|]/).map((m, i) => (
                       <span
                         key={i}
                         className="bg-gray-100 dark:bg-muted px-1.5 py-0.5 rounded mr-1 text-gray-600 dark:text-foreground text-[11px]"
