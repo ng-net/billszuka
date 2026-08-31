@@ -10,7 +10,7 @@
 | Metryka | Wartość |
 |---|---|
 | Git | `main` @ ng-net/billszuka, clean |
-| Tests | 547/547 PASS (450 pytest + 97 node:test) |
+| Tests | 557/557 PASS (460 pytest + 97 node:test) |
 | master.csv | 376 wierszy × 35 kolumn, 12 krajów |
 | FROZEN | 323 (86.1%) |
 | DO-WERYFIKACJI | 52 (13.9%) — głównie halucynowane NIP/KRS z poprzednich enrichment passes |
@@ -26,6 +26,23 @@
 - 2 PL-B z `miasto="Polska"` (PL-B-086, PL-B-104) → manual fix
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
+
+## 2026-08-31 — Refaktoryzacja i utwardzenie skryptów narzędziowych (purge & orchestrate)
+
+- **Utwardzenie `tools/purge_hallucinations_and_normalize.py`:**
+  - **Kwarantanna i ślad audytowy:** Usunięte rekordy trafiają do `data/_quarantine/purged-{cat_type}-{iso}.csv` z powodem usunięcia (`purge_reason`) i znacznikiem czasu ISO UTC (`purged_at`).
+  - **Bezpieczny zapis i kopia zapasowa:** Tworzenie kopii `.bak` przed modyfikacją pliku oraz atomowy zapis przez plik tymczasowy `.tmp` (`replace`).
+  - **Zakotwiczone regexy (`^...$`):** Zastąpiono podciągi typu `re.search(r"123456", nip)` ścisłymi wzorcami, eliminując false-positives dla autentycznych identyfikatorów zawierających ciągi cyfr w środku (np. `5212345678`).
+  - **Generyczna biała lista:** Zastąpiono pojedynczy hardcoded NIP regułą `is_verified_allowlisted()` korzystającą z `VERIFIED_ALLOWLIST` w `tools/config.py`.
+  - **Tryb `--dry-run`:** Dodano obsługę parametru CLI `--dry-run` do symulacji bez zapisu na dysku.
+- **Utwardzenie `tools/orchestrate_11_levels.py` i `tools/country_plans.json`:**
+  - **Wyodrębnienie danych:** Słownik `COUNTRY_PLANS` przeniesiony do `tools/country_plans.json` z walidacją schematu na starcie (`validate_country_plans()`).
+  - **Ujednolicenie schematu:** Wszystkie 13 krajów posiada klucze `csv_A` i `csv_B` (dodano `csv_A` dla PL), usunięto protezy wstecznej kompatybilności `csv`.
+  - **Naprawa deduplikacji `add_lead`:** Puste identyfikatory NIP nie są traktowane jako duplikaty `""`, co pozwala dodawać rekordy bez NIP.
+  - **Dokumentacja i filtry:** Uściślono rolę playbooka w docstringach oraz poprawiono filtrowanie poziomów `--level L1`.
+- **Testy jednostkowe:** Utworzono `tests/test_purge_and_orchestrate.py` (10 testów zielonych). Pełny pakiet 460 testów pytest przechodzi w 100%.
+
+---
 
 ## 2026-08-31 — Czyszczenie nazw firm, realokacja deskryptorów i walidacja kolumn
 

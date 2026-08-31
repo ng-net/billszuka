@@ -5,11 +5,13 @@ and automatic macOS AppleDouble (._*) metadata file cleanup.
 """
 
 import os
+import re
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT_DIR / "data"
 TOOLS_DIR = ROOT_DIR / "tools"
+QUARANTINE_DIR = DATA_DIR / "_quarantine"
 
 
 def clean_apple_double(target_dir: Path = ROOT_DIR) -> int:
@@ -132,6 +134,26 @@ def make_id(iso: str, catalog_type: str, seq_num: int) -> str:
     """Generate region-free unique ID: e.g. PL-A-001, CZ-B-015."""
     cat = catalog_type.upper().strip()
     return f"{iso.upper()}-{cat}-{seq_num:03d}"
+
+
+# Verified company identifiers allowlist (e.g. AGROTAB PL7931626076)
+# Stored normalized (without spaces, dashes, or punctuation)
+VERIFIED_ALLOWLIST = {
+    "PL7931626076",
+    "7931626076",
+}
+
+
+def is_verified_allowlisted(identifier: str) -> bool:
+    """
+    Check if a tax/registry identifier is in the verified allowlist.
+    Normalizes whitespace, hyphens, and dots before checking.
+    """
+    if not identifier:
+        return False
+    norm = re.sub(r"[\s\-\.]+", "", str(identifier)).upper()
+    return norm in VERIFIED_ALLOWLIST
+
 
 # === Kimi K3 ===
 KIMI_API_KEY  = os.getenv("KIMI_API_KEY", "")

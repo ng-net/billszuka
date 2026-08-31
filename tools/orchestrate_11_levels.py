@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-orchestrate_11_levels.py — Per-country 11-level search & lead discovery playbook for BILLSzuka.
+orchestrate_11_levels.py — Interactive reference playbook & lead intake CLI for BILLSzuka.
+
+NOTE: This script serves as the living research playbook, query library, registry guide,
+and manual lead intake CLI. It does not automatically execute web searches or crawler requests.
+For executing verification gates or automated checks, see tools/test_11_levels.py and tools/verify_run.py.
 
 Levels (L0-L11 per methodology.md):
   L0: Pre-flight validation (NIP checksum + Registry name match)
@@ -23,6 +27,7 @@ Usage:
 
 import argparse
 import csv
+import json
 import re
 import sys
 import time
@@ -33,318 +38,43 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from config import CANONICAL_SCHEMA, COUNTRY_MAP, make_id, rynek_skala_for
 
-COUNTRY_PLANS = {
-    "PL": {
-        "name": "Polska",
-        "csv": "data/Polska/catalog-B-PL.csv",
-        "L0_preflight": "NIP Mod 11 Checksum + KRS API name match (api-krs.ms.gov.pl) + CEIDG v3",
-        "L1_web_search": [
-            'site:linkedin.com/in "hurtownia tytoniowa"',
-            '"hurtownia akcesoriów tytoniowych" cennik',
-            '"dystrybutor tytoniu" oferta',
-            '"nabijarki hurtownia" Warszawa OR Kraków OR Poznań OR Wrocław',
-        ],
-        "L2_marketplace": ["allegro.pl (Allegro REST API seller search)", "ceneo.pl", "olx.pl", "erli.pl", "inpostbuy.pl"],
-        "L3_registries": {
-            "CEIDG": "https://dane.biznes.gov.pl/api/ceidg/v3/firmy",
-            "KRS": "https://api-krs.ms.gov.pl",
-            "REGON": "https://wyszukiwarkaregon.stat.gov.pl",
-            "PKD": ["46.35.Z", "46.69.Z", "46.43.Z", "47.26.Z", "47.11.Z"],
-        },
-        "L4_customs_regulatory": [
-            "CN 8479 89 97 90 (maszyny specjalne)",
-            "Biała Lista VAT (podatki.gov.pl)",
-            "KAS Rejestr Pośredniczących Podmiotów Tytoniowych",
-            "BDO Rejestr (rejestr-bdo.mos.gov.pl)",
-        ],
-        "L5_dns_whois": {"tld": ".pl", "whois": "whois.dns.pl", "crt_sh": "crt.sh/?q=%.powermatic.pl"},
-        "L6_trade_fairs": ["InterTabac Dortmund", "Vapexpo PL", "Tobacco Plus Expo"],
-        "L7_social_osint": [
-            "facebook.com/groups/nabijarki-do-tytoniu",
-            "facebook.com/groups/powermatic-polska",
-            "youtube.com ('PowerMatic recenzja' comment buyers)",
-        ],
-        "L8_B2B_catalogs": ["aleo.com", "pkt.pl", "panoramafirm.pl", "bizraport.pl", "nipgo.pl", "europages.pl"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "EUIPO eSearch (PowerMatic / Hawk trademark owners)",
-        "L11_procurement": "BZP PL (ezamowienia.gov.pl) CPV 15800000-6",
-    },
-    "CZ": {
-        "name": "Czechy",
-        "csv_B": "data/Czechy/catalog-B-CZ.csv",
-        "csv_A": "data/Czechy/catalog-A-CZ.csv",
-        "L0_preflight": "IČO 8-digit modulo 11 check + ARES API name match (ares.gov.cz)",
-        "L1_web_search": [
-            '"velkoobchod tabák" ceník',
-            '"kuřácké potřeby velkoobchod"',
-            '"doutníky velkoobchod" Praha OR Brno OR Ostrava',
-            '"nabiječka cigaret" velkoobchod OR distributor',  # nabijarka-specific
-            '"plnička tabáku" OR "plnička cigaret" velkoobchod',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["heureka.cz", "zbozi.cz", "aukro.cz", "alza.cz", "bazos.cz"],
-        "L3_registries": {
-            "ARES": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}",
-            "VIES": "http://ec.europa.eu/taxation_customs/vies/",
-            "NACE": ["46.35", "46.69", "47.26"],
-        },
-        "L4_customs_regulatory": ["Celní správa ČR (Czech Customs excise tax list)"],
-        "L5_dns_whois": {"tld": ".cz", "whois": "whois.nic.cz", "crt_sh": "crt.sh/?q=%.tabak.cz"},
-        "L6_trade_fairs": ["InterTabac (CZ exhibitors)", "Tabak Expo Praha"],
-        "L7_social_osint": ["facebook.com/groups (CZ tobacco)", "bazos.cz seller profiles"],
-        "L8_B2B_catalogs": ["firmy.cz", "kompass.com", "europages.cz"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "EUIPO eSearch CZ applicants",
-        "L11_procurement": "NEN CZ (nen.nipez.cz)",
-    },
-    "SK": {
-        "name": "Słowacja",
-        "csv_B": "data/Słowacja/catalog-B-SK.csv",
-        "csv_A": "data/Słowacja/catalog-A-SK.csv",
-        "L0_preflight": "IČO 8-digit check + FinStat / ORSR html match",
-        "L1_web_search": [
-            '"veľkoobchod tabak" cenník',
-            '"fajčiarske potreby veľkoobchod"',
-            '"tabak predaj" Bratislava OR Košice',
-            '"plničky cigariet" veľkoobchod OR distribútor',  # nabijarka-specific
-            '"tabakové príslušenstvo" veľkoobchod',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["heureka.sk", "bazos.sk", "mall.sk", "alza.sk"],
-        "L3_registries": {"ORSR": "https://www.orsr.sk", "FinStat": "https://finstat.sk/{ICO}", "VIES": True},
-        "L4_customs_regulatory": ["Finančná správa SR (SK Customs)"],
-        "L5_dns_whois": {"tld": ".sk", "whois": "whois.sk-nic.sk"},
-        "L6_trade_fairs": ["InterTabac (SK exhibitors)"],
-        "L7_social_osint": ["facebook.com/groups (SK tobacco)", "bazos.sk"],
-        "L8_B2B_catalogs": ["firmy.sk", "kompass.com", "europages.sk"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "EUIPO eSearch SK applicants",
-        "L11_procurement": "UVO SK (uvo.gov.sk)",
-    },
-    "RO": {
-        "name": "Rumunia",
-        "csv_B": "data/Rumunia/catalog-B-RO.csv",
-        "csv_A": "data/Rumunia/catalog-A-RO.csv",
-        "L0_preflight": "CUI format check + ListaFirme / ONRC match",
-        "L1_web_search": [
-            '"angrosist tutun" pret',
-            '"distribuitor tutun"',
-            '"articole fumat en-gros" București',
-            '"injectoare tigari" angrosist OR distribuitor',  # nabijarka-specific
-            '"masina umplut tigari" gros',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["emag.ro", "olx.ro", "cel.ro"],
-        "L3_registries": {"ListaFirme": "https://www.listafirme.ro", "ONRC": "https://myreconc.onrc.ro", "VIES": True},
-        "L4_customs_regulatory": ["Autoritatea Vamală Română"],
-        "L5_dns_whois": {"tld": ".ro", "whois": "whois.rotld.ro"},
-        "L6_trade_fairs": ["Indagra / Romexpo FMCG"],
-        "L7_social_osint": ["facebook.com/groups (RO tobacco)", "olx.ro sellers"],
-        "L8_B2B_catalogs": ["listafirme.ro", "firmegala.ro", "europages.ro"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "OSIM / EUIPO",
-        "L11_procurement": "SEAP RO (e-licitatie.ro)",
-    },
-    "LT": {
-        "name": "Litwa",
-        "csv_B": "data/Litwa/catalog-B-LT.csv",
-        "csv_A": "data/Litwa/catalog-A-LT.csv",
-        "L0_preflight": "Įmonės kodas 9-digit check + Rekvizitai VZ match",
-        "L1_web_search": [
-            '"didmeninė prekyba tabaku"',
-            '"rūkymo reikmenys didmena" Vilnius OR Kaunas',
-            '"cigarečių pildymo mašina" didmena OR distributorius',  # nabijarka-specific
-            '"tabako priedai" didmeninė prekyba',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["pigu.lt", "skelbiu.lt"],
-        "L3_registries": {"Rekvizitai": "https://rekvizitai.vz.lt", "JAR": "https://www.registrucentras.lt", "VIES": True},
-        "L4_customs_regulatory": ["Muitinės departamentas prie LR FM"],
-        "L5_dns_whois": {"tld": ".lt", "whois": "whois.domreg.lt"},
-        "L6_trade_fairs": ["RIGA FOOD / Baltic Expo"],
-        "L7_social_osint": ["skelbiu.lt sellers", "FB groups LT"],
-        "L8_B2B_catalogs": ["rekvizitai.vz.lt", "visalietuva.lt", "europages.lt"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "VPB / EUIPO",
-        "L11_procurement": "CVP IS LT (cvpis.eviesiejipirkimai.lt)",
-    },
-    "LV": {
-        "name": "Łotwa",
-        "csv_B": "data/Łotwa/catalog-B-LV.csv",
-        "csv_A": "data/Łotwa/catalog-A-LV.csv",
-        "L0_preflight": "Reģistrācijas numurs 11-digit check + LURSOFT match",
-        "L1_web_search": [
-            '"tabakas vairumtirdzniecība"',
-            '"smēķēšanas piederumi vairumā" Rīga',
-            '"cigarešu uzpildes mašīna" vairumtirdzniecība',  # nabijarka-specific
-            '"tabakas piederumi" vairumtirdzniecība distribūtors',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["ss.com", "220.lv"],
-        "L3_registries": {"Lursoft": "https://www.lursoft.lv", "UR": "https://www.ur.gov.lv", "VIES": True},
-        "L4_customs_regulatory": ["VID Muitas pārvalde"],
-        "L5_dns_whois": {"tld": ".lv", "whois": "whois.nic.lv"},
-        "L6_trade_fairs": ["Riga Food Expo"],
-        "L7_social_osint": ["ss.com sellers", "FB groups LV"],
-        "L8_B2B_catalogs": ["firmas.lv", "zl.lv", "europages.lv"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "LRPV / EUIPO",
-        "L11_procurement": "EIS LV (eis.gov.lv)",
-    },
-    "EE": {
-        "name": "Estonia",
-        "csv_B": "data/Estonia/catalog-B-EE.csv",
-        "csv_A": "data/Estonia/catalog-A-EE.csv",
-        "L0_preflight": "Registrikood 8-digit check + e-Äriregister match",
-        "L1_web_search": [
-            '"tubakatoodete hulgimüük"',
-            '"suitsetamistarvikud hulgimüük" Tallinn',
-            '"sigarettide täitemasin" hulgimüük OR distributoor',  # nabijarka-specific
-            '"tubakatarvikud" hulgimüük distributorid',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["kuldnebors.ee", "okidoki.ee", "kaup24.ee"],
-        "L3_registries": {"e-Ariregister": "https://ariregister.rik.ee", "VIES": True},
-        "L4_customs_regulatory": ["Maksu- ja Tolliamet"],
-        "L5_dns_whois": {"tld": ".ee", "whois": "whois.tld.ee"},
-        "L6_trade_fairs": ["Tallinn FoodFest"],
-        "L7_social_osint": ["okidoki.ee sellers", "FB groups EE"],
-        "L8_B2B_catalogs": ["inforegister.ee", "eesti.ee", "europages.ee"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "EPA / EUIPO",
-        "L11_procurement": "RHR EE (riigihanked.eesti.ee)",
-    },
-    "FR": {
-        "name": "Francja",
-        "csv_B": "data/Francja/catalog-B-FR.csv",
-        "csv_A": "data/Francja/catalog-A-FR.csv",
-        "L0_preflight": "SIREN 9-digit / SIRET 14-digit Luhn check + Pappers API match",
-        "L1_web_search": [
-            '"grossiste tabac" prix',
-            '"grossiste articles fumeurs" Paris OR Lyon OR Marseille',
-            '"machine injecteur cigarettes" grossiste distributeur',  # nabijarka-specific
-            '"grossiste accessoires tabac" distributeur France',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["leboncoin.fr", "cdiscount.com", "amazon.fr"],
-        "L3_registries": {"Pappers": "https://www.pappers.fr", "Societe": "https://www.societe.com", "VIES": True},
-        "L4_customs_regulatory": ["Douanes françaises (douane.gouv.fr)"],
-        "L5_dns_whois": {"tld": ".fr", "whois": "whois.afnic.fr"},
-        "L6_trade_fairs": ["Losangexpo Paris", "Vapexpo Paris"],
-        "L7_social_osint": ["leboncoin.fr pro sellers", "FB groups FR"],
-        "L8_B2B_catalogs": ["pappers.fr", "societe.com", "kompass.fr", "europages.fr"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "INPI / EUIPO",
-        "L11_procurement": "BOAMP FR (boamp.fr)",
-    },
-    "MD": {
-        "name": "Mołdawia",
-        "csv_B": "data/Mołdawia/catalog-B-MD.csv",
-        "csv_A": "data/Mołdawia/catalog-A-MD.csv",
-        "L0_preflight": "IDNO 13-digit check + CIS registry match",
-        "L1_web_search": [
-            '"gros tutun" Chisinau',
-            '"accesorii fumat gros"',
-            '"masini injectat tigari" angrosist Moldova',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["999.md"],
-        "L3_registries": {"CIS": "https://cis.gov.md", "Apollo": "Apollo.io fallback"},
-        "L4_customs_regulatory": ["Serviciul Vamal al Republicii Moldova"],
-        "L5_dns_whois": {"tld": ".md", "whois": "whois.nic.md"},
-        "L6_trade_fairs": ["Moldagrotech / Expo Moldova"],
-        "L7_social_osint": ["999.md sellers", "FB groups MD"],
-        "L8_B2B_catalogs": ["yellowpages.md", "kompass.md"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "AGEPI MD",
-        "L11_procurement": "MTender MD (mtender.gov.md)",
-    },
-    "BG": {
-        "name": "Bułgaria",
-        "csv_B": "data/Bułgaria/catalog-B-BG.csv",
-        "csv_A": "data/Bułgaria/catalog-A-BG.csv",
-        "L0_preflight": "EIK/UIC 9-digit check + Trade Register match",
-        "L1_web_search": [
-            '"търговия na едро тютюн"',
-            '"аксесоари за пушене едро" София',
-            '"машина за пълнене цигари" едро дистрибутор',  # nabijarka-specific
-            '"тютюневи принадлежности" едро дистрибутор',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["olx.bg", "bazar.bg"],
-        "L3_registries": {"ASP": "https://portal.registryagency.bg", "VIES": True},
-        "L4_customs_regulatory": ["Агенция Митници (customs.bg)"],
-        "L5_dns_whois": {"tld": ".bg", "whois": "whois.register.bg"},
-        "L6_trade_fairs": ["Plovdiv Fair"],
-        "L7_social_osint": ["olx.bg sellers", "bazar.bg"],
-        "L8_B2B_catalogs": ["firmite.bg", "goldenpages.bg", "europages.bg"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "BPO / EUIPO",
-        "L11_procurement": "AOP BG (aop.bg)",
-    },
-    "SI": {
-        "name": "Słowenia",
-        "csv_B": "data/Słowenia/catalog-B-SI.csv",
-        "csv_A": "data/Słowenia/catalog-A-SI.csv",
-        "L0_preflight": "Davčna številka 8-digit check + AJPES match",
-        "L1_web_search": [
-            '"trgovina na debelo tobak"',
-            '"tobačni izdelki debelo" Ljubljana',
-            '"stroji za polnjenje cigaret" veleprodaja',  # nabijarka-specific
-            '"tobačni pribor" veleprodaja distributer',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["bolha.com"],
-        "L3_registries": {"AJPES": "https://www.ajpes.si", "VIES": True},
-        "L4_customs_regulatory": ["FURS (Finančna uprava RS)"],
-        "L5_dns_whois": {"tld": ".si", "whois": "whois.register.si"},
-        "L6_trade_fairs": ["MOS Celje"],
-        "L7_social_osint": ["bolha.com sellers"],
-        "L8_B2B_catalogs": ["bizi.si", "piran.si", "europages.si"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "UIL / EUIPO",
-        "L11_procurement": "E-Naročanje SI (enarocanje.si)",
-    },
-    "HR": {
-        "name": "Chorwacja",
-        "csv_B": "data/Chorwacja/catalog-B-HR.csv",
-        "csv_A": "data/Chorwacja/catalog-A-HR.csv",
-        "L0_preflight": "OIB 11-digit ISO 7064 Mod 11,10 check + Sudreg match",
-        "L1_web_search": [
-            '"veleprodaja duhana"',
-            '"pribor za pušenje veleprodaja" Zagreb',
-            '"stroj za punjenje cigareta" veleprodaja',  # nabijarka-specific
-            '"duhanski pribor" veleprodaja distributer Hrvatska',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["njuskalo.hr"],
-        "L3_registries": {"Sudreg": "https://sudreg.pravosudje.hr", "VIES": True},
-        "L4_customs_regulatory": ["Carinska uprava HR"],
-        "L5_dns_whois": {"tld": ".hr", "whois": "whois.dns.hr"},
-        "L6_trade_fairs": ["Zagrebački Velesajam"],
-        "L7_social_osint": ["njuskalo.hr sellers"],
-        "L8_B2B_catalogs": ["poslovna.hr", "fininfo.hr", "europages.hr"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "DZIV / EUIPO",
-        "L11_procurement": "EOJN HR (eojn.nn.hr)",
-    },
-    "RS": {
-        "name": "Serbia (out-of-scope)",
-        "csv_A": "data/Serbia/catalog-A-RS.csv",
-        "csv_B": "data/Serbia/catalog-B-RS.csv",
-        "L0_preflight": "PIB 9-digit check + APR name match (apr.gov.rs)",
-        "L1_web_search": [
-            '"velikoprodaja duvana"',
-            '"pribor za pušenje" veleprodaja Beograd OR "Novi Sad"',
-            '"mašina za punjenje cigareta" veleprodaja OR distributer',  # nabijarka-specific
-            '"električna punilica za duvan" prodaja',  # nabijarka-specific
-        ],
-        "L2_marketplace": ["kupujemprodajem.com", "limundo.com"],
-        "L3_registries": {"APR": "https://www.apr.gov.rs", "Carina": "https://www.carina.rs"},
-        "L4_customs_regulatory": ["Uprava Carina RS (carina.rs)", "Poreska uprava RS"],
-        "L5_dns_whois": {"tld": ".rs", "whois": "whois.rnids.rs"},
-        "L6_trade_fairs": ["InterTabac (RS exhibitors)", "Sajam privrede Beograd"],
-        "L7_social_osint": ["kupujemprodajem.com sellers", "FB groups RS"],
-        "L8_B2B_catalogs": ["ekapija.com", "companywall.rs", "yubuild.com"],
-        "L9_LLM_extraction": {"provider": "OpenRouter", "model": "deepseek/deepseek-chat", "env_key": "OPENROUTER_API_KEY"},
-        "L10_trademark": "ZIS RS (zis.gov.rs) / EUIPO",
-        "L11_procurement": "Portal javnih nabavki RS (jnportal.ujn.gov.rs)",
-    },
-}
+PLANS_PATH = ROOT / "tools" / "country_plans.json"
+REQUIRED_PLAN_KEYS = [
+    "name", "csv_A", "csv_B", "L0_preflight", "L1_web_search", "L2_marketplace",
+    "L3_registries", "L4_customs_regulatory", "L5_dns_whois", "L6_trade_fairs",
+    "L7_social_osint", "L8_B2B_catalogs", "L9_LLM_extraction", "L10_trademark", "L11_procurement"
+]
+
+
+def validate_country_plans(plans: dict) -> bool:
+    """Validate that all country plans contain required metadata and level keys."""
+    for iso, plan in plans.items():
+        for key in REQUIRED_PLAN_KEYS:
+            if key not in plan:
+                raise ValueError(f"Country plan for {iso} is missing required key '{key}'")
+    return True
+
+
+def load_country_plans(path: Path = PLANS_PATH) -> dict:
+    """Load and validate 11-level country search plans from JSON configuration."""
+    if not path.exists():
+        raise FileNotFoundError(f"Country plans configuration not found: {path}")
+    with open(path, "r", encoding="utf-8") as f:
+        plans = json.load(f)
+    validate_country_plans(plans)
+    return plans
+
+
+# Export for direct imports / backward compatibility
+COUNTRY_PLANS = load_country_plans()
 
 
 def _csv_label(plan: dict) -> str:
-    """First available CSV path for a country plan (old 'csv' or new 'csv_A'/'csv_B')."""
-    return plan.get("csv") or plan.get("csv_B") or plan.get("csv_A") or "—"
+    """Formatted label of available CSV catalog paths for a country plan."""
+    csv_b = plan.get("csv_B")
+    csv_a = plan.get("csv_A")
+    paths = [p for p in [csv_b, csv_a] if p]
+    return ", ".join(paths) if paths else "—"
 
 
 def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id: str, source: str, catalog: str = "B") -> bool:
@@ -356,12 +86,9 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
         print(f"❌ Unknown country: {country}")
         return False
 
-    # Support both old 'csv' key (catalog-B) and new 'csv_A'/'csv_B' keys
-    if f"csv_{catalog}" in plan:
-        csv_rel = plan[f"csv_{catalog}"]
-    elif "csv" in plan:
-        csv_rel = plan["csv"]  # backward compat
-    else:
+    csv_key = f"csv_{catalog}"
+    csv_rel = plan.get(csv_key)
+    if not csv_rel:
         print(f"❌ No CSV path for catalog-{catalog} in country plan: {country}")
         return False
 
@@ -379,9 +106,14 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
     if not fieldnames or fieldnames != CANONICAL_SCHEMA:
         fieldnames = CANONICAL_SCHEMA
 
-    existing_nips = {r.get("nip_vat", "").replace(" ", "").upper() for r in rows if r.get("nip_vat")}
-    nip_norm = nip_clean.replace(" ", "").upper()
-    if nip_norm in existing_nips:
+    # Deduplicate only on non-empty tax numbers to prevent blocking leads without NIP
+    nip_norm = nip_clean.replace(" ", "").upper() if nip_clean else ""
+    existing_nips = {
+        r.get("nip_vat", "").replace(" ", "").upper()
+        for r in rows
+        if r.get("nip_vat", "").strip()
+    }
+    if nip_norm and nip_norm in existing_nips:
         print(f"   ℹ️  Skip duplicate NIP {nip_norm} ({name})")
         return False
 
@@ -412,8 +144,10 @@ def add_lead(country: str, name: str, category: str, nip_clean: str, rejestr_id:
 
 
 def list_countries():
+    """List 11-level search summary for all configured countries."""
     print("=" * 80)
-    print("  BILLSzuka 11-level Search Options — 13 tracked countries (12 EU + RS)")
+    print("  BILLSzuka 11-level Search Playbook — 13 tracked countries (12 EU + RS)")
+    print("  (Reference query bank and intake tool — not an automated scraper)")
     print("=" * 80)
     for code, plan in COUNTRY_PLANS.items():
         n_levels = sum(1 for k in plan if k.startswith("L") and "_" in k)
@@ -422,20 +156,31 @@ def list_countries():
 
 
 def show_country(country: str, target_level: str = None):
+    """Show detailed search queries, registries, and configuration for a country."""
     plan = COUNTRY_PLANS.get(country.upper())
     if not plan:
         print(f"❌ Unknown country: {country}")
         return
 
     print("=" * 80)
-    print(f"  Search Options: {country.upper()} — {plan['name']}  (CSV: {_csv_label(plan)})")
+    print(f"  Search Playbook: {country.upper()} — {plan['name']}  (CSV: {_csv_label(plan)})")
     print("=" * 80)
 
     for key, val in plan.items():
-        if key in ("name", "csv", "csv_A", "csv_B"):
+        if key in ("name", "csv_A", "csv_B"):
             continue
-        if target_level and not key.lower().startswith(target_level.lower()):
-            continue
+        if target_level:
+            lvl_clean = target_level.strip().lower()
+            key_clean = key.lower()
+            # Match exact key, level prefix (e.g. "l1" -> "l1_..."), or startswith
+            matches_level = (
+                key_clean == lvl_clean
+                or key_clean.startswith(f"{lvl_clean}_")
+                or key_clean.split("_")[0] == lvl_clean
+                or (not lvl_clean.startswith("l") and key_clean.startswith(lvl_clean))
+            )
+            if not matches_level:
+                continue
 
         print(f"\n📌 [{key}]:")
         if isinstance(val, list):
@@ -449,8 +194,10 @@ def show_country(country: str, target_level: str = None):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="BILLSzuka 11-level search strategy runner")
-    ap.add_argument("--list", action="store_true", help="List search summary for all 12 countries")
+    ap = argparse.ArgumentParser(
+        description="BILLSzuka 11-level search strategy reference playbook and lead intake tool"
+    )
+    ap.add_argument("--list", action="store_true", help="List search summary for all 13 countries")
     ap.add_argument("--country", help="Show search options for a country (e.g. PL, CZ, SK)")
     ap.add_argument("--level", help="Filter specific search level (e.g. L1, L2, L3)")
     args = ap.parse_args()
