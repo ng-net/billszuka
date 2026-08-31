@@ -148,6 +148,16 @@ from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Startup: import user_files_routes and register its router.
+    # Doing this in the lifespan (not at module import time) avoids the
+    # circular-import dance: by the time lifespan runs, this module is
+    # fully initialised, and user_files_routes can `import api_server`
+    # without hitting a partially-loaded module. Works equally well for
+    # `python tools/api_server.py` and `uvicorn --reload`.
+    import user_files_routes  # noqa: E402
+    if not any(getattr(r, "path", "") == "/api/files" for r in app.routes):
+        app.include_router(user_files_routes.router)
+
     # Startup: clean old catalogs
     def _clean_old():
         with db.connect() as conn:
@@ -2470,6 +2480,11 @@ def main() -> int:
               "GEMINI_API_KEY_1..N) or via the Settings drawer.", flush=True)
 
     import uvicorn
+
+    # user_files_routes is registered in the FastAPI lifespan (above) to
+    # avoid the circular import that breaks `uvicorn --reload`. Nothing
+    # else to do here.
+
     uvicorn.run(
         "api_server:app",
         host=args.host,
@@ -2482,7 +2497,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-import user_files_routes
-app.include_router(user_files_routes.router)
 

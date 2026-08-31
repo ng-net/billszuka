@@ -200,19 +200,47 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
   const [expandedRow, setExpandedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  // Multi-select country: empty array = all countries. Backwards-compat:
+  // if `selectedCountry` (string) is set, single-select still works.
+  const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("Wszystkie");
+  const [selectedTiers, setSelectedTiers] = useState([]);
   const [selectedTier, setSelectedTier] = useState("Wszystkie");
+  const [selectedConfidence, setSelectedConfidence] = useState("all"); // all | green | green_yellow | none
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedUrlFilter, setSelectedUrlFilter] = useState("Wszystkie");
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [tierDropdownOpen, setTierDropdownOpen] = useState(false);
   const [urlDropdownOpen, setUrlDropdownOpen] = useState(false);
+  const [confidenceDropdownOpen, setConfidenceDropdownOpen] = useState(false);
   const [maskNames, setMaskNames] = useState(true);
 
   const filterBarRef = useRef(null);
+  const searchInputRef = useRef(null);
 
-  const { byId: urlStatusById } = useUrlStatus(selectedCountry);
-  const { byId: keywordById } = useKeywordScan(selectedCountry);
+  // useUrlStatus/useKeywordScan: pass null/empty so the hook loads all rows
+  // once (the per-row filtering happens in JS). This keeps the multi-country
+  // filter cheap.
+  const urlCountryArg = selectedCountries.length > 0
+    ? null  // load all; row filter handles per-country
+    : (selectedCountry && selectedCountry !== "Wszystkie" ? selectedCountry : null);
+  const { byId: urlStatusById } = useUrlStatus(urlCountryArg);
+  const { byId: keywordById } = useKeywordScan(urlCountryArg);
+
+  // ⌘K / Ctrl+K to focus the search input
+  useEffect(() => {
+    const onKey = (e) => {
+      const isK = e.key === "k" || e.key === "K";
+      const meta = e.metaKey || e.ctrlKey;
+      if (isK && meta) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select?.();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // Close dropdowns on click outside or Escape
   useEffect(() => {
@@ -221,6 +249,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         setCountryDropdownOpen(false);
         setTierDropdownOpen(false);
         setUrlDropdownOpen(false);
+        setConfidenceDropdownOpen(false);
       }
     };
     const handleKeyDown = (e) => {
@@ -228,6 +257,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         setCountryDropdownOpen(false);
         setTierDropdownOpen(false);
         setUrlDropdownOpen(false);
+        setConfidenceDropdownOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -272,15 +302,22 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   // --- Filtering ---
   const filteredLeads = useMemo(() => {
     return leads.filter((lead) => {
-      // Country filter (case-insensitive & trimmed)
-      if (selectedCountry !== "Wszystkie") {
-        const leadCountry = (lead.kraj || "").trim().toLowerCase();
+      // Country filter — multi-select (selectedCountries) takes priority over
+      // the legacy single-select (selectedCountry). Empty array = all.
+      const leadCountry = (lead.kraj || "").trim().toLowerCase();
+      if (selectedCountries.length > 0) {
+        const ok = selectedCountries.some((c) => c.trim().toLowerCase() === leadCountry);
+        if (!ok) return false;
+      } else if (selectedCountry !== "Wszystkie") {
         if (leadCountry !== selectedCountry.trim().toLowerCase()) return false;
       }
 
-      // Tier/Role filter (case-insensitive & trimmed)
-      if (selectedTier !== "Wszystkie") {
-        const leadTier = (lead.tier || "").trim().toLowerCase();
+      // Tier filter — multi-select (selectedTiers) over legacy (selectedTier).
+      const leadTier = (lead.tier || "").trim().toLowerCase();
+      if (selectedTiers.length > 0) {
+        const ok = selectedTiers.some((t) => t.trim().toLowerCase() === leadTier);
+        if (!ok) return false;
+      } else if (selectedTier !== "Wszystkie") {
         if (leadTier !== selectedTier.trim().toLowerCase()) return false;
       }
 
@@ -295,6 +332,18 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
           return b === selected;
         });
         if (!matchesBrand) return false;
+      }
+
+      // Confidence filter (🟢/🟡/🔴). Matches emoji in confidence_wolumen
+      // OR the percentage bucket (90/60/30).
+      if (selectedConfidence !== "all") {
+        const c = String(lead.confidence_wolumen || "");
+        const hasGreen = c.includes("🟢");
+        const hasYellow = c.includes("🟡");
+        const hasRed = c.includes("🔴");
+        if (selectedConfidence === "green" && !hasGreen) return false;
+        if (selectedConfidence === "green_yellow" && !(hasGreen || hasYellow)) return false;
+        if (selectedConfidence === "none" && (hasGreen || hasYellow || hasRed)) return false;
       }
 
       // URL scanner state filter
@@ -339,7 +388,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
       return true;
     });
-  }, [leads, searchQuery, selectedCountry, selectedTier, selectedBrands, selectedUrlFilter, urlStatusById]);
+  }, [leads, searchQuery, selectedCountry, selectedCountries, selectedTier, selectedTiers, selectedBrands, selectedConfidence, selectedUrlFilter, urlStatusById]);
 
   // --- Active filter pills ---
   const activeFilters = useMemo(() => {
