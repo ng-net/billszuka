@@ -139,7 +139,7 @@ def clean_catalogs(dry_run: bool = False):
                     
             # Re-index clean rows
             for i, row in enumerate(clean_rows, 1):
-                row["id_unikalne"] = f"{iso}-{cat_type}-{i:03d}"
+                row["id"] = f"{iso}-{cat_type}-{i:03d}"
                 # Ensure 35 canonical columns
                 clean_row = {col: (row.get(col) or "").strip() for col in CANONICAL_SCHEMA}
                 clean_rows[i - 1] = clean_row

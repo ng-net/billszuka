@@ -8,12 +8,12 @@ import {
 } from "./analytics.js";
 
 const ROWS = [
-  { id_unikalne: "PL-1", kraj: "PL", nazwa_firmy: "Alpha", tier: "hurtownik", notatki: "jesteśmy dystrybutorem PowerMatic", marki_nabijarki: "PowerMatic III+", wolumen: "duży", miasto: "Warszawa", confidence_wolumen: "95%" },
-  { id_unikalne: "PL-2", kraj: "PL", nazwa_firmy: "Beta", tier: "reseller", notatki: "sprzedajemy i dystrybuujemy", marki_nabijarki: "PowerMatic, Hawk", wolumen: "średni", miasto: "Kraków", confidence_wolumen: "70%" },
-  { id_unikalne: "PL-3", kraj: "PL", nazwa_firmy: "Gamma", tier: "detalista", notatki: "sklep", marki_nabijarki: "Hawk", wolumen: "mały", miasto: "Gdańsk", confidence_wolumen: "50%" },
-  { id_unikalne: "CZ-1", kraj: "CZ", nazwa_firmy: "Delta", tier: "hurtownik", notatki: "oficialni distributor", marki_nabijarki: "PowerMatic V", wolumen: "duży", miasto: "Praga", confidence_wolumen: "90%" },
-  { id_unikalne: "CZ-2", kraj: "CZ", nazwa_firmy: "Epsilon", tier: "producent", notatki: "produkujemy", marki_nabijarki: "PowerMatic", wolumen: "średni", miasto: "Brno", confidence_wolumen: "60%" },
-  { id_unikalne: "PL-4", kraj: "PL", nazwa_firmy: "Zeta", tier: "hurtownik", notatki: "dystrybutor", marki_nabijarki: "PowerMatic, Hawk", wolumen: "duży", miasto: "Wrocław", confidence_wolumen: "85%" },
+  { id: "PL-1", kraj: "PL", nazwa_firmy: "Alpha", tier: "hurtownik", notatki: "jesteśmy dystrybutorem PowerMatic", marki_nabijarki: "PowerMatic III+", wolumen: "duży", miasto: "Warszawa", confidence_wolumen: "95%" },
+  { id: "PL-2", kraj: "PL", nazwa_firmy: "Beta", tier: "reseller", notatki: "sprzedajemy i dystrybuujemy", marki_nabijarki: "PowerMatic, Hawk", wolumen: "średni", miasto: "Kraków", confidence_wolumen: "70%" },
+  { id: "PL-3", kraj: "PL", nazwa_firmy: "Gamma", tier: "detalista", notatki: "sklep", marki_nabijarki: "Hawk", wolumen: "mały", miasto: "Gdańsk", confidence_wolumen: "50%" },
+  { id: "CZ-1", kraj: "CZ", nazwa_firmy: "Delta", tier: "hurtownik", notatki: "oficialni distributor", marki_nabijarki: "PowerMatic V", wolumen: "duży", miasto: "Praga", confidence_wolumen: "90%" },
+  { id: "CZ-2", kraj: "CZ", nazwa_firmy: "Epsilon", tier: "producent", notatki: "produkujemy", marki_nabijarki: "PowerMatic", wolumen: "średni", miasto: "Brno", confidence_wolumen: "60%" },
+  { id: "PL-4", kraj: "PL", nazwa_firmy: "Zeta", tier: "hurtownik", notatki: "dystrybutor", marki_nabijarki: "PowerMatic, Hawk", wolumen: "duży", miasto: "Wrocław", confidence_wolumen: "85%" },
 ];
 
 test("topByCountry: returns n companies per country", () => {
@@ -28,8 +28,8 @@ test("topByCountry: ranks by the chosen metric desc", () => {
   const out = topByCountry(ROWS, 5, "wolumen");
   const pl = out.find((g) => g.country === "PL");
   // Confidence-based ordering: 95 > 85 > 70 > 50
-  assert.equal(pl.rows[0].id_unikalne, "PL-1");
-  assert.equal(pl.rows[1].id_unikalne, "PL-4");
+  assert.equal(pl.rows[0].id, "PL-1");
+  assert.equal(pl.rows[1].id, "PL-4");
 });
 
 test("topByCountry: returns one group per present country", () => {
@@ -40,7 +40,7 @@ test("topByCountry: returns one group per present country", () => {
 
 test("claimDistributors: matches distributors in notatki", () => {
   const out = claimDistributors(ROWS);
-  const ids = out.map((r) => r.id_unikalne).sort();
+  const ids = out.map((r) => r.id).sort();
   assert.deepEqual(ids, ["CZ-1", "PL-1", "PL-2", "PL-4"]);
 });
 
@@ -55,14 +55,14 @@ test("claimDistributors: returns rows with country and tier", () => {
 
 test("claimDistributors: empty list when nothing claims distributor", () => {
   const out = claimDistributors([
-    { id_unikalne: "X", kraj: "PL", nazwa_firmy: "Foo", notatki: "sklep" },
+    { id: "X", kraj: "PL", nazwa_firmy: "Foo", notatki: "sklep" },
   ]);
   assert.equal(out.length, 0);
 });
 
 test("powerMaticListings: returns companies with PowerMatic in marki_nabijarki", () => {
   const out = powerMaticListings(ROWS);
-  const ids = out.map((r) => r.id_unikalne).sort();
+  const ids = out.map((r) => r.id).sort();
   // PL-1, PL-2, PL-4, CZ-1, CZ-2
   assert.deepEqual(ids, ["CZ-1", "CZ-2", "PL-1", "PL-2", "PL-4"]);
 });
@@ -136,7 +136,7 @@ test("regionRollup: returns 3 regions with breakdown", () => {
 
 test("regionRollup: marks anomaly when total >= 30 and pm=0", () => {
   const bigNoPM = Array.from({ length: 35 }, (_, i) => ({
-    id_unikalne: `PL-${i}`,
+    id: `PL-${i}`,
     kraj: "PL",
     nazwa_firmy: `Firm ${i}`,
     marki_nabijarki: "OCB",
@@ -165,9 +165,9 @@ test("coverageByCountry: counts FROZEN / DO-W / PEND / OTHER", () => {
 
 test("researchAnomalies: categorises correctly", () => {
   const rows = [
-    ...Array.from({ length: 35 }, (_, i) => ({ id_unikalne: `PL-${i}`, kraj: "PL", marki_nabijarki: "OCB", flagi: "FROZEN" })),
-    { id_unikalne: "RS-1", kraj: "RS", marki_nabijarki: "PowerMatic", flagi: "" },
-    { id_unikalne: "BG-1", kraj: "BG", marki_nabijarki: "PowerMatic", flagi: "FROZEN" },
+    ...Array.from({ length: 35 }, (_, i) => ({ id: `PL-${i}`, kraj: "PL", marki_nabijarki: "OCB", flagi: "FROZEN" })),
+    { id: "RS-1", kraj: "RS", marki_nabijarki: "PowerMatic", flagi: "" },
+    { id: "BG-1", kraj: "BG", marki_nabijarki: "PowerMatic", flagi: "FROZEN" },
   ];
   const out = researchAnomalies(rows);
   assert.equal(out.anomalies.length, 1);
@@ -181,7 +181,7 @@ test("researchAnomalies: categorises correctly", () => {
 
 test("topResearchAnomaly: returns the worst-case country", () => {
   const rows = [
-    ...Array.from({ length: 35 }, (_, i) => ({ id_unikalne: `PL-${i}`, kraj: "PL", marki_nabijarki: "OCB", flagi: "FROZEN" })),
+    ...Array.from({ length: 35 }, (_, i) => ({ id: `PL-${i}`, kraj: "PL", marki_nabijarki: "OCB", flagi: "FROZEN" })),
   ];
   const out = topResearchAnomaly(rows);
   assert.equal(out.country, "PL");
@@ -190,7 +190,7 @@ test("topResearchAnomaly: returns the worst-case country", () => {
 
 test("topResearchAnomaly: returns null when no anomalies", () => {
   const out = topResearchAnomaly([
-    { id_unikalne: "BG-1", kraj: "BG", marki_nabijarki: "PowerMatic", flagi: "FROZEN" },
+    { id: "BG-1", kraj: "BG", marki_nabijarki: "PowerMatic", flagi: "FROZEN" },
   ]);
   assert.equal(out, null);
 });
@@ -258,9 +258,9 @@ test("verificationTimeline: ignores invalid Date instances silently", () => {
 
 test("powerMaticGroups: groups cross-country parents", () => {
   const rows = [
-    { id_unikalne: "BG-1", kraj: "BG", nazwa_firmy: "Tobacco Trading International Bulgaria EOOD", marki_nabijarki: "PowerMatic" },
-    { id_unikalne: "RO-1", kraj: "RO", nazwa_firmy: "TOBACCO TRADING INTERNATIONAL RO SRL", marki_nabijarki: "PowerMatic" },
-    { id_unikalne: "PL-1", kraj: "PL", nazwa_firmy: "Local Co", marki_nabijarki: "PowerMatic" },
+    { id: "BG-1", kraj: "BG", nazwa_firmy: "Tobacco Trading International Bulgaria EOOD", marki_nabijarki: "PowerMatic" },
+    { id: "RO-1", kraj: "RO", nazwa_firmy: "TOBACCO TRADING INTERNATIONAL RO SRL", marki_nabijarki: "PowerMatic" },
+    { id: "PL-1", kraj: "PL", nazwa_firmy: "Local Co", marki_nabijarki: "PowerMatic" },
   ];
   const out = powerMaticGroups(rows);
   assert.equal(out.groups.length, 1);

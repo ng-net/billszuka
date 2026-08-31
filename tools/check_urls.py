@@ -47,14 +47,14 @@ ISO_TO_FOLDER = {
 # Schema migration: dodaj tabelę url_status jeśli nie istnieje
 URL_STATUS_SCHEMA = """
 CREATE TABLE IF NOT EXISTS url_status (
-  id_unikalne TEXT NOT NULL,
+  id TEXT NOT NULL,
   kraj TEXT NOT NULL,
   url TEXT NOT NULL,
   status TEXT NOT NULL,        -- 'green' | 'red' | 'unknown'
   http_code INTEGER,
   error TEXT,
   checked_at TEXT NOT NULL,
-  PRIMARY KEY (id_unikalne, url)
+  PRIMARY KEY (id, url)
 );
 CREATE INDEX IF NOT EXISTS idx_url_status_kraj ON url_status(kraj);
 CREATE INDEX IF NOT EXISTS idx_url_status_status ON url_status(status);
@@ -116,9 +116,9 @@ def collect_urls_for_country(country: str) -> list[dict]:
     """Zbierz URL-e z catalog-*.csv + extra-leads-*.csv + relationships.csv.
 
     `country` to ISO kod ("PL") — mapujemy na folder ("Polska").
-    W `kraj` zapisujemy ISO kod (dla spójności z id_unikalne prefiks).
+    W `kraj` zapisujemy ISO kod (dla spójności z id prefiks).
 
-    Returns: [{'id_unikalne': 'PL-B-001', 'kraj': 'PL', 'url': 'https://...'}, ...]
+    Returns: [{'id': 'PL-B-001', 'kraj': 'PL', 'url': 'https://...'}, ...]
     """
     iso = country.upper()
     folder = ISO_TO_FOLDER.get(iso, iso)
@@ -139,7 +139,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
                 with csv_path.open(newline="", encoding="utf-8") as f:
                     reader = csv.DictReader(f)
                     for row in reader:
-                        uid = (row.get("id_unikalne") or "").strip()
+                        uid = (row.get("id") or "").strip()
                         url = (row.get("www") or row.get("url") or "").strip()
                         if not uid or not _is_http_url(url):
                             continue
@@ -147,7 +147,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
                         if key in seen:
                             continue
                         seen.add(key)
-                        out.append({"id_unikalne": uid, "kraj": iso, "url": url})
+                        out.append({"id": uid, "kraj": iso, "url": url})
             except Exception as e:
                 print(f"  ! skip {csv_path.name}: {e}", file=sys.stderr)
 
@@ -158,7 +158,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
             with rel_path.open(newline="", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    uid = (row.get("id_unikalne_a") or row.get("id_unikalne") or "").strip()
+                    uid = (row.get("id_a") or row.get("id") or "").strip()
                     url = (row.get("url") or row.get("www") or "").strip()
                     if not uid.startswith(f"{iso}-") or not _is_http_url(url):
                         continue
@@ -166,7 +166,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
                     if key in seen:
                         continue
                     seen.add(key)
-                    out.append({"id_unikalne": uid, "kraj": iso, "url": url})
+                    out.append({"id": uid, "kraj": iso, "url": url})
         except Exception as e:
             print(f"  ! skip relationships.csv: {e}", file=sys.stderr)
 
@@ -219,10 +219,10 @@ def save_result(conn: sqlite3.Connection, item: dict, status: str, state: str,
             conn.execute(
                 """
                 INSERT INTO url_status (
-                  id_unikalne, kraj, url, status, state, http_code,
+                  id, kraj, url, status, state, http_code,
                   redirect_url, response_ms, error, checked_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
-                ON CONFLICT(id_unikalne, url) DO UPDATE SET
+                ON CONFLICT(id, url) DO UPDATE SET
                   status=excluded.status,
                   state=excluded.state,
                   http_code=excluded.http_code,
@@ -232,7 +232,7 @@ def save_result(conn: sqlite3.Connection, item: dict, status: str, state: str,
                   checked_at=excluded.checked_at
                 """,
                 (
-                    item["id_unikalne"], item["kraj"], item["url"],
+                    item["id"], item["kraj"], item["url"],
                     status, state, http_code, redirect_url, response_ms, error,
                 ),
             )
@@ -266,7 +266,7 @@ def run(country: str | None, delay: float, timeout: int,
     for c_iso, c_folder in countries:
         items = collect_urls_for_country(c_iso)
         if ids_filter:
-            items = [i for i in items if i["id_unikalne"] in ids_filter]
+            items = [i for i in items if i["id"] in ids_filter]
         if not items:
             print(f"[{c_iso}] no URLs to check")
             continue
@@ -301,7 +301,7 @@ def run(country: str | None, delay: float, timeout: int,
                 tag = "🟢" if status == "green" else "🔴"
                 print(
                     f"  [{idx:>3}/{len(items)}] {tag} {code or '---':<4} "
-                    f"({state:<8}) {item['id_unikalne']:<14} "
+                    f"({state:<8}) {item['id']:<14} "
                     f"{item['url'][:50]:<50} ETA {int(eta)}s"
                 )
                 if idx < len(items):
@@ -329,7 +329,7 @@ def main() -> None:
     p.add_argument("--all", action="store_true", help="sprawdź wszystkie kraje")
     p.add_argument("--delay", type=float, default=4.0, help="sekundy między requestami")
     p.add_argument("--timeout", type=int, default=8, help="curl --max-time")
-    p.add_argument("--ids", nargs="*", default=None, help="tylko te id_unikalne")
+    p.add_argument("--ids", nargs="*", default=None, help="tylko te id")
     args = p.parse_args()
     ids_filter = set(args.ids) if args.ids else None
     country = "all" if args.all else args.country

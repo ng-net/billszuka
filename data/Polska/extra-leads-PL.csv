@@ -1,4 +1,4 @@
-id_unikalne,kategoria,nazwa_firmy,kraj,miasto,adres,www,email,telefon,tier,wolumen,kanal_sprzedaży,powinowactwo_nabijarki,notatki,zrodlo_danych,data_weryfikacji,flagi
+id,kategoria,nazwa_firmy,kraj,miasto,adres,www,email,telefon,tier,wolumen,kanal_sprzedaży,powinowactwo_nabijarki,notatki,zrodlo_danych,data_weryfikacji,flagi
 PL-X-001,B8,MONA Sp.j.,PL,Łódź,,mona.com.pl,—,—,hurtownik,—,4,3,"Dystrybutor FMCG + tytoń. Weryfikacja: brak pełnego adresu, telefonu, emaila. | Profil: dystrybutor FMCG/tytoń",web search 2026-08-19,2026-08-19,⚠️ DO-WERYFIKACJI (web)
 PL-X-002,B8,Hurtownia Papierosów Śląsk i Zagłębie,PL,Katowice,,hurtownia-papierosow.pl,—,—,hurtownik,—,4,3,Regionalna hurtownia papierosów.,web search 2026-08-19,2026-08-19,⚠️ DO-WERYFIKACJI (web)
 PL-X-003,B8,Alans,PL,Ruda Śląska,,alans.pl,—,+48 32 240 22 26,hurtownik,—,4,3,Hurtownia wielobranżowa z asortymentem tytoniowym. | Profil: hurtownia wielobranżowa + tytoń,web search 2026-08-19,2026-08-19,⚠️ DO-WERYFIKACJI (web)

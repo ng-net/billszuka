@@ -184,7 +184,7 @@ def apply_v3():
             with cfile.open("r", encoding="utf-8", newline="") as f:
                 reader = csv.DictReader(f)
                 for r in reader:
-                    cid = r.get("id_unikalne", "").strip()
+                    cid = r.get("id", "").strip()
                     row = {col: (r.get(col) or "").strip() for col in CANONICAL_SCHEMA}
                     if cid in UPDATES:
                         for k, v in UPDATES[cid].items():

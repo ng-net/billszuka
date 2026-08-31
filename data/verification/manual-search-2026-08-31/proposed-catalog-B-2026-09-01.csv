@@ -1,4 +1,4 @@
-id_unikalne,nazwa_firmy,miasto,www,kategoria,tier,email,telefon,kanal_sprzedaży,decydent,powinowactwo_nabijarki,marki_nabijarki,notatki,sourcing,flagi,wolumen,confidence_wolumen,rejestr_id,vat_id,address
+id,nazwa_firmy,miasto,www,kategoria,tier,email,telefon,kanal_sprzedaży,decydent,powinowactwo_nabijarki,marki_nabijarki,notatki,sourcing,flagi,wolumen,confidence_wolumen,rejestr_id,vat_id,address
 CZ-B-001,TTI Czech s.r.o.,,http://www.tti-czech.cz/,B2,duży,,,B2B wholesale,,3,,"CZ exclusive Pöschl/Davidoff/Mascotte importer, multi-country (CZ+SK+DE) | Multi-country: Pöschl Group",manual-google-search-2026-09-01,FROZEN,,,,,
 CZ-B-002,CZECH TOBACCO CORPORATION a.s.,,https://www.ctc-as.cz/,B5,duży,,,B2B wholesale,,3,,"CZ 15,000 retail units, jednym z nejvýznamnějších velkoobchodních distributorů v ČR",manual-google-search-2026-09-01,FROZEN,,,,,
 CZ-B-003,MORAVIA TOBACCO,,https://www.moraviatb.cz/english/,B5,duży,,,B2B wholesale,,3,,"CZ family importer+distributor premium cigars (My Father, Alec Bradley, La Flor Dominicana), 2005",manual-google-search-2026-09-01,FROZEN,,,,,

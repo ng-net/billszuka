@@ -9,7 +9,7 @@ import csv, glob
 from pathlib import Path
 
 SCHEMA_COLUMNS = [
-    "related_to","rok_zalozenia","id_unikalne","kategoria","nazwa_firmy",
+    "related_to","rok_zalozenia","id","kategoria","nazwa_firmy",
     "kraj","miasto","adres","nip_vat","rejestr_id",
     "www","kanal_zamiennik","email","telefon","linkedin",
     "facebook","instagram","tiktok","tier","marki_nabijarki",
@@ -18,7 +18,7 @@ SCHEMA_COLUMNS = [
     "zrodlo_danych","data_weryfikacji","flagi","notatki","rynek_skala"
 ]
 
-# id_unikalne -> field updates (only non-empty fields are patched)
+# id -> field updates (only non-empty fields are patched)
 PATCHES = {
     # ESTONIA
     "EE-A-003": {"telefon": "+372 5844 1010", "www": "https://easysmoke.ee", "email": "info@easysmoke.ee"},
@@ -86,7 +86,7 @@ def apply_patches():
         
         changed = False
         for row in rows:
-            rid = row.get("id_unikalne","").strip()
+            rid = row.get("id","").strip()
             if rid not in PATCHES:
                 continue
             patch = PATCHES[rid]

@@ -154,7 +154,7 @@ const generateLeads = (count) =>
     ];
     const marki = brandPool[i % brandPool.length];
     return {
-      id_unikalne: `LEAD-${1000 + i}`,
+      id: `LEAD-${1000 + i}`,
       nazwa_firmy:
         i === 0
           ? "PowerMatic Polska Distribution Sp. z o.o."
@@ -354,13 +354,13 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
       // URL scanner state filter
       if (selectedUrlFilter === "ok") {
-        const u = urlStatusById[lead.id_unikalne];
+        const u = urlStatusById[lead.id];
         if (u?.state !== "ok") return false;
       } else if (selectedUrlFilter === "error") {
-        const u = urlStatusById[lead.id_unikalne];
+        const u = urlStatusById[lead.id];
         if (!u || !["4xx", "5xx", "timeout", "ssl", "dns", "error"].includes(u.state)) return false;
       } else if (selectedUrlFilter === "none") {
-        const u = urlStatusById[lead.id_unikalne];
+        const u = urlStatusById[lead.id];
         const rawWww = String(lead.www || "").trim().toLowerCase();
         const hasNoUrl = !rawWww || ["brak", "-", "n/a", "nie dotyczy", "brak www"].includes(rawWww);
         const isUnknown = !u || !u.state || u.state === "unknown";
@@ -374,7 +374,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
           lead.nazwa_firmy,
           lead.nip_vat,
           lead.miasto,
-          lead.id_unikalne,
+          lead.id,
           lead.decydent,
           lead.email,
           lead.email_decydent,
@@ -448,10 +448,10 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
     const header = "ID,Nazwa,Kraj,Miasto,NIP,Tier,Wolumen,Decydent,Email,Telefon,WWW,Status WWW,Kod HTTP,Błąd WWW,Keyword Score\n";
     const rows = filteredLeads
       .map((l) => {
-        const u = urlStatusById[l.id_unikalne];
-        const kw = keywordById[l.id_unikalne];
+        const u = urlStatusById[l.id];
+        const kw = keywordById[l.id];
         return [
-          escapeCsv(l.id_unikalne),
+          escapeCsv(l.id),
           escapeCsv(l.nazwa_firmy),
           escapeCsv(l.kraj),
           escapeCsv(l.miasto),
@@ -963,19 +963,19 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 </tr>
               )}
               {filteredLeads.map((lead) => {
-                const isExpanded = expandedRow === lead.id_unikalne;
+                const isExpanded = expandedRow === lead.id;
                 const brand = classifyBrand(lead.marki_nabijarki);
                 const confNum = confidenceToNumber(lead.confidence_wolumen) ?? getVolumePct(lead.wolumen);
                 const initial = (lead.nazwa_firmy || "?").trim().charAt(0).toUpperCase();
 
                 return (
-                  <React.Fragment key={lead.id_unikalne}>
+                  <React.Fragment key={lead.id}>
                     {/* Main Row */}
                     <tr
                       className={`group hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer ${
                         isExpanded ? "bg-slate-50/80 dark:bg-zinc-800/60" : ""
                       }`}
-                      onClick={() => setExpandedRow(isExpanded ? null : lead.id_unikalne)}
+                      onClick={() => setExpandedRow(isExpanded ? null : lead.id)}
                     >
                       <td className="p-4 border-r border-slate-100 dark:border-zinc-800/60 w-12 text-center">
                         <div
@@ -1004,7 +1004,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                               {lead.nazwa_firmy}
                             </div>
                             <div className="flex items-center gap-2 mt-1 flex-wrap">
-                              <CopyableId value={lead.id_unikalne} label="ID" />
+                              <CopyableId value={lead.id} label="ID" />
                               {lead.flagi?.includes("Verified") && (
                                 <span className="flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
                                   <ShieldCheck size={10} /> Zweryfikowany
@@ -1114,14 +1114,14 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                             <span onClick={(e) => e.stopPropagation()}>
                               <UrlBadge
                                 url={lead.www}
-                                status={urlStatusById[lead.id_unikalne]?.status || "unknown"}
-                                state={urlStatusById[lead.id_unikalne]?.state || "unknown"}
-                                http_code={urlStatusById[lead.id_unikalne]?.http_code}
-                                error={urlStatusById[lead.id_unikalne]?.error}
-                                redirect_url={urlStatusById[lead.id_unikalne]?.redirect_url}
-                                checked_at={urlStatusById[lead.id_unikalne]?.checked_at}
-                                keyword_score={keywordById[lead.id_unikalne]?.score_pct}
-                                keyword_hits={keywordById[lead.id_unikalne]?.keywords_found}
+                                status={urlStatusById[lead.id]?.status || "unknown"}
+                                state={urlStatusById[lead.id]?.state || "unknown"}
+                                http_code={urlStatusById[lead.id]?.http_code}
+                                error={urlStatusById[lead.id]?.error}
+                                redirect_url={urlStatusById[lead.id]?.redirect_url}
+                                checked_at={urlStatusById[lead.id]?.checked_at}
+                                keyword_score={keywordById[lead.id]?.score_pct}
+                                keyword_hits={keywordById[lead.id]?.keywords_found}
                                 showUrl={false}
                                 compact={true}
                               />
@@ -1194,14 +1194,14 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                     <div className="text-xs text-slate-500 dark:text-slate-400 mb-1.5">Strona WWW</div>
                                     <UrlBadge
                                       url={lead.www}
-                                      status={urlStatusById[lead.id_unikalne]?.status || "unknown"}
-                                      state={urlStatusById[lead.id_unikalne]?.state || "unknown"}
-                                      http_code={urlStatusById[lead.id_unikalne]?.http_code}
-                                      error={urlStatusById[lead.id_unikalne]?.error}
-                                      redirect_url={urlStatusById[lead.id_unikalne]?.redirect_url}
-                                      checked_at={urlStatusById[lead.id_unikalne]?.checked_at}
-                                      keyword_score={keywordById[lead.id_unikalne]?.score_pct}
-                                      keyword_hits={keywordById[lead.id_unikalne]?.keywords_found}
+                                      status={urlStatusById[lead.id]?.status || "unknown"}
+                                      state={urlStatusById[lead.id]?.state || "unknown"}
+                                      http_code={urlStatusById[lead.id]?.http_code}
+                                      error={urlStatusById[lead.id]?.error}
+                                      redirect_url={urlStatusById[lead.id]?.redirect_url}
+                                      checked_at={urlStatusById[lead.id]?.checked_at}
+                                      keyword_score={keywordById[lead.id]?.score_pct}
+                                      keyword_hits={keywordById[lead.id]?.keywords_found}
                                       showUrl={true}
                                       compact={true}
                                     />

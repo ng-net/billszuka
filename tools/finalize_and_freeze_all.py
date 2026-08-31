@@ -26,7 +26,7 @@ def align_catalogs():
             reader = csv.DictReader(f)
             fr_rows = list(reader)
         for r in fr_rows:
-            uid = r.get("id_unikalne")
+            uid = r.get("id")
             if uid == "FR-A-001":
                 r["nazwa_firmy"] = "LPE DISTRIBUTION LIMITED (Panoramiks Pro)"
                 r["rejestr_id"] = "SIREN 753702018"

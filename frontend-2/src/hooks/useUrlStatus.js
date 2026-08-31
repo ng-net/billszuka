@@ -9,7 +9,7 @@ const COUNTRY_TO_ISO = {
 };
 
 /**
- * useUrlStatus(country) — pobiera mapę {id_unikalne: statusObj} z /api/url-status.
+ * useUrlStatus(country) — pobiera mapę {id: statusObj} z /api/url-status.
  *
  * `country` może być nazwą ("Polska") albo ISO ("PL") — mapujemy.
  * "Wszystkie" / pusty → pusty stan, nic nie fetchuje.
@@ -37,8 +37,8 @@ export function useUrlStatus(country, refreshKey = 0) {
         if (cancelled) return;
         const byId = {};
         for (const item of json.items || []) {
-          if (!(item.id_unikalne in byId)) {
-            byId[item.id_unikalne] = {
+          if (!(item.id in byId)) {
+            byId[item.id] = {
               status: item.status,
               state: item.state || "unknown",
               http_code: item.http_code,

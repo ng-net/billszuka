@@ -5,7 +5,7 @@ active BILLSzuka catalog/master CSVs.
 
 Rationale (2026-08-12, Marceli decision):
 - region_kod: 61% of master rows are "XX" (placeholder) or empty — column
-  carries no signal. Region is already encoded in id_unikalne (e.g. PL-A-WP-001).
+  carries no signal. Region is already encoded in id (e.g. PL-A-WP-001).
 - region_typ: orphan type field with no useful typology below PL "województwo".
 - _reg_code: registry number (KRS/ARES/e-Äriregister) that was previously
   overlapping with rejestr_id. Rejestr_id is the canonical source.

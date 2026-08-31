@@ -193,7 +193,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
             try:
                 with csv_path.open(newline="", encoding="utf-8") as f:
                     for row in csv.DictReader(f):
-                        uid = (row.get("id_unikalne") or "").strip()
+                        uid = (row.get("id") or "").strip()
                         url = (row.get("www") or row.get("url") or "").strip()
                         if not uid or not _is_http_url(url):
                             continue
@@ -201,7 +201,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
                         if key in seen:
                             continue
                         seen.add(key)
-                        out.append({"id_unikalne": uid, "kraj": iso, "url": url})
+                        out.append({"id": uid, "kraj": iso, "url": url})
             except Exception as e:
                 print(f"  ! skip {csv_path.name}: {e}", file=sys.stderr)
 
@@ -210,7 +210,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
         try:
             with rel_path.open(newline="", encoding="utf-8") as f:
                 for row in csv.DictReader(f):
-                    uid = (row.get("id_unikalne_a") or row.get("id_unikalne") or "").strip()
+                    uid = (row.get("id_a") or row.get("id") or "").strip()
                     url = (row.get("url") or row.get("www") or "").strip()
                     if not uid.startswith(f"{iso}-") or not _is_http_url(url):
                         continue
@@ -218,7 +218,7 @@ def collect_urls_for_country(country: str) -> list[dict]:
                     if key in seen:
                         continue
                     seen.add(key)
-                    out.append({"id_unikalne": uid, "kraj": iso, "url": url})
+                    out.append({"id": uid, "kraj": iso, "url": url})
         except Exception as e:
             print(f"  ! skip relationships.csv: {e}", file=sys.stderr)
     return out
@@ -231,10 +231,10 @@ def save_scan(conn: sqlite3.Connection, item: dict, hits: list[str],
     conn.execute(
         """
         INSERT INTO keyword_scan (
-          id_unikalne, kraj, url, keywords_found, keywords_total,
+          id, kraj, url, keywords_found, keywords_total,
           score_pct, http_code, html_size, error, scanned_at
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
-        ON CONFLICT(id_unikalne, url) DO UPDATE SET
+        ON CONFLICT(id, url) DO UPDATE SET
           keywords_found=excluded.keywords_found,
           keywords_total=excluded.keywords_total,
           score_pct=excluded.score_pct,
@@ -244,7 +244,7 @@ def save_scan(conn: sqlite3.Connection, item: dict, hits: list[str],
           scanned_at=excluded.scanned_at
         """,
         (
-            item["id_unikalne"], item["kraj"], item["url"],
+            item["id"], item["kraj"], item["url"],
             json.dumps(hits, ensure_ascii=False), total, score_pct,
             http_code, html_size, error,
         ),
@@ -285,7 +285,7 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
     for c_iso, c_folder in countries:
         items = collect_urls_for_country(c_iso)
         if ids_filter:
-            items = [i for i in items if i["id_unikalne"] in ids_filter]
+            items = [i for i in items if i["id"] in ids_filter]
         if not items:
             print(f"[{c_iso}] no URLs")
             continue
@@ -327,7 +327,7 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
                 tag = "🎯" if score >= 30 else "·" if score >= 10 else "—"
                 print(
                     f"  [{idx:>3}/{len(items)}] {tag} {score:>3}% "
-                    f"({len(hits):>2}/{total}) {item['id_unikalne']:<14} "
+                    f"({len(hits):>2}/{total}) {item['id']:<14} "
                     f"{item['url'][:50]:<50} ETA {int(eta)}s"
                 )
                 if idx < len(items):
@@ -362,7 +362,7 @@ def main() -> None:
     p.add_argument("--delay", type=float, default=7.0, help="sekundy między requestami")
     p.add_argument("--timeout", type=int, default=8, help="curl --max-time")
     p.add_argument("--max-bytes", type=int, default=50000, help="max body do pobrania")
-    p.add_argument("--ids", nargs="*", default=None, help="tylko te id_unikalne")
+    p.add_argument("--ids", nargs="*", default=None, help="tylko te id")
     args = p.parse_args()
     ids_filter = set(args.ids) if args.ids else None
     country = "all" if args.all else args.country

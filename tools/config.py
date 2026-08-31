@@ -42,7 +42,7 @@ _cleaned = clean_apple_double(ROOT_DIR)
 # Canonical 35-column schema (Region fields completely removed)
 CANONICAL_SCHEMA = [
     "kraj",
-    "id_unikalne",
+    "id",
     "nazwa_firmy",
     "miasto",
     "adres",

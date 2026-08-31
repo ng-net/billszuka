@@ -153,7 +153,7 @@ def main():
         is_nip_mod11 = "NIP" in flagi and "mod-11" in flagi
 
         verdict = {
-            "id": r.get("id_unikalne"),
+            "id": r.get("id"),
             "name": name_csv,
             "nip_csv": nip_csv,
             "krs_csv": krs_csv,

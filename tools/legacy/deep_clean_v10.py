@@ -124,7 +124,7 @@ def apply_v10():
             with cfile.open("r", encoding="utf-8", newline="") as f:
                 reader = csv.DictReader(f)
                 for r in reader:
-                    cid = r.get("id_unikalne", "").strip()
+                    cid = r.get("id", "").strip()
                     if not cid:
                         continue
 

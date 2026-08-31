@@ -172,7 +172,7 @@ def run_enrichment_wave(country_filter: str | None = None, max_items: int = 30) 
             
         modified = False
         for row in rows:
-            uid = row.get("id_unikalne", "").strip()
+            uid = row.get("id", "").strip()
             name = row.get("nazwa_firmy", "").strip()
             city = row.get("miasto", "").strip()
             www = row.get("www", "").strip()
@@ -529,7 +529,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                                 
                         catalog_rows_count += 1
                         new_row = {col: "" for col in CANONICAL_SCHEMA}
-                        new_row["id_unikalne"] = make_id(iso, cand.get("kategoria", "B")[:1] or "B", catalog_rows_count)
+                        new_row["id"] = make_id(iso, cand.get("kategoria", "B")[:1] or "B", catalog_rows_count)
                         new_row["nazwa_firmy"] = c_name
                         new_row["kraj"] = country_name
                         new_row["miasto"] = cand.get("miasto", "").strip()
@@ -563,7 +563,7 @@ def run_discovery_wave(country_filter: str | None = None, max_new_leads: int = 1
                             except Exception: pass
                         if c_nip_clean: existing_nips.add(c_nip_clean)
                         discovered_count += 1
-                        log(f"   -> Added new lead [{iso}] {new_row['id_unikalne']}: {c_name} ({new_row['miasto']}) | WWW={c_www} | Decydent={c_dec}")
+                        log(f"   -> Added new lead [{iso}] {new_row['id']}: {c_name} ({new_row['miasto']}) | WWW={c_www} | Decydent={c_dec}")
                         
                         if discovered_count >= max_new_leads:
                             break

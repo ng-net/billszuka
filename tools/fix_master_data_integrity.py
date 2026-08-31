@@ -206,7 +206,7 @@ def _detect_rok_swap(row: dict) -> bool:
 
 
 # ---------------------------------------------------------------------------
-#  Per-row fix tables (id_unikalne → dict of column → new value).
+#  Per-row fix tables (id → dict of column → new value).
 #  Each change is evidence-backed; see docstring for the audit that produced
 #  these targets.  Keys not present in the dict are unchanged.
 # ---------------------------------------------------------------------------
@@ -298,7 +298,7 @@ POWINOWACTWO_PLACEHOLDER = {"brak", "wysoki", "średni", "niski", "do ustalenia"
 RYNEK_SKALA_BARDZO_DUZY = "bardzo duży"
 
 # O. email_decydent junk values → cleared or moved to zrodlo_danych.
-#   Keyed by id_unikalne → (new_email_decydent, optional stanowisko, optional notatki_add)
+#   Keyed by id → (new_email_decydent, optional stanowisko, optional notatki_add)
 #   'clear' = empty string; 'move_to_zrodlo' = append to zrodlo_danych
 EMAIL_DECYDENT_FIX = {
     "PL-A-001": {"email_decydent": "", "stanowisko": "właściciel/CEO"},
@@ -518,7 +518,7 @@ CSP_TRANSLATE = {
 def fix_row(row: dict, src_label: str, log: list) -> dict:
     """Apply all per-row fixes. Returns the row (modified in place) and
     appends human-readable change notes to `log`."""
-    cid = row.get("id_unikalne", "")
+    cid = row.get("id", "")
     changes = []
 
     # ---- B. data_weryfikacji: strip leaked flag text ----

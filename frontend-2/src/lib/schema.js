@@ -5,7 +5,7 @@
 /** Friendly, professional human-readable Polish labels for all canonical columns. */
 export const COLUMN_LABELS = {
   kraj: "Kraj",
-  id_unikalne: "id",
+  id: "id",
   nazwa_firmy: "Nazwa",
   miasto: "Miasto",
   adres: "Adres",

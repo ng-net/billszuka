@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS lead_deletions (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS keyword_scan (
-  id_unikalne TEXT NOT NULL,
+  id TEXT NOT NULL,
   kraj TEXT NOT NULL,
   url TEXT NOT NULL,
   keywords_found TEXT NOT NULL DEFAULT '[]',   -- JSON array of hit strings
@@ -148,12 +148,12 @@ CREATE TABLE IF NOT EXISTS keyword_scan (
   html_size INTEGER,
   error TEXT,
   scanned_at TEXT NOT NULL,
-  PRIMARY KEY (id_unikalne, url)
+  PRIMARY KEY (id, url)
 );
 CREATE INDEX IF NOT EXISTS idx_keyword_scan_kraj ON keyword_scan (kraj);
 CREATE INDEX IF NOT EXISTS idx_keyword_scan_score ON keyword_scan (score_pct);
 CREATE TABLE IF NOT EXISTS url_status (
-  id_unikalne TEXT NOT NULL,
+  id TEXT NOT NULL,
   kraj TEXT NOT NULL,
   url TEXT NOT NULL,
   status TEXT NOT NULL,           -- 'green' | 'red' | 'unknown' (high-level)
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS url_status (
   response_ms INTEGER,            -- czas odpowiedzi w ms
   error TEXT,
   checked_at TEXT NOT NULL,
-  PRIMARY KEY (id_unikalne, url)
+  PRIMARY KEY (id, url)
 );
 CREATE INDEX IF NOT EXISTS idx_url_status_kraj ON url_status (kraj);
 CREATE INDEX IF NOT EXISTS idx_url_status_status ON url_status (status);

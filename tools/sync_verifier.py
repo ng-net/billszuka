@@ -75,7 +75,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
                     )
 
                 for row_idx, row in enumerate(reader, start=2):
-                    uid = (row.get("id_unikalne") or "").strip()
+                    uid = (row.get("id") or "").strip()
                     name = (row.get("nazwa_firmy") or "").strip()
                     if not uid and not name:
                         continue  # Skip completely blank rows
@@ -85,7 +85,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
 
                     if not uid:
                         results["schema_warnings"].append(
-                            f"Empty id_unikalne at {rel_name}:{row_idx} ({name})"
+                            f"Empty id at {rel_name}:{row_idx} ({name})"
                         )
                         continue
 
@@ -121,7 +121,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
             )
 
         for row_idx, row in enumerate(reader, start=2):
-            uid = (row.get("id_unikalne") or "").strip()
+            uid = (row.get("id") or "").strip()
             name = (row.get("nazwa_firmy") or "").strip()
             if not uid and not name:
                 continue
@@ -129,7 +129,7 @@ def verify_master_sync(auto_fix: bool = False, verbose: bool = True) -> dict:
             results["total_master_leads"] += 1
             if not uid:
                 results["schema_warnings"].append(
-                    f"Empty id_unikalne at master.csv:{row_idx} ({name})"
+                    f"Empty id at master.csv:{row_idx} ({name})"
                 )
                 continue
 

@@ -164,7 +164,7 @@ class TestUpdateCsvRow:
         path = tmp_path / "catalog.csv"
         with path.open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "decydent", "stanowisko",
+            w.writerow(["id", "decydent", "stanowisko",
                         "telefon", "linkedin", "data_weryfikacji"])
             w.writerow(["PL-X-001", "do ustalenia", "brak", "brak", "brak", ""])
         return path
@@ -213,7 +213,7 @@ class TestUpdateCsvRow:
         assert ok is False
 
     def test_missing_id_column_returns_false(self, tmp_path):
-        # CSV without id_unikalne column
+        # CSV without id column
         path = tmp_path / "bad.csv"
         with path.open("w", newline="") as f:
             w = csv.writer(f)
@@ -231,7 +231,7 @@ class TestUpdateCsvRow:
         # Add a row with email_decydent column
         with csv_file.open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "decydent", "stanowisko", "email_decydent",
+            w.writerow(["id", "decydent", "stanowisko", "email_decydent",
                         "telefon", "linkedin", "data_weryfikacji"])
             w.writerow(["PL-X-002", "do ustalenia", "brak", "brak", "brak", "brak", ""])
         ok = auto_enrich.update_csv_row(str(csv_file), "PL-X-002", {
@@ -273,7 +273,7 @@ class TestFindLeads:
         pa.mkdir()
         with (pa / "catalog-B-PL.csv").open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "kraj", "nazwa_firmy", "miasto",
+            w.writerow(["id", "kraj", "nazwa_firmy", "miasto",
                         "www", "decydent", "stanowisko"])
             w.writerow(["PL-1", "PL", "Alpha", "Warsaw", "x.pl",
                         "do ustalenia", "brak"])
@@ -284,21 +284,21 @@ class TestFindLeads:
         cz.mkdir()
         with (cz / "catalog-A-CZ.csv").open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "kraj", "nazwa_firmy", "decydent"])
+            w.writerow(["id", "kraj", "nazwa_firmy", "decydent"])
             w.writerow(["CZ-1", "CZ", "Gamma", "do ustalenia"])
         # Backup dir: should be ignored
         bk = tmp_path / "backups"
         bk.mkdir()
         with (bk / "catalog-B-PL.csv").open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "kraj", "decydent"])
+            w.writerow(["id", "kraj", "decydent"])
             w.writerow(["PL-99", "PL", "do ustalenia"])  # should be SKIPPED
         # Snapshots dir: should be ignored
         sn = tmp_path / ".snapshots"
         sn.mkdir()
         with (sn / "catalog-B-PL.csv").open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "kraj", "decydent"])
+            w.writerow(["id", "kraj", "decydent"])
             w.writerow(["PL-100", "PL", "do ustalenia"])  # SKIPPED
         return tmp_path
 
@@ -381,7 +381,7 @@ class TestProcessCLI:
         path = tmp_path / "test.csv"
         with path.open("w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["id_unikalne", "decydent", "stanowisko",
+            w.writerow(["id", "decydent", "stanowisko",
                         "telefon", "linkedin", "data_weryfikacji"])
             w.writerow(["PL-99", "do ustalenia", "brak", "brak", "brak", ""])
         return path
@@ -467,13 +467,13 @@ class TestFindUnenrichedLeads:
         canonical = country / "catalog-B-PL.csv"
         with canonical.open("w", newline="", encoding="utf-8") as f:
             w = _csv.writer(f)
-            w.writerow(["id_unikalne", "kraj", "nazwa_firmy", "miasto", "www", "decydent"])
+            w.writerow(["id", "kraj", "nazwa_firmy", "miasto", "www", "decydent"])
             w.writerow(["PL-A-1", "PL", "Foo sp. z o.o.", "Wawa", "", "do ustalenia"])
         # Pre-clean snapshot (should be ignored)
         pre = country / "catalog-B-PL-pre-clean-20260811_023054.csv"
         with pre.open("w", newline="", encoding="utf-8") as f:
             w = _csv.writer(f)
-            w.writerow(["id_unikalne", "kraj", "nazwa_firmy", "miasto", "www", "decydent"])
+            w.writerow(["id", "kraj", "nazwa_firmy", "miasto", "www", "decydent"])
             w.writerow(["PL-B-1", "PL", "Old", "Wawa", "", "do ustalenia"])
         # AppleDouble file (should be ignored)
         doubled = country / "._catalog-B-PL.csv"

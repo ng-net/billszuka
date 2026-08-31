@@ -1,6 +1,6 @@
 # Gems — non-PL B2B partner candidates (2026-08-31)
 
-**Total gems found:** 124 across 12 countries
+**Total gems found:** 130 across 12 countries
 
 ## Gem criteria (all required)
 
@@ -20,20 +20,20 @@
 
 | ISO | Country | Gems | Top score |
 |---|---|---|---|
-| BG | Bułgaria | 24 | 10 |
+| BG | Bułgaria | 25 | 10 |
 | EE | Estonia | 20 | 9 |
 | SK | Słowacja | 15 | 10 |
-| RO | Rumunia | 13 | 9 |
+| RO | Rumunia | 14 | 9 |
 | FR | Francja | 12 | 9 |
 | HR | Chorwacja | 11 | 10 |
+| CZ | Czechy | 10 | 5 |
 | LT | Litwa | 9 | 7 |
-| CZ | Czechy | 7 | 4 |
 | SI | Słowenia | 6 | 10 |
 | LV | Łotwa | 5 | 5 |
+| RS | Serbia | 2 | 10 |
 | MD | Mołdawia | 1 | 4 |
-| RS | Serbia | 1 | 4 |
 
-**Total: 124 gems** in 12 countries
+**Total: 130 gems** in 12 countries
 
 ## Top 20 gems (cross-country, by score)
 
@@ -41,53 +41,54 @@
 |---|---|---|---|---|---|---|
 | 1 | 10 | ✓ | BG | БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН ООД | 4 | office@tobacco-import.com |
 | 2 | 10 | ✓ | BG | ДЕЛИОН ООД (Delion OOD - VM Finance Grou | 4 | office@delion.bg |
-| 3 | 10 | ✓ | HR | TDR d.o.o. (Tvornica duhana Rovinj / BAT | 4 | info@tdr.hr |
-| 4 | 10 | ✓ | HR | TISAK PLUS d.o.o. (Tisak / Fortenova Gru | 4 | info@tisak.hr |
-| 5 | 10 | ✓ | HR | iNOVINE d.d. (BAT Adria Network) | 4 | info@inovine.hr |
-| 6 | 10 | ✓ | HR | ROX d.o.o. | 4 | info@rox.hr |
-| 7 | 10 | ✓ | SK | GECO, s. r. o. | 5 | info@geco.sk |
-| 8 | 10 | ✓ | SK | NOBA – SMOKER, s.r.o. | 4 | smoker@smoker.sk |
-| 9 | 10 | ✓ | SK | JTI Slovak Republic, s.r.o. | 5 | info.sk@jti.com |
-| 10 | 10 | ✓ | SK | Imperial Brands Slovakia a. s. | 5 | info@sk.imptob.com |
-| 11 | 10 | ✓ | SK | Philip Morris Slovakia s.r.o. | 5 | infoline.sk@pmi.com |
-| 12 | 10 | ✓ | SI | TOBAČNA 3DVA, d.o.o. (Trafika 3DVA) | 5 | 3dvainfo@si.imptob.com |
-| 13 | 10 | ✓ | SI | DELO PRODAJA, d.o.o. | 4 | info@deloprodaja.si |
-| 14 | 10 | ✓ | SI | Poslovni sistem Mercator d.o.o. (Cash &  | 5 | info@mercator.si |
-| 15 | 10 | ✓ | SI | JT International Ljubljana, d.o.o. | 5 | info.slovenia@jti.com |
-| 16 | 10 | ✓ | SI | Philip Morris Ljubljana, d.o.o. | 5 | infoline.si@pmi.com |
-| 17 | 9 | ✓ | BG | Tobacco Distribution OOD | 5 | office@tobacco.bg |
-| 18 | 9 | ✓ | BG | ЕКСПРЕС ЛОГИСТИКА И ДИСТРИБУЦИЯ ЕООД (EL | 3 | office@eld.bg |
-| 19 | 9 | ✓ | HR | JT INTERNATIONAL ZAGREB d.o.o. | 3 | zagreb.office@jti.com |
-| 20 | 9 | ✓ | HR | PHILIP MORRIS ZAGREB d.o.o. | 3 | contact.zagreb@pmi.com |
+| 3 | 10 | ✓ | BG | Unipack AD | 5 | unipack@unipackbg.com |
+| 4 | 10 | ✓ | HR | TDR d.o.o. (Tvornica duhana Rovinj / BAT | 4 | info@tdr.hr |
+| 5 | 10 | ✓ | HR | TISAK PLUS d.o.o. (Tisak / Fortenova Gru | 4 | info@tisak.hr |
+| 6 | 10 | ✓ | HR | iNOVINE d.d. (BAT Adria Network) | 4 | info@inovine.hr |
+| 7 | 10 | ✓ | HR | ROX d.o.o. | 4 | info@rox.hr |
+| 8 | 10 | ✓ | RS | Julieta D.O.O. | 5 | office@julieta.biz; casa@julieta.bi |
+| 9 | 10 | ✓ | SK | GECO, s. r. o. | 5 | info@geco.sk |
+| 10 | 10 | ✓ | SK | NOBA – SMOKER, s.r.o. | 4 | smoker@smoker.sk |
+| 11 | 10 | ✓ | SK | JTI Slovak Republic, s.r.o. | 5 | info.sk@jti.com |
+| 12 | 10 | ✓ | SK | Imperial Brands Slovakia a. s. | 5 | info@sk.imptob.com |
+| 13 | 10 | ✓ | SK | Philip Morris Slovakia s.r.o. | 5 | infoline.sk@pmi.com |
+| 14 | 10 | ✓ | SI | TOBAČNA 3DVA, d.o.o. (Trafika 3DVA) | 5 | 3dvainfo@si.imptob.com |
+| 15 | 10 | ✓ | SI | DELO PRODAJA, d.o.o. | 4 | info@deloprodaja.si |
+| 16 | 10 | ✓ | SI | Poslovni sistem Mercator d.o.o. (Cash &  | 5 | info@mercator.si |
+| 17 | 10 | ✓ | SI | JT International Ljubljana, d.o.o. | 5 | info.slovenia@jti.com |
+| 18 | 10 | ✓ | SI | Philip Morris Ljubljana, d.o.o. | 5 | infoline.si@pmi.com |
+| 19 | 9 | ✓ | BG | Tobacco Distribution OOD | 5 | office@tobacco.bg |
+| 20 | 9 | ✓ | BG | ЕКСПРЕС ЛОГИСТИКА И ДИСТРИБУЦИЯ ЕООД (EL | 3 | office@eld.bg |
 
-## BG — Bułgaria (24 gems)
+## BG — Bułgaria (25 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
 | 1 | 10 | ✓ | БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН | 4 | София | B8 | office@tobacco-import.com |
 | 2 | 10 | ✓ | ДЕЛИОН ООД (Delion OOD - VM Finance | 4 | София | B8 | office@delion.bg |
-| 3 | 9 | ✓ | Tobacco Distribution OOD | 5 | Sofia | B8 | office@tobacco.bg |
-| 4 | 9 | ✓ | ЕКСПРЕС ЛОГИСТИКА И ДИСТРИБУЦИЯ ЕОО | 3 | София | B8 | office@eld.bg |
-| 5 | 5 |  | BEKI 2015 EOOD (БЕКИ 2015) | 5 | Dupnitsa | B9 | info@beki2015.bg |
-| 6 | 5 |  | ЛАЙТС УЛТРА ООД (Lights Ultra Ltd - | 4 | Велико Търново | B8 | office@lightsmarket.bg |
-| 7 | 5 |  | Табако Трейд Варна ООД (Tobacco Tra | 4 | Варна | B8 | varna@tobaccotrade.bg |
-| 8 | 5 |  | РАДУЛОВ - М ООД (Radulov - M Ltd) | 4 | Варна | B8 | bim_color_@abv.bg |
-| 9 | 5 |  | ТАБКОМ ЛОГИСТИК ООД (Tabcom Logisti | 4 | Бургас | B8 | office@tabcom.bg |
-| 10 | 5 |  | Табако Трейд Стара Загора ООД (Toba | 4 | Стара Загора | B8 | starazagora@tobaccotrade.bg |
-| 11 | 5 |  | Табако Трейд Русе ООД (Tobacco Trad | 4 | Русе | B8 | ruse@tobaccotrade.bg |
-| 12 | 5 |  | Табако Трейд Хасково ООД (Tobacco T | 4 | Хасково | B8 | haskovo@tobaccotrade.bg |
-| 13 | 5 |  | Табако Трейд Благоевград ООД (Tobac | 4 | Благоевград | B8 | blagoevgrad@tobaccotrade.bg |
-| 14 | 4 |  | Tabako Trade OOD | 5 | Plovdiv | B8 | office@tobaccotrade.bg |
-| 15 | 4 |  | IMPERIAL BRANDS BULGARIA EOOD (Impe | 4 | Sofia | B4 | +359 2 964 0195 |
-| 16 | 4 |  | TOBACCO TRADE PLEVEN OOD | 5 | Pleven | B8 | pleven.office@tobaccotrade.bg |
-| 17 | 4 |  | КАЛИМАН КАРИБЕ ООД (Kaliman Caribe) | 5 | Sofia | B8 | office@kaliman.bg |
-| 18 | 4 |  | СОКОТАБ ЕООД (SOCOTAB) | 5 | Radinovo | B8 | office@socotab.com |
-| 19 | 4 |  | ДЖЕНТЪЛМЕН ГРУП ЕООД | 3 | София | B8 | office@nargile.bg |
-| 20 | 3 |  | BEST TABAKO EOOD (БЕСТ ТАБАКО) | 5 | Sofia | B9 | info@besttabako.bg |
-| 21 | 3 |  | TABI DV OOD (ТАБИ ДВ) | 5 | Plovdiv | B9 | info@tabidv.bg |
-| 22 | 3 |  | VEKTOR 7 OOD (ВЕКТОР 7) | 5 | Sofia | B9 | info@vektor7.bg |
-| 23 | 3 |  | GAGARIN COMPANY EOOD (ГАГАРИН КЪМПА | 5 | Plovdiv | B9 | info@gagarin.bg |
-| 24 | 3 |  | ПЕН ШОП ГРУП ЕООД (Pen Shop Group) | 3 | Sofia | B4 | office@giftgroup.bg |
+| 3 | 10 | ✓ | Unipack AD | 5 | Pavlikeni | B1 | unipack@unipackbg.com |
+| 4 | 9 | ✓ | Tobacco Distribution OOD | 5 | Sofia | B8 | office@tobacco.bg |
+| 5 | 9 | ✓ | ЕКСПРЕС ЛОГИСТИКА И ДИСТРИБУЦИЯ ЕОО | 3 | София | B8 | office@eld.bg |
+| 6 | 5 |  | BEKI 2015 EOOD (БЕКИ 2015) | 5 | Dupnitsa | B9 | info@beki2015.bg |
+| 7 | 5 |  | ЛАЙТС УЛТРА ООД (Lights Ultra Ltd - | 4 | Велико Търново | B8 | office@lightsmarket.bg |
+| 8 | 5 |  | Табако Трейд Варна ООД (Tobacco Tra | 4 | Варна | B8 | varna@tobaccotrade.bg |
+| 9 | 5 |  | РАДУЛОВ - М ООД (Radulov - M Ltd) | 4 | Варна | B8 | bim_color_@abv.bg |
+| 10 | 5 |  | ТАБКОМ ЛОГИСТИК ООД (Tabcom Logisti | 4 | Бургас | B8 | office@tabcom.bg |
+| 11 | 5 |  | Табако Трейд Стара Загора ООД (Toba | 4 | Стара Загора | B8 | starazagora@tobaccotrade.bg |
+| 12 | 5 |  | Табако Трейд Русе ООД (Tobacco Trad | 4 | Русе | B8 | ruse@tobaccotrade.bg |
+| 13 | 5 |  | Табако Трейд Хасково ООД (Tobacco T | 4 | Хасково | B8 | haskovo@tobaccotrade.bg |
+| 14 | 5 |  | Табако Трейд Благоевград ООД (Tobac | 4 | Благоевград | B8 | blagoevgrad@tobaccotrade.bg |
+| 15 | 4 |  | Tabako Trade OOD | 5 | Plovdiv | B8 | office@tobaccotrade.bg |
+| 16 | 4 |  | IMPERIAL BRANDS BULGARIA EOOD (Impe | 4 | Sofia | B4 | +359 2 964 0195 |
+| 17 | 4 |  | TOBACCO TRADE PLEVEN OOD | 5 | Pleven | B8 | pleven.office@tobaccotrade.bg |
+| 18 | 4 |  | КАЛИМАН КАРИБЕ ООД (Kaliman Caribe) | 5 | Sofia | B8 | office@kaliman.bg |
+| 19 | 4 |  | СОКОТАБ ЕООД (SOCOTAB) | 5 | Radinovo | B8 | office@socotab.com |
+| 20 | 4 |  | ДЖЕНТЪЛМЕН ГРУП ЕООД | 3 | София | B8 | office@nargile.bg |
+| 21 | 3 |  | BEST TABAKO EOOD (БЕСТ ТАБАКО) | 5 | Sofia | B9 | info@besttabako.bg |
+| 22 | 3 |  | TABI DV OOD (ТАБИ ДВ) | 5 | Plovdiv | B9 | info@tabidv.bg |
+| 23 | 3 |  | VEKTOR 7 OOD (ВЕКТОР 7) | 5 | Sofia | B9 | info@vektor7.bg |
+| 24 | 3 |  | GAGARIN COMPANY EOOD (ГАГАРИН КЪМПА | 5 | Plovdiv | B9 | info@gagarin.bg |
+| 25 | 3 |  | ПЕН ШОП ГРУП ЕООД (Pen Shop Group) | 3 | Sofia | B4 | office@giftgroup.bg |
 
 ## EE — Estonia (20 gems)
 
@@ -134,7 +135,7 @@
 | 14 | 5 |  | FINEST TOBACCO INTERNATIONAL GROUP  | 4 | Piešťany | B8 | info@finest-tobacco.com |
 | 15 | 4 |  | INN SMOKE s. r. o. | 3 | Banská Bystrica | B6 | info@cubapods.sk |
 
-## RO — Rumunia (13 gems)
+## RO — Rumunia (14 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
@@ -151,6 +152,7 @@
 | 11 | 4 |  | BRITISH AMERICAN TOBACCO (ROMANIA)  | 4 | București | B9 | contact.ro@bat.com |
 | 12 | 4 |  | TOBACCO LOGISTIC & MARKETING SRL | 4 | Târgu Jiu | B8 | office@tlm-distributie.ro |
 | 13 | 4 |  | RHENUS LOGISTICS SRL | 4 | Pitești | B8 | info.ro@rhenus.com |
+| 14 | 4 |  | GOLDEN PROVIDER DISTRIBUTION SRL | 3 | Bucureşti | B2 | contact@gpd.ro |
 
 ## FR — Francja (12 gems)
 
@@ -185,6 +187,21 @@
 | 10 | 9 | ✓ | ALCA ZAGREB d.o.o. | 3 | Zagreb | B8 | alca@alca.hr |
 | 11 | 4 |  | EUROTRADE d.o.o. | 3 | Rovinj | B8 | info@eurotrade.hr |
 
+## CZ — Czechy (10 gems)
+
+| # | Score | 🐋 | Name | Pow | City | Category | Contact |
+|---|---|---|---|---|---|---|---|
+| 1 | 5 |  | FUMUS s.r.o. | 4 | Praha | B2 | info@fumus.cz |
+| 2 | 4 |  | CZECH TOBACCO CORPORATION a.s. | 3 |  | B5 | ctc@ctc-as.cz |
+| 3 | 4 |  | MORAVIA TOBACCO | 3 |  | B5 | info@moraviatb.cz |
+| 4 | 4 |  | Horák Tabák | 3 |  | B5 | +420734617787 |
+| 5 | 4 |  | Etabak.com | 3 |  | B5 | obchod@etabak.com |
+| 6 | 4 |  | Velkoobchod Mečíř Trutnov | 3 |  | B5 | obchod@mecir.net |
+| 7 | 4 |  | Šebrle s.r.o. | 3 |  | B5 | +420 499 622 321 |
+| 8 | 4 |  | CigarKings trade | 3 |  | B2 | kontakt@cigarkings.de |
+| 9 | 4 |  | GECO a.s. | 3 | Praha 8 | B2 | mail.box@geco.cz |
+| 10 | 4 |  | Velkoobchod Mečíř | 3 | Trutnov | B2 | obchod@mecir.net |
+
 ## LT — Litwa (9 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
@@ -198,18 +215,6 @@
 | 7 | 4 |  | UAB "Lavisos LEZ terminalas" | 4 | Biruliškės | B8 | info@lez-terminalas.lt |
 | 8 | 3 |  | MB Himalajai | 3 | Vilnius | B4 | info@rastamanas.lt |
 | 9 | 3 |  | UAB Reto | 1 | Vilnius | B5 | info@shamanas.lt |
-
-## CZ — Czechy (7 gems)
-
-| # | Score | 🐋 | Name | Pow | City | Category | Contact |
-|---|---|---|---|---|---|---|---|
-| 1 | 4 |  | CZECH TOBACCO CORPORATION a.s. | 3 |  | B5 | ctc@ctc-as.cz |
-| 2 | 4 |  | MORAVIA TOBACCO | 3 |  | B5 | info@moraviatb.cz |
-| 3 | 4 |  | Horák Tabák | 3 |  | B5 | +420734617787 |
-| 4 | 4 |  | Etabak.com | 3 |  | B5 | obchod@etabak.com |
-| 5 | 4 |  | Velkoobchod Mečíř Trutnov | 3 |  | B5 | obchod@mecir.net |
-| 6 | 4 |  | Šebrle s.r.o. | 3 |  | B5 | +420 499 622 321 |
-| 7 | 4 |  | CigarKings trade | 3 |  | B2 | kontakt@cigarkings.de |
 
 ## SI — Słowenia (6 gems)
 
@@ -232,15 +237,16 @@
 | 4 | 4 |  | Delos Plus SIA | 3 |  | B5 | redakcija@heise.lv |
 | 5 | 4 |  | G & P Tobacco SIA | 3 |  | B5 | redakcija@heise.lv |
 
+## RS — Serbia (2 gems)
+
+| # | Score | 🐋 | Name | Pow | City | Category | Contact |
+|---|---|---|---|---|---|---|---|
+| 1 | 10 | ✓ | Julieta D.O.O. | 5 | Beograd | B2 | office@julieta.biz; casa@julie |
+| 2 | 4 |  | Julieta D.O.O. | 3 |  | B5 | davidoff_belgrade@julieta.biz |
+
 ## MD — Mołdawia (1 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
 | 1 | 4 |  | Le Bridge Duty Free | 3 |  | B5 | dermot@moodiedavittreport.com |
-
-## RS — Serbia (1 gems)
-
-| # | Score | 🐋 | Name | Pow | City | Category | Contact |
-|---|---|---|---|---|---|---|---|
-| 1 | 4 |  | Julieta D.O.O. | 3 |  | B5 | davidoff_belgrade@julieta.biz |
 

@@ -9,7 +9,7 @@ function valueMatches(value, filterVal) {
 }
 
 const DEFAULT_LABELS = {
-  kraj: "Kraj",
+  // kraj removed — country column has no filtering option
   marki_nabijarki: "Marka",
   tier: "Rola",
   wolumen: "Wolumen",
@@ -40,12 +40,15 @@ export function CollapsibleFilters({
     onToggleCollapse?.(v);
   };
 
-  // If groups are provided directly (e.g. in tests or static setup), compute counts if possible
+  // If groups are provided directly (e.g. in tests or static setup), compute counts if possible.
+  // Note: "kraj" is excluded from filter rendering — country column has no
+  // filtering option. This applies even if a caller passes `kraj` in groupsProp.
   const dynamicGroups = useMemo(() => {
     if (groupsProp) {
       // If groups are given as { [key]: ["val1", "val2"] } or { [key]: [{value, count}] }
       const res = {};
       for (const [key, vals] of Object.entries(groupsProp)) {
+        if (key === "kraj") continue; // country filter intentionally not exposed
         if (!Array.isArray(vals)) continue;
         res[key] = vals.map((v) => {
           if (typeof v === "object" && v !== null) return v;
@@ -61,7 +64,9 @@ export function CollapsibleFilters({
 
     if (!rows || rows.length === 0) return {};
 
-    const keys = ["kraj", "tier", "wolumen", "powinowactwo_nabijarki", "cross_sell_potential"];
+    // Note: "kraj" is intentionally NOT in the filter list — country column has
+    // no filtering option. Use per-country file/view as the country selector.
+    const keys = ["tier", "wolumen", "powinowactwo_nabijarki", "cross_sell_potential"];
     const out = {};
     for (const k of keys) {
       const counts = new Map();

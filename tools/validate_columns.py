@@ -41,7 +41,7 @@ from typing import Any
 # ---------------------------------------------------------------------------
 
 CANONICAL_COLUMNS: list[str] = [
-    "related_to", "rok_zalozenia", "id_unikalne", "kategoria", "nazwa_firmy",
+    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa_firmy",
     "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
     "www", "kanal_zamiennik", "email", "telefon", "linkedin",
     "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
@@ -59,7 +59,7 @@ DEFAULT_ALIASES: dict[str, list[str]] = {
     "rok_zalozenia": ["rok zalozenia", "rok zalozenia firmy", "founded", "founded year",
                       "year founded", "registration year", "gruendungsjahr", "annee",
                       "anno fondazione", "rok registracie"],
-    "id_unikalne": ["id unikalne", "id", "id unique", "unique id", "lead id",
+    "id": ["id unikalne", "id", "id unique", "unique id", "lead id",
                     "catalog id", "numer", "cislo"],
     "kategoria": ["kategoria", "category", "cat", "typ katalogu", "klasse", "categorie",
                   "categoria", "kategoria katalogu"],
@@ -138,7 +138,7 @@ DEFAULT_ALIASES: dict[str, list[str]] = {
 COLUMN_RULES: dict[str, dict[str, Any]] = {
     "related_to": {"type": "text", "allow_empty": True},
     "rok_zalozenia": {"type": "integer_or_empty", "min": 1800, "max": 2030},
-    "id_unikalne": {"type": "regex", "pattern": r"^[A-Z]{2}-[AB]-\d{3,4}$",
+    "id": {"type": "regex", "pattern": r"^[A-Z]{2}-[AB]-\d{3,4}$",
                     "allow_empty": False},
     "kategoria": {"type": "enum",
                   "values": ["A1", "A2", "A3", "A4", "A5", "A6",

@@ -49,8 +49,8 @@ def main():
     a_rows = read_csv(CATALOG_A)
     b_rows = read_csv(CATALOG_B)
 
-    new_a_hashes = {r["id_unikalne"]: hash_row(r) for r in a_rows}
-    new_b_hashes = {r["id_unikalne"]: hash_row(r) for r in b_rows}
+    new_a_hashes = {r["id"]: hash_row(r) for r in a_rows}
+    new_b_hashes = {r["id"]: hash_row(r) for r in b_rows}
 
     rh_state["files"]["data/Słowacja/catalog-A-SK.csv"] = new_a_hashes
     rh_state["files"]["data/Słowacja/catalog-B-SK.csv"] = new_b_hashes
@@ -72,8 +72,8 @@ def main():
     print(f"FROZEN rows: A={len(frozen_a)}, B={len(frozen_b)}, total={len(frozen_a) + len(frozen_b)}")
 
     # Update by_country_file
-    a_ids = [r["id_unikalne"] for r in frozen_a]
-    b_ids = [r["id_unikalne"] for r in frozen_b]
+    a_ids = [r["id"] for r in frozen_a]
+    b_ids = [r["id"] for r in frozen_b]
     fb["by_country_file"]["data/Słowacja/catalog-A-SK.csv"] = a_ids
     fb["by_country_file"]["data/Słowacja/catalog-B-SK.csv"] = b_ids
 
@@ -81,7 +81,7 @@ def main():
     fb["master"] = [m for m in fb["master"] if m.get("kraj") != "SK"]
     for r in frozen_a + frozen_b:
         fb["master"].append({
-            "id": r["id_unikalne"],
+            "id": r["id"],
             "kraj": r["kraj"],
             "hash": hash_row(r),
         })

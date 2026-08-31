@@ -110,7 +110,7 @@ def clean_and_resolve():
                 
             # Re-index
             for i, r in enumerate(cleaned_rows, 1):
-                r["id_unikalne"] = f"{iso}-{cat_type}-{i:03d}"
+                r["id"] = f"{iso}-{cat_type}-{i:03d}"
                 clean_row = {col: (r.get(col) or "").strip() for col in CANONICAL_SCHEMA}
                 cleaned_rows[i - 1] = clean_row
                 

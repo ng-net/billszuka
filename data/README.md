@@ -32,11 +32,11 @@ Kody {ISO} w nazwach plików CSV (PL, CZ, BG, HR, EE, FR, LT, LV, MD, RO, SK, SI
 
 ## master.csv + relationships.csv
 
-`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id_unikalne` w formacie `{KOD}-{A|B}-{NNN}` (np. `PL-A-001`, `CZ-B-012`). Przebudowa po każdej edycji per-kraj (`python3 tools/billszuka.py compile`).
+`data/master.csv` = zagregowany widok wszystkich wpisów ze wszystkich 12 folderów. Każdy wpis ma `id` w formacie `{KOD}-{A|B}-{NNN}` (np. `PL-A-001`, `CZ-B-012`). Przebudowa po każdej edycji per-kraj (`python3 tools/billszuka.py compile`).
 
 `data/relationships.csv` = graf relacji (krawędzie). Schemat: `from_id,to_id,relation_type,direction,evidence,verified_date,notes`. Patrz DZIENNIK.md → Relacje.
 
-Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
+Kody krajów w `id`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 
 ## Schemat kolumn (unifikowany A i B — 35 kolumn)
 
@@ -44,7 +44,7 @@ Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 |---|---|---|
 | `related_to` | str | ID firm powiązanych po przecinku (sister firms, sukcesja, pokolenie). |
 | `rok_zalozenia` | YYYY | Rok rejestracji (KRS/CEIDG). Wiek = bieżący rok − rok. |
-| `id_unikalne` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001`, `CZ-B-012` |
+| `id` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001`, `CZ-B-012` |
 | `kategoria` | enum | A1-A6 lub B1-B9 |
 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
 | `kraj` | ISO2 | Dwuliterowy kod |
@@ -88,7 +88,7 @@ Kody krajów w `id_unikalne`: PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR
 
 ## Wypełnianie
 
-- **Minimum** dla każdego rekordu: `id_unikalne`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
+- **Minimum** dla każdego rekordu: `id`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
 - **Pełne dane**: wszystkie kolumny, źródła zweryfikowane, flagi ustawione
 - **Częściowe**: wypełnione kluczowe kolumny + notatka co jeszcze trzeba
 

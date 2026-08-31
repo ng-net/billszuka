@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const COLUMN_LABELS = {
   __brand: "Marka",
-  kraj: "Kraj",
+  // kraj removed — country column has no filtering option
   tier: "Rola",
   wolumen: "Wolumen",
   confidence_wolumen: "Pewność",
@@ -44,6 +44,7 @@ export function ActiveFilterChips({
 
     // Column filter chips
     for (const [colId, val] of Object.entries(filters)) {
+      if (colId === "kraj") continue; // country filter intentionally not shown
       if (val == null || val === "") continue;
 
       const colName = COLUMN_LABELS[colId] || colId.replace(/_/g, " ");

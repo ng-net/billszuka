@@ -62,7 +62,7 @@ def load_country_leads(country_name: str) -> list[dict]:
             continue
         with open(csv_path, encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                id_ = (row.get("id_unikalne") or "").strip()
+                id_ = (row.get("id") or "").strip()
                 if id_:
                     leads.append({**row, "_file": str(csv_path.relative_to(ROOT))})
     return leads
@@ -156,7 +156,7 @@ def tool3_registry(nip: str, country_code: str) -> dict:
 
 def verify_lead(lead: dict) -> dict:
     """Run all applicable tools on a lead. Returns verdict + evidence."""
-    id_ = lead.get("id_unikalne", "")
+    id_ = lead.get("id", "")
     name = lead.get("nazwa_firmy", "")
     country_code = lead.get("kraj", "")
     www = lead.get("www", "")
@@ -219,11 +219,11 @@ def main() -> int:
             for csv_path in DATA.glob(f"{d}/catalog-*.csv"):
                 with open(csv_path, encoding="utf-8") as f:
                     for row in csv.DictReader(f):
-                        if (row.get("id_unikalne") or "").strip() in args.ids:
+                        if (row.get("id") or "").strip() in args.ids:
                             leads.append({**row, "_file": str(csv_path.relative_to(ROOT))})
 
     # Filter out already-done
-    leads = [l for l in leads if l.get("id_unikalne", "") not in done_ids]
+    leads = [l for l in leads if l.get("id", "") not in done_ids]
 
     if args.limit:
         leads = leads[:args.limit]
@@ -232,7 +232,7 @@ def main() -> int:
 
     if args.dry_run:
         for l in leads:
-            print(f"  {l.get('id_unikalne')}: {l.get('nazwa_firmy')} ({l.get('kraj')})")
+            print(f"  {l.get('id')}: {l.get('nazwa_firmy')} ({l.get('kraj')})")
         return 0
 
     RUNS_DIR.mkdir(parents=True, exist_ok=True)

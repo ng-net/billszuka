@@ -246,7 +246,7 @@ def find_unenriched_leads() -> list[dict]:
                     leads.append({
                         "country": (row.get("kraj") or "").strip(),
                         "country_dir": sub.name,
-                        "id": (row.get("id_unikalne") or "").strip(),
+                        "id": (row.get("id") or "").strip(),
                         "name": (row.get("nazwa_firmy") or "").strip(),
                         "city": (row.get("miasto") or "").strip(),
                         "www": (row.get("www") or "").strip(),
@@ -294,7 +294,7 @@ import csv
 
 def update_csv_row(csv_path: str, row_id: str, fields: dict) -> bool:
     """
-    Update the row with id_unikalne=row_id in csv_path with the given fields.
+    Update the row with id=row_id in csv_path with the given fields.
     Only fields with non-empty values are written; existing data is preserved.
     Returns True if the row was found and updated.
     """
@@ -305,12 +305,12 @@ def update_csv_row(csv_path: str, row_id: str, fields: dict) -> bool:
         reader = csv.DictReader(f)
         header = list(reader.fieldnames or [])
         rows = list(reader)
-    if not header or "id_unikalne" not in header:
+    if not header or "id" not in header:
         return False
 
     target = None
     for r in rows:
-        if (r.get("id_unikalne") or "").strip() == row_id:
+        if (r.get("id") or "").strip() == row_id:
             target = r
             break
     if target is None:

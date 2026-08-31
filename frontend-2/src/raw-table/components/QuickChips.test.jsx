@@ -8,41 +8,42 @@ const React = (await import("react")).default;
 const { render, screen, cleanup, fireEvent } = await import("@testing-library/react");
 const { QuickChips } = await import("./QuickChips.jsx");
 
+// Use `tier` as a sample filterable column (country/kraj has no filtering option).
 const ROWS = [
-  { kraj: "PL" },
-  { kraj: "PL" },
-  { kraj: "CZ" },
-  { kraj: "CZ" },
-  { kraj: "SK" },
-  { kraj: "DE" },
+  { tier: "hurtownik" },
+  { tier: "hurtownik" },
+  { tier: "reseller" },
+  { tier: "reseller" },
+  { tier: "detalista" },
+  { tier: "producent" },
 ];
 
 afterEach(() => cleanup());
 
 function renderChips(props = {}) {
-  return render(React.createElement(QuickChips, { columnId: "kraj", rows: ROWS, ...props }));
+  return render(React.createElement(QuickChips, { columnId: "tier", rows: ROWS, ...props }));
 }
 
 test("QuickChips: shows top values sorted by frequency", () => {
   renderChips();
   const buttons = screen.getAllByRole("button").map((b) => b.textContent);
-  const plIdx = buttons.findIndex((t) => t.startsWith("PL"));
-  const skIdx = buttons.findIndex((t) => t.startsWith("SK"));
-  assert.ok(plIdx > -1, "PL chip should exist");
-  assert.ok(skIdx > -1, "SK chip should exist");
-  assert.ok(plIdx < skIdx, "PL should render before SK");
+  const hurtIdx = buttons.findIndex((t) => t.startsWith("hurtownik"));
+  const detIdx = buttons.findIndex((t) => t.startsWith("detalista"));
+  assert.ok(hurtIdx > -1, "hurtownik chip should exist");
+  assert.ok(detIdx > -1, "detalista chip should exist");
+  assert.ok(hurtIdx < detIdx, "hurtownik should render before detalista");
 });
 
 test("QuickChips: shows count next to each value", () => {
   renderChips();
-  const plChip = screen.getByText(/^PL/).closest("button");
-  assert.match(plChip.textContent, /2/, "PL chip should display count");
+  const chip = screen.getByText(/^hurtownik/).closest("button");
+  assert.match(chip.textContent, /2/, "hurtownik chip should display count");
 });
 
 test("QuickChips: active filter value is visually distinct", () => {
-  renderChips({ filter: "PL" });
-  const plChip = screen.getByText(/^PL/).closest("button");
-  assert.match(plChip.className, /bg-primary/);
+  renderChips({ filter: "hurtownik" });
+  const chip = screen.getByText(/^hurtownik/).closest("button");
+  assert.match(chip.className, /bg-primary/);
 });
 
 test("QuickChips: returns null when no values found", () => {
@@ -55,15 +56,15 @@ test("QuickChips: limit caps number of chips", () => {
   const buttons = screen.getAllByRole("button");
   assert.equal(buttons.length, 2);
   const labels = buttons.map((b) => b.textContent);
-  assert.ok(labels.some((l) => l.startsWith("PL")));
-  assert.ok(labels.some((l) => l.startsWith("CZ")));
-  assert.ok(!labels.some((l) => l.startsWith("SK")));
-  assert.ok(!labels.some((l) => l.startsWith("DE")));
+  assert.ok(labels.some((l) => l.startsWith("hurtownik")));
+  assert.ok(labels.some((l) => l.startsWith("reseller")));
+  assert.ok(!labels.some((l) => l.startsWith("detalista")));
+  assert.ok(!labels.some((l) => l.startsWith("producent")));
 });
 
 test("QuickChips: clicking a chip fires onToggle with the value", () => {
   let toggled = null;
   renderChips({ onToggle: (v) => { toggled = v; } });
-  fireEvent.click(screen.getByText(/^PL/).closest("button"));
-  assert.equal(toggled, "PL");
+  fireEvent.click(screen.getByText(/^hurtownik/).closest("button"));
+  assert.equal(toggled, "hurtownik");
 });

@@ -361,7 +361,7 @@ class TestBalanceCatalogFile:
         csv_path = tmp_path / "catalog-B-XX.csv"
         with open(csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=[
-                "kraj", "id_unikalne", "nazwa_firmy", "tier", "kategoria",
+                "kraj", "id", "nazwa_firmy", "tier", "kategoria",
                 "rynek_skala", "wolumen", "confidence_wolumen",
                 "cross_sell_potential", "powinowactwo_nabijarki",
                 "marki_nabijarki", "marka_wlasna_oem", "notatki",
@@ -370,7 +370,7 @@ class TestBalanceCatalogFile:
             ])
             writer.writeheader()
             writer.writerow({
-                "kraj": "XX", "id_unikalne": "XX-B-001",
+                "kraj": "XX", "id": "XX-B-001",
                 "nazwa_firmy": "Test Co",
                 "tier": "hurtownik", "kategoria": "B8",
                 "rynek_skala": "",
@@ -421,7 +421,7 @@ class TestBalanceCatalogFile:
         csv_path = tmp_path / "catalog-B-YY.csv"
         with open(csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=[
-                "kraj", "id_unikalne", "nazwa_firmy", "tier", "kategoria",
+                "kraj", "id", "nazwa_firmy", "tier", "kategoria",
                 "rynek_skala", "wolumen", "confidence_wolumen",
                 "cross_sell_potential", "powinowactwo_nabijarki",
                 "marki_nabijarki", "marka_wlasna_oem", "notatki",
@@ -430,7 +430,7 @@ class TestBalanceCatalogFile:
             ])
             writer.writeheader()
             writer.writerow({
-                "kraj": "YY", "id_unikalne": "YY-B-001",
+                "kraj": "YY", "id": "YY-B-001",
                 "nazwa_firmy": "Verified Co",
                 "tier": "hurtownik", "kategoria": "B8",
                 "rynek_skala": "",
@@ -473,7 +473,7 @@ class TestBalanceCatalogFile:
         csv_path = tmp_path / "catalog-B-ZZ.csv"
         with open(csv_path, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=[
-                "kraj", "id_unikalne", "nazwa_firmy", "tier", "kategoria",
+                "kraj", "id", "nazwa_firmy", "tier", "kategoria",
                 "rynek_skala", "wolumen", "confidence_wolumen",
                 "cross_sell_potential", "powinowactwo_nabijarki",
                 "marki_nabijarki", "marka_wlasna_oem", "notatki",
@@ -482,7 +482,7 @@ class TestBalanceCatalogFile:
             ])
             writer.writeheader()
             writer.writerow({
-                "kraj": "ZZ", "id_unikalne": "ZZ-B-001",
+                "kraj": "ZZ", "id": "ZZ-B-001",
                 "nazwa_firmy": "Generic Co",
                 "tier": "reseller", "kategoria": "B1",
                 "rynek_skala": "",

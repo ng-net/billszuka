@@ -176,7 +176,7 @@ def main():
         # Build new row
         counter = len(rows) + 1
         row = {k: "" for k in CANONICAL_SCHEMA}
-        row["id_unikalne"] = make_id(iso, cat, counter)
+        row["id"] = make_id(iso, cat, counter)
         row["kategoria"] = f"{cat}9" if cat == "B" else f"{cat}1"
         row["nazwa_firmy"] = lead["name"]
         row["kraj"] = iso

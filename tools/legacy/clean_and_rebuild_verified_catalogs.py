@@ -10,7 +10,7 @@ Rules enforced:
        - Catalog-A: Core Rolling Machine / Nabijarka / Tubeuse specialists + major dedicated tobacco wholesalers.
        - Catalog-B: Regional tobacco distributors, FMCG wholesalers with tobacco division, verified trade entities.
   5. DEDUPLICATE across all countries (prevent double entries between A and B, deduplicate Place IDs and normalized names).
-  6. Sequential re-numbering of `id_unikalne` formatted as `{ISO}-{CAT}-{NNN}` (e.g. FR-A-001, FR-B-001) with clean metadata.
+  6. Sequential re-numbering of `id` formatted as `{ISO}-{CAT}-{NNN}` (e.g. FR-A-001, FR-B-001) with clean metadata.
   7. ARCHIVE all intake CSVs from `data/_intake/gmaps/*.csv` into `data/_intake/gmaps/processed/`.
   8. Recompile `data/master.csv`.
 """
@@ -136,7 +136,7 @@ def clean_row_data(row: dict, iso: str, cat_type: str, idx: int) -> dict:
     """Normalize and format row columns to strict canonical schema."""
     cleaned = {col: row.get(col, "").strip() for col in CANONICAL_SCHEMA}
     cleaned["kraj"] = iso
-    cleaned["id_unikalne"] = make_id(iso, cat_type, idx)
+    cleaned["id"] = make_id(iso, cat_type, idx)
     
     # Clean up empty markers
     for k in ["www", "email", "telefon", "rejestr_id", "nip_vat", "decydent", "stanowisko", "email_decydent"]:

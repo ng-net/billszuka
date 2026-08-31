@@ -9,7 +9,7 @@ const COUNTRY_TO_ISO = {
 };
 
 /**
- * useKeywordScan(country) — pobiera mapę {id_unikalne: scanObj} z /api/keyword-scan.
+ * useKeywordScan(country) — pobiera mapę {id: scanObj} z /api/keyword-scan.
  *
  * Returns: { byId, summary, loading, error }
  *
@@ -36,8 +36,8 @@ export function useKeywordScan(country, refreshKey = 0) {
         if (cancelled) return;
         const byId = {};
         for (const item of json.items || []) {
-          if (!(item.id_unikalne in byId)) {
-            byId[item.id_unikalne] = {
+          if (!(item.id in byId)) {
+            byId[item.id] = {
               score_pct: item.score_pct || 0,
               keywords_found: item.keywords_found || [],
               keywords_total: item.keywords_total || 0,

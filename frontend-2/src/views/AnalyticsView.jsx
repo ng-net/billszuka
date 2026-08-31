@@ -849,7 +849,7 @@ export function AnalyticsView() {
                           <div className="font-medium">{g.parent} <span className="text-muted-foreground">· {g.kraje.length} kraje · {g.rows.length} firm</span></div>
                           <ul className="ml-3 mt-0.5 space-y-0.5 text-muted-foreground">
                             {g.rows.map(r => (
-                              <li key={r.id_unikalne} className="flex items-center gap-1.5">
+                              <li key={r.id} className="flex items-center gap-1.5">
                                 <span className="font-mono text-[10px] bg-muted px-1 rounded">{r.kraj}</span>
                                 <span className="truncate">{r.nazwa_firmy}</span>
                               </li>
@@ -863,7 +863,7 @@ export function AnalyticsView() {
                 <div className="flex flex-wrap gap-2">
                   {tiles.grouped.singles.map((r) => (
                     <div
-                      key={r.id_unikalne}
+                      key={r.id}
                       className={cn(
                         "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border",
                         r.brand_variant === "PowerMatic + Hawk"
@@ -900,7 +900,7 @@ export function AnalyticsView() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-80 overflow-auto">
                 {tiles.claims.map((r) => (
                   <div
-                    key={r.id_unikalne}
+                    key={r.id}
                     className="flex items-center gap-3 px-3 py-2 rounded-md bg-white dark:bg-card border border-amber-200 dark:border-amber-900/40"
                   >
                     <span className="text-[10px] font-mono font-bold tabular-nums text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/60 px-1.5 py-0.5 rounded">
@@ -955,7 +955,7 @@ export function AnalyticsView() {
                   </summary>
                   <ol className="px-3 py-2 space-y-0.5 text-[11.5px]">
                     {g.rows.map((r, i) => (
-                      <li key={r.id_unikalne} className="flex items-center gap-2 truncate">
+                      <li key={r.id} className="flex items-center gap-2 truncate">
                         <span className="text-[10px] font-mono tabular-nums text-muted-foreground w-4">{i + 1}.</span>
                         <span className="flex-1 truncate font-medium">{r.nazwa_firmy}</span>
                         <span className="text-[10px] text-muted-foreground tabular-nums">

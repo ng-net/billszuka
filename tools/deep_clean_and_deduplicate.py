@@ -110,7 +110,7 @@ def clean_all_catalogs():
             clean_rows = []
             for i, row in enumerate(rows, 1):
                 # Clean unique ID
-                row["id_unikalne"] = f"{iso}-{cat_type}-{i:03d}"
+                row["id"] = f"{iso}-{cat_type}-{i:03d}"
                 row["kraj"] = iso
                 
                 # Clean phone

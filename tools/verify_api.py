@@ -711,7 +711,7 @@ def verify_apollo_row(row: dict) -> tuple[str, str]:
     # the module-level `apollo_enrichments` dict (same pattern as EE/LT
     # enrichment), then `apply_apollo_enrichments()` writes them to the
     # CSV in a single atomic pass per file (after the main loop).
-    id_ = (row.get("id_unikalne") or "").strip()
+    id_ = (row.get("id") or "").strip()
     org_matched = bool(result.get("org_matched"))
     people_matched = bool(result.get("matched"))
 
@@ -857,7 +857,7 @@ def verify_ee_row(row: dict) -> tuple[str, str]:
     address = result.get("legal_address", "")
     # Stash enrichment so main() can back-fill nip_vat / rejestr_id / adres
     # in the CSV for rows that previously had "do weryfikacji" placeholders.
-    id_ = (row.get("id_unikalne") or "").strip()
+    id_ = (row.get("id") or "").strip()
     if id_:
         ee_enrichments[id_] = {
             "nip_vat": kmkr_api,
@@ -976,7 +976,7 @@ def verify_lt_row(row: dict) -> tuple[str, str]:
         pvm_note = ""
 
     # Stash enrichment for main() back-fill
-    id_ = (row.get("id_unikalne") or "").strip()
+    id_ = (row.get("id") or "").strip()
     if id_:
         lt_enrichments[id_] = {
             "nip_vat": expected_pvm,
@@ -995,7 +995,7 @@ def verify_lt_row(row: dict) -> tuple[str, str]:
 
 # Side-channel: verify_lt_row() populates this when it returns FROZEN so
 # main() can back-fill nip_vat / rejestr_id for rows that previously had
-# "do weryfikacji" placeholders. Keyed by id_unikalne.
+# "do weryfikacji" placeholders. Keyed by id.
 lt_enrichments: dict[str, dict] = {}
 
 
@@ -1015,9 +1015,9 @@ def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
         header = next(reader)
         rows = list(reader)
     n_cols = len(header)
-    if "id_unikalne" not in header:
+    if "id" not in header:
         return 0
-    id_idx = header.index("id_unikalne")
+    id_idx = header.index("id")
     field_map = {
         "nip_vat": "nip_vat",
         "rejestr_id": "rejestr_id",
@@ -1060,13 +1060,13 @@ def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
 
 # Side-channel: verify_ee_row() populates this when it returns FROZEN so
 # main() can back-fill nip_vat / rejestr_id / adres for rows that previously
-# had "do weryfikacji" placeholders. Keyed by id_unikalne.
+# had "do weryfikacji" placeholders. Keyed by id.
 ee_enrichments: dict[str, dict] = {}
 
 
 # Back-fillable Apollo enrichments, collected during main() and persisted
 # once per file via apply_apollo_enrichments() (same pattern as EE/LT).
-# Keyed by id_unikalne. Values: dict with optional keys
+# Keyed by id. Values: dict with optional keys
 #   telefon, linkedin, miasto, email_decydent
 apollo_enrichments: dict[str, dict] = {}
 
@@ -1086,9 +1086,9 @@ def apply_apollo_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> in
         header = next(reader)
         rows = list(reader)
     n_cols = len(header)
-    if "id_unikalne" not in header:
+    if "id" not in header:
         return 0
-    id_idx = header.index("id_unikalne")
+    id_idx = header.index("id")
     field_map = {
         "telefon": "telefon",
         "linkedin": "linkedin",
@@ -1146,9 +1146,9 @@ def apply_ee_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
         header = next(reader)
         rows = list(reader)
     n_cols = len(header)
-    if "id_unikalne" not in header:
+    if "id" not in header:
         return 0
-    id_idx = header.index("id_unikalne")
+    id_idx = header.index("id")
     field_map = {
         "nip_vat": "nip_vat",
         "rejestr_id": "rejestr_id",
@@ -1198,10 +1198,10 @@ def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> in
         reader = csv.reader(f)
         header = next(reader)
         rows = list(reader)
-    if "id_unikalne" not in header or "flagi" not in header:
+    if "id" not in header or "flagi" not in header:
         return 0
     n_cols = len(header)
-    id_idx = header.index("id_unikalne")
+    id_idx = header.index("id")
     flagi_idx = header.index("flagi")
     n = 0
     for i, row in enumerate(rows):
@@ -1294,7 +1294,7 @@ def main() -> int:
             if not args.country and not args.all:
                 continue
 
-            id_ = (row.get("id_unikalne") or "").strip()
+            id_ = (row.get("id") or "").strip()
             if not id_:
                 continue
 

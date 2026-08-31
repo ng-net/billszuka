@@ -6,7 +6,7 @@ import { ExperimentViewV3 } from "./ExperimentViewV3.jsx";
 
 const sampleLeads = [
   {
-    id_unikalne: "PL-B-001",
+    id: "PL-B-001",
     nazwa_firmy: "PowerMatic Polska Distribution",
     kraj: "Polska",
     miasto: "Warszawa",
@@ -26,7 +26,7 @@ const sampleLeads = [
     telefon: "+48 22 800 10 20",
   },
   {
-    id_unikalne: "CZ-001",
+    id: "CZ-001",
     nazwa_firmy: "Hawk Rollers CZ",
     kraj: "Czechy",
     miasto: "Praga",

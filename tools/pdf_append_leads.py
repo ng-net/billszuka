@@ -125,7 +125,7 @@ def parse_flagi(text: str) -> str:
 def col_firma(row: dict) -> str:
     """Company name (bolder) + ID + kategoria code (A1, A2, B3 etc.) below."""
     name = row.get("nazwa_firmy", "").strip()
-    fid = row.get("id_unikalne", "").strip()
+    fid = row.get("id", "").strip()
     kat = row.get("kategoria", "").strip()  # e.g. "A1", "A4", "B8"
     parts = []
     if name:
@@ -343,7 +343,7 @@ def build_lead_block(r: dict, tight: bool = False) -> Table:
     # === Col 0 (row 1: Firma; rows 2-3: Marki+Sourcing spans 2 cells) ===
     firma_html = (
         f'<font size="11"><b>{_sanitize_unicode(r.get("nazwa_firmy", "").strip() or "—")}</b></font>'
-        f'<br/><font color="#4466aa" size="7.5">{_sanitize_unicode(r.get("id_unikalne", "").strip())}</font>'
+        f'<br/><font color="#4466aa" size="7.5">{_sanitize_unicode(r.get("id", "").strip())}</font>'
         f'<br/><font color="#1F1F1F" size="8"><b>{_sanitize_unicode(r.get("kategoria", "").strip())}</b></font>'
     )
     marki = _sanitize_unicode(r.get("marki_nabijarki", "").strip()) or "—"
@@ -475,7 +475,7 @@ def load_catalog(iso: str, kraj_dir: str, b_max_cat: str = "B9") -> dict:
         with open(path, encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 # Skip empty rows
-                if not r.get("id_unikalne"):
+                if not r.get("id"):
                     continue
                 # For B catalog: filter by category if b_max_cat set
                 if cat == "B" and b_max_cat != "B9":
@@ -501,7 +501,7 @@ def load_b_outside_range(iso: str, b_max_cat: str = "B4") -> list[dict]:
     out = []
     with open(path, encoding="utf-8") as f:
         for r in csv.DictReader(f):
-            if not r.get("id_unikalne"):
+            if not r.get("id"):
                 continue
             kategoria = r.get("kategoria", "").strip()
             if kategoria > b_max_cat:
@@ -527,7 +527,7 @@ def load_extra_leads(iso: str) -> list[dict]:
         for row in reader:
             # Normalize: ensure all expected fields exist
             norm = {
-                "id_unikalne": row.get("id_unikalne", "").strip(),
+                "id": row.get("id", "").strip(),
                 "kategoria": row.get("kategoria", "").strip(),
                 "nazwa_firmy": row.get("nazwa_firmy", "").strip(),
                 "kraj": iso,

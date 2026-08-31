@@ -238,7 +238,7 @@ def process_csv(csv_path: Path, country: str, token: str, retrofix: bool, dry_ru
         header = next(reader)
         rows = list(reader)
 
-    id_idx = header.index("id_unikalne")
+    id_idx = header.index("id")
     flagi_idx = header.index("flagi")
     name_idx = header.index("nazwa_firmy")
     nip_idx = header.index("nip_vat")
@@ -259,7 +259,7 @@ def process_csv(csv_path: Path, country: str, token: str, retrofix: bool, dry_ru
             "nazwa_firmy": row[name_idx],
             "nip_vat": row[nip_idx],
             "rejestr_id": row[rejestr_idx],
-            "id_unikalne": row[id_idx],
+            "id": row[id_idx],
             "flagi": row[flagi_idx],
         }
         idu = row[id_idx]

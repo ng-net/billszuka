@@ -154,7 +154,7 @@ export function getSampleLeads() {
       : pickRandom(NON_DISTRIBUTOR_NOTES, i + 7);
 
     out.push({
-      id_unikalne: makeId(country, i),
+      id: makeId(country, i),
       nazwa_firmy: name,
       kraj: country,
       miasto: city,

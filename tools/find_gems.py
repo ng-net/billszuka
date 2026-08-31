@@ -140,7 +140,7 @@ def main():
                     gems.append({
                         "country": country,
                         "iso": ISO_MAP[country],
-                        "id": r.get("id_unikalne", ""),
+                        "id": r.get("id", ""),
                         "name": r.get("nazwa_firmy", ""),
                         "miasto": r.get("miasto", ""),
                         "www": r.get("www", ""),

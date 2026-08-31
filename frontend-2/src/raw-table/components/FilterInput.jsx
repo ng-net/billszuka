@@ -44,21 +44,7 @@ const ENUM_DESCRIPTIONS = {
     B8: "Pełne hurtownie tytoniowe (najwyższy priorytet)",
     B9: "CBD / konopie / susz (jointy z suszu)",
   },
-  kraj: {
-    PL: "Polska",
-    CZ: "Czechy",
-    SK: "Słowacja",
-    RO: "Rumunia",
-    LT: "Litwa",
-    LV: "Łotwa",
-    EE: "Estonia",
-    FR: "Francja",
-    MD: "Mołdawia",
-    BG: "Bułgaria",
-    SI: "Słowenia",
-    HR: "Chorwacja",
-    RS: "Serbia (out-of-scope intel)",
-  },
+  // kraj removed — country column has no filtering option
   tier: {
     dystrybutor: "Główny importer / dystrybutor",
     hurtownik: "Hurtownia B2B",

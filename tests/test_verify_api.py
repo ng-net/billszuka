@@ -1015,7 +1015,7 @@ class TestApplyApolloEnrichments:
     def test_no_enrichments_no_op(self, tmp_path):
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,,,Bratislava,\n"
         )
         assert verify_api.apply_apollo_enrichments(csv_path, {}) == 0
@@ -1025,7 +1025,7 @@ class TestApplyApolloEnrichments:
     def test_backfills_placeholders(self, tmp_path):
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,do weryfikacji,brak,do ustalenia,n/a\n"
         )
         enrichments = {
@@ -1048,7 +1048,7 @@ class TestApplyApolloEnrichments:
         """If a cell already has real data, Apollo must NOT overwrite it."""
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,+421 911 000 000,linkedin.com/existing,Kosice,ceo@existing.sk\n"
         )
         enrichments = {
@@ -1071,7 +1071,7 @@ class TestApplyApolloEnrichments:
     def test_unknown_id_ignored(self, tmp_path):
         csv_path = tmp_path / "catalog-B-SK.csv"
         csv_path.write_text(
-            "id_unikalne,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
+            "id,nazwa_firmy,telefon,linkedin,miasto,email_decydent\n"
             "SK-1,Foo,brak,brak,brak,brak\n"
         )
         enrichments = {
@@ -1098,7 +1098,7 @@ class TestVerifyApolloRow:
     def test_apollo_module_unavailable_returns_pending(self, monkeypatch):
         monkeypatch.setattr(verify_api, "APOLLO_AVAILABLE", False)
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", None)
-        row = {"id_unikalne": "SK-1", "nazwa_firmy": "Foo s.r.o."}
+        row = {"id": "SK-1", "nazwa_firmy": "Foo s.r.o."}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "niedostępny" in reason.lower()
@@ -1115,7 +1115,7 @@ class TestVerifyApolloRow:
                 "city": "Bratislava",
             }
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", fake_enrich)
-        row = {"id_unikalne": "SK-1", "nazwa_firmy": "Foo s.r.o."}
+        row = {"id": "SK-1", "nazwa_firmy": "Foo s.r.o."}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == "FROZEN"
         assert "org enrich" in reason
@@ -1129,14 +1129,14 @@ class TestVerifyApolloRow:
         def fake_enrich(row):
             return {"company": "X", "domain": "x", "matched": False, "org_matched": False, "org_error": "not in Apollo DB"}
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", fake_enrich)
-        row = {"id_unikalne": "PL-X", "nazwa_firmy": "X"}
+        row = {"id": "PL-X", "nazwa_firmy": "X"}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "PL-X" not in verify_api.apollo_enrichments
 
     def test_empty_company_returns_pending(self, monkeypatch):
         monkeypatch.setattr(verify_api, "_apollo_enrich_row", lambda r: {"org_matched": True, "phone": "x"})
-        row = {"id_unikalne": "PL-X", "nazwa_firmy": ""}
+        row = {"id": "PL-X", "nazwa_firmy": ""}
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "nazwy" in reason.lower() or "nazwa" in reason.lower()

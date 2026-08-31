@@ -81,7 +81,7 @@ const generateLeads = (count) =>
     const isDemo2 = id === "LEAD-1001";
     const hasVideo = isDemo1 || isDemo2;
     return {
-      id_unikalne: id,
+      id: id,
       nazwa_firmy: isDemo1
         ? "PowerMatic Polska Distribution Sp. z o.o."
         : isDemo2
@@ -303,7 +303,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
         const match =
           (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
           (lead.nip_vat || "").toLowerCase().includes(q) ||
-          (lead.id_unikalne || "").toLowerCase().includes(q) ||
+          (lead.id || "").toLowerCase().includes(q) ||
           (lead.miasto || "").toLowerCase().includes(q);
         if (!match) return false;
       }
@@ -383,7 +383,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
       ["ID,Nazwa,Kraj,Miasto,NIP,Tier,Wolumen"]
         .concat(
           filteredLeads.map(
-            (l) => `${l.id_unikalne},"${l.nazwa_firmy}",${l.kraj},${l.miasto},${l.nip_vat},${l.tier},${l.wolumen}`
+            (l) => `${l.id},"${l.nazwa_firmy}",${l.kraj},${l.miasto},${l.nip_vat},${l.tier},${l.wolumen}`
           )
         )
         .join("\n");
@@ -602,17 +602,17 @@ function VideoGridExperiment({ leads: leadsProp }) {
             <tbody className="divide-y divide-gray-100 dark:divide-border/40">
               {filteredLeads.map((lead) => (
                 <tr
-                  key={lead.id_unikalne}
+                  key={lead.id}
                   className="hover:bg-blue-50/30 dark:hover:bg-muted/30 transition-colors group"
                 >
                   {/* 1. ID (Sticky) */}
                   <td className="sticky left-0 z-10 bg-white dark:bg-card group-hover:bg-blue-50/30 dark:group-hover:bg-muted/40 p-3 border-r border-gray-200 dark:border-border font-mono text-xs text-gray-500">
                     <div className="flex items-center justify-between">
-                      <span>{lead.id_unikalne}</span>
+                      <span>{lead.id}</span>
                       <ActionButton
                         icon={Copy}
                         tooltip="Kopiuj ID"
-                        onClick={() => handleCopy(lead.id_unikalne, "ID")}
+                        onClick={() => handleCopy(lead.id, "ID")}
                       />
                     </div>
                   </td>
@@ -826,7 +826,7 @@ function VideoGridExperiment({ leads: leadsProp }) {
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="px-2 py-0.5 text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded">
-                        {selectedVideoLead.id_unikalne}
+                        {selectedVideoLead.id}
                       </span>
                       <span className="text-xs text-zinc-400 font-mono">
                         {selectedVideoLead.kraj} · {selectedVideoLead.tier}

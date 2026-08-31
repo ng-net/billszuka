@@ -13,7 +13,7 @@ import csv, glob, copy
 from pathlib import Path
 
 SCHEMA_COLUMNS = [
-    "related_to","rok_zalozenia","id_unikalne","kategoria","nazwa_firmy",
+    "related_to","rok_zalozenia","id","kategoria","nazwa_firmy",
     "kraj","miasto","adres","nip_vat","rejestr_id",
     "www","kanal_zamiennik","email","telefon","linkedin",
     "facebook","instagram","tiktok","tier","marki_nabijarki",
@@ -164,7 +164,7 @@ def apply_enrichments():
         new_rows = []
         changed = False
         for row in rows:
-            rid = row.get("id_unikalne","").strip()
+            rid = row.get("id","").strip()
             if rid not in ENRICHMENTS:
                 new_rows.append(row)
                 continue

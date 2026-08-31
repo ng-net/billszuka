@@ -11,7 +11,7 @@ Uruchom po **każdym** zapisie nowych danych do `data/{Kraj}/*.csv` lub `data/ma
 
 ## Źródło prawdy (master)
 
-`data/master.csv` — agregat wszystkich wpisów ze wszystkich krajów (35 kolumn). Każdy wpis ma unikalne `id_unikalne` w formacie `{KOD}-{A|B}-{NNN}` (np. `PL-A-001`, `CZ-B-012`).
+`data/master.csv` — agregat wszystkich wpisów ze wszystkich krajów (35 kolumn). Każdy wpis ma unikalne `id` w formacie `{KOD}-{A|B}-{NNN}` (np. `PL-A-001`, `CZ-B-012`).
 
 **Regeneracja master.csv** (po każdej edycji per-kraj):
 

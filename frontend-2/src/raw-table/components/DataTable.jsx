@@ -88,12 +88,12 @@ export function DataTable({
   const deferredGlobalFilter = globalFilter;
   const isFilterStale = false;
 
-  // Stable row identity from id_unikalne. Without this, TanStack defaults
+  // Stable row identity from id. Without this, TanStack defaults
   // to the row's array index, so when the sort order changes the keys
   // shift and React re-mounts every row — re-firing the row-settle
   // animation and re-rendering 5,000 components.
   const getRowId = useCallback(
-    (row, index) => String(row?.id_unikalne ?? `__row-${index}`),
+    (row, index) => String(row?.id ?? `__row-${index}`),
     []
   );
 
@@ -139,8 +139,8 @@ export function DataTable({
             type={colType}
             columnId={colId}
             maskDecydenci={maskDecydenci}
-            urlStatus={urlStatusById?.[row.original?.id_unikalne]}
-            keywordScan={keywordById?.[row.original?.id_unikalne]}
+            urlStatus={urlStatusById?.[row.original?.id]}
+            keywordScan={keywordById?.[row.original?.id]}
           />
         ),
       };
@@ -229,7 +229,7 @@ export function DataTable({
   const rowHeight = density === "compact" ? 28 : 44;
 
   // Cumulative left-offset (px) for the first STICKY_COLS_MOBILE visible
-  // columns, so id_unikalne + nazwa_firmy stay pinned together (header AND
+  // columns, so id + nazwa_firmy stay pinned together (header AND
   // body) while horizontally scrolling on mobile — md:static cancels this
   // above the md breakpoint. Previously every sticky column used a fixed
   // `left-0`, so column 2 rendered on top of column 1 instead of after it,
@@ -255,7 +255,7 @@ export function DataTable({
   // schedule it off ~700 ms later (past the longest 60×4 ms stagger).
   // Using a counter so the second flip still triggers a re-render to
   // remove the class.
-  const dataVersion = useMemo(() => `${rows.length}|${rows[0]?.id_unikalne ?? ""}`, [rows]);
+  const dataVersion = useMemo(() => `${rows.length}|${rows[0]?.id ?? ""}`, [rows]);
   const [settleTick, setSettleTick] = useState(0);
   useEffect(() => {
     if (tableRows.length === 0) return;
@@ -433,8 +433,8 @@ export function DataTable({
                           <RowDetailExpander
                             lead={row.original}
                             maskNames={maskDecydenci}
-                            urlStatus={urlStatusById?.[row.original?.id_unikalne]}
-                            keywordScan={keywordById?.[row.original?.id_unikalne]}
+                            urlStatus={urlStatusById?.[row.original?.id]}
+                            keywordScan={keywordById?.[row.original?.id]}
                           />
                         </td>
                       </tr>
@@ -587,7 +587,7 @@ const Row = memo(function Row({ row, index, rowHeight, density, isSelected, isEx
 });
 
 function defaultWidth(colId, type) {
-  if (colId === "id_unikalne") return 130;
+  if (colId === "id") return 130;
   if (colId === "nazwa_firmy") return 420;
   if (colId === "adres") return 360;
   if (colId === "notatki" || colId === "flagi" || colId === "zrodlo_danych") return 390;

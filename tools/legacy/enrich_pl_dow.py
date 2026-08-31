@@ -68,8 +68,8 @@ def backup_csv():
     print(f"[backup] {BACKUP_PATH.name}")
 
 
-def enrich_row(rows, fieldnames, id_unikalne, nip, rejestr_id, source, expected_name, krs_verify=True):
-    """Update a single row by id_unikalne. Returns (status, message)."""
+def enrich_row(rows, fieldnames, id, nip, rejestr_id, source, expected_name, krs_verify=True):
+    """Update a single row by id. Returns (status, message)."""
     nip_clean = re.sub(r"\D", "", nip)
     if not validate_nip(nip_clean):
         return "FAIL", f"NIP {nip_clean} mod-11 fail"
@@ -87,11 +87,11 @@ def enrich_row(rows, fieldnames, id_unikalne, nip, rejestr_id, source, expected_
     # Find row
     target = None
     for i, r in enumerate(rows):
-        if r.get("id_unikalne") == id_unikalne:
+        if r.get("id") == id:
             target = r
             break
     if target is None:
-        return "FAIL", f"id_unikalne {id_unikalne} not found"
+        return "FAIL", f"id {id} not found"
 
     # KRS verify (only if not CEIDG-only)
     if krs_verify and not is_ceidg_only:
@@ -113,7 +113,7 @@ def enrich_row(rows, fieldnames, id_unikalne, nip, rejestr_id, source, expected_
     existing_zrodlo = target.get("zrodlo_danych", "") or ""
     if source not in existing_zrodlo:
         target["zrodlo_danych"] = (existing_zrodlo + f" | {source}").lstrip(" |")
-    return "OK", f"Updated {id_unikalne}: NIP={nip_clean} {full_id}"
+    return "OK", f"Updated {id}: NIP={nip_clean} {full_id}"
 
 
 def main():
@@ -126,7 +126,7 @@ def main():
         rows = list(r)
         fieldnames = r.fieldnames
 
-    # Enrichments to apply (id_unikalne, nip, krs_or_ceidg, source, name_for_match, krs_verify)
+    # Enrichments to apply (id, nip, krs_or_ceidg, source, name_for_match, krs_verify)
     # rejestr_id='CEIDG' for JDG-only firms (no KRS) — enrichment records CEIDG source, no KRS API check
     enrichments = [
         # TOM Polska — actually wielkopolskie, B4 (lighters, not tobacco)
@@ -190,13 +190,13 @@ def main():
         "PL-B-OP-003": "PHUP GNIEZNO SZESZYCKI SPÓŁKA KOMANDYTOWA",
     }
     for row in rows:
-        if row.get("id_unikalne") in name_corrections:
-            new_name = name_corrections[row["id_unikalne"]]
+        if row.get("id") in name_corrections:
+            new_name = name_corrections[row["id"]]
             old_name = row.get("nazwa_firmy", "")
             if old_name != new_name:
                 row["nazwa_firmy"] = new_name
-                print(f"  RENAME    {row['id_unikalne']}: {old_name} → {new_name}")
-                results.append((row["id_unikalne"], "RENAME", f"{old_name} → {new_name}"))
+                print(f"  RENAME    {row['id']}: {old_name} → {new_name}")
+                results.append((row["id"], "RENAME", f"{old_name} → {new_name}"))
 
     # Write back (tolerant of extra/missing fields)
     with open(CSV_PATH, "w", encoding="utf-8", newline="") as f:

@@ -650,7 +650,7 @@ Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 35 ko
 |---|---|---|---|
 | 1 | `related_to` | str | ID firm powiązanych (sister firms, sukcesja) |
 | 2 | `rok_zalozenia` | YYYY | Rok rejestracji |
-| 3 | `id_unikalne` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001` (region-free) |
+| 3 | `id` | str | `{KOD}-{A\|B}-{NNN}`, np. `PL-A-001` (region-free) |
 | 4 | `kategoria` | enum | A1-A6 lub B1-B9 |
 | 5 | `nazwa_firmy` | str | Pełna nazwa prawna lub handlowa |
 | 6 | `kraj` | ISO2 | Dwuliterowy kod |
@@ -688,7 +688,7 @@ Każdy plik `data/{Kraj}/catalog-{A|B}-{KOD}.csv` ma **identyczny** zestaw 35 ko
 > - `region_kod` → 61% wierszy w master miało "XX" (placeholder) — kolumna bez sygnału.
 > - `region_typ` → typ jednostki adm. (województwo/kraj) bez użytecznej typologii poniżej PL.
 > - `_reg_code` → kolumna nadmiarowa z `rejestr_id` (przeniesiona 2026-08-12 13:40).
-> - `region_nazwa` → usunięta wraz z pozostałymi polami regionu — schema 35-kolumnowa bez pól regionu, `id_unikalne` region-free.
+> - `region_nazwa` → usunięta wraz z pozostałymi polami regionu — schema 35-kolumnowa bez pól regionu, `id` region-free.
 > Migrację wykonał `tools/drop_region_columns.py` (idempotentny, dry-run + --apply). Po migracji zregenerowano `data/.verify-state/row-hashes.json` przez `python3 tools/verify_run.py --init`, żeby schema-change nie triggerował masowej re-weryfikacji.
 
 ### Konwencje wartości
@@ -716,7 +716,7 @@ Narzędzia pomocnicze:
 
 ### Kody regionów PL (16 województw)
 
-> Od 2026-08-12 `id_unikalne` jest region-free (`PL-A-001`) — regiony nie są kodowane w ID ani w kolumnach CSV.
+> Od 2026-08-12 `id` jest region-free (`PL-A-001`) — regiony nie są kodowane w ID ani w kolumnach CSV.
 > Poniższa tabela to mapa pomocnicza do odczytu starych ID z regionem (`PL-A-WP-001`).
 
 | Kod | Nazwa | Kod | Nazwa |
@@ -734,7 +734,7 @@ Narzędzia pomocnicze:
 
 ### Wypełnianie
 
-- **Minimum**: `id_unikalne`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
+- **Minimum**: `id`, `kategoria`, `nazwa_firmy`, `kraj`, `miasto`, JEDEN kontakt (email/tel/FB)
 - **Pełne**: wszystkie kolumny + źródła zweryfikowane + flagi
 - **Częściowe**: kluczowe kolumny + notatka co jeszcze trzeba
 

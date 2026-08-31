@@ -159,7 +159,7 @@ def find_changed(csv_path: Path, state: dict, force_all: bool):
     with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            id_ = (row.get("id_unikalne") or "").strip()
+            id_ = (row.get("id") or "").strip()
             if not id_:
                 continue
             current[id_] = {"row": row, "hash": hash_row(row)}
@@ -310,10 +310,10 @@ def update_csv_flags(csv_path: Path, updates: dict[str, tuple[str, str]], force:
         header = next(reader)
         rows = list(reader)
 
-    if "id_unikalne" not in header or "flagi" not in header:
+    if "id" not in header or "flagi" not in header:
         return 0
 
-    id_idx = header.index("id_unikalne")
+    id_idx = header.index("id")
     flagi_idx = header.index("flagi")
     n = 0
     skipped_api = 0
@@ -658,8 +658,8 @@ def main() -> int:
             # Just hash all rows, save state
             with open(csv_path, encoding="utf-8") as f:
                 reader = csv.DictReader(f)
-                current = {(row.get("id_unikalne") or "").strip(): hash_row(row)
-                           for row in reader if (row.get("id_unikalne") or "").strip()}
+                current = {(row.get("id") or "").strip(): hash_row(row)
+                           for row in reader if (row.get("id") or "").strip()}
             rel = csv_path.relative_to(ROOT).as_posix()
             state["files"][rel] = current
             log(f"{csv_path.name}: init hashed {len(current)} rows")

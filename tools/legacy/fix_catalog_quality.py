@@ -6,7 +6,7 @@ Actions per catalog file:
   1. Remove retail/noise rows (uses RETAIL_BLACKLIST, respects DIST_WHITELIST)
   2. Remove rows that duplicate an entry already in catalog-A (by normalized name or Place ID)
   3. Deduplicate within the file by rejestr_id (Place ID) and normalized name
-  4. Renumber id_unikalne sequentially (SI-B-001, SI-B-002, … preserving catalog type A/B)
+  4. Renumber id sequentially (SI-B-001, SI-B-002, … preserving catalog type A/B)
   5. Write clean file atomically
 
 Run: python3 tools/fix_catalog_quality.py [--dry-run]
@@ -174,7 +174,7 @@ def fix_catalog(cat_path: Path, iso: str, cat_type: str,
 
     stats["kept"] = len(clean3)
 
-    # 4. Renumber id_unikalne sequentially (preserving rows that already have good IDs first)
+    # 4. Renumber id sequentially (preserving rows that already have good IDs first)
     # Sort: rows with real enrichment (non-B9, or has nip_vat/www/phone) go first
     def sort_key(r):
         has_data = bool(r.get("nip_vat") or r.get("www") or r.get("telefon") or r.get("email"))
@@ -185,7 +185,7 @@ def fix_catalog(cat_path: Path, iso: str, cat_type: str,
     clean3.sort(key=sort_key)
 
     for i, r in enumerate(clean3, start=1):
-        r["id_unikalne"] = make_id(iso, cat_type, i)
+        r["id"] = make_id(iso, cat_type, i)
 
     if not DRY_RUN and clean3 != rows:
         fieldnames = list(clean3[0].keys()) if clean3 else CANONICAL_SCHEMA

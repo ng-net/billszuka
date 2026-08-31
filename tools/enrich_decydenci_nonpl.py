@@ -587,7 +587,7 @@ def main():
                 if not is_placeholder_decydent(current_dec):
                     continue  # Already has a real decydent — skip
 
-                uid = row.get("id_unikalne", "?")
+                uid = row.get("id", "?")
                 print(f"  [{iso}-{cat_type}] {uid}: {name[:45]}...")
 
                 enriched = enrich_row(row, iso)

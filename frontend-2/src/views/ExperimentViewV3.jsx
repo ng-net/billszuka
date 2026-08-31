@@ -10,8 +10,9 @@ import {
   Download,
 } from "lucide-react";
 
+// Note: "kraj" (country) is intentionally not a facet — country column has no
+// filtering option. Use per-country file/view as the country selector.
 const FACET_DEFS = [
-  { key: "kraj", label: "Kraj" },
   { key: "tier", label: "Tier" },
   { key: "wolumen", label: "Wolumen" },
   { key: "marki_nabijarki", label: "Marka" },
@@ -40,7 +41,6 @@ export function ExperimentViewV3({ leads = [] }) {
   const [density, setDensity] = useState("cozy");
   const [theme, setTheme] = useState("light");
   const [openSections, setOpenSections] = useState({
-    kraj: true,
     tier: true,
     wolumen: false,
     marki_nabijarki: false,
@@ -307,7 +307,7 @@ export function ExperimentViewV3({ leads = [] }) {
                   const init = (r.nazwa_firmy || "?").trim().charAt(0).toUpperCase();
                   return (
                     <tr
-                      key={r.id_unikalne}
+                      key={r.id}
                       style={{ height: rowH }}
                       className="border-b border-slate-100 hover:bg-slate-50"
                     >
@@ -327,7 +327,7 @@ export function ExperimentViewV3({ leads = [] }) {
                               {r.nazwa_firmy}
                             </div>
                             <div className="text-[11px] font-mono text-slate-400 truncate">
-                              {r.id_unikalne} · {r.www?.replace(/^https?:\/\//, "")}
+                              {r.id} · {r.www?.replace(/^https?:\/\//, "")}
                             </div>
                           </div>
                         </div>

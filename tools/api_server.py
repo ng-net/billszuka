@@ -1953,7 +1953,7 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
             score = 0
             searchable = " ".join([
                 str(r.get("nazwa_firmy") or ""),
-                str(r.get("id_unikalne") or ""),
+                str(r.get("id") or ""),
                 str(r.get("nip_vat") or ""),
                 str(r.get("rejestr_id") or ""),
                 str(r.get("decydent") or ""),
@@ -1986,7 +1986,7 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
             for r in top_matches:
                 rec_parts = []
                 for k in [
-                    "id_unikalne", "nazwa_firmy", "kraj", "miasto", "adres",
+                    "id", "nazwa_firmy", "kraj", "miasto", "adres",
                     "nip_vat", "rejestr_id", "decydent", "stanowisko",
                     "email", "telefon", "www", "tier", "marki_nabijarki",
                     "notatki", "flagi"
@@ -1994,7 +1994,7 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
                     val = (r.get(k) or "").strip()
                     if val and val.lower() not in {"brak", "n/a"}:
                         rec_parts.append(f"{k}: {val}")
-                lines_entity.append(f"    - [{r.get('id_unikalne', '')}] " + " | ".join(rec_parts))
+                lines_entity.append(f"    - [{r.get('id', '')}] " + " | ".join(rec_parts))
             parts.append("\n".join(lines_entity))
 
     return "\n".join(parts)
@@ -2180,7 +2180,7 @@ async def get_url_status(country: str | None = None) -> dict[str, Any]:
     """Zwraca URL statusy z url_status table.
 
     ?country=PL → tylko PL; brak → wszystkie.
-    Response: {items: [{id_unikalne, kraj, url, status, http_code, error, checked_at}, ...]}
+    Response: {items: [{id, kraj, url, status, http_code, error, checked_at}, ...]}
     """
     with db.connect() as conn:
         if country:

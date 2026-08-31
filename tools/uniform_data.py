@@ -129,7 +129,7 @@ def normalize_all_catalogs():
                     if not any(v.strip() for v in r.values()):
                         continue
                     row = {col: (r.get(col) or "").strip() for col in CANONICAL_SCHEMA}
-                    cid = row.get("id_unikalne", "")
+                    cid = row.get("id", "")
 
                     # 1. Fix shifted rynek_skala
                     skala = row.get("rynek_skala", "")

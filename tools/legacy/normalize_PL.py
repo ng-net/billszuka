@@ -326,7 +326,7 @@ def normalize_row(r, idx):
     out = {
         "region_kod": region_kod, "region_nazwa": region_nazwa,
         "region_typ": region_typ, "related_to": "", "rok_zalozenia": "",
-        "id_unikalne": "",  # assigned later
+        "id": "",  # assigned later
         "kategoria": kategoria, "nazwa_firmy": firma, "kraj": "PL",
         "miasto": miasto, "adres": adres, "nip_vat": nip, "rejestr_id": krs,
         "www": www, "kanal_zamiennik": "", "email": email, "telefon": telefon,
@@ -343,11 +343,11 @@ def normalize_row(r, idx):
 
 
 def assign_ids(rows_a, rows_b, existing_ids):
-    """Assign id_unikalne in format PL-A-{NNN} or PL-B-{NNN}."""
+    """Assign id in format PL-A-{NNN} or PL-B-{NNN}."""
     for i, r in enumerate(rows_a, 1):
-        r["id_unikalne"] = f"PL-A-{i:03d}"
+        r["id"] = f"PL-A-{i:03d}"
     for i, r in enumerate(rows_b, 1):
-        r["id_unikalne"] = f"PL-B-{i:03d}"
+        r["id"] = f"PL-B-{i:03d}"
 
 
 def dedupe(rows):
@@ -364,14 +364,14 @@ def dedupe(rows):
             r["notatki"] += f" | DUPLIKAT_NIP:{seen_nip[nip]}"
             continue
         if nip:
-            seen_nip[nip] = r["id_unikalne"]
+            seen_nip[nip] = r["id"]
         # name+miasto dedupe (lenient)
         key = (firma[:15], miasto[:10])
         if key[0] and key in seen_name_miasto:
             r["notatki"] += f" | DUPLIKAT_NAME:{seen_name_miasto[key]}"
             continue
         if key[0]:
-            seen_name_miasto[key] = r["id_unikalne"]
+            seen_name_miasto[key] = r["id"]
         out.append(r)
     return out
 

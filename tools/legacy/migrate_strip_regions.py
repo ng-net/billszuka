@@ -42,7 +42,7 @@ def migrate_catalogs() -> dict[str, str]:
                 reader = csv.DictReader(f)
                 seq = 1
                 for row in reader:
-                    old_id = row.get("id_unikalne", "").strip()
+                    old_id = row.get("id", "").strip()
                     new_id = make_id(iso, cat_type, seq)
 
                     if old_id and old_id != new_id:
@@ -53,7 +53,7 @@ def migrate_catalogs() -> dict[str, str]:
                     for col in CANONICAL_SCHEMA:
                         clean_row[col] = row.get(col, "").strip()
 
-                    clean_row["id_unikalne"] = new_id
+                    clean_row["id"] = new_id
                     clean_row["kraj"] = iso
                     rows_out.append(clean_row)
                     seq += 1

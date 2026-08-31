@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 STATE = DATA / ".verify-state" / "row-hashes.json"
 
-# Match the key set the original verify_run uses (id_unikalne).
-HASH_KEY = "id_unikalne"
+# Match the key set the original verify_run uses (id).
+HASH_KEY = "id"
 
 
 def row_hash(row: dict[str, str]) -> str:

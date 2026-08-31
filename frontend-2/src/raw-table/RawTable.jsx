@@ -62,7 +62,7 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 // what makes it "filterable but invisible".
 const SYNTHETIC_BRAND_COL = "__brand";
 
-// Per-row brand cache keyed on id_unikalne. Module-scoped so it survives
+// Per-row brand cache keyed on id. Module-scoped so it survives
 // every RawTable mount/unmount cycle within a session: snapshot restore,
 // custom-upload rehydrate, view switches, profile change — all hit the
 // cache after the first pass. classifyBrand() is regex-only so even an
@@ -73,15 +73,15 @@ const brandCache = new Map();
 /**
  * Classify a row's brand, consulting the module cache first. Falls back to
  * classifyBrand() on a miss and writes the result back so subsequent calls
- * for the same id_unikalne are O(1).
+ * for the same id are O(1).
  *
- * Rows without id_unikalne (rare; mostly blanks in the upload phase) bypass
+ * Rows without id (rare; mostly blanks in the upload phase) bypass
  * the cache — they're keyed by reference identity instead, so the worst
  * case is "classify twice in a session".
  */
 function classifyRowCached(row) {
   if (!row) return "";
-  const key = row.id_unikalne;
+  const key = row.id;
   if (key == null || key === "") {
     return row[SYNTHETIC_BRAND_COL] ?? classifyBrand(row);
   }
@@ -256,7 +256,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [prefs]);
 
   // Initialize column order from CSV columns when loaded.
-  // Move id_unikalne and nazwa_firmy to the front (sticky on mobile).
+  // Move id and nazwa_firmy to the front (sticky on mobile).
   // We derive from prefs + csv.columns instead of mirroring into prefs —
   // this is a one-time migration done on the fly, and avoids the
   // setState-in-effect antipattern.
@@ -266,14 +266,14 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     const base = rawColumnOrder && rawColumnOrder.length > 0 && rawColumnOrder.every((c) => csv.columns.includes(c))
       ? rawColumnOrder
       : csv.columns;
-    const pinned = ["id_unikalne", "nazwa_firmy"].filter((c) => base.includes(c));
+    const pinned = ["id", "nazwa_firmy"].filter((c) => base.includes(c));
     const rest = base.filter((c) => !pinned.includes(c));
     return [...pinned, ...rest];
   }, [rawColumnOrder, csv.columns]);
 
   // Augment each row with the synthetic __brand classifier value once
   // per (rows) change. Results are cached in a module-scoped Map keyed by
-  // id_unikalne, so snapshot restores / custom-upload rehydrates / view
+  // id, so snapshot restores / custom-upload rehydrates / view
   // switches skip re-classification after the first pass. Memoized on
   // csv.rows so filter/sort/prefs changes don't re-allocate the array.
   const rowsWithBrand = useMemo(() => {

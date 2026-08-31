@@ -76,7 +76,7 @@ class TestVerifyRowMod11PreFlight:
     def _row(self, nip, krs="KRS 0001074645", zrodlo="KRS API 0001074645"):
         return {
             "kraj": "PL",
-            "id_unikalne": "PL-TEST",
+            "id": "PL-TEST",
             "nazwa_firmy": "TEST FIRMA SP. Z O.O.",
             "nip_vat": nip,
             "rejestr_id": krs,
@@ -136,7 +136,7 @@ class TestVerifyRowKrsPreFlight:
     def _row(self, nip, krs, name):
         return {
             "kraj": "PL",
-            "id_unikalne": "PL-TEST",
+            "id": "PL-TEST",
             "nazwa_firmy": name,
             "nip_vat": nip,
             "rejestr_id": krs,

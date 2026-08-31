@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 SCHEMA_COLUMNS = [
-    "related_to", "rok_zalozenia", "id_unikalne", "kategoria", "nazwa_firmy",
+    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa_firmy",
     "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
     "www", "kanal_zamiennik", "email", "telefon", "linkedin",
     "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
@@ -156,7 +156,7 @@ def audit_and_normalize_all():
             # Verify ID format
             if not row_id:
                 # generate or report
-                print(f"⚠️ Missing id_unikalne in {p.name} line {idx}: {cleaned[4]}")
+                print(f"⚠️ Missing id in {p.name} line {idx}: {cleaned[4]}")
             else:
                 if row_id in seen_ids:
                     duplicates.append((row_id, cleaned[4], p.name, idx))

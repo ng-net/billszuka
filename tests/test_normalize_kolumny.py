@@ -76,7 +76,7 @@ class TestApplyFixesOnPL:
         # Build a minimal PL catalog-A with the bills.pl junk
         f = tmp_path / "catalog-A-PL.csv"
         f.write_text(
-            "related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,miasto,"
+            "related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,miasto,"
             "adres,nip_vat,rejestr_id,www,kanal_zamiennik,email,telefon,linkedin,"
             "facebook,instagram,tiktok,tier,marki_nabijarki,marka_wlasna_oem,"
             "sourcing,wolumen,confidence_wolumen,kanal_sprzedaży,"
@@ -109,7 +109,7 @@ class TestApplyFixesOnPL:
         real_path = tmp_path / "Polska" / "catalog-B-PL.csv"
         real_path.parent.mkdir(parents=True, exist_ok=True)
         real_path.write_text(
-            "related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,miasto,"
+            "related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,miasto,"
             "adres,nip_vat,rejestr_id,www,kanal_zamiennik,email,telefon,linkedin,"
             "facebook,instagram,tiktok,tier,marki_nabijarki,marka_wlasna_oem,"
             "sourcing,wolumen,confidence_wolumen,kanal_sprzedaży,"
@@ -158,7 +158,7 @@ class TestApplyFixesOnPL:
         #   col 34 = notatki (Test)
         #   col 35 = rynke_skala (duży)
         real_path.write_text(
-            "related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,miasto,"
+            "related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,miasto,"
             "adres,nip_vat,rejestr_id,www,kanal_zamiennik,email,telefon,linkedin,"
             "facebook,instagram,tiktok,tier,marki_nabijarki,marka_wlasna_oem,"
             "sourcing,wolumen,confidence_wolumen,kanal_sprzedaży,"
@@ -185,7 +185,7 @@ class TestApplyFixesOnPL:
         real_path = tmp_path / "Czechy" / "catalog-B-CZ.csv"
         real_path.parent.mkdir(parents=True, exist_ok=True)
         real_path.write_text(
-            "related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,miasto,"
+            "related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,miasto,"
             "adres,nip_vat,rejestr_id,www,kanal_zamiennik,email,telefon,linkedin,"
             "facebook,instagram,tiktok,tier,marki_nabijarki,marka_wlasna_oem,"
             "sourcing,wolumen,confidence_wolumen,kanal_sprzedaży,"
@@ -273,7 +273,7 @@ class TestApplyFixesOnPLABCrossContamination:
         real_path = tmp_path / "Polska" / "catalog-A-PL.csv"
         real_path.parent.mkdir(parents=True, exist_ok=True)
         real_path.write_text(
-            "related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,miasto,"
+            "related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,miasto,"
             "adres,nip_vat,rejestr_id,www,kanal_zamiennik,email,telefon,linkedin,"
             "facebook,instagram,tiktok,tier,marki_nabijarki,marka_wlasna_oem,"
             "sourcing,wolumen,confidence_wolumen,kanal_sprzedaży,"
@@ -298,7 +298,7 @@ class TestApplyFixesOnPLABCrossContamination:
         real_path = tmp_path / "Polska" / "catalog-B-PL.csv"
         real_path.parent.mkdir(parents=True, exist_ok=True)
         real_path.write_text(
-            "related_to,rok_zalozenia,id_unikalne,kategoria,nazwa_firmy,kraj,miasto,"
+            "related_to,rok_zalozenia,id,kategoria,nazwa_firmy,kraj,miasto,"
             "adres,nip_vat,rejestr_id,www,kanal_zamiennik,email,telefon,linkedin,"
             "facebook,instagram,tiktok,tier,marki_nabijarki,marka_wlasna_oem,"
             "sourcing,wolumen,confidence_wolumen,kanal_sprzedaży,"

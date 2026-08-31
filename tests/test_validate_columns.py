@@ -30,7 +30,7 @@ class TestNormalize:
         assert vc._normalize("Zagreb") == "zagreb"  # Croatian đ — already covered
 
     def test_underscore_to_space(self):
-        assert vc._normalize("id_unikalne") == "id unikalne"
+        assert vc._normalize("id") == "id unikalne"
 
     def test_collapse_whitespace(self):
         assert vc._normalize("  foo   bar  ") == "foo bar"
@@ -39,8 +39,8 @@ class TestNormalize:
 class TestHeaderMapping:
     def test_exact_match(self):
         lookup = vc._build_alias_lookup(vc.DEFAULT_ALIASES)
-        canon, conf, source = vc.map_header("id_unikalne", lookup, {})
-        assert canon == "id_unikalne"
+        canon, conf, source = vc.map_header("id", lookup, {})
+        assert canon == "id"
         assert conf == 1.0
         assert source == "exact"
 
@@ -84,16 +84,16 @@ class TestHeaderMapping:
 
 
 class TestValueValidators:
-    def test_id_unikalne_valid(self):
-        issues = vc.validate_value("id_unikalne", "PL-A-001", "PL")
+    def test_id_valid(self):
+        issues = vc.validate_value("id", "PL-A-001", "PL")
         assert issues == []
 
-    def test_id_unikalne_invalid(self):
-        issues = vc.validate_value("id_unikalne", "BILLS-1", "PL")
+    def test_id_invalid(self):
+        issues = vc.validate_value("id", "BILLS-1", "PL")
         assert len(issues) == 1
 
-    def test_id_unikalne_required(self):
-        issues = vc.validate_value("id_unikalne", "", "PL")
+    def test_id_required(self):
+        issues = vc.validate_value("id", "", "PL")
         assert any("required" in i for i in issues)
 
     def test_kategoria_enum(self):

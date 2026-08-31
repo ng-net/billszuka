@@ -59,7 +59,7 @@ const TikTokIcon = ({ size = 16, className }) => (
 // --- Mock Data Generator ---
 const generateLeads = (count) =>
   Array.from({ length: count }, (_, i) => ({
-    id_unikalne: `ID-${1000 + i}`,
+    id: `ID-${1000 + i}`,
     nazwa_firmy:
       i === 0
         ? "PowerMatic Polska Distribution Sp. z o.o."
@@ -127,7 +127,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
           (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
           (lead.nip_vat || "").toLowerCase().includes(q) ||
           (lead.miasto || "").toLowerCase().includes(q) ||
-          (lead.id_unikalne || "").toLowerCase().includes(q) ||
+          (lead.id || "").toLowerCase().includes(q) ||
           (lead.decydent || "").toLowerCase().includes(q);
         if (!matches) return false;
       }
@@ -154,7 +154,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
     const rows = filteredLeads
       .map(
         (l) =>
-          `"${l.id_unikalne}","${l.nazwa_firmy}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}"`
+          `"${l.id}","${l.nazwa_firmy}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}"`
       )
       .join("\n");
     const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8;" });
@@ -419,16 +419,16 @@ export function ModernLeadsTable({ leads: leadsProp }) {
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
               {filteredLeads.map((lead) => {
-                const isExpanded = expandedRow === lead.id_unikalne;
+                const isExpanded = expandedRow === lead.id;
 
                 return (
-                  <React.Fragment key={lead.id_unikalne}>
+                  <React.Fragment key={lead.id}>
                     {/* Main Row */}
                     <tr
                       className={`group hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer ${
                         isExpanded ? "bg-slate-50/80 dark:bg-zinc-800/60" : ""
                       }`}
-                      onClick={() => setExpandedRow(isExpanded ? null : lead.id_unikalne)}
+                      onClick={() => setExpandedRow(isExpanded ? null : lead.id)}
                     >
                       <td className="p-4 border-r border-slate-100 dark:border-zinc-800/60 w-12 text-center">
                         <div
@@ -458,7 +458,7 @@ export function ModernLeadsTable({ leads: leadsProp }) {
                             </div>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
-                                {lead.id_unikalne}
+                                {lead.id}
                               </span>
                               {lead.flagi?.includes("Verified") && (
                                 <span className="flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">

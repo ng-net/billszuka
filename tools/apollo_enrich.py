@@ -358,7 +358,7 @@ def bulk_enrich_csv(
     matched = 0
     skipped_cached = 0
     for i, row in enumerate(rows, 1):
-        id_ = (row.get("id_unikalne") or "").strip()
+        id_ = (row.get("id") or "").strip()
         name = (row.get("nazwa_firmy") or "").strip()
         # Skip if cached
         if id_ in cache and cache[id_].get("org_matched"):
@@ -369,7 +369,7 @@ def bulk_enrich_csv(
             continue
         print(f"  [{i}/{len(rows)}] {id_} {name[:30]:30s}", file=sys.stderr)
         r = enrich_csv_row(row, timeout=timeout)
-        r["id_unikalne"] = id_
+        r["id"] = id_
         r["nazwa_firmy"] = name
         if r.get("org_matched"):
             matched += 1

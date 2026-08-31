@@ -458,7 +458,7 @@ def process_file(path, apply=False, dry_run=False):
         new_rows.append(new_r)
         if r.get('notatki', '') != new_r.get('notatki', '') or migrations:
             changes.append({
-                'id': r.get('id_unikalne', ''),
+                'id': r.get('id', ''),
                 'field': r.get('nazwa_firmy', '')[:40],
                 'orig_notatki': r.get('notatki', ''),
                 'new_notatki': new_r.get('notatki', ''),

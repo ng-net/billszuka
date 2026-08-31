@@ -260,8 +260,8 @@ def main():
     rows_by_id = {}
     with open(MASTER_CSV, "r", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            if row["id_unikalne"] in SAMPLE_IDS:
-                rows_by_id[row["id_unikalne"]] = row
+            if row["id"] in SAMPLE_IDS:
+                rows_by_id[row["id"]] = row
     log(f"Loaded {len(rows_by_id)}/10 firms from master.csv")
 
     # Init Chrome

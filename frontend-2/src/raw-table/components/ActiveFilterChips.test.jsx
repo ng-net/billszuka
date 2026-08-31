@@ -27,25 +27,26 @@ test("ActiveFilterChips: renders global search chip with X button", () => {
   assert.equal(cleared, true);
 });
 
-test("ActiveFilterChips: renders brand, country, and range chips", () => {
+test("ActiveFilterChips: renders brand and range chips (country is excluded)", () => {
   render(React.createElement(ActiveFilterChips, {
     filters: {
       __brand: "PowerMatic",
-      kraj: "PL",
+      kraj: "PL", // country filter intentionally suppressed
       rok_zalozenia: { min: 2010, max: 2024 },
     },
     onRemoveFilter: () => {},
   }));
 
   assert.ok(screen.getByText("PowerMatic"));
-  assert.ok(screen.getByText("PL"));
   assert.ok(screen.getByText("2010 – 2024"));
+  // Country chip must NOT be shown even when filter state has kraj set.
+  assert.equal(screen.queryByText("PL"), null);
 });
 
 test("ActiveFilterChips: clicking reset button calls onResetAll", () => {
   let reset = false;
   render(React.createElement(ActiveFilterChips, {
-    filters: { kraj: "PL" },
+    filters: { tier: "hurtownik" },
     onResetAll: () => { reset = true; },
   }));
   const resetBtn = screen.getByRole("button", { name: /Resetuj/i });

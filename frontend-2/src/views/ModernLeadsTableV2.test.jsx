@@ -6,7 +6,7 @@ import { ModernLeadsTableV2 } from "./ModernLeadsTableV2.jsx";
 
 const sampleLeads = [
   {
-    id_unikalne: "PL-B-001",
+    id: "PL-B-001",
     nazwa_firmy: "PowerMatic Polska Distribution",
     kraj: "Polska",
     miasto: "Warszawa",
@@ -36,7 +36,7 @@ const sampleLeads = [
     tiktok: "https://tiktok.com",
   },
   {
-    id_unikalne: "CZ-001",
+    id: "CZ-001",
     nazwa_firmy: "Hawk Rollers CZ",
     kraj: "Czechy",
     miasto: "Praga",
@@ -66,7 +66,7 @@ const sampleLeads = [
     tiktok: "https://tiktok.com",
   },
   {
-    id_unikalne: "PL-D-022",
+    id: "PL-D-022",
     nazwa_firmy: "BongGo Hurtownia",
     kraj: "Polska",
     miasto: "Kraków",

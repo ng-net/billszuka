@@ -36,7 +36,7 @@ Mapping (35 → 37):
   (rest)                 notatki                 consolidate as "extras"
 
 Generated columns:
-  id_unikalne  — from {ISO}-B-{REGION}-{NNN}
+  id  — from {ISO}-B-{REGION}-{NNN}
   kraj         — ISO code
   region_typ   — "kraj" (always for country level)
   related_to   — blank
@@ -232,7 +232,7 @@ def map_row(marcel_row: dict, iso: str, seq_num: int = 1, skip_hallucinations: b
     out["nip_vat"] = normalize_nip(marcel_row.get("NIP / VAT") or "")
 
     # ID
-    out["id_unikalne"] = make_id(iso, "B", seq_num)
+    out["id"] = make_id(iso, "B", seq_num)
 
     # Tier from Relacja (exact match, then substring match for compound labels)
     relacja = (marcel_row.get("Relacja") or "").strip()

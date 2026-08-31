@@ -49,7 +49,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 
 CANONICAL_COLUMNS: list[str] = [
-    "related_to", "rok_zalozenia", "id_unikalne", "kategoria", "nazwa_firmy",
+    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa_firmy",
     "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
     "www", "kanal_zamiennik", "email", "telefon", "linkedin",
     "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
@@ -226,25 +226,25 @@ def apply_fixes(path: Path, write: bool = True) -> list[str]:
             val = new_row["kanal_sprzedaży"].strip()
             new_row["powinowactwo_nabijarki"] = val
             new_row["kanal_sprzedaży"] = ""
-            actions.append(f"{new_row.get('id_unikalne', '?')}: "
+            actions.append(f"{new_row.get('id', '?')}: "
                            f"shifted '{val}' col 25 -> col 26")
         elif is_eligible_fix_a(new_row):
             # Clear junk value in col 25.
             old = new_row["kanal_sprzedaży"].strip()
             new_row["kanal_sprzedaży"] = ""
-            actions.append(f"{new_row.get('id_unikalne', '?')}: "
+            actions.append(f"{new_row.get('id', '?')}: "
                            f"cleared kanal_sprzedaży='{old}'")
         # FixC/D: A↔B cross-contamination cleanup. These are independent
         # of FixA/B above — a single row can have multiple fixes applied.
         for col in is_eligible_fix_c(new_row, catalog_type):
             old = new_row[col].strip()
             new_row[col] = ""
-            actions.append(f"{new_row.get('id_unikalne', '?')}: "
+            actions.append(f"{new_row.get('id', '?')}: "
                            f"cleared {col}='{old}' (A row, B-only field)")
         for col in is_eligible_fix_d(new_row, catalog_type):
             old = new_row[col].strip()
             new_row[col] = ""
-            actions.append(f"{new_row.get('id_unikalne', '?')}: "
+            actions.append(f"{new_row.get('id', '?')}: "
                            f"cleared {col}='{old}' (B row, A-only field)")
         fixed_rows.append(new_row)
 
