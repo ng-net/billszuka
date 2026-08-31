@@ -940,3 +940,54 @@ Deep links to the exact app in dashboard:
   https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps
 
 Opened the first one in the default browser at 21:40 CEST.
+
+### 2026-08-31 21:55 — Gate check #2 — still ON
+
+After Marcel's "check now" (presumably after attempting to delete the
+Access app in the dashboard), the gate is still active:
+
+- billszuka.pages.dev → 302 to winter-poetry-64f2.cloudflareaccess.com
+- kid: 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
+  (same as before, not a new app)
+- JWT iat=1788206101 (issued seconds ago, not cached)
+- All 6 paths tested return identical kid
+- 3 fresh requests with cache-busting query strings → all 302
+- Latest Pages deployment is 27c77fa1-... created at 19:43:48 UTC
+  (newer than the Access-related timestamps from earlier) — Cloudflare
+  Pages deployed a new build but the Access policy is independent of
+  the Pages build, so this is unrelated
+
+Possible reasons the delete did not take effect:
+1. The "Delete application" button was clicked but the confirmation
+   dialog was not accepted (CF shows a confirm modal with the app name
+   you have to type in).
+2. The wrong app was selected (there may be other apps in the team
+   for subdomains, staging, etc.).
+3. The dashboard session expired before the action committed.
+4. The team has a "read-only" mode or an admin restriction.
+
+The dashboard deep link to use:
+https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps
+
+To verify the right app: after opening the URL, look for an app whose
+"Application domain" field shows `billszuka.pages.dev` AND whose "Policy"
+field is "Allow" (the inverse) — if there's more than one matching app,
+delete only the one with the billszuka.pages.dev domain. The kid
+`384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f` is
+the app's unique ID (also called AUD) — you can search for it in the
+top-right search box to jump directly to that specific app.
+
+Recommended path forward (in order of preference):
+1. Retry the delete with a fresh dashboard session. Make sure to type
+   the app name in the confirm modal exactly.
+2. If retry doesn't work, change the policy to "Bypass" (instead of
+   "Allow") — this disables the gate without removing the app, useful
+   as a quick test of whether the change is reaching CF.
+3. If even Bypass doesn't work, the Access app may belong to a different
+   team (not the one shown in /:account/52505259672e2a16ed6e51962e3603c4
+   breadcrumb). Check if there's a "Switch team" or "Switch account"
+   option in the top-right of the dashboard.
+
+Local servers still up: Vite 3001 (200), API 8000 (200). Working tree
+clean. Last commit: da31c7e2 docs(dziennik): confirmed exactly one
+CF Access policy protects billszuka.pages.dev.
