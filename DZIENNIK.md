@@ -463,3 +463,58 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 1. Rozważyć paid Lursoft (LT/LV/EE) — daje API dostęp do 3 rynków bałtyckich, ~$30/mies.
 2. Dla RO: ręcznie zweryfikować 2 cloudflare-blocked domeny (tuburiaparate.ro, cotyshop.ro) przez Google cache lub archive.org
 3. Rozważyć dodatkowe web search w MD (rumunский/ukraiński język) — bo mołdawski rynek jest under-served
+
+## 2026-08-31 09:25 — Sesja 2: VIES walidacja + archive.org wayback + korekty halucynacji
+
+**Kontynuacja sesji manual-search.** Marceli poprosił o review halucynacji w nowo dodanych leadach.
+
+### Nowe weryfikacje w tej sesji
+
+| Źródło | Zakres | Wynik |
+|---|---|---|
+| **VIES VAT EU** (REST) | 7 leadów | 5 ✅ FROZEN + 2 FR overload (nie moja wina) |
+| **archive.org wayback** | RO-X-002 + RO-X-003 | 2 ✅ FROZEN (PRIMONET RO + Coty Shop Invest) |
+| **societe.com** | FR-X-001 | 2 marques potwierdzone (PW DISTRIBUTION + HUMIDO) |
+| **API Entreprises retry** | FR | już potwierdzone wcześniej, 10-19 zamiast 11+ pracowników |
+
+### Kluczowe korekty
+
+1. **RO-X-001 Sibis Concept Company**: siedziba w **Brașov** (nie Bukareszt). VIES zwrócił MUN. BRAȘOV, Str. Zizinului 106A. DuckDuckGo potwierdza drugim źródłem.
+2. **RO-X-002 TuburiAparate.ro** to **PRIMONET RO SRL, RO 29972252, siedziba Satu Mare** (nie Bukareszt). archive.org wayback 2026-07-03 potwierdza imprint + VIES potwierdza adres.
+3. **RO-X-003 CotyShop.ro** to **Coty Shop Invest SRL, CUI 48715727, J40/16278/2003, Bukareszt** (schema.org z archive.org wayback 2023-12-04).
+4. **FR-X-001** Project Web: 2 marques (nie 4), 10-19 pracowników (nie 11+).
+5. **FR-X-002** SPI D CLIC: SARL + 3 domeny, 3-5 pracowników (nie 2-5).
+
+### Stan końcowy (po sesji 2)
+
+| Kraj | Nowe leady | FROZEN | DO-W |
+|---|---|---|---|
+| CZ | 2 | 2 | 0 |
+| FR | 2 | 2 | 0 |
+| LV | 2 | 2 | 0 |
+| SI | 1 | 1 | 0 |
+| RO | 3 | 3 | 0 |
+| LT | 2 | 0 | 2 |
+| MD | 1 | 0 | 1 |
+| RS | 1 | 0 | 1 |
+| **Total** | **14** | **10 (71%)** | **4 (29%)** |
+
+### Halucynacje wykryte i skorygowane: 5 (szczegóły w audit-log.md)
+
+### Narzędzia i źródła dodane do toolbox BILLSzuka
+
+- **VIES REST** = `https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number` (POST JSON). Daje valid + name + address dla każdego EU VAT. UWAGA: FR ma chroniczny MS_MAX_CONCURRENT_REQ.
+- **archive.org CDX API** = `https://web.archive.org/cdx/search/cdx?url=DOMAIN&output=json` — znajduje wszystkie snapshoty. Dla domen za Cloudflare to JEDYNE źródło imprintu.
+- **archive.org wayback** = `http://web.archive.org/web/TIMESTAMP/URL` — odtwarza pełne strony z przeszłości. Schema.org na starych snapshotach może mieć NIP/CUI/telefon.
+
+### Wniosek na przyszłość
+
+**VIES powinien być PIERWSZYM krokiem** w weryfikacji każdego EU VAT — daje za darmo valid + name + address z oficjalnego EU rejestru, lepszy niż narodowe API bo ujednolica format. Cache'ować wyniki bo VIES rate limituje.
+
+**archive.org wayback** dla domen za Cloudflare/bot-blocked to drugie najlepsze źródło — schema.org często ma pełne dane firmy (CUI/Reg.Com./NIP/telefon/adres).
+
+### Następne kroki (nie w tej sesji)
+
+1. Dodać UK lead (Mysmokingshop Ltd) do `_intake/manual-search-2026-08-31/` jako side-effect candidate
+2. Paid Lursoft dla LT (rekvizitai.lt/JAR jest za SPA — brak publicznego API)
+3. Paid ANAF/termene.ro dla MD (brak publicznego API)

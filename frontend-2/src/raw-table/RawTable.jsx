@@ -53,6 +53,36 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 // what makes it "filterable but invisible".
 const SYNTHETIC_BRAND_COL = "__brand";
 
+// Per-row brand cache keyed on id_unikalne. Module-scoped so it survives
+// every RawTable mount/unmount cycle within a session: snapshot restore,
+// custom-upload rehydrate, view switches, profile change — all hit the
+// cache after the first pass. classifyBrand() is regex-only so even an
+// unbounded cache is fine in practice (one ~50-char string per row).
+// 25k rows × 50 chars ≈ 1.25 MB worst case — well under localStorage budget.
+const brandCache = new Map();
+
+/**
+ * Classify a row's brand, consulting the module cache first. Falls back to
+ * classifyBrand() on a miss and writes the result back so subsequent calls
+ * for the same id_unikalne are O(1).
+ *
+ * Rows without id_unikalne (rare; mostly blanks in the upload phase) bypass
+ * the cache — they're keyed by reference identity instead, so the worst
+ * case is "classify twice in a session".
+ */
+function classifyRowCached(row) {
+  if (!row) return "";
+  const key = row.id_unikalne;
+  if (key == null || key === "") {
+    return row[SYNTHETIC_BRAND_COL] ?? classifyBrand(row);
+  }
+  const cached = brandCache.get(key);
+  if (cached !== undefined) return cached;
+  const result = classifyBrand(row);
+  brandCache.set(key, result);
+  return result;
+}
+
 export const RawTable = forwardRef(function RawTable(_props, ref) {
   const csv = useCsv();
   const history = useUndoRedo(loadPrefs());
@@ -221,14 +251,15 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [rawColumnOrder, csv.columns]);
 
   // Augment each row with the synthetic __brand classifier value once
-  // per (rows) change. classifyBrand() is regex-only, so 5k rows takes
-  // ~5ms — fine to run inline. Result is memoized so the table doesn't
-  // re-allocate when other state changes.
+  // per (rows) change. Results are cached in a module-scoped Map keyed by
+  // id_unikalne, so snapshot restores / custom-upload rehydrates / view
+  // switches skip re-classification after the first pass. Memoized on
+  // csv.rows so filter/sort/prefs changes don't re-allocate the array.
   const rowsWithBrand = useMemo(() => {
     if (!csv.rows || csv.rows.length === 0) return csv.rows;
     return csv.rows.map((r) => {
       if (r && r[SYNTHETIC_BRAND_COL] !== undefined) return r;
-      return { ...r, [SYNTHETIC_BRAND_COL]: classifyBrand(r) };
+      return { ...r, [SYNTHETIC_BRAND_COL]: classifyRowCached(r) };
     });
   }, [csv.rows]);
 

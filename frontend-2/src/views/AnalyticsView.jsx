@@ -577,6 +577,7 @@ export function AnalyticsView() {
       timeline,
       grouped,
       pmListings,
+      pmKraj,
       pmKrajSize: pmKraj.size,
       pmCount: pmListings.length,
       claims,

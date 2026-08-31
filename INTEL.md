@@ -470,3 +470,75 @@ Marceli = BILLS Sp. z o.o. (PL) jest autoryzowanym dystrybutorem PM na PL/CEE. K
 2. Jaka jest różnica cenowa hurt-detat między BILLS a Moosmayr?
 3. Czy ZORR to ten sam produkt co PM czy kompletnie inny producent?
 4. Czy Hawkmatic to private label Shaman czy faktycznie inna fabryka?
+
+---
+
+## 2026-08-31 09:30 — VIES / wayback findings
+
+### Toolbox additions (po sesji VIES + wayback)
+
+**VIES (EU VAT validation) — publiczny, darmowy, oficjalny:**
+- Endpoint REST: `https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number`
+- POST JSON: `{"countryCode": "XX", "vatNumber": "XXXXXXXXX"}`
+- Zwraca: valid, name, address, requestDate
+- **UWAGA**: FR ma chroniczny `MS_MAX_CONCURRENT_REQ` error — nie moja wina, retry nie pomaga. Dla FR używać API Entreprises.
+- **Insight**: VIES powinien być PIERWSZYM krokiem weryfikacji każdego EU VAT, bo ujednolica format valid+name+address z oficjalnego EU rejestru. Lepszy niż narodowe API dla celów porównawczych.
+
+**archive.org wayback (dla domen bot-blocked):**
+- CDX API: `https://web.archive.org/cdx/search/cdx?url=DOMAIN&output=json` — lista snapshotów
+- Pełna strona: `http://web.archive.org/web/TIMESTAMP/URL`
+- Schema.org na starych snapshotach (2020-2024) często ma pełne dane firmy: CUI/Reg.Com./NIP/telefon/adres
+- **Insight**: Dla domen za Cloudflare (RO TuburiAparate, CotyShop) to JEDYNE darmowe źródło imprintu.
+
+### Nowe firmy po VIES/wayback (5 z 7 dodatkowo potwierdzonych)
+
+**Sibis Concept Company SRL** (eTutun.ro):
+- Siedziba: **MUN. BRAȘOV, Str. Zizinului Nr. 106A** (VIES)
+- CUI 38359096
+- Brașov = 3. co do wielkości miasto w RO (~250k ludzi), ważny rynek tytoniowy
+- DuckDuckGo potwierdza drugim źródłem
+
+**PRIMONET RO SRL** (TuburiAparate.ro):
+- Siedziba: **MUN. SATU MARE, Str. Amațiului Nr. 47** (VIES)
+- RO 29972252 (VAT-EU)
+- TuburiAparate.ro to **zarejestrowana marka handlowa** (OSIM cert 172428/09.03.2020)
+- Satu Mare = miasto przy granicy RO/HU/UA, blisko Ukrainy
+
+**Coty Shop Invest SRL** (CotyShop.ro):
+- Siedziba: **Str. Izvorul Mureșului 9 Bl. D9 Ap 57, București** (schema.org z wayback 2023-12-04)
+- CUI 48715727, J40/16278/2003
+- Tel: 0723019747
+- VIES 2026-08-31 zwrócił valid=false (downtime), ale schema.org LocalBusiness to oficjalne dane firmy
+
+**SIA "AVALONS"** (Tabakeria.lv):
+- VIES: LV40003545929, Sabiedrība ar ierobežotu atbildību "AVALONS", Zasas iela 7, Rīga, LV-1057
+
+**SIA "BS Trade"** (Motivs.lv):
+- VIES: LV40103553119, SIA "BS Trade", Ieriķu iela 37 - 57, Rīga, LV-1084
+
+**Goran Jandrić s.p.** (Hiper Trade, SI):
+- VIES: SI76868702, GORAN JANDRIĆ, BRODARJEV TRG 013, 1000 LJUBLJANA
+- VIES potwierdza że to osoba fizyczna (s.p.), nie firma
+
+**SHAMAN TOBACCO s.r.o.** (CZ, CZ-X-001):
+- VIES: CZ19858132, SHAMAN TOBACCO s.r.o., Na Čečeličce 425/4, PRAHA 5 - SMÍCHOV, 150 00
+
+**Ing. Jan Ševic** (CZ, CZ-X-002):
+- VIES: CZ7005132222, Ing. Jan Ševic, U Divadla 483, SOKOLOV 356 01
+
+### Halucynacje wykryte i skorygowane (5)
+
+1. **FR-X-001**: usunięte "4.7/5 110k opinii" (niezweryfikowane, brak w Trustpilot)
+2. **FR-X-001**: "11+ pracowników" → "10-19" (INSEE effectif code 11 = 10-19)
+3. **FR-X-001**: 4 enseignes → 2 marques (societe.com potwierdza tylko PW DISTRIBUTION + HUMIDO)
+4. **FR-X-002**: "2-5 pracowników" → "3-5" (INSEE effectif code 02 = 3-5)
+5. **RO-X-001**: miasto București → Brașov (VIES zwrócił faktyczną siedzibę)
+
+### Insight o misji halucynacji
+
+Poprzednia sesja (Marceli's commit 190ee362) wstawiła do CSV pewne dane, których nie weryfikowała. Marceli ma rację: **każdy nowy wpis trzeba przejrzeć pod kątem:**
+- Czy każdy fakt (liczba, marka, opinia) ma źródło?
+- Czy kody (INSEE effectif, VIES, NIP) są prawidłowo zinterpretowane?
+- Czy adresy/miasta są potwierdzone w oficjalnym rejestrze, czy tylko zgadnięte?
+
+**VIES jest najszybszym filtrem anty-halucynacyjnym** — każdy EU VAT można sprawdzić w 1-2 sekundy, dostajemy valid + name + address. Powinien być częścią każdego verify-data flow.

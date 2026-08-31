@@ -6,6 +6,21 @@
  */
 
 /**
+ * Coerce a possibly-Date value to a YYYY-MM-DD string, or "" if unparseable.
+ * Required because useCsv's applySchema() turns `data_weryfikacji` into a
+ * Date instance — calling `.trim()` on it would throw "trim is not a function".
+ * Mirrors the Date/string fallback already in ModernLeadsTable.jsx,
+ * ExperimentView.jsx, and ModernLeadsTableV2.jsx's `fmtDate`.
+ */
+function toIsoDate(v) {
+  if (v == null || v === "") return "";
+  if (v instanceof Date) {
+    return isNaN(v.getTime()) ? "" : v.toISOString().slice(0, 10);
+  }
+  return String(v).trim();
+}
+
+/**
  * Group rows by a column value, returning [{ key, count }] sorted by count desc.
  * Empty/whitespace cells are bucketed as "—" (em-dash, common placeholder).
  * Values are trimmed before comparison (case-sensitive).
@@ -419,7 +434,9 @@ export function verificationTimeline(rows, monthsBack = 6) {
   for (const r of rows || []) {
     if (deriveStatus(r.flagi) !== "FROZEN") continue;
     // Try data_weryfikacji first, then parse date from flagi.
-    let dateStr = (r.data_weryfikacji || "").trim();
+    // data_weryfikacji is schema-coerced to a Date by useCsv/applySchema,
+    // so `.trim()` would throw — coerce to YYYY-MM-DD ourselves.
+    let dateStr = toIsoDate(r.data_weryfikacji);
     if (!dateStr) {
       const m = String(r.flagi || "").match(/(\d{4}-\d{2}-\d{2})/);
       if (m) dateStr = m[1];

@@ -232,6 +232,30 @@ test("verificationTimeline: includes countries with 0 FROZEN", () => {
   assert.equal(lv.hasData, false);
 });
 
+// Regression test for the production crash: useCsv's applySchema()
+// coerces data_weryfikacji to a Date object, so `(r.data_weryfikacji
+// || "").trim()` throws "trim is not a function" in AnalyticsView. The
+// helper now accepts Date | string | null and returns a YYYY-MM-DD string.
+test("verificationTimeline: handles Date-typed data_weryfikacji from applySchema", () => {
+  const today = new Date(2026, 7, 15); // 2026-08-15 local
+  const out = verificationTimeline([
+    { kraj: "PL", flagi: "FROZEN", data_weryfikacji: today },
+  ], 6);
+  assert.ok(out.hasAnyDate, "Date input should be recognized");
+  const pl = out.countries.find(c => c.kraj === "PL");
+  assert.ok(pl);
+  assert.equal(pl.total, 1);
+});
+
+test("verificationTimeline: ignores invalid Date instances silently", () => {
+  const out = verificationTimeline([
+    { kraj: "PL", flagi: "FROZEN", data_weryfikacji: new Date("not-a-date") },
+  ], 6);
+  const pl = out.countries.find(c => c.kraj === "PL");
+  assert.ok(pl);
+  assert.equal(pl.total, 0, "Invalid Date should fall through to the flagi regex (which also won't match)");
+});
+
 test("powerMaticGroups: groups cross-country parents", () => {
   const rows = [
     { id_unikalne: "BG-1", kraj: "BG", nazwa_firmy: "Tobacco Trading International Bulgaria EOOD", marki_nabijarki: "PowerMatic" },
