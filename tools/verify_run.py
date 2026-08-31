@@ -31,6 +31,8 @@ import os
 import re
 import sys
 import time
+import urllib.error
+import urllib.request
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -179,11 +181,59 @@ def find_changed(csv_path: Path, state: dict, force_all: bool):
     return added, modified, removed, current
 
 
+def pl_nip_mod11_ok(nip: str) -> bool:
+    """Polish NIP mod-11 checksum. Returns False for empty / non-10-digit / bad checksum.
+    Per AGENTS.md: 100% hallucination detection — every PL row MUST pass this pre-flight."""
+    nip = re.sub(r"\D", "", nip)
+    if len(nip) != 10:
+        return False
+    wagi = [6, 5, 7, 2, 3, 4, 5, 6, 7]
+    s = sum(int(c) * w for c, w in zip(nip[:9], wagi))
+    return (s % 11) == int(nip[9])
+
+
+def live_krs_lookup(krs: str, timeout: int = 10) -> dict | None:
+    """KRS API live lookup. Returns dict with NIP/nazwa/REGON, or None on 404/err.
+    Used to verify rejestr_id KRS numbers before trusting them."""
+    krs_clean = re.sub(r"\D", "", krs)
+    if not re.match(r"^\d{10}$", krs_clean):
+        krs_clean = krs_clean.zfill(10)
+    if len(krs_clean) != 10:
+        return None
+    url = f"https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{krs_clean}"
+    req = urllib.request.Request(url, headers={"User-Agent": "BILLSzuka-Verify/2.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            data = json.loads(resp.read())
+        odpis = data.get("odpis", {}).get("dane", {}).get("dzial1", {})
+        dp = odpis.get("danePodmiotu", {})
+        ident = dp.get("identyfikatory", {})
+        return {
+            "nazwa": dp.get("nazwa", ""),
+            "nip": ident.get("nip", ""),
+            "regon": ident.get("regon", ""),
+        }
+    except urllib.error.HTTPError as e:
+        return {"error": f"KRS HTTP {e.code}"}
+    except Exception as e:
+        return {"error": f"KRS request failed: {e}"}
+
+
 def verify_row(row: dict) -> tuple[str, str]:
-    """Return (status, reason) per verify-data skill rules."""
+    """Return (status, reason) per verify-data skill rules.
+
+    Bug fix 2026-08-31: previously, verify_row only did string-match in
+    zrodlo_danych for tokens like 'KRS'/'CEIDG' and trusted whatever NIP/KRS
+    was in the row — which let hallucinated NIPs (mod-11 invalid) and
+    wrong KRS numbers pass as FROZEN. We now:
+      1. pre-flight mod-11 on PL NIP (per AGENTS.md FABRYKAT detection)
+      2. live KRS lookup if rejestr_id has KRS (verify KRS exists + NIP matches)
+      3. fall through to format-only if live API fails
+    """
     country = (row.get("kraj") or "").upper().strip()
     zrodlo = (row.get("zrodlo_danych") or "").lower()
     nip = (row.get("nip_vat") or "").replace(" ", "").replace("-", "")
+    rejestr = (row.get("rejestr_id") or "").strip()
 
     # 1. Required fields present and not placeholders
     placeholders = {"", "brak", "brak danych", "do weryfikacji", "n/a", "—"}
@@ -202,6 +252,36 @@ def verify_row(row: dict) -> tuple[str, str]:
     if country == "CZ" and not re.match(r"^\d{8}$", clean_nip):
         return "DO-WERYFIKACJI", f"IČO CZ nieprawidłowe ({nip})"
 
+    # 2b. PL NIP mod-11 checksum (BUG FIX 2026-08-31: 19 PL-B rows were
+    # previously FROZEN with hallucinated NIPs that fail mod-11. Per AGENTS.md,
+    # any PL NIP that fails mod-11 is a fabryk until proven otherwise.)
+    if country == "PL" and re.match(r"^\d{10}$", clean_nip):
+        if not pl_nip_mod11_ok(clean_nip):
+            return "DO-WERYFIKACJI", f"NIP PL mod-11 invalid (HALUCYNACJA?): {clean_nip}"
+
+    # 2c. KRS live pre-flight (BUG FIX 2026-08-31: previously, rejestr_id KRS
+    # was trusted as-is; some rows had KRS pointing to a *different* company.
+    # E.g. PL-B-048 CSV had KRS 0000203325 pointing to a 404, but zrodlo_danych
+    # contained the substring 'KRS' so verify_row returned FROZEN.)
+    krs_match = re.search(r"KRS\s*(\d+)", rejestr, re.IGNORECASE)
+    if krs_match and country == "PL":
+        krs = krs_match.group(1)
+        krs_data = live_krs_lookup(krs)
+        if krs_data and "error" not in krs_data:
+            # KRS exists — cross-check NIP from KRS vs NIP in CSV
+            krs_nip = re.sub(r"\D", "", krs_data.get("nip", ""))
+            csv_nip = re.sub(r"\D", "", clean_nip)
+            if krs_nip and csv_nip and krs_nip != csv_nip:
+                return "DO-WERYFIKACJI", (
+                    f"KRS HALUCYNACJA: KRS {krs} → API NIP {krs_nip} "
+                    f"({krs_data.get('nazwa','')[:30]}) ≠ CSV NIP {csv_nip} "
+                    f"({row.get('nazwa_firmy','')[:30]})"
+                )
+        elif krs_data and "error" in krs_data:
+            # KRS API failed (404, timeout) — flag as DO-WERYFIKACJI with
+            # explicit reason instead of trusting the CSV KRS.
+            return "DO-WERYFIKACJI", f"KRS lookup failed: KRS {krs} {krs_data['error']}"
+
     # 3. Source is official
     has_official = any(tok in zrodlo for tok in OFFICIAL_SOURCE_TOKENS)
     if not has_official:
@@ -211,8 +291,7 @@ def verify_row(row: dict) -> tuple[str, str]:
     if country not in COUNTRY_API:
         return "DO-WERYFIKACJI", f"Brak API dla {country} — tylko format-check"
 
-    # TODO: actually fire CEIDG/KRS/ARES API and verify NIP ↔ firma match
-    # For now: trust format + official source = FROZEN
+    # 5. (legacy) For non-PL, trust format + official source
     return "FROZEN", f"Źródło oficjalne ({row.get('zrodlo_danych')}), format NIP OK"
 
 

@@ -84,6 +84,39 @@ CREATE TABLE IF NOT EXISTS user_logins (
 CREATE INDEX IF NOT EXISTS idx_chat_log_user_ts ON chat_log (user, ts DESC);
 CREATE INDEX IF NOT EXISTS idx_user_logins_user ON user_logins (user, login_at DESC);
 CREATE INDEX IF NOT EXISTS idx_catalog_files_user ON catalog_files (uploaded_by);
+CREATE TABLE IF NOT EXISTS keyword_scan (
+  id_unikalne TEXT NOT NULL,
+  kraj TEXT NOT NULL,
+  url TEXT NOT NULL,
+  keywords_found TEXT NOT NULL DEFAULT '[]',   -- JSON array of hit strings
+  keywords_total INTEGER NOT NULL DEFAULT 0,   -- ile słów w słowniku (denominator)
+  score_pct INTEGER NOT NULL DEFAULT 0,        -- 0-100
+  http_code INTEGER,
+  html_size INTEGER,
+  error TEXT,
+  scanned_at TEXT NOT NULL,
+  PRIMARY KEY (id_unikalne, url)
+);
+CREATE INDEX IF NOT EXISTS idx_keyword_scan_kraj ON keyword_scan (kraj);
+CREATE INDEX IF NOT EXISTS idx_keyword_scan_score ON keyword_scan (score_pct);
+CREATE TABLE IF NOT EXISTS url_status (
+  id_unikalne TEXT NOT NULL,
+  kraj TEXT NOT NULL,
+  url TEXT NOT NULL,
+  status TEXT NOT NULL,           -- 'green' | 'red' | 'unknown' (high-level)
+  state TEXT NOT NULL,            -- 'ok' | 'redirect' | '4xx' | '5xx' | 'timeout' | 'ssl' | 'dns' | 'empty' | 'unknown'
+  http_code INTEGER,
+  redirect_url TEXT,              -- URL po follow-redirects (jeśli był redirect)
+  response_ms INTEGER,            -- czas odpowiedzi w ms
+  error TEXT,
+  checked_at TEXT NOT NULL,
+  PRIMARY KEY (id_unikalne, url)
+);
+CREATE INDEX IF NOT EXISTS idx_url_status_kraj ON url_status (kraj);
+CREATE INDEX IF NOT EXISTS idx_url_status_status ON url_status (status);
+-- Note: idx_url_status_state is created in init() AFTER ALTER TABLE,
+-- because sqlite CREATE INDEX fails if the column doesn't exist yet
+-- (and IF NOT EXISTS doesn't help here).
 """
 
 
@@ -119,6 +152,18 @@ def init(db_path: Path | str | None = None) -> None:
             "INSERT OR IGNORE INTO faq_session (id, state, updated_at) "
             "VALUES (1, 'idle', '')"
         )
+        # Idempotent migrations for existing tables (sqlite doesn't have IF NOT EXISTS for ADD COLUMN)
+        for stmt in [
+            "ALTER TABLE url_status ADD COLUMN state TEXT NOT NULL DEFAULT 'unknown'",
+            "ALTER TABLE url_status ADD COLUMN redirect_url TEXT",
+            "ALTER TABLE url_status ADD COLUMN response_ms INTEGER",
+        ]:
+            try:
+                conn.execute(stmt)
+            except Exception:
+                pass  # column already exists
+        # Index na state — po ALTER, bo sqlite wywala CREATE INDEX na nieistniejącej kolumnie
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_url_status_state ON url_status (state)")
 
 
 def claim_session(db_path: Path | str | None = None, force: bool = False) -> bool:

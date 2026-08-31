@@ -1,867 +1,363 @@
 # BILLSzuka Runbook — odtwarzalne metody weryfikacji
 
-> **Cel:** w 10-15 minut zweryfikować firmę (NIP/KRS/nazwa) w dowolnym kraju europejskim i uniknąć powtórzenia błędów z iteracji 1.
->
+> **Cel:** w 10-15 minut zweryfikować firmę (NIP/KRS/nazwa) w dowolnym kraju europejskim
+> i uniknąć powtórzenia błędów z iteracji 1.
 > **Zasada nadrzędna:** nie ufaj danym z listy — weryfikuj przez oficjalne API + web search.
+>
+> **Jak czytać ten plik:** sekcje są niezależne — wczytaj tylko tę, której potrzebujesz
+> (np. `## PL` albo `## Pułapki`). Nie trzeba czytać całości.
 
 ---
 
-## ⚡ REKAPITULACJA POPRAWNEGO KOMENDU
+## Komendy
 
 ```bash
-# 1. Przebuduj master.csv ze wszystkich 24 katalogów (35 kolumn)
-python3 tools/billszuka.py compile
-
-# 2. Uruchom weryfikację API i aktualizację flag/hashy
-python3 tools/billszuka.py verify
-
-# 3. Normalizacja nowego intake z data/_intake/{ISO}/
-python3 tools/billszuka.py intake --iso CZ
-
-# 4. Wyświetl opcje i strategie wyszukiwania (L0-L11) dla danego kraju
-python3 tools/billszuka.py search --country SK [--level L1]
+python3 tools/billszuka.py compile              # przebuduj master.csv (24 katalogi, 35 kolumn)
+python3 tools/billszuka.py verify               # weryfikacja API + aktualizacja flag/hashy
+python3 tools/billszuka.py intake --iso CZ      # normalizacja nowego intake
+python3 tools/billszuka.py search --country SK [--level L1]   # strategie L0-L11
 python3 tools/orchestrate_11_levels.py --list
+tools/clean_macos_metadata.sh [frontend]        # czyści AppleDouble ._* pliki (patrz Pułapka #10)
 ```
 
-## 🧰 TOOLBOX (co mam + jak używać)
-
-### 1. Tokeny i sekrety (plik `.env`, gitignored)
+## Quick start (5 min, nowa sesja)
 
 ```bash
-# /Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/.env
-CEIDG_API_TOKEN=eyJ...   # JWT do CEIDG v3 (Polska)
-OPENROUTER_API_KEY=sk-or-v1-...  # OpenRouter (LLM, $2 budget)
-APOLLO_MCP_KEY=FAI...   # Apollo.io API (match i search)
-GOOGLE_MAPS_API_KEY=AIza...  # Google Places (New) API (patrz SETUP-GOOGLE-MAPS.md)
-SERPAPI_KEY=serp...     # SerpAPI (Google search results fallback)
-```
-
-Patrz: [SETUP-GOOGLE-MAPS.md](file:///Volumes/MC-BRAIN/Dev-Ext/BILLSzuka/SETUP-GOOGLE-MAPS.md) w celu konfiguracji Places API.
-
-Odczyt: `KEY=$(grep NAZWA .env | cut -d= -f2-)`
-
-### 2. Programistyczne API rejestrów (free, szybkie)
-
-| Kraj | API | Endpoint | Auth | Co zwraca |
-|---|---|---|---|---|
-| 🇵🇱 PL (JDG) | **CEIDG v3** | `https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nazwa=X&status=AKTYWNY` | Bearer token | NIP, REGON, adres, status, PKD |
-| 🇵🇱 PL (JDG by NIP) | CEIDG v3 | `?nip=X` | Bearer | j.w. |
-| 🇵🇱 PL (KRS lookup) | KRS MS | `https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}` | **brak** | Pełny odpis firmy |
-| 🇨🇿 CZ | **ARES** | `https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}` | **brak** | Název, adres, NACE, datum vzniku, DIČ |
-| 🇸🇰 SK | ORSR | `https://orsr.sk` (web search) | brak | Obchodný register, potrebuje IČO |
-| 🇪🇪 EE | e-Äriregister | `https://ariregister.rik.ee` (web search) | brak | Najbardziej cyfrowy rejestr w regionie |
-| 🇱🇹 LT | rekvizitai.vz.lt | `https://rekvizitai.vz.lt/en/company/...` (web search) | brak | Įmonės kodas, PVM, adres, vadovas |
-| 🇸🇮 SI | AJPES | `https://www.ajpes.si` (web search) | brak | Davčna številka, matična |
-| 🇪🇺 EU VAT | VIES | `http://ec.europa.eu/taxation_customs/vies/` | brak | Walidacja VAT EU |
-
-### 3. Web search (do znajdywania KRS/NIP gdy nie znam)
-
-Wzorce (z przykładami):
-```
-"<FIRMA>" KRS sp. z o.o. <miasto> NIP rejestracja   # PL firm
-"<FIRMA>" IČO <miasto> ARES                          # CZ firm
-"<FIRMA>" company code <miasto> register            # EU firm
-"site:rejestr.io" "<FIRMA>"                          # PL KRS aggregator
-```
-
-**⚠️ NIE UŻYWAJ DuckDuckGo HTML scraping do production research.** `html.duckduckgo.com` blokuje niezautoryzowane boty i zwraca 14KB "you are a bot" landing page zamiast wyników. `tools/test_11_levels.py` (po fix z 2026-08-10) wykrywa to i raportuje jako `⚠️ SKIP` zamiast fałszywego `✅ PASS`.
-
-**Zalecane (w kolejności preferencji):**
-1. **Brave Search API** — `BRAVE_API_KEY` w `.env`. `tools/test_11_levels.py` automatycznie użyje Brave jeśli key jest obecny. Darmowy tier: 2000 queries/mies.
-2. **SerpAPI / Google CSE** — płatne, niezawodne. Dodaj `SERPAPI_KEY` lub `GOOGLE_CSE_KEY` + `GOOGLE_CSE_CX` i rozszerz `get_search_provider()` w `test_11_levels.py`.
-3. **Headless browser** (Playwright) z rate-limiting + user-agent rotation — w `skills/crawl4ai-skill` lub bezpośrednio. Wymaga większej infra.
-4. **Bezpośrednie scrape docelowych domen** (orzeczenia.nsa.gov.pl, aleo.com) — omijają ograniczenia wyszukiwarek, ale wymagają per-site parser.
-
-### 4. Zainstalowane skille (do głębszego researchu)
-
-| Skill | Co robi | Kiedy używać |
-|---|---|---|
-| `useosint` | Router do OSINT subskills (references na useosint.com) | Start głębokiej analizy |
-| `x-ray-a-company` | Deep dive — owners, structure, financials | Gdy znam firmę i chcę pełny profil |
-| `enrich-lead` | Lead enrichment (Hunter/Apollo-style) | Do masowego enrichementu (wymaga API) |
-| `crawl4ai` | LLM-friendly crawling | Gdy strona wymaga JS/anti-bot |
-| `apify-public-registries` | Apify scrapers do rejestrów | Duże wolumeny (>100/skan) |
-| `vies-api` | Walidacja VAT EU | Szybka sanity check NIP/VAT |
-
-### 5. OpenRouter (LLM batch, ~$0.0001-0.001 per call)
-
-```python
-# Tani model do cross-validation
-model = "meta-llama/llama-3.1-8b-instruct"  # ~$0.0001/1k tokens
-# Mądrzejszy model do syntezy
-model = "anthropic/claude-3.5-sonnet"  # ~$3/1M tokens (używaj oszczędnie)
-```
-
----
-
-## 🌍 PER-KRAJU RECIPES
-
-### 🇵🇱 POLSKA — 2-etapowa weryfikacja
-
-**JDG (jednoosobowa działalność):**
-```bash
-TOKEN=$(grep CEIDG_API_TOKEN .env | cut -d= -f2-)
-curl -s -H "Authorization: Bearer $TOKEN" \
-  "https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nip=NNNNNNNNNN" | python3 -m json.tool
-```
-
-**Sp. z o.o. / S.A. / Sp. k.:**
-```bash
-# 1. Znajdź KRS (CEIDG nie ma spółek)
-web_search: "<FIRMA>" KRS NIP <miasto>
-# 2. Lookup po KRS
-curl -s "https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}" | python3 -m json.tool
-```
-
-**Typowe pułapki PL:**
-- ⚠️ CEIDG NIE ma sp. z o.o. — używaj KRS API (tylko lookup, nie search!)
-- ⚠️ KRS z listy użytkownika 3/6 wskazywał na obce firmy — zawsze weryfikuj
-- ⚠️ Sp. cywilna (s.c.) = CEIDG, Sp. jawna (sp.j.) = KRS
-
-### 🇨🇿 CZECHY — 1-etapowa weryfikacja (najłatwiejszy kraj)
-
-```bash
-curl -s "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/ICO" | python3 -m json.tool
-```
-
-ARES zwraca: `obchodniJmeno`, `sidlo`, `pravniForma`, `datumVzniku`, `dic`, `czNace[]`, status.
-
-**Typowe pułapki CZ:**
-- ⚠️ Nazwa firmy może być w `obchodniJmeno` (bez "Společnost s ručením omezeným")
-- ⚠️ NACE 46350 = wholesale tobacco, 471 = retail
-- ⚠️ 1 IČO z listy użytkownika (25221981) to zupełnie inna firma (CREMER nieruchomości)
-
-### 🇸🇰 SŁOWACJA — web search IČO → ORSR
-
-ORSR nie ma JSON API. Procedura:
-1. Web search: `"<FIRMA>" IČO Slovensko` 
-2. Pobierz IČO (8 cyfr, bez "SK")
-3. Otwórz `https://orsr.sk/hladaj_subjekt.asp?ession=&O=ICO` (formularz HTML)
-
-**Szybsza alternatywa:** użyj `web_search` z `site:orsr.sk "<FIRMA>"`
-
-### 🇷🇴 RUMUNIA — ONRC + search aggregators
-
-ONRC API wymaga opłaty (8 lei za odpis). Alternatywy:
-- `web_search: "site:confidas.ro <FIRMA>"` (aggregator darmowy)
-- `web_search: "site:listafirme.ro <FIRMA>"` 
-- `web_search: "CUI <numer> <FIRMA>"` (rumuński tax ID)
-
-**Sufiks:** Numer rejestrowy ma formę `J40/1234/2005` (sąd/numer/rok).
-
-**Typowe pułapki RO:**
-- ⚠️ CUI = fiscal code, NOT same as SIREN/SIRET
-- ⚠️ Strong plain packaging — regulacje mogą wykluczać niektóre marki
-- ⚠️ ONRC paid API = ~8 lei per query
-
-### 🇱🇹 LITWA — data.gov.lt JAR (SAU API)
-
-**Automatyzacja (BILLSzuka):** `tools/lt_open_data.py` — queryuje oficjalne
-dane VĮ Registrų centras przez rządowy portal atvirų duomenų SAU / spinta
-(`get.data.gov.lt/datasets/gov/rc/jar/iregistruoti/JuridinisAsmuo?ja_kodas=XXX`).
-Routed przez `verify_lt_row()` w `tools/verify_api.py` (patrz `COUNTRY_API`
-w `tools/verify_run.py` → `"LT": "jar"`).
-
-Dlaczego SAU, nie Rekvizitai:
-- **rekvizitai.vz.lt** (RUNBOOK rekomendacja) jest za Cloudflare i zwraca
-  403 na każdy nie-browser User-Agent
-- **registrucentras.lt** (JAR portal) to Drupal/JS SPA — wyniki renderowane
-  client-side, brak queryable endpoint
-- **atviras.jar.lt** timeout (>30s)
-- **data.gov.lt SAU** jedyny publiczny, no-auth, darmowy path z czystym JSON
-
-API uwagi:
-- Filtr tylko po `ja_kodas` (9 cyfr, np. 110443493 dla UAB SANITEX).
-  Brak name-search endpoint — wiersze z placeholder "do weryfikacji" w
-  nip_vat/rejestr_id → PENDING_API.
-- Adres (adresas) to UUID ref do zewnętrznego Address Registry niedostępnego
-  przez ten API → adres kolumna nie jest back-fillowana.
-- Legal form (forma) i status (statusas) zwracane jako UUID refs; trzeba
-  lookup przez `formos_statusai/Forma` i `formos_statusai/Statusas`.
-
-Live verification (LT, 2026-08-10 18:27):
-- 10 firm: **1 FROZEN** (UAB SANITEX, ja_kodas 110443493), **9 PENDING_API**
-  (wszystkie mają placeholder "do weryfikacji" w nip_vat i rejestr_id —
-  brak ja_kodas = brak ścieżki przez open data API)
-
-PVM (VAT) format: LT + 9 cyfr (firmy krajowe) lub LT + 12 cyfr (wewnętrzne).
-Canonical PVM dla UAB = LT + ja_kodas (np. UAB SANITEX = LT110443493).
-
-**Specjalny przypadek: Sanitex group** — LT/LV/EE mają sister firms pod
-jednym brandem (Baltic+Bulgaria).
-
-### 🇱🇻 ŁOTWA — info.ur.gov.lv (web search)
-
-Web search: `"<FIRMA>" reģistrs Latvija PVN`
-
-### 🇪🇪 ESTONIA — ariregister.rik.ee (najlepszy w regionie)
-
-```bash
-# Bezpośredni URL (po wyszukaniu firmy)
-https://ariregister.rik.ee/est?kood=XXXXXXXXX
-```
-
-KM = VAT, EE + 9 cyfr.
-
-### 🇫🇷 FRANCJA — Pappers / Societe.com (najlepsze)
-
-```bash
-# Dla PL społeczności:
-web_search: "site:pappers.fr <FIRMA>"
-web_search: "site:societe.com <FIRMA> SIREN"
-```
-
-SIREN = 9 cyfr (firma), SIRET = 14 cyfr (z adresem).
-
-**Specjalne:** Francuzi dużo palą tytoń tradycyjny — `rolling tobacco` to duży segment.
-
-### 🇲🇩 MOŁDAWIA — cis.gov.md (poza UE)
-
-IDNO = 13 cyfr. Procedura jak w Rumunii, ale poza UE = szara strefa.
-
-### 🇧🇬 BUŁGARIA — portal.justice.bg
-
-```bash
-web_search: "site:portal.justice.bg <FIRMA>"
-# lub
-web_search: "ЕИК <numer> <FIRMA>"  # bułgarski EIK
-```
-
-### 🇸🇮 SŁOWENIA — AJPES
-
-```bash
-web_search: "site:ajpes.si <FIRMA>"
-# lub
-web_search: "davčna številka <FIRMA>"
-```
-
-### 🇭🇷 CHORWACJA — Sudski registar
-
-```bash
-web_search: "site:sudreg.pravosudje.hr <FIRMA>"
-# OIB = 11 cyfr
-```
-
----
-
-## 🗣️ LANGUAGE REFERENCE — search terms per kraj
-
-| Kraj | "dystrybutor wyrobów tytoniowych" | "hurtownia" | "nabijarka" / "maszynka" | "akcesoria dla palaczy" |
-|---|---|---|---|---|
-| 🇵🇱 PL | dystrybutor wyrobów tytoniowych | hurtownia papierosów | nabijarka do tytoniu / maszynka do papierosów | akcesoria dla palaczy |
-| 🇨🇿 CZ | velkoobchodník tabákových výrobků | velkoobchod s tabákem | plnička cigaret / kuřácké potřeby | kuřácké potřeby |
-| 🇸🇰 SK | distribútor tabakových výrobkov | veľkoobchod s tabakom | strojček na cigarety | fajčiarske potreby |
-| 🇷🇴 RO | distribuitor de produse din tutun | depozit en-gros de țigări | mașină de umplut țigări | accesorii pentru fumători |
-| 🇱🇹 LT | tabako gaminių platintojas | didmeninė prekyba tabako gaminiais | cigarečių pildymo mašina | rūkymo reikmenys |
-| 🇱🇻 LV | tabakas izstrādājumu izplatītājs | vairumtirdzniecība tabaka | cigarešu pildīšanas mašīna | smēķētāju piederumi |
-| 🇪🇪 EE | tubakatoodete edasimüüja | tubaka hulgimüük | sigarettide täitmise masin | suitsetamistarbed |
-| 🇫🇷 FR | distributeur de produits du tabac | grossiste en tabac | machine à rouler les cigarettes | accessoires pour fumeurs |
-| 🇲🇩 MD | distribuitor de produse din tutun | depozit en-gros țigări | mașină de umplut țigări | accesorii pentru fumători |
-| 🇧🇬 BG | дистрибутор на тютюневи изделия | търговия на едро тютюн | машина за пълнене на цигари | аксесоари за пушачи |
-| 🇸🇮 SI | distributer tobačnih izdelkov | trgovina na debelo tobak | strojček za cigarete | kadilski pripomočki |
-| 🇭🇷 HR | distributer duhanskih proizvoda | veleprodaja duhana | stroj za punjenje cigareta | pribor za pušače |
-
-**Tip:** Gdy szukasz hurtowni, **dodaj lokalną walutę**: "hurtownia papierosów zł", "velkoobchod tabák Kč" — pomaga odfiltrować zagraniczne strony.
-
----
-
-## ⚠️ PUŁAPKI KTÓRE TRAWIAŁEM W ITERACJI 1
-
-### 1. Halucynacje w danych źródłowych
-
-**Co się stało:** Lista 30 firm od użytkownika zawierała 3 z 6 KRS wskazujących na obce firmy, 5 placeholderów "Oddział #1-5" które nie istnieją, 1 NIP prowadzący do CREMER nieruchomości zamiast FORTIS-DB.
-
-**Lekcja:** ZAWSZE weryfikuj NIP/KRS/IČO w oficjalnym API. Jeśli użytkownik mówi "to firma X z KRS 12345", sprawdź czy KRS 12345 naprawdę należy do firmy X.
-
-### 2. KRS API nie ma search endpoint
-
-**Co się stało:** KRS API pozwala tylko na lookup po numerze KRS, NIE na search po nazwie/NIP.
-
-**Lekcja:** Dla PL sp. z o.o. workflow to:
-1. web_search → znajdź KRS
-2. KRS API → lookup
-3. (alternatywa) użyj `useosint/x-ray-a-company` skill do głębszego researchu
-
-### 3. CEIDG jest TYLKO dla JDG
-
-**Co się stało:** BILLS Sp. z o.o. (spółka) NIE jest w CEIDG. To wprowadza w błąd.
-
-**Lekcja:**
-- JDG (jednoosobowa) → CEIDG API
-- Sp. z o.o., S.A., Sp. k., Sp. j. → KRS API (potrzebujesz KRS z web search)
-- Sp. c. (spółka cywilna) → CEIDG (rejestracja wspólników)
-- Sp. j. (spółka jawna) → KRS (rejestracja w KRS)
-
-### 4. Brak pl z ARES / CEIDG z CN
-
-W każdym kraju kody się zmieniają. Nie polegaj na tłumaczeniu — sprawdź lokalne API.
-
-### 5. MacOS metadata files (._*)
-
-Pliki `._*` to AppleDouble metadata. Zanieczyszczają repo. **Dodaj `._*` do .gitignore** zawsze.
-
-### 6. Puste CSV w git
-
-Jeśli `*.csv` jest w .gitignore, puste stub CSV nie wejdą do repo. Jawna allow-list: `!data/catalog-*.csv`.
-
-### 7. Mniej LLM = lepiej przy bulk research
-
-OpenRouter 8B Llama kosztuje ~$0.0001/call. 100 batch = $0.01. Claude 3.5 Sonnet = $0.003/call. **Zawsze zaczynaj od małego modelu**, eskaluj tylko do syntezy.
-
-### 8. Nie ufaj "PKD 46.35Z = hurtownia tytoniowa" na ślepo
-
-W CEIDG wiele osób dodaje PKD przy rejestracji bez realnej działalności. Wyszło 25 firm z PKD 46.35Z, ale żadna to realna hurtownia (wszystkie z dzisiejszą datą, nazwy z innych branż). **PKD to trop, nie potwierdzenie.**
-
-### 9. DDG HTML scraping = silent fail (2026-08-10)
-
-`https://html.duckduckgo.com/html/?q=...` blokuje boty bez JS/unauth headera. Zwraca 14KB "you are a bot" landing page (tytuł `DuckDuckGo`, brak `class="result__"`). Regex findall → 0 → **fałszywe `✅ Found 0 web results`**. Dotyczyło Levels 1, 2, 4, 6, 7, 8 w `tools/test_11_levels.py` przed fixem.
-
-**Fix:** `test_11_levels.py` ma teraz `is_ddg_blocked()` check + 3-state outcome (PASS/SKIP/FAIL). Użyj `BRAVE_API_KEY` w `.env` albo bezpośrednio scrapuj docelowe domeny (orzeczenia.nsa.gov.pl, aleo.com).
-
-### 10. macOS AppleDouble pollution na /Volumes/MC-BRAIN (2026-08-10)
-
-`/Volumes/MC-BRAIN` to sieciowy mount (SMB/NFS, nie APFS). Każdy `npm install`, `git pull`, `cp` powoduje że kernel zapisuje `._<filename>` shadow files obok prawdziwych plików. Zaśmiecają `ls`, psują wildcard w shellach, zaśmiecają `git status`. Po jednym `npm install` dla `frontend/` znalazłem **888 plików `._*` w `node_modules/` + 76 w `data/.snapshots/` = 1028 łącznie**.
-
-**Fix:**
-- `tools/clean_macos_metadata.sh` — kanoniczne narzędzie, woła `dot_clean` + drugi pass na osieroconych `._*` (które `dot_clean` czasem pomija). Idempotentny.
-- Uruchamiaj po każdym `npm install` na `/Volumes/MC-BRAIN` lub dodaj do post-install hook w `package.json`.
-- `.gitignore` już poprawnie ma `._*` — nic nie wejdzie do repo nawet jeśli zapomnisz wyczyścić.
-
-```bash
-tools/clean_macos_metadata.sh           # czyści cały root
-tools/clean_macos_metadata.sh frontend  # tylko frontend
-```
-
----
-
-## 🚀 QUICK START — 5 minut w nowej sesji
-
-```bash
-# 1. Sprawdź setup
 cd /Volumes/MC-BRAIN/Dev-Ext/BILLSzuka
-ls .env && echo "OK" || echo "Brak .env"
-git status
+ls .env && echo OK || echo "Brak .env"
+git status && git remote -v
 
-# 2. Wczytaj tokeny
 TOKEN=$(grep CEIDG_API_TOKEN .env | cut -d= -f2-)
 KEY=$(grep OPENROUTER_API_KEY .env | cut -d= -f2-)
 
-# 3. Sprawdź czy API działają
 curl -s -H "Authorization: Bearer $TOKEN" \
   "https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nazwa=BILLS&status=AKTYWNY" | head -c 200
-echo ""
 curl -s "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/62586289" | head -c 200
-
-# 4. Sprawdź ile masz budgetu OpenRouter
 curl -s -H "Authorization: Bearer $KEY" "https://openrouter.ai/api/v1/auth/key" | python3 -m json.tool
-
-# 5. Sprawdź git remote
-git remote -v
-
-# 6. Gotowe do pracy
 ```
 
----
+## Sekrety (`.env`, gitignored)
 
-## 📋 CHECKLIST — nowa firma w nowym kraju
-
-- [ ] Sprawdź czy kraj ma API (tabela wyżej) — tak/nie
-- [ ] Jeśli tak: wyciągnij NIP/IČO/CUI z listy użytkownika lub web_search
-- [ ] Wykonaj API call
-- [ ] Porównaj: nazwa z listy vs nazwa z API. **Inne? = zły identyfikator**
-- [ ] Jeśli brak API: web_search `"<FIRMA>" <language> registry official`
-- [ ] Sprawdź czy adres się zgadza
-- [ ] Sprawdź datę powstania (jeśli zbyt świeża = podejrzane)
-- [ ] Sprawdź NACE/PKD (jeśli nie pasuje do branży tytoniowej = inna firma)
-- [ ] Cross-validate: web_search potwierdza ofertę tytoniową?
-- [ ] Jeśli firma OK → dodaj do CSV z wypełnionymi polami
-- [ ] Jeśli firma nie OK → oznacz status w verification-report
-
----
-
-## 🔄 REPRODUKCJA DLA NOWEGO KRAJU (nie z 12)
-
-1. Sprawdź useosint skill: `skill({name: "useosint"})` → corporate-registries
-2. Sprawdź czy kraj ma otwarte API (Wikipedia: "Company register [Country]")
-3. Jeśli tak: dodaj do tabeli API w tym pliku
-4. Jeśli nie: użyj web_search + lokalny rejestr (często .gov)
-5. Dodaj translation row do language reference
-6. Dodaj nowy country journal: `data/countries/{KOD}.md`
-7. Dodaj CSV stubs (już są w `data/`)
-8. Zacznij research
-
----
-
-## 💡 GOTOWE WZORCE QUERY
-
-### Pattern 1: Szybka weryfikacja 1 firmy
 ```bash
-# 1. Sprawdź listę → wyciągnij identyfikator
-# 2. Wykonaj API call
-# 3. Porównaj nazwę + adres
-# 4. Jeśli OK → wpisz do CSV
-# Czas: 30 sekund
+CEIDG_API_TOKEN=...      # CEIDG v3 (PL, JWT)
+OPENROUTER_API_KEY=...   # LLM batch, $ budget
+APOLLO_MCP_KEY=...       # Apollo.io (nieaktywny — Free plan 403, patrz §AUTO_ENRICH)
+GOOGLE_MAPS_API_KEY=...  # Places (New) API — patrz SETUP-GOOGLE-MAPS.md
+SERPAPI_KEY=...          # search fallback
+BRAVE_API_KEY=...        # search — PREFEROWANY nad DDG (patrz Pułapka #9), 2000/mies free
 ```
+Odczyt: `KEY=$(grep NAZWA .env | cut -d= -f2-)`
 
-### Pattern 2: Batch verification (10-30 firm)
-```bash
-# 1. Web search każdej po nazwie → znajdź identyfikator
-# 2. Loop: API call per firma
-# 3. Diff: lista vs API
-# 4. Raport: verification-report-{date}.md
-# Czas: 15-30 minut
+## Skille zainstalowane
+
+| Skill | Do czego |
+|---|---|
+| `useosint` | Router OSINT, start głębokiej analizy |
+| `x-ray-a-company` | Deep dive: owners, structure, financials |
+| `enrich-lead` | Masowy enrichment (wymaga API) |
+| `crawl4ai` | Crawling stron z JS/anti-bot |
+| `apify-public-registries` | Scrapery rejestrów, wolumen >100/skan |
+| `vies-api` | Szybki sanity check NIP/VAT |
+
+## Web search — wzorce i uwaga krytyczna
+
 ```
-
-### Pattern 3: Discovery nowego rynku (np. Belgia)
-```bash
-# 1. Szukaj hurtowni tytoniowych: web_search w lokalnym języku
-# 2. Sprawdź rejestr: Banque Carrefour des Entreprises (BCE)
-# 3. Filter: PKD/NACE tobacco wholesale
-# 4. Outreach list
-# Czas: 2-4 godziny
+"<FIRMA>" KRS sp. z o.o. <miasto> NIP rejestracja   # PL
+"<FIRMA>" IČO <miasto> ARES                          # CZ
+"<FIRMA>" company code <miasto> register             # ogólny EU
+site:rejestr.io "<FIRMA>"                            # PL aggregator
 ```
+**⚠️ NIE UŻYWAJ `html.duckduckgo.com` scraping.** Blokuje boty → 14KB "you are a bot"
+landing page, wygląda jak 0 wyników (silent fail, patrz Pułapka #9).
+**Kolejność preferencji:** 1) Brave Search API (`BRAVE_API_KEY`) 2) SerpAPI/Google CSE
+3) Playwright headless (`crawl4ai` skill) 4) bezpośredni scrape docelowej domeny.
 
-### Pattern 4: Cross-validation przez LLM
-```python
-import json, urllib.request
-with open('.env') as f:
-    api_key = [l.split('=',1)[1].strip() for l in f if l.startswith('OPENROUTER_API_KEY=')][0]
+## OpenRouter — koszt per model
 
-prompt = f"""Oceń firmy pod kątem branży tytoniowej. Dla każdej podaj: real_pct, type (A=z nabijarkami/B=branza/=nieznane), komentarz. NIE WYMYŚLAJ DANYCH.
-{json.dumps(firms, ensure_ascii=False)}"""
-
-req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions",
-    data=json.dumps({
-        "model": "meta-llama/llama-3.1-8b-instruct",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.1,
-        "max_tokens": 1500
-    }).encode(),
-    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"})
-with urllib.request.urlopen(req) as r:
-    print(json.loads(r.read())['choices'][0]['message']['content'])
 ```
+meta-llama/llama-3.1-8b-instruct   # ~$0.0001/1k tok — DEFAULT dla batch/cross-validation
+anthropic/claude-3.5-sonnet        # ~$3/1M tok — tylko do finalnej syntezy
+```
+100 batch calls na 8B ≈ $0.01. Zawsze zaczynaj mały, eskaluj tylko gdy trzeba.
 
 ---
 
-## 📞 KONTAKTY WERYFIKACYJNE PER KRAJ (gdy API nie wystarcza)
+## Kraje — rejestry, automatyzacja, pułapki
 
-| Kraj | Kto pytać | Email/URL |
-|---|---|---|
-| 🇵🇱 PL | KAS (rejestr pośredników tytoniowych) | https://www.gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych |
-| 🇨🇿 CZ | Celní správa (customs) | celnisprava.cz |
-| 🇪🇺 EU | EU Common Register | ec.europa.eu/taxation_customs/vies/ |
+Format per kraj: **Podstawowy** (nazwa/adres/status) · **Finansowy** (bilans) ·
+**Upadłości** · **VAT** · **Automatyzacja** (co już mamy) · **Pułapki**.
 
----
+### 🇵🇱 PL — priorytet, 2 ścieżki (JDG vs spółka)
 
-## CHANGELOG METODOLOGII
+- Podstawowy (JDG): `dane.biznes.gov.pl/api/ceidg/v3/firmy?nip=X` — Bearer token
+- Podstawowy (spółka): KRS lookup-only (**brak search po nazwie**) —
+  `api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}` — brak auth, 20/min.
+  Znajdź KRS przez `wyszukiwarka-krs.ms.gov.pl` lub web_search.
+- REGON (BIR1.1): `api.stat.gov.pl/Home/RegonApi` — wymaga USER_KEY (email)
+- Finansowy: `ekrs.ms.gov.pl/rdf/pd/search_df?Krs={KRS}` (.xml bilans+RZiS);
+  paid alt: rejestr.io (0.5 zł/dok), krs-online.com.pl
+- Upadłości: KRZ — `prs.ms.gov.pl/krz`
+- VAT: biała lista — `podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka`
+- Inne: sankcje MSWiA, rejestr pośredników tytoniowych KAS (kontakt weryfikacyjny),
+  aleo.com, panoramafirm.pl
+- **Automatyzacja:** `tools/krs_search.py --nip X` / `--krs X` / `--krs X --financials`
+- **Pułapki:** CEIDG = tylko JDG i s.c. (spółka cywilna); sp. z o.o./S.A./sp.k./sp.j. →
+  KRS. KRS API nie ma search po nazwie/NIP. 3/6 KRS z listy użytkownika w iteracji 1
+  wskazywały na obce firmy — **zawsze weryfikuj**. PKD 46.35Z to trop, nie dowód (25
+  firm z tym kodem, 0 realnych hurtowni tytoniu).
 
-- 2026-08-10: v1 — iteracja 1, 30 firm z listy, 5 OK + 4 ZŁY + 5 FABRYKAT + 11 DO_WERYFIKACJI
-- Kolejne iteracje: dodaj nowe kraje, fix gaps, dodaj nowe API
+### 🇨🇿 CZ — najłatwiejszy kraj, 1 request
 
----
+- Podstawowy + finansowy w jednym: `ares.gov.cz/ekonomicke-subjekty-v-be/rest/
+  ekonomicke-subjekty/{ICO}` (+`/financni-udaje`), search by name też dostępny — brak auth
+- Upadłości: ISIR — `isir.justice.cz`
+- Spółki (odpis/likwidacja): `or.justice.cz`; Živnosti (JDG): `rzp.cz`
+- **Pułapki:** nazwa w `obchodniJmeno` (bez pełnej formy prawnej); NACE 46350 =
+  wholesale tobacco vs 471 = retail — nie mylić; 1 IČO z listy iteracji 1
+  (25221981) wskazywał na zupełnie inną firmę.
 
-## 🧰 TOOLBOX PER KRAJ (3-4 źródła na kraj)
+### 🇸🇰 SK — brak JSON API, web search → ORSR
 
-> **Zasada:** każdy kraj = minimum 3-4 źródła: **rejestr podstawowy** + **rejestr finansowy** + **upadłości** + **VAT/tax**.
-> Cross-country universals (VIES, OpenCorporates, OpenSanctions, GLEIF) działają wszędzie.
+- Podstawowy: ORSR, formularz HTML — `orsr.sk/hladaj_subjekt.asp`. Znajdź IČO (8 cyfr)
+  przez `web_search: "<FIRMA>" IČO Slovensko` lub `site:orsr.sk "<FIRMA>"`
+- Finansowy: RUZ — `registeruz.sk` (.xml)
+- Živnosti (JDG): `zrsr.sk`
+- VAT/DIČ: `financnasprava.sk`
 
-### 🇵🇱 POLSKA (priorytet)
+### 🇷🇴 RO — ONRC płatny, użyj agregatorów
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | KRS API (MS) | `https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}` | Pełny odpis: zarząd, wspólnicy, kapitał, PKD, adres, historia (free, no auth, 20/min) |
-| 2 | REGON API (BIR1.1) | `api.stat.gov.pl/Home/RegonApi` | NIP/REGON/KRS → dane firmy, PKD, forma prawna (USER_KEY) |
-| 3 | CEIDG v3 | `dane.biznes.gov.pl/api/ceidg/v3/firmy?nazwa=X` | JDG: NIP, REGON, adres, PKD, status (Bearer token) |
-| 4 | Przeglądarka DF KRS | `ekrs.ms.gov.pl/rdf/pd/search_df?Krs={KRS}` | Sprawozdania finansowe .xml (bilans + RZiS) |
+- Podstawowy: ONRC paid (~8 lei/odpis) lub darmowo przez agregatory:
+  `web_search: site:termene.ro <FIRMA>` (+ bilans), `site:listafirme.ro <FIRMA>`,
+  `"CUI <numer> <FIRMA>"`
+- VAT/bilanț: `anaf.ro` · Upadłości: `bpi.just.ro`
+- **Format:** CUI ≠ SIREN/SIRET. Nr rejestrowy: `J40/1234/2005` (sąd/numer/rok).
+- **Pułapka:** plain packaging regulacje mogą wykluczać niektóre marki tytoniowe.
 
-Plus: wyszukiwarka-krs.ms.gov.pl (search by name), KRZ (upadłości), biała lista VAT, KRZ.
+### 🇱🇹 LT — SAU open data (NIE rekvizitai — Cloudflare 403)
 
-**Automatyzacja:** `tools/krs_search.py --nip 5140361901 --financials`
+- Podstawowy: `get.data.gov.lt/datasets/gov/rc/jar/iregistruoti/JuridinisAsmuo?ja_kodas=X`
+  — no-auth, jedyny działający publiczny path. Filtr **tylko po `ja_kodas`** (9 cyfr),
+  brak name-search. Adres = UUID ref do zewn. Address Registry (niedostępny) → kolumna
+  adres nie jest back-fillowana. Legal form/status też UUID refs → lookup przez
+  `formos_statusai/Forma` i `/Statusas`.
+- **Automatyzacja:** `tools/lt_open_data.py`, routed przez `verify_lt_row()` w
+  `verify_api.py` (`COUNTRY_API["LT"] = "jar"`)
+- Finansowy/przeglądowy (manualnie, za Cloudflare): `rekvizitai.vz.lt`
+- Registrų centras (pełne dane): `registrucentras.lt` · Upadłości: tamże
+  `/nemokumoregistras` · VAT: `vmi.lt`
+- **PVM format:** LT+9 cyfr (krajowe) lub LT+12 (wewn.). Canonical dla UAB =
+  LT + ja_kodas.
+- **Specjalny przypadek:** grupa Sanitex ma sister firms LT/LV/EE pod jednym brandem.
+- **Live check 2026-08-10:** 10 firm → 1 FROZEN (SANITEX), 9 PENDING_API (placeholder
+  "do weryfikacji", brak ja_kodas).
 
-### 🇨🇿 CZECHY
+### 🇱🇻 LV
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **ARES** (Ministerstvo Financí) | `ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}` | IČO → nazwa, adres, NACE, DIČ, **finanční údaje** (bilans!) |
-| 2 | Živnostenský rejstřík (RZP) | `rzp.cz` | Živnosti (JDG), koncesje |
-| 3 | Insolvenční rejstřík (ISIR) | `isir.justice.cz` | Upadłości, restrukturyzacja |
-| 4 | Obchodní rejstřík | `or.justice.cz` | Spółki — odpis .pdf, zmiany statutu |
+- Podstawowy: UR — `info.ur.gov.lv` (web search: `"<FIRMA>" reģistrs Latvija PVN`)
+- Finansowy/ryzyko: Lursoft (`lursoft.lv`, free preview) · DataMe.lv (.pdf)
+- VAT: `vid.gov.lv` · Upadłości: `ur.gov.lv/lv/maksatnespejas-registrs`
 
-### 🇸🇰 SŁOWACJA
+### 🇪🇪 EE — najlepszy cyfrowy rejestr w regionie ⭐
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | Obchodný register (ORSR) | `orsr.sk/hladaj_subjekt.asp` | Odpis OR, zarząd, kapitał |
-| 2 | **Register účtovných závierok (RUZ)** | `registeruz.sk` | Roczne sprawozdania .xml |
-| 3 | Živnostenský register (ŽRSR) | `zrsr.sk` | Živnosti (JDG) |
-| 4 | Finančná správa | `financnasprava.sk` | Status VAT/DIČ |
+- Podstawowy + finansowy: `ariregister.rik.ee` — autocomplete JSON
+  `/est/api/autocomplete?q=<nazwa>` (**tylko po nazwie, NIE po KMKR/VAT**) + detail
+  page scrape dla KMKR/VAT, EMTAK/NACE, kapitał, status
+- VAT: KM = EE + 9 cyfr, status w EMTA (`emta.ee`) · Licencje fin.: `fi.ee`
+- **Automatyzacja:** `tools/ee_ariregister.py`, `verify_ee_row()` w `verify_api.py`
+  (`COUNTRY_API["EE"] = "ariregister"`)
+- **Live check:** 10/10 zweryfikowane — 8 FROZEN, 2 DO-WERYFIKACJI (detal B2C, brak
+  wpisu jako hurtownia).
 
-### 🇷🇴 RUMUNIA
+### 🇫🇷 FR
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **Termene.ro** | `termene.ro` | CUI, bilans .pdf, dłużnicy, powiązania (free) |
-| 2 | ListaFirme.ro | `listafirme.ro` | Aggregator darmowy: CUI, adres, Cifra afaceri |
-| 3 | ANAF | `anaf.ro` | Status TVA, bilanț |
-| 4 | Buletinul Procedurilor de Insolvență | `bpi.just.ro` | Upadłości |
+- Podstawowy (oficjalny, darmowy): `annuaire-entreprises.data.gouv.fr` — SIREN/SIRET,
+  dirigeants, bilans
+- Paid ale najlepsze: `pappers.fr/api` · free z limitem: `societe.com`
+- Legal announcements/upadłości: `bodacc.fr` · IP: `inpi.fr` · paid odpis: `infogreffe.fr`
+- **Format:** SIREN = 9 cyfr (firma), SIRET = 14 cyfr (z adresem).
+- **Kontekst branżowy:** rolling tobacco to duży segment we Francji.
 
-### 🇱🇹 LITWA
+### 🇲🇩 MD (poza UE)
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **rekvizitai.vz.lt** | `rekvizitai.vz.lt` | Įmonės kodas, PVM, adres, vadovas, **bilans**, powiązania |
-| 2 | Registrų centras (JAR) | `registrucentras.lt` | Pełne dane JAR |
-| 3 | VMI | `vmi.lt` | Status PVM |
-| 4 | Nemokumo registras | `registrucentras.lt/nemokumoregistras` | Upadłości |
+- Podstawowy: `cis.gov.md` (IDNO = 13 cyfr) · VAT: `sfs.md`
+- Procedura jak RO, ale poza UE = szara strefa prawna.
 
-### 🇱🇻 ŁOTWA
+### 🇧🇬 BG
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | info.ur.gov.lv (UR) | `info.ur.gov.lv` | Reģistrācijas nr, PVN, adrese |
-| 2 | **Lursoft** (free preview) | `lursoft.lv` | Aggregator: bilans, powiązania, ryzyko |
-| 3 | VID (tax) | `vid.gov.lv` | Status PVN |
-| 4 | Maksātnespējas reģistrs (UR) | `ur.gov.lv/lv/maksatnespejas-regis…` | Upadłości |
+- Podstawowy + bilans: `portal.justice.bg` (EIK) — też przez
+  `web_search: "ЕИК <numer> <FIRMA>"`
+- Upadłości: `public.registryagency.bg` · VAT (DDS): `nap.bg`
 
-### 🇪🇪 ESTONIA ⭐ (najlepszy w regionie)
+### 🇸🇮 SI — drugi najlepszy po EE ⭐
 
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **e-Äriregister** | `ariregister.rik.ee` | Pełne dane, e-aadress, kapitał, **bilans**, EMTA status |
-| 2 | EMTA (tax) | `emta.ee` | Status KM (VAT), konta |
-| 3 | Finantsinspektsioon | `fi.ee` | Licencje finansowe |
-| 4 | (e-Äriregister wystarcza) | — | — |
+- Wszystko w jednym: `ajpes.si` — matična + bilans + RZiS (.pdf/.xml)
+- Insolvenčni register: `ajpes.si/Register` · VAT (DDV): `furs.si`
+- **Nieautomatyzowane, ale API jest darmowe** — warto zrobić `tools/si_ajpes.py`.
 
-**Automatyzacja (BILLSzuka):** `tools/ee_ariregister.py` — JSON autocomplete
-(`/est/api/autocomplete?q=<name>`) + detail HTML extraction (KMKR/VAT, EMTAK/NACE,
-capital, founded, status). Routed przez `verify_ee_row()` w `tools/verify_api.py`
-(patrz `COUNTRY_API` w `tools/verify_run.py` → `"EE": "ariregister"`).
+### 🇭🇷 HR
 
-API uwagi:
-- Autocomplete NIE działa po KMKR/VAT (q=EE101376895 → []), tylko po nazwie.
-- Pojedyncze żądanie daje name, address, status, legal_form. Pełne dane (KMKR,
-  EMTAK, kapitał) wymagają detail page scrape.
-- 10/10 EE firm w katalogu zweryfikowane: 8 FROZEN, 2 DO-WERYFIKACJI (B2C
-  detal — CigarHouse.ee, Hinnapomm — brak osobnego wpisu jako hurtownia).
+- Podstawowy: `sudreg.pravosudje.hr` (OIB = 11 cyfr, MBS, zarząd) — też upadłości
+  (Stečajni registar) na tej samej domenie
+- Finansowy: FINA — `fina.hr` (.xml) · VAT (PDV): `porezna-uprava.hr`
 
-### 🇫🇷 FRANCJA
-
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **annuaire-entreprises.data.gouv.fr** | `annuaire-entreprises.data.gouv.fr` | SIREN/SIRET, dirigeants, **bilans** (oficjalne, darmowe) |
-| 2 | Bodacc | `bodacc.fr` | Annonces légales, upadłości, likwidacja |
-| 3 | INPI | `inpi.fr` | Marki, patenty |
-| 4 | Societe.com (ograniczony) | `societe.com` | SIREN, dirigeants, publikacje |
-
-### 🇲🇩 MOŁDAWIA
-
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | Camera Înregistrării de Stat | `cis.gov.md` | IDNO, statut, adresă |
-| 2 | Serviciul Fiscal de Stat (SFS) | `sfs.md` | Status TVA |
-
-### 🇧🇬 BUŁGARIA
-
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **portal.justice.bg** | `portal.justice.bg` | EIK, status, zarząd, **bilans .pdf** |
-| 2 | Registry Agency | `public.registryagency.bg` | Upadłości |
-| 3 | НАП (tax) | `nap.bg` | Status DDS (VAT) |
-
-### 🇸🇮 SŁOWENIA ⭐ (drugi najlepszy po PL)
-
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | **AJPES** | `ajpes.si` | Matična + **bilans + RZiS** w jednym miejscu |
-| 2 | FURS (tax) | `furs.si` | Status DDV (VAT) |
-| 3 | (AJPES wystarcza) | — | — |
-
-### 🇭🇷 CHORWACJA
-
-| # | Źródło | URL | Co daje |
-|---|---|---|---|
-| 1 | Sudski registar | `sudreg.pravosudje.hr` | OIB, MBS, zarząd |
-| 2 | **FINA** | `fina.hr` | Roczne sprawozdania .xml |
-| 3 | Porezna uprava (tax) | `porezna-uprava.hr` | Status PDV |
-| 4 | Stečajni registar (Sudski registar) | `sudreg.pravosudje.hr` | Upadłości |
-
----
-
-### 🌍 CROSS-COUNTRY UNIVERSALS
+### 🌍 Cross-country universals (działają wszędzie)
 
 | Narzędzie | URL | Co daje |
 |---|---|---|
-| **VIES** | `ec.europa.eu/taxation_customs/vies/` | Walidacja VAT-EU (27 krajów) |
-| **OpenCorporates** | `opencorporates.com` | ~200/m free, mirror 100+ rejestrów |
-| **OpenSanctions** | `opensanctions.org` | Listy sankcyjne EU/ONZ/US/UK |
-| **GLEIF** | `gleif.org` | LEI lookup globalny |
-| **Wikidata** | `wikidata.org` | Linked open data, cross-references |
-| **EU Open Data Portal** | `data.europa.eu` | Oficjalne dane EU |
-| **DuckDuckGo / Brave** | — | Search by name, all languages |
+| VIES | ec.europa.eu/taxation_customs/vies | Walidacja VAT-EU (27 krajów) |
+| OpenCorporates | opencorporates.com | ~200/mies free, mirror 100+ rejestrów |
+| OpenSanctions | opensanctions.org | Listy sankcyjne EU/ONZ/US/UK |
+| GLEIF | gleif.org | LEI lookup globalny |
+| EU Open Data Portal | data.europa.eu | Dane oficjalne EU |
+
+**Minimalny pakiet weryfikacji (każdy kraj):** 1) rejestr podstawowy 2) VIES
+3) rejestr upadłości 4) (opcjonalnie) rejestr finansowy 5) lista sankcyjna.
+Bez tych 5 → dane = "niepotwierdzone ⚠️".
+
+**Priorytet kolejności (po PL):** 1. SI (AJPES, pakiet kompletny) 2. EE
+(e-Äriregister, najlepszy UX) 3. CZ (ARES + VIES, blisko + duży rynek).
+
+**Brakujące integracje (budżet 100-200 PLN/mies. odblokowałby PL+FR pełną
+automatyzację):** rejestr.io API (PL, 0.5 zł/dok), Pappers.fr API (FR, paid),
+AJPES API (SI, free — warto zrobić), Lursoft API (LV, paid).
 
 ---
 
-### 🎯 PRIORYTET PO PL (TOP 3 do rozważenia)
+## Language reference — terminy branżowe per kraj
 
-1. **🇸🇮 SI (AJPES)** — jedno źródło daje pełen pakiet: dane + bilans + RZiS
-2. **🇪🇪 EE (e-Äriregister)** — najlepszy cyfrowy rejestr w regionie
-3. **🇨🇿 CZ (ARES + VIES)** — blisko PL, duży rynek, ARES daje finanční údaje bez paid
+| Kraj | dystrybutor tytoniu | hurtownia | nabijarka/maszynka | akcesoria dla palaczy |
+|---|---|---|---|---|
+| PL | dystrybutor wyrobów tytoniowych | hurtownia papierosów | nabijarka do tytoniu | akcesoria dla palaczy |
+| CZ | velkoobchodník tabákových výrobků | velkoobchod s tabákem | plnička cigaret | kuřácké potřeby |
+| SK | distribútor tabakových výrobkov | veľkoobchod s tabakom | strojček na cigarety | fajčiarske potreby |
+| RO | distribuitor de produse din tutun | depozit en-gros de țigări | mașină de umplut țigări | accesorii pentru fumători |
+| LT | tabako gaminių platintojas | didmeninė prekyba tabako gaminiais | cigarečių pildymo mašina | rūkymo reikmenys |
+| LV | tabakas izstrādājumu izplatītājs | vairumtirdzniecība tabaka | cigarešu pildīšanas mašīna | smēķētāju piederumi |
+| EE | tubakatoodete edasimüüja | tubaka hulgimüük | sigarettide täitmise masin | suitsetamistarbed |
+| FR | distributeur de produits du tabac | grossiste en tabac | machine à rouler les cigarettes | accessoires pour fumeurs |
+| MD | distribuitor de produse din tutun | depozit en-gros țigări | mașină de umplut țigări | accesorii pentru fumători |
+| BG | дистрибутор на тютюневи изделия | търговия на едро тютюн | машина за пълнене на цигари | аксесоари за пушачи |
+| SI | distributer tobačnih izdelkov | trgovina na debelo tobak | strojček za cigarete | kadilski pripomočki |
+| HR | distributer duhanskih proizvoda | veleprodaja duhana | stroj za punjenje cigareta | pribor za pušače |
 
-**Zasada ogólna:** rejestr + VIES + sankcje = minimum verification pack. Większość krajów ma te 3 za darmo.
+**Tip:** dodaj lokalną walutę do query hurtowni ("hurtownia papierosów zł",
+"velkoobchod tabák Kč") — odfiltrowuje zagraniczne strony.
 
 ---
 
-## 📚 DOKUMENTY FINANSOWE I REJESTRY — DOSTĘP PER KRAJ
+## Pułapki (numerowane, unikalne dla ogólnej metodologii — country-specific w sekcji kraju)
 
-Lista dokumentów które powinniśmy mieć dostęp do weryfikacji firm per kraj. Bez tych źródeł verification = "wiarygodne tylko na podstawie tego co firma sama o sobie mówi".
+1. **Halucynacje w danych źródłowych.** Iteracja 1: 3/6 KRS z listy → obce firmy, 5
+   placeholderów "Oddział #1-5" nieistniejących, 1 NIP → CREMER zamiast FORTIS-DB.
+   Zawsze weryfikuj identyfikator w oficjalnym API, nie ufaj etykiecie.
+2. **KRS API = lookup only, nie search.** Workflow PL spółka: web_search → znajdź KRS →
+   API lookup → (opcjonalnie) `x-ray-a-company` do głębszego researchu.
+3. **CEIDG = tylko JDG.** Sp. z o.o. nigdy tam nie będzie — nie traktuj braku wyniku
+   jako "firma nie istnieje".
+4. **Nie tłumacz kodów między krajami.** Każdy rejestr ma własne pola/kody — sprawdź
+   lokalne API zamiast zakładać analogię.
+5. **macOS `._*` metadata files.** Zaśmiecają repo — `._*` musi być w `.gitignore`
+   zawsze (już jest).
+6. **Puste CSV w git.** Jeśli `*.csv` w `.gitignore`, potrzebna jawna allow-list:
+   `!data/catalog-*.csv`.
+7. **Mały LLM najpierw.** Llama 8B ~$0.0001/call vs Sonnet ~$0.003/call — eskaluj do
+   Sonnet tylko do finalnej syntezy.
+8. **PKD/NACE to trop, nie potwierdzenie.** Ludzie dodają kody przy rejestracji bez
+   realnej działalności — zawsze cross-validate przez web_search oferty.
+9. **DDG HTML scraping = silent fail.** `html.duckduckgo.com` blokuje boty → 14KB
+   "you are a bot" page, regex parsing zwraca fałszywe "0 wyników znaleziono ✅".
+   Fix: `test_11_levels.py` ma `is_ddg_blocked()` + 3-state PASS/SKIP/FAIL. Użyj
+   `BRAVE_API_KEY` albo scrapuj domenę bezpośrednio.
+10. **AppleDouble pollution na `/Volumes/MC-BRAIN` (sieciowy mount, nie APFS).**
+    Każdy `npm install`/`git pull`/`cp` tworzy `._<plik>` shadow files (1 install
+    frontend = 1028 plików). Fix: `tools/clean_macos_metadata.sh` (woła `dot_clean` +
+    drugi pass na osierocone `._*`) — uruchamiaj po każdym `npm install` na tym mouncie.
 
-### 🔑 Kluczowe źródła ogólne (wszystkie kraje EU)
+---
 
-| Źródło | Co daje | Dostęp |
+## Gotowe wzorce query
+
+**Pattern 1 — szybka weryfikacja 1 firmy (~30s):** znajdź identyfikator z listy →
+API call → porównaj nazwa+adres → wpisz do CSV lub oznacz status.
+
+**Pattern 2 — batch (10-30 firm, ~15-30 min):** web_search każdej → identyfikator →
+loop API calls → diff lista vs API → `verification-report-{date}.md`.
+
+**Pattern 3 — discovery nowego rynku (~2-4h):** web_search hurtowni w lokalnym
+języku → sprawdź rejestr (np. BCE dla Belgii) → filtruj po PKD/NACE tobacco →
+outreach list.
+
+**Pattern 4 — cross-validation przez LLM:**
+```python
+import json, urllib.request
+api_key = [l.split('=',1)[1].strip() for l in open('.env')
+           if l.startswith('OPENROUTER_API_KEY=')][0]
+prompt = f"""Oceń firmy pod kątem branży tytoniowej. Dla każdej: real_pct, type
+(A=z nabijarkami/B=branza/nieznane), komentarz. NIE WYMYŚLAJ DANYCH.
+{json.dumps(firms, ensure_ascii=False)}"""
+req = urllib.request.Request(
+    "https://openrouter.ai/api/v1/chat/completions",
+    data=json.dumps({"model": "meta-llama/llama-3.1-8b-instruct",
+                      "messages": [{"role": "user", "content": prompt}],
+                      "temperature": 0.1, "max_tokens": 1500}).encode(),
+    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"})
+print(json.loads(urllib.request.urlopen(req).read())['choices'][0]['message']['content'])
+```
+
+## Pipeline weryfikacji (proponowany, per firma)
+
+```
+CSV (NIP/IČO/CUI/SIREN/IDNO/OIB) → rejestr podstawowy (status/adres/forma) →
+VIES (VAT aktywny?) → rejestr upadłości → rejestr finansowy (opcjonalnie) →
+✅ FROZEN (wszystko OK) lub ⚠️ DO-WERYFIKACJI (czegoś brak)
+```
+Stan: PL (KRS/REGON) zautomatyzowane. LT, EE zautomatyzowane (skrypty w sekcjach
+krajów). Reszta → manual przez `verify_api.py` + recipe z sekcji kraju.
+
+## §AUTO_ENRICH — decydent/stanowisko/telefon/email/linkedin pipeline
+
+`tools/auto_enrich.py` — agent web_search → OpenRouter DeepSeek extract → CSV apply.
+
+```bash
+python3 tools/auto_enrich.py leads                       # firmy z decydent == "do ustalenia"
+python3 tools/auto_enrich.py process --csv data/Polska/catalog-B-PL.csv \
+  --id PL-B-XX-001 --name "FIRMA SP. Z O.O." --city "Warszawa" --country "PL" \
+  --search-results "$(cat /tmp/search.txt)"               # extract+apply+mark_done
+python3 tools/auto_enrich.py extract --name "FIRMA" --city "..." --country "PL" \
+  --search-results "..."                                  # tylko extract, bez zapisu
+python3 tools/auto_enrich.py apply --csv ... --id ... --json '{...}'  # tylko apply
+```
+Progress: `data/.verify-state/enrichment-progress.json` (resumable, `{done: {key@csv:
+{ts, name, country, confidence, fields, had_error}}}`).
+
+**Wynik 2026-08-11:** 57/59 = 96.6% success. Kraje: BG/HR/CZ/PL/FR/RO/SK/EE/MD.
+**Limity:** brak search API key → agent musi wołać `web_search` tool manualnie (2
+calls/lead); LLM czasem zwraca opis roli zamiast URL w polu `linkedin`.
+**Apollo alternatywa** (nieaktywna, Free plan 403): `tools/apollo_enrich.py` — gotowy
+do wpięcia w `verify_api.py` dispatcher po upgrade planu.
+
+## Kontakty weryfikacyjne (gdy API nie wystarcza)
+
+| Kraj | Kto | URL |
 |---|---|---|
-| **VIES** (VAT Information Exchange System) | Walidacja VAT-EU (aktywny/nieaktywny) | http://ec.europa.eu/taxation_customs/vies/ — bezpłatny |
-| **EU Open Data Portal** | Listy sankcyjne EU, dane korporacyjne | https://data.europa.eu/ |
-| **OpenCorporates** | Agregator globalny (mirror wielu rejestrów) | https://opencorporates.com/ — bezpłatny z limitem |
-| **NORSK / World-Bank** | Listy sankcyjne globalne | https://www.opensanctions.org/ — open data |
+| PL | KAS, rejestr pośredników tytoniowych | gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych |
+| CZ | Celní správa | celnisprava.cz |
+| EU | EU Common VAT Register | ec.europa.eu/taxation_customs/vies |
 
-### 🇵🇱 POLSKA — kompletna lista
+## Dodawanie nowego kraju (nie z listy 12)
 
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **KRS** (Krajowy Rejestr Sądowy) — pełny odpis | https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS} | Pełny odpis: zarząd, wspólnicy, kapitał, PKD, adres, historia | ❌ brak (limit 20/min) |
-| **KRS — wyszukiwarka web** (search by name/NIP/REGON) | https://wyszukiwarka-krs.ms.gov.pl/ | Lista firm po nazwie, NIP, REGON, KRS | ❌ brak |
-| **REGON** (BIR1.1 GUS) | https://api.stat.gov.pl/Home/RegonApi | NIP/REGON/KRS → nazwa, adres, PKD, forma prawna, daty | ✅ USER_KEY (email) |
-| **CEIDG v3** (jednoosobowe) | https://dane.biznes.gov.pl/ | JDG: NIP, REGON, adres, PKD, status | ✅ Bearer token |
-| **Sprawozdania finansowe KRS** (.xml) | https://ekrs.ms.gov.pl/rdf/pd/search_df | Bilans + RZiS + Cash flow + zmiany kapitałów | ❌ brak (download XML) |
-| **Krajowy Rejestr Zadłużonych (KRZ)** | https://prs.ms.gov.pl/krz | Dłużnicy, postępowania upadłościowe | ❌ brak |
-| **Lista sankcyjna MSWiA** | https://www.gov.pl/web/mswia/lista-osob-i-podmiotow-objetych-sankcjami | Osoby/podmioty z sankcjami | ❌ brak |
-| **Wykaz podatników VAT (biała lista)** | https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka | Status VAT, rachunki bankowe | ❌ brak |
-| **Rejestr podmiotów tytoniowych (KAS)** | https://www.gov.pl/web/kas/rejestr-posredniczacych-podmiotow-tytoniowych | Legalni pośrednicy tytoniowi PL | ❌ brak |
-| **Rejestr.io API** (paid) | https://rejestr.io/api | Search by name + bilans (.xml) | ✅ 0.5 zł/dokument |
-| **Aleo.com** | https://aleo.com | KRS, bilans, powiązania | ❌ free z limitem |
-| **Panoramafirm.pl** | https://panoramafirm.pl | Dane rejestrowe, PKD, linki | ❌ brak |
-| **KRS-online.com.pl** (paid) | https://krs-online.com.pl | KRS + bilans | ✅ płatny |
+1. `useosint` skill → corporate-registries subskill
+2. Wikipedia: "Company register [Country]" — sprawdź czy jest otwarte API
+3. Dodaj sekcję `### 🇽🇽 KOD` do tabeli krajów wyżej (jeden pass, nie trzy)
+4. Jeśli brak API: web_search + lokalny rejestr .gov
+5. Dodaj wiersz do Language reference
+6. Utwórz `data/countries/{KOD}.md` + CSV stub w `data/`
 
-**Automatyzacja PL (gotowe):**
-```bash
-# 1. NIP → REGON → KRS
-python3 tools/krs_search.py --nip 5140361901
-# 2. KRS → pełny odpis (po znalezieniu KRS)
-python3 tools/krs_search.py --krs 0001074645
-# 3. KRS → URL do sprawozdań finansowych
-python3 tools/krs_search.py --krs 0001074645 --financials
-```
-
-### 🇨🇿 CZECHY
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **ARES** (Ministerstvo Financí) | https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO} | IČO → nazwa, adres, NACE, DIČ, forma prawna | ❌ brak |
-| **ARES search by name** | https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty?obchodniJmeno={name} | Lista IČO po nazwie | ❌ brak |
-| **Obchodní rejstřík** (justice.cz) | https://or.justice.cz | Odpis z OR (.pdf), zmiany statutu, likwidacja | ❌ brak |
-| **Živnostenský rejstřík (RZP)** | https://www.rzp.cz | Živnosti (JDG), koncesje | ❌ brak |
-| **Insolvenční rejstřík (ISIR)** | https://isir.justice.cz | Upadłości, restrukturyzacja | ❌ brak |
-| **Registr ekonomických subjektů** | https://www.statnipokladna.cz | Subwencje z budżetu publicznego | ❌ brak |
-| **ARES finanční data** | https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/{ICO}/financni-udaje | Bilans, RZiS, turnover (nielimitowane) | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇸🇰 SŁOWACJA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **Obchodný register (ORSR)** | https://orsr.sk/hladaj_subjekt.asp | Odpis OR, zarząd, kapitał | ❌ brak |
-| **Živnostenský register (ŽRSR)** | https://www.zrsr.sk | Živnosti (JDG) | ❌ brak |
-| **Register účtovných závierok (RUZ)** | https://www.registeruz.sk | Roczne sprawozdania finansowe (.xml) | ❌ brak |
-| **Finančná správa** | https://www.financnasprava.sk | Status VAT, DIČ | ❌ brak |
-| **Obchodný register Vestník** | https://www.justice.gov.sk | Ogłoszenia o likwidacji, upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇷🇴 RUMUNIA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **ONRC** (Registrul Comerțului) | https://www.onrc.ro | Odpis z RC (.pdf, 8 lei/opłata) | ✅ paid (8 lei/odpis) |
-| **ListaFirme.ro** | https://listafirme.ro | Aggregator: CUI, adres, Cifra afaceri | ❌ brak |
-| **Termene.ro** | https://termene.ro | CUI, bilans (.pdf), powiązania | ❌ brak |
-| **Confidas.ro** | https://confidas.ro | KYC, ryzyko, finansowe | ❌ brak |
-| **ANAF** (tax) | https://www.anaf.ro | Status TVA, bilanț | ❌ brak |
-| **Buletinul Procedurilor de Insolvență** | https://bpi.just.ro | Upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇱🇹 LITWA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **JAR** (Juridinių asmenų registras) | https://rekvizitai.vz.lt | Įmonės kodas, PVM, adres, vadovas | ❌ brak |
-| **Registrų centras** | https://www.registrucentras.lt | Pełne dane, finansowe | ❌ brak |
-| **JAR finansiniai ataskaitos** | https://rekvizitai.vz.lt/company/{kodas}/financials | Bilans, RZiS | ❌ brak |
-| **VMI** (tax) | https://www.vmi.lt | Status PVM | ❌ brak |
-| **Nemokumo registras** | https://www.registrucentras.lt/nemokumoregistras | Upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇱🇻 ŁOTWA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **UR** (Uzņēmumu reģistrs) | https://info.ur.gov.lv | Reģistrācijas nr, PVN, adrese | ❌ brak |
-| **Lursoft** | https://lursoft.lv | Agregator: bilans, powiązania, ryzyko | ❌ brak |
-| **DataMe.lv** | https://datame.lv | Roczne sprawozdania (.pdf) | ❌ brak |
-| **VID** (tax) | https://www.vid.gov.lv | Status PVN | ❌ brak |
-| **Maksātnespējas reģistrs** | https://www.ur.gov.lv/lv/maksatnespejas-regis… | Upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇪🇪 ESTONIA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **e-Äriregister** (najlepszy w regionie!) | https://ariregister.rik.ee | Pełne dane, e-aadress, kapitał, EMTA status | ❌ brak |
-| **EMTA** (tax) | https://www.emta.ee | Status KM (VAT), konta | ❌ brak |
-| **Finantsinspektsioon** | https://www.fi.ee | Licencje finansowe | ❌ brak |
-| **e-Äriregister financial reports** | https://ariregister.rik.ee/est?kood={KM}&tegevusala=EMTAK | Bilans (konsolidowany) | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇫🇷 FRANCJA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **Pappers.fr** ⭐ | https://pappers.fr/api | SIREN, dirigeants, bilans, status | ✅ paid (ale świetne) |
-| **Societe.com** | https://www.societe.com | SIREN, dirigeants, publikacje | ❌ free z limitem |
-| **Infogreffe (RCS)** | https://www.infogreffe.fr | Odpis z RCS (.pdf, paid) | ✅ paid |
-| **INPI** (własność intelektualna) | https://www.inpi.fr | Marki, patenty | ❌ brak |
-| **Bodacc** (annonces légales) | https://www.bodacc.fr | Ogłoszenia prawne, upadłości, likwidacja | ❌ brak |
-| **Service-public.fr** | https://annuaire-entreprises.data.gouv.fr | Dane rejestrowe SIREN/SIRET | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇲🇩 MOŁDAWIA (poza UE)
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **Camera Înregistrării de Stat** | https://www.cis.gov.md | IDNO, statut, adresă | ❌ brak |
-| **Serviciul Fiscal de Stat** | https://www.sfs.md | Status TVA | ❌ brak |
-
-### 🇧🇬 BUŁGARIA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **Търговски регистър** (portal.justice.bg) | https://portal.justice.bg | EIK, status, zarząd | ❌ brak |
-| **НАП** (tax) | https://www.nap.bg | Status DDS (VAT) | ❌ brak |
-| **Търговски регистър финансови отчети** | https://portal.justice.bg | Bilans (.pdf) | ❌ brak |
-| **Регистър на несъстоятелностите** | https://public.registryagency.bg | Upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇸🇮 SŁOWENIA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **AJPES** ⭐ | https://www.ajpes.si | Matična + **pełne bilansy** w jednym miejscu | ❌ brak |
-| **FURS** (tax) | https://www.furs.si | Status DDV (VAT) | ❌ brak |
-| **AJPES finančni podatki** | https://www.ajpes.si/prs/rezultati.asp?podrobno=true | Bilans + RZiS (.pdf, .xml) | ❌ brak |
-| **Insolvenčni register** | https://www.ajpes.si/Register | Upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
-### 🇭🇷 CHORWACJA
-
-| Dokument | URL | Co dostaje | Auth |
-|---|---|---|---|
-| **Sudski registar** | https://sudreg.pravosudje.hr | OIB, MBS, zarząd | ❌ brak |
-| **Porezna uprava** | https://www.porezna-uprava.hr | Status PDV (VAT) | ❌ brak |
-| **FINA** (finansowe) | https://www.fina.hr | Roczne sprawozdania (.xml) | ❌ brak |
-| **Stečajni registar** | https://sudreg.pravosudje.hr | Upadłości | ❌ brak |
-| **VIES** | http://ec.europa.eu/taxation_customs/vies/ | Walidacja VAT | ❌ brak |
-
----
-
-### 📋 Cross-country — minimalny pakiet do weryfikacji
-
-Aby zweryfikować firmę w dowolnym kraju na poziomie **minimum godnym zaufania**, potrzebujesz:
-
-1. **Rejestr podstawowy** (każdy kraj ma) → nazwa, adres, forma prawna, status (aktywny/wykreślony)
-2. **Rejestr finansowy** (AJPES, ARES, EKRS, Lursoft, Pappers, etc.) → obroty, zysk, zatrudnienie, kapitał
-3. **VIES** → status VAT-EU (aktywny = nie jest karany)
-4. **Rejestr upadłości** (ISIR, KRZ, Maksātnespējas, etc.) → czy nie w upadłości
-5. **Lista sankcyjna** (UE/ONZ) → czy nie jest na czarnej liście
-
-**Bez tych 5 źródeł = verification = "dane niepotwierdzone" ⚠️**
-
----
-
-### 🔧 Pipeline weryfikacji per kraj (proponowany)
-
-```
-1. Firma w CSV (NIP/IČO/CUI/SIREN/IDNO/OIB itp.)
-         ↓
-2. Sprawdź rejestr podstawowy → status, adres, forma prawna
-         ↓
-3. Sprawdź VIES → VAT aktywny?
-         ↓
-4. Sprawdź rejestr upadłości → czy nie w postępowaniu?
-         ↓
-5. Sprawdź rejestr finansowy → obroty, zatrudnienie (opcjonalnie)
-         ↓
-6. Jeśli wszystko OK → flaga ✅ FROZEN
-   Jeśli czegoś brak → flaga ⚠️ DO-WERYFIKACJI
-```
-
-**Stan na 2026-08-10:** narzędzia PL (KRS, REGON) zautomatyzowane (`tools/krs_search.py`). Inne kraje = manual przez `verify_api.py` + RUNBOOK recipes.
-
----
-
-## 📋 NOTATKI: BRAKUJĄCE API
-
-Nie mamy jeszcze integracji z:
-- **rejestr.io API** (PL, paid 0.5 zł/dok) — dałby sprawozdania finansowe automatycznie
-- **Pappers.fr API** (FR, paid) — najlepsze źródło dla FR
-- **AJPES API** (SI, free!) — warto zautomatyzować, bo bilansy są w jednym miejscu
-- **Lursoft API** (LV, paid) — alternatywa dla UR
-
-Gdyby mieć budżet 100-200 PLN/mies. → rejestr.io + Pappers = pełna weryfikacja PL + FR.
-
----
-
-## 🤖 §11 AUTO_ENRICH PIPELINE (2026-08-11)
-
-`tools/auto_enrich.py` — pipeline enrichlead przez OpenRouter DeepSeek + agent web_search. Używany do wypełniania kolumn `decydent` / `stanowisko` / `telefon` / `email` / `linkedin` w katalogach regionalnych.
-
-**Architektura**:
-- Agent (ja) woła `web_search` per firma → wyniki tekstowe
-- Tekst idzie do `auto_enrich.py extract` → OpenRouter DeepSeek parsuje → JSON `{name, title, email, phone, linkedin, confidence}`
-- `auto_enrich.py apply` zapisuje do CSV (nadpisuje placeholdery `do ustalenia` / `brak`)
-- `auto_enrich.py process` = extract+apply+mark_done w jednym wywołaniu
-
-**CLI**:
-```bash
-# Lista firm wymagających enrichment (decydent == "do ustalenia")
-python3 tools/auto_enrich.py leads
-
-# Przetwórz jedną firmę (agent driver workflow)
-python3 tools/auto_enrich.py process \
-  --csv data/Polska/catalog-B-PL.csv \
-  --id PL-B-XX-001 \
-  --name "FIRMA SP. Z O.O." --city "Warszawa" --country "PL" \
-  --search-results "$(cat /tmp/search.txt)"
-
-# Tylko extract (bez zapisu do CSV)
-python3 tools/auto_enrich.py extract \
-  --name "FIRMA" --city "..." --country "PL" --search-results "..."
-
-# Tylko apply (ręczne wczytanie JSON)
-python3 tools/auto_enrich.py apply --csv ... --id ... --json '{...}'
-```
-
-**Stan**: `data/.verify-state/enrichment-progress.json` — resumable, format `{done: {key@csv: {ts, name, country, confidence, fields, had_error}}}`. Skipowane w `leads` (key match).
-
-**Wynik sesji 2026-08-11**: 57/59 = 96.6% success rate. Kraje: BG, HR, CZ, PL, FR, RO, SK, EE, MD. Decydenty w INTEL.md.
-
-**Limity**:
-- Brak search API key (DDG HTML zablokowany) → agent musi wołać `web_search` tool
-- 2 tool calls per lead (web_search + process) — 326 leads = ~650 wywołań
-- LLM czasem zwraca role zamiast URLi (LLM classification) — pole `linkedin` może mieć tekst opisowy
-
-**Apollo alternatywa** (wymaga paid plan): `tools/apollo_enrich.py` (420 linii) — wrapper na Apollo.io REST API (`/v1/people/match`, `/v1/organizations/enrich`, `/v1/people/bulk_match`). Obecnie nieaktywny (Free plan blokuje 403), gotowy do wpięcia w `verify_api.py` dispatcher po upgrade.
-
-## CHANGELOG METODOLOGII (uzupełnienie)
+## Changelog
 
 | Data | Zmiana |
 |---|---|
-| 2026-08-11 | §11 auto_enrich pipeline dodany. 57/59 decydentów znalezionych w 9 krajach (BG/HR/CZ/PL/FR/RO/SK/EE/MD). Sukces 96.6%. |
+| 2026-08-10 | v1 — iteracja 1, 30 firm z listy: 5 OK, 4 ZŁY, 5 FABRYKAT, 11 DO_WERYFIKACJI |
+| 2026-08-10 | DDG blocking fix (`is_ddg_blocked`), macOS metadata cleanup tool |
+| 2026-08-11 | §AUTO_ENRICH pipeline: 57/59 decydentów w 9 krajach, 96.6% sukces |
+| — | v2 — skonsolidowano 3 powielone sekcje per-kraj w jedną; skrócono ~45% |

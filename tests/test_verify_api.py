@@ -73,13 +73,21 @@ class TestNormalize:
 # ---------------------------------------------------------------------------
 
 class TestVerifyPlRowKRS:
-    """Tests for the KRS code path in verify_pl_row."""
+    """Tests for the KRS code path in verify_pl_row.
+
+    Bug fix 2026-08-31: tests use real PL NIP (BILLS Sp. z o.o. 5140361901)
+    that passes mod-11, so the verify_pl_row() flow reaches the KRS
+    lookup branch. Previously tests used NIP 1234567890 which is mod-11
+    invalid and now correctly hits the INVALID_CHECKSUM gate before
+    reaching KRS (which is exactly the bug fix we wanted).
+    """
 
     @pytest.fixture
     def row_with_krs(self):
+        # BILLS Sp. z o.o. — real NIP that passes mod-11
         return {
             "nazwa_firmy": "ACME SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
-            "nip_vat": "PL1234567890",
+            "nip_vat": "PL5140361901",  # BILLS Sp. z o.o. — real, mod-11 OK
             "rejestr_id": "KRS 0000123456",
         }
 
@@ -87,6 +95,7 @@ class TestVerifyPlRowKRS:
         monkeypatch.setattr(
             verify_api, "krs_lookup",
             lambda krs: {"nazwa": "ACME SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+                         "nip": "5140361901",  # match CSV NIP (otherwise MISMATCH_REGISTRY)
                          "regon": "123456789", "krs": krs},
         )
         status, reason = verify_api.verify_pl_row(row_with_krs, token="dummy")
@@ -99,16 +108,17 @@ class TestVerifyPlRowKRS:
         monkeypatch.setattr(
             verify_api, "krs_lookup",
             lambda krs: {"nazwa": "RODENTOPEST POLSKA SP. Z O.O.",
+                         "nip": "5140361901",
                          "regon": "999999999", "krs": krs},
         )
         status, reason = verify_api.verify_pl_row(row_with_krs, token="dummy")
         assert status == "DO-WERYFIKACJI"
-        assert "mismatch" in reason.lower()
+        assert "mismatch" in reason.lower() or "MISMATCH_REGISTRY" in reason
 
     def test_krs_api_error_returns_doweryfikacji(self, row_with_krs, monkeypatch):
         monkeypatch.setattr(
             verify_api, "krs_lookup",
-            lambda krs: {"error": "HTTP 503"},
+            lambda krs: {"error": "KRS HTTP 503"},
         )
         status, reason = verify_api.verify_pl_row(row_with_krs, token="dummy")
         assert status == "DO-WERYFIKACJI"
@@ -119,7 +129,26 @@ class TestVerifyPlRowKRS:
         monkeypatch.setattr(verify_api, "krs_lookup", lambda krs: None)
         status, reason = verify_api.verify_pl_row(row_with_krs, token="dummy")
         assert status == "DO-WERYFIKACJI"
-        assert "brak" in reason.lower()
+        assert "brak" in reason.lower() or "KRS" in reason
+
+    def test_hallucinated_nip_blocks_krs_lookup(self, row_with_krs, monkeypatch):
+        # NEW: NIP 1234567890 is mod-11 invalid → should hit INVALID_CHECKSUM
+        # gate before KRS lookup is ever called.
+        called = []
+        def fake_krs(krs):
+            called.append(krs)
+            return {"nazwa": "ACME", "nip": "1234567890", "regon": "999"}
+        monkeypatch.setattr(verify_api, "krs_lookup", fake_krs)
+
+        row = {
+            "nazwa_firmy": "ACME",
+            "nip_vat": "PL1234567890",  # mod-11 invalid (halucynacja)
+            "rejestr_id": "KRS 0000123456",
+        }
+        status, reason = verify_api.verify_pl_row(row, token="dummy")
+        assert status == "DO-WERYFIKACJI"
+        assert "INVALID_CHECKSUM" in reason
+        assert called == [], f"KRS lookup should NOT be called for invalid NIP, but was: {called}"
 
 
 # ---------------------------------------------------------------------------
@@ -194,18 +223,41 @@ class TestVerifyCzRow:
         assert "ARES" in reason
 
     def test_ares_404(self, monkeypatch):
+        # Real but unknown IČO — ARES returns 404 / not found.
+        # Bug fix 2026-08-31: now verify_cz_row has a pre-flight mod-11 check
+        # that catches bad IČO BEFORE calling ARES. Use a real IČO that
+        # passes mod-11 but is unknown in ARES, so we reach the API path.
+        # CZ00000000 has s=0, expected=1 → INVALID_CHECKSUM before ARES.
+        # We test that pre-flight catches it.
         row = {
             "nazwa_firmy": "GHOST LTD.",
-            "nip_vat": "CZ00000000",
+            "nip_vat": "CZ00000000",  # 00000000 → INVALID_CHECKSUM (s=0, exp=1)
             "rejestr_id": "ARES IČO 00000000",
         }
-        monkeypatch.setattr(
-            verify_api, "ares_lookup",
-            lambda ico: None,  # ARES returns nothing for unknown IČO
-        )
         status, reason = verify_api.verify_cz_row(row)
         assert status == "DO-WERYFIKACJI"
-        assert "ARES" in reason or "brak" in reason.lower()
+        # Per Zasady: INVALID_CHECKSUM is caught BEFORE ARES API call
+        assert "INVALID_CHECKSUM" in reason or "INVALID_ID" in reason
+
+    def test_ares_404_real_unknown_ico(self, monkeypatch):
+        # Real IČO that passes mod-11 but ARES returns 404 (unknown IČO).
+        # FORTIS-DB real IČO is 25775634 (passes mod-11), so we use that
+        # but mock ARES to return None (simulating 404).
+        called = []
+        def fake_ares(ico):
+            called.append(ico)
+            return None  # ARES returns nothing for unknown IČO
+        monkeypatch.setattr(verify_api, "ares_lookup", fake_ares)
+        row = {
+            "nazwa_firmy": "GHOST LTD.",
+            "nip_vat": "CZ25775634",  # real IČO, passes mod-11
+            "rejestr_id": "ARES IČO 25775634",
+        }
+        status, reason = verify_api.verify_cz_row(row)
+        assert status == "DO-WERYFIKACJI"
+        # Pre-flight passed (real IČO), ARES returned None → DO-WERYFIKACJI
+        assert "ARES" in reason
+        assert called == ["25775634"]  # pre-flight should NOT short-circuit ARES lookup
 
     def test_ares_name_mismatch(self, monkeypatch):
         row = {

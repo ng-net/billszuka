@@ -21,6 +21,9 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import { toast } from "sonner";
+import { UrlBadge } from "../components/UrlBadge";
+import { useUrlStatus } from "../hooks/useUrlStatus";
+import { useKeywordScan } from "../hooks/useKeywordScan";
 
 // --- Helpers ---
 function classifyBrand(marki) {
@@ -191,6 +194,8 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [tierDropdownOpen, setTierDropdownOpen] = useState(false);
   const [maskNames, setMaskNames] = useState(true);
+  const { byId: urlStatusById } = useUrlStatus(selectedCountry);
+  const { byId: keywordById } = useKeywordScan(selectedCountry);
 
   // --- Top-level brand bookmark counts (from ExperimentViewV3) ---
   const brandCounts = useMemo(() => {
@@ -697,13 +702,23 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                             stopPropagation
                             onClick={() => (window.location.href = `tel:${lead.telefon}`)}
                           />
-                          <IconButton
-                            icon={ExternalLink}
-                            color="gray"
-                            title={`Strona WWW: ${lead.www}`}
-                            stopPropagation
-                            onClick={() => window.open(lead.www, "_blank", "noopener,noreferrer")}
-                          />
+                          {lead.www && (
+                            <span onClick={(e) => e.stopPropagation()}>
+                              <UrlBadge
+                                url={lead.www}
+                                status={urlStatusById[lead.id_unikalne]?.status || "unknown"}
+                                state={urlStatusById[lead.id_unikalne]?.state || "unknown"}
+                                http_code={urlStatusById[lead.id_unikalne]?.http_code}
+                                error={urlStatusById[lead.id_unikalne]?.error}
+                                redirect_url={urlStatusById[lead.id_unikalne]?.redirect_url}
+                                checked_at={urlStatusById[lead.id_unikalne]?.checked_at}
+                                keyword_score={keywordById[lead.id_unikalne]?.score_pct}
+                                keyword_hits={keywordById[lead.id_unikalne]?.keywords_found}
+                                showUrl={false}
+                                compact={true}
+                              />
+                            </span>
+                          )}
                           <IconButton
                             icon={Copy}
                             color="gray"
@@ -765,6 +780,25 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                     {lead.rejestr_id}
                                   </div>
                                 </div>
+
+                                {lead.www && (
+                                  <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
+                                    <div className="text-xs text-slate-500 dark:text-slate-400 mb-1.5">Strona WWW</div>
+                                    <UrlBadge
+                                      url={lead.www}
+                                      status={urlStatusById[lead.id_unikalne]?.status || "unknown"}
+                                      state={urlStatusById[lead.id_unikalne]?.state || "unknown"}
+                                      http_code={urlStatusById[lead.id_unikalne]?.http_code}
+                                      error={urlStatusById[lead.id_unikalne]?.error}
+                                      redirect_url={urlStatusById[lead.id_unikalne]?.redirect_url}
+                                      checked_at={urlStatusById[lead.id_unikalne]?.checked_at}
+                                      keyword_score={keywordById[lead.id_unikalne]?.score_pct}
+                                      keyword_hits={keywordById[lead.id_unikalne]?.keywords_found}
+                                      showUrl={true}
+                                      compact={true}
+                                    />
+                                  </div>
+                                )}
                               </div>
 
                               <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">

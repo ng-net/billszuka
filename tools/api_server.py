@@ -1925,6 +1925,111 @@ async def list_faq_rejects() -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# URL status endpoints (delikatny HEAD check per firma)
+# ---------------------------------------------------------------------------
+
+@app.get("/api/url-status")
+async def get_url_status(country: str | None = None) -> dict[str, Any]:
+    """Zwraca URL statusy z url_status table.
+
+    ?country=PL → tylko PL; brak → wszystkie.
+    Response: {items: [{id_unikalne, kraj, url, status, http_code, error, checked_at}, ...]}
+    """
+    with db.connect() as conn:
+        if country:
+            rows = conn.execute(
+                "SELECT * FROM url_status WHERE kraj = ? ORDER BY checked_at DESC",
+                (country.upper(),),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                "SELECT * FROM url_status ORDER BY checked_at DESC"
+            ).fetchall()
+    items = [dict(r) for r in rows]
+    # Summary
+    green = sum(1 for i in items if i["status"] == "green")
+    red = sum(1 for i in items if i["status"] == "red")
+    return {
+        "items": items,
+        "summary": {
+            "total": len(items),
+            "green": green,
+            "red": red,
+            "countries": sorted({i["kraj"] for i in items}),
+        },
+    }
+
+
+@app.post("/api/url-status/check")
+async def trigger_url_check(req: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Ręczny trigger — odpala check_urls w subprocess (sync, blokuje).
+
+    Body (opcjonalne): {country: "PL" | "all", delay: 4, timeout: 8}
+    Zwraca: {ok, total, green, red, duration_s, output (last 30 lines)}.
+    """
+    import subprocess as _sp
+    body = req or {}
+    country = body.get("country", "all")
+    delay = float(body.get("delay", 4.0))
+    timeout = int(body.get("timeout", 8))
+    cmd = [
+        sys.executable, str(Path(__file__).resolve().parent / "check_urls.py"),
+        "--country", country,
+        "--delay", str(delay),
+        "--timeout", str(timeout),
+    ]
+    t0 = time.time()
+    try:
+        proc = _sp.run(cmd, capture_output=True, text=True, timeout=60 * 60 * 2)  # 2h cap
+        output = (proc.stdout or "").splitlines()[-30:]
+        return {
+            "ok": proc.returncode == 0,
+            "returncode": proc.returncode,
+            "duration_s": int(time.time() - t0),
+            "output": output,
+            "stderr_tail": (proc.stderr or "").splitlines()[-10:],
+        }
+    except _sp.TimeoutExpired:
+        return {"ok": False, "error": "timeout (>2h)", "duration_s": int(time.time() - t0)}
+
+
+@app.get("/api/keyword-scan")
+async def get_keyword_scan(country: str | None = None) -> dict[str, Any]:
+    """Zwraca wyniki skanowania słów kluczowych z keyword_scan table.
+
+    ?country=PL → tylko PL; brak → wszystkie.
+    """
+    with db.connect() as conn:
+        if country:
+            rows = conn.execute(
+                "SELECT * FROM keyword_scan WHERE kraj = ? ORDER BY score_pct DESC",
+                (country.upper(),),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                "SELECT * FROM keyword_scan ORDER BY score_pct DESC"
+            ).fetchall()
+    items = [dict(r) for r in rows]
+    # Parse keywords_found JSON
+    for it in items:
+        try:
+            it["keywords_found"] = json.loads(it.get("keywords_found") or "[]")
+        except Exception:
+            it["keywords_found"] = []
+    scores = [i["score_pct"] for i in items]
+    return {
+        "items": items,
+        "summary": {
+            "total": len(items),
+            "avg_score": round(sum(scores) / len(scores), 1) if scores else 0,
+            "max_score": max(scores) if scores else 0,
+            "with_hits": sum(1 for s in scores if s > 0),
+            "countries": sorted({i["kraj"] for i in items}),
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
 # Settings endpoints (secrets vault)
 # ---------------------------------------------------------------------------
 

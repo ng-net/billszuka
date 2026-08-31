@@ -121,3 +121,9 @@ docs/
 
 # Local scratch (not part of the project — videos from generative tooling, etc.)
 videos/
+audio/
+
+# Foreign projects accidentally co-located in workspace (not BILLSzuka).
+# atlas-grok/ is a separate App Builder workspace (407MB node_modules + screenshots
+# of unrelated app). If you ever want to track it, do so in its own repo.
+atlas-grok/

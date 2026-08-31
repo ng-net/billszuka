@@ -80,3 +80,24 @@
 - Europages.de/unternehmen/polen — 11 firm
 - KAS Rejestr Pośredników Tytoniowych (L4) — 100% sprawdzonych B1/B8 z magazynami akcyzowymi
 - Grupy FB: "Nabijarki do tytoniu", "PowerMatic Polska", "Tytoń do skręcania"
+
+
+## Nowe leady (search gentle 2026-08-31)
+
+### Tier B1 (hurtownia z licencją na obrót tytoniem) — nowe odkrycie 🔥
+
+| ID | Firma | Co robi | Uprawnienia (gov.pl) | Dlaczego ważne |
+|---|---|---|---|---|
+| **PL-B-104** | **SŁOMEX TOBACCO S.C.** (Bożena Słoma, Andrzej Słoma, Zbigniew Zieliński) | Hurtownia + przetwarzanie tytoniu, 3 lokalizacje (Obsza / Potok Górny / Kazimierza Wielka) | sprzedaż, eksport, import, dostawa WNT, nabycie WNT, **przetwarzanie** (odżyłowywanie, stabilizowanie) | **Licencja na import + przetwarzanie tytoniu** — rzadkość w PL. Klasyczny hurt B1 z formalnymi uprawnieniami do wprowadzania wyrobów tytoniowych na rynek. Bezpośredni kanał dystrybucji PowerMatic do sklepów tytoniowych. |
+
+**Źródło:** [Rejestr Pośredniczących Podmiotów Tytoniowych](https://www.gov.pl/web/) (gov.pl, 10.04.2026) — oficjalny rejestr KAS.
+
+### Tier B9 (marketplace e-commerce PowerMatic) — 2026-08-31
+
+| ID | Firma | Kanał | Uwagi |
+|---|---|---|---|
+| **PL-B-127** | **Armorica Grzegorz Zawada** (powermatic.store) | B2C e-com (erli, allegro, inhouse) | NIP PL5140325868, wysyłka DE/AT/LU/CH. Erli Top Seller. Właściciel z imienia i nazwiska na stronie. |
+| **PL-B-128** | **PRODAP S.C.** (prodap.pl) | B2C e-com + producent/importer (etykiety produktów) | Siedziba Częstochowa, e-mail biuro@prodap.pl. PRODAP to też **producent** własnych urządzeń (nie tylko dystrybutor PM) — relacja do weryfikacji. |
+| **PL-B-129** | **Shishka79 Kolano Paweł** (shishka79.pl) | B2C e-com (shisha/hookah + PM) | NIP PL8291696096, REGON 100460922. PowerMatic tylko side-product (główna działalność = shisha). |
+
+**Wniosek strategiczny:** Sklepy e-commerce z PM (B9) to **konsumenci** (nie dystrybutorzy) — wartość dla BILLS jako evidence popytu, ale **nie jako partner kanałowy**. Prawdziwe partnerstwa leżą w Tier B1 (SŁOMEX) i B8 (sieci jak PHUP Gniezno / Polski Tytoń / Orion).

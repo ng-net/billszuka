@@ -69,6 +69,10 @@
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 212 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 374/393 (95.2%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 349/375 (93.1%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 350/375 (93.3%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 375 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 352/375 (93.9%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 323/375 (86.1%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 
 ---
 
@@ -204,6 +208,48 @@ python3 tools/krs_search.py --krs 0001074645 --financials  # + URL do bilansu
 | **rolzwy7/RegonAPI** | github.com/rolzwy7/RegonAPI | Klient REGON BIR1.1, search by NIP/REGON/KRS | open source |
 | **pawel-id/bir1** | github.com/pawel-id/bir1 | Klient BIR1 z wbudowanym kluczem demo | open source |
 | **klucznicy/krs-fetcher** | github.com/klucznicy/krs-fetcher | KRS data via rejestr.io API | open source |
+
+---
+
+## Zasady weryfikacji NIP / KRS / VAT (gate 2026-08-31)
+
+> **Kluczowa zasada:** brak odpowiedzi lub błąd API **nigdy** oznacza "prawdopodobnie OK". Domyślny status przy niepewności to zawsze `DO-WERYFIKACJI`, nigdy `FROZEN`.
+
+**Pochodzenie:** incydent 2026-08-31 — 19/129 wpisów PL-B miało NIP nieistniejący (checksum mod-11 invalid), a mimo to `verify_run.py` ustawiał FROZEN. Te zasady mają to uniemożliwić na stałe.
+
+**Kolejność sprawdzania (per wywołanie):**
+
+1. Walidacja formatu/checksum offline (`tools/verify_principles.py`).
+2. Zapytanie do rejestru (CEIDG/KRS/ARES/VIES).
+3. Fuzzy match nazwy + adresu z API vs CSV (Jaccard ≥ 0.5).
+4. Klasyfikacja: `FROZEN` / `DO-WERYFIKACJI` z kodem powodu.
+
+**Kody powodów (per §1.4 + §5):**
+
+| Kod | Znaczenie |
+|---|---|
+| `INVALID_CHECKSUM` | PL NIP mod-11 invalid (gwarantowana halucynacja/literówka) |
+| `INVALID_ID` | API 400/404 na poprawnym formacie (numer nie istnieje) |
+| `MISMATCH_REGISTRY` | API 200, ale nazwa/adres nie pasują do CSV |
+| `ADDRESS_MISMATCH` | identyfikator+nazwa OK, ale adres inny (CZ živnostník etc.) |
+| `FROZEN` | identyfikator+nazwa+adres matchują (≥ próg fuzzy) |
+
+**FROZEN wolno ustawić tylko gdy wszystkie 3 warunki:**
+1. Checksum/format lokalny przeszedł.
+2. Rejestr zwrócił HTTP 200 z realnymi danymi (nie pustka, nie błąd interpretowany jako OK).
+3. Nazwa z rejestru fuzzy-matchuje CSV (Jaccard ≥ 0.5 lub substring).
+
+**Skala pracy per grupa krajów (§4):**
+
+| Tier | Kraje | Manual | Batch | Full-auto |
+|---|---|---|---|---|
+| high | PL, CZ, FR | <50 firm | 50-500 | 500+ |
+| medium | RO, BG, HR, SI, SK, RS | <20 | 20-200 | 200+ |
+| low | LT, LV, EE, MD | <5 | 5-50 | 50+ |
+
+Poniżej progu `manual` → sprawdzaj 1-po-1. W paśmie `batch` → skrypt + spot-check ~10%. Powyżej `full-auto` → pipeline **plus obowiązkowy audyt losowej próbki** po każdym uruchomieniu.
+
+**Implementacja:** `tools/verify_principles.py` (walidatory) + `tools/verify_api.py:verify_pl_row()` / `verify_cz_row()` (gate). Testy: `tests/test_verify_principles.py` (50 testów) + `tests/test_verify_api.py::TestVerifyPlRowKRS` (5 testów, w tym regression `test_hallucinated_nip_blocks_krs_lookup`).
 
 ---
 
@@ -653,3 +699,112 @@ PDF: Day-1 = wrzuć do `data/_intake/`, istniejący pipeline (extract_intel → 
 5. `tools/run_event_intel.sh` + wpis w `run_verify_cron.sh`-style cron
 6. DZIENNIK entry: "Plan approved, layer N started"
 
+## 2026-08-31 — URL status + keyword scan (12 krajów)
+
+### URL status (297 URL-i, check_urls.py)
+| Kraj | n | green | red | %green |
+|---|---|---|---|---|
+| CZ | 9 | 9 | 0 | 100.0% |
+| LV | 10 | 8 | 2 | 80.0% |
+| SI | 16 | 13 | 3 | 81.2% |
+| HR | 19 | 16 | 3 | 84.2% |
+| LT | 20 | 13 | 7 | 65.0% |
+| SK | 30 | 25 | 5 | 83.3% |
+| RO | 17 | 12 | 5 | 70.6% |
+| MD | 6 | 4 | 2 | 66.7% |
+| RS | 18 | 10 | 8 | 55.6% |
+| EE | 28 | 24 | 4 | 85.7% |
+| FR | 22 | 16 | 6 | 72.7% |
+| BG | 27 | 22 | 5 | 81.5% |
+| **PL** | **75** | **59** | **16** | **78.7%** |
+| **Total** | **297** | **231** | **66** | **77.8%** |
+
+**Red states breakdown:** 4xx: 23, 5xx: 4, timeout: 4, unknown: 35 (curl error, np. DNS).
+
+### Keyword scan (275 URL-i, scan_keywords.py)
+Score = % słów ze SŁOWNIK-{ISO}.md znalezionych na stronie (max 50KB body, strip HTML).
+Większość firm to vape/e-papierosy → słowniki tytoniowe dają 0% (poprawne).
+
+**Top 10 firms with keywords (avg 0.1-0.7%):**
+- CZ-A-007 atcdistribution.cz — 4% (kuřácké potřeby × 3)
+- SI-A-001 tobaccostuff.net — 3% (powerMatic, polnilec cigaret)
+- LV-A-004 rasta1.eu — 2% (smēķēšanas piederumi)
+- LV-A-001 tabakeria.lv — 2% (smēķēšanas piederumi)
+- PL-B-013 skleptytoniowy.pl — 2% (hurtownia tytoniowa, sklep tytoniowy)
+- RO-A-009 cotyshop.ro — 1% (powerMatic)
+- SI-A-003 tobacna-grosist.si — 1% (trafika)
+- SK-B-011 cubapods.sk — 1% (fajčiarske potreby)
+- SK-A-004 lauko.sk — 1% (fajčiarske potreby)
+- PL-B-127 powermatic.store — 1% (powerMatic)
+
+**Insight:** Słowniki trzeba rozszerzyć o frazy vape (e-papierosy, liquid, vape, pod, mod) — inaczej firmy vape dostaną zawsze 0%.
+
+### Stack dodany
+- **tools/check_urls.py** — wolny HEAD check, 4s delay, UA rotacja, retry × 1
+- **tools/scan_keywords.py** — GET 50KB, 7s delay, parse SŁOWNIK-XX.md (regex '^- (.+?) (szac')
+- **tools/db.py** — 2 nowe tabele (url_status, keyword_scan) + ALTER TABLE migrations
+- **tools/api_server.py** — 4 nowe endpointy: GET /api/url-status, POST /api/url-status/check, GET /api/keyword-scan (+ wpięcie w ModernLeadsTableV2)
+- **frontend-2/src/components/UrlBadge.jsx** — pill z 7 stanami (ok/redirect/4xx/5xx/timeout/ssl/dns/unknown) + ikony Lucide + druga pill z keyword score
+- **frontend-2/src/hooks/{useUrlStatus,useKeywordScan}.js** — fetch per kraj, map id→status
+
+### Pitfalls napotkane
+1. **SQLite CREATE INDEX na nieistniejącej kolumnie wywala nawet z IF NOT EXISTS** — index musi być po ALTER TABLE, nie w schema stringu.
+2. **db.connect() to context manager, nie connection** —  nie .
+3. **WAL + dwa procesy piszące jednocześnie → 'database is locked'** — trzeba retry z backoff (15-30 prób × 2s) na  i .
+4. **python3 -u dla nohup w tle** — bez tego stdout jest buforowany i log zostaje pusty do końca.
+5. **Pierwszy check_urls.py crashnął na lock** (bo scan_keywords trzymał WAL) — restartuje się, ale wymaga retry w save_result().
+
+
+## 2026-08-31 — URL status + keyword scan (12 krajów, 297+275 URL-i)
+
+### URL status (tools/check_urls.py, 4s delay, HEAD)
+
+| Kraj | n | green | red | %green | uwagi |
+|---|---|---|---|---|---|
+| CZ | 9 | 9 | 0 | 100.0% | wszystko żyje |
+| LV | 10 | 8 | 2 | 80.0% | 1× 4xx |
+| SI | 16 | 13 | 3 | 81.2% | 1× 4xx, 1× timeout |
+| HR | 19 | 16 | 3 | 84.2% | 1× 4xx, 2× unknown |
+| LT | 20 | 13 | 7 | 65.0% | 3× 4xx, 4× unknown (podejrzane strony litewskie) |
+| SK | 30 | 25 | 5 | 83.3% | 3× 4xx, 1× 5xx |
+| RO | 17 | 12 | 5 | 70.6% | 4× 4xx, 1× 5xx |
+| MD | 6 | 4 | 2 | 66.7% | 1× 5xx, 1× unknown |
+| RS | 18 | 10 | 8 | 55.6% | 1× timeout, 7× unknown — sporo martwych |
+| EE | 28 | 24 | 4 | 85.7% | 2× 4xx, 2× unknown |
+| FR | 22 | 16 | 6 | 72.7% | 2× 4xx, 1× 5xx, 3× unknown |
+| BG | 27 | 22 | 5 | 81.5% | 1× timeout, 4× unknown |
+| PL | 75 | 59 | 16 | 78.7% | 6× 4xx, 1× timeout, 9× unknown |
+| **Total** | **297** | **231** | **66** | **77.8%** | 35× unknown, 4× 5xx, 4× timeout |
+
+### Keyword scan (tools/scan_keywords.py, 7s delay, GET 50KB)
+
+Score = 100 × (ile słów ze SŁOWNIK-XX.md znaleziono / ile w słowniku).
+Słowniki są tytoniowe — firmy vape mają 0% (poprawne).
+
+Top firmy z trafionymi słowami (avg 0.1-0.7% per kraj):
+- CZ-A-007 atcdistribution.cz: 4% — kuřácké potřeby × 3
+- SI-A-001 tobaccostuff.net: 3% — powerMatic, polnilec cigaret
+- LV-A-004 rasta1.eu, LV-A-001 tabakeria.lv: 2% — smēķēšanas piederumi
+- PL-B-013 skleptytoniowy.pl: 2% — hurtownia tytoniowa, sklep tytoniowy
+- PL-B-127 powermatic.store: 1% — powerMatic
+- RO-A-009 cotyshop.ro: 1% — powerMatic
+- SK-A-004 lauko.sk, SK-B-011 cubapods.sk: 1% — fajčiarske potreby
+
+Insight: słowniki PL/CZ/SK/SI/LV/RO mają pełne frazy tytoniowe. Reszta krajów (BG/MD/RS/EE/HR/FR/LT) — słowniki albo niekompletne, albo firmy są z innej niszy. **Następny krok: rozszerzyć słowniki o frazy vape (e-papierosy, liquid, vape, pod, mod) i hurtowe B2B (dystrybutor, importer, sklep).**
+
+### Stack dodany
+
+- tools/check_urls.py — wolny HEAD check, 4s delay, UA rotacja, retry × 1
+- tools/scan_keywords.py — GET 50KB, 7s delay, parse SŁOWNIK-XX.md regex "^- (.+?) (szac"
+- tools/db.py — 2 nowe tabele (url_status, keyword_scan) + ALTER TABLE migrations
+- tools/api_server.py — 4 nowe endpointy: GET /api/url-status, POST /api/url-status/check, GET /api/keyword-scan
+- frontend-2/src/components/UrlBadge.jsx — pill z 7 stanami (ok/redirect/4xx/5xx/timeout/ssl/dns/unknown) + ikony Lucide + druga pill z keyword score
+- frontend-2/src/hooks/{useUrlStatus,useKeywordScan}.js — fetch per kraj, map id→status
+
+### Pitfalls
+
+1. **SQLite CREATE INDEX na nieistniejącej kolumnie wywala nawet z IF NOT EXISTS** — index musi być po ALTER TABLE, nie w schema stringu.
+2. **db.connect() to context manager, nie connection** — `with db.connect() as conn:`, nie `conn = db.connect()`.
+3. **WAL + dwa procesy piszące jednocześnie = database is locked** — retry z backoff (15-30 prób × 2s) na `db.connect()` i `conn.execute()`.
+4. **python3 -u dla nohup w tle** — bez tego stdout buforowany, log zostaje pusty do końca procesu.
+5. **Skan URL-i z poleceniem --all działa tylko z nowym argparse (action='store_true')** — stary parser wywala "unrecognized arguments: --all".

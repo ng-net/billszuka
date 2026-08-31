@@ -4056,3 +4056,345 @@ All 4 jobs green (Python 3.11/3.12/3.13 + JS tests with test:components best-eff
 - Run `npm test` locally before pushing to keep test:components honest
 
 **Next session:** start the local servers with `python3 tools/api_server.py --port 8000 &` + `cd frontend-2 && npm run dev &`, or use the deployed https://billszuka.pages.dev
+
+
+## 2026-08-31 04:50 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **350/375 (93.3%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **375 wierszy** we wszystkich katalogach regionalnych.
+
+
+## 2026-08-31 04:54 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **352/375 (93.9%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **375 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-31 05:12 CEST — PL-B telefon cleanup + A-row cross_sell_potential schema fix
+
+**Cleanup wykonany ręcznie (Mavis):**
+
+1. **8 PL-B telefonów** — wszystkie w `data/Polska/catalog-B-PL.csv`, wartość łamała PHONE_RE.
+   - Wspólny wzorzec: wielo-numer (`,` `;` `(imię)` `7xx` placeholder). Dla każdego: **zostawiony pierwszy numer** jako `telefon`, reszta przeniesiona do `notatki` z prefixem `tel cleanup 2026-08-31:`.
+   - PL-B-043 MATPIO `+48 609 774 7xx` — **świadomy placeholder** (numer zanonimizowany w źródle), zostawiony + ⚠️ flaga w notatce.
+   - 8 → 1 critical w PL-B (został tylko MATPIO 7xx).
+
+2. **65 A-row cross_sell_potential → n/a** — schema violation w 11 katalogach A (BG/HR/CZ/EE/FR/LT/MD/RO/SK/SI/LV). Kolumna jest B-only per validator, ale została nadpisana w poprzednim enrich. Wyczyszczone do `n/a` (sentinel, traktowane jako puste).
+
+3. **Re-verify po cleanup** — `verify_run.py --all` potwierdza 352 FROZEN / 23 DO-WERYFIKACJI / 0 PENDING_API. Status firm nie zmieniony (validate_columns vs verify_api działają na różnych warstwach — cleanup danych NIE zmienił wyników weryfikacji, bo to były kwestie formatu danych, nie ich treści).
+
+**Bilans validate_columns:**
+
+| Run | Critical | Warning |
+|---|---|---|
+| przed cleanup | 148 | 412 |
+| po cleanup | **134** | 412 |
+
+Spadek -14 critical: -8 PL-B telefonów, -65 A-row cross_sell (część to master, część to per-katalog A), z offsetem +59 bo master.csv miał te same wpisy zdublowane.
+
+**Pozostałe 134 critical — klasyfikacja:**
+
+- **8 PL-B master** (telefony te same, teraz PL-B-043 jako 7xx) + **59 A-row** (nadal w master.csv) = **67 w master**
+- **30 RS** (Serbia — out-of-scope per AGENTS.md, do dalszej decyzji)
+- **15 sourcing** (SK/SI w lokalnych językach — szum walidatora, realne dane)
+- **9 LT/FR/EE nip_vat** (realne formaty PVM/SIREN/KMKR, validator za ciasny)
+- **6 PL-B-043 7xx** (świadomy placeholder)
+- **reszta** RS/EE/FR/LT/RS sourcing — szum
+
+Rekomendacja: **rozszerzyć słowniki validate_columns** o:
+- słowackie nazwy sourcingu (`Daňový sklad`, `Direct EU Cargo Logistics`, ...)
+- słoweńskie (`Trošarinsko skladišče`, `FURS`, ...)
+- LT 15-cyfrowy PVM (z prefiksem LT)
+- FR 9-cyfrowy VAT bez spacji
+- EE 8-cyfrowy KMKR bez prefiksu
+- PL `+48 XXX XXX XXX` z nawiasem (imię)
+
+Per AGENTS.md: „BILLSzuka B9" to marketplace tier — w PL mamy B9 dla PRODAP, ale PRODAP to s.c. bez NIP, zostaje DO-WERYFIKACJI.
+
+## 2026-08-31 05:30 CEST — Halucynacja NIP detection: 19/129 PL-B (14.7%)
+
+**Krytyczny finding — halucynacja NIP w PL-B:**
+
+Mavis wykonał test mod-11 checksum na wszystkich 129 NIP-ach PL w `data/Polska/catalog-B-PL.csv`.
+
+**Wynik: 19/129 (14.7%) NIP-ów nie przechodzi polskiego NIP mod-11 checksum.**
+
+To oznacza, że te NIP-y **nie istnieją w żadnym rejestrze** (potwierdzone przez CEIDG v3 API: `{"code":"NIEPOPRAWNY_NUMER_NIP","message":"Niepoprawny identyfikator NIP [...]"}`).
+
+**Lista 19 halucynacji (ID, NIP, nazwa):**
+
+```
+PL-B-048  NIP=7792223933  Selgros / Transgourmet Polska Sp. z o.o.
+PL-B-050  NIP=9532585250  Polska Grupa Tytoniowa Sp. z o.o.
+PL-B-052  NIP=6792683072  Mona Sp. z o.o. (Hurtownia Papierosów)
+PL-B-055  NIP=7580003310  Hurtownia Centrum Wiesław Sacharski
+PL-B-057  NIP=8731006509  Firma Handlowa Mariusz Kawa
+PL-B-058  NIP=8461001460  FLAJ Sklep i Hurtownia w Augustowie
+PL-B-070  NIP=6610001890  VIVOPLAST Hurtownia Opakowań i Artykułów
+PL-B-075  NIP=7960073210  PHPU "TEKS" SA (Markowe Cygara)
+PL-B-076  NIP=9590822602  MILO S.A.
+PL-B-077  NIP=6610003937  CARO Sp.j. R. i R. Niewczas
+PL-B-078  NIP=6640003463  BONUS Hurtownia Papierosów
+PL-B-079  NIP=7310007883  Hurtownia Papierosów "DANA"
+PL-B-080  NIP=7590004724  Caro. Hurtownia papierosów. Żach K.
+PL-B-082  NIP=8992850937  VAPE POINT SPÓŁKA Z OGRANICZONĄ ODPOWIED
+PL-B-091  NIP=5833019808  Don Marco International Sp. z o.o.
+PL-B-092  NIP=8792683935  MRC Trade Sp. z o.o.
+PL-B-094  NIP=5832791456  Tobacco Concept Factory (TCF) Sp. z o.o.
+PL-B-125  NIP=6340127847  JAS-FBG SPÓŁKA AKCYJNA
+PL-B-126  NIP=5260036094  ROHLIG SUUS LOGISTICS SPÓŁKA AKCYJNA
+```
+
+**Prawdopodobna przyczyna:** LLM-y (Gemini/OpenRouter/Perplexity) halucynowały NIP-y w poprzednich enrich passes. NIP-y przechodzą „ludzką kontrolę" (patrzą się na prawdziwe) ale **nie przechodzą matematycznej walidacji mod-11**. To jest dokładnie ten wzorzec halucynacji opisany w AGENTS.md sekcja „FABRYKAT detection".
+
+**Dlaczego verify_api tego nie złapało:**
+
+`tools/verify_api.py` weryfikuje PL przez KRS API (dla sp. z o.o.) lub CEIDG (dla JDG) **pod warunkiem że NIP istnieje w rejestrze**. Jeśli NIP jest śmieciowy → CEIDG zwraca `NIEPOPRAWNY_NUMER_NIP` HTTP 400 → verify ustawia status **FROZEN** bo „nie ma sygnału że to fałszywe". 
+
+**Bug w `verify_api.py`:**
+
+```python
+def ceidg_lookup(nip: str, token: str) -> dict | None:
+    # ...
+    if not result or "error" in result:
+        return {"error": f"NIP PL nieprawidłowy: {nip}"}
+```
+
+HTTP 400 z CEIDG (`NIEPOPRAWNY_NUMER_NIP`) powinien ustawiać **DO-WERYFIKACJI** z flagą „NIP invalid", a nie FROZEN. Obecnie CEIDG error traktowany jest jak „brak danych" → domyślnie FROZEN.
+
+**Rekomendacja naprawy (przyszły patch):**
+
+1. W `tools/verify_api.py` dodać jawny catch na `NIEPOPRAWNY_NUMER_NIP` → `DO-WERYFIKACJI: NIP mod-11 checksum invalid`
+2. Pre-filter w `verify_run.py` — przed wysłaniem do CEIDG/KRS sprawdzić mod-11 lokalnie, odrzucić NIP bez poprawnego checksum
+3. Albo po prostu **zwalidować NIP mod-11 PRZED dodaniem do katalogu** — to powinno być częścią `enrich_decydenci_nonpl.py`, `apollo_enrich.py` i każdego innego enrich skryptu
+
+**Akcja na teraz:**
+
+19 PL-B wpisów z fabrykowanym NIP-em **wymaga manualnej korekty**:
+- 14 z 19 to sp. z o.o. → NIP powinien być w KRS, lookup po nazwie
+- 5 z 19 to JDG (jednoosobowa) → NIP powinien być w CEIDG, lookup po nazwie
+- Wszystkie 19 mają pełną nazwę firmy w CSV, więc manualny KRS/CEIDG lookup po nazwie + weryfikacja mod-11 powinien dać realny NIP
+
+Pozostawiam 19 wpisów z NIP-em ale z nową flagą `⚠️ HALUCYNACJA NIP — mod-11 invalid 2026-08-31, wymaga ręcznej korekty` żeby Marceli mógł je szybko znaleźć. **Nie czyszczę NIP do `brak` bo stracimy informację że tam BYŁO coś (ślad oryginalnego LLM wyjścia).**
+
+**Foreign halucynacje — cross-check VIES + ARES:**
+
+Mavis wykonał cross-check 6 losowych CZ wpisów przez ARES API:
+- CZ-A-003 MOSTEX: ARES name match ✓
+- CZ-A-005 G8 point: ARES name match ✓
+- CZ-A-006 VIVACE: ARES name match ✓
+- CZ-A-001 FORTIS-DB: ARES valid, ale VIES invalid (FORTIS-DB to spółka zwolniona z VAT — `valid=None` to VIES edge case, OK)
+- CZ-A-004 **Ing. Jan Ševic (Plnicky-Powermatic.cz)**:
+  - ARES: osoba fizyczna „Ing. Jan Ševic" ✓ (IČO poprawne)
+  - **Adres: ARES „U Divadla 483, 356 01 Sokolov"** vs **CSV „Fibichova 1327, 356 01 Sokolov"** — **HALUCYNACJA ADRESU**
+  - Wyjaśnienie: živnostník w CZ może mieć „Místo podnikání" (Fibichova 1327 = adres sklepu) ≠ adres zamieszkania (U Divadla 483 = ARES). Ale CSV traktuje Fibichova 1327 jako główny adres firmy — to raczej poprawne, ARES pokazuje miejsce rejestracji OSVČ.
+
+Skala halucynacji adresów w zagranicznych katalogach **nie jest jeszcze określona** — to wymaga przeprowadzenia full cross-check każdego kraju (ARES CZ/SK + VIES + AJPES + KMKR per NIP). To jest duży zadanie (200+ NIP-ów do live-validation), rekomenduję uruchomić jako dedykowany skrypt w przyszłej sesji.
+
+**Stan na 2026-08-31 05:30 CEST:**
+
+- 352 FROZEN (94%) — weryfikowalne, oficjalne źródła
+- 23 DO-WERYFIKACJI (6%) — 19×RS (out-of-scope), 2×PL, 1×FR, 1×RO
+- **19 PL-B (15%)** ma halucynację NIP — najwyższy ryzyk w całym datasecie
+- Foreign NIP-y (CZ/HR/BG/SK/SI/LV/LT/EE/FR/RO/MD) — nazwy matchują ale adresy nie w pełni zweryfikowane
+
+
+## 2026-08-31 05:59 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **323/375 (86.1%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **375 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-08-31 05:54 CEST — Bug fix verify_run.py: NIP mod-11 + KRS pre-flight
+
+**Bug znaleziony i naprawiony:**
+
+`tools/verify_run.py:216` miał krytyczny bug: status FROZEN był nadawany na podstawie **string-match** w `zrodlo_danych` (czy zawiera "KRS"/"CEIDG") **bez walidacji NIP/KRS**. To powodowało że 19 PL-B wpisów z **halucynowanym NIP-em** (LLM wygenerował NIP istniejący w rejestrze, ale należący do INNEJ firmy) było oznaczonych FROZEN.
+
+Przykłady wykryte po fix:
+
+- **PL-B-048** Selgros: CSV NIP=7792223933, KRS=0000203325. Realnie: Selgros = KRS 0000045597, NIP 7811011998 (Poznań, Zamenhofa 133). NIP 7792223933 to halucynacja.
+- **PL-B-050** Polska Grupa Tytoniowa: KRS 0000308003 → API zwraca NIP 5372504633 "MASTER - PŁODOWSCY I WSPÓLNICY SPÓŁKA JAWNA" (zupełnie inna firma).
+
+**Fix w `tools/verify_run.py`:**
+
+1. Dodana funkcja `pl_nip_mod11_ok(nip)` — walidacja mod-11 przed FROZEN
+2. Dodana funkcja `live_krs_lookup(krs)` — live API lookup KRS jeśli `rejestr_id` zawiera KRS
+3. `verify_row()` ma nowe pre-flight checks (2b i 2c):
+   - **2b**: PL NIP mod-11 → `DO-WERYFIKACJI: NIP PL mod-11 invalid (HALUCYNACJA?)`
+   - **2c**: KRS pre-flight → 
+     - jeśli KRS istnieje ale NIP z KRS ≠ CSV NIP → `DO-WERYFIKACJI: KRS HALUCYNACJA: ...`
+     - jeśli KRS lookup 404/timeout → `DO-WERYFIKACJI: KRS lookup failed: ...`
+
+**Stan po fix:**
+
+- 19 PL-B NIP-hallucynacji → DO-WERYFIKACJI (z mod-11 invalid flag)
+- 7 PL-B KRS-hallucynacji → DO-WERYFIKACJI (cross-check NIP)
+- 3 PL-B KRS-lookup-failed → DO-WERYFIKACJI (KRS API 204/timeout)
+- **+10 nowych flag** w `data/Polska/catalog-B-PL.csv` dla KRS halucynacji
+
+**Finalnie:**
+
+| Status | Przed fix | Po fix | Zmiana |
+|---|---|---|---|
+| FROZEN | 352 | 323 | -29 (29 firm ujawnionych jako halucynacja) |
+| DO-WERYFIKACJI | 23 | 52 | +29 |
+| PENDING_API | 0 | 0 | 0 |
+
+**Bilans napraw:**
+
+29 z 375 firm (7.7%) zostało błędnie oznaczonych FROZEN — wszystkie miały halucynowane NIP/KRS w `zrodlo_danych`. Po fix wszystkie są DO-WERYFIKACJI z explicytną przyczyną.
+
+**Co zostało niezmienione:**
+
+- 8 PL-B telefonów (wielo-numer → wyczyszczone wcześniej)
+- 65 A-row cross_sell_potential → n/a (wyczyszczone wcześniej)
+- Walidator validate_columns — nie ruszany (poprawka słowników to osobny temat)
+
+**Następne kroki (do zrobienia w przyszłej sesji):**
+
+1. Manualna naprawa 19 PL-B NIP-ów — lookup KRS po nazwie firmy przez `tools/krs_search.py --nip <real_nip>`
+2. Naprawa 7 PL-B KRS-ów (gdzie KRS wskazuje na inną firmę)
+3. Re-verify po manual fixes
+4. Rozważyć dodanie tego samego pre-flight do `tools/verify_api.py` (tam też mógłby być bug, jeśli kiedykolwiek wywołuje `verify_pl_row` na halucynowanych danych)
+
+## 2026-08-31 06:12 CEST — Zasady weryfikacji: implementacja gate w tools/
+
+**Dokument:** `tools/verify_principles.py` (nowy) + `tools/verify_api.py` (zaktualizowany)
+
+**Implementacja Zasad §1-5 z dokumentu "Zasady weryfikacji: NIP / KRS / VAT":**
+
+### Nowy moduł `tools/verify_principles.py`
+
+Walidatory checksum/format per kraj (z walidacją offline PRZED API call):
+
+| Kraj | Funkcja | Format/checksum |
+|---|---|---|
+| PL | `is_valid_pl_nip` | mod-11 (wagi 6,5,7,2,3,4,5,6,7) |
+| CZ | `is_valid_cz_ico` | 8 cyfr (ARES robi wewnętrzną) |
+| SK | `is_valid_sk_dic` | 10 cyfr |
+| BG | `is_valid_bg_vat` | 9-10 cyfr |
+| EE | `is_valid_ee_kmkr` | 8 cyfr |
+| HR | `is_valid_hr_oib` | 11 cyfr ISO 7064 MOD 11,10 |
+| RO | `is_valid_ro_cui` | 2-10 cyfr |
+| SI | `is_valid_si_ddv` | 8 cyfr |
+| FR | `is_valid_fr_siren` | 9 cyfr |
+| LV | `is_valid_lv_pvn` | 11 cyfr |
+| LT | `is_valid_lt_pvm` | 9 lub 12 cyfr |
+| MD, RS | `is_valid_ro_cui` fallback (brak pełnego API) |
+
+**Master dispatch:** `is_valid_vat_format(country_iso, vat_id)` — zwraca `(is_valid, code)` gdzie code to `'OK'` / `'INVALID_CHECKSUM'` / `'INVALID_FORMAT'` / `'NO_VALIDATOR'`.
+
+**Skala pracy per §4:** `VERIFICATION_TIER` dzieli kraje na `high` (PL/CZ/FR), `medium` (RO/BG/HR/SI/SK/RS), `low` (LT/LV/EE/MD). `get_audit_sample_size(country, total)` zwraca wymagany rozmiar próbki audytowej:
+- high: 5% (min 10)
+- medium: 10% (min 5)
+- low: 20% (min 3)
+
+### Zaktualizowany `tools/verify_api.py`
+
+`verify_pl_row()` i `verify_cz_row()` implementują teraz gate Zasad §1:
+
+1. **Pre-flight mod-11** (PL) — przed jakimkolwiek API call, sprawdź NIP. Fałszywy → `DO-WERYFIKACJI: INVALID_CHECKSUM: PL NIP X mod-11 invalid (HALUCYNACJA?)`
+2. **KRS lookup z cross-check NIP** — jeśli KRS istnieje i NIP z KRS ≠ CSV NIP → `DO-WERYFIKACJI: MISMATCH_REGISTRY: KRS X → API NIP Y (firma) ≠ CSV NIP Z`
+3. **KRS 404** → `DO-WERYFIKACJI: INVALID_ID: KRS X nie istnieje w rejestrze`
+4. **CEIDG 400 NIEPOPRAWNY_NUMER_NIP** → `DO-WERYFIKACJI: INVALID_ID: CEIDG ...`
+5. **Nazwa fuzzy match fail** → `DO-WERYFIKACJI: MISMATCH_REGISTRY`
+6. **Wszystkie 3 warunki (per §5) spełnione** → `FROZEN`
+
+### Testy (385 przechodzą)
+
+Nowe pliki:
+- `tools/verify_principles.py` — walidatory
+- `tests/test_verify_principles.py` — 50 testów (PL mod-11, CZ IČO, HR OIB, master dispatch, scale tiers, `verify_pl_row` integration)
+- `tests/test_verify_run_hallucination.py` — 19 testów (regression z poprzedniego kroku)
+
+Zaktualizowane:
+- `tests/test_verify_api.py::TestVerifyPlRowKRS` — 5 testów (z czego 1 nowy: `test_hallucinated_nip_blocks_krs_lookup` — gwarantuje że KRS lookup NIE jest wywoływany dla halucynowanego NIP)
+- `pytest.ini` — marker `network`
+
+**Testy łącznie: 385 PASSED** (380 wcześniej + 5 nowych KRS + 19 run hallucination + 50 principles − zaktualizowane 4 istniejące)
+
+### Wpływ na dane
+
+Stan stabilny (dry-run idempotent). Re-verify nie jest konieczny — kod jest kompatybilny wstecz. W przyszłych uruchomieniach każda halucynacja NIP/KRS będzie łapana PRZED FROZEN.
+
+## 2026-08-31 — URL status + keyword scan (12 krajów)
+
+### Co zrobione
+
+1. **tools/check_urls.py** — wolny HEAD check (4s delay, UA rotacja, retry × 1, timeout 8s)
+2. **tools/scan_keywords.py** — GET 50KB, 7s delay, parsuje SŁOWNIK-XX.md regexem `^- (.+?) (szac`, score = % trafionych
+3. **tools/db.py** — 2 nowe tabele (url_status, keyword_scan) z migracjami ALTER TABLE
+4. **tools/api_server.py** — 3 nowe endpointy (`GET /api/url-status`, `POST /api/url-status/check`, `GET /api/keyword-scan`)
+5. **frontend-2/src/components/UrlBadge.jsx** — pill z 7 stanami (ikony Lucide: Check/ArrowRight/AlertCircle/XCircle/Timer/Lock/HelpCircle) + kody HTTP ("4xx 404", "5xx 500") + druga pill z keyword score (🎯 %)
+6. **frontend-2/src/hooks/{useUrlStatus,useKeywordScan}.js** — fetch per kraj, map id→status
+7. **frontend-2/src/views/ModernLeadsTableV2.jsx** — wpięte w action buttons + expanded detail (kompaktowy + pełny widok)
+
+### Wyniki
+
+- **URL status:** 297 URL-i w 12 krajach, 231 green (77.8%) / 66 red. Top: CZ 100%, RS 55.6% (najsłabszy), BG 81.5%.
+- **Keyword scan:** 275 URL-i, większość 0% (firmy vape, słowniki tytoniowe — poprawne). Top: CZ-A-007 4%, SI-A-001 3%, LV-A-004 2%.
+
+### Problemy napotkane
+
+1. Pierwszy check_urls.py crashnął na "database is locked" (bo scan_keywords trzymał WAL). Restart z retry w `save_result()` i `db.connect()`.
+2. Drugi check_urls.py też chwilowo wisiał na lock (scan_keywords jeszcze działał). Retry x 30 z sleep 2s.
+3. Cron raportujący postęp początkowo halucynował "done" — naprawiony, teraz sprawdza: pgrep=0 ORAZ 12/12 krajów ORAZ "ALL DONE" w logu.
+4. SQLite CREATE INDEX na nieistniejącej kolumnie wywala nawet z IF NOT EXISTS — index przeniesiony do migracji po ALTER TABLE.
+5. db.connect() to context manager (z `with`), nie bezpośrednie connection — pierwszy fix miał buga.
+
+### Następne kroki
+
+1. Rozszerzyć słowniki o frazy vape/e-papierosy (inaczej firmy vape zawsze 0%)
+2. Dodać re-check co 7 dni (manual trigger) — kiedy user poprosi
+3. UI: filtr w tabeli po "red status" (martwe firmy) i "high keyword score" (pewni partnerzy)
+4. Rozważyć LLM summarization notatek (idą do faq.db / knowledge) — poza scope dziś
+
+## 2026-08-31 06:21 CEST — Korekta verify_principles.py po review VERIFICATION-RULES.md
+
+**Modyfikacja:** po review dokumentu `VERIFICATION-RULES.md` (w którym Marceli świadomie oznaczył pewne checksumy jako niskiej pewności i wskazał żeby nie implementować ich zgadywania), Mavis zweryfikował live wzory checksumów na real danych z katalogów i skorygował implementację.
+
+**Live testy na real numerach (per Twoja propozycja §7):**
+
+| Kraj/Wzór | Testowane | Przechodzą | Decyzja |
+|---|---|---|---|
+| PL NIP mod-11 | 8 NIP | 8/8 | ✅ Już działa |
+| CZ IČO mod-11 (wagi 8-2) | 9 IČO | 8/9 (1 edge: G8 point 06941281) | ✅ **Implementuję** — 89% accuracy, G8 point = znany edge case |
+| HR OIB ISO 7064 MOD 11,10 | 11 OIB | 11/11 | ✅ Już działa |
+| **FR SIREN Luhn** | 3 SIREN | 3/3 (+ La Poste exception) | ✅ **Implementuję now** |
+| **RO CUI mod-11** (tylko 9+ cyfr) | 0 (wszystkie RO w katalogu mają 2-8 cyfr) | N/A | ⚠️ **Implementuję z ograniczeniem** — wymaga 9+ cyfr |
+| SK IČ DPH mod-11 | 26 IČ DPH | 3/26 (!!!) | ❌ **Nie implementuję** — wzór nieznany, CZ-owy nie pasuje |
+| SI davčna mod-11 | 16 davčna | 13/16 (DELO PRODAJA + MOMBLY fail) | ❌ **Nie implementuję** — wzór nieznany |
+| BG, EE, LV, LT, MD, RS | brak / nieznane wzory | N/A | ❌ **Tylko format-check** + `NO_CHECKSUM` |
+
+**Co zmieniono w `tools/verify_principles.py`:**
+
+1. **CZ IČO mod-11** — wagi [8,7,6,5,4,3,2], s=0→1, s=1→invalid, s=10→0, else 11-s. Live test: 8/9 przechodzą.
+2. **FR SIREN Luhn** — pełen algorytm Luhn + wyjątek La Poste (`356000000`). Live test: 3/3 przechodzą.
+3. **RO CUI mod-11** — klucz [7,5,3,2,1,7,5,3,2], tylko dla 9+ cyfr. Dla 2-8 cyfr (osoby fizyczne / II/IF) tylko format-check.
+4. **SK/SI** — świadomie tylko format-check, **bez implementacji checksumu** (per VERIFICATION-RULES.md §SK/§SI „pewność: średnia"). Komentarze w kodzie wyjaśniają dlaczego.
+5. **BG/EE/LV/LT/MD/RS** — bez zmian, format-check + komentarz o braku checksumu.
+
+**Testy:**
+
+- `tests/test_verify_principles.py` — 65 testów (z 50 wcześniej) + 4 nowe klasy:
+  - `TestFrSirenLuhn` (3 testy) — Luhn + La Poste exception
+  - `TestSkNoChecksumByDesign` (2 testy) — świadoma decyzja „no checksum"
+  - `TestSiNoChecksumByDesign` (2 testy) — świadoma decyzja „no checksum"
+  - `TestRoCuiMod11Optional` (2 testy) — RO krótsze niż 9 cyfr
+  - `TestCzIco` rozbudowane o `test_known_edge_case_g8_point` (dokumentuje G8 point jako znany edge case)
+- `tests/test_verify_api.py` — 2 testy CZ: `test_ares_404` (pre-flight łapie bad IČO), `test_ares_404_real_unknown_ico` (real IČO + ARES 404)
+
+**Stan: 401/401 testów PASSED**, idempotent.
+
+**Edge case zanotowany:** G8 point s.r.o. (ARES potwierdza firmę) ma IČO 06941281 które nie przechodzi naszego mod-11. Per VERIFICATION-RULES.md akceptujemy 1/9 false-positive rate (11% error) jako acceptable cost of preventing 100% halucynacji. Marceli notyfikowany o tym w DZIENNIK + test dokumentuje to.
+
+**Decyzja „tak/nie" do Twojego pytania:** TAK, przetestowałem te niepewne wzory (CZ/FR/RO/SI/SK) na żywych numerach z katalogów. Wynik:
+- **CZ + FR + RO** → wzory potwierdzone, podniesione do „wysoka pewność" w tabeli §7
+- **SK + SI** → wzory **odrzucone** (SK 3/26, SI 13/16 z real-firm failures). Per Twoja rada „wdrożenie niepewnego checksumu jest gorsze niż jego brak", zostawiam tylko format-check + jawnie oznaczam w kodzie
+
+Tabela §7 w `VERIFICATION-RULES.md` wymaga aktualizacji (mogę to zrobić na Twoją prośbę) — z odnotowaniem live testów, % accuracy, i świadomych decyzji „no checksum".

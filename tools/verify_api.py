@@ -184,7 +184,20 @@ def ceidg_lookup(nip: str, token: str) -> dict | None:
             "pkd": "",
         }
     except urllib.error.HTTPError as e:
-        return {"error": f"HTTP {e.code}: {e.reason}"}
+        # Try to read CEIDG error body for actionable message (BUG FIX 2026-08-31)
+        try:
+            err_body = e.read().decode("utf-8", errors="replace")
+            try:
+                err_json = json.loads(err_body)
+                err_code = err_json.get("code", "")
+                err_msg = err_json.get("message", err_body[:100])
+                if err_code == "NIEPOPRAWNY_NUMER_NIP":
+                    return {"error": f"CEIDG: NIP mod-11 invalid (HALUCYNACJA?): {nip}"}
+                return {"error": f"CEIDG {e.code} [{err_code}]: {err_msg}"}
+            except json.JSONDecodeError:
+                return {"error": f"CEIDG HTTP {e.code}: {e.reason} (body: {err_body[:80]})"}
+        except Exception:
+            return {"error": f"CEIDG HTTP {e.code}: {e.reason}"}
     except Exception as e:
         return {"error": f"Request failed: {e}"}
 
@@ -400,35 +413,77 @@ def name_similarity(csv_name: str, api_name: str) -> tuple[bool, float, str]:
 
 
 def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
-    """Verify PL row via KRS (for sp. z o.o.) or CEIDG (for JDG)."""
+    """Verify PL row per Zasady §1: kolejność = checksum → API → fuzzy match → FROZEN.
+
+    Bug fix 2026-08-31: previously, this function trusted CSV NIP without
+    mod-11 checksum and trusted rejestr_id KRS without live API cross-check.
+    Now we follow the documented order strictly:
+      1. PL NIP mod-11 (offline, before any API)
+      2. KRS live lookup if rejestr_id has KRS — cross-check NIP
+      3. CEIDG lookup for JDG/sp. cywilne
+      4. Fuzzy match NIP + name
+      5. FROZEN only if all 3 conditions met (per §5)
+    """
+    from verify_principles import is_valid_pl_nip, INVALID_CHECKSUM, INVALID_ID, MISMATCH_REGISTRY, FROZEN
+
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
+    csv_nazwa_raw = row.get("nazwa_firmy", "")
 
-    # Try KRS first if rejestr_id contains KRS number
+    # === Pre-flight 1: PL NIP mod-11 (offline, before any API call) ===
+    # Per §1.1 — checksum fail means guaranteed hallucination. Don't even
+    # call KRS/CEIDG; flag INVALID_CHECKSUM immediately.
+    nip_digits = re.sub(r"\D", "", nip)
+    if nip_digits:
+        valid, code = is_valid_pl_nip(nip)
+        if not valid and code == INVALID_CHECKSUM:
+            return "DO-WERYFIKACJI", f"{INVALID_CHECKSUM}: PL NIP {nip_digits} mod-11 invalid (HALUCYNACJA?)"
+        if not valid and code == "INVALID_FORMAT":
+            return "DO-WERYFIKACJI", f"{INVALID_ID}: PL NIP {nip} format invalid"
+
+    # === Pre-flight 2: KRS lookup (if rejestr_id has KRS) ===
     krs_match = re.search(r"KRS\s*(\d+)", rejestr, re.IGNORECASE)
     if krs_match:
         krs = krs_match.group(1)
         result = krs_lookup(krs)
         if result and "error" not in result:
-            csv_nazwa = row.get("nazwa_firmy", "")
-            api_nazwa = result.get("nazwa", "")
-            ok, score, reason = name_similarity(csv_nazwa, api_nazwa)
+            # KRS exists. Now cross-check NIP from KRS vs CSV NIP.
+            krs_nip = re.sub(r"\D", "", result.get("nip", ""))
+            if krs_nip and nip_digits and krs_nip != nip_digits:
+                return "DO-WERYFIKACJI", (
+                    f"{MISMATCH_REGISTRY}: KRS {krs} → API NIP {krs_nip} "
+                    f"({result.get('nazwa','')[:30]}) ≠ CSV NIP {nip_digits} "
+                    f"({csv_nazwa_raw[:30]})"
+                )
+            # Cross-check name (KRS nazwa vs CSV)
+            ok, score, reason = name_similarity(csv_nazwa_raw, result.get("nazwa", ""))
             if not ok:
-                return "DO-WERYFIKACJI", f"KRS: nazwa mismatch ({reason})"
-            return "FROZEN", f"KRS live: {api_nazwa[:40]} (REGON {result.get('regon', '')}, jaccard={score:.2f})"
+                return "DO-WERYFIKACJI", f"{MISMATCH_REGISTRY}: KRS nazwa mismatch ({reason})"
+            # All 3 conditions met (per §5)
+            return FROZEN, f"KRS live: {result.get('nazwa', '')[:40]} (REGON {result.get('regon', '')}, jaccard={score:.2f})"
         else:
             err = result.get("error", "brak") if result else "brak"
-            return "DO-WERYFIKACJI", f"KRS({krs}): {err}"
+            # Per §1.3: KRS 404 = INVALID_ID (not "brak danych")
+            if "404" in err or "nie znaleziono" in err:
+                return "DO-WERYFIKACJI", f"{INVALID_ID}: KRS {krs} nie istnieje w rejestrze"
+            return "DO-WERYFIKACJI", f"DO-WERYFIKACJI: KRS({krs}): {err}"
 
-    # Fall back to CEIDG (for JDG / sole proprietors)
+    # === Fall back to CEIDG (for JDG / sole proprietors) ===
     if not nip:
         return "DO-WERYFIKACJI", "Brak nip_vat i brak KRS"
     result = ceidg_lookup(nip, token)
     if not result or "error" in result:
-        return "DO-WERYFIKACJI", f"CEIDG: {result.get('error', 'brak') if result else 'brak'}"
+        err = result.get("error", "brak") if result else "brak"
+        # Per §1.2: CEIDG 400 NIEPOPRAWNY_NUMER_NIP = INVALID_ID
+        if "NIEPOPRAWNY" in err or "mod-11 invalid" in err or "400" in err:
+            return "DO-WERYFIKACJI", f"{INVALID_ID}: CEIDG {err}"
+        # CEIDG timeout / 401 = PENDING_API (we'll retry)
+        if "401" in err or "Request failed" in err:
+            return PENDING_API, f"CEIDG: {err}"
+        return "DO-WERYFIKACJI", f"CEIDG: {err}"
 
     # CEIDG returns "imie nazwisko" for JDG — looser check: at least one key token from CSV must appear in API
-    csv_nazwa = normalize(row.get("nazwa_firmy", ""))
+    csv_nazwa = normalize(csv_nazwa_raw)
     api_nazwa = normalize(result.get("nazwa", ""))
     if csv_nazwa and api_nazwa:
         csv_tokens = set(csv_nazwa.split())
@@ -444,28 +499,40 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
         if not nip_ok:
             # Fall back to token check
             if not csv_tokens or not (csv_tokens & api_tokens):
-                return "DO-WERYFIKACJI", f"CEIDG: ani NIP ani nazwa nie pasują (CSV='{csv_nazwa[:30]}' API='{api_nazwa[:30]}')"
+                return "DO-WERYFIKACJI", f"{MISMATCH_REGISTRY}: CEIDG ani NIP ani nazwa nie pasują (CSV='{csv_nazwa[:30]}' API='{api_nazwa[:30]}')"
 
-    return "FROZEN", f"CEIDG live: {result.get('nazwa', '')[:40]} (REGON {result.get('regon', '')})"
+    return FROZEN, f"CEIDG live: {result.get('nazwa', '')[:40]} (REGON {result.get('regon', '')})"
 
 
 def verify_cz_row(row: dict) -> tuple[str, str]:
-    """Verify CZ row via ARES. Falls back to name search if IČO missing."""
+    """Verify CZ row via ARES. Falls back to name search if IČO missing.
+    Per Zasady: format -> API -> fuzzy match -> FROZEN.
+    """
+    from verify_principles import is_valid_cz_ico, MISMATCH_REGISTRY, FROZEN
+
     nip = (row.get("nip_vat") or "").strip()
-    # If IČO missing or "do weryfikacji" — try name search
+    # If IČO missing or "do weryfikacji" - try name search
     if not nip or nip in ("do weryfikacji", "brak", "brak danych"):
         return ares_enrich(row)
-    result = ares_lookup(nip)
+
+    # Pre-flight: CZ IČO = 8 cyfr (no public checksum; ARES does internal validation)
+    ico = re.sub(r"\D", "", nip)
+    valid, code = is_valid_cz_ico(ico)
+    if not valid:
+        return "DO-WERYFIKACJI", f"INVALID_ID: CZ IČO {nip} format invalid"
+
+    result = ares_lookup(ico)
     if not result or "error" in result:
-        return "DO-WERYFIKACJI", f"ARES: {result.get('error', 'brak') if result else 'brak'}"
+        err = result.get("error", "brak") if result else "brak"
+        return "DO-WERYFIKACJI", f"ARES: {err}"
 
     csv_nazwa = row.get("nazwa_firmy", "")
     api_nazwa = result.get("nazwa", "")
     ok, score, reason = name_similarity(csv_nazwa, api_nazwa)
     if not ok:
-        return "DO-WERYFIKACJI", f"ARES: nazwa mismatch ({reason})"
+        return "DO-WERYFIKACJI", f"{MISMATCH_REGISTRY}: ARES nazwa mismatch ({reason})"
 
-    return "FROZEN", f"ARES live: {result.get('nazwa', '')[:40]} (od {result.get('datum_vzniku', '?')})"
+    return FROZEN, f"ARES live: {api_nazwa[:40]} (od {result.get('datum_vzniku', '?')})"
 
 
 def verify_vies_row(row: dict) -> tuple[str, str]:
