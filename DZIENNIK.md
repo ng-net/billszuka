@@ -991,3 +991,46 @@ Recommended path forward (in order of preference):
 Local servers still up: Vite 3001 (200), API 8000 (200). Working tree
 clean. Last commit: da31c7e2 docs(dziennik): confirmed exactly one
 CF Access policy protects billszuka.pages.dev.
+
+### 2026-08-31 22:06 — Access removed ✓, new issue: missing alias
+
+After Marcel's "deleted" confirmation, the Cloudflare Access gate is
+GONE. The 302 → winter-poetry-64f2.cloudflareaccess.com redirect is no
+longer happening. The new behavior is:
+
+  billszuka.pages.dev/  →  HTTP 403, error code: 1050
+  33101835.billszuka.pages.dev/  →  HTTP 403, error code: 1050
+
+This is a different layer of protection (Cloudflare Pages deployment
+visibility), not Access. The deployment 33101835 was successfully built
+and deployed (all stages: queued/initialize/clone_repo/build/deploy
+= success) but its `aliases` field is `None` — meaning it is not
+aliased to billszuka.pages.dev.
+
+Root cause hypothesis: when the Access app was deleted, Cloudflare
+cleaned up the canonical deployment alias, but the next deploy
+(33101835, triggered by my docs commit 3834f47) was created without
+the alias reattached. This looks like a Cloudflare Pages bug after
+Access deletion.
+
+**API attempts to fix (all failed):**
+- POST /pages/deployments/{id}/alias/production → 1000 not_found
+- POST /pages/deployments/{id}/promote, /alias, /set-production,
+  /make-production → all returned success=None (route doesn't exist)
+- POST /pages/projects/{name}/deployments/{id}/promote-deployment,
+  /set-alias, /publish → all returned success=None
+- wrangler pages deployment: only supports list, create, tail
+  (no promote / set-alias subcommand)
+
+**Recommended manual fix in dashboard:**
+1. Open: https://dash.cloudflare.com/52505259672e16ed6e51962e3603c4/pages/view/billszuka/33101835-78fd-48ee-ac38-29d45115a651
+2. Look for a "Promote to production" or "Set as production deployment"
+   button on the deployment page
+3. Click it. This should re-attach the billszuka.pages.dev alias to
+   deployment 33101835 and the gate-free version will become live at
+   https://billszuka.pages.dev/
+
+**Alternative:** push a small empty commit to main (e.g.
+`git commit --allow-empty -m "trigger redeploy" && git push`). The
+resulting new deployment should auto-alias to billszuka.pages.dev.
+
