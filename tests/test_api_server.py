@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import io
+import os
 import sys
 from pathlib import Path
 
@@ -104,6 +105,10 @@ def test_read_env_keys_prefers_runtime_env(monkeypatch, tmp_path):
         encoding="utf-8",
     )
     monkeypatch.setattr(api_server, "ROOT", tmp_path)
+    # Scrub any pre-existing keys so only the test-controlled ones are seen.
+    for k in list(os.environ):
+        if k.startswith("GEMINI_API_KEY_") or k == "OPENROUTER_API_KEY":
+            monkeypatch.delenv(k)
     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-prod")
     monkeypatch.setenv("GEMINI_API_KEY_1", "AIza-prod")
 
