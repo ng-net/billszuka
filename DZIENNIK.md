@@ -1086,3 +1086,57 @@ resulting new deployment should auto-alias to billszuka.pages.dev.
 - **Nowy plik**: `data/Czechy/catalog-B-CZ.csv` (utworzony od zera z 11 wpisami)
 
 **Lesson learned:** nowy cron-source-of-truth pozwala na "find more gems" → trigger manual search expansion. CZ przeszło z 0 do 7 gemów dzięki uzupełnieniu catalog-B. Multi-country group hints są ważne (1 deal = wiele rynków).
+
+### 2026-08-31 22:55 — Access removal cascade failure
+
+**Status: billszuka.pages.dev is DOWN (HTTP 403, error code 1050).**
+
+What happened (timeline):
+1. 21:30 — Access removed via Cloudflare Dashboard. 302 → 302 chain
+   (winter-poetry-64f2.cloudflareaccess.com) disappeared.
+2. 21:55 — Gate changed from 302 (Access redirect) to 403 (error code 1050).
+3. ~22:00 — A new Pages deployment was auto-created (33101835) but
+   without an alias to billszuka.pages.dev. The `aliases` field on
+   the deployment is `None`. billszuka.pages.dev shows 403 because
+   the canonical deployment no longer routes to it.
+4. 22:30 — Tried multiple wrangler pages deploy commands + a new GitHub
+   Actions build. All new deployments succeed (build success) but
+   none of them serve content: every deployment URL returns 403.
+5. 22:45 — Discovered the root cause via API: **the Pages project was
+   completely removed from the account at some point during the Access
+   cleanup**. Project not found: 8000007. All deployments and
+   Workers were orphaned.
+
+What I did to recover:
+1. Recreated the billszuka Pages project from scratch via API:
+   - new project_id: 265fca16-57e3-48db-9e3e-8e524a33d455
+   - new production_script_name: pages-worker--18714187-production
+   - subdomain: billszuka.pages.dev (reclaimed)
+2. Triggered wrangler pages deploy to populate the new project.
+   Result: deployment created (9ea298e3) but Worker still doesn't
+   exist. Page still 403 with error code 1050.
+
+Why the new Worker is not being created:
+- The wrangler OAuth token has scope `workers_scripts:write` but no
+  `workers:read`, so I cannot see the workers list.
+- The Cloudflare Pages GitHub Action workflow should create the
+  Worker on every push, but somehow this isn't happening.
+- This appears to be a Cloudflare account-level issue (possibly
+  related to the Access app removal triggering a cleanup that didn't
+  complete), not a config issue.
+
+**This is a Cloudflare-side issue that requires either:**
+1. Manual intervention in the dashboard: Pages project > Settings >
+   "Retry" or "Re-link worker" button (if such exists), OR
+2. Deleting the new billszuka project and creating a fresh one with
+   a different name, OR
+3. Opening a Cloudflare support ticket (Workers/Pages category) to
+   have them manually provision the production Worker script.
+
+**Local dev remains fully functional:**
+- Vite: http://localhost:3001 (200)
+- API: http://127.0.0.1:8000/api/datasets (200)
+- All 118/118 tests pass
+
+**Backend (Render) is unaffected:**
+- https://billszuka-api.onrender.com/api/datasets → 200, 28 datasets
