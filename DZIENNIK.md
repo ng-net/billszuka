@@ -27,6 +27,26 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-08-31 — Naprawa retencji stanu tabeli przy odświeżeniu (F5 / Page Reload) i commit do Git
+
+- **Diagnoza przyczyn resetowania widoku tabeli po odświeżeniu strony:**
+  1. `ModernLeadsTable` i `ModernLeadsTableV2` zamrażały pusty stan w `useState(() => leadsProp || generateLeads(50))` podczas inicjalizacji komponentu przy statusie `idle`/`loading` (pusta tablica `[]` blokowała reaktywne zasilenie danymi z `useCsv`).
+  2. `RawTable` po natychmiastowym odtworzeniu `master.csv` z cache IndexedDB niepotrzebnie resetował status do `loading` z 500 ms sztucznym opóźnieniem `minLoadingMs`, odmontowując tabelę i niszcząc stan przewijania oraz fokus.
+  3. Filtry i sortowanie (`filters`, `sortStack`, `columnOrder`) podczas pierwszego ticku renderowania (gdy `csv.columns` było jeszcze puste) były czyszczone do `{}` i nadpisywały `localStorage`.
+  4. W `ExperimentView` podzakładka eksperymentu (`activeExperiment`) nie była utrwalana w pamięci podręcznej i zawsze wracała do wariantu progresywnego.
+- **Wdrożone poprawki (`frontend-2`):**
+  - **Reaktywność leadów:** Zastąpiono `useState` przez `useMemo` bazujące na `leadsProp` w `ModernLeadsTable.jsx` i `ModernLeadsTableV2.jsx`.
+  - **Stale-While-Revalidate w `useCsv.js` i `RawTable.jsx`:** Dodano obsługę cichego przeładowania w tle (`{ background: hasCache }`), dzięki czemu odświeżenie strony natychmiast pokazuje dane z pamięci podręcznej bez migotania i odmontowywania tabeli.
+  - **Zabezpieczenie filtrów:** Zachowanie filtrów i stosu sortowania podczas inicjalizacji schematu kolumn.
+  - **Utrwalenie podzakładek:** `activeExperiment` zapisywany do `localStorage` (`czat-table.activeExperiment`).
+- **Walidacja i Git:**
+  - Testy komponentów JSX: **48/48 PASS** (`node scripts/test-jsx.mjs`).
+  - Pakiet testów Python: **460/460 PASS** (`pytest`).
+  - Raport walidacji kolumn: **0 Criticals** (`validate_columns.py`).
+  - Zmiany zatwierdzone i wypchnięte do zdalnego repozytorium GitHub (`github.com/ng-net/billszuka` branch `main`).
+
+---
+
 ## 2026-08-31 — Refaktoryzacja i utwardzenie skryptów narzędziowych (purge & orchestrate)
 
 - **Utwardzenie `tools/purge_hallucinations_and_normalize.py`:**
