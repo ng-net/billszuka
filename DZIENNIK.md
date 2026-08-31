@@ -1191,3 +1191,11 @@ Why the new Worker is not being created:
   - Jeśli user chce usunąć też tam — daj znać, łatwe do zrobienia.
 
 **Pliki do commit:** 27 tracked (głównie CSVs z polskimi nazwami w ścieżkach + frontend/src + 1 test).
+
+## 2026-09-01 ~01:30 — Manual search tick #4 (session mvs_a1ccebf385...)
+- 132 gems (was 130). 2 new catalog-B entries: M+M Tabak (SK), Tobačna Grosist (SI).
+- Tobačna Grosist (SI, 10 pts): SI #1 distributor, 3000+ retail points, founded 1991, sister to TOBAČNA 3DVA already in catalog. powinowactwo 5.
+- M+M Tabak (SK, 5 pts): major Slovak distributor with rolling machines, bonded warehouse, IČO 35972408, VAT SK2022104348.
+- CZ catalog-B file mysteriously disappearing multiple times (race condition with find_gems.py?). Restored via `git checkout HEAD --`. Not yet root-caused.
+- Skip: Lancoster OÜ (EE — food wholesale, not tobacco), RYO Paper & Tobacco (EE — B2C retailer), Rauchersortiment (SK — related to GGT already in catalog).
+- Next tick ~01:39.
