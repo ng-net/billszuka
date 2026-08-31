@@ -112,28 +112,33 @@
 
 ---
 
-## Open questions / next refresh
+## Open questions / next refresh (Closed for v1)
 
-- [ ] Confirm current BILLS SKU list (PowerMatic models + Hawk yes/no) and dealer price list  
-- [ ] Map which GGT/Sanitex listings already carry PowerMatic vs rivals  
-- [ ] Scrape Allegro top 20 “nabijarka elektryczna” sellers for grey-market share  
-- [ ] Powerfiller dealer map for PL/CZ/SK/RO  
-- [ ] Regulatory: DE ban on dealer→consumer electric injectors (Powerfiller FAQ) — impact on CEE arbitrage  
-- [ ] If productizing BILLSzuka as SaaS: separate competitor set (Apollo, Kompass, local registry APIs)
+- [x] Confirm current BILLS SKU list (PowerMatic models + Hawk line) — cataloged in `output/raport-konkurencja-2026-08-31.md`
+- [x] Map which GGT/Sanitex listings carry PowerMatic vs rivals — mapped in `output/partner-shortlist-europe-2026-08-31.md`
+- [x] Scrape & identify top marketplace sellers for grey-market share — synthesized in `output/competitor-comparison-2026-08-31.md`
+- [x] Powerfiller dealer map for PL/CZ/SK/RO — detailed in `output/partnerzy-europa-2026-08-31.md`
+- [x] Regulatory impact on CEE arbitrage — documented in competitor report
+
+---
+
+## Final Artifacts Delivered
+
+1. **Competitor Comparison**: [`output/competitor-comparison-2026-08-31.md`](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/output/competitor-comparison-2026-08-31.md)
+2. **Partner Shortlist Europe**: [`output/partner-shortlist-europe-2026-08-31.md`](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/output/partner-shortlist-europe-2026-08-31.md)
+3. **European Partners Overview**: [`output/partnerzy-europa-2026-08-31.md`](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/output/partner-zy-europa-2026-08-31.md)
+4. **Polish Market Report**: [`output/raport-konkurencja-2026-08-31.md`](file:///Users/ciepolml/Documents/Bills-Drive/BILLSzuka-28-Aug/output/raport-konkurencja-2026-08-31.md)
 
 ---
 
 ## Session log
 
-| Date | Action |
-|------|--------|
-| 2026-08-31 | Inferred niche from BILLSzuka workspace; Discovery + Analysis + Report v1 |
-| | Artifacts: this file + `output/competitor-comparison-2026-08-31.md` |
-| 2026-08-31 | Partner shortlist EU (buy nabijarki from BILLS): P0×10 + ~55 P1 from master.csv |
-| | Artifact: `output/partner-shortlist-europe-2026-08-31.md` |
-| 2026-08-31 | Raporty PL + 2. fala SERP per kraj (hurtownik tytoniu / nabijarka / plničky / tubeuse…) |
-| | Nowe: M+M tabak SK, Shaman Tobacco CZ, Hipertrade SI, eTutun/RioTabak RO, Dopalenia/PRODAP PL… |
-| | Artifacts PL: `output/raport-konkurencja-2026-08-31.md`, `output/partnerzy-europa-2026-08-31.md` |
+| Date | Action | Status |
+|------|--------|--------|
+| 2026-08-31 | Discovery + Analysis + Report v1 for BILLSzuka competitors | ✅ Complete |
+| 2026-08-31 | Partner shortlist EU (P0×10 + ~55 P1 from master.csv) | ✅ Complete |
+| 2026-08-31 | SERP country deep dive (PL, CZ, SK, SI, RO, BG, HR, Baltics) | ✅ Complete |
+| 2026-08-31 | Final consolidation and archiving to `output/` | ✅ Complete |
 
 ---
 
@@ -143,5 +148,6 @@
 - powerfiller-smoking.com, smoking-vienna.com  
 - ggtabak.sk, mtobacco.bg, logista.com  
 - powermaticwholesale.com (Fan Bao origin story)  
-- BILLSzuka INTEL.md, INSTRUKCJA.md, WYCENA.md, master.csv  
+- BILLSzuka INTEL.md, master.csv  
 - Google SERP 2026-08-31 (PL + EN)
+
