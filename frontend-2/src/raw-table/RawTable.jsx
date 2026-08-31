@@ -8,6 +8,9 @@ import {
   Rows4,
   Undo2,
   Redo2,
+  Eye,
+  EyeOff,
+  PanelLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,10 +25,13 @@ import {
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { useCsv } from "@/hooks/useCsv";
+import { useUrlStatus } from "@/hooks/useUrlStatus";
+import { useKeywordScan } from "@/hooks/useKeywordScan";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { useUndoRedo } from "@/lib/useUndoRedo";
 import { debounce } from "@/lib/utils";
 import { classifyBrand } from "@/lib/brand";
+import { toggleFilterValue } from "@/lib/views";
 
 import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
@@ -33,6 +39,9 @@ import { ColumnToggle } from "./components/ColumnToggle";
 import { StatusBar } from "./components/StatusBar";
 import { CommandPalette } from "./components/CommandPalette";
 import { LoadingState } from "./components/LoadingState";
+import { BrandQuickBar } from "./components/BrandQuickBar";
+import { ActiveFilterChips } from "./components/ActiveFilterChips";
+import { CollapsibleFilters } from "./components/CollapsibleFilters";
 
 import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset, saveSnapshot, saveMasterCache, getMasterCache } from "@/lib/datasetStorage";
 
@@ -206,6 +215,17 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
   const [toolbarVisible, setToolbarVisible] = useState(true);
   const [filteredCount, setFilteredCount] = useState(0);
+  const [expandedRowId, setExpandedRowId] = useState(null);
+  const [facetsOpen, setFacetsOpen] = useState(() => Boolean(prefs.facetsOpen));
+  const maskDecydenci = prefs.maskDecydenci !== false;
+  const setMaskDecydenci = useCallback((v) => {
+    setPrefs((p) => {
+      const current = p.maskDecydenci !== false;
+      const next = typeof v === "function" ? v(current) : v;
+      return { ...p, maskDecydenci: next };
+    });
+  }, [setPrefs]);
+
   const lastScrollY = useRef(0);
 
   // Apply theme to <html>
@@ -288,6 +308,16 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.filters, csv.columns]
   );
+
+  const activeCountry = useMemo(() => {
+    const k = filters?.kraj;
+    if (typeof k === "string" && k.trim()) return k.trim();
+    if (Array.isArray(k) && k.length > 0) return String(k[0]).trim();
+    return "Polska";
+  }, [filters?.kraj]);
+
+  const { byId: urlStatusById } = useUrlStatus(activeCountry);
+  const { byId: keywordById } = useKeywordScan(activeCountry);
 
   // Toast on parse complete. The message references row count and parse
   // time, so the effect re-fires when those change (i.e. on a fresh
@@ -615,6 +645,36 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               schema={csv.schema}
             />
 
+            <Button
+              variant={facetsOpen ? "secondary" : "outline"}
+              size="sm"
+              onClick={() => {
+                const next = !facetsOpen;
+                setFacetsOpen(next);
+                setPrefs((p) => ({ ...p, facetsOpen: next }));
+              }}
+              className="h-8 gap-1.5 text-xs hidden sm:inline-flex"
+              title={facetsOpen ? "Ukryj panel fasad" : "Pokaż panel fasad"}
+            >
+              <PanelLeft className="h-3.5 w-3.5" />
+              <span>Fasady</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                const next = !maskDecydenci;
+                setMaskDecydenci(next);
+                toast.info(next ? "Włączono maskowanie decydentów (RODO)" : "Odkryto pełne nazwiska decydentów", { duration: 1200 });
+              }}
+              className="h-8 gap-1.5 text-xs"
+              title={maskDecydenci ? "Odkryj pełne nazwiska decydentów" : "Maskuj nazwiska (RODO)"}
+            >
+              {maskDecydenci ? <Eye className="h-3.5 w-3.5 text-muted-foreground" /> : <EyeOff className="h-3.5 w-3.5 text-primary" />}
+              <span className="hidden md:inline">{maskDecydenci ? "Maskuj" : "Odkryj"}</span>
+            </Button>
+
             <div className="flex items-center gap-1">
               <Button
                 variant="outline"
@@ -671,6 +731,26 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
           </>
         )}
       </div>
+
+      {csv.status === "ready" && (
+        <div className="border-t border-border/40 bg-card/40 px-3 sm:px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 overflow-x-auto">
+          <BrandQuickBar
+            rows={rowsWithBrand}
+            activeBrand={effectiveFilters.__brand}
+            onSelectBrand={(b) => {
+              setFilters((prev) => {
+                const next = { ...prev };
+                if (!b) {
+                  delete next.__brand;
+                } else {
+                  next.__brand = b;
+                }
+                return next;
+              });
+            }}
+          />
+        </div>
+      )}
     </motion.header>
   );
 
@@ -681,6 +761,34 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         <Toaster position="bottom-right" theme={prefs.theme === "system" ? "system" : prefs.theme} richColors closeButton />
 
         {Header}
+
+        {csv.status === "ready" && (
+          <ActiveFilterChips
+            filters={effectiveFilters}
+            globalSearch={globalSearch}
+            onRemoveFilter={(colId, valItem) => {
+              setFilters((prev) => {
+                const next = { ...prev };
+                if (valItem !== undefined && Array.isArray(next[colId])) {
+                  const filtered = next[colId].filter((v) => v !== valItem);
+                  if (filtered.length === 0) delete next[colId];
+                  else next[colId] = filtered;
+                } else {
+                  delete next[colId];
+                }
+                return next;
+              });
+            }}
+            onClearGlobalSearch={() => onGlobalSearchChange("")}
+            onResetAll={() => {
+              setFilters({});
+              setGlobalSearch("");
+              setGlobalFilter("");
+              setPageIndex(0);
+              toast.success("Wyczyszczono wszystkie filtry", { duration: 1000 });
+            }}
+          />
+        )}
 
         <main className="flex-1 min-h-0 relative flex flex-col">
           {csv.status === "idle" && (
@@ -716,45 +824,73 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
 
           {csv.status === "ready" && (
             <>
-              <div className="flex-1 min-h-0 relative">
-                <DataTable
-                  columns={tableColumnsList}
-                  rows={rowsWithBrand}
-                  schema={csv.schema}
-                  columnOrder={columnOrder}
-                  columnVisibility={columnVisibility}
-                  setColumnOrder={setColumnOrder}
-                  setColumnVisibility={setColumnVisibility}
-                  onFilteredCountChange={setFilteredCount}
-                  onColumnHide={(id) => {
-                    toast(`Ukryto kolumnę: ${id}`, {
-                      description: "Kliknij „Pokaż\", żeby przywrócić",
-                      duration: 4000,
-                      action: {
-                        label: "Pokaż",
-                        onClick: () => {
-                          setColumnVisibility((prev) => {
-                            const next = { ...prev };
-                            delete next[id];
-                            return next;
-                          });
-                        },
-                      },
-                    });
-                  }}
-                  sortStack={sortStack}
-                  setSortStack={setSortStack}
-                  filters={effectiveFilters}
-                  setFilters={setFilters}
-                  density={prefs.density}
-                  onFocusedColumnChange={onFocusedColumnChange}
-                  focusedColumn={focusedColumn}
-                  selectedRowIndex={selectedRowIndex}
-                  onRowClick={onRowClick}
-                  globalFilter={globalFilter}
-                  pagination={pagination}
-                  setPagination={onPaginationChange}
-                />
+              <div className="flex-1 min-h-0 relative flex overflow-hidden">
+                {facetsOpen && (
+                  <aside className="w-72 md:w-80 border-r bg-card/40 overflow-y-auto p-3 shrink-0 hidden sm:block animate-in slide-in-from-left-2 duration-150">
+                    <CollapsibleFilters
+                      rows={rowsWithBrand}
+                      filters={effectiveFilters}
+                      onToggle={(key, val) => {
+                        setFilters((prev) => ({
+                          ...prev,
+                          [key]: toggleFilterValue(prev[key], val),
+                        }));
+                      }}
+                      onToggleCollapse={() => {
+                        setFacetsOpen(false);
+                        setPrefs((p) => ({ ...p, facetsOpen: false }));
+                      }}
+                    />
+                  </aside>
+                )}
+
+                <div className="flex-1 min-w-0 relative flex flex-col">
+                  <div className="flex-1 min-h-0 relative">
+                    <DataTable
+                      columns={tableColumnsList}
+                      rows={rowsWithBrand}
+                      schema={csv.schema}
+                      columnOrder={columnOrder}
+                      columnVisibility={columnVisibility}
+                      setColumnOrder={setColumnOrder}
+                      setColumnVisibility={setColumnVisibility}
+                      onFilteredCountChange={setFilteredCount}
+                      onColumnHide={(id) => {
+                        toast(`Ukryto kolumnę: ${id}`, {
+                          description: "Kliknij „Pokaż\", żeby przywrócić",
+                          duration: 4000,
+                          action: {
+                            label: "Pokaż",
+                            onClick: () => {
+                              setColumnVisibility((prev) => {
+                                const next = { ...prev };
+                                delete next[id];
+                                return next;
+                              });
+                            },
+                          },
+                        });
+                      }}
+                      sortStack={sortStack}
+                      setSortStack={setSortStack}
+                      filters={effectiveFilters}
+                      setFilters={setFilters}
+                      density={prefs.density}
+                      onFocusedColumnChange={onFocusedColumnChange}
+                      focusedColumn={focusedColumn}
+                      selectedRowIndex={selectedRowIndex}
+                      onRowClick={onRowClick}
+                      globalFilter={globalFilter}
+                      pagination={pagination}
+                      setPagination={onPaginationChange}
+                      maskDecydenci={maskDecydenci}
+                      expandedRowId={expandedRowId}
+                      onToggleExpandRow={setExpandedRowId}
+                      urlStatusById={urlStatusById}
+                      keywordById={keywordById}
+                    />
+                  </div>
+                </div>
               </div>
               <StatusBar
                 totalRows={csv.rows.length}

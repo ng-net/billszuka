@@ -18,6 +18,8 @@ import {
   Eye,
   EyeOff,
   LayoutGrid,
+  ExternalLink,
+  Link,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UrlBadge } from "../components/UrlBadge";
@@ -198,11 +200,22 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   const [selectedCountry, setSelectedCountry] = useState("Wszystkie");
   const [selectedTier, setSelectedTier] = useState("Wszystkie");
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedUrlFilter, setSelectedUrlFilter] = useState("Wszystkie");
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [tierDropdownOpen, setTierDropdownOpen] = useState(false);
+  const [urlDropdownOpen, setUrlDropdownOpen] = useState(false);
   const [maskNames, setMaskNames] = useState(true);
   const { byId: urlStatusById } = useUrlStatus(selectedCountry);
   const { byId: keywordById } = useKeywordScan(selectedCountry);
+
+  const countryOptions = useMemo(() => {
+    const defaultList = ["Polska", "Czechy", "Słowacja", "Słowenia", "Chorwacja", "Bułgaria", "Rumunia", "Mołdawia", "Serbia", "Litwa", "Łotwa", "Estonia", "Francja"];
+    const found = new Set(defaultList);
+    for (const l of leads) {
+      if (l.kraj) found.add(l.kraj);
+    }
+    return ["Wszystkie", ...Array.from(found)];
+  }, [leads]);
 
   // --- Top-level brand bookmark counts (from ExperimentViewV3) ---
   const brandCounts = useMemo(() => {
@@ -224,6 +237,16 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         const b = classifyBrand(lead.marki_nabijarki);
         if (!selectedBrands.includes(b)) return false;
       }
+      if (selectedUrlFilter === "ok") {
+        const u = urlStatusById[lead.id_unikalne];
+        if (u?.state !== "ok") return false;
+      } else if (selectedUrlFilter === "error") {
+        const u = urlStatusById[lead.id_unikalne];
+        if (!u || !["4xx", "5xx", "timeout", "ssl", "dns"].includes(u.state)) return false;
+      } else if (selectedUrlFilter === "none") {
+        const u = urlStatusById[lead.id_unikalne];
+        if (lead.www && u && u.state !== "unknown") return false;
+      }
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matches =
@@ -236,26 +259,34 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
       }
       return true;
     });
-  }, [leads, searchQuery, selectedCountry, selectedTier, selectedBrands]);
+  }, [leads, searchQuery, selectedCountry, selectedTier, selectedBrands, selectedUrlFilter, urlStatusById]);
 
   // --- Active filter pills (from V3 faceted rail) ---
   const activeFilters = useMemo(() => {
     const list = [];
     if (selectedCountry !== "Wszystkie") list.push({ type: "country", label: selectedCountry });
     if (selectedTier !== "Wszystkie") list.push({ type: "tier", label: selectedTier });
+    if (selectedUrlFilter !== "Wszystkie") {
+      const label = selectedUrlFilter === "ok" ? "WWW: Działające (200)"
+        : selectedUrlFilter === "error" ? "WWW: Błędy"
+        : "WWW: Brak/Nieznane";
+      list.push({ type: "url", label });
+    }
     for (const b of selectedBrands) list.push({ type: "brand", label: b, value: b });
     return list;
-  }, [selectedCountry, selectedTier, selectedBrands]);
+  }, [selectedCountry, selectedTier, selectedUrlFilter, selectedBrands]);
 
   const removeFilter = (f) => {
     if (f.type === "country") setSelectedCountry("Wszystkie");
     if (f.type === "tier") setSelectedTier("Wszystkie");
+    if (f.type === "url") setSelectedUrlFilter("Wszystkie");
     if (f.type === "brand") setSelectedBrands((prev) => prev.filter((b) => b !== f.value));
   };
 
   const resetAll = () => {
     setSelectedCountry("Wszystkie");
     setSelectedTier("Wszystkie");
+    setSelectedUrlFilter("Wszystkie");
     setSelectedBrands([]);
     setSearchQuery("");
   };
@@ -268,12 +299,13 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   };
 
   const handleExport = () => {
-    const header = "ID,Nazwa,Kraj,Miasto,NIP,Tier,Wolumen,Decydent,Email,Telefon\n";
+    const header = "ID,Nazwa,Kraj,Miasto,NIP,Tier,Wolumen,Decydent,Email,Telefon,WWW,Status WWW,Kod HTTP,Błąd WWW,Keyword Score\n";
     const rows = filteredLeads
-      .map(
-        (l) =>
-          `"${l.id_unikalne}","${l.nazwa_firmy}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}"`
-      )
+      .map((l) => {
+        const u = urlStatusById[l.id_unikalne];
+        const kw = keywordById[l.id_unikalne];
+        return `"${l.id_unikalne}","${l.nazwa_firmy}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}","${l.www || ""}","${u?.state || "nieznane"}","${u?.http_code || ""}","${u?.error || ""}","${kw?.score_pct ?? ""}"`;
+      })
       .join("\n");
     const blob = new Blob(["\ufeff" + header + rows], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
@@ -439,6 +471,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               onClick={() => {
                 setCountryDropdownOpen(!countryDropdownOpen);
                 setTierDropdownOpen(false);
+                setUrlDropdownOpen(false);
               }}
               className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
             >
@@ -447,8 +480,8 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               <ChevronDown size={14} className="text-slate-400" />
             </button>
             {countryDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-44 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
-                {["Wszystkie", "Polska", "Czechy", "Słowacja"].map((c) => (
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50 max-h-64 overflow-y-auto">
+                {countryOptions.map((c) => (
                   <button
                     key={c}
                     onClick={() => {
@@ -474,6 +507,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               onClick={() => {
                 setTierDropdownOpen(!tierDropdownOpen);
                 setCountryDropdownOpen(false);
+                setUrlDropdownOpen(false);
               }}
               className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
             >
@@ -498,6 +532,56 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                   >
                     <span>{r}</span>
                     {selectedTier === r && <Check size={14} />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <button
+              onClick={() => {
+                setUrlDropdownOpen(!urlDropdownOpen);
+                setCountryDropdownOpen(false);
+                setTierDropdownOpen(false);
+              }}
+              className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
+            >
+              <ExternalLink size={16} className="text-slate-500 dark:text-slate-400" />
+              <span>
+                WWW:{" "}
+                {selectedUrlFilter === "ok"
+                  ? "200 OK"
+                  : selectedUrlFilter === "error"
+                  ? "Błędy"
+                  : selectedUrlFilter === "none"
+                  ? "Brak/Nieznane"
+                  : "Wszystkie"}
+              </span>
+              <ChevronDown size={14} className="text-slate-400" />
+            </button>
+            {urlDropdownOpen && (
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
+                {[
+                  { id: "Wszystkie", label: "Wszystkie WWW" },
+                  { id: "ok", label: "🟢 Działające (200 OK)" },
+                  { id: "error", label: "🔴 Błędy (4xx/5xx/DNS)" },
+                  { id: "none", label: "⚪ Brak / Nieznane" },
+                ].map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => {
+                      setSelectedUrlFilter(opt.id);
+                      setUrlDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
+                      selectedUrlFilter === opt.id
+                        ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                    }`}
+                  >
+                    <span>{opt.label}</span>
+                    {selectedUrlFilter === opt.id && <Check size={14} />}
                   </button>
                 ))}
               </div>

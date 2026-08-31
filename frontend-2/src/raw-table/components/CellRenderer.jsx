@@ -8,6 +8,7 @@ import { formatDate, truncate, formatNumber, cn } from "@/lib/utils";
 import { highlightKeywords } from "@/lib/brand";
 import { Mail, Phone, ExternalLink, Copy, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
+import { UrlBadge } from "@/components/UrlBadge";
 
 const KEYWORD_CLASS = {
   tyton: "bg-amber-200/70 dark:bg-amber-900/60 text-foreground",
@@ -177,7 +178,15 @@ function ShortTextCell({ value, display }) {
   );
 }
 
-export const CellRenderer = memo(function CellRenderer({ value, type, columnId, onCopy }) {
+export const CellRenderer = memo(function CellRenderer({
+  value,
+  type,
+  columnId,
+  onCopy,
+  maskDecydenci = true,
+  urlStatus,
+  keywordScan,
+}) {
   if (value == null || value === "") {
     return <span className="text-muted-foreground/40">—</span>;
   }
@@ -202,8 +211,8 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
     }
   }
 
-  // Transform decydent: e.g. "Jan Kowalski" -> "Jan Ko***i"
-  if (columnId === "decydent" && display.trim().length > 0) {
+  // Transform decydent: e.g. "Jan Kowalski" -> "Jan Ko***i" when maskDecydenci is active (default true)
+  if (columnId === "decydent" && maskDecydenci && display.trim().length > 0) {
     const parts = display.trim().split(/\s+/);
     if (parts.length >= 2) {
       const surname = parts[parts.length - 1];
@@ -223,6 +232,27 @@ export const CellRenderer = memo(function CellRenderer({ value, type, columnId, 
     toast.success("Skopiowano do schowka", { duration: 1200 });
     onCopy?.(display);
   };
+
+  // Special handling for www column: render live status badge from SQLite
+  if (columnId === "www" && display.trim()) {
+    const rawUrl = display.trim();
+    const href = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
+    return (
+      <UrlBadge
+        url={href}
+        status={urlStatus?.status || "unknown"}
+        state={urlStatus?.state || "unknown"}
+        http_code={urlStatus?.http_code}
+        error={urlStatus?.error}
+        redirect_url={urlStatus?.redirect_url}
+        checked_at={urlStatus?.checked_at}
+        keyword_score={keywordScan?.score_pct}
+        keyword_hits={keywordScan?.keywords_found}
+        showUrl={true}
+        compact={true}
+      />
+    );
+  }
 
   // URL — click opens in new tab. No popover needed; full URL is in title.
   const isUrlLike =

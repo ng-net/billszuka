@@ -27,6 +27,28 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-08-31 — Wdrożenie 5 funkcji filtrowania i ergonomii do RawTable (Frontend-2)
+
+- **Brand Quick Bar (`BrandQuickBar.jsx`):** Pasek zakładek marek w nagłówku tabeli z segmentami (`Wszystko`, `PowerMatic`, `PowerMatic + Hawk`, `Hawk`, `Inna`) i dynamicznie buforowanymi licznikami.
+- **Pasek aktywnych filtrów (`ActiveFilterChips.jsx`):** Wizualne kapsułki aktywnych filtrów pod wyszukiwarką z przyciskami `✕` do pojedynczego usuwania i przyciskiem `Resetuj`.
+- **Panel fasad z rozkładem procentowym (`CollapsibleFilters.jsx`):** Dodano paski częstotliwości rozkładu wartości procentowych oraz boczny wysuwany panel fasad w `RawTable` przełączany przyciskiem `Fasady`.
+- **Progressive Disclosure (`RowDetailExpander.jsx`):** 3-kolumnowa responsywna karta rozwijania wiersza w `DataTable.jsx` (dane biznesowe, kopiowanie NIP/adresu, UrlBadge, social media, kontakt, notatki operacyjne).
+- **Domyślne maskowanie decydentów RODO:** `maskDecydenci: true` w `prefs.js` (domyślnie `Jan Ko***i`) wraz z przyciskiem `Maskuj / Odkryj` w toolbarze tabeli.
+- **Weryfikacja:** 111/111 testów zielonych (64 unit testy + 47 testów komponentów JSX), `npm run build` zakończony sukcesem w 712ms.
+
+---
+
+## 2026-08-31 — Integracja statusów URL i skanu słów kluczowych w UI (Frontend-2)
+
+- **Weryfikacja danych URL:** Potwierdzono stan weryfikacji 297 URL-i w tabeli `url_status` w `data/billszuka.db` (231 OK, 23 4xx, 4 5xx, 4 timeout, 35 unreachable/DNS).
+- **useUrlStatus & useKeywordScan hooks:** Poprawiono logikę fetchowania (`useUrlStatus.js`, `useKeywordScan.js`), aby domyślnie (dla widoku "Wszystkie" oraz braku filtra kraju) pobierały pełną mapę statusów URL i skanów dla wszystkich 353 firm z master datasetu.
+- **RawTable / DataTable / CellRenderer:** Wpięto `UrlBadge` bezpośrednio do kolumny `www` w `DataTable` i `CellRenderer.jsx`.
+- **ModernLeadsTableV2:**
+  - Dodano filtr dropdown `WWW` (Wszystkie, 200 OK, Błędy 4xx/5xx/DNS, Brak/Nieznane).
+  - Dynamiczne opcje wyboru kraju z datasetu.
+  - Rozszerzono eksport CSV o status HTTP, kody błędów i keyword score.
+- **Testy:** 47/47 testów komponentów zielone (`node scripts/test-jsx.mjs`).
+
 ---
 
 ## 2026-08-31 — Zasady weryfikacji: implementacja gate + verify_principles

@@ -19,6 +19,8 @@ const DEFAULTS = {
   lastFocusedColumn: null,
   savedViews: [], // array of { id, name, filters, columns, sortStack? }
   activeView: null, // id of currently active saved view
+  maskDecydenci: true, // RODO surname masking (default true)
+  facetsOpen: false, // Collapsible faceted drawer
 };
 
 export function loadPrefs() {

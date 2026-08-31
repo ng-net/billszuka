@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useEffect, useCallback, memo } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback, memo, Fragment } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -21,9 +21,11 @@ import {
   horizontalListSortingStrategy,
   arrayMove,
 } from "@dnd-kit/sortable";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { CellRenderer } from "./CellRenderer";
 import { FilterInput } from "./FilterInput";
 import { SortableHeader } from "./SortableHeader";
+import { RowDetailExpander } from "./RowDetailExpander";
 import { getEnumValues } from "@/lib/csv";
 import { classifyBrand } from "@/lib/brand";
 import { cn } from "@/lib/utils";
@@ -55,7 +57,23 @@ export function DataTable({
   globalFilter,
   pagination,
   setPagination,
+  maskDecydenci = true,
+  expandedRowId,
+  onToggleExpandRow,
+  urlStatusById,
+  keywordById,
 }) {
+  const [internalExpandedId, setInternalExpandedId] = useState(null);
+  const currentExpandedId = expandedRowId !== undefined ? expandedRowId : internalExpandedId;
+  const handleToggleExpand = useCallback(
+    (rowId) => {
+      const next = currentExpandedId === rowId ? null : rowId;
+      if (expandedRowId === undefined) setInternalExpandedId(next);
+      onToggleExpandRow?.(next);
+    },
+    [currentExpandedId, expandedRowId, onToggleExpandRow]
+  );
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
     useSensor(KeyboardSensor)
@@ -115,16 +133,19 @@ export function DataTable({
         filterFn,
         size: width,
         meta: { type: colType, width, align: colType === "number" ? "right" : "left" },
-        cell: ({ getValue }) => (
+        cell: ({ getValue, row }) => (
           <CellRenderer
             value={getValue()}
             type={colType}
             columnId={colId}
+            maskDecydenci={maskDecydenci}
+            urlStatus={urlStatusById?.[row.original?.id_unikalne]}
+            keywordScan={keywordById?.[row.original?.id_unikalne]}
           />
         ),
       };
     });
-  }, [columns, schema]);
+  }, [columns, schema, maskDecydenci, urlStatusById, keywordById]);
 
   // Total table width (for horizontal scroll)
   const totalTableWidth = useMemo(
@@ -391,18 +412,34 @@ export function DataTable({
                 const isSelected = selectedRowId
                   ? row.id === selectedRowId
                   : selectedRowIndex === i;
+                const isExpanded = currentExpandedId === row.id;
                 return (
-                  <Row
-                    key={row.id}
-                    row={row}
-                    index={i}
-                    rowHeight={rowHeight}
-                    density={density}
-                    isSelected={isSelected}
-                    onClick={onRowClick}
-                    showSettle={showSettle}
-                    stickyLeftOffsets={stickyLeftOffsets}
-                  />
+                  <Fragment key={row.id}>
+                    <Row
+                      row={row}
+                      index={i}
+                      rowHeight={rowHeight}
+                      density={density}
+                      isSelected={isSelected}
+                      isExpanded={isExpanded}
+                      onToggleExpand={handleToggleExpand}
+                      onClick={onRowClick}
+                      showSettle={showSettle}
+                      stickyLeftOffsets={stickyLeftOffsets}
+                    />
+                    {isExpanded && (
+                      <tr key={`${row.id}-detail`} className="bg-muted/10 border-b border-border/80">
+                        <td colSpan={visibleColumns.length} className="p-0">
+                          <RowDetailExpander
+                            lead={row.original}
+                            maskNames={maskDecydenci}
+                            urlStatus={urlStatusById?.[row.original?.id_unikalne]}
+                            keywordScan={keywordById?.[row.original?.id_unikalne]}
+                          />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
                 );
               })}
               {tableRows.length === 0 && (
@@ -475,7 +512,7 @@ function isNabijarkaRow(row) {
   return NABIJARKA_BRANDS.some((b) => brands.includes(b));
 }
 
-const Row = memo(function Row({ row, index, rowHeight, density, isSelected, onClick, showSettle, stickyLeftOffsets }) {
+const Row = memo(function Row({ row, index, rowHeight, density, isSelected, isExpanded, onToggleExpand, onClick, showSettle, stickyLeftOffsets }) {
   const settleDelay = showSettle && index < 60 ? index * 4 : 0;
   const isNabijarka = isNabijarkaRow(row.original);
   return (
@@ -487,7 +524,8 @@ const Row = memo(function Row({ row, index, rowHeight, density, isSelected, onCl
         "hover:bg-muted/40",
         isNabijarka && NABIJARKA_BG,
         settleDelay > 0 && "row-settle",
-        isSelected && "bg-accent"
+        isSelected && "bg-accent",
+        isExpanded && "bg-muted/30"
       )}
       style={{
         height: rowHeight,
@@ -518,6 +556,20 @@ const Row = memo(function Row({ row, index, rowHeight, density, isSelected, onCl
                 )
             )}
           >
+            {j === 0 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleExpand?.(row.id);
+                }}
+                aria-label={isExpanded ? "Zwiń szczegóły" : "Rozwiń szczegóły"}
+                title={isExpanded ? "Zwiń szczegóły" : "Rozwiń szczegóły"}
+                className="mr-1.5 inline-flex items-center justify-center w-4 h-4 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer shrink-0 align-middle"
+              >
+                {isExpanded ? <ChevronDown size={12} className="text-primary" /> : <ChevronRight size={12} />}
+              </button>
+            )}
             {j === 1 && isNabijarka && (
               <span
                 className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider bg-sky-100/80 text-sky-700 border border-sky-200/80 dark:bg-sky-900/30 dark:text-sky-300 dark:border-sky-800/60 shrink-0 align-middle"

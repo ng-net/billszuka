@@ -22,15 +22,16 @@ export function useUrlStatus(country, refreshKey = 0) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!country || country === "Wszystkie") {
-      setData({ byId: {}, summary: null });
-      return;
-    }
-    const iso = COUNTRY_TO_ISO[country] || country;
+    const isAll = !country || country === "Wszystkie";
+    const iso = isAll ? null : (COUNTRY_TO_ISO[country] || country);
+    const endpoint = isAll
+      ? "/api/url-status"
+      : `/api/url-status?country=${encodeURIComponent(iso)}`;
+
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetch(`/api/url-status?country=${encodeURIComponent(iso)}`)
+    fetch(endpoint)
       .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
       .then((json) => {
         if (cancelled) return;
