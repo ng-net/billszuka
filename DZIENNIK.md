@@ -1199,3 +1199,43 @@ Why the new Worker is not being created:
 - CZ catalog-B file mysteriously disappearing multiple times (race condition with find_gems.py?). Restored via `git checkout HEAD --`. Not yet root-caused.
 - Skip: Lancoster OÜ (EE — food wholesale, not tobacco), RYO Paper & Tobacco (EE — B2C retailer), Rauchersortiment (SK — related to GGT already in catalog).
 - Next tick ~01:39.
+
+## 2026-09-01 01:35 — Rename `nazwa_firmy` → `nazwa` + logo link + kraj pills (session mvs_9989c815e2...)
+
+**1) Rename `nazwa_firmy` → `nazwa`**
+- 133 tracked files updated (62 py + 43 csv + 11 jsx + 9 js + 8 md).
+- Schema: `tools/config.py:CANONICAL_SCHEMA`, `frontend-2/src/lib/schema.js:COLUMN_LABELS`.
+- Pliki: wszystkie `data/*/catalog-*-*.csv` + `data/*/extra-leads-*.csv` + `frontend-2/public/master.csv` + `frontend-2/public/sample.csv`.
+- Regeneracja `data/master.csv` (432 wierszy) + sync do `frontend-2/public/{master,sample}.csv`.
+- Pominięte: docs/superpowers/ (gitignored), data/master.csv/audit-log/PL.md/legacy (historyczne / innego usera / auto-gen).
+- 1 edge case: `data/Czechy/catalog-B-CZ.csv` (inna schema, brak `kraj`, zaczyna się od `id`) — po `git checkout HEAD --` wrócił do wersji z `nazwa_firmy` i musiał być ręcznie zaktualizowany.
+
+**2) Logo klikalne (App.jsx)**
+- `<a href="/">` zamiast `<div>` dla "BILLSzuka / Katalog leadów B2B/B2C".
+- `title="Wróć do strony głównej (odświeża widok)"`, `aria-label`.
+- Hover: `hover:bg-muted/60`, focus ring.
+- Klik → domyślne zachowanie przeglądarki = full navigation do `/` = nawiguje + odświeża.
+
+**3) Country pill bar (kraj jako selektor, ale kolumna bez filtra)**
+- Nowy `frontend-2/src/raw-table/components/CountryPills.jsx`.
+- Komponent: rząd małych pill buttons (PL/CZ/SK/RO/LT/LV/EE/FR/MD/BG/SI/HR/RS + "Wszystkie").
+- Każdy pill: ISO + count rows, aktywny wyróżniony primary, brak wierszy → disabled.
+- Klik → `setFilters({ kraj: iso })` (lub `delete next.kraj` dla "Wszystkie") + `setPageIndex(0)`.
+- `activeCountryIso` derived z `filters.kraj`; `activeCountry` mapowany ISO→nazwa (Polska/Czechy/...) do `useUrlStatus`/`useKeywordScan`.
+- Header kolumny `kraj` w tabeli: **bez zmian** (nadal brak per-column filter input — reguła "leave the column-header as is" spełniona).
+- ActiveFilterChips: nadal pomija `kraj` (pill bar jest jedynym UI do wyboru kraju, redundantny chip niepotrzebny).
+
+**Wyniki:**
+- Python: **533/533 PASS**.
+- Frontend: **64 lib + 69 components = 133/133 PASS** (+14 nowych testów CountryPills: render, count, active state, click, accessibility, empty/messy rows).
+- Build: `npm run build` ✅ 697ms.
+- Lint: 1 pre-existing warning (ModernLeadsTableV2 setSelectedTiers).
+
+**Pliki do commit (łącznie z poprzednią sesją):**
+- ~109 plików z rename `id_unikalne → id` (poprzednia sesja).
+- +133 plików z rename `nazwa_firmy → nazwa` (ta sesja).
+- +frontend-2/src/App.jsx (logo).
+- +frontend-2/src/raw-table/components/CountryPills.{jsx,test.jsx} (nowe).
+- +frontend-2/src/raw-table/RawTable.jsx (import + activeCountryIso + handleCountrySelect + render CountryPills).
+- +tests/test_validate_columns.py (1 fix).
+- +DZIENNIK.md (ta notatka).

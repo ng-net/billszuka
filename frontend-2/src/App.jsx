@@ -207,10 +207,21 @@ export default function App() {
     <div className="flex h-dvh flex-col bg-background text-foreground">
       <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-          <div className="shrink-0 leading-tight">
+          {/* Top-left logo (product name) — always clickable.
+              Clicking reloads the page at "/" so the user lands on the
+              default index view with a clean state. Using a plain <a>
+              with href="/" is intentional: the browser's default behaviour
+              is a full navigation, which both "navigates to index" and
+              "refreshes" in one step. */}
+          <a
+            href="/"
+            title="Wróć do strony głównej (odświeża widok)"
+            aria-label="BILLSzuka — strona główna"
+            className="shrink-0 leading-tight rounded-md px-1 py-0.5 -mx-1 transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 cursor-pointer"
+          >
             <div className="font-semibold tracking-tight">BILLSzuka</div>
             <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
-          </div>
+          </a>
           <nav className="flex items-center gap-1">
             {TABS.map(({ id, label, icon: Icon }) => (
               <button

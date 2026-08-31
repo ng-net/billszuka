@@ -42,6 +42,7 @@ import { LoadingState } from "./components/LoadingState";
 import { BrandQuickBar } from "./components/BrandQuickBar";
 import { ActiveFilterChips } from "./components/ActiveFilterChips";
 import { CollapsibleFilters } from "./components/CollapsibleFilters";
+import { CountryPills } from "./components/CountryPills";
 
 import { getActiveDatasetInfo, getCustomDataset, clearCustomDataset, saveSnapshot, saveMasterCache, getMasterCache } from "@/lib/datasetStorage";
 
@@ -316,15 +317,53 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     [prefs.filters, csv.columns]
   );
 
-  const activeCountry = useMemo(() => {
+  // Active country ISO code (PL/CZ/...) or null when "Wszystkie" is selected.
+  // Driven by the CountryPills bar above the table. The `filters.kraj` value
+  // is still the single source of truth so it composes with other code paths
+  // (e.g. saved prefs / URL state / bulk resets), but the pill bar is the
+  // canonical UI for changing it.
+  const activeCountryIso = useMemo(() => {
     const k = filters?.kraj;
-    if (typeof k === "string" && k.trim()) return k.trim();
-    if (Array.isArray(k) && k.length > 0) return String(k[0]).trim();
-    return "Polska";
+    if (typeof k === "string" && k.trim()) return k.trim().toUpperCase();
+    if (Array.isArray(k) && k.length > 0) return String(k[0]).trim().toUpperCase();
+    return null;
   }, [filters?.kraj]);
+
+  // Translate ISO → directory name for the URL/keyword hooks (they expect
+  // the Polish folder name OR an ISO code, but historically used the name).
+  // "Polska" stays the historical default for empty/legacy filter state.
+  const activeCountry = useMemo(() => {
+    if (!activeCountryIso) return null;
+    const ISO_TO_NAME = {
+      PL: "Polska", CZ: "Czechy", SK: "Słowacja", SI: "Słowenia", HR: "Chorwacja",
+      BG: "Bułgaria", RO: "Rumunia", MD: "Mołdawia", RS: "Serbia",
+      LT: "Litwa", LV: "Łotwa", EE: "Estonia", FR: "Francja",
+    };
+    return ISO_TO_NAME[activeCountryIso] || activeCountryIso;
+  }, [activeCountryIso]);
 
   const { byId: urlStatusById } = useUrlStatus(activeCountry);
   const { byId: keywordById } = useKeywordScan(activeCountry);
+
+  // When a country pill is clicked: update the underlying `kraj` filter.
+  // Passing null clears the filter (CountryPills "Wszystkie" button).
+  // We go through the same setFilters path so the change persists in
+  // prefs and composes with reset / saved state.
+  const handleCountrySelect = useCallback(
+    (iso) => {
+      setFilters((prev) => {
+        const next = { ...prev };
+        if (iso == null) {
+          delete next.kraj;
+        } else {
+          next.kraj = iso;
+        }
+        return next;
+      });
+      setPageIndex(0);
+    },
+    [setFilters]
+  );
 
   // Toast on parse complete. The message references row count and parse
   // time, so the effect re-fires when those change (i.e. on a fresh
@@ -768,6 +807,14 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         <Toaster position="bottom-right" theme={prefs.theme === "system" ? "system" : prefs.theme} richColors closeButton />
 
         {Header}
+
+        {csv.status === "ready" && csv.rows && csv.rows.length > 0 && (
+          <CountryPills
+            rows={csv.rows}
+            activeIso={activeCountryIso}
+            onSelect={handleCountrySelect}
+          />
+        )}
 
         {csv.status === "ready" && (
           <ActiveFilterChips

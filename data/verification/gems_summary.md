@@ -1,6 +1,6 @@
 # Gems — non-PL B2B partner candidates (2026-08-31)
 
-**Total gems found:** 132 across 12 countries
+**Total gems found:** 133 across 12 countries
 
 ## Gem criteria (all required)
 
@@ -24,7 +24,7 @@
 | EE | Estonia | 20 | 9 |
 | SK | Słowacja | 16 | 10 |
 | RO | Rumunia | 14 | 9 |
-| FR | Francja | 12 | 9 |
+| FR | Francja | 13 | 9 |
 | HR | Chorwacja | 11 | 10 |
 | CZ | Czechy | 10 | 5 |
 | LT | Litwa | 9 | 7 |
@@ -33,7 +33,7 @@
 | RS | Serbia | 2 | 10 |
 | MD | Mołdawia | 1 | 4 |
 
-**Total: 132 gems** in 12 countries
+**Total: 133 gems** in 12 countries
 
 ## Top 20 gems (cross-country, by score)
 
@@ -155,22 +155,23 @@
 | 13 | 4 |  | RHENUS LOGISTICS SRL | 4 | Pitești | B8 | info.ro@rhenus.com |
 | 14 | 4 |  | GOLDEN PROVIDER DISTRIBUTION SRL | 3 | Bucureşti | B2 | contact@gpd.ro |
 
-## FR — Francja (12 gems)
+## FR — Francja (13 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
 | 1 | 9 | ✓ | LOGISTA FRANCE (SAF) | 4 | Vincennes | B8 | recouvrement.lognes@logista.co |
-| 2 | 4 |  | SAS BOUTTIER (Bouttier Ets) | 4 | Auch | B8 | bouttier@bouttier.fr |
-| 3 | 4 |  | SAS MERCIER | 4 | Châtenoy-le-Royal | B8 | francis@mercier.fr |
-| 4 | 4 |  | PIPIERE ALSACIENNE (PIPAL SA) | 4 | Erstein | B8 | cdiana@pipal.fr |
-| 5 | 4 |  | SAS SODIP (Groupe Néodis) | 4 | Cournon-d'Auvergne | B8 | sodip@sodip-neodis.fr |
-| 6 | 4 |  | SAS SOCOPI N | 4 | Le Rheu | B8 | socopi@socopi.fr |
-| 7 | 4 |  | FIMAR SAS (MARTY) | 4 | Rivesaltes | B8 | sa.marty@marty66.com |
-| 8 | 4 |  | EUROTAB-FRANCE SARL | 4 | Haudivillers | B8 | sstroili@eurotab.fr |
-| 9 | 4 |  | ROYAL DISTRIBUTION SAS (Mistersmoke | 5 | Lesquin | B8 | contact@mistersmoke.com |
-| 10 | 4 |  | SPI D CLIC SARL | 5 | La Farlède | B8 | contact@spi-discount.net |
-| 11 | 4 |  | POESCHL TOBACCO FRANCE (PTF) | 4 | Rixheim | B8 | info@poeschl-tobacco.com |
-| 12 | 3 |  | SAS COPROVA | 3 | Paris | B8 | direction.generale@coprova.com |
+| 2 | 5 |  | SPiD CLiC SARL (GTP / Grossiste Pre | 5 | La Farlède | B8 | sav@spidclic.fr |
+| 3 | 4 |  | SAS BOUTTIER (Bouttier Ets) | 4 | Auch | B8 | bouttier@bouttier.fr |
+| 4 | 4 |  | SAS MERCIER | 4 | Châtenoy-le-Royal | B8 | francis@mercier.fr |
+| 5 | 4 |  | PIPIERE ALSACIENNE (PIPAL SA) | 4 | Erstein | B8 | cdiana@pipal.fr |
+| 6 | 4 |  | SAS SODIP (Groupe Néodis) | 4 | Cournon-d'Auvergne | B8 | sodip@sodip-neodis.fr |
+| 7 | 4 |  | SAS SOCOPI N | 4 | Le Rheu | B8 | socopi@socopi.fr |
+| 8 | 4 |  | FIMAR SAS (MARTY) | 4 | Rivesaltes | B8 | sa.marty@marty66.com |
+| 9 | 4 |  | EUROTAB-FRANCE SARL | 4 | Haudivillers | B8 | sstroili@eurotab.fr |
+| 10 | 4 |  | ROYAL DISTRIBUTION SAS (Mistersmoke | 5 | Lesquin | B8 | contact@mistersmoke.com |
+| 11 | 4 |  | SPI D CLIC SARL | 5 | La Farlède | B8 | contact@spi-discount.net |
+| 12 | 4 |  | POESCHL TOBACCO FRANCE (PTF) | 4 | Rixheim | B8 | info@poeschl-tobacco.com |
+| 13 | 3 |  | SAS COPROVA | 3 | Paris | B8 | direction.generale@coprova.com |
 
 ## HR — Chorwacja (11 gems)
 
