@@ -47,10 +47,14 @@ def _repair_swap(row: list, row_id: str) -> bool:
     row[IDX_ROK_ZALOZENIA] = related
     row[IDX_RELATED_TO] = "brak"
     return True
+ROOT_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT_DIR / "data"
+
 COUNTRY_DIR_MAP = {
     "PL": "Polska", "CZ": "Czechy", "SK": "Słowacja", "SI": "Słowenia",
     "LT": "Litwa", "LV": "Łotwa", "EE": "Estonia", "FR": "Francja",
-    "RO": "Rumunia", "BG": "Bułgaria", "HR": "Chorwacja", "MD": "Mołdawia"
+    "RO": "Rumunia", "BG": "Bułgaria", "HR": "Chorwacja", "MD": "Mołdawia",
+    "RS": "Serbia",
 }
 
 def clean_row_data(row, header, filename):
@@ -109,7 +113,7 @@ def clean_row_data(row, header, filename):
     return [field.strip() for field in row]
 
 def audit_and_normalize_all():
-    catalog_files = sorted(glob.glob("data/*/catalog-*.csv"))
+    catalog_files = sorted(DATA_DIR.glob("*/catalog-*.csv"))
     print(f"Auditing {len(catalog_files)} catalog files...")
     
     total_cleaned_rows = 0

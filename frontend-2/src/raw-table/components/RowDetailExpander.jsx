@@ -7,12 +7,10 @@ import {
   Mail,
   Phone,
   ShieldCheck,
-  Globe,
-  ExternalLink,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UrlBadge } from "@/components/UrlBadge";
-import { cn, formatDate } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 function maskName(text) {
   if (!text) return "—";

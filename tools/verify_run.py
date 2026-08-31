@@ -733,19 +733,6 @@ def main() -> int:
             except Exception as e:
                 log(f"⚠️ Live API verification warning: {e}")
 
-        # Run Data Auto-Cleaning & Quality Scoring
-        log("🧹 Running Data Auto-Cleaning & Quality Scoring...")
-        try:
-            from tools.fix_data_quality import main as run_quality_scoring
-        except ImportError as e:
-            log(f"❌ Quality scoring skipped (import error): {e}")
-        else:
-            try:
-                sys.argv = ["fix_data_quality.py"]
-                run_quality_scoring()
-            except Exception as e:
-                log(f"⚠️ Quality scoring warning: {e}")
-
         # Save metric report to data/verification/run_latest.json
         run_metric_dir = DATA / "verification"
         run_metric_dir.mkdir(parents=True, exist_ok=True)

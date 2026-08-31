@@ -28,14 +28,13 @@ test("ActiveFilterChips: renders global search chip with X button", () => {
 });
 
 test("ActiveFilterChips: renders brand, country, and range chips", () => {
-  let removedCol = null;
   render(React.createElement(ActiveFilterChips, {
     filters: {
       __brand: "PowerMatic",
       kraj: "PL",
       rok_zalozenia: { min: 2010, max: 2024 },
     },
-    onRemoveFilter: (col) => { removedCol = col; },
+    onRemoveFilter: () => {},
   }));
 
   assert.ok(screen.getByText("PowerMatic"));

@@ -142,11 +142,13 @@ def clean_all_catalogs():
                 clean_row = {col: (row.get(col) or "").strip() for col in CANONICAL_SCHEMA}
                 clean_rows.append(clean_row)
                 
-            # Write back
-            with open(cfile, "w", encoding="utf-8", newline="") as f:
+            # Write back atomically
+            tmp_cfile = cfile.with_suffix(".csv.tmp")
+            with open(tmp_cfile, "w", encoding="utf-8", newline="") as f:
                 writer = csv.DictWriter(f, fieldnames=CANONICAL_SCHEMA)
                 writer.writeheader()
                 writer.writerows(clean_rows)
+            os.replace(tmp_cfile, cfile)
                 
             total_retained += len(clean_rows)
             print(f"  ✓ {cdir_name}/catalog-{cat_type}-{iso}.csv: {len(clean_rows)} clean records")

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import {
   Copy,
   ExternalLink,
@@ -28,10 +28,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { ModernLeadsTable } from "./ModernLeadsTable";
-import { ModernLeadsTableV2 } from "./ModernLeadsTableV2";
-import { ExperimentViewV3 } from "./ExperimentViewV3";
 import { useCsv } from "@/hooks/useCsv";
+
+const ModernLeadsTable = lazy(() => import("./ModernLeadsTable").then((m) => ({ default: m.ModernLeadsTable || m.default })));
+const ModernLeadsTableV2 = lazy(() => import("./ModernLeadsTableV2").then((m) => ({ default: m.ModernLeadsTableV2 || m.default })));
+const ExperimentViewV3 = lazy(() => import("./ExperimentViewV3").then((m) => ({ default: m.ExperimentViewV3 || m.default })));
 
 const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
@@ -208,18 +209,20 @@ export function ExperimentView() {
       <div className="flex-1 min-h-0">
         {csv.status === "loading" && <LoadingPanel progress={csv.progress} />}
         {csv.status === "error" && <ErrorPanel error={csv.error} onRetry={() => csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0)} />}
-        {csv.status === "ready" && activeExperiment === "progresywny" && (
-          <ModernLeadsTableV2 leads={leads} />
-        )}
-        {csv.status === "ready" && activeExperiment === "modern" && (
-          <ModernLeadsTable leads={leads} />
-        )}
-        {csv.status === "ready" && activeExperiment === "sidebar-filter" && (
-          <ExperimentViewV3 leads={leads} />
-        )}
-        {csv.status === "ready" && activeExperiment === "sticky-grid" && (
-          <VideoGridExperiment leads={leads} />
-        )}
+        <Suspense fallback={<LoadingPanel progress={csv.progress} />}>
+          {csv.status === "ready" && activeExperiment === "progresywny" && (
+            <ModernLeadsTableV2 leads={leads} />
+          )}
+          {csv.status === "ready" && activeExperiment === "modern" && (
+            <ModernLeadsTable leads={leads} />
+          )}
+          {csv.status === "ready" && activeExperiment === "sidebar-filter" && (
+            <ExperimentViewV3 leads={leads} />
+          )}
+          {csv.status === "ready" && activeExperiment === "sticky-grid" && (
+            <VideoGridExperiment leads={leads} />
+          )}
+        </Suspense>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Filter, PanelLeftClose, PanelLeftOpen, ChevronRight } from "lucide-react";
+import { Filter, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 function valueMatches(value, filterVal) {

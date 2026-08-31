@@ -142,10 +142,8 @@ def main() -> int:
             insights.append("Integracja VIES EU REST API pozwala na automatyczną bezpłatną walidację NIP-UE we wszystkich 27 krajach UE.")
             
     if not insights:
-        insights = [
-            "Przetworzono 143 firmy w 12 krajach europejskich z automatyczną dedupikacją i jakościowym scoringiem 0-100%.",
-            "Dodano skrapowanie rejestrów SK (FinStat), RO (ListaFirme), LT (Rekvizitai) oraz FR (Pappers)."
-        ]
+        print("  → No new insights to extract from latest run/walkthrough.")
+        return 0
         
     # Deduplicate insights while keeping order
     unique_insights = []

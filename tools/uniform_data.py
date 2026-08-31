@@ -39,8 +39,8 @@ DIAL_CODES = {
 }
 
 SKALA_MAP = {
-    "bardzo duży": "bardzo duży",
-    "bardzo duzy": "bardzo duży",
+    "bardzo duży": "duży",
+    "bardzo duzy": "duży",
     "duży": "duży",
     "duzy": "duży",
     "średni": "średni",
