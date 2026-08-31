@@ -15,7 +15,6 @@ import {
   Volume2,
   Maximize2,
   Film,
-  Layers,
   Loader2,
   AlertCircle,
   LayoutGrid,

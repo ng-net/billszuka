@@ -29,7 +29,7 @@ import {
  */
 export function UrlBadge({
   url,
-  status = "unknown",
+  _status = "unknown",
   state = "unknown",
   http_code,
   error,

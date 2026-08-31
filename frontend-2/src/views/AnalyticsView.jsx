@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Bird, BarChart3, AlertCircle, Loader2, Layers, MapPin, Building2, Tag, AlertTriangle, Sparkles, Zap, ChevronDown, CheckCircle2, Info } from "lucide-react";
+import { Bird, BarChart3, Loader2, MapPin, Building2, Tag, AlertTriangle, Sparkles, Zap, ChevronDown, CheckCircle2, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parseCsvUrl } from "@/lib/csv";
 import {
-  groupBy, deriveStatus, COUNTRY_COLORS, colorFor,
+  groupBy, deriveStatus, colorFor,
   topByCountry, claimDistributors, powerMaticListings,
   powerMaticMatrix, regionRollup, coverageByCountry,
   researchAnomalies, topResearchAnomaly, verificationTimeline,
@@ -244,7 +244,7 @@ function PowerMaticHeatmap({ countries, max }) {
   );
 }
 
-function PowerMaticStacked({ countries, max }) {
+function PowerMaticStacked({ countries, max: _max }) {
   return (
     <div className="space-y-2.5">
       {countries.map(c => {
@@ -612,9 +612,7 @@ export function AnalyticsView() {
     );
   }
 
-  const maxByCountry = Math.max(...tiles.byCountry.map((r) => r.count), 1);
   const maxByTier = Math.max(...tiles.byTier.map((r) => r.count), 1);
-  const maxByBrand = Math.max(...tiles.byBrand.map((r) => r.count), 1);
 
   const statusSegments = (["FROZEN", "DO-WERYFIKACJI", "PENDING_API", "OTHER"]).map(k => ({
     label: k, value: (tiles.byStatus.find(s => s.key === k) || { count: 0 }).count, color: STATUS_COLORS[k] || "#94a3b8",

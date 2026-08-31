@@ -492,7 +492,7 @@ export function powerMaticGroups(rows) {
   }
   const groups = [];
   const singles = [];
-  for (const [key, b] of buckets) {
+  for (const [_key, b] of buckets) {
     const kraje = [...new Set(b.rows.map(r => r.kraj))];
     if (kraje.length > 1) {
       groups.push({ parent: b.parent, kraje, rows: b.rows });
