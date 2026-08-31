@@ -591,3 +591,53 @@ Poprzednia sesja (Marceli's commit 190ee362) wstawiła do CSV pewne dane, który
 3. **BG = obfity B2B tytoniowy rynek.** 6 nowych kanałów w jednym dniu. Пловдив jest hubem produkcyjnym (M Tobacco, Tobacco Trade, Kaliman).
 4. **Multi-country łańcuchy** — Ecodumas (LV+LT), RoyalSmoke (LT+LV) — jeden deal pokrywa 2-3 rynki. Priorytet outreach.
 5. **HR NLK** = najlepszy kandydat B2B: 30+ lokali, partnerzy już z BAT/PMI/JTI/Imperial/Pöschl (Pöschl konkuruje z PM), Bista LTD (Marceli zna).
+
+---
+
+## 2026-08-31 19:25 CEST — Non-PL gem analysis (Catalog B across 12 countries)
+
+**Context:** Searched all 12 non-PL country folders (BG/HR/CZ/EE/FR/LT/MD/RO/RS/SK/SI/LV) for high-value B2B partner candidates ("gems"). Tool: `tools/find_gems.py`.
+
+**Gem criteria (all required):**
+1. FROZEN flag (verifier-confirmed, not DO-WERYFIKACJI/PENDING/HALUCYNACJA)
+2. Has contact info (email or telefon)
+3. Score ≥ 3: whale/distribution signal + powinowactwo + B2B tier + sourcing
+4. powinowactwo_nabijarki weighted 4-5 (out of 1-5)
+
+**Score (max ~10):**
+- 5 pts: whale signal (lider/ogólnokrajowy/monopol/🐋/wyłączność)
+- 2 pts: powinowactwo 4-5
+- 2 pts: B2B tier or category B8/B5/B6/B4/B7
+- 1 pt: real sourcing (not 'brak' / 'do weryfikacji')
+
+**Result: 112 gems across 9 countries** (CZ has 0 catalog-B rows; MD/Serbia have 0 FROZEN).
+
+| ISO | Country | Gems | Top score |
+|---|---|---|---|
+| 🇧🇬 | Bułgaria | 24 | 10 |
+| 🇪🇪 | Estonia | 19 | 9 |
+| 🇸🇰 | Słowacja | 15 | 10 |
+| 🇷🇴 | Rumunia | 13 | 9 |
+| 🇫🇷 | Francja | 12 | 9 |
+| 🇭🇷 | Chorwacja | 11 | 10 |
+| 🇱🇹 | Litwa | 9 | 7 |
+| 🇸🇮 | Słowenia | 6 | 10 |
+| 🇱🇻 | Łotwa | 3 | 5 |
+
+**Top 5 actionable gems (whale-tier, score=10):**
+1. **BG — БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН ООД** (Sofia) — dystrybucyjne ramię Tobacco Import Ltd, ogólnokrajowa logistyka + sprzedaż hurtowa tytoniu i akcesoriów. `office@tobacco-import.com`
+2. **BG — ДЕЛИОН ООД (VM Finance Group)** (Sofia) — czołowy ogólnokrajowy importer i dystrybutor tytoni do palenia, cygar, akcesoriów; huby Sofia/Płowdiw/Warna. `office@delion.bg`
+3. **HR — TDR d.o.o. (Tvornica duhana Rovinj / BAT Adria)** (Rovinj) — największy producent i dystrybutor wyrobów tytoniowych w Chorwacji i regionie Adria. `info@tdr.hr`
+4. **HR — TISAK PLUS d.o.o. (Tisak / Fortenova Grupa)** (Zagreb) — największy chorwacki dystrybutor z siecią 1400+ punktów sprzedaży. `info@tisak.hr`
+5. **SI — TOBAČNA 3DVA (Trafika 3DVA)** (Ljubljana) — największa sieć 200+ kiosków tytoniowych w Słowenii. `3dvainfo@si.imptob.com`
+
+**Strategic insight:** 7/15 SK gems and 5/11 HR gems are subsidiaries of multinationals (PMI, JTI, Imperial, BAT). These are mostly "unreachable" for partnership (corporate procurement). The **mid-market independent operators** (BG Delion, BG БОЛКАН, HR Tisak, HR ROX, EE Imperial Tobacco Estonia OÜ, LT Ecodumas) are the better first-target list.
+
+**Multi-country leverage:**
+- **SI Mercator Cash & Carry** = największa hurtownia samoobsługowa w Słowenii + trader FMCG/tytoń. Sąsiedzi: możliwość cross-border do HR.
+- **EE Imperial Tobacco Estonia OÜ** + **LV SANITEX** — 2 z 3 krajów bałtyckich pokryte jednym dealem (Tallinn + Riga).
+
+**Output files:**
+- `tools/find_gems.py` (ranking tool, 9.8KB)
+- `data/verification/gems.csv` (112 ranked rows)
+- `data/verification/gems_summary.md` (per-country breakdown + top 20)

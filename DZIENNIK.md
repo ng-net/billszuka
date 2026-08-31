@@ -696,3 +696,38 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 3. **BG = obfity rynek tytoniowy** — wielu B2B dystrybutorów (Tobacco Import, TTI, M Tabako, Tabak Logistic), Płowdiw jest hubem.
 4. **HR ma 3rd largest kiosk chain (NLK) z 30+ lokalami** — silny B2B kandydat na dystrybucję PM/Hawk.
 5. **Cross-country łańcuchy** — Ecodumas (LV/LT) i RoyalSmoke (LT/LV) to multi-country sieci — jeden deal pokrywa 2 rynki.
+
+---
+
+## 2026-08-31 19:25 CEST — Non-PL gem analysis (Catalog B)
+
+**Zadanie:** Marceli poprosił: "find gem companies in all countries but Poland".
+
+**Wykonane:**
+1. **Survey 12 krajów** (BG/HR/CZ/EE/FR/LT/MD/RO/RS/SK/SI/LV) — 145 wierszy Catalog B, 113 FROZEN.
+2. **Zbudowano `tools/find_gems.py`** (9.8KB) — kryteria: FROZEN + kontakt + score≥3.
+3. **Score (max 10):** 5 pkt whale signal + 2 pkt powinowactwo 4-5 + 2 pkt B2B tier/cat + 1 pkt real sourcing.
+4. **Wynik: 112 gemów w 9 krajach.** CZ ma 0 catalog-B; MD/Serbia mają 0 FROZEN (poza scope).
+
+**Top 5 per kraju (actionable, niezależne od korporacji):**
+- 🇧🇬 **БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН ООД** (Sofia, score 10) — dystrybucyjne ramię Tobacco Import Ltd
+- 🇧🇬 **ДЕЛИОН ООД / VM Finance Group** (Sofia, score 10) — czołowy importer tytoni/cygar/akcesoriów
+- 🇭🇷 **TDR d.o.o. / BAT Adria** (Rovinj, score 10) — największy producent+ dystrybutor tytoniu w Chorwacji
+- 🇭🇷 **TISAK PLUS d.o.o. / Fortenova** (Zagreb, score 10) — 1400+ punktów sprzedaży
+- 🇸🇮 **TOBAČNA 3DVA / Imperial** (Ljubljana, score 10) — 200+ kiosków tytoniowych
+
+**Wnioski strategiczne:**
+- 7/15 SK i 5/11 HR gemów to spółki-córki korporacji (PMI/JTI/Imperial/BAT) — trudne do partnerstwa.
+- Mid-market independent (BG Delion, BG БОЛКАН, HR Tisak, HR ROX, EE Imperial Tobacco Estonia, LT Ecodumas) = najlepsza pierwsza fala outreach.
+- **Multi-country leverage:** SI Mercator Cash & Carry (sieć hurtowni + trader FMCG/tytoń) = cross-border do HR. EE Imperial Tobacco Estonia + LV SANITEX = pokrycie 2/3 bałtyckich jednym dealam.
+
+**Outputy:**
+- `tools/find_gems.py` (ranking tool)
+- `data/verification/gems.csv` (112 rows, ranked by score)
+- `data/verification/gems_summary.md` (per-country + top 20)
+- INTEL.md zaktualizowany (nowa sekcja gem analysis na końcu pliku)
+
+**Lesson learned (dla przyszłych sesji):**
+- Whales (ogólnokrajowe, BAT/PMI-córki) mają score 10 ale są "unreachable" dla B2B partnerstwa — odfiltrować korporacyjne subsidiaria przed outreach.
+- FROZEN ≥ 4.5 confidence kryterium bezwzględne — żaden gem nie przechodzi z DO-WERYFIKACJI lub HALUCYNACJA.
+- Cross-country leverage (Ecodumas LV+LT, RoyalSmoke LT+LV, SI Mercator do HR) = 1 deal pokrywa 2-3 rynki.

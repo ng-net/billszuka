@@ -91,8 +91,12 @@ Format per kraj: **Podstawowy** (nazwa/adres/status) · **Finansowy** (bilans) �
 
 - Podstawowy (JDG): `dane.biznes.gov.pl/api/ceidg/v3/firmy?nip=X` — Bearer token
 - Podstawowy (spółka): KRS lookup-only (**brak search po nazwie**) —
-  `api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}` — brak auth, 20/min.
+  `api-krs.ms.gov.pl/api/krs/OdpisAktualny/{KRS}?format=json` — brak auth, 20/min.
   Znajdź KRS przez `wyszukiwarka-krs.ms.gov.pl` lub web_search.
+  **Struktura odpowiedzi**: `odpis.dane.dzial1.danePodmiotu.{identyfikatory.nip, nazwa}`
+- **NIP validity (KAS WL API)**: `https://wl-api.mf.gov.pl/api/search/nip/{NIP}?date=YYYY-MM-DD`
+  — zwraca 200 z danymi podmiotu dla prawidłowego NIP, 400 + `WL-115: Nieprawidłowy NIP.`
+  dla nieprawidłowego. **To jest ostateczny autorytet** dla mod-11 + existence check.
 - REGON (BIR1.1): `api.stat.gov.pl/Home/RegonApi` — wymaga USER_KEY (email)
 - Finansowy: `ekrs.ms.gov.pl/rdf/pd/search_df?Krs={KRS}` (.xml bilans+RZiS);
   paid alt: rejestr.io (0.5 zł/dok), krs-online.com.pl

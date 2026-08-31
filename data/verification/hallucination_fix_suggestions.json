@@ -1,0 +1,470 @@
+{
+  "generated": "2026-08-31",
+  "summary": {
+    "CONFIRMED HALUCYNACJA (KRS→other company)": 7,
+    "LIKELY FALSE POSITIVE (NIP mod-11 OK)": 0,
+    "LIKELY FALSE POSITIVE (KRS matches CSV)": 0,
+    "UNVERIFIED (KRS API unreachable)": 0,
+    "UNVERIFIED (NIP mod-11 fails; needs registry check)": 0,
+    "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)": 19
+  },
+  "fixes": [
+    {
+      "id": "PL-B-048",
+      "name": "Selgros / Transgourmet Polska Sp. z o.o.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 6, got 3"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-050",
+      "name": "Polska Grupa Tytoniowa Sp. z o.o.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 3, got 0"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "5372504633",
+          "krs_name": "\"MASTER - PŁODOWSCY I WSPÓLNICY\", SPÓŁKA JAWNA"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-052",
+      "name": "Mona Sp. z o.o.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "check digit = 10 (invalid)"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-055",
+      "name": "Hurtownia Centrum Wiesław Sacharski",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 9, got 0"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-057",
+      "name": "Firma Handlowa Mariusz Kawa",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 1, got 9"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-058",
+      "name": "FLAJ Sklep i Hurtownia w Augustowie",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 7, got 0"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-061",
+      "name": "CARMEN POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (1 = 166 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "6510000539",
+          "krs_name": "PIEKARNIA REHLIS SPÓŁKA JAWNA"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-065",
+      "name": "ANIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (1 = 177 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "5252228892",
+          "krs_name": "BAUMER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-070",
+      "name": "VIVOPLAST Hurtownia Opakowań i Artykułów",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 2, got 0"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-075",
+      "name": "PHPU \"TEKS\" SA (Markowe Cygara)",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 4, got 0"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "9441787353",
+          "krs_name": "TUKAJ MAPPING CENTRAL EUROPE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-076",
+      "name": "MILO S.A.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 0, got 2"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-077",
+      "name": "CARO Sp.j. R. i R. Niewczas",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 9, got 7"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "6670003825",
+          "krs_name": "SPÓŁDZIELNIA MIESZKANIOWA W SŁUPCY"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-078",
+      "name": "BONUS Hurtownia Papierosów",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "check digit = 10 (invalid)"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-079",
+      "name": "Hurtownia Papierosów \"DANA\"",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 5, got 3"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-080",
+      "name": "Caro. Hurtownia papierosów. Żach K.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 8, got 4"
+        },
+        "krs_lookup": {
+          "ok": null,
+          "reason": "no KRS number"
+        }
+      }
+    },
+    {
+      "id": "PL-B-082",
+      "name": "VAPE POINT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 4, got 7"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "8952194286",
+          "krs_name": "PROFI DEWELOPER SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-091",
+      "name": "Don Marco International Sp. z o.o.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 7, got 8"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-092",
+      "name": "MRC Trade Sp. z o.o.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 4, got 5"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-094",
+      "name": "Tobacco Concept Factory (TCF) Sp. z o.o.",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 7, got 6"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-106",
+      "name": "NOVIS Sławomir Gągorowski, Sylwia Gągorowska Spółka Jawna",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (2 = 233 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "1231415374",
+          "krs_name": "DALI TRENDMODY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-107",
+      "name": "BESTMAR RYDZ I PAWŁOWSKA SPÓŁKA JAWNA",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (5 = 148 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "7872134838",
+          "krs_name": "EWIKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-108",
+      "name": "TORA VAPE POLSKA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ SPÓŁKA KOMANDYTOWA",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (8 = 118 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "5252928810",
+          "krs_name": "DIVAIN OVERSEAS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-110",
+      "name": "WEST TRADING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (6 = 204 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "5213266960",
+          "krs_name": "FABRYKA ZNAKÓW SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-112",
+      "name": "NAPO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+      "verdict": "CONFIRMED HALUCYNACJA (KRS→other company)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": true,
+          "reason": "check digit OK (1 = 199 mod 11)"
+        },
+        "krs_lookup": {
+          "ok": true,
+          "krs_nip": "5242772051",
+          "krs_name": "JM SYSTEMS SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ"
+        },
+        "krs_nip_match": false,
+        "krs_name_match_pct": 0.0
+      }
+    },
+    {
+      "id": "PL-B-125",
+      "name": "JAS-FBG SPÓŁKA AKCYJNA",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 3, got 7"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    },
+    {
+      "id": "PL-B-126",
+      "name": "ROHLIG SUUS LOGISTICS SPÓŁKA AKCYJNA",
+      "verdict": "CONFIRMED HALUCYNACJA (NIP fails mod-11 + KAS rejects)",
+      "action": "KEEP flag — confirmed hallucination, KRS points to other company",
+      "checks": {
+        "nip_mod11": {
+          "ok": false,
+          "reason": "expected check 0, got 4"
+        },
+        "krs_lookup": {
+          "ok": false,
+          "krs_nip": null,
+          "krs_name": null
+        }
+      }
+    }
+  ]
+}

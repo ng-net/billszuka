@@ -1,0 +1,116 @@
+[
+  {
+    "id": "PL-B-048",
+    "name": "Selgros / Transgourmet Polska Sp. z o.o.",
+    "nip_csv": "7792223933",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-050",
+    "name": "Polska Grupa Tytoniowa Sp. z o.o.",
+    "nip_csv": "9532585250",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-052",
+    "name": "Mona Sp. z o.o.",
+    "nip_csv": "6792683072",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-055",
+    "name": "Hurtownia Centrum Wiesław Sacharski",
+    "nip_csv": "7580003310",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-057",
+    "name": "Firma Handlowa Mariusz Kawa",
+    "nip_csv": "8731006509",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-058",
+    "name": "FLAJ Sklep i Hurtownia w Augustowie",
+    "nip_csv": "8461001460",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-070",
+    "name": "VIVOPLAST Hurtownia Opakowań i Artykułów",
+    "nip_csv": "6610001890",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-075",
+    "name": "PHPU \"TEKS\" SA (Markowe Cygara)",
+    "nip_csv": "7960073210",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-076",
+    "name": "MILO S.A.",
+    "nip_csv": "9590822602",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-077",
+    "name": "CARO Sp.j. R. i R. Niewczas",
+    "nip_csv": "6610003937",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-078",
+    "name": "BONUS Hurtownia Papierosów",
+    "nip_csv": "6640003463",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-079",
+    "name": "Hurtownia Papierosów \"DANA\"",
+    "nip_csv": "7310007883",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-080",
+    "name": "Caro. Hurtownia papierosów. Żach K.",
+    "nip_csv": "7590004724",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-082",
+    "name": "VAPE POINT SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+    "nip_csv": "8992850937",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-091",
+    "name": "Don Marco International Sp. z o.o.",
+    "nip_csv": "5833019808",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-092",
+    "name": "MRC Trade Sp. z o.o.",
+    "nip_csv": "8792683935",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-094",
+    "name": "Tobacco Concept Factory (TCF) Sp. z o.o.",
+    "nip_csv": "5832791456",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-125",
+    "name": "JAS-FBG SPÓŁKA AKCYJNA",
+    "nip_csv": "6340127847",
+    "kas_error": "HTTP Error 400: "
+  },
+  {
+    "id": "PL-B-126",
+    "name": "ROHLIG SUUS LOGISTICS SPÓŁKA AKCYJNA",
+    "nip_csv": "5260036094",
+    "kas_error": "HTTP Error 400: "
+  }
+]
