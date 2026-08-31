@@ -919,3 +919,24 @@ https://billszuka.pages.dev/ as a logged-in member.
 - 10/14 extra-leads FROZEN, 4/14 DO-WERYFIKACJI (LT/MD/RS — no public API)
 - 5 hallucinations detected + corrected (FR effectif, 4 enseignes, 110k opinii,
   Sibis miasto Brașov)
+
+### Cloudflare Access — deep link URLs (2026-08-31 21:40)
+
+After Marcel's question "ktora policy usunac" — I confirmed via curl
+that there is exactly ONE Cloudflare Access policy protecting
+`billszuka.pages.dev`. All paths (including random ones like
+/somerandompath12345) return the same `kid` in the redirect URL:
+
+  kid (app AUD): 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
+  redirect host: winter-poetry-64f2.cloudflareaccess.com
+  protected hostname: billszuka.pages.dev
+  policy: "members of the account" (any user logged in to the
+           Neatgroupnet's Account via Cloudflare SSO passes)
+
+Deep links to the exact app in dashboard:
+
+  https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps/384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
+
+  https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps
+
+Opened the first one in the default browser at 21:40 CEST.
