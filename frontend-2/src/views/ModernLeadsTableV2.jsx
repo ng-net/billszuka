@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import {
   Copy,
   Mail,
@@ -19,7 +19,6 @@ import {
   EyeOff,
   LayoutGrid,
   ExternalLink,
-  Link,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UrlBadge } from "../components/UrlBadge";
@@ -194,7 +193,9 @@ const generateLeads = (count) =>
   });
 
 export function ModernLeadsTableV2({ leads: leadsProp }) {
-  const [leads] = useState(() => leadsProp || generateLeads(50));
+  const defaultMockLeads = useMemo(() => generateLeads(50), []);
+  const leads = leadsProp && leadsProp.length > 0 ? leadsProp : defaultMockLeads;
+
   const [expandedRow, setExpandedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Wszystkie");
@@ -205,25 +206,63 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   const [tierDropdownOpen, setTierDropdownOpen] = useState(false);
   const [urlDropdownOpen, setUrlDropdownOpen] = useState(false);
   const [maskNames, setMaskNames] = useState(true);
+
+  const filterBarRef = useRef(null);
+
   const { byId: urlStatusById } = useUrlStatus(selectedCountry);
   const { byId: keywordById } = useKeywordScan(selectedCountry);
+
+  // Close dropdowns on click outside or Escape
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (filterBarRef.current && !filterBarRef.current.contains(e.target)) {
+        setCountryDropdownOpen(false);
+        setTierDropdownOpen(false);
+        setUrlDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setCountryDropdownOpen(false);
+        setTierDropdownOpen(false);
+        setUrlDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const countryOptions = useMemo(() => {
     const defaultList = ["Polska", "Czechy", "Słowacja", "Słowenia", "Chorwacja", "Bułgaria", "Rumunia", "Mołdawia", "Serbia", "Litwa", "Łotwa", "Estonia", "Francja"];
     const found = new Set(defaultList);
     for (const l of leads) {
-      if (l.kraj) found.add(l.kraj);
+      if (l.kraj && String(l.kraj).trim()) found.add(String(l.kraj).trim());
     }
     return ["Wszystkie", ...Array.from(found)];
   }, [leads]);
 
-  // --- Top-level brand bookmark counts (from ExperimentViewV3) ---
+  const tierOptions = useMemo(() => {
+    const defaultTiers = ["Producent", "hurtownik", "reseller", "detalista", "marketplace", "autoryzowany"];
+    const found = new Set(defaultTiers);
+    for (const l of leads) {
+      if (l.tier && String(l.tier).trim()) found.add(String(l.tier).trim());
+    }
+    return ["Wszystkie", ...Array.from(found)];
+  }, [leads]);
+
+  // --- Top-level brand bookmark counts ---
   const brandCounts = useMemo(() => {
-    const counts = { Wszystko: leads.length, PowerMatic: 0, Hawk: 0 };
+    const counts = { Wszystko: leads.length, PowerMatic: 0, "PowerMatic + Hawk": 0, Hawk: 0, Inna: 0 };
     for (const l of leads) {
       const b = classifyBrand(l.marki_nabijarki);
       if (b === "PowerMatic" || b === "PowerMatic + Hawk") counts.PowerMatic += 1;
       if (b === "Hawk" || b === "PowerMatic + Hawk") counts.Hawk += 1;
+      if (b === "PowerMatic + Hawk") counts["PowerMatic + Hawk"] += 1;
+      if (b === "Inna") counts.Inna += 1;
     }
     return counts;
   }, [leads]);
@@ -231,56 +270,100 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   // --- Filtering ---
   const filteredLeads = useMemo(() => {
     return leads.filter((lead) => {
-      if (selectedCountry !== "Wszystkie" && lead.kraj !== selectedCountry) return false;
-      if (selectedTier !== "Wszystkie" && lead.tier !== selectedTier) return false;
+      // Country filter (case-insensitive & trimmed)
+      if (selectedCountry !== "Wszystkie") {
+        const leadCountry = (lead.kraj || "").trim().toLowerCase();
+        if (leadCountry !== selectedCountry.trim().toLowerCase()) return false;
+      }
+
+      // Tier/Role filter (case-insensitive & trimmed)
+      if (selectedTier !== "Wszystkie") {
+        const leadTier = (lead.tier || "").trim().toLowerCase();
+        if (leadTier !== selectedTier.trim().toLowerCase()) return false;
+      }
+
+      // Brand filter: handles single brands, combos ("PowerMatic + Hawk"), and multiple selections
       if (selectedBrands.length > 0) {
         const b = classifyBrand(lead.marki_nabijarki);
-        if (!selectedBrands.includes(b)) return false;
+        const matchesBrand = selectedBrands.some((selected) => {
+          if (selected === "PowerMatic") return b === "PowerMatic" || b === "PowerMatic + Hawk";
+          if (selected === "Hawk") return b === "Hawk" || b === "PowerMatic + Hawk";
+          if (selected === "PowerMatic + Hawk") return b === "PowerMatic + Hawk";
+          if (selected === "Inna") return b === "Inna";
+          return b === selected;
+        });
+        if (!matchesBrand) return false;
       }
+
+      // URL scanner state filter
       if (selectedUrlFilter === "ok") {
         const u = urlStatusById[lead.id_unikalne];
         if (u?.state !== "ok") return false;
       } else if (selectedUrlFilter === "error") {
         const u = urlStatusById[lead.id_unikalne];
-        if (!u || !["4xx", "5xx", "timeout", "ssl", "dns"].includes(u.state)) return false;
+        if (!u || !["4xx", "5xx", "timeout", "ssl", "dns", "error"].includes(u.state)) return false;
       } else if (selectedUrlFilter === "none") {
         const u = urlStatusById[lead.id_unikalne];
-        if (lead.www && u && u.state !== "unknown") return false;
+        const rawWww = String(lead.www || "").trim().toLowerCase();
+        const hasNoUrl = !rawWww || ["brak", "-", "n/a", "nie dotyczy", "brak www"].includes(rawWww);
+        const isUnknown = !u || !u.state || u.state === "unknown";
+        if (!hasNoUrl && !isUnknown) return false;
       }
+
+      // Global search: search across multiple relevant fields
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
-        const matches =
-          (lead.nazwa_firmy || "").toLowerCase().includes(q) ||
-          (lead.nip_vat || "").toLowerCase().includes(q) ||
-          (lead.miasto || "").toLowerCase().includes(q) ||
-          (lead.id_unikalne || "").toLowerCase().includes(q) ||
-          (lead.decydent || "").toLowerCase().includes(q);
-        if (!matches) return false;
+        const haystack = [
+          lead.nazwa_firmy,
+          lead.nip_vat,
+          lead.miasto,
+          lead.id_unikalne,
+          lead.decydent,
+          lead.email,
+          lead.email_decydent,
+          lead.telefon,
+          lead.marki_nabijarki,
+          lead.kraj,
+          lead.adres,
+          lead.stanowisko,
+          lead.rejestr_id,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        if (!haystack.includes(q)) return false;
       }
+
       return true;
     });
   }, [leads, searchQuery, selectedCountry, selectedTier, selectedBrands, selectedUrlFilter, urlStatusById]);
 
-  // --- Active filter pills (from V3 faceted rail) ---
+  // --- Active filter pills ---
   const activeFilters = useMemo(() => {
     const list = [];
-    if (selectedCountry !== "Wszystkie") list.push({ type: "country", label: selectedCountry });
-    if (selectedTier !== "Wszystkie") list.push({ type: "tier", label: selectedTier });
+    if (selectedCountry !== "Wszystkie") list.push({ type: "country", label: `Kraj: ${selectedCountry}` });
+    if (selectedTier !== "Wszystkie") list.push({ type: "tier", label: `Rola: ${selectedTier}` });
     if (selectedUrlFilter !== "Wszystkie") {
-      const label = selectedUrlFilter === "ok" ? "WWW: Działające (200)"
-        : selectedUrlFilter === "error" ? "WWW: Błędy"
-        : "WWW: Brak/Nieznane";
+      const label =
+        selectedUrlFilter === "ok"
+          ? "WWW: Działające (200)"
+          : selectedUrlFilter === "error"
+          ? "WWW: Błędy"
+          : "WWW: Brak/Nieznane";
       list.push({ type: "url", label });
     }
-    for (const b of selectedBrands) list.push({ type: "brand", label: b, value: b });
+    for (const b of selectedBrands) list.push({ type: "brand", label: `Marka: ${b}`, value: b });
+    if (searchQuery.trim()) list.push({ type: "search", label: `Szukaj: "${searchQuery.trim()}"` });
     return list;
-  }, [selectedCountry, selectedTier, selectedUrlFilter, selectedBrands]);
+  }, [selectedCountry, selectedTier, selectedUrlFilter, selectedBrands, searchQuery]);
 
   const removeFilter = (f) => {
     if (f.type === "country") setSelectedCountry("Wszystkie");
     if (f.type === "tier") setSelectedTier("Wszystkie");
     if (f.type === "url") setSelectedUrlFilter("Wszystkie");
     if (f.type === "brand") setSelectedBrands((prev) => prev.filter((b) => b !== f.value));
+    if (f.type === "search") setSearchQuery("");
   };
 
   const resetAll = () => {
@@ -298,13 +381,35 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
     }
   };
 
+  const escapeCsv = (val) => {
+    if (val == null) return '""';
+    const s = String(val);
+    return `"${s.replace(/"/g, '""')}"`;
+  };
+
   const handleExport = () => {
     const header = "ID,Nazwa,Kraj,Miasto,NIP,Tier,Wolumen,Decydent,Email,Telefon,WWW,Status WWW,Kod HTTP,Błąd WWW,Keyword Score\n";
     const rows = filteredLeads
       .map((l) => {
         const u = urlStatusById[l.id_unikalne];
         const kw = keywordById[l.id_unikalne];
-        return `"${l.id_unikalne}","${l.nazwa_firmy}","${l.kraj}","${l.miasto}","${l.nip_vat}","${l.tier}","${l.wolumen}","${l.decydent}","${l.email}","${l.telefon}","${l.www || ""}","${u?.state || "nieznane"}","${u?.http_code || ""}","${u?.error || ""}","${kw?.score_pct ?? ""}"`;
+        return [
+          escapeCsv(l.id_unikalne),
+          escapeCsv(l.nazwa_firmy),
+          escapeCsv(l.kraj),
+          escapeCsv(l.miasto),
+          escapeCsv(l.nip_vat),
+          escapeCsv(l.tier),
+          escapeCsv(l.wolumen),
+          escapeCsv(l.decydent),
+          escapeCsv(l.email),
+          escapeCsv(l.telefon),
+          escapeCsv(l.www || ""),
+          escapeCsv(u?.state || "nieznane"),
+          escapeCsv(u?.http_code || ""),
+          escapeCsv(u?.error || ""),
+          escapeCsv(kw?.score_pct ?? ""),
+        ].join(",");
       })
       .join("\n");
     const blob = new Blob(["\ufeff" + header + rows], { type: "text/csv;charset=utf-8;" });
@@ -451,16 +556,26 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         </div>
 
         {/* --- MODERN FILTER BAR --- */}
-        <div className="bg-white dark:bg-zinc-900 p-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-zinc-800 flex flex-wrap gap-2 items-center">
+        <div ref={filterBarRef} className="bg-white dark:bg-zinc-900 p-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-zinc-800 flex flex-wrap gap-2 items-center">
           <div className="relative flex-1 min-w-[280px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Szukaj po nazwie, NIP, decydencie lub mieście..."
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-zinc-800/80 border-none rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900/10 dark:focus:ring-indigo-500/20 outline-none transition-all"
+              placeholder="Szukaj po nazwie, NIP, decydencie, telefonie lub mieście..."
+              className="w-full pl-10 pr-9 py-2 bg-slate-50 dark:bg-zinc-800/80 border-none rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900/10 dark:focus:ring-indigo-500/20 outline-none transition-all"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                title="Wyczyść szukanie"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              >
+                <X size={15} />
+              </button>
+            )}
           </div>
 
           <div className="hidden sm:block h-7 w-px bg-slate-200 dark:bg-zinc-700 mx-1"></div>
@@ -517,7 +632,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
             </button>
             {tierDropdownOpen && (
               <div className="absolute top-full left-0 mt-2 w-44 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
-                {["Wszystkie", "Producent", "hurtownik", "reseller", "detalista", "marketplace", "autoryzowany"].map((r) => (
+                {tierOptions.map((r) => (
                   <button
                     key={r}
                     onClick={() => {

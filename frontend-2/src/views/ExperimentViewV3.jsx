@@ -36,6 +36,7 @@ function splitBrands(s) {
 export function ExperimentViewV3({ leads = [] }) {
   const [search, setSearch] = useState("");
   const [activeFilters, setActiveFilters] = useState({});
+  const [activeBrand, setActiveBrand] = useState(null);
   const [density, setDensity] = useState("cozy");
   const [theme, setTheme] = useState("light");
   const [openSections, setOpenSections] = useState({
@@ -59,7 +60,10 @@ export function ExperimentViewV3({ leads = [] }) {
     });
   };
 
-  const clearAll = () => setActiveFilters({});
+  const clearAll = () => {
+    setActiveFilters({});
+    setActiveBrand(null);
+  };
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -69,13 +73,15 @@ export function ExperimentViewV3({ leads = [] }) {
           (r.nazwa_firmy || "") + " " + (r.miasto || "") + " " + (r.nip_vat || "");
         if (!hay.toLowerCase().includes(q)) return false;
       }
+      if (activeBrand === "PowerMatic" && !/powermatic/i.test(r.marki_nabijarki || "")) return false;
+      if (activeBrand === "Hawk" && !/\bhawk\b/i.test(r.marki_nabijarki || "")) return false;
       for (const [key, vals] of Object.entries(activeFilters)) {
         const v = (r[key] || "").toString();
         if (!vals.includes(v)) return false;
       }
       return true;
     });
-  }, [leads, search, activeFilters]);
+  }, [leads, search, activeFilters, activeBrand]);
 
   const rowH = density === "compact" ? "38px" : density === "cozy" ? "48px" : "56px";
 
@@ -99,13 +105,13 @@ export function ExperimentViewV3({ leads = [] }) {
 
         <div className="px-2 py-2">
           {[
-            { label: "Wszystko", count: leads.length, on: Object.keys(activeFilters).length === 0 },
-            { label: "PowerMatic", count: leads.filter((r) => /powermatic/i.test(r.marki_nabijarki || "")).length },
-            { label: "Hawk", count: leads.filter((r) => /\bhawk\b/i.test(r.marki_nabijarki || "")).length },
+            { label: "Wszystko", count: leads.length, on: Object.keys(activeFilters).length === 0 && !activeBrand, action: clearAll },
+            { label: "PowerMatic", count: leads.filter((r) => /powermatic/i.test(r.marki_nabijarki || "")).length, on: activeBrand === "PowerMatic", action: () => setActiveBrand((p) => p === "PowerMatic" ? null : "PowerMatic") },
+            { label: "Hawk", count: leads.filter((r) => /\bhawk\b/i.test(r.marki_nabijarki || "")).length, on: activeBrand === "Hawk", action: () => setActiveBrand((p) => p === "Hawk" ? null : "Hawk") },
           ].map((v) => (
             <button
               key={v.label}
-              onClick={v.on !== undefined ? clearAll : undefined}
+              onClick={v.action}
               className={
                 "w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[13px] " +
                 (v.on ? "bg-slate-100 font-semibold text-slate-900" : "text-slate-600 hover:bg-slate-100")

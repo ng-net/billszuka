@@ -175,7 +175,9 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
                             # Europa, Polska, mix) act as the strict spec.
                             "import", "dystrybucja", "produkcja",
                             "własna produkcja", "import + dystrybucja",
-                            "krajowa", "regionalna", "ogólnokrajowa"],
+                            "krajowa", "regionalna", "ogólnokrajowa",
+                            "logistics", "cargo", "sklad", "skład", "skladiste",
+                            "trošarine", "export", "direct", "daňový", "furs"],
                  "allow_empty": True},
     "wolumen": {"type": "enum", "values": ["mały", "średni", "duży"],
                 "allow_empty": True},
@@ -196,6 +198,8 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
                             # E-commerce / retail / chain stores
                             "e-commerce", "online", "sieć", "sieciowy",
                             "salon", "salony", "sklepy", "sklep",
+                            # Hospitality / HoReCa / Lounge
+                            "hospitality", "lounge", "horeca", "gastronomia", "shisha",
                             # Customs / logistics / brokerage (out-of-spec
                             # but accepted as loose aliases for non-standard
                             # entries that don't fit the 5 strict enum values)
@@ -232,19 +236,19 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
 
 # Per-country NIP/IČO/CUI/etc. patterns
 NIP_PATTERNS: dict[str, str] = {
-    "PL": r"^PL\d{10}$",                # NIP
-    "CZ": r"^CZ\d{8}$",                 # IČO
-    "SK": r"^SK\d{10}$",                # IČ DPH
-    "RO": r"^RO\d{2,10}$",              # CUI/CIF
-    "LT": r"^LT\d{9}$|^\d{9}$",         # PVM/Kodas
-    "LV": r"^LV\d{11}$",                # PVN
-    "EE": r"^EE\d{9}$",                 # KMKR
-    "FR": r"^FR[A-Z0-9]{2}\d{9}$",      # TVA
-    "MD": r"^MD\d{13}$|^\d{13}$",       # IDNO
-    "BG": r"^BG\d{9}$|^\d{9}$",         # EIK
-    "SI": r"^SI\d{8}$",                 # ID za DDV
-    "HR": r"^HR\d{11}$",                # OIB
-    "RS": r"^RS\s?\d{9,10}$",           # PIB (may have space)
+    "PL": r"^PL\d{10}$|^\d{10}$",                  # NIP (10 digits)
+    "CZ": r"^CZ\d{8,10}$|^\d{8}$",                 # IČO (8 digits) or DIČ (CZ + 8-10 digits)
+    "SK": r"^SK\d{10}$|^\d{8,10}$",                # IČ DPH / IČO
+    "RO": r"^RO\d{2,10}$|^\d{2,10}$",              # CUI/CIF
+    "LT": r"^LT\d{9,12}$|^\d{9,12}$",              # PVM (9 or 12 digits) / Įmonės kodas (9 digits)
+    "LV": r"^LV\d{11}$|^\d{11}$",                  # PVN / Reģistrācijas numurs
+    "EE": r"^EE\d{8,9}$|^\d{8,9}$",                # KMKR (9 digits) / Registrikood (8 digits)
+    "FR": r"^FR[A-Z0-9]{2}\d{9}$|^FR\d{9}$|^\d{9}$", # TVA (FR + 2 chars + 9 digits) / SIREN (9 digits)
+    "MD": r"^MD\d{13}$|^\d{13}$",                  # IDNO (13 digits)
+    "BG": r"^BG\d{9,10}$|^\d{9,10}$",              # EIK / Bulstat (9-10 digits)
+    "SI": r"^SI\d{8}$|^\d{8}$",                    # ID za DDV / Matična številka
+    "HR": r"^HR\d{11}$|^\d{11}$",                  # OIB (11 digits)
+    "RS": r"^RS\s?\d{9,10}$|^\d{9}$",              # PIB (9 digits)
 }
 
 URL_RE = re.compile(r"^https?://[^\s]+\.[^\s]+$", re.IGNORECASE)

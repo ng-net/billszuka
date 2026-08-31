@@ -164,9 +164,23 @@ test("ModernLeadsTableV2: shows filter dropdowns for Kraj and Rola", () => {
   const html = renderToStaticMarkup(<ModernLeadsTableV2 leads={sampleLeads} />);
   assert.match(html, /Kraj:/);
   assert.match(html, /Rola:/);
+  assert.match(html, /WWW:/);
 });
 
 test("ModernLeadsTableV2: active filter area shows placeholder when no filters", () => {
   const html = renderToStaticMarkup(<ModernLeadsTableV2 leads={sampleLeads} />);
   assert.match(html, /Wszystkie rekordy/);
+});
+
+test("ModernLeadsTableV2: correctly computes brand counters for dual brand lead", () => {
+  const html = renderToStaticMarkup(<ModernLeadsTableV2 leads={sampleLeads} />);
+  // sampleLeads has:
+  // 1: PowerMatic III+, Hawk (PowerMatic + Hawk) -> counted in PowerMatic (1), Hawk (1), and PowerMatic + Hawk (1)
+  // 2: Hawk (Hawk) -> counted in Hawk (2)
+  // 3: BongGo (Inna)
+  // Total = 3
+  assert.match(html, />Wszystko<.*?3/s);
+  assert.match(html, />PowerMatic<.*?1/s);
+  assert.match(html, />PowerMatic \+ Hawk<.*?1/s);
+  assert.match(html, />Hawk<.*?2/s);
 });

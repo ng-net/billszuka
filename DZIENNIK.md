@@ -27,6 +27,24 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-08-31 — Czyszczenie nazw firm, realokacja deskryptorów i walidacja kolumn
+
+- **Oczyszczenie `nazwa_firmy`:**
+  - Usunięto etykiety maszynek / asortymentu (*"maszynki elektryczne"*, *"nabijarki"*) z nazw spółek i przeniesiono do `marki_nabijarki` oraz `notatki`.
+  - Wyekstrahowano adresy domen w nawiasach (np. `(Plnicky-Powermatic.cz)`, `(cotyshop.ro)`) — zasiliły kolumny `www` lub `notatki`, a `nazwa_firmy` zawiera czyste nazwy rejestrowe.
+  - Oczyszczono deskryptory profili handlowych (np. `(hurtownia art. tytoniowych)`, `(dystrybutor FMCG/tytoń)`), przenosząc je do `notatki` i `tier`.
+- **Naprawa błędnie umiejscowionych danych (`clean_and_realign_columns.py`):**
+  - Przeniesiono adresy e-mail z kolumny `telefon` (np. `CZ-X-002`, `PL-X-034`, `SI-X-001`) do `email`.
+  - Rozdzielono wielokrotne linki WWW i telefony z adnotacjami WhatsApp/Viber.
+  - Skorygowano opisy działalności w kolumnie `sourcing` (np. `LT-B-011`).
+- **Walidacja kolumn (`tools/validate_columns.py`):**
+  - Zaktualizowano wzorce NIP/VAT dla UE (Litwa 9/12 cyfr, Estonia 8/9 cyfr, Francja TVA/SIREN).
+  - Rozszerzono akceptowane tokeny dla `sourcing` i `kanal_sprzedaży` o logistykę, składy celne i HoReCa.
+  - Liczba błędów krytycznych (**Critical issues**) w raporcie spadła ze 131 do **0** (`Files: 26 | Rows: 756 | Critical: 0 | Warning: 412`).
+  - Wszystkie 48 testów w `frontend-2` przeszły pomyślnie.
+
+---
+
 ## 2026-08-31 — Wdrożenie 5 funkcji filtrowania i ergonomii do RawTable (Frontend-2)
 
 - **Brand Quick Bar (`BrandQuickBar.jsx`):** Pasek zakładek marek w nagłówku tabeli z segmentami (`Wszystko`, `PowerMatic`, `PowerMatic + Hawk`, `Hawk`, `Inna`) i dynamicznie buforowanymi licznikami.
