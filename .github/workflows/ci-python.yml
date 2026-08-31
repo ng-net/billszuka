@@ -118,15 +118,31 @@ jobs:
           cache: npm
           cache-dependency-path: frontend-2/package-lock.json
 
+      - name: Smoke-test the runner (60s cap, fail fast)
+        # Run a single fast test BEFORE the slow install/test cycle.
+        # If this hangs or fails, the runner is broken — fail the
+        # job in 60s instead of waiting for the 5-min cap on the
+        # real test run. access.test.js is one of the fastest (no
+        # happy-dom, no vite-node, just crypto + fs reads).
+        timeout-minutes: 2
+        run: |
+          node --test --test-timeout=30000 src/lib/access.test.js
+        working-directory: frontend-2
+
       - name: Install frontend dependencies
         run: npm ci
         working-directory: frontend-2
 
-      - name: Run JS tests
+      - name: Run JS tests (30s per-test cap)
         # Bump V8 old-space to 4 GB. The default ~2 GB on the GitHub
         # runner OOMs while loading framer-motion + radix-ui + happy-dom
         # in vite-node (see OOM in run 33260055027). 4 GB has plenty of
         # headroom: scripts/test-jsx.mjs aliases framer-motion to a
         # ~1 KB stub so the 57 component tests run in ~1.8 s.
-        run: NODE_OPTIONS=--max-old-space-size=4096 npm test
+        #
+        # --test-timeout=30000 fails individual tests after 30s instead
+        # of waiting the full 5-min job cap. A bad test now fails fast.
+        run: npm test
         working-directory: frontend-2
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096 --test-timeout=30000

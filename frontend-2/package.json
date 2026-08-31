@@ -12,7 +12,7 @@
     "prebuild": "node scripts/sync-data.js",
     "build": "vite build",
     "lint": "oxlint",
-    "test:lib": "find src/lib -name '*.test.js' -print0 | xargs -0 node --test",
+    "test:lib": "find src/lib -name '*.test.js' -print0 | xargs -0 node --test --test-timeout=${TEST_TIMEOUT_MS:-30000}",
     "test:components": "node scripts/test-jsx.mjs",
     "test": "npm run test:lib && npm run test:components",
     "preview": "vite preview"

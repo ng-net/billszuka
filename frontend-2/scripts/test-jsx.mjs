@@ -116,6 +116,12 @@ for (const file of files) {
 
 await server.close();
 
-run({ files: files.map((f) => f) }).on("end", () => {
+// Per-test timeout (ms) — honored by Node's node:test runner. If a
+// test body hangs (e.g., unresolved Promise, sync infinite loop), the
+// test fails after this many ms instead of waiting the full job cap.
+// Override with TEST_TIMEOUT_MS env var for local debugging.
+const PER_TEST_TIMEOUT = Number(process.env.TEST_TIMEOUT_MS) || 30000;
+
+run({ files: files.map((f) => f), timeout: PER_TEST_TIMEOUT }).on("end", () => {
   process.exit(process.exitCode || 0);
 });
