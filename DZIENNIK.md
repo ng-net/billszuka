@@ -1258,3 +1258,6 @@ Why the new Worker is not being created:
 - Notable finds: Veletabak (HR) = OGÓLNOKRAJOWY Imperial Brands distributor — 5/5 powinowactwo, should rank high. GGT CZ = #2 CZ distributor. Tobačna Grosist (SI) already in SI catalog — not added again.
 - Skip: Nicob2B (nicotine-only, adjacent), Horák Tabák (hookah niche, powinowactwo 1). RTCI Slovakia: 466 error, try next tick. Maxlogistic BG: connection refused.
 - Next tick ~02:18.
+- Crons cancelled by Marceli ~04:27. Both `manual-packaging-search-9min` and `find-gems-non-pl` disabled.
+- Final gem count: **142** across 12 non-PL countries. Data stable at `838b3887` (02:24).
+- CZ file deletion mystery: workaround active (`git checkout HEAD --` after commit). Root cause still under investigation — likely pre-commit hook or vite-node/npm test path traversal.
