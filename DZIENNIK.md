@@ -1254,3 +1254,7 @@ Why the new Worker is not being created:
 - 3 cron ticks fired in rapid succession at 01:54, 02:00, ~02:00 — consolidated into one effective tick.
 - Skip: Coesia (IT machinery), CME/Senzani (packaging), Starna (already added as LT entry).
 - Next tick ~02:09.
+- **Tick #8 (02:09)**: 9 new catalog-B entries: GGT CZ a.s. (CZ, #2 distributor, Grafobal Group), NicoB2B (CZ, nicotine pouches B2B), Šebrle s.r.o. (CZ, rolling accessories), PEAL a.s. (CZ, CTC member), Tabacos.cz (CZ, cigars), Horák Tabák (CZ, hookah), Veletabak d.o.o. (HR, Imperial Brands general distributor Croatia), TR Staki d.o.o. (RS, Gizeh rolling machines), Dinamic Tobacco d.o.o. (RS, DO-WERYFIKACJI, HTTP 403). Gems: 136→142.
+- Notable finds: Veletabak (HR) = OGÓLNOKRAJOWY Imperial Brands distributor — 5/5 powinowactwo, should rank high. GGT CZ = #2 CZ distributor. Tobačna Grosist (SI) already in SI catalog — not added again.
+- Skip: Nicob2B (nicotine-only, adjacent), Horák Tabák (hookah niche, powinowactwo 1). RTCI Slovakia: 466 error, try next tick. Maxlogistic BG: connection refused.
+- Next tick ~02:18.
