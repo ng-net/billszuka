@@ -1246,3 +1246,11 @@ Why the new Worker is not being created:
 - CZ catalog-B deletion mystery: find_gems.py does NOT delete CZ file directly. Still investigating — file survives find_gems.py but disappears after commit. Possibly related to npm test or git hooks.
 - Skip: LUXFUX (Luxembourg, not in scope), Coesia (IT machinery, too large), CME/Senzani (IT packaging, too large), DM-INT (HR tobacco agent, too small).
 - Next tick ~01:55.
+
+## 2026-09-01 ~02:00 — Manual search tick #6 (consolidated, 3 cron triggers)
+- 135 gems (was 133). 2 new catalog-B entries: Tridens AS (EE), Starna UAB (LT).
+- Tridens AS: Baltic multi-country (EE+LV+LT) distributor since 1988, 70 employees, 150+ brands. Multi-country gem: one deal covers 3 markets.
+- Starna UAB (LT): adhesives for tobacco product packaging. Since 1998. Kaunas region. powinowactwo 4.
+- 3 cron ticks fired in rapid succession at 01:54, 02:00, ~02:00 — consolidated into one effective tick.
+- Skip: Coesia (IT machinery), CME/Senzani (packaging), Starna (already added as LT entry).
+- Next tick ~02:09.
