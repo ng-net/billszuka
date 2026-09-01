@@ -177,7 +177,9 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
                             "własna produkcja", "import + dystrybucja",
                             "krajowa", "regionalna", "ogólnokrajowa",
                             "logistics", "cargo", "sklad", "skład", "skladiste",
-                            "trošarine", "export", "direct", "daňový", "furs"],
+                            "trošarine", "export", "direct", "daňový", "furs",
+                            # Manual research sources
+                            "manual-google-search", "manual-search", "web-research"],
                  "allow_empty": True},
     "wolumen": {"type": "enum", "values": ["mały", "średni", "duży"],
                 "allow_empty": True},
