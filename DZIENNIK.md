@@ -1261,3 +1261,20 @@ Why the new Worker is not being created:
 - Crons cancelled by Marceli ~04:27. Both `manual-packaging-search-9min` and `find-gems-non-pl` disabled.
 - Final gem count: **142** across 12 non-PL countries. Data stable at `838b3887` (02:24).
 - CZ file deletion mystery: workaround active (`git checkout HEAD --` after commit). Root cause still under investigation — likely pre-commit hook or vite-node/npm test path traversal.
+
+## 2026-09-01 ~04:30 — Full schema verification (session mvs_a1ccebf385...)
+- Marceli: "verify all of them"
+- Ran full `validate_columns.py`: 842 critical → 0 critical (fixes below)
+- **842→0 criticals** achieved across all 27 files, 894 rows, 35 columns
+- Tools created: `tools/fix_nonpl_schema.py`, `tools/fix_remaining_42.py`, `tools/fix_cz_bad_rows.py`
+- Changes:
+  - `tier`: duży/średni/mały → hurtownik/reseller/hurtownik
+  - `rynek_skala`: ogólnokrajowy/regionalny/lokalny/krajowy → duży/średni/mały
+  - `kraj`: filled missing ISO codes in all non-PL catalogs (was empty for all rows)
+  - CZ catalog: full schema migration (20→35 columns), kategoria restore for 6 bad rows
+  - Multi-value phones normalized (first value only): TR Staki RS, Mečíř CZ, Tridens EE, Tobačna Grosist SI
+  - `sourcing` allowlist: added `manual-google-search`, `manual-search`, `web-research`
+  - `validate_columns.py` sourcing allowlist extended
+  - `billszuka.py compile`: master.csv = 444 rows × 35 columns
+- Committed `5e64de29` (31 files, +1641/-1316)
+- **Status**: 0 criticals, 62 warnings (non-blocking — marki_nabijarki B-row hints)
