@@ -1,6 +1,6 @@
 # Gems — non-PL B2B partner candidates (2026-08-31)
 
-**Total gems found:** 133 across 12 countries
+**Total gems found:** 135 across 12 countries
 
 ## Gem criteria (all required)
 
@@ -21,19 +21,19 @@
 | ISO | Country | Gems | Top score |
 |---|---|---|---|
 | BG | Bułgaria | 25 | 10 |
-| EE | Estonia | 20 | 9 |
+| EE | Estonia | 21 | 9 |
 | SK | Słowacja | 16 | 10 |
 | RO | Rumunia | 14 | 9 |
 | FR | Francja | 13 | 9 |
 | HR | Chorwacja | 11 | 10 |
+| LT | Litwa | 10 | 7 |
 | CZ | Czechy | 10 | 5 |
-| LT | Litwa | 9 | 7 |
 | SI | Słowenia | 7 | 10 |
 | LV | Łotwa | 5 | 5 |
 | RS | Serbia | 2 | 10 |
 | MD | Mołdawia | 1 | 4 |
 
-**Total: 133 gems** in 12 countries
+**Total: 135 gems** in 12 countries
 
 ## Top 20 gems (cross-country, by score)
 
@@ -90,7 +90,7 @@
 | 24 | 3 |  | GAGARIN COMPANY EOOD (ГАГАРИН КЪМПА | 5 | Plovdiv | B9 | info@gagarin.bg |
 | 25 | 3 |  | ПЕН ШОП ГРУП ЕООД (Pen Shop Group) | 3 | Sofia | B4 | office@giftgroup.bg |
 
-## EE — Estonia (20 gems)
+## EE — Estonia (21 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
 |---|---|---|---|---|---|---|---|
@@ -114,6 +114,7 @@
 | 18 | 4 |  | ALPI EESTI OÜ | 3 | Lehmja | B8 | info@alpieesti.ee |
 | 19 | 4 |  | KML Distribution OÜ | 3 | Tallinn | B1 | kusti@reflekt.ee |
 | 20 | 4 |  | Jungent Estonia OÜ | 3 |  | B5 | informacija@jungent.eu |
+| 21 | 4 |  | TRIDENS AS | 3 | Tallinn | B2 | info@tridens.ee |
 
 ## SK — Słowacja (16 gems)
 
@@ -189,6 +190,21 @@
 | 10 | 9 | ✓ | ALCA ZAGREB d.o.o. | 3 | Zagreb | B8 | alca@alca.hr |
 | 11 | 4 |  | EUROTRADE d.o.o. | 3 | Rovinj | B8 | info@eurotrade.hr |
 
+## LT — Litwa (10 gems)
+
+| # | Score | 🐋 | Name | Pow | City | Category | Contact |
+|---|---|---|---|---|---|---|---|
+| 1 | 7 | ✓ | UAB Ecodumas | 2 | Kaunas | B6 | wholesale@ecodumas.com |
+| 2 | 5 |  | UAB Starna | 4 | Kaunas | B1 | info@starna.lt |
+| 3 | 4 |  | UAB MV GROUP Distribution LT | 5 | Vilnius | B8 | info@mvgroup.eu |
+| 4 | 4 |  | AB Imeda | 5 | Ignalina | B8 | info@imeda.lt |
+| 5 | 4 |  | UAB Raudonas skorpionas | 5 | Jonava | B8 | info@raudonasskorpionas.lt |
+| 6 | 4 |  | UAB Vinges Terminalas | 4 | Bareikiškės | B8 | vt@vingesterminalas.lt |
+| 7 | 4 |  | UAB Liteksportas | 4 | Bareikiškės | B8 | info@liteksportas.lt |
+| 8 | 4 |  | UAB "Lavisos LEZ terminalas" | 4 | Biruliškės | B8 | info@lez-terminalas.lt |
+| 9 | 3 |  | MB Himalajai | 3 | Vilnius | B4 | info@rastamanas.lt |
+| 10 | 3 |  | UAB Reto | 1 | Vilnius | B5 | info@shamanas.lt |
+
 ## CZ — Czechy (10 gems)
 
 | # | Score | 🐋 | Name | Pow | City | Category | Contact |
@@ -203,20 +219,6 @@
 | 8 | 4 |  |  | 3 |  | B2 | kontakt@cigarkings.de |
 | 9 | 4 |  |  | 3 | Praha 8 | B2 | mail.box@geco.cz |
 | 10 | 4 |  |  | 3 | Trutnov | B2 | obchod@mecir.net |
-
-## LT — Litwa (9 gems)
-
-| # | Score | 🐋 | Name | Pow | City | Category | Contact |
-|---|---|---|---|---|---|---|---|
-| 1 | 7 | ✓ | UAB Ecodumas | 2 | Kaunas | B6 | wholesale@ecodumas.com |
-| 2 | 4 |  | UAB MV GROUP Distribution LT | 5 | Vilnius | B8 | info@mvgroup.eu |
-| 3 | 4 |  | AB Imeda | 5 | Ignalina | B8 | info@imeda.lt |
-| 4 | 4 |  | UAB Raudonas skorpionas | 5 | Jonava | B8 | info@raudonasskorpionas.lt |
-| 5 | 4 |  | UAB Vinges Terminalas | 4 | Bareikiškės | B8 | vt@vingesterminalas.lt |
-| 6 | 4 |  | UAB Liteksportas | 4 | Bareikiškės | B8 | info@liteksportas.lt |
-| 7 | 4 |  | UAB "Lavisos LEZ terminalas" | 4 | Biruliškės | B8 | info@lez-terminalas.lt |
-| 8 | 3 |  | MB Himalajai | 3 | Vilnius | B4 | info@rastamanas.lt |
-| 9 | 3 |  | UAB Reto | 1 | Vilnius | B5 | info@shamanas.lt |
 
 ## SI — Słowenia (7 gems)
 
