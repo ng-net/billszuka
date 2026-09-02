@@ -43,6 +43,8 @@
 | 🔍 | **FABRYKAT detection** — name-match (Jaccard) NIP/KRS insufficient; potrzebny name match z rejestru | Workflow |
 | ⚡ | Weryfikacja automatyczna: 303/351 (86.3%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 348 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Sesja gentle search (60m): przeskanowano rynki CZ, SK, RO, BG, HR, SI, LT, LV, EE, FR, MD pod kąt... | Pipeline |
+| ⚡ | Zaktualizowano bazę kontaktową oraz zweryfikowano NIP/VIES w oficjalnych rejestrach. | Pipeline |
 
 ---
 

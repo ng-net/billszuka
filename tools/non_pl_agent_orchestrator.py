@@ -112,19 +112,23 @@ def fetch_web_text(url: str, timeout: int = 8) -> str:
 
 
 def search_web_duckduckgo(query: str, max_results: int = 5) -> str:
-    """Lightweight web search fallback for company info."""
+    """Lightweight web search fallback for company info using resilient lite endpoint."""
     try:
-        url = f"https://html.duckduckgo.com/html/?q={urllib.parse.quote(query)}"
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        url = "https://lite.duckduckgo.com/lite/"
+        clean_q = re.sub(r'["\']', '', query).strip()
+        data = urllib.parse.urlencode({"q": clean_q}).encode("utf-8")
+        req = urllib.request.Request(url, data=data, headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=12) as resp:
             html = resp.read().decode("utf-8", errors="ignore")
-            snippets = re.findall(r'<a class="result__snippet[^>]*>(.*?)</a>', html, re.DOTALL | re.IGNORECASE)
-            titles = re.findall(r'<a class="result__url[^>]*>(.*?)</a>', html, re.DOTALL | re.IGNORECASE)
+            snippets = re.findall(r'<td class=[\"\']result-snippet[\"\'][^>]*>(.*?)</td>', html, re.DOTALL | re.IGNORECASE)
+            links = re.findall(r'<a[^>]+href=[\"\']([^\"\']+)[\"\'][^>]*>(.*?)</a>', html, re.DOTALL | re.IGNORECASE)
             text_parts = []
-            for t, s in zip(titles[:max_results], snippets[:max_results]):
-                clean_t = re.sub(r"<[^>]+>", "", t).strip()
-                clean_s = re.sub(r"<[^>]+>", "", s).strip()
-                text_parts.append(f"{clean_t}: {clean_s}")
+            clean_links = [h for h, t in links if "duckduckgo.com" not in h and not h.startswith(("/", "#"))]
+            for i, href in enumerate(clean_links[:max_results]):
+                snip = ""
+                if i < len(snippets):
+                    snip = re.sub(r"<[^>]+>", "", snippets[i]).strip()
+                text_parts.append(f"{href}: {snip}")
             return "\n".join(text_parts)
     except Exception:
         return ""

@@ -176,6 +176,35 @@ def normalize_all_catalogs():
                     if not cat_val:
                         row["kategoria"] = "A4" if cat_type == "A" else "B8"
 
+                    # 8. Clean Tier Enum
+                    tier_val = (row.get("tier") or "").strip().lower()
+                    VALID_TIERS = {"wyłączność", "autoryzowany", "reseller", "detalista", "marketplace", "producent", "hurtownik"}
+                    if tier_val not in VALID_TIERS:
+                        if any(w in tier_val for w in ["hurt", "dystryb", "wholesal", "import", "distrib"]):
+                            row["tier"] = "hurtownik"
+                        elif any(w in tier_val for w in ["sklep", "retail", "detal"]):
+                            row["tier"] = "detalista"
+                        elif "market" in tier_val or "allegro" in tier_val:
+                            row["tier"] = "marketplace"
+                        elif "prod" in tier_val:
+                            row["tier"] = "producent"
+                        else:
+                            row["tier"] = "hurtownik"
+
+                    # 9. Clean Foreign NIP (if NIP prefix doesn't match country, move to rejestr_id)
+                    nip_val = row.get("nip_vat", "").strip()
+                    if nip_val and len(nip_val) > 2 and nip_val[:2].isalpha():
+                        nip_prefix = nip_val[:2].upper()
+                        if nip_prefix != iso and nip_prefix in ["PL", "CZ", "SK", "RO", "LT", "LV", "EE", "FR", "BG", "SI", "HR", "ES", "DE", "IT", "UK", "GB"]:
+                            if not row.get("rejestr_id"):
+                                row["rejestr_id"] = nip_val
+                            row["nip_vat"] = ""
+
+                    # 10. Cross-sell potential for B
+                    if cat_type == "B" and not row.get("cross_sell_potential"):
+                        p = row.get("powinowactwo_nabijarki", "")
+                        row["cross_sell_potential"] = "wysoki" if p in ["4", "5"] else "średni"
+
                     rows.append(row)
                     total_processed += 1
 

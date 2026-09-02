@@ -209,8 +209,7 @@ def registry_decydent_sk(rejestr: str, nip: str) -> dict:
     """Extract konatelia (statutory directors) from Slovak ORSR.
 
     Source: official Slovak Commercial Register (Ministerstvo spravodlivosti SR).
-    Reliability: 100% — government registry, windows-1250 encoded HTML.
-    Free, no registration required.
+    Reliability: 100% — government registry. Free, no registration required.
     """
     ico = None
     for src in (rejestr, nip):
@@ -221,54 +220,33 @@ def registry_decydent_sk(rejestr: str, nip: str) -> dict:
     if not ico:
         return {}
     try:
-        # Step 1: search by IČO
         search_url = f"https://www.orsr.sk/hladaj_ico.asp?ICO={ico}&SID=0"
         req = urllib.request.Request(search_url, headers={"User-Agent": "Mozilla/5.0 BILLSzuka/1.0"})
         with urllib.request.urlopen(req, timeout=12) as r:
             html = r.read().decode("windows-1250", errors="replace")
-        # Find first detail link
-        m = re.search(r'href="vypis\.asp\?ID=(\d+)&(?:amp;)?SID=(\d+)&(?:amp;)?P=(\d+)"', html)
+        m = re.search(r"href=[\"'](vypis\.asp\?[^\"']+)[\"']", html)
         if not m:
             return {}
-        detail_id, sid, p = m.group(1), m.group(2), m.group(3)
-        # Step 2: get detail page
-        detail_url = f"https://www.orsr.sk/vypis.asp?ID={detail_id}&SID={sid}&P={p}"
-        req = urllib.request.Request(detail_url, headers={"User-Agent": "Mozilla/5.0 BILLSzuka/1.0"})
-        with urllib.request.urlopen(req, timeout=12) as r:
-            detail = r.read().decode("windows-1250", errors="replace")
+        detail_url = "https://www.orsr.sk/" + m.group(1).replace("&amp;", "&")
+        with urllib.request.urlopen(urllib.request.Request(detail_url, headers={"User-Agent": "Mozilla/5.0 BILLSzuka/1.0"}), timeout=12) as r2:
+            detail = r2.read().decode("windows-1250", errors="replace")
+        idx = detail.find("Štatutárny orgán")
+        if idx > 0:
+            sec = detail[idx:idx + 3000]
+            m_pers = re.search(r"hladaj_osoba\.asp\?PR=([^&]+)&(?:amp;)?MENO=([^&]+)", sec)
+            if m_pers:
+                last = urllib.parse.unquote(m_pers.group(1)).strip()
+                first = urllib.parse.unquote(m_pers.group(2)).strip()
+                full_name = f"{first} {last}".strip()
+                if full_name:
+                    return {
+                        "decydent": full_name,
+                        "stanowisko": "Konateľ",
+                        "zrodlo_danych": f"orsr.sk IČO {ico} (Slovak Commercial Register) {detail_url}",
+                    }
     except Exception:
-        return {}
-    # Step 3: extract 'Štatutárny orgán' (statutory body) section
-    idx = detail.find("Štatutárny orgán")
-    if idx < 0:
-        return {}
-    section = detail[idx:idx + 5000]
-    # Pattern: <span class='ra'> TITLE </span><a class=lnm ...> <span>FIRST</span> <span>LAST</span></a>
-    directors = re.findall(
-        r"<span class='ra'>\s*([A-Za-z\.\s]{1,15})\s*</span>\s*"
-        r"<a[^>]+>\s*<span class='ra'>\s*([^<]+)\s*</span>\s*"
-        r"<span class='ra'>\s*([^<]+)\s*</span>\s*</a>",
-        section,
-    )
-    if not directors:
-        return {}
-    # Filter out role labels (e.g. "konatelia", "konateľ", "štatutárny riaditeľ")
-    real_directors = []
-    for title, first, last in directors:
-        combined = f"{title.strip()} {first.strip()} {last.strip()}".strip()
-        # Skip if title is a role word, not a name prefix
-        if title.strip().lower() in ("konatelia", "konateľ", "konatel", "štatutárny", "štatutárny riaditeľ", "člen", "členovia"):
-            continue
-        real_directors.append(combined)
-    if not real_directors:
-        return {}
-    # Take first director
-    full_name = real_directors[0]
-    return {
-        "decydent": full_name,
-        "stanowisko": "Konateľ / Štatutárny orgán",
-        "zrodlo_danych": f"orsr.sk IČO {ico} (Obchodný register SR, Ministerstvo spravodlivosti) {detail_url}",
-    }
+        pass
+    return {}
 
 
 def registry_decydent_ee(rejestr: str, nip: str) -> dict:
@@ -375,7 +353,7 @@ def gemini_decydent(company: str, country_name: str, city: str, website: str) ->
     if not gemini_key:
         return {}
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={gemini_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={gemini_key}"
     prompt = (
         f"Company: {company}\n"
         f"Country: {country_name}\n"
@@ -389,33 +367,41 @@ def gemini_decydent(company: str, country_name: str, city: str, website: str) ->
         "generationConfig": {"temperature": 0.0, "responseMimeType": "application/json"}
     }).encode()
     req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=15) as r:
-            res = json.loads(r.read())
-            cand = res.get("candidates", [])[0]["content"]["parts"][0]["text"]
-            m = re.search(r"\{.*?\}", cand, re.DOTALL)
-            if not m:
-                return {}
-            parsed = json.loads(m.group(0))
-            name = parsed.get("name", "").strip()
-            title = parsed.get("title", "").strip()
-            source_label = parsed.get("source_label", "Public registry")
-            if not name or name.lower() in ("unknown", "n/a", "not found", "brak", "") or is_placeholder_decydent(name):
-                return {}
-            return {
-                "decydent": name,
-                "stanowisko": title or "Director",
-                "zrodlo_danych": f"Gemini + {source_label} (public registry / official source)",
-            }
-    except Exception:
-        return {}
+
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:
+                res = json.loads(r.read())
+                cand = res.get("candidates", [])[0]["content"]["parts"][0]["text"]
+                m = re.search(r"\{.*?\}", cand, re.DOTALL)
+                if not m:
+                    return {}
+                parsed = json.loads(m.group(0))
+                name = parsed.get("name", "").strip()
+                title = parsed.get("title", "").strip()
+                source_label = parsed.get("source_label", "Public registry")
+                if not name or name.lower() in ("unknown", "n/a", "not found", "brak", "") or is_placeholder_decydent(name):
+                    return {}
+                return {
+                    "decydent": name,
+                    "stanowisko": title or "Director",
+                    "zrodlo_danych": f"Gemini + {source_label} (public registry / official source)",
+                }
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                time.sleep(6 * (attempt + 1))
+                continue
+            break
+        except Exception:
+            break
+    return {}
 
 
 def openrouter_decydent(company: str, country_name: str, city: str, website: str) -> dict:
     """Ask DeepSeek to extract decision-maker from public sources."""
     env = _load_env()
     api_key = env.get("OPENROUTER_API_KEY", "").strip()
-    if not api_key:
+    if not api_key or "placeholder" in api_key.lower():
         return {}
 
     system = (
@@ -466,7 +452,7 @@ def openrouter_decydent(company: str, country_name: str, city: str, website: str
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=6) as r:
             resp = json.loads(r.read())
             content = resp["choices"][0]["message"]["content"].strip()
             m = re.search(r"\{.*?\}", content, re.DOTALL)
@@ -504,7 +490,7 @@ REGISTRY_FUNCS = {
 }
 
 
-def enrich_row(row: dict, iso: str) -> dict:
+def enrich_row(row: dict, iso: str, registry_only: bool = False) -> dict:
     """Return enrichment dict (subset of CANONICAL_SCHEMA fields) for one row."""
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
@@ -519,7 +505,10 @@ def enrich_row(row: dict, iso: str) -> dict:
     if iso in REGISTRY_FUNCS:
         fn = REGISTRY_FUNCS[iso]
         enriched = fn(rejestr, nip)
-        time.sleep(0.5)
+        time.sleep(0.3)
+
+    if registry_only:
+        return enriched
 
     # Step 2: Try Gemini Flash public registry/LinkedIn extract
     if not enriched:
@@ -529,7 +518,7 @@ def enrich_row(row: dict, iso: str) -> dict:
     # Step 3: Try OpenRouter fallback
     if not enriched:
         enriched = openrouter_decydent(company, country_name, city, website)
-        time.sleep(1.0)
+        time.sleep(0.5)
 
     return enriched
 
@@ -540,10 +529,12 @@ def enrich_row(row: dict, iso: str) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Gentle non-PL decydent enrichment")
-    parser.add_argument("--limit", type=int, default=10,
-                        help="Max rows to enrich per run (default: 10)")
+    parser.add_argument("--limit", type=int, default=50,
+                        help="Max rows to enrich per run (default: 50)")
     parser.add_argument("--country", type=str, default=None,
                         help="Restrict to one ISO country code, e.g. RO")
+    parser.add_argument("--registry-only", action="store_true",
+                        help="Only query official government registry APIs (fast, authoritative)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show changes without writing to files")
     args = parser.parse_args()
@@ -553,8 +544,8 @@ def main():
     processed = 0
     total_enriched = 0
 
-    print(f"🌍 [Decydenci Enrichment] Countries: {countries} | limit={args.limit} | dry_run={args.dry_run}")
-    print()
+    print(f"🌍 [Decydenci Enrichment] Countries: {countries} | limit={args.limit} | registry_only={args.registry_only} | dry_run={args.dry_run}", flush=True)
+    print(flush=True)
 
     for iso in countries:
         if processed >= args.limit:
@@ -588,13 +579,13 @@ def main():
                     continue  # Already has a real decydent — skip
 
                 uid = row.get("id", "?")
-                print(f"  [{iso}-{cat_type}] {uid}: {name[:45]}...")
+                print(f"  [{iso}-{cat_type}] {uid}: {name[:45]}...", flush=True)
 
-                enriched = enrich_row(row, iso)
+                enriched = enrich_row(row, iso, registry_only=args.registry_only)
                 processed += 1
 
                 if not enriched:
-                    print(f"    → no data found")
+                    print(f"    → no data found", flush=True)
                     continue
 
                 # Apply enrichment — only fill placeholders, never overwrite
@@ -605,26 +596,26 @@ def main():
                     if is_placeholder_decydent(current_val):
                         if not args.dry_run:
                             row[field] = value
-                        print(f"    ✓ {field}: {value[:60]}")
+                        print(f"    ✓ {field}: {value[:60]}", flush=True)
                         modified = True
                         total_enriched += 1
 
                 if not args.dry_run and modified:
-                    # Update data_weryfikacji
+                    # Update data_weryfikacji and promote to FROZEN
                     if not (row.get("data_weryfikacji") or "").strip():
                         row["data_weryfikacji"] = today
+                    row["flagi"] = f"{today} ✅ FROZEN (Registry API)"
 
-            if modified and not args.dry_run:
-                tmp = cfile.with_suffix(".csv.tmp")
-                with tmp.open("w", encoding="utf-8", newline="") as f:
-                    writer = csv.DictWriter(f, fieldnames=CANONICAL_SCHEMA)
-                    writer.writeheader()
-                    writer.writerows(rows)
-                tmp.replace(cfile)
-                print(f"  💾 Saved: {cfile.name}")
+                    tmp = cfile.with_suffix(".csv.tmp")
+                    with tmp.open("w", encoding="utf-8", newline="") as f:
+                        writer = csv.DictWriter(f, fieldnames=CANONICAL_SCHEMA)
+                        writer.writeheader()
+                        writer.writerows(rows)
+                    tmp.replace(cfile)
+                    print(f"  💾 Saved: {cfile.name}", flush=True)
 
-    print()
-    print(f"✅ Done. Rows inspected: {processed} | Fields enriched: {total_enriched}")
+    print(flush=True)
+    print(f"✅ Done. Rows inspected: {processed} | Fields enriched: {total_enriched}", flush=True)
     if total_enriched > 0 and not args.dry_run:
         print(f"   Run `python3 tools/billszuka.py compile` to rebuild master.csv")
         print(f"   Run `python3 tools/billszuka.py sync` to verify integrity")

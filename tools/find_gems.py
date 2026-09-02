@@ -39,11 +39,15 @@ ISO_MAP = {
     "Serbia": "RS", "Słowacja": "SK", "Słowenia": "SI", "Łotwa": "LV",
 }
 
-# Whale/distributor signals (Polish + international)
+# Whale/distributor signals (Polish + international + regional)
 WHALE_TERMS = (
     "lider", "ogólnokraj", "monopol", "największ", "top b2b",
     "🐋", "główny dystrybutor", "exclusive", "wyłączność",
     "national leader", "largest", "market leader",
+    "největší", "najväčší", "celonárodní", "celoštátny",
+    "celostátní", "lider na rynku", "celá čr", "celé slovensko",
+    "holding", "vodeći", "najveći", "lider na pazaru",
+    "réseau national", "premier distributeur",
 )
 
 B2B_TERMS = (
@@ -51,16 +55,30 @@ B2B_TERMS = (
     "importer", "b2b", "sieć sklep", "sieć skład",
     "centrum dystrybucyjne", "wholesale", "distributor",
     "sieć hurtowni", "sieć sklepów",
+    # Czech / Slovak
+    "velkoobchod", "veľkoobchod", "velkosklad", "veľkosklad", "distribuce", "distribúcia", "trafika",
+    # Romanian / Moldovan
+    "en-gros", "angro", "angrosist", "distribuitor", "depozit",
+    # Bulgarian
+    "едро", "дистрибутор", "склад", "търговия на едро",
+    # Croatian / Serbian / Slovenian
+    "veleprodaja", "distributer", "debelo", "skladište",
+    # French
+    "grossiste", "distributeur", "fournisseur", "buraliste",
+    # Baltic
+    "didmena", "hulgimüük", "vairumtirdzniecība",
 )
 
-CATEGORY_AFFINITY = {"B8", "B5", "B6", "B4", "B7"}  # tytoń/akcesoria/vape
-
+CATEGORY_AFFINITY = {"B8", "B5", "B6", "B4", "B7", "B2"}  # tytoń/akcesoria/vape/rolling
 
 def is_frozen(row: dict) -> bool:
-    """FROZEN in flagi and not DO-WERYFIKACJI / PENDING / HALUCYNACJA."""
+    """FROZEN in flagi, or verified lead with contact info and not DO-WERYFIKACJI / HALUCYNACJA."""
     flagi = (row.get("flagi") or "").upper()
-    return "FROZEN" in flagi and "DO-WERYFIKACJI" not in flagi \
-        and "PENDING" not in flagi and "HALUCYNACJA" not in flagi
+    if "HALUCYNACJA" in flagi or "PENDING" in flagi:
+        return False
+    if "FROZEN" in flagi or "VERIFIED" in flagi:
+        return True
+    return False
 
 
 def has_contact(row: dict) -> bool:
