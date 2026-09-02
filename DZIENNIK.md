@@ -27,6 +27,19 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-09-03 — Ingest remaining leads from _intake & Project Cleanup
+
+- **Ingest kandydatów z `_intake/manual-search-2026-08-31` i `extra-leads`:**
+  - Dodano `PL-B-130`: SmokyHub (`https://smokyhub.pl`, `sklep@smokyhub.pl`) — operator PLIMPERIA, sklep tytoniowy / PM.
+  - Dodano `PL-B-131`: Smoker (Erli) (`https://erli.pl/sklep/Smoker/32424`) — sprzedawca Erli-PRO, nabijarki PM + akcesoria.
+  - Dodano `HR-B-018`: Bazinga Shop d.o.o. (`https://bazinga-shop.eu`, Osijek) — sieć 4 sklepów Tobacco Shop Bazinga.
+  - Pozostałe kandydatury z manual-search (Shaman Tobacco CZ, Plnicky-Powermatic CZ, Project Web FR, Medėja LT, Nicorex EE, Sibis RO, Motivs LV) były już zweryfikowane i zamrożone w A/B katalogach.
+- **Konsolidacja i czystość repozytorium:**
+  - Zrekompilowano `data/master.csv` i zsynchronizowano `frontend-2/public/master.csv` (465 wierszy × 35 kolumn).
+  - Wykonano pełną weryfikację kolumn: 27 plików / 936 wierszy — **0 Critical, 0 Warning**.
+  - 139 top partner gems zaktualizowanych w `data/verification/gems.csv`.
+  - Usunięto zbędne pliki tymczasowe, stan drzewa roboczego czysty.
+
 ## 2026-08-31 — Naprawa retencji stanu tabeli przy odświeżeniu (F5 / Page Reload) i commit do Git
 
 - **Diagnoza przyczyn resetowania widoku tabeli po odświeżeniu strony:**
