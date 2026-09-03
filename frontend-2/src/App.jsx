@@ -72,9 +72,11 @@ import { cn } from "@/lib/utils";
 const LeadsView = lazy(() => import("@/views/LeadsView").then((m) => ({ default: m.LeadsView })));
 const TableView = lazy(() => import("@/views/TableView").then((m) => ({ default: m.TableView })));
 const AnalyticsView = lazy(() => import("@/views/AnalyticsView").then((m) => ({ default: m.AnalyticsView })));
+const AtlasGrokView = lazy(() => import("@/views/AtlasGrokView").then((m) => ({ default: m.AtlasGrokView })));
 
 const TABS = [
   { id: "leads", label: "Katalog Leadów", icon: Sparkles, View: LeadsView },
+  { id: "atlas", label: "Atlas Grok (Cyber Radar)", icon: Compass, View: AtlasGrokView },
   { id: "table", label: "Siatka Danych (36 col)", icon: TableIcon, View: TableView },
   { id: "analytics", label: "Analityka Rynku", icon: BarChart3, View: AnalyticsView },
 ];
