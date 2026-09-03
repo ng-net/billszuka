@@ -3,188 +3,286 @@
 > **Work log.** Chronological, condense. Stare iteracje → `DZIENNIK-archive.md`.
 > Strategia, partnerzy, rynki → `INTEL.md`. Konwencje / setup → `RUNBOOK.md`, `methodology.md`.
 
----
+***
 
 ## Status snapshot (2026-09-03)
 
-| Metryka | Wartość |
-|---|---|
-| Git | `main` @ ng-net/billszuka |
-| Tests | 530/530 pytest PASS |
-| master.csv | 477 wierszy × 36 kolumn, 12 krajów |
-| FROZEN | 323 (86.1%) |
-| DO-WERYFIKACJI | 52 (13.9%) — głównie halucynowane NIP/KRS z poprzednich enrichment passes |
-| Frontend | `frontend-2/` (React 19 + Vite) — canonical. `frontend/` DEPRECATED. |
-| Backend | `tools/api_server.py` na `127.0.0.1:8000`, proxy vite na `:3001` |
-| Deploy | Cloudflare (frontend green 2026-08-30) |
-| Remote | `github.com/ng-net/billszuka` (private) — flipped 3x, sprawdź DZIENNIK-archive przed zmianą |
-| LLM chain | `gemini → mock → openrouter` (openrouter jako final fallback; deepseek hallucinuje) |
+| Metryka        | Wartość                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------- |
+| Git            | `dev` @ ng-net/billszuka (2 commits ahead of last cleanup batch)                            |
+| Tests          | 517/517 pytest PASS (504 + 13 nowych w csv_backfill/pipeline)                              |
+| master.csv     | 477 wierszy × 36 kolumn, 12 krajów                                                          |
+| FROZEN         | 323 (86.1%)                                                                                 |
+| DO-WERYFIKACJI | 52 (13.9%) — głównie halucynowane NIP/KRS z poprzednich enrichment passes                   |
+| Frontend       | `frontend-2/` (React 19 + Vite) — canonical. `frontend/` DEPRECATED.                        |
+| Backend        | `tools/api_server.py` na `127.0.0.1:8000`, proxy vite na `:3001`                            |
+| Deploy         | Cloudflare (frontend green 2026-08-30)                                                      |
+| Remote         | `github.com/ng-net/billszuka` (private) — flipped 3x, sprawdź DZIENNIK-archive przed zmianą |
+| LLM chain      | `gemini → mock → openrouter` (openrouter jako final fallback; deepseek hallucinuje)         |
 
 **Otwarte (non-blocking):**
+
 - 19 PL-B NIP + 7 PL-B KRS + 3 KRS-lookup-failed → DO-WERYFIKACJI do manual lookup przez `tools/krs_search.py --nip <real>`
+
 - 8 outlierów `wolumen` w EE (notatki finansowe w złej kolumnie) → przenieść do `notatki`
+
 - 2 PL-B z `miasto="Polska"` (PL-B-086, PL-B-104) → manual fix
+
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
+
 - UI: filtr po "red URL" + "high keyword score"
 
 ## 2026-09-03 — Sesja 7: Eliminacja bloatu i optymalizacja narzędzi skanujących (Anti-Bloat & Performance)
 
 - **Problem:**
+
   - Narzędzia sieciowe (`check_urls.py`, `scan_keywords.py`, `verify_api.py`) domyślnie iterowały po 100% rekordów z twardymi opóźnieniami (`delay=4s..7s`), skanując w kółko rekordy `FROZEN` i uderzając w martwe domeny (81 domen `red` z 8-sekundowym timeoutem każda). Pełen przebieg zajmował łącznie ponad **75 minut**.
+
 - **Wdrożone zasady i poprawki:**
-  1. **Zasada pomijania `FROZEN` w `check_urls.py`:**
+
+  1. **Zasada pomijania** **`FROZEN`** **w** **`check_urls.py`:**
+
      - Domyślny tryb pracy stał się **inkrementalny**: URL-e firm oznaczonych jako `FROZEN` sprawdzone w ciągu ostatnich 30 dni oraz stabilne `green` są natychmiast pomijane.
-     - Wynik: czas przebiegu `python3 tools/check_urls.py --all` spadł z **1975 sekund (~33 min)** do **0 sekund** (394 pominięte) w stanie aktualnym lub ~70 sekund przy sprawdzaniu nowych/nietrwałych adresów.
+
+     - Wynik: czas przebiegu `python3 tools/check_urls.py --all` spadł z **1975 sekund (\~33 min)** do **0 sekund** (394 pominięte) w stanie aktualnym lub \~70 sekund przy sprawdzaniu nowych/nietrwałych adresów.
+
      - Dodano flagę `--force` dla jawnego re-skanowania.
-  2. **Kaskada w `scan_keywords.py`:**
-     - Przed wywołaniem sieciowym `fetch_page` skrypt odczytuje `url_status` z SQLite. Jeśli domena ma status `red` (404, DNS error, SSL error, timeout) — następuje **natychmiastowy skip (0.00s)** bez czekania na timeout `curl` i bez opóźnienia `delay`. Oszczędność: ~20 minut bezczynnego czekania na martwych domenach.
+  2. **Kaskada w** **`scan_keywords.py`:**
+
+     - Przed wywołaniem sieciowym `fetch_page` skrypt odczytuje `url_status` z SQLite. Jeśli domena ma status `red` (404, DNS error, SSL error, timeout) — następuje **natychmiastowy skip (0.00s)** bez czekania na timeout `curl` i bez opóźnienia `delay`. Oszczędność: \~20 minut bezczynnego czekania na martwych domenach.
+
      - Dodano buforowanie wyników w `keyword_scan` (pomijanie wcześniej zbadanych stron bez flagi `--force`).
+
      - Naprawiono odwołania do kolumny `id_unikalne` w schemacie tabeli `keyword_scan`.
-  3. **Pomijanie `FROZEN` w `verify_api.py`:**
+  3. **Pomijanie** **`FROZEN`** **w** **`verify_api.py`:**
+
      - W pętli głównej skrypt pomija rekordy z flagą `FROZEN` (chyba że podano `--force`).
+
      - Przykład: weryfikacja CZ skróciła się z kilkudziesięciu sekund do **4 sekund** (28 z 36 firm pominiętych, odpytano tylko 8 nowych/niepewnych).
-  4. **Stabilizacja hashowania w `verify_run.py`:**
+  4. **Stabilizacja hashowania w** **`verify_run.py`:**
+
      - Wykluczono kolumnę `www_status` z `hash_row()`, zapobiegając unieważnieniu hashy dla 100% bazy przy wstrzykiwaniu statusów stron.
+
 - **Weryfikacja:**
+
   - `pytest -q` → **530/530 PASS**
+
   - `npm test` (`frontend-2`) → **78/78 PASS**
+
   - `npm run build` → **0 błędów (723ms)**
+
   - `tools/validate_columns.py` → **0 Critical, 0 Warning**
 
 ## 2026-09-03 — Sesja 8: Skan porządkowy — dead-code, UX overlap, TODO (Audit Pass)
 
 - **CodeRabbit CLI:** zainstalowany, ale **nie zalogowany** (`coderabbit auth` wymagany przed `--review`). Odłożone — manualna sesja wystarcza na obecnym rozmiarze kodu.
-- **Nieużywane narzędzia:** follow-up sesja 2026-09-03 usunęła `kimi_client.py` (0 referencji w kodzie), `gen_icons.py` (0 referencji), `migrate_files.py` (one-shot, migracja zakończona). Pozostałe kandydatów (~9 szt. z oryginalnego skanu) wymaga osobnej analizy.
+
+- **Nieużywane narzędzia:** follow-up sesja 2026-09-03 usunęła `kimi_client.py` (0 referencji w kodzie), `gen_icons.py` (0 referencji), `migrate_files.py` (one-shot, migracja zakończona). Pozostałe kandydatów (\~9 szt. z oryginalnego skanu) wymaga osobnej analizy.
+
 - **UX overlap:** `frontend-2/src/views/AtlasGrokView.jsx` i `LeadsView.jsx` pokrywają się koncepcyjnie z `ModernLeadsTableV2`. To **decyzja produktowa**, nie code-quality — wytypować 1–2 z trzech i zdeprecjonować pozostałe z redirectem (`<Navigate>` w `App.jsx`).
+
 - **Stale TODO:** kilka komentarzy `TODO` w `tools/api_server.py` i `tools/verify_run.py` — flag do następnej sesji (nie krytyczne; funkcjonalność działająca).
+
 - **Brak zmian w kodzie / testach** w tej sesji. Czysty audit.
 
 ## 2026-09-03 — Sesja 9: Best-leads-per-country views w tabeli (UX improvement)
 
 - **Cel:** szybki dostęp do najlepszych leadów dla każdego kraju bez ręcznego ustawiania filtrów tier+wolumen+cross-sell.
+
 - **Implementacja:**
-  - `frontend-2/src/lib/views.js`: nowe `scoreRow()` (sygnały: tier autoryzowany/producent/hurtownik +3, reseller +1, marketplace -3, detalista -1; wolumen duży +3, średni +1; cross_sell High +2, Medium +1; 🟢 +1; powinowactwo wysoki +2, średni +1) oraz `bestLeadsPerCountry(rows, code, limit=25)` zwracające top-N z `score > 0`. Sortowane malejąco.
-  - 4 nowe DEFAULT_VIEWS: `Best PL`, `Best CZ`, `Best SK`, `Best Other` (każdy = `{__bestInCountry: "PL/CZ/SK/OTHER"}`). Bucket `OTHER` = wszystko poza PL/CZ/SK (DE, UK, FR, BG, RO, HR, LT, LV, EE, SI, MD, RS).
+
+  - `frontend-2/src/lib/views.js`: nowe `scoreRow()` (sygnały: tier autoryzowany/producent/hurtownik +3, reseller +1, marketplace -3, detalista -1; wolumen duży +3, średni +1; cross\_sell High +2, Medium +1; 🟢 +1; powinowactwo wysoki +2, średni +1) oraz `bestLeadsPerCountry(rows, code, limit=25)` zwracające top-N z `score > 0`. Sortowane malejąco.
+
+  - 4 nowe DEFAULT\_VIEWS: `Best PL`, `Best CZ`, `Best SK`, `Best Other` (każdy = `{__bestInCountry: "PL/CZ/SK/OTHER"}`). Bucket `OTHER` = wszystko poza PL/CZ/SK (DE, UK, FR, BG, RO, HR, LT, LV, EE, SI, MD, RS).
+
   - `frontend-2/src/raw-table/RawTable.jsx`: nowa syntetyczna kolumna `__bestInCountry` przepuszczona przez `tableColumnsList`, filter sanitizer `filters`, oraz augmentację `rowsWithBrand`. Wiersze z top-25 dla danego kraju dostają `__bestInCountry=<bucket>`, reszta `""` — dzięki temu equality filter w TanStack działa bez custom `filterFn`.
+
 - **Testy:** `views.test.js` — 6 nowych testów (existence, real-data, marketplace exclusion, OTHER bucket, limit, scoreRow edge cases). Łącznie 70/70 PASS lib + 78/78 PASS components.
+
 - **Lint:** `oxlint` na 3 zmienionych plikach — 0 warnings, 0 errors.
 
-## 2026-09-03 — Sesja 6: Utwardzenie reguł weryfikacji NIP/KRS/VAT i silnika verify_api (Rules & Engine Hardening)
+## 2026-09-03 — Sesja 6: Utwardzenie reguł weryfikacji NIP/KRS/VAT i silnika verify\_api (Rules & Engine Hardening)
 
 - **Audyt i przegląd reguł (`VERIFICATION-RULES.md`):**
+
   - **Ujednolicenie taksonomii:** Rozdzielono pole statusu (`status` ∈ `{FROZEN, DO-WERYFIKACJI, PENDING_API}`) od kodów powodów (`reason_code` ∈ `{INVALID_CHECKSUM, INVALID_ID, MISMATCH_REGISTRY, ADDRESS_MISMATCH, NOT_FOUND_ANYWHERE}`).
-  - **Usunięcie ad-hoc `INVALID_KRS`:** Zastąpiono kanonicznym `INVALID_ID` w §1.3 i w logice obsługi 404 z KRS.
+
+  - **Usunięcie ad-hoc** **`INVALID_KRS`:** Zastąpiono kanonicznym `INVALID_ID` w §1.3 i w logice obsługi 404 z KRS.
+
   - **Uściślenie bramki fuzzy-match:** Zastąpiono niejednoznaczne „np. Jaccard ≥ 0.5 lub substring” pojedynczą kanoniczną metodą: Token Jaccard na znormalizowanych tokenach z odcięciem form prawnych (`LEGAL_TOKENS`), z progiem **Jaccard ≥ 0.80** (`NAME_JACCARD_THRESHOLD = 0.8`). Bezwzględny zakaz prostego dopasowania substringowego (eliminacja wektora FABRYKAT np. PEAL vs PEAL Real Estate).
+
   - **Naprawa formuły IČO CZ i rozwiązanie casusu G8 point:**
+
     - Wykryto i usunięto martwą klauzulę `(a 10 → 0)` w §6 oraz błąd implementacji w `tools/verify_principles.py` (gdzie reszta $s=1$ była traktowana jako nielegalna, a reszta $s=10$ była mapowana na oczekiwaną cyfrę kontrolną 0 zamiast $11 - 10 = 1$).
-    - Wzór ČSÚ: dla $s=1 \implies 0$, dla $s \in [2..10] \implies 11 - s$.
+
+    - Wzór ČSÚ: dla $s=1 \implies 0$, dla $s \in \[2..10] \implies 11 - s$.
+
     - G8 point s.r.o. (`06941281`): suma ważona $142 \equiv 10 \pmod{11} \implies 11 - 10 = 1$ — ostatnia cyfra to 1, numer jest w 100% poprawny. Pass rate CZ wzrósł do **9/9 (100%)**.
+
   - **Korekta statusu CUI RO (§6, §7):** Obniżono etykietę pewności z „średnia-wysoka” do `niepewna / nieprzetestowana (untested — theoretical only)` ze względu na brak empirycznego pokrycia w danych katalogowych (wszystkie rekordy RO w bazie mają 2–8 cyfr).
-  - **Terminalny kod `NOT_FOUND_ANYWHERE`:** Wprowadzono formalny kod powodu dla sytuacji, gdy suma kontrolna przechodzi, ale rejestry (CEIDG i KRS) nie zwracają żadnego aktywnego rekordu.
+
+  - **Terminalny kod** **`NOT_FOUND_ANYWHERE`:** Wprowadzono formalny kod powodu dla sytuacji, gdy suma kontrolna przechodzi, ale rejestry (CEIDG i KRS) nie zwracają żadnego aktywnego rekordu.
+
 - **Implementacja w kodzie:**
+
   - `tools/verify_principles.py`: dodano `NOT_FOUND_ANYWHERE`, naprawiono `is_valid_cz_ico()`.
+
   - `tools/verify_api.py`: import i obsługa `NOT_FOUND_ANYWHERE` w `verify_pl_row()`.
+
   - `tests/test_verify_principles.py`: dodano testy dla reszt $s=1$ i $s=10$, zweryfikowano poprawność G8 point oraz test fallbacku `NOT_FOUND_ANYWHERE` (67/67 PASS).
+
   - `tests/test_verify_api.py`: 87/87 PASS.
+
 - **Testy globalne:** `pytest` → **530/530 PASS** (0 błędów).
 
 ## 2026-09-03 — Sesja 5: Zakończenie skanowania i klasyfikacji URL-i (URL scan complete)
 
-- **Poprawki w `tools/check_urls.py`:**
+- **Poprawki w** **`tools/check_urls.py`:**
+
   - Dodano flagę `-S` do `curl` oraz obsługę kodów wyjścia / kodu HTTP `000` (wcześniej curl zwracał kod 0 przy błędach DNS, SSL i resetach połączeń, co powodowało stan `unknown` bez komunikatu błędu).
+
   - Rozszerzono `_classify_state()` o wykrywanie problemów z DNS (`nodename`, `could not resolve host`), certyfikatów SSL oraz resetów połączeń / zerwanych strumieni (`recv failure`, `connection reset`, `empty reply`, `stream`).
+
   - Dodano flagę `--missing-only` pozwalającą na szybkie dogrywanie niesprawdzonych URL-i lub ponawianie nieudanych bez konieczności czekania na pełen skan całego projektu.
+
 - **Skanowanie i weryfikacja:**
+
   - Przeskanowano 100% aktywnych URL-i ze wszystkich katalogów (394 adresy www).
+
   - Dograno statusy dla nowo dodanych podmiotów (`PL-A-001..005`, `SK-A-016`) — m.in. `bills.pl` (200 OK, 234ms), `nabijarka.pl` (200 OK, 786ms), `trezo.com.pl` (200 OK, 808ms), `donmarco.pl` (200 OK, 413ms), `tifantex.sk` (200 OK, 936ms).
+
   - Rozwiązano wszystkie 44 wpisy o stanie `unknown`, przypisując precyzyjną diagnostykę: DNS / SSL / timeout / 4xx.
+
   - Końcowy rozkład 394 aktywnych URL-i: **313 green (ok 2xx/3xx)** oraz **81 red** (40 `4xx`, 18 `dns`, 11 `ssl`, 8 `timeout`, 4 `5xx`), 0 niesklasyfikowanych (`unknown: 0`).
+
 - **Frontend UI (`frontend-2`):**
+
   - Dodano komponent `WwwStatusPill` w `src/components/UrlBadge.jsx` renderujący mini pigułkę z czytelnym komunikatem błędu wewnątrz (zamiast surowych ciągów `red|404` czy `red|timeout`).
+
   - Etykiety błędów: `404 Not Found`, `403 Forbidden`, `DNS Error`, `SSL Error`, `Timeout`, `500 Server Error`, itp. wraz z dedykowaną ikoną (Lucide: `AlertCircle`, `Lock`, `Timer`, `HelpCircle`, `XCircle`) oraz dopasowaną paletą kolorów (bursztynowa dla 4xx, różano-czerwona dla awarii/SSL/DNS, szmaragdowa dla 200 OK).
+
   - Wdrożono `WwwStatusPill` w kolumnie `www_status` tabeli danych (`CellRenderer.jsx`) oraz przekazano `raw_status` do `RowDetailExpander.jsx`.
+
   - Dodano testy jednostkowe `UrlBadge.test.jsx` (78/78 testów komponentowych PASS) oraz zweryfikowano poprawność kompilacji produkcyjnej `npm run build` (0 błędów).
+
 - **Synchronizacja i kompilacja:**
+
   - Uruchomiono `tools/inject_www_status.py` — 100% wierszy z www (788 instancji we wszystkich katalogach) posiada aktualny `www_status`.
+
   - `python3 tools/billszuka.py compile` → `master.csv` (477 wierszy × 36 kolumn) zaktualizowany i zsynchronizowany z `frontend-2/public/`.
+
   - Walidacja: `python3 tools/validate_columns.py` → **0 Critical, 0 Warning** ✅
+
   - Testy: `pytest -q` → **527/527 PASS** ✅
 
 ## 2026-09-03 — Sesja 4: Enrichment danych, hurtownicy i serwisanci nabijarek
 
-- **Narzędzie `tools/score_powinowactwo.py`:**
+- **Narzędzie** **`tools/score_powinowactwo.py`:**
+
   - Dodano obsługę `SERVICE_TOKENS` (serwis, naprawa, części zamienne, regeneracja, oprava, náhradní díly, repair, spare parts) z regułą `ROLLER_SERVICE` (score=5).
+
   - Bugfix token normalization w `has_any()`: tokeny z diakrytykami (plnička, mašinica, części) są teraz normalizowane do porównania z tekstem bez diakrytyków, co naprawiło wykrywanie wielojęzycznych fraz maszynkowych.
+
 - **Wyszukiwanie i kwalifikacja serwisantów oraz hurtowników:**
+
   - Zidentyfikowano kluczową cechę rynku nabijarek: tanie maszynki manualne są traktowane jak jednorazówki; rynek serwisowy i popyt na części dotyczy wyłącznie nabijarek elektrycznych (PowerMatic, Hawk, Gerui).
+
   - Wykryto i zweryfikowano w rejestrach (KRS, CEIDG, VIES) 5 nowych podmiotów:
+
     1. `PL-A-002`: **PRIMA-TECH JERZY ROTT, SANDRA ROTT S.C.** (Kolonia Poczesna, NIP 9491922250, REGON 240040924) — operator `nabijarka.pl` i `primarket.pl`, dystrybutor nabijarek i części z dedykowaną linią serwisu (+48 884 606 604). Flaga `BILLS-LIKE`.
     2. `PL-A-003`: **TREZO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ** (Sosnowiec, KRS 0000554050, NIP 6443510536) — producent i eksporter maszyn tytoniowych oraz nabijarek do gilz, dział serwisu (+48 514 281 573). Flaga `BILLS-LIKE`.
     3. `PL-A-004`: **DON MARCO INTERNATIONAL SP. Z O.O.** (Gdańsk, KRS 0000289524, NIP 5833000423) — wiodący importer i dystrybutor akcesoriów dla palaczy, zwijarek i nabijarek. Magazyn Gdańsk.
     4. `PL-A-005`: **P.W. KENTDRUK Zbigniew Sroczyński** (Kęty, NIP 5490000925, CEIDG) — producent gilz GoldenTube i MCT oraz dystrybutor nabijarek do tytoniu.
     5. `SK-A-016`: **TifanTEX, s.r.o.** (Lehota, IČO 45955824, VIES SK2023161525) — dystrybutor elektrycznych nabijarek Gerui, e-commerce i hurt.
+
 - **Enrichment istniejących wpisów PL:**
+
   - `PL-B-013` (Tabak Grupa sp. z o.o., Kalisz, skleptytoniowy.pl): uzupełniono decydenta (Emil Strapagiel — Prezes Zarządu), adres, telefon i profil ogólnopolskiej internetowej hurtowni nabijarek.
+
   - `PL-B-069` (Drek Hurtownia Gilz, Radom): uzupełniono decydenta (Beata Czyż — właścicielka JDG), telefon, adres i notatki o asortymencie maszynek elektrycznych i tłokowych.
+
 - **Czyszczenie plików pomocniczych:**
+
   - Zweryfikowano `data/Polska/extra-leads-PL.csv` oraz `data/Polska/extra-leads-PL-verified-2026-09-03.csv`: wszystkie zweryfikowane podmioty (PL-B-132..136) są w pełni zintegrowane w `catalog-B-PL.csv` i `master.csv`, a pozostałe zostały sklasyfikowane jako duplikaty/odrzucone. Oba pliki stagingowe zostały bezpiecznie usunięte.
+
 - **Walidacja i kompilacja:**
+
   - `python3 tools/billszuka.py compile` → master.csv zaktualizowany do 477 wierszy × 36 kolumn.
+
   - `python3 tools/validate_columns.py` → **0 Critical, 0 Warning** na 28 plikach / 960 wierszach ✅
+
   - `pytest -q` → 527/527 PASS ✅
 
-## 2026-09-03 — Sesja 3: Migracja schematu 35→36 + www_status + URL scan fix
+## 2026-09-03 — Sesja 3: Migracja schematu 35→36 + www\_status + URL scan fix
 
 - **Migracja schematu:** dodana kolumna `www_status` na pozycji 6
   (bezpośrednio po `www`) w `tools/config.py:CANONICAL_SCHEMA` (35→36)
   oraz w `tools/validate_columns.py:CANONICAL_COLUMNS` (mirror).
   Aliasy: `www status`, `url status`, `site status`, `url health`, `www health`.
-  Rule: text, allow_empty, pattern `^[^,\r\n]*$` (chroni CSV przed złamaniem).
-- **Skrypt `tools/inject_www_status.py`:** czyta `url_status` table
+  Rule: text, allow\_empty, pattern `^[^,\r\n]*$` (chroni CSV przed złamaniem).
+
+- **Skrypt** **`tools/inject_www_status.py`:** czyta `url_status` table
   z `billszuka.db` (schema z `tools/db.py`), wstawia status obok www
-  w każdym catalog-*.csv, extra-leads-*.csv, gems-*.csv, master.csv.
-  Idempotentny (nadpisuje www_status zamiast duplikować kolumnę).
+  w każdym catalog-*.csv, extra-leads-*.csv, gems-\*.csv, master.csv.
+  Idempotentny (nadpisuje www\_status zamiast duplikować kolumnę).
   Filtruje `.snapshots/`, `_intake/`, `users/`, `knowledge/`,
   `verification/`, `validation-reports/`. Pomija snapshot files.
+
 - **Iniekcja wykonana:** 1138 wierszy w 52 plikach, **568 (49.9%)**
   z wypełnionym statusem (green|200|578ms / red|404 / red|timeout).
   Pozostałe 192 = brak www, 378 = www bez skanu.
-- **Bug fix `check_urls.py`:** stary `URL_STATUS_SCHEMA` używał `id`,
+
+- **Bug fix** **`check_urls.py`:** stary `URL_STATUS_SCHEMA` używał `id`,
   produkcyjna tabela ma `id_unikalne`. `save_result()` SQL też używał `id`.
-  Zsync. 2026-09-03. Po fixie check_urls.py działa poprawnie.
+  Zsync. 2026-09-03. Po fixie check\_urls.py działa poprawnie.
+
 - **Master recompile:** `python3 tools/billszuka.py compile` →
   master.csv 471 wierszy × 36 kolumn.
+
 - **Walidacja:** `python3 tools/validate_columns.py` → **0 Critical, 0 Warning** ✅
+
 - **URL scan (background):** `python3 tools/check_urls.py --all` —
   zakończony: 388 URL-i w 1975s, **307 green / 81 red**.
-  Re-inject → **877/1138 (77.1%) wierszy** z www_status wypełnionym.
+  Re-inject → **877/1138 (77.1%) wierszy** z www\_status wypełnionym.
   Walidacja: **0 Critical, 0 Warning** ✅
+
 - **SK rescan:** `python3 tools/check_urls.py --country SK --delay 1` —
   złapał nowe SK-B-019..024 (Domenico, AHILOK, P3Com, KON-RAD, Tabako).
   SK-B-021 (smokecentrum.sk) timeout → retry później.
+
 - **Bug fix extra-leads-SK.csv:** moja wcześniejsza write miała przesunięte
   kolumny (miasto='SK' zamiast 'Bratislava'). Poprawiłem wszystkie 6 nowych
   SK-B-019..024 rows. Walidacja nadal 0 Critical.
+
 - **master.csv:** 471 rows × 36 columns. SK: 15 A-tier + 19 B-tier.
   Nowe leads: KON-RAD (SK-B-019) auto-promowany do catalog-B-SK;
   SK-B-020..024 zostają w extra-leads-SK (do ręcznej promocji).
 
 ## 2026-09-03 — Sesja 2: SK świeże leady + weryfikacja ORSR/VIES
 
-- **Web search batch (web_search tool):** znaleziono 6 nowych leadów SK
+- **Web search batch (web\_search tool):** znaleziono 6 nowych leadów SK
   (Tabako Komárno, Domenico Cigar, AHILOK/SmokeShop, P3Com/SmokeCentrum,
   KON-RAD, RNDr. Funka Pezinok). Cross-check z istniejącym SK katalogiem
   potwierdził, że są nowe (GGT, M+M, DL Lauko, Geco, TTI, Continental,
   Tabak Invest, Noba-Smoker, DanCzek, Crazy Shopping już w katalogu).
-- **Weryfikacja rejestrowa (ORSR fetch_all.py + VIES):**
+
+- **Weryfikacja rejestrowa (ORSR fetch\_all.py + VIES):**
+
   - SK-B-019 Domenico Cigar s.r.o. (IČO 43827861) — ORSR ✅, VIES ✅
+
   - SK-B-020 AHILOK s.r.o. (IČO 46402306) — ORSR ✅, VIES ❌ (brak rejestracji VAT-EU)
+
   - SK-B-021 P3Com s.r.o. (IČO 36812188) — ORSR ✅, VIES ✅
+
   - SK-B-022 KON-RAD spol. s r.o. (IČO 00684104) — ORSR ✅, VIES ✅, RegisterUZ ✅
+
   - SK-B-023 RNDr. Igor Funka (IČO 33499993) — živnosť, ORSR brak (poprawka statusu)
+
   - SK-B-024 Tabako Komárno — brak IČO, web down, ORSR no match → DO-WERYFIKACJI
+
 - **Output:** zapisane do `data/Słowacja/extra-leads-SK.csv` (8 wierszy:
   2 istniejące SK-X-001/002 + 6 nowych SK-B-019..024).
+
 - **Notatka operacyjna:** ORSR wyszukiwanie po nazwie wymaga
   POST z `typ_hladania=zaciatok` (formularz). Skrypt `fetch_all.py`
   w wersji single-lookup (`lookup <IČO>`) działa poprawnie, ale
@@ -196,23 +294,33 @@
 - **Narzędzia użyte:** `dedup_check.py` (fuzzy wstęp), `registry_lookup.py`
   (EE ARIREGISTER live, CZ/LT manual via web), `score_powinowactwo.py`
   (deterministyczny 1-5), `validate_columns.py` (0/0 przed commitem).
+
 - **Web search batch 1 (6 rynków):** HR/LV/MD/BG/SI/PL — 12 kandydatów
   z sygnałem ROLLER/NACE 4635.
+
 - **Web search batch 2 (EE/LT/CZ/SK/RO/RS):** kolejne 15 kandydatów.
+
 - **Dodane do master.csv (4 nowe wiersze):**
+
   - **HR-B-019 VELETABAK d.o.o.** (Zagreb, OIB 22051418553, NKD 46350,
     Imperial Brands generalni distributer za HR i EU, vlasnik MERCATA VT
     iz Novog Sada, temeljni kapital €1.489.250, pow=3, kategoria B8).
+
   - **HR-B-020 Nostri Maris d.o.o.** (Nečujam/Šolta + skladište Samobor,
     veleprodajni distributer duhanskog pribora, 1000+ artikala, 2014+,
     pow=3, kategoria B4).
+
   - **LV-B-011 SIA RASTA 1** (Rīga, 25+ let wholesale tobacco + aksesuāri,
     pow=3, kategoria B8).
+
   - **BG-A-010 ТАБАКО ТРЕЙД ВАРНА ООД** (PROMOCJA z B-017 → A-010:
     NACE 4635 explicit, 1992, krajowy hurtownik + importer, marki
     Rizla/Smoking/OCB/Mascotte/Gizeh, pow=4, kategoria A4).
+
 - **Master.csv:** 484 → 488 wierszy (35 kol).
+
 - **Validation:** 0 Critical / 0 Warning.
+
 - **Commit:** `real search v2: HR+LV+BG — 4 verified leads (3 B-tier + 1 A promotion)`.
 
 ## 2026-09-03 — Sesja 4: Real search v2 (CZ+SK+RO+EE batch)
@@ -220,174 +328,254 @@
 - **Web search drill:** potwierdzone rejestrowe dane dla kandydatów
   z batch 1 (GGT CZ IČ 26293609, GECO IČO 35782587, SC LUXURYGIFTS
   CUI RO35063974 = Smoking Romania, AKROTIRI GRUPP OÜ KMKR 10620656).
+
 - **Dodane do master.csv (4 nowe wiersze):**
+
   - **CZ-A-012 GGT CZ, a.s.** (Jihlava, IČ 26293609, 12 składów w ČR,
-    2. největší velkoobchodní distributor tabákových výrobků v ČR;
+    2\. největší velkoobchodní distributor tabákových výrobků v ČR;
     ma pełny asortyment łącznie z PLNIČKAMI DUTINEK; kategoria A4).
+
   - **SK-B-025 GECO, s. r. o.** (Bratislava, IČO 35782587, ORSR BA III
     vložka 21187/B, základné imanie 1 000 000 €, jeden z największych
     importerów tabak+fajčiarskych potrieb v SR, sieć TABAK-TLAČ;
     kategoria B8, pow=3).
+
   - **RO-A-011 SC LUXURYGIFTS SRL** (Bragadiru/Ilfov, CUI RO35063974,
     J23/3319/2018, CAEN 4635, importator UNIC Smoking+SMK+Abadie,
     najszersza gama z aparate de injectat, dystrybucja do Carrefour,
     Auchan, Metro, Inmedio, OMV/Petrom/MOL; **TOP 1 Bragadiru CAEN
     4635**; kategoria A4).
+
   - **EE-B-004 AKROTIRI GRUPP OÜ** (Tallinn, Narva mnt 10, KMKR
     10620656, ARIREGISTER live API; wholesale+retail tubakatoodete +
     alkoholjookide; marka Havanas.ee; kategoria B8, pow=2).
+
 - **Master.csv:** 488 → 492 wierszy (35 kol).
+
 - **Validation:** 0 Critical / 0 Warning.
 
 ## 2026-09-03 — Sesja 5: Real search v2 (SI+PL+RS+LT batch)
 
 - **Web search drill:** potwierdzone dane rejestrowe + wyniki finansowe.
+
 - **Dodane do master.csv (4 nowe wiersze):**
+
   - **SI-B-007 Tobačna Grosist, d.o.o.** (Ljubljana Črnuče, MŠ 5462959000,
     DŠ SI31627528, 1991, hčerinska družba Tobačna Ljubljana / Imperial
     Brands, prihodki 2024 = **€396M**, 76 zaposlených, AJPES potvrdil
     bonitetnu ocenu A+, eden največjih veletrgovcev v SI; kategoria B8,
     pow=3).
+
   - **PL-A-005 Gabimix Sp. z o.o. (Wicik24 + dopalenia.pl)** (Konstantynów
     Łódzki, NIP 7311693836, marka własna WICIK — gilzy Standard / Slim /
     Mentol / Długi filtr + NABIJARKI + bibułki + tytoń; kategoria A5).
+
   - **RS-B-006 Infumo d.o.o.** (Gizeh online shop Srbija, kompletan
     pribor: papirići + filteri + ROLERICE + PUNILICE + black rolls +
     GIZEH FINE MAGNET, dostava 24-48h cele Srbije; kategoria B3,
     pow=4; PIB/MB treba APR proveriti).
+
   - **LT-B-014 UAB MV GROUP Distribution LT** (Vilnius, JAR 121702328,
     founded 1992-11-05, PVM LT217023219, wiodąca hurtownia w bałtyckich
     krajach, 300+ brandów, specjalizacja alkoholiniai gėrimai +
     tabako gaminiai + FMCG; 6 filiāle w LT + LV + EE; kategoria B8,
     pow=2).
+
 - **Master.csv:** 492 → 496 wierszy (35 kol).
+
 - **Validation:** 0 Critical / 0 Warning.
+
 - **Tooling:** AJPES, get.data.gov.lt (JAR) live API, infumo.rs.
 
 ## 2026-09-03 — Unified Authentication, UI Performance Optimization, Catalog Consolidation & Deploy Prep
 
 - **Unifikacja sesji logowania (Single-Step Login):**
+
   - Połączono frontendowy gate (`AccessGate.jsx`) z backendowym menedżerem tożsamości (`tools/auth.py`) i `BillsAuthMiddleware`.
+
   - `POST /api/auth/login` weryfikuje użytkownika przeciwko allowliście (`access.json` / `TEAM_USERS`), rejestruje event w `user_logins`, pobiera/tworzy rekord w tabeli `users`, generuje sesję w `sessions` i ustawia ciasteczko `bsz_sid` (`HttpOnly`, `SameSite=Lax`).
+
   - `BillsAuthMiddleware` w `tools/api_server.py` przepuszcza żądania z poprawnym ciasteczkiem `bsz_sid` bez wywoływania HTTP Basic Auth prompta, zachowując kompatybilność z nagłówkiem `Authorization: Basic ...` dla skryptów / Rendera.
+
   - `AccessGate.jsx` przy starcie weryfikuje aktywność sesji przez `GET /api/me`, automatycznie autoryzując użytkownika po odświeżeniu strony.
+
   - Naprawiono constraint `invite_code_hash NOT NULL` dla legacy bazy w `tools/auth.py`.
+
 - **Eliminacja lagów UI i naprawa błędu inicjalizacji:**
+
   - Naprawiono `ReferenceError: Cannot access 'setFilters' before initialization` w `RawTable.jsx`.
-  - Usunięto wąskie gardło ~15 000 instancji Radix `<Tooltip>` w `CellRenderer.jsx`, zastępując je natywnymi atrybutami HTML `title`.
+
+  - Usunięto wąskie gardło \~15 000 instancji Radix `<Tooltip>` w `CellRenderer.jsx`, zastępując je natywnymi atrybutami HTML `title`.
+
   - W `useUrlStatus` i `useKeywordScan` wprowadzono modułowy cache w pamięci (`Map`), eliminując ponowne zapytania sieciowe i czyszczenie stanu przy zmianie filtrów.
+
   - W `DataTable.jsx` odpięto dynamiczne mapy statusów od definicji kolumn (przekazując je przez `meta`), zapobiegając unieważnianiu drzewa TanStack Table.
+
   - Domyślny `pageSize` w `RawTable.jsx` ustawiono na 100, redukując natychmiastowe obciążenie DOM.
+
 - **Konsolidacja katalogów i czystość repozytorium:**
+
   - Zrekompilowano `data/master.csv` i zsynchronizowano `frontend-2/public/master.csv` (465 wierszy × 35 kolumn).
+
   - Wykonano pełną weryfikację kolumn: 27 plików / 936 wierszy — **0 Critical, 0 Warning**.
+
   - Zbudowano produkcyjny bundle `frontend-2` (vite build: 820ms, czyste chunki).
+
   - Testy: **537/537 PASS w pytest**, **133/133 PASS w frontend-2**, **0 błędów w oxlint**.
 
 ## 2026-08-31 — Naprawa retencji stanu tabeli przy odświeżeniu (F5 / Page Reload) i commit do Git
 
 - **Diagnoza przyczyn resetowania widoku tabeli po odświeżeniu strony:**
+
   1. `ModernLeadsTable` i `ModernLeadsTableV2` zamrażały pusty stan w `useState(() => leadsProp || generateLeads(50))` podczas inicjalizacji komponentu przy statusie `idle`/`loading` (pusta tablica `[]` blokowała reaktywne zasilenie danymi z `useCsv`).
   2. `RawTable` po natychmiastowym odtworzeniu `master.csv` z cache IndexedDB niepotrzebnie resetował status do `loading` z 500 ms sztucznym opóźnieniem `minLoadingMs`, odmontowując tabelę i niszcząc stan przewijania oraz fokus.
   3. Filtry i sortowanie (`filters`, `sortStack`, `columnOrder`) podczas pierwszego ticku renderowania (gdy `csv.columns` było jeszcze puste) były czyszczone do `{}` i nadpisywały `localStorage`.
   4. W `ExperimentView` podzakładka eksperymentu (`activeExperiment`) nie była utrwalana w pamięci podręcznej i zawsze wracała do wariantu progresywnego.
+
 - **Wdrożone poprawki (`frontend-2`):**
+
   - **Reaktywność leadów:** Zastąpiono `useState` przez `useMemo` bazujące na `leadsProp` w `ModernLeadsTable.jsx` i `ModernLeadsTableV2.jsx`.
-  - **Stale-While-Revalidate w `useCsv.js` i `RawTable.jsx`:** Dodano obsługę cichego przeładowania w tle (`{ background: hasCache }`), dzięki czemu odświeżenie strony natychmiast pokazuje dane z pamięci podręcznej bez migotania i odmontowywania tabeli.
+
+  - **Stale-While-Revalidate w** **`useCsv.js`** **i** **`RawTable.jsx`:** Dodano obsługę cichego przeładowania w tle (`{ background: hasCache }`), dzięki czemu odświeżenie strony natychmiast pokazuje dane z pamięci podręcznej bez migotania i odmontowywania tabeli.
+
   - **Zabezpieczenie filtrów:** Zachowanie filtrów i stosu sortowania podczas inicjalizacji schematu kolumn.
+
   - **Utrwalenie podzakładek:** `activeExperiment` zapisywany do `localStorage` (`czat-table.activeExperiment`).
+
 - **Walidacja i Git:**
+
   - Testy komponentów JSX: **48/48 PASS** (`node scripts/test-jsx.mjs`).
+
   - Pakiet testów Python: **460/460 PASS** (`pytest`).
+
   - Raport walidacji kolumn: **0 Criticals** (`validate_columns.py`).
+
   - Zmiany zatwierdzone i wypchnięte do zdalnego repozytorium GitHub (`github.com/ng-net/billszuka` branch `main`).
 
----
+***
 
 ## 2026-08-31 — Refaktoryzacja i utwardzenie skryptów narzędziowych (purge & orchestrate)
 
-- **Utwardzenie `tools/purge_hallucinations_and_normalize.py`:**
+- **Utwardzenie** **`tools/purge_hallucinations_and_normalize.py`:**
+
   - **Kwarantanna i ślad audytowy:** Usunięte rekordy trafiają do `data/_quarantine/purged-{cat_type}-{iso}.csv` z powodem usunięcia (`purge_reason`) i znacznikiem czasu ISO UTC (`purged_at`).
+
   - **Bezpieczny zapis i kopia zapasowa:** Tworzenie kopii `.bak` przed modyfikacją pliku oraz atomowy zapis przez plik tymczasowy `.tmp` (`replace`).
+
   - **Zakotwiczone regexy (`^...$`):** Zastąpiono podciągi typu `re.search(r"123456", nip)` ścisłymi wzorcami, eliminując false-positives dla autentycznych identyfikatorów zawierających ciągi cyfr w środku (np. `5212345678`).
+
   - **Generyczna biała lista:** Zastąpiono pojedynczy hardcoded NIP regułą `is_verified_allowlisted()` korzystającą z `VERIFIED_ALLOWLIST` w `tools/config.py`.
-  - **Tryb `--dry-run`:** Dodano obsługę parametru CLI `--dry-run` do symulacji bez zapisu na dysku.
-- **Utwardzenie `tools/orchestrate_11_levels.py` i `tools/country_plans.json`:**
+
+  - **Tryb** **`--dry-run`:** Dodano obsługę parametru CLI `--dry-run` do symulacji bez zapisu na dysku.
+
+- **Utwardzenie** **`tools/orchestrate_11_levels.py`** **i** **`tools/country_plans.json`:**
+
   - **Wyodrębnienie danych:** Słownik `COUNTRY_PLANS` przeniesiony do `tools/country_plans.json` z walidacją schematu na starcie (`validate_country_plans()`).
+
   - **Ujednolicenie schematu:** Wszystkie 13 krajów posiada klucze `csv_A` i `csv_B` (dodano `csv_A` dla PL), usunięto protezy wstecznej kompatybilności `csv`.
-  - **Naprawa deduplikacji `add_lead`:** Puste identyfikatory NIP nie są traktowane jako duplikaty `""`, co pozwala dodawać rekordy bez NIP.
+
+  - **Naprawa deduplikacji** **`add_lead`:** Puste identyfikatory NIP nie są traktowane jako duplikaty `""`, co pozwala dodawać rekordy bez NIP.
+
   - **Dokumentacja i filtry:** Uściślono rolę playbooka w docstringach oraz poprawiono filtrowanie poziomów `--level L1`.
+
 - **Testy jednostkowe:** Utworzono `tests/test_purge_and_orchestrate.py` (10 testów zielonych). Pełny pakiet 460 testów pytest przechodzi w 100%.
 
----
+***
 
 ## 2026-08-31 — Czyszczenie nazw firm, realokacja deskryptorów i walidacja kolumn
 
-- **Oczyszczenie `nazwa`:**
+- **Oczyszczenie** **`nazwa`:**
+
   - Usunięto etykiety maszynek / asortymentu (*"maszynki elektryczne"*, *"nabijarki"*) z nazw spółek i przeniesiono do `marki_nabijarki` oraz `notatki`.
+
   - Wyekstrahowano adresy domen w nawiasach (np. `(Plnicky-Powermatic.cz)`, `(cotyshop.ro)`) — zasiliły kolumny `www` lub `notatki`, a `nazwa` zawiera czyste nazwy rejestrowe.
+
   - Oczyszczono deskryptory profili handlowych (np. `(hurtownia art. tytoniowych)`, `(dystrybutor FMCG/tytoń)`), przenosząc je do `notatki` i `tier`.
+
 - **Naprawa błędnie umiejscowionych danych (`clean_and_realign_columns.py`):**
+
   - Przeniesiono adresy e-mail z kolumny `telefon` (np. `CZ-X-002`, `PL-X-034`, `SI-X-001`) do `email`.
+
   - Rozdzielono wielokrotne linki WWW i telefony z adnotacjami WhatsApp/Viber.
+
   - Skorygowano opisy działalności w kolumnie `sourcing` (np. `LT-B-011`).
+
 - **Walidacja kolumn (`tools/validate_columns.py`):**
+
   - Zaktualizowano wzorce NIP/VAT dla UE (Litwa 9/12 cyfr, Estonia 8/9 cyfr, Francja TVA/SIREN).
+
   - Rozszerzono akceptowane tokeny dla `sourcing` i `kanal_sprzedaży` o logistykę, składy celne i HoReCa.
+
   - Liczba błędów krytycznych (**Critical issues**) w raporcie spadła ze 131 do **0** (`Files: 26 | Rows: 756 | Critical: 0 | Warning: 412`).
+
   - Wszystkie 48 testów w `frontend-2` przeszły pomyślnie.
 
----
+***
 
 ## 2026-08-31 — Wdrożenie 5 funkcji filtrowania i ergonomii do RawTable (Frontend-2)
 
 - **Brand Quick Bar (`BrandQuickBar.jsx`):** Pasek zakładek marek w nagłówku tabeli z segmentami (`Wszystko`, `PowerMatic`, `PowerMatic + Hawk`, `Hawk`, `Inna`) i dynamicznie buforowanymi licznikami.
+
 - **Pasek aktywnych filtrów (`ActiveFilterChips.jsx`):** Wizualne kapsułki aktywnych filtrów pod wyszukiwarką z przyciskami `✕` do pojedynczego usuwania i przyciskiem `Resetuj`.
+
 - **Panel fasad z rozkładem procentowym (`CollapsibleFilters.jsx`):** Dodano paski częstotliwości rozkładu wartości procentowych oraz boczny wysuwany panel fasad w `RawTable` przełączany przyciskiem `Fasady`.
+
 - **Progressive Disclosure (`RowDetailExpander.jsx`):** 3-kolumnowa responsywna karta rozwijania wiersza w `DataTable.jsx` (dane biznesowe, kopiowanie NIP/adresu, UrlBadge, social media, kontakt, notatki operacyjne).
+
 - **Domyślne maskowanie decydentów RODO:** `maskDecydenci: true` w `prefs.js` (domyślnie `Jan Ko***i`) wraz z przyciskiem `Maskuj / Odkryj` w toolbarze tabeli.
+
 - **Weryfikacja:** 111/111 testów zielonych (64 unit testy + 47 testów komponentów JSX), `npm run build` zakończony sukcesem w 712ms.
 
----
+***
 
 ## 2026-08-31 — Integracja statusów URL i skanu słów kluczowych w UI (Frontend-2)
 
 - **Weryfikacja danych URL:** Potwierdzono stan weryfikacji 297 URL-i w tabeli `url_status` w `data/billszuka.db` (231 OK, 23 4xx, 4 5xx, 4 timeout, 35 unreachable/DNS).
+
 - **useUrlStatus & useKeywordScan hooks:** Poprawiono logikę fetchowania (`useUrlStatus.js`, `useKeywordScan.js`), aby domyślnie (dla widoku "Wszystkie" oraz braku filtra kraju) pobierały pełną mapę statusów URL i skanów dla wszystkich 353 firm z master datasetu.
+
 - **RawTable / DataTable / CellRenderer:** Wpięto `UrlBadge` bezpośrednio do kolumny `www` w `DataTable` i `CellRenderer.jsx`.
+
 - **ModernLeadsTableV2:**
+
   - Dodano filtr dropdown `WWW` (Wszystkie, 200 OK, Błędy 4xx/5xx/DNS, Brak/Nieznane).
+
   - Dynamiczne opcje wyboru kraju z datasetu.
+
   - Rozszerzono eksport CSV o status HTTP, kody błędów i keyword score.
+
 - **Testy:** 47/47 testów komponentów zielone (`node scripts/test-jsx.mjs`).
 
----
+***
 
-## 2026-08-31 — Zasady weryfikacji: implementacja gate + verify_principles
+## 2026-08-31 — Zasady weryfikacji: implementacja gate + verify\_principles
 
 **Incydent:** 19/129 PL-B wpisów miało halucynowany NIP (mod-11 invalid) a mimo to
 `verify_run.py` ustawiał FROZEN. Root cause: status FROZEN nadawany na podstawie
 string-match w `zrodlo_danych` (czy zawiera "KRS"/"CEIDG") **bez walidacji NIP/KRS**.
 
-**Fix warstwa 1 — `tools/verify_run.py:verify_row()`:**
+**Fix warstwa 1 —** **`tools/verify_run.py:verify_row()`:**
+
 - Pre-flight PL NIP mod-11 → `DO-WERYFIKACJI: NIP PL mod-11 invalid (HALUCYNACJA?)`
+
 - Pre-flight KRS lookup → jeśli KRS istnieje a NIP z KRS ≠ CSV NIP → `DO-WERYFIKACJI: KRS HALUCYNACJA`
+
 - Wynik: 29/375 firm (7.7%) przeniesionych FROZEN → DO-WERYFIKACJI z explicytną przyczyną
 
-**Fix warstwa 2 — `tools/verify_principles.py` (nowy) + `verify_api.py` update:**
+**Fix warstwa 2 —** **`tools/verify_principles.py`** **(nowy) +** **`verify_api.py`** **update:**
 
 Master dispatch `is_valid_vat_format(country_iso, vat_id)` — 11 algorytmów checksum:
 
-| Kraj | Walidator | Status | Accuracy na real danych |
-|---|---|---|---|
-| PL | mod-11 (wagi 6,5,7,2,3,4,5,6,7) | ✅ | 8/8 |
-| CZ | mod-11 (wagi 8-2) | ✅ | 8/9 (1 znany edge: G8 point) |
-| HR | ISO 7064 MOD 11,10 | ✅ | 11/11 |
-| FR | Luhn + La Poste exception | ✅ | 3/3 |
-| RO | mod-11 (tylko 9+ cyfr) | ✅ z ograniczeniem | N/A (katalog: 2-8 cyfr) |
-| SK IČ DPH | — | ❌ no checksum | 3/26 (odrzucone) |
-| SI davčna | — | ❌ no checksum | 13/16 (odrzucone) |
-| BG/EE/LV/LT/MD/RS | — | format-check only | brak wzorów |
+| Kraj              | Walidator                       | Status            | Accuracy na real danych      |
+| ----------------- | ------------------------------- | ----------------- | ---------------------------- |
+| PL                | mod-11 (wagi 6,5,7,2,3,4,5,6,7) | ✅                 | 8/8                          |
+| CZ                | mod-11 (wagi 8-2)               | ✅                 | 8/9 (1 znany edge: G8 point) |
+| HR                | ISO 7064 MOD 11,10              | ✅                 | 11/11                        |
+| FR                | Luhn + La Poste exception       | ✅                 | 3/3                          |
+| RO                | mod-11 (tylko 9+ cyfr)          | ✅ z ograniczeniem | N/A (katalog: 2-8 cyfr)      |
+| SK IČ DPH         | —                               | ❌ no checksum     | 3/26 (odrzucone)             |
+| SI davčna         | —                               | ❌ no checksum     | 13/16 (odrzucone)            |
+| BG/EE/LV/LT/MD/RS | —                               | format-check only | brak wzorów                  |
 
 **Zasada:** wdrożenie niepewnego checksumu jest gorsze niż jego brak (per VERIFICATION-RULES.md §SK/§SI).
 
@@ -399,7 +587,7 @@ Master dispatch `is_valid_vat_format(country_iso, vat_id)` — 11 algorytmów ch
 
 **Edge case G8 point s.r.o. (CZ IČO 06941281):** nie przechodzi mod-11 mimo że ARES potwierdza. 1/9 false-positive akceptowalny koszt za blokadę 100% halucynacji. Test dokumentuje.
 
----
+***
 
 ## 2026-08-31 — URL status + keyword scan (12 krajów)
 
@@ -407,32 +595,33 @@ Master dispatch `is_valid_vat_format(country_iso, vat_id)` — 11 algorytmów ch
 
 **Wyniki URL status (297 URL-i):**
 
-| Kraj | n | green | % | Uwagi |
-|---|---|---|---|---|
-| CZ | 9 | 9 | 100% | benchmark |
-| EE | 28 | 24 | 85.7% | |
-| HR | 19 | 16 | 84.2% | |
-| SK | 30 | 25 | 83.3% | |
-| BG | 27 | 22 | 81.5% | |
-| LV | 10 | 8 | 80.0% | |
-| PL | 75 | 59 | 78.7% | 9× unknown (DNS) |
-| FR | 22 | 16 | 72.7% | |
-| RO | 17 | 12 | 70.6% | |
-| MD | 6 | 4 | 66.7% | |
-| LT | 20 | 13 | 65.0% | 4× unknown |
-| RS | 18 | 10 | 55.6% | najsłabszy |
-| **Total** | **297** | **231** | **77.8%** | |
+| Kraj      | n       | green   | %         | Uwagi            |
+| --------- | ------- | ------- | --------- | ---------------- |
+| CZ        | 9       | 9       | 100%      | benchmark        |
+| EE        | 28      | 24      | 85.7%     | <br />           |
+| HR        | 19      | 16      | 84.2%     | <br />           |
+| SK        | 30      | 25      | 83.3%     | <br />           |
+| BG        | 27      | 22      | 81.5%     | <br />           |
+| LV        | 10      | 8       | 80.0%     | <br />           |
+| PL        | 75      | 59      | 78.7%     | 9× unknown (DNS) |
+| FR        | 22      | 16      | 72.7%     | <br />           |
+| RO        | 17      | 12      | 70.6%     | <br />           |
+| MD        | 6       | 4       | 66.7%     | <br />           |
+| LT        | 20      | 13      | 65.0%     | 4× unknown       |
+| RS        | 18      | 10      | 55.6%     | najsłabszy       |
+| **Total** | **297** | **231** | **77.8%** | <br />           |
 
 **Wyniki keyword scan (275 URL-i):** firmy vape mają 0% (słowniki tytoniowe — poprawne). Top trafień: CZ-A-007 atcdistribution.cz 4%, SI-A-001 tobaccostuff.net 3%, LV-A-004 rasta1.eu 2%, PL-B-013 skleptytoniowy.pl 2%.
 
 **Pitfalls napotkane (zachować na przyszłość):**
+
 1. SQLite `CREATE INDEX` na nieistniejącej kolumnie wywala nawet z `IF NOT EXISTS` — index **po** ALTER TABLE.
 2. `db.connect()` to **context manager** (`with db.connect() as conn:`), nie zwykły connection.
 3. WAL + dwa procesy piszące równolegle → `database is locked` → retry z backoff 15-30× × 2s.
 4. `python3 -u` dla `nohup` w tle — bez tego stdout buforowany, log pusty do końca.
 5. Cron reporting „done" musi sprawdzać `pgrep=0` **AND** 12/12 krajów **AND** "ALL DONE" w logu — nie tylko pgrep.
 
----
+***
 
 ## 2026-08-30 — Merge 4 branchy do main + Cloudflare deploy
 
@@ -440,17 +629,18 @@ Merged: `fix-tooltip-and-login` (17 commits, 122 files), `feat/proposal-queue-ma
 
 **Cloudflare deploy:** secrets dodane, deploy green. Backup remote `marlink/BILLSzuka` usunięty po merge (commit `af3f2b51`).
 
----
+***
 
 ## 2026-08-30 — Revert per-user auth (zostajemy przy Basic Auth)
 
 Per-user sessions / bookmarks / soft-delete / activity log — wycofane. Powód: zbyt dużo surface'a dla MVP, Basic Auth wystarcza. Commit: `c9d8354a`.
 
----
+***
 
 ## 2026-08-29 — czat-table search/filter consistency fix (kompletny cykl)
 
 5-commit fix:
+
 1. Hydrate search index z `useCsv` (nie lazy)
 2. Dedup `defer` zamiast `delete` (race condition)
 3. Split enum filter (text vs badge)
@@ -460,28 +650,31 @@ Per-user sessions / bookmarks / soft-delete / activity log — wycofane. Powód:
 
 Commit: `f6897172`.
 
----
+***
 
 ## 2026-08-27 — AGENTS.md & Storage documentation update
 
 Aktualizacja AGENTS.md: workspace path, remote rules, file-scoped storage, data hygiene.
 
----
+***
 
 ## 2026-08-26 — Full Project Review + Validation Fixes
 
-| Obszar | Status |
-|---|---|
-| Test suite | 349 passed |
-| Master regen | 375 rows × 35 cols |
-| Sync (sync_verifier) | PERFECT_SYNC |
-| 11-level search | PASS (4/12 working; 8 SKIP bez BRAVE_API_KEY) |
-| CI workflow | Green (ci-python.yml, 7 steps) |
-| API server | OK |
+| Obszar                | Status                                          |
+| --------------------- | ----------------------------------------------- |
+| Test suite            | 349 passed                                      |
+| Master regen          | 375 rows × 35 cols                              |
+| Sync (sync\_verifier) | PERFECT\_SYNC                                   |
+| 11-level search       | PASS (4/12 working; 8 SKIP bez BRAVE\_API\_KEY) |
+| CI workflow           | Green (ci-python.yml, 7 steps)                  |
+| API server            | OK                                              |
 
-**validate_columns.py — 1076 criticals → 148 (2026-08-26):**
-- Root cause: sentinele `brak`/`n/a`/`do weryfikacji`/`do ustalenia`/`nie`/`no`/`unknown`/`—`/`–`/`-` nie były w known-list → każde wystąpienie w LinkedIn/email/sourcing/cross_sell_potential flagowane jako CRITICAL
+**validate\_columns.py — 1076 criticals → 148 (2026-08-26):**
+
+- Root cause: sentinele `brak`/`n/a`/`do weryfikacji`/`do ustalenia`/`nie`/`no`/`unknown`/`—`/`–`/`-` nie były w known-list → każde wystąpienie w LinkedIn/email/sourcing/cross\_sell\_potential flagowane jako CRITICAL
+
 - Fix: `KNOWN_NON_VALUE` set (16 sentineli) + `normalize_non_value()` na wejściu `validate_value()`
+
 - Fixed `cross_check()` B-row marki check
 
 **Logout Tooltip 2s delay + dissolve:** `AccessGate.jsx` z Radix Tooltip `delayDuration={2000}`, dissolve-on-click (`opacity-0 scale-95 blur-[3px]`).
@@ -489,35 +682,40 @@ Aktualizacja AGENTS.md: workspace path, remote rules, file-scoped storage, data 
 **Dataset persistence (F5 reset fix):** nowy `datasetStorage.js` (IndexedDB `billszuka_db` dla CSV > 5MB), `prefs.js` rozszerzony o `activeTab`, `RawTable.jsx` boot loader.
 
 **master.csv data-integrity (2026-08-26):**
+
 1. `rynek_skala` niezgodne z formułą w 181/377 (48%) — backfill do 24 plików źródłowych
 2. `PL-B-086` oznaczony FROZEN bez `adres` — zdegradowany do DO-WERYFIKACJI
 3. Kolizja ID `PL-X-051/052/053` + `FR-X-001` (litera "X" niekanoniczna) → przejście do prawidłowego schematu `{A|B}`
 
----
+***
 
 ## 2026-08-25 — Login gate (AccessGate) + prep Netlify/Render + fix CI
 
-6 produkcyjnych blockerów naprawionych: zepsuty CI krok (test_9_levels.py → test_11_levels.py), brak engines/Node, brak auth backendu, brak netlify.toml/render.yaml/requirements.txt, efemeryczny FS Rendera, public/sample.csv.
+6 produkcyjnych blockerów naprawionych: zepsuty CI krok (test\_9\_levels.py → test\_11\_levels.py), brak engines/Node, brak auth backendu, brak netlify.toml/render.yaml/requirements.txt, efemeryczny FS Rendera, public/sample.csv.
 
 **AccessGate (frontend-only MVP):**
+
 - `design/LOGIN-RULES.md` — 6 imion (marceli/karol/jarek/jaroslaw/jaro/jaroslaw-wariant) + firmy bills/smoks, case-insensitive, trim
+
 - `tools/hash_name.py` + `frontend-2/src/lib/access.js` (WebCrypto SHA-256, `localStorage["billszuka.access.v1"]`)
+
 - `frontend-2/public/access.json` — TYLKO hashe, brak plaintext w bundlu
+
 - `AccessGate.jsx` — 2 ekrany (imię → firma), chip Wyloguj
 
-**Deploy prep:** netlify.toml (NODE_VERSION 22), render.yaml (billszuka-api, free, regeneracja master.csv w startCommand).
+**Deploy prep:** netlify.toml (NODE\_VERSION 22), render.yaml (billszuka-api, free, regeneracja master.csv w startCommand).
 
 **Tests:** pytest 215/215 PASS, node --test 5/5, oxlint 0 błędów, vite build exit 0.
 
 Commit: `7105610` (13 files, 417 insertions). Uwaga: `fe at:` zamiast `feat:` w message — kosmetyka, zostawione (amend = force push).
 
----
+***
 
 ## 2026-08-25 — Snapshot LLM setup (operator working)
 
 `api_secrets.json` + UI Settings drawer. Chain: `gemini → mock → openrouter` (openrouter = final fallback only). `maxOutputTokens` 2048 (gemini) / `max_tokens` 1500 (openrouter). OpenRouter `sk-o…eeb9` OK.
 
----
+***
 
 ## 2026-08-23 — Plan: Trade-show Intelligence Pipeline (4 layers)
 
@@ -526,6 +724,7 @@ Commit: `7105610` (13 files, 417 insertions). Uwaga: `fe at:` zamiast `feat:` w 
 **Decyzje:** scope = plan only, zero kodu. Ingestion depth = tylko HTML + PDF przez istniejący `extract_intel.py`. Storage = `data/events/` w BILLSzuka.
 
 **Warstwy (all additive, zero duplikacji):**
+
 1. `tools/ingest_calendar.py` → `data/events/calendar-2024-27.csv` + `exhibitors.csv`
 2. `tools/crosslink_events_to_leads.py` → `data/events/event-attendance.csv` (delta exhibitors not in master)
 3. `frontend-2/src/views/EventsView.jsx` + 3 endpointy (`/api/events`, `/api/events/{id}/exhibitors`, `/api/strategy`)
@@ -533,88 +732,110 @@ Commit: `7105610` (13 files, 417 insertions). Uwaga: `fe at:` zamiast `feat:` w 
 
 Status: 🟡 plan only — czeka na zielone światło.
 
----
+***
 
 ## 2026-08-23 — Cleanup pass: dead-weight columns + 2 PL miasto rows
 
 Rekomendacje z audytu master.csv (393 wierszy × 35 kolumn):
 
-| Kolumna | Puste | Komentarz |
-|---|---|---|
-| `tiktok` | 100% | dead weight, ale klient chce widzieć |
-| `linkedin` | 98.7% | dead weight |
-| `instagram` | 98.2% | dead weight |
-| `kanal_zamiennik` | 98.0% | do usunięcia |
-| `facebook` | 96.4% | dead weight |
-| `marka_wlasna_oem` | 93.9% | mało wartościowy |
-| `related_to` | 83.0% | nieużywane |
-| `rok_zalozenia` | 81.7% | 44/72 = "brak" (extra-leads) |
-| `email_decydent` | 73.9% | **krytyczne** dla outreachu |
-| `sourcing` | 58.6% | utrudnia ocenę wiarygodności |
+| Kolumna            | Puste | Komentarz                            |
+| ------------------ | ----- | ------------------------------------ |
+| `tiktok`           | 100%  | dead weight, ale klient chce widzieć |
+| `linkedin`         | 98.7% | dead weight                          |
+| `instagram`        | 98.2% | dead weight                          |
+| `kanal_zamiennik`  | 98.0% | do usunięcia                         |
+| `facebook`         | 96.4% | dead weight                          |
+| `marka_wlasna_oem` | 93.9% | mało wartościowy                     |
+| `related_to`       | 83.0% | nieużywane                           |
+| `rok_zalozenia`    | 81.7% | 44/72 = "brak" (extra-leads)         |
+| `email_decydent`   | 73.9% | **krytyczne** dla outreachu          |
+| `sourcing`         | 58.6% | utrudnia ocenę wiarygodności         |
 
 **Naprawione w tej sesji:**
+
 - `powinowactwo_nabijarki` — 28 non-numeric (wysoki/średni/Maribor/Ljubljana) → 100% numeric (1-5). Fix: `inferColumnType()` próg `numLike/n === 1.0`. Dodane badge colors (wysoki=emerald, średni=amber).
+
 - `wolumen` — 8 outlierów EE (Müügitulu, EMTAK, liczby pracowników) → DO-WERYFIKACJI + notatka.
 
 **Do zrobienia:** 2 PL-B z `miasto="Polska"` (bug data entry), 8 EE `wolumen` outliers (przenieść do notatki), rozważyć usunięcie dead-weight kolumn.
 
 **Lekcja dla mnie:** przy audycie CSV z cytowanymi polami (przecinki w środku) **zawsze** PapaParse, nigdy `split(',')` — mój skrypt node-owy raportował 0 unikalnych wartości `rynek_skala` przez quoted fields.
 
----
+***
 
 ## 2026-08-22 — Bug review pass 1 + 2 (10 bugs found, 10 fixed)
 
 **Pass 1 (8 bugs):**
-- #1 [HIGH] Brak `POST /api/settings/rotate-all` endpoint
-- #2 [MED] GeminiDrawer autoscroll broken
-- #3 [MED] GeminiDrawer hardcodes `master.csv`
-- #4 [HIGH] Vite proxy missing
-- #5 [LOW] Dead `api_secrets.lock` w .gitignore
-- #6 [MED] RS/Serbia missing z COUNTRY_MAP + COUNTRY_ORDER
-- #7 [MED] Zero test coverage for /api/settings/*
-- #8 [MED] `_csv_path` recursive search could return wrong file
+
+- \#1 \[HIGH] Brak `POST /api/settings/rotate-all` endpoint
+
+- \#2 \[MED] GeminiDrawer autoscroll broken
+
+- \#3 \[MED] GeminiDrawer hardcodes `master.csv`
+
+- \#4 \[HIGH] Vite proxy missing
+
+- \#5 \[LOW] Dead `api_secrets.lock` w .gitignore
+
+- \#6 \[MED] RS/Serbia missing z COUNTRY\_MAP + COUNTRY\_ORDER
+
+- \#7 \[MED] Zero test coverage for /api/settings/\*
+
+- \#8 \[MED] `_csv_path` recursive search could return wrong file
+
 - Sub-bug: test fixture monkeypatching wrong module (podczas fix #7)
 
 **Pass 2 (1 CRITICAL + 1 known minor):**
-- #9 [CRITICAL] App.jsx zrevertowany do stub; 6 orphan components dead — przywrócone.
+
+- \#9 \[CRITICAL] App.jsx zrevertowany do stub; 6 orphan components dead — przywrócone.
 
 **Migracja ng-net/billszuka → marlink/BILLSzuka → ng-net/billszuka** (commit `b305fd04...`):
+
 - 2x flip w 3 tygodnie. Check DZIENNIK-archive przed zmianą remote.
+
 - `marlink/BILLSzuka` backup remote usunięty 2026-08-30 po merge.
 
----
+***
 
 ## 2026-08-22 — Frontend consolidation (Phases 1-9)
 
 Konsolidacja frontend/ i frontend-2/. 1 frontend, 1 viewer, 1 design system. Phases 1-9 wykonane, migration notes dla Marcelego w DZIENNIK-archive.
 
----
+***
 
 ## 2026-08-22 — .env auto-bootstrap do secrets vault
 
-Pierwszy setup jest automatyczny — klucze z `.env` (OpenRouter/Gemini) są skanowane i wgrywane do `tools/api_secrets.json` przy starcie api_server. Chain order (`openrouter → gemini → mock` poprzednio = halucynacje) → `gemini → mock → openrouter` (openrouter jako final fallback).
+Pierwszy setup jest automatyczny — klucze z `.env` (OpenRouter/Gemini) są skanowane i wgrywane do `tools/api_secrets.json` przy starcie api\_server. Chain order (`openrouter → gemini → mock` poprzednio = halucynacje) → `gemini → mock → openrouter` (openrouter jako final fallback).
 
----
+***
 
 ## 2026-08-20/21 — czat-table subproject: built, perf, review, code review, framer-motion remove
 
 Sub-projekt: dashboard CSV w `frontend-2/`. Pełny cykl: build → pagination → virtualization removed (no-flicker fix) → hide-column × on hover → 4-PR cleanup → data quality fix + validator → pre-computed filter/sort indexes (perf) → code review → usunięcie framer-motion z row path → viewer perf pass.
 
----
+***
 
 ## 2026-08-21 — master.csv Pass 1-8 (konsolidacja 8 sesji integrity)
 
 8 sesji jednego dnia, łączny wynik:
+
 - **40 duplikatów NIP** usuniętych
+
 - **5 SI/EE confidence** out-of-scope items wyczyszczonych
+
 - **14 kolumn** schema alignment audit
+
 - **RS catalog** tier-cardinality cleanup
+
 - **notatki dedupe** + tool idempotency fix
+
 - **8 PL-B telefonów** (wielo-numer) wyczyszczonych
-- **65 A-row cross_sell_potential** → n/a
+
+- **65 A-row cross\_sell\_potential** → n/a
+
 - **Inferencja typów** — kolumny z błędnym typem poprawione (np. `powinowactwo_nabijarki` z number → enum)
 
----
+***
 
 ## 2026-08-21 — Enrichment Pass: decydenci z publicznych źródeł (anti-halucynacja)
 
@@ -623,12 +844,13 @@ Sub-projekt: dashboard CSV w `frontend-2/`. Pełny cykl: build → pagination �
 Przykłady: FR-A-004 ADNS SARL DAMIEN CLAUDE ROUSSEAU (api.gouv.fr SIREN 508404167), EE-B-014 Karisma Food OÜ Ando Laine (ariregister.rik.ee/eng/company/10048083), SK 9 firm (orsr.sk windows-1250 HTML scrape).
 
 **Strategia następnej sesji:**
+
 1. OpenCorporates free API key (1 min, brak karty, 200 req/mies)
 2. Unified scraper dla 12 krajów (PL już ma)
 3. Per kraj: register URL, anti-bot status, rate limit, hit rate
 4. Commit per kraj osobno (łatwiej revertować)
 
----
+***
 
 ## 2026-08-18 — PDF generation: 12 krajów, propagacja v11.5 (konsolidacja 13 iteracji)
 
@@ -638,57 +860,57 @@ Przykłady: FR-A-004 ADNS SARL DAMIEN CLAUDE ROUSSEAU (api.gouv.fr SIREN 5084041
 
 **Layout final (v11.5):** 2 sekcje (Katalog A + B), 3-wierszowe bloki per lead, 6 leadów/stronę, Notatka w row 3 span 3 cells, bolder nazwa (11pt), 7 kol, kategoria badge, scalony kontakt+email, marginesy zmniejszone, font 8.5pt.
 
-**Tool: `tools/pdf_gen_instrukcja.py`** (54 KB, 940 linii, ReportLab Verdana) + per-country PDF gen.
+**Tool:** **`tools/pdf_gen_instrukcja.py`** (54 KB, 940 linii, ReportLab Verdana) + per-country PDF gen.
 
----
+***
 
 ## 2026-08-18 — multi-country full verification
 
 393/393 FROZEN across 24 catalogs (12 countries). Apollo enrichments, atomic write fixes, VIES multi-country. Nowe `tools/sync_verifier.py` + cron (every 30 min) gwarantujące 1:1 sync katalogi ↔ master.csv.
 
----
+***
 
 ## 2026-08-18 — Google Places API sweep (9 krajów)
 
 Sweep 9 krajów, dedupikacja, translacja notatek, integration do `data/{Kraj}/catalog-B-{ISO}.csv`.
 
----
+***
 
 ## 2026-08-18 — Per-country insight files (Marceli request)
 
 12 insight files per kraj. Pipeline per kraj: rejestr → web → LLM summary (gemini).
 
----
+***
 
 ## 2026-08-18 — Katalog C: niezweryfikowane sygnały z gmaps (20/kraj)
 
 C-katalog (sygnały z Google Maps, nieoficjalne źródła) — 20 leads per kraj z 4 (PL/HR/BG/FR). Strategia: osobna warstwa "sygnał vs lead", verify-data skill z flagą C-tier.
 
----
+***
 
 ## 2026-08-17 — Project Cleanup & Modernization
 
 Konsolidacja narzędzi, usunięcie redundancji, czysty 35-kolumnowy schemat (usunięto `region_nazwa`/`region_kod`/`region_typ`/`_reg_code` na rzecz ujednoliconego `{ISO}-{A|B}-{NNN}`).
 
----
+***
 
 ## 2026-08-15 — Precyzyjny gentle search nabijarek & infrastruktury celno-akcyzowej
 
 Kraje CEE/UE: PL, RO, MD, BG, HR, EE, FR, LT, LV. KAS Rejestr Pośredników Tytoniowych (L4) — 100% sprawdzonych podmiotów B1/B8 z realnymi magazynami akcyzowymi. Gracze: LUXTAB, JBT, Łukowa Tobacco, Angel Bio, CKM Tobacco, Universal Leaf Tobacco Poland.
 
----
+***
 
 ## 2026-08-14 — Audyt integralności danych i deduplikacja
 
 Pierwszy audyt master.csv po closure PL+CZ.
 
----
+***
 
 ## 2026-08-13 — Places API Sweep & Pipeline Oczyszczania
 
 Google Places API sweep (9 krajów start), pipeline oczyszczania i dedupikacji.
 
----
+***
 
 ## 2026-08-12 — Architektura 11 Poziomów Wyszukiwania & Schemat 35-kolumnowy
 
@@ -697,59 +919,83 @@ L0-L11 wyszukiwania (KRS/CEIDG → ARES/VIES → e-Äriregister → ...). Schema
 **PL closure:** 65/235 (27.7%) firm FROZEN, research zakończony formalnie. Następny kraj CZ.
 **CZ closure:** 40/41 (97.6%) firm FROZEN, wysoki wskaźnik konwersji.
 
----
+***
 
 ## 2026-08-10 — Powstanie Projektu i Wzorzec 2-Tool Verification
 
-Projekt startuje. Sanitex group odkryty (1 partner = 3 kraje bałtyckie). KRS automation: NIP/REGON → REGON API → KRS API. Realne dane PL (Allegro/Ceneo/TikTok). 2-tool pattern: web_search + whois + rejestry API → FROZEN/DO-WERYFIKACJI.
+Projekt startuje. Sanitex group odkryty (1 partner = 3 kraje bałtyckie). KRS automation: NIP/REGON → REGON API → KRS API. Realne dane PL (Allegro/Ceneo/TikTok). 2-tool pattern: web\_search + whois + rejestry API → FROZEN/DO-WERYFIKACJI.
 
----
+***
 
 ## 2026-08-31 — Manual Search 20/wynik per 11 krajów (Marceli request)
 
 Marceli poprosił: *"I want to do manual search in google for 'powermatic nabijarka kup' or duckduck and copy first 20 results and review first 20 links if they are company that could be a lead for BILLS. for all countries, schedule this gently"*.
 
-Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak folderu) → FR → Baltik (EE/LV/LT) → Bałkany (BG/RO/HR/SI/MD/RS). Każdy kraj: 1 web_search + 20 wyników + ręczna klasyfikacja.
+Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak folderu) → FR → Baltik (EE/LV/LT) → Bałkany (BG/RO/HR/SI/MD/RS). Każdy kraj: 1 web\_search + 20 wyników + ręczna klasyfikacja.
 
-**Wyniki per kraj (dodane do `data/{Kraj}/extra-leads-{ISO}.csv`):**
-- **CZ (2 leady):** Shaman Tobacco s.r.o. (David Fridrich, shamantobacco.cz, +420 777 680 670) — pełen asortyment PM + twórca marki Hawkmatic. **plnicky-powermatic.cz** (Jan Ševic, jan.sevic@seznam.cz, +420 608 062 713) — "największy sprzedawca PM w CZ/SK", 15 lat.
-- **FR (2 leady):** Smoking.fr (SIREN do ustalenia, 235 Allée Hector Pintus, 06610 La Gaude, +33 4 93 58 91 48) — 110k opinii, B2B Pack Premium. **SPi DCLiC / tubeuse-cigarette-electrique.fr** (SIREN 791551732, 83210 La Farlède, tce@spidclic.fr, +33 9 88 02 40 04) — dedykowany sklep + grossiste-presse-tabac.fr.
+**Wyniki per kraj (dodane do** **`data/{Kraj}/extra-leads-{ISO}.csv`):**
+
+- **CZ (2 leady):** Shaman Tobacco s.r.o. (David Fridrich, shamantobacco.cz, +420 777 680 670) — pełen asortyment PM + twórca marki Hawkmatic. **plnicky-powermatic.cz** (Jan Ševic, <jan.sevic@seznam.cz>, +420 608 062 713) — "największy sprzedawca PM w CZ/SK", 15 lat.
+
+- **FR (2 leady):** Smoking.fr (SIREN do ustalenia, 235 Allée Hector Pintus, 06610 La Gaude, +33 4 93 58 91 48) — 110k opinii, B2B Pack Premium. **SPi DCLiC / tubeuse-cigarette-electrique.fr** (SIREN 791551732, 83210 La Farlède, <tce@spidclic.fr>, +33 9 88 02 40 04) — dedykowany sklep + grossiste-presse-tabac.fr.
+
 - **LT (2 leady):** Medėja (Dariaus ir Girėno g. 3, Plungė), Skonis ir Kvapas (tabakas.skonis-kvapas.lt, sprzedaje "ZORR Deluxe").
-- **LV (2 leady):** **SIA Avalons / Tabakeria.lv** (Zasas iela 7, Rīga, +371 25 506 799, info@tabakeria.lv) — multilingual LV/RU/EN. Motivs.lv.
+
+- **LV (2 leady):** **SIA Avalons / Tabakeria.lv** (Zasas iela 7, Rīga, +371 25 506 799, <info@tabakeria.lv>) — multilingual LV/RU/EN. Motivs.lv.
+
 - **RO (3 leady):** eTutun.ro (1660 RON za PM5+), TuburiAparate.ro (darmowa dostawa >200 RON), CotyShop.ro.
+
 - **SI (1 lead):** **Hiper Trade d.o.o. (hipertrade.si)** — pełen asortyment PM, jeden z największych dystrybutorów SI.
+
 - **MD (1 lead):** tabacco.md (Chișinău, 1550-2950 MDL).
+
 - **RS (1 lead):** GoldenMarket.rs (Belgrad, pełen PM).
 
 **Kraje bez nowych leadów (intentionally):**
+
 - **PL** — ma 80 PL-X już z web search 2026-08-19; manual search 2026-08-31 nic nie wniósł (zdominowane przez Allegro/Ceneo/marketplace; jedyne sygnały to Plimperia/SmokyHub bez NIP). Do follow-upu po NIP.
+
 - **SK** — Google zwraca głównie domeny CZ; GGT a.s. i Crazy Shopping/smokeshop.sk już w katalogu.
+
 - **BG** — tylko bazar.bg (OLX-style), brak dedykowanego sklepu.
+
 - **HR** — Njuškalo (OLX) + Slovenia-shipping; brak dedykowanego sklepu.
+
 - **EE** — brak dedykowanego .ee sklepu z PM.
 
 **Bonus — UK (poza 12-krajową listą BILLSzuka):**
-- **Mysmokingshop Ltd** (40c Liverpool Road, Penwortham, Preston PR1 0DQ; 01772 726888; info@mysmokingshop.co.uk) — UK reseller, real B2B.
+
+- **Mysmokingshop Ltd** (40c Liverpool Road, Penwortham, Preston PR1 0DQ; 01772 726888; <info@mysmokingshop.co.uk>) — UK reseller, real B2B.
+
 - **powermaticwholesale.com** (US Master Distributor, John/Debbie, 800-243-2737) — strategiczna informacja, nie lead.
+
 - **tobaccostuff.net** (Słowenia, +386 41 369 983) — SI lead dodany do SI-X-001.
 
 **Łącznie nowych leadów:** 14 (w 8 krajach z 12), plus UK bonus 1.
 
 **Discoveries strategiczne (INTEL):**
+
 1. **FORTIS-DB / Moosmayr Austria** = kanał dystrybucyjny który obsługuje vseprokoureni.cz i innych CZ resellerów. Marceli jeśli wchodzi do CZ musi konkurować z tym łańcuchem.
 2. **Shaman Tobacco tworzy markę Hawkmatic** — alternatywa dla naszego Hawk. Konkurencja w CZ.
 3. **Hiper Trade (SI)** + **Herman Hauser GmbH (Augsburg, DE)** + **Moosmayr** + **FORTIS-DB** = centralny kanał dystrybucyjny CEE. Warto zmapować całość.
 4. **Tabakeria.lv / SIA Avalons** (potwierdzony schema.org) = obecny gracz LV.
 
 **Pliki:**
+
 - `data/_intake/manual-search-2026-08-31/{ISO}-raw-20.md` × 8 (per kraj)
+
 - `data/_intake/manual-search-2026-08-31/{ISO}-shortlist.md` × 8
+
 - `data/_intake/manual-search-2026-08-31/README.md` (setup)
 
 **Następne kroki:**
+
 - ARES verification dla CZ-X-001, CZ-X-002 (Czech-X reestr)
+
 - SIREN verification dla FR-X-001, FR-X-002 (French registries)
+
 - Rejestr Litewski/Lotewski/Estoński verification
+
 - ARC Romania, AJPES Slovenia, APR Serbia
 
 ## 2026-08-31 08:16 — Sesja: weryfikacja rejestrowa + finalizacja manual-search intake
@@ -758,20 +1004,20 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 
 ### Weryfikacja (8 z 14 = 57% FROZEN)
 
-| Kraj | ID | Firma | Źródło rejestrowe | Status |
-|---|---|---|---|---|
-| CZ | CZ-X-001 | SHAMAN TOBACCO s.r.o. | ARES IČO 19858132 | ✅ FROZEN |
-| CZ | CZ-X-002 | Jan Ševic (OSVČ) | ARES IČO 45410003 | ✅ FROZEN |
-| FR | FR-X-001 | PROJECT WEB (Smoking.fr) | API Entreprises SIREN 499389146 | ✅ FROZEN |
-| FR | FR-X-002 | SPI D CLIC | API Entreprises SIREN 791551732 | ✅ FROZEN |
-| LV | LV-X-001 | SIA Avalons | Lursoft 40003545929 | ✅ FROZEN |
-| LV | LV-X-002 | SIA "BS Trade" (Motivs.lv) | Lursoft 40008225644 + imprint | ✅ FROZEN |
-| SI | SI-X-001 | Goran Jandrić s.p. (Hiper Trade) | hipertrade.si imprint | ✅ FROZEN (ale s.p.!) |
-| RO | RO-X-001 | Sibis Concept Company SRL (eTutun) | footer imprint CUI 38359096 | ✅ FROZEN |
-| LT | LT-X-001/002 | Medėja / Skonis ir Kvapas | brak publicznego API | ⚠️ DO-WERYFIKACJI |
-| RO | RO-X-002/003 | TuburiAparate / CotyShop | Cloudflare-blocked | ⚠️ DO-WERYFIKACJI |
-| MD | MD-X-001 | Tabacco.md | brak publicznego API | ⚠️ DO-WERYFIKACJI |
-| RS | RS-X-001 | Golden Market | 403 bot-blocked | ⚠️ DO-WERYFIKACJI |
+| Kraj | ID           | Firma                              | Źródło rejestrowe               | Status               |
+| ---- | ------------ | ---------------------------------- | ------------------------------- | -------------------- |
+| CZ   | CZ-X-001     | SHAMAN TOBACCO s.r.o.              | ARES IČO 19858132               | ✅ FROZEN             |
+| CZ   | CZ-X-002     | Jan Ševic (OSVČ)                   | ARES IČO 45410003               | ✅ FROZEN             |
+| FR   | FR-X-001     | PROJECT WEB (Smoking.fr)           | API Entreprises SIREN 499389146 | ✅ FROZEN             |
+| FR   | FR-X-002     | SPI D CLIC                         | API Entreprises SIREN 791551732 | ✅ FROZEN             |
+| LV   | LV-X-001     | SIA Avalons                        | Lursoft 40003545929             | ✅ FROZEN             |
+| LV   | LV-X-002     | SIA "BS Trade" (Motivs.lv)         | Lursoft 40008225644 + imprint   | ✅ FROZEN             |
+| SI   | SI-X-001     | Goran Jandrić s.p. (Hiper Trade)   | hipertrade.si imprint           | ✅ FROZEN (ale s.p.!) |
+| RO   | RO-X-001     | Sibis Concept Company SRL (eTutun) | footer imprint CUI 38359096     | ✅ FROZEN             |
+| LT   | LT-X-001/002 | Medėja / Skonis ir Kvapas          | brak publicznego API            | ⚠️ DO-WERYFIKACJI    |
+| RO   | RO-X-002/003 | TuburiAparate / CotyShop           | Cloudflare-blocked              | ⚠️ DO-WERYFIKACJI    |
+| MD   | MD-X-001     | Tabacco.md                         | brak publicznego API            | ⚠️ DO-WERYFIKACJI    |
+| RS   | RS-X-001     | Golden Market                      | 403 bot-blocked                 | ⚠️ DO-WERYFIKACJI    |
 
 ### Kluczowe odkrycia weryfikacyjne
 
@@ -782,19 +1028,28 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 5. **MD i RS bez publicznego API** — podobnie jak LT, trzeba zaakceptować DO-WERYFIKACJI lub zapłacić za rejestry (companywall.rs za RS ma podstawowe dane za darmo).
 
 ### Pliki zaktualizowane w tej sesji
+
 - `data/Łotwa/extra-leads-LV.csv` (2 wpisy FROZEN)
+
 - `data/Słowenia/extra-leads-SI.csv` (1 wpis FROZEN + korekta s.p. vs d.o.o.)
+
 - `data/Rumunia/extra-leads-RO.csv` (1 FROZEN, 2 DO-WERYFIKACJI)
+
 - `data/Mołdawia/extra-leads-MD.csv` (notatka o braku API)
+
 - `data/Serbia/extra-leads-RS.csv` (notatka o bot-blocked)
+
 - `data/audit-log.md` (pełny wpis sesji)
 
 ### Walidacja końcowa
-- `tools/validate_columns.py` na wszystkich 9 extra-leads-*.csv → wygenerowane raporty per plik w `data/validation-reports/columns-extra-leads-{ISO}-*.md`
+
+- `tools/validate_columns.py` na wszystkich 9 extra-leads-\*.csv → wygenerowane raporty per plik w `data/validation-reports/columns-extra-leads-{ISO}-*.md`
+
 - Krytyki oczekiwane: brak 18 kolumn ze schematu 35 (extra-leads ma 17-kolumnowy schemat intake) — nie do naprawy w obecnym formacie.
 
 ### Następne kroki (nie w tej sesji)
-1. Rozważyć paid Lursoft (LT/LV/EE) — daje API dostęp do 3 rynków bałtyckich, ~$30/mies.
+
+1. Rozważyć paid Lursoft (LT/LV/EE) — daje API dostęp do 3 rynków bałtyckich, \~$30/mies.
 2. Dla RO: ręcznie zweryfikować 2 cloudflare-blocked domeny (tuburiaparate.ro, cotyshop.ro) przez Google cache lub archive.org
 3. Rozważyć dodatkowe web search w MD (rumunский/ukraiński język) — bo mołdawski rynek jest under-served
 
@@ -804,12 +1059,12 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 
 ### Nowe weryfikacje w tej sesji
 
-| Źródło | Zakres | Wynik |
-|---|---|---|
-| **VIES VAT EU** (REST) | 7 leadów | 5 ✅ FROZEN + 2 FR overload (nie moja wina) |
-| **archive.org wayback** | RO-X-002 + RO-X-003 | 2 ✅ FROZEN (PRIMONET RO + Coty Shop Invest) |
-| **societe.com** | FR-X-001 | 2 marques potwierdzone (PW DISTRIBUTION + HUMIDO) |
-| **API Entreprises retry** | FR | już potwierdzone wcześniej, 10-19 zamiast 11+ pracowników |
+| Źródło                    | Zakres              | Wynik                                                     |
+| ------------------------- | ------------------- | --------------------------------------------------------- |
+| **VIES VAT EU** (REST)    | 7 leadów            | 5 ✅ FROZEN + 2 FR overload (nie moja wina)                |
+| **archive.org wayback**   | RO-X-002 + RO-X-003 | 2 ✅ FROZEN (PRIMONET RO + Coty Shop Invest)               |
+| **societe.com**           | FR-X-001            | 2 marques potwierdzone (PW DISTRIBUTION + HUMIDO)         |
+| **API Entreprises retry** | FR                  | już potwierdzone wcześniej, 10-19 zamiast 11+ pracowników |
 
 ### Kluczowe korekty
 
@@ -821,24 +1076,26 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 
 ### Stan końcowy (po sesji 2)
 
-| Kraj | Nowe leady | FROZEN | DO-W |
-|---|---|---|---|
-| CZ | 2 | 2 | 0 |
-| FR | 2 | 2 | 0 |
-| LV | 2 | 2 | 0 |
-| SI | 1 | 1 | 0 |
-| RO | 3 | 3 | 0 |
-| LT | 2 | 0 | 2 |
-| MD | 1 | 0 | 1 |
-| RS | 1 | 0 | 1 |
-| **Total** | **14** | **10 (71%)** | **4 (29%)** |
+| Kraj      | Nowe leady | FROZEN       | DO-W        |
+| --------- | ---------- | ------------ | ----------- |
+| CZ        | 2          | 2            | 0           |
+| FR        | 2          | 2            | 0           |
+| LV        | 2          | 2            | 0           |
+| SI        | 1          | 1            | 0           |
+| RO        | 3          | 3            | 0           |
+| LT        | 2          | 0            | 2           |
+| MD        | 1          | 0            | 1           |
+| RS        | 1          | 0            | 1           |
+| **Total** | **14**     | **10 (71%)** | **4 (29%)** |
 
 ### Halucynacje wykryte i skorygowane: 5 (szczegóły w audit-log.md)
 
 ### Narzędzia i źródła dodane do toolbox BILLSzuka
 
-- **VIES REST** = `https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number` (POST JSON). Daje valid + name + address dla każdego EU VAT. UWAGA: FR ma chroniczny MS_MAX_CONCURRENT_REQ.
+- **VIES REST** = `https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number` (POST JSON). Daje valid + name + address dla każdego EU VAT. UWAGA: FR ma chroniczny MS\_MAX\_CONCURRENT\_REQ.
+
 - **archive.org CDX API** = `https://web.archive.org/cdx/search/cdx?url=DOMAIN&output=json` — znajduje wszystkie snapshoty. Dla domen za Cloudflare to JEDYNE źródło imprintu.
+
 - **archive.org wayback** = `http://web.archive.org/web/TIMESTAMP/URL` — odtwarza pełne strony z przeszłości. Schema.org na starych snapshotach może mieć NIP/CUI/telefon.
 
 ### Wniosek na przyszłość
@@ -853,19 +1110,18 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 2. Paid Lursoft dla LT (rekvizitai.lt/JAR jest za SPA — brak publicznego API)
 3. Paid ANAF/termene.ro dla MD (brak publicznego API)
 
----
+***
 
 ## 2026-08-31 09:55 — Review projektu, cleanup gałęzi, lint fix + test isolation
 
 **Zakres:**
+
 1. **Cleanup gałęzi:** Usunięto 8 zmergowanych gałęzi lokalnych (`dev`, `chore/oxlint-actions-brand-sync`, `feat/per-user-sessions`, `feat/per-user-sessions-restored`, `feat/proposal-queue-master-csv-only`, `feature/2026-optimizations`, `feature/ui-table-views`, `fix-tooltip-and-login`).
 2. **Frontend lint:** Wyczyszczono 9 ostrzeżeń oxlint `no-unused-vars` (usunięto nieużywane importy i zmienne w `UrlBadge`, `ModernLeadsTableV2`, `AnalyticsView`, `ExperimentView`, `analytics.js`).
 3. **Izolacja testów:** Naprawiono hermetyczność `test_read_env_keys_prefers_runtime_env` w `tests/test_api_server.py` (czyszczenie `GEMINI_API_KEY_*` / `OPENROUTER_API_KEY` z `os.environ` przed testem).
 4. **IDE resolution:** Dodano `pyrightconfig.json` z `extraPaths: ["tools"]` i `venv: ".venv"`, eliminując błędy importów modułów w edytorze IDE.
 5. **Git hygiene:** Dodano `data/users/` oraz `tools/data/` do `.gitignore`.
 6. **Weryfikacja:** 547/547 testów zielonych (450 pytest + 97 frontend), build Vite 2.1s, API proxy i backend serwer działające poprawnie.
-
-
 
 ## 2026-08-31 18:00 CEST — Automatyczna analiza walkthrough & v2 verification
 
@@ -874,42 +1130,56 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 1. Weryfikacja automatyczna: **303/351 (86.3%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **348 wierszy** we wszystkich katalogach regionalnych.
 
----
+***
 
 ## 2026-08-31 18:55 CEST — Balansowanie i kalibracja scoringu we wszystkich 13 krajach
 
 **Problem:** Scoring i metryki leadów były niezbalansowane między krajami (np. Słowacja i Słowenia miały 100% wartości `do ustalenia` / `🔴`, Polska miała 80 braków w wolumenie, a katalogi A w kilku krajach miały niepoprawnie przypisane `cross_sell_potential`, generując 412 ostrzeżeń walidacji).
 
 **Wdrożone zmiany:**
+
 1. **Normalizacja i kalibracja pól scoringowych:**
+
    - Utworzono `tools/balance_country_scoring.py` przetwarzający wszystkie 24 pliki katalogowe (375 wierszy).
+
    - `rynek_skala`: 100% skalibrowane wg mapowania (PL/CZ/FR: duży, RO/BG/HR/SI/SK/RS: średni, LT/LV/EE/MD: mały).
+
    - `wolumen` & `confidence_wolumen`: uzupełniono i skalibrowano wg siły sygnałów (status rejestru, wielkość sieci, obroty, tier), zamieniając sentinele na `duży`/`średni`/`mały` i `🟢`/`🟡`.
+
    - `powinowactwo_nabijarki`: 1-5 dla katalogu B wg synergii kategorii produktowych; wyczyszczone z katalogu A.
+
    - `cross_sell_potential`: `wysoki`/`bardzo wysoki`/`średni`/`niski` dla katalogu B; wyczyszczone z katalogu A.
+
    - `tier`: 100% uzupełnione z kategorii i notatek (0 pustych tierów).
+
    - `marki_nabijarki`: ujednolicone deskryptory w katalogu A, wyczyszczone z B.
 2. **Frontend analytics scoring:**
+
    - W `frontend-2/src/lib/analytics.js` zaktualizowano `rowScore()` o pełną obsługę emoji `🟢` (90), `🟡` (60), `🔴` (30) oraz tie-breaker wolumenu.
 3. **Weryfikacja jakości:**
+
    - `tools/validate_columns.py` raportuje **0 Criticals, 0 Warnings** (spadek z 412 ostrzeżeń do 0).
+
    - `npm test -- --run` w `frontend-2`: 48/48 testów PASSED.
+
    - `pytest`: 460/460 testów PASSED.
 
----
+***
 
 ## 2026-08-31 19:10 CEST — Review + fix `balance_country_scoring.py` (verifier gate bypass)
 
 **Kontekst:** Code-review z sesji `18:55` wykazał, że pierwotna wersja `balance_country_scoring.py` (commit `0d118bfb`) nadpisywała zweryfikowane dane heurystykami. Po review **untracked working-tree** zawierał 24 zmienione katalogi + master.csv/sample.csv, ale commit `0d118bfb` sam w sobie zawierał już poprawioną wersję skryptu + testy. Różnica polegała na tym, że ten sam commit NIE zawierał zmian katalogów, więc working-tree był niespójny z commitem.
 
 **Realne bugi w working-tree (przed review):**
-1. **`HALUCYNACJA` w flagi → 🟢** (PL-B-061 KRS-hallucynacja, PL-B-075 NIP-hallucynacja + 6 innych) — skrypt czytał tylko `nip+www+rejestr` i ignorował flagę HALUCYNACJA.
-2. **DO-WERYFIKACJI w notatki/sourcing → 🟢** (PL-B-002, PL-B-003 + inne) — skrypt czytał flagi dla `FROZEN`/`PENDING`, ale nie czytał `sourcing='do weryfikacji'` ani markerów w `notatki`.
-3. **52× `cross_sell_potential: brak → wysoki`** (PL-B sam) — czysta halucynacja z domyślnej mapy kategorii bez sygnału.
-4. **`marki_nabijarki='nie' → ''`** (5 leadów PL-B) — kasowanie faktu ("nie" = jawna odmowa, nie placeholder).
-5. **80× `wolumen: brak → duży`** w PL-B — masa bez sygnału, tylko na podstawie `tier+hurtownik`.
 
-**Fix (`0d118bfb` + delta tej sesji):**
+1. **`HALUCYNACJA`** **w flagi → 🟢** (PL-B-061 KRS-hallucynacja, PL-B-075 NIP-hallucynacja + 6 innych) — skrypt czytał tylko `nip+www+rejestr` i ignorował flagę HALUCYNACJA.
+2. **DO-WERYFIKACJI w notatki/sourcing → 🟢** (PL-B-002, PL-B-003 + inne) — skrypt czytał flagi dla `FROZEN`/`PENDING`, ale nie czytał `sourcing='do weryfikacji'` ani markerów w `notatki`.
+3. **52×** **`cross_sell_potential: brak → wysoki`** (PL-B sam) — czysta halucynacja z domyślnej mapy kategorii bez sygnału.
+4. **`marki_nabijarki='nie' → ''`** (5 leadów PL-B) — kasowanie faktu ("nie" = jawna odmowa, nie placeholder).
+5. **80×** **`wolumen: brak → duży`** w PL-B — masa bez sygnału, tylko na podstawie `tier+hurtownik`.
+
+**Fix (`0d118bfb`** **+ delta tej sesji):**
+
 1. **`infer_confidence()`** — explicit precedence: protected 🟢/🟡/🔴 → HALUCYNACJA→🔴 → DO-WERYFIKACJI→🟡/🔴 → FROZEN→🟢 → (structural+registry)→🟢 → 🟡 fallback. Nigdy nie nadpisuje zweryfikowanej wartości.
 2. **`has_pending_verification()`** — czyta flagi (`DO-WERYFIKACJI`/`PENDING_API`), `sourcing` (`do weryfikacji`) i `notatki` (markery inline).
 3. **`infer_cross_sell_signal()`** — sprawdza polskie rdzenie słów (`tyto*`, `gilz*`, `papier*`, `akcesor*`, `nabijar*`, `vapo*`, `ryo*`, `myo*`, `snus*`, `shish*`) + sourcing bez sentinela + marki≠`nie`. Bez sygnału pole **zostaje puste** (honest unknown).
@@ -917,79 +1187,111 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 5. **Słowa kluczowe** — substring match z rdzeniem (`tyto` łapie `tytoniowa`), nie exact-word.
 
 **Wynik po re-run:**
+
 - PL-B: 60 🟢 / 24 🟡 / 45 🔴 (zamiast wypaczonych 109/2/18 z wersji pre-fix)
+
 - Wszystkie 8 leadów z HALUCYNACJA → 🔴 ✓
+
 - Wszystkie 5 `marki_nabijarki='nie'` → zachowane ✓
-- `master.csv` i `sample.csv` zregenerowane, 612 linii zmian (same cross_sell_potential/wolumen/rynek_skala — żadne nadpisanie confidence)
+
+- `master.csv` i `sample.csv` zregenerowane, 612 linii zmian (same cross\_sell\_potential/wolumen/rynek\_skala — żadne nadpisanie confidence)
+
 - `tools/validate_columns.py`: 0 Criticals, 223 Warnings (vs 0/0 wcześniej) — warnings to **pre-existing data quality issue**: Catalog B w wielu krajach ma wpisane `marki_nabijarki` (np. "Marlboro | IQOS"), co validator traktuje jako niestandardowe. Wymaga **osobnej akcji** (migracja do `marki_konkurencji` albo notatki).
 
 **Testy:** `tests/test_balance_country_scoring.py` — 52 nowe testy pin wszystkie iron-rules (HALUCYNACJA, protected confidence, `nie` preservation, no-signal-no-cross-sell, end-to-end driver). Łącznie: **512 pytest + 48 frontend = 560/560 PASSED**.
 
 **Lesson learned (do powtórzenia):**
+
 - Skrypt scoringowy MUSI czytać `flagi`/`sourcing`/`notatki` dla każdego pola które nadpisuje. `FROZEN`/`PENDING`/`HALUCYNACJA` w flagi to nie decoration — to warunki walidacji.
+
 - "Brak" ≠ "do wypełnienia domyślną wartością". Sentinel oznacza *nieznane*; default to fałsz.
+
 - `'nie'` (Polish "no") jest faktem — kasowanie go to data loss, nie cleanup.
+
 - Kategoryczne domyślne wartości scoringowe bez sygnału per-lead to halucynacja w przebraniu kalibracji.
 
----
+***
 
 ## 2026-08-31 19:20 CEST — Manual search round 2 (12 krajów, "A oraz pochodne")
 
 **Kontekst:** Marceli 19:17 — *"continue opening searchers manually, first 20-30 links and look for powermatic"*. Kontynuacja po rundzie 1 (rano) z rozszerzonym query "powermatic + pochodne" (hawk, topomat, turbomatic, smok, tytoń, tabak, tabakas, sigaretes, tubakas, tütün, tytiun).
 
-**Metoda:** 6 web_search wywołań (SK, EE, BG, HR, LV, LT) + skan viss.lv/rekvizitai.lv/tyutyun.catalog.bg. Po 15-20 linków per kraj.
+**Metoda:** 6 web\_search wywołań (SK, EE, BG, HR, LV, LT) + skan viss.lv/rekvizitai.lv/tyutyun.catalog.bg. Po 15-20 linków per kraj.
 
 **Nowe CSVs stworzone (10 nowych leadów):**
+
 - `data/Słowacja/extra-leads-SK.csv` — 2 leady: SmokeShop.sk (Bratislava), TifanTEX s.r.o. (Bratislava, B2B plničky + tabak)
-- `data/Estonia/extra-leads-EE.csv` — 3 leady: Nicorex Baltic OÜ (Tallinn, Sven Kotke juhatuse liige), RYO Paper & Tobacco OÜ (rollingpaper.ee, Nautica Keskus, info@tubakas.ee), Sigarimaja OÜ (cigarhouse.ee)
+
+- `data/Estonia/extra-leads-EE.csv` — 3 leady: Nicorex Baltic OÜ (Tallinn, Sven Kotke juhatuse liige), RYO Paper & Tobacco OÜ (rollingpaper.ee, Nautica Keskus, <info@tubakas.ee>), Sigarimaja OÜ (cigarhouse.ee)
+
 - `data/Chorwacja/extra-leads-HR.csv` — 2 leady: Bazinga Shop d.o.o. (Osijek, multi-store), NLK trgovina i distribucija d.o.o. (Zagreb, 30+ lokala, partneri BAT/PMI/JTI/Imperial/Pöschl/Bista)
+
 - `data/Bułgaria/extra-leads-BG.csv` — 6 leadów: Тобако Импорт ООД (Sofia/Plovdiv, BAT/Imperial/PMI/Karelia), TTI Bulgaria (Sofia), M Табако (Plovdiv), Табак Логистик Груп АД (3 региона), Tobacco Trade Plovdiv (kompass), Kaliman Caribe (Sofia)
+
 - `data/Łotwa/extra-leads-LV.csv` — dopisane 3 nowe do istniejących 2 (Avalons, BS Trade): Tabakas Studija, Tabacomen SIA, Ecodumas (multi-lokacja)
+
 - `data/Litwa/extra-leads-LT.csv` — dopisane 3 nowe do istniejących 2 (Medėja, Skonis ir Kvapas): MV GROUP Distribution LT, RoyalSmoke (Hordus UAB), Alternatyvus tabakas
 
 **Wnioski:**
-1. **"powermatic" search alone is not enough** — w małych rynkach (EE/LV/LT/BG) zwraca głównie marketplace listings. Skuteczniejsze query: "tabak* OR cigaret* OR tytoń" + lokalny termin.
+
+1. **"powermatic" search alone is not enough** — w małych rynkach (EE/LV/LT/BG) zwraca głównie marketplace listings. Skuteczniejsze query: "tabak\* OR cigaret\* OR tytoń" + lokalny termin.
 2. **Baltik ma bardzo mało dedicated B2B dla PowerMatic** — większość to vape/SNUS shops (które mogą lub nie mogą dodać PM asortyment). Wymaga follow-up przez direct email.
 3. **BG = obfity rynek tytoniowy** — wielu B2B dystrybutorów (Tobacco Import, TTI, M Tabako, Tabak Logistic), Płowdiw jest hubem.
 4. **HR ma 3rd largest kiosk chain (NLK) z 30+ lokalami** — silny B2B kandydat na dystrybucję PM/Hawk.
 5. **Cross-country łańcuchy** — Ecodumas (LV/LT) i RoyalSmoke (LT/LV) to multi-country sieci — jeden deal pokrywa 2 rynki.
 
----
+***
 
 ## 2026-08-31 19:25 CEST — Non-PL gem analysis (Catalog B)
 
 **Zadanie:** Marceli poprosił: "find gem companies in all countries but Poland".
 
 **Wykonane:**
+
 1. **Survey 12 krajów** (BG/HR/CZ/EE/FR/LT/MD/RO/RS/SK/SI/LV) — 145 wierszy Catalog B, 113 FROZEN.
-2. **Zbudowano `tools/find_gems.py`** (9.8KB) — kryteria: FROZEN + kontakt + score≥3.
+2. **Zbudowano** **`tools/find_gems.py`** (9.8KB) — kryteria: FROZEN + kontakt + score≥3.
 3. **Score (max 10):** 5 pkt whale signal + 2 pkt powinowactwo 4-5 + 2 pkt B2B tier/cat + 1 pkt real sourcing.
 4. **Wynik: 112 gemów w 9 krajach.** CZ ma 0 catalog-B; MD/Serbia mają 0 FROZEN (poza scope).
 
 **Top 5 per kraju (actionable, niezależne od korporacji):**
+
 - 🇧🇬 **БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН ООД** (Sofia, score 10) — dystrybucyjne ramię Tobacco Import Ltd
+
 - 🇧🇬 **ДЕЛИОН ООД / VM Finance Group** (Sofia, score 10) — czołowy importer tytoni/cygar/akcesoriów
+
 - 🇭🇷 **TDR d.o.o. / BAT Adria** (Rovinj, score 10) — największy producent+ dystrybutor tytoniu w Chorwacji
+
 - 🇭🇷 **TISAK PLUS d.o.o. / Fortenova** (Zagreb, score 10) — 1400+ punktów sprzedaży
+
 - 🇸🇮 **TOBAČNA 3DVA / Imperial** (Ljubljana, score 10) — 200+ kiosków tytoniowych
 
 **Wnioski strategiczne:**
+
 - 7/15 SK i 5/11 HR gemów to spółki-córki korporacji (PMI/JTI/Imperial/BAT) — trudne do partnerstwa.
+
 - Mid-market independent (BG Delion, BG БОЛКАН, HR Tisak, HR ROX, EE Imperial Tobacco Estonia, LT Ecodumas) = najlepsza pierwsza fala outreach.
+
 - **Multi-country leverage:** SI Mercator Cash & Carry (sieć hurtowni + trader FMCG/tytoń) = cross-border do HR. EE Imperial Tobacco Estonia + LV SANITEX = pokrycie 2/3 bałtyckich jednym dealam.
 
 **Outputy:**
+
 - `tools/find_gems.py` (ranking tool)
+
 - `data/verification/gems.csv` (112 rows, ranked by score)
+
 - `data/verification/gems_summary.md` (per-country + top 20)
+
 - INTEL.md zaktualizowany (nowa sekcja gem analysis na końcu pliku)
 
 **Lesson learned (dla przyszłych sesji):**
+
 - Whales (ogólnokrajowe, BAT/PMI-córki) mają score 10 ale są "unreachable" dla B2B partnerstwa — odfiltrować korporacyjne subsidiaria przed outreach.
+
 - FROZEN ≥ 4.5 confidence kryterium bezwzględne — żaden gem nie przechodzi z DO-WERYFIKACJI lub HALUCYNACJA.
+
 - Cross-country leverage (Ecodumas LV+LT, RoyalSmoke LT+LV, SI Mercator do HR) = 1 deal pokrywa 2-3 rynki.
 
----
+***
 
 ## 2026-08-31 21:00 — Gem-finding re-run (cron `find-gems-non-pl`)
 
@@ -998,88 +1300,137 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 **Wynik: 112 gemów w 9 krajach** (BG 24, EE 19, SK 15, RO 13, FR 12, HR 11, LT 9, SI 6, LV 3). Puste: CZ (brak catalog-B), MD i RS (zero FROZEN spełniających gate).
 
 **Nowe artefakty wygenerowane w tym przebiegu:**
+
 - `data/gems-NON-PL.csv` (combined, 112 wierszy)
+
 - `data/<Kraj>/gems-<ISO>.csv` × 9 (per-country split)
+
 - `INTEL-GEMS-NON-PL.md` (top-5 actionable per country + multi-country group hints)
 
 **Top actionable (score≥5, multinational-filtered):**
+
 - 🇧🇬 БОЛКАН ЕДВЪРТАЙЗИНГ ЕНД ДИСТРИБЮШЪН (10, Sofia)
+
 - 🇧🇬 ДЕЛИОН ООД / VM Finance (10, Sofia)
+
 - 🇭🇷 ROX d.o.o. (10)
+
 - 🇭🇷 TISAK PLUS / Fortenova (10, 1400+ punktów)
+
 - 🇸🇰 GECO, s.r.o. (10)
+
 - 🇸🇰 NOBA–SMOKER, s.r.o. (10)
+
 - 🇸🇮 TOBAČNA 3DVA / Imperial (10, 200+ kiosków)
+
 - 🇸🇮 DELO PRODAJA, d.o.o. (10)
+
 - 🇸🇮 Mercator d.o.o. (10, cross-border do HR)
 
 **Multi-country leverage zidentyfikowany:**
+
 - BAT Adria network: TDR (HR) ↔ iNOVINE (HR) ↔ Tisak Plus (HR) = cała Chorwacja
+
 - Baltic sister companies: UAB Ecodumas (LT) + SIA SANITEX (LV) = Baltic 2/3
+
 - SI Mercator → cross-border wholesale do HR (Cash & Carry)
+
 - Tobacco Trade Bulgaria chain = multi-city (Sofia/Varna/Burgas/Ruse/Haskovo/Plovdiv)
 
-**Cron `find-gems-non-pl` pozostaje aktywny** (every 60min). Kolejny tick: 22:00.
+**Cron** **`find-gems-non-pl`** **pozostaje aktywny** (every 60min). Kolejny tick: 22:00.
 
----
+***
 
 ## 2026-08-31 21:04 — Manual Google search — Print/Packaging (PowerMatic niche), 11 non-PL countries
 
 **Zadanie:** Marceli poprosił: "manual search in google for selected phrases, get 30 results and check links" — scope: all countries except Poland, niche = print/packaging (PowerMatic-aligned).
 
 **Wykonane:**
+
 1. **3 phrases EN (cross-language):**
+
    - "rolling machine" packaging distributor
+
    - cigarette packaging wholesale supplier
+
    - print packaging tobacco industry distributor
-2. **11 krajów × 3 phrases = 33 zapytań web_search** (parallel batches).
+2. **11 krajów × 3 phrases = 33 zapytań web\_search** (parallel batches).
 3. **Curated 31 unikalnych URL-i** (per-country balance: BG 3, CZ 3, HR 3, EE 3, FR 3, LT 3, RO 3, SK 3, LV 2, RS 2, SI 2, MD 1).
 4. **HEAD-check 31 URL-i:** 28/31 alive (2xx), 3 dead:
+
    - FR Robert Renault (timeout 15s)
+
    - FR Pastour Imprimeur (kompass.com 403)
+
    - HR Bright Packaging (timeout)
 5. **Pobrano 28 stron HTML** + wyciągnięto: email (regex), telefon (tel: + regex), VAT/IČO, adres.
 6. **Dedupe vs istniejące katalogi** — 5 firm już jest: PEAL (CZ), Veletabak (HR), Tobačna Grosist (SI), DL Lauko (SK), GGT a.s. (SK). Pominięte.
 7. **Proponowane 23 NOWE wpisy catalog-B-XX** z `flagi=DO-WERYFIKACJI` (wymaga weryfikacji przed dodaniem do katalogu). Kategorie B2/B3/B5 (producent/importer/hurtownia), powinowactwo 2 (sąsiednia branża, nie core).
 
 **Najciekawsze trafienia (PowerMatic-adjacent):**
+
 - 🇧🇬 **Unipack AD** — producent opakowań tytoniowych, eksport do 15+ krajów
+
 - 🇧🇬 **Darimex Trading** — 30-letni producent opakowań do papierosów (regional)
+
 - 🇧🇬 **Yuri Gagarin Plc** — najstarszy bułgarski producent opakowań+ filtrów (1964)
+
 - 🇧🇬 **Skipter** — dystrybutor maszyn pakujących (exclusive Audion)
+
 - 🇨🇿 **RONEX s.r.o.** — exclusive Audion distributor CZ+SK
+
 - 🇨🇿 **METALIMEX a.s.** — producent folii tytoniowej (AL INVEST Břidličná)
+
 - 🇪🇪 **Pakendikeskus** — #1 estoński retailer opakowań (6 sklepów)
+
 - 🇫🇷 **Komori-Chambon SAS** — francuskie prasy drukarskie dla tytoniu
+
 - 🇭🇷 **De-Ro d.o.o.** — maszyny do opakowań z tektury
+
 - 🇱🇹 **Trustpack UAB** — drukarnia opakowań (25+ lat, eksport do UE)
+
 - 🇱🇹 **UAB Starna** — adhesive+dostawca opakowań przemysłowych
+
 - 🇱🇻 **PrintPacking SIA** — łotewski supplier (Baltic+FI+SE+DE)
+
 - 🇷🇴 **UZINEX SRL** — maszyny do opakowań + plate rolling
+
 - 🇷🇴 **PrintPack Prod SRL** — elastyczne opakowania rotograwiurowe
+
 - 🇷🇸 **Snail Custom Rolling Papers** — serbski producent papierków do skręcania (od 1998, exporter) ⭐ **najbliżej PowerMatic**
+
 - 🇷🇸 **GTL Packaging** — serbski producent maszyn pakujących
+
 - 🇸🇰 **GRAFOBAL a.s.** — 119-letnia słowacka drukarnia opakowań (lider CEE)
 
 **Outputy:**
+
 - `data/verification/manual-search-2026-08-31/curated-30.csv` (31 wierszy: country/iso/url/name/why/query)
+
 - `data/verification/manual-search-2026-08-31/head-check.csv` (28 alive, 3 dead, czasy odpowiedzi)
+
 - `data/verification/manual-search-2026-08-31/extracted-contacts.csv` (28 wierszy: email/phone/VAT/address)
+
 - `data/verification/manual-search-2026-08-31/proposed-catalog-B.csv` (23 NOWE wpisy do katalogu, flagi=DO-WERYFIKACJI)
+
 - `data/verification/manual-search-2026-08-31/pages/` (28 plików HTML z pełną treścią)
 
 **Wymaga ręcznej akcji Marcelego:**
+
 - Przejrzeć 23 propozycje catalog-B i usunąć fałszywe VATy (kilka ma regex noise typu "VAT: Locations")
-- Dla ~15 najlepszych (Unipack, Darimex, Trustpack, Starna, PrintPacking, UZINEX, PrintPack, Snail Rolling Papers, GRAFOBAL, RONEX) — zrobić verify-data skill przed FROZEN
+
+- Dla \~15 najlepszych (Unipack, Darimex, Trustpack, Starna, PrintPacking, UZINEX, PrintPack, Snail Rolling Papers, GRAFOBAL, RONEX) — zrobić verify-data skill przed FROZEN
+
 - Snail Custom Rolling Papers (Serbia) — **najbliżej PowerMatic** (rolling papers manufacturer+exporter since 1998) — priorytet outreach
 
----
+***
 
 ## 2026-08-31 21:14 — Regex-noise cleanup na proposed-catalog-B
 
 **Kontekst:** Pierwszy przebieg extract-contact nadpisał VAT/address regexem zbyt liberalnym. Wynik: "VAT: Locations", "VAT: Without", "Members from", "2015 Now SINCE" — szum regexowy, nie prawdziwe dane.
 
 **Wykonane (ręczna naprawa):**
+
 1. **Re-ekstrakcja VAT z country-specific strict regex** (per ISO): IČO/DIČ (CZ), CUI (RO), OIB (HR), Registrikood (EE), IČ DPH (SK), ID za DDV (SI), PVM (LT), PVN (LV), IDNO (MD), МB/PIB (RS), SIREN/SIRET (FR), BG VAT/EIK (BG).
 2. **Wynik: 2 trafienia (CZ-ICO 00000931 + RO-CUI 49240731)**. Pierwszy odrzucony (same zera), drugi zachowany (prawdopodobny 8-cyfrowy CUI).
 3. **Address re-ekstrakcja** z per-country postal-code patterns + fallback na known-cities list.
@@ -1087,10 +1438,15 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 5. **Manual fixes** dla 12 wpisów (override do canonical city names z wcześniejszej wiedzy).
 
 **Wynik końcowy — 23 wpisy:**
+
 - Email: 15/23 (65%)
+
 - Phone: 20/23 (86%)
+
 - Address: 20/23 (86%)
+
 - VAT: 1/23 (4% — tylko RO UZINEX ma prawdziwy)
+
 - Brak jakiegokolwiek kontaktu: 2/23 (Snail Custom Rolling Papers + Komori-Chambon — bo ogłoszeniowe katalogi nie mają maila)
 
 **Output updated:** `data/verification/manual-search-2026-08-31/proposed-catalog-B.csv` (23 wiersze, flagi=DO-WERYFIKACJI).
@@ -1099,18 +1455,22 @@ Wykonane w kolejności metodologicznej PL → CZ → SK → UK (bonus, brak fold
 
 ## 2026-08-31 21:30 — Cloudflare Access gate, manual disable required
 
-End of session: Marceli hit Cloudflare Access login when visiting https://billszuka.pages.dev/.
+End of session: Marceli hit Cloudflare Access login when visiting <https://billszuka.pages.dev/>.
 
 **Status:**
+
 - Frontend (Cloudflare Pages) deploys OK — every push to main triggers a
   successful deploy via .github/workflows/deploy-cloudflare.yml.
+
 - Access policy is configured at the Cloudflare account level
   (winter-poetry-64f2.cloudflareaccess.com) and protects
   billszuka.pages.dev with "members of account" only.
-- Wrangler CLI is logged in (neatgroupnet@gmail.com / account
+
+- Wrangler CLI is logged in (<neatgroupnet@gmail.com> / account
   52505259672e2a16ed6e51962e3603c4) but the OAuth token does NOT have
   `access:write` scope — only `access:read`. So the CLI cannot disable the
   Access policy programmatically.
+
 - Cloudflare Pages API has no `update access policy` endpoint either.
   The Access app is configured through the Cloudflare Zero Trust dashboard
   only.
@@ -1120,8 +1480,8 @@ manually in the Cloudflare dashboard if they want the demo to be public.**
 
 ### How to disable Cloudflare Access for billszuka.pages.dev (30 seconds)
 
-1. Open https://one.dash.cloudflare.com/
-2. Switch to account "Neatgroupnet@gmail.com's Account"
+1. Open <https://one.dash.cloudflare.com/>
+2. Switch to account "<Neatgroupnet@gmail.com>'s Account"
 3. In the left sidebar, go to: **Zero Trust** → **Access** → **Applications**
 4. Find the application protecting `billszuka.pages.dev` (the kid in the
    Access redirect URL was 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
@@ -1130,16 +1490,19 @@ manually in the Cloudflare dashboard if they want the demo to be public.**
    **Delete application** (or change the policy to "Allow everyone with
    email OTP" if a softer option is wanted)
 6. Confirm. The gate disappears immediately; the live site
-   https://billszuka.pages.dev/ becomes publicly accessible.
+   <https://billszuka.pages.dev/> becomes publicly accessible.
 
 ### Why this is OK
-- The demo backend (https://billszuka-api.onrender.com) has its own auth
-  layer (X-Billszuka-User header, sessions, TEAM_USERS allowlist), so
+
+- The demo backend (<https://billszuka-api.onrender.com>) has its own auth
+  layer (X-Billszuka-User header, sessions, TEAM\_USERS allowlist), so
   removing Cloudflare Access does not expose any sensitive data. The UI
   itself uses the per-user `bsz_sid` cookie + auth.login flow.
-- CORS is already correctly configured (allow_origin_regex matches both
-  *.pages.dev and *.onrender.com, see tools/api_server.py).
-- Local dev at http://localhost:3001/ remains unaffected.
+
+- CORS is already correctly configured (allow\_origin\_regex matches both
+  \*.pages.dev and \*.onrender.com, see tools/api\_server.py).
+
+- Local dev at <http://localhost:3001/> remains unaffected.
 
 ### End of session — Cloudflare Access disable (manual required)
 
@@ -1147,7 +1510,7 @@ I tried to disable the Access policy programmatically but it requires
 `access:write` scope, which the wrangler OAuth token does NOT have.
 
 **Token scopes I have** (from wrangler whoami): workers:write,
-pages:write, d1:write, zone:read, ssl_certs:write, ai:write, etc.
+pages:write, d1:write, zone:read, ssl\_certs:write, ai:write, etc.
 **Token scopes I do NOT have**: access:write, access:edit, access:read.
 
 **Cloudflare Pages API** has no `update access policy` endpoint either.
@@ -1158,22 +1521,29 @@ across many filter variations.)
 **End state: Access is still ON. Manual disable required in dashboard.**
 
 To get into the app right now without disabling Access, the account owner
-(neatgroupnet@gmail.com) can log in at the Access gate by clicking
+(<neatgroupnet@gmail.com>) can log in at the Access gate by clicking
 "Cloudflare" and using OAuth — the user is automatically a member of
 the account, so the policy passes. After login, they can reach
-https://billszuka.pages.dev/ as a logged-in member.
+<https://billszuka.pages.dev/> as a logged-in member.
 
 ### Final state of session 2026-08-31
 
 - 3 commits pushed to github.com/ng-net/billszuka:main
+
 - All 118/118 frontend tests pass
+
 - All 4 CI jobs pass (CI: Python 3.11/3.12/3.13 + JS tests; Cloudflare
   Pages deploy: success)
+
 - Backend Render (billszuka-api.onrender.com) live, /api/datasets 200,
-  28 datasets, CORS allows *.pages.dev
+  28 datasets, CORS allows \*.pages.dev
+
 - Frontend Cloudflare Pages live, Access policy on (manual disable needed)
+
 - Local dev (Vite 3001 + API 8000) running for next session
+
 - 10/14 extra-leads FROZEN, 4/14 DO-WERYFIKACJI (LT/MD/RS — no public API)
+
 - 5 hallucinations detected + corrected (FR effectif, 4 enseignes, 110k opinii,
   Sibis miasto Brașov)
 
@@ -1184,17 +1554,17 @@ that there is exactly ONE Cloudflare Access policy protecting
 `billszuka.pages.dev`. All paths (including random ones like
 /somerandompath12345) return the same `kid` in the redirect URL:
 
-  kid (app AUD): 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
-  redirect host: winter-poetry-64f2.cloudflareaccess.com
-  protected hostname: billszuka.pages.dev
-  policy: "members of the account" (any user logged in to the
-           Neatgroupnet's Account via Cloudflare SSO passes)
+kid (app AUD): 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
+redirect host: winter-poetry-64f2.cloudflareaccess.com
+protected hostname: billszuka.pages.dev
+policy: "members of the account" (any user logged in to the
+Neatgroupnet's Account via Cloudflare SSO passes)
 
 Deep links to the exact app in dashboard:
 
-  https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps/384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
+<https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps/384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f>
 
-  https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps
+<https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps>
 
 Opened the first one in the default browser at 21:40 CEST.
 
@@ -1204,17 +1574,23 @@ After Marcel's "check now" (presumably after attempting to delete the
 Access app in the dashboard), the gate is still active:
 
 - billszuka.pages.dev → 302 to winter-poetry-64f2.cloudflareaccess.com
+
 - kid: 384b5269a0f88d543a8873629115f46123758471ea43e92c28f44149694b464f
   (same as before, not a new app)
+
 - JWT iat=1788206101 (issued seconds ago, not cached)
+
 - All 6 paths tested return identical kid
+
 - 3 fresh requests with cache-busting query strings → all 302
+
 - Latest Pages deployment is 27c77fa1-... created at 19:43:48 UTC
   (newer than the Access-related timestamps from earlier) — Cloudflare
   Pages deployed a new build but the Access policy is independent of
   the Pages build, so this is unrelated
 
 Possible reasons the delete did not take effect:
+
 1. The "Delete application" button was clicked but the confirmation
    dialog was not accepted (CF shows a confirm modal with the app name
    you have to type in).
@@ -1224,7 +1600,7 @@ Possible reasons the delete did not take effect:
 4. The team has a "read-only" mode or an admin restriction.
 
 The dashboard deep link to use:
-https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps
+<https://one.dash.cloudflare.com/?to=/:account/52505259672e2a16ed6e51962e3603c4/access/apps>
 
 To verify the right app: after opening the URL, look for an app whose
 "Application domain" field shows `billszuka.pages.dev` AND whose "Policy"
@@ -1235,6 +1611,7 @@ the app's unique ID (also called AUD) — you can search for it in the
 top-right search box to jump directly to that specific app.
 
 Recommended path forward (in order of preference):
+
 1. Retry the delete with a fresh dashboard session. Make sure to type
    the app name in the confirm modal exactly.
 2. If retry doesn't work, change the policy to "Bypass" (instead of
@@ -1255,13 +1632,13 @@ After Marcel's "deleted" confirmation, the Cloudflare Access gate is
 GONE. The 302 → winter-poetry-64f2.cloudflareaccess.com redirect is no
 longer happening. The new behavior is:
 
-  billszuka.pages.dev/  →  HTTP 403, error code: 1050
-  33101835.billszuka.pages.dev/  →  HTTP 403, error code: 1050
+billszuka.pages.dev/  →  HTTP 403, error code: 1050
+33101835.billszuka.pages.dev/  →  HTTP 403, error code: 1050
 
 This is a different layer of protection (Cloudflare Pages deployment
 visibility), not Access. The deployment 33101835 was successfully built
-and deployed (all stages: queued/initialize/clone_repo/build/deploy
-= success) but its `aliases` field is `None` — meaning it is not
+and deployed (all stages: queued/initialize/clone\_repo/build/deploy
+\= success) but its `aliases` field is `None` — meaning it is not
 aliased to billszuka.pages.dev.
 
 Root cause hypothesis: when the Access app was deleted, Cloudflare
@@ -1271,75 +1648,109 @@ the alias reattached. This looks like a Cloudflare Pages bug after
 Access deletion.
 
 **API attempts to fix (all failed):**
-- POST /pages/deployments/{id}/alias/production → 1000 not_found
+
+- POST /pages/deployments/{id}/alias/production → 1000 not\_found
+
 - POST /pages/deployments/{id}/promote, /alias, /set-production,
   /make-production → all returned success=None (route doesn't exist)
+
 - POST /pages/projects/{name}/deployments/{id}/promote-deployment,
   /set-alias, /publish → all returned success=None
+
 - wrangler pages deployment: only supports list, create, tail
   (no promote / set-alias subcommand)
 
 **Recommended manual fix in dashboard:**
-1. Open: https://dash.cloudflare.com/52505259672e16ed6e51962e3603c4/pages/view/billszuka/33101835-78fd-48ee-ac38-29d45115a651
+
+1. Open: <https://dash.cloudflare.com/52505259672e16ed6e51962e3603c4/pages/view/billszuka/33101835-78fd-48ee-ac38-29d45115a651>
 2. Look for a "Promote to production" or "Set as production deployment"
    button on the deployment page
 3. Click it. This should re-attach the billszuka.pages.dev alias to
    deployment 33101835 and the gate-free version will become live at
-   https://billszuka.pages.dev/
+   <https://billszuka.pages.dev/>
 
 **Alternative:** push a small empty commit to main (e.g.
 `git commit --allow-empty -m "trigger redeploy" && git push`). The
 resulting new deployment should auto-alias to billszuka.pages.dev.
 
-
----
+***
 
 ## 2026-09-01 00:55 — Gem expansion: 112 → 124 across 12 countries (3 new countries: CZ/MD/RS)
 
 **Kontekst:** Marceli poprosił "find more gems" o 00:50. Poprzedni sweep dał 112/9 krajów (CZ bez catalog-B = 0 gemów, MD/Serbia prawie puste). Nowy manual-search + multi-country group scan dodał 42 nowe firmy.
 
 **Wykonane:**
-1. **12 web_search** (parallel) — fokus: CZ/MD/RS wholesale, multi-country groups (BAT Adria, Sanitex, PMI/JTI/Imperial, TNG, MV Group, DaLIS, CigarKings).
+
+1. **12 web\_search** (parallel) — fokus: CZ/MD/RS wholesale, multi-country groups (BAT Adria, Sanitex, PMI/JTI/Imperial, TNG, MV Group, DaLIS, CigarKings).
 2. **Curated 50 candidates** → dedup vs istniejące katalogi → 42 unikalne nowe firmy.
 3. **HEAD-check 42** → 29/42 alive, 13 dead (kompass.com 403, EU docs 403, MD Casa del Tabaco timeout).
 4. **Backfilled contact** (curl + email/phone regex) na 28 alive → 10 emaili + 9 telefonów dodanych.
 5. **Dodano do catalog-B** (per-country): CZ +11, MD +6, LV +5, RO +5, RS +4, LT +3, EE +3, BG +2, HR +2, SI +1 = **42 nowe wpisy**.
-6. **Re-run tools/find_gems.py** → **124 gems w 12 krajach** (było 112 w 9). Zyski: CZ 7 (z 0!), MD 1, RS 1, LV +2 (5 z 3), EE +1.
+6. **Re-run tools/find\_gems.py** → **124 gems w 12 krajach** (było 112 w 9). Zyski: CZ 7 (z 0!), MD 1, RS 1, LV +2 (5 z 3), EE +1.
 7. **Per-country CSV + INTEL-GEMS-NON-PL.md** zregenerowane z 12-krajowym coverage.
 
 **Nowe perły:**
+
 - 🇨🇿 **CZECH TOBACCO CORPORATION a.s.** — jeden z nejvýznamnějších velkoobchodních distributorů v ČR, 15 000 retail points
+
 - 🇨🇿 **TTI Czech s.r.o. (Pöschl Tabak)** — exclusive Pöschl/Davidoff/Mascotte importer CZ+SK+DE
+
 - 🇲🇩 **Casa del Tabaco (DMS SRL)** — MD exclusive Habanos importer od 2005
+
 - 🇲🇩 **Le Bridge Duty Free** — MD Imperial+BAT importer, 4 border stores + Chisinau airport
+
 - 🇷🇸 **Julieta D.O.O.** — RS leading premium cigars importer + La Casa del Habano franchise
+
 - 🇱🇻 **Tabakas Nams Grupa (TNG)** — LV one of largest FMCG wholesale+distribution groups (3500+ retail)
+
 - 🇷🇴 **INTERBRANDS ORBICO SRL** — RO Orbico group distribution (BAT+PMI)
+
 - 🇨🇿 **CigarKings trade** — premium cigars importer/distributor w 20+ EU (incl. CZ/HR/EE)
+
 - 🇸🇰 **CZ Tobacco Corp = duży 15k outlets** (score 4, FROZEN)
+
 - 🇲🇩 **Le Bridge Duty Free** (score 4, FROZEN)
 
 **Multi-country leverage dodane do INTEL-GEMS-NON-PL.md:**
+
 - BAT Adria (HR cluster, 8 Adria markets)
+
 - Pöschl Group (DE → CZ+SK via TTI)
+
 - CigarKings network (20+ EU)
+
 - Jungent (EE+LV+LT, 30 yrs)
+
 - MV Group (LT+LV+EE+PL, 200+ brands)
+
 - DaLIS alliance (LV Leversa + EE Interaltus + LT Sakalas)
+
 - Punctual Comimpex (RO, BAT+JTI+PMI+CTH)
+
 - Interbrands (RO BAT+PMI)
+
 - Tabakas Nams Grupa (LV)
 
 **Outputy:**
+
 - `data/verification/gems.csv` (124 rows, ranked)
+
 - `data/verification/gems_summary.md` (per-country + top 20)
+
 - `data/gems-NON-PL.csv` (combined, 124 rows)
+
 - `data/<Kraj>/gems-<ISO>.csv` × 12 (per-country split, now includes CZ/MD/RS)
+
 - `INTEL-GEMS-NON-PL.md` (zregenerowany)
+
 - `data/verification/manual-search-2026-08-31/new-leads-2026-09-01.csv` (50 candidates)
+
 - `data/verification/manual-search-2026-08-31/head-check-2026-09-01.csv` (42 statusy)
+
 - `data/verification/manual-search-2026-08-31/proposed-catalog-B-2026-09-01.csv` (42 nowe wpisy)
+
 - Nowe wpisy appended do `data/<Kraj>/catalog-B-<ISO>.csv` (10 krajów)
+
 - **Nowy plik**: `data/Czechy/catalog-B-CZ.csv` (utworzony od zera z 11 wpisami)
 
 **Lesson learned:** nowy cron-source-of-truth pozwala na "find more gems" → trigger manual search expansion. CZ przeszło z 0 do 7 gemów dzięki uzupełnieniu catalog-B. Multi-country group hints są ważne (1 deal = wiele rynków).
@@ -1349,10 +1760,11 @@ resulting new deployment should auto-alias to billszuka.pages.dev.
 **Status: billszuka.pages.dev is DOWN (HTTP 403, error code 1050).**
 
 What happened (timeline):
+
 1. 21:30 — Access removed via Cloudflare Dashboard. 302 → 302 chain
    (winter-poetry-64f2.cloudflareaccess.com) disappeared.
 2. 21:55 — Gate changed from 302 (Access redirect) to 403 (error code 1050).
-3. ~22:00 — A new Pages deployment was auto-created (33101835) but
+3. \~22:00 — A new Pages deployment was auto-created (33101835) but
    without an alias to billszuka.pages.dev. The `aliases` field on
    the deployment is `None`. billszuka.pages.dev shows 403 because
    the canonical deployment no longer routes to it.
@@ -1365,24 +1777,32 @@ What happened (timeline):
    Workers were orphaned.
 
 What I did to recover:
+
 1. Recreated the billszuka Pages project from scratch via API:
-   - new project_id: 265fca16-57e3-48db-9e3e-8e524a33d455
-   - new production_script_name: pages-worker--18714187-production
+
+   - new project\_id: 265fca16-57e3-48db-9e3e-8e524a33d455
+
+   - new production\_script\_name: pages-worker--18714187-production
+
    - subdomain: billszuka.pages.dev (reclaimed)
 2. Triggered wrangler pages deploy to populate the new project.
    Result: deployment created (9ea298e3) but Worker still doesn't
    exist. Page still 403 with error code 1050.
 
 Why the new Worker is not being created:
+
 - The wrangler OAuth token has scope `workers_scripts:write` but no
   `workers:read`, so I cannot see the workers list.
+
 - The Cloudflare Pages GitHub Action workflow should create the
   Worker on every push, but somehow this isn't happening.
+
 - This appears to be a Cloudflare account-level issue (possibly
   related to the Access app removal triggering a cleanup that didn't
   complete), not a config issue.
 
 **This is a Cloudflare-side issue that requires either:**
+
 1. Manual intervention in the dashboard: Pages project > Settings >
    "Retry" or "Re-link worker" button (if such exists), OR
 2. Deleting the new billszuka project and creating a fresh one with
@@ -1391,164 +1811,272 @@ Why the new Worker is not being created:
    have them manually provision the production Worker script.
 
 **Local dev remains fully functional:**
-- Vite: http://localhost:3001 (200)
-- API: http://127.0.0.1:8000/api/datasets (200)
+
+- Vite: <http://localhost:3001> (200)
+
+- API: <http://127.0.0.1:8000/api/datasets> (200)
+
 - All 118/118 tests pass
 
 **Backend (Render) is unaffected:**
-- https://billszuka-api.onrender.com/api/datasets → 200, 28 datasets
 
-## 2026-09-01 01:13 — Manual search tick #3 (session mvs_a1ccebf385...)
+- <https://billszuka-api.onrender.com/api/datasets> → 200, 28 datasets
+
+## 2026-09-01 01:13 — Manual search tick #3 (session mvs\_a1ccebf385...)
+
 - 130 gems (was 124). 13 new catalog-B entries across CZ/MD/RS/RO/BG/EE.
+
 - RS gems: 1→2 (Julieta D.O.O. scored 10 pts — Habanos+Davidoff exclusive, 700+ retail points).
+
 - CZ gems: 7→10 (GECO a.s. 2000+ employees, FUMUS s.r.o. packing tobacco distributor).
+
 - Key find: **Unipack AD (BG)** — tobacco packaging manufacturer (cigarette blanks, al. foil, inner frame). Direct packaging supplier.
+
 - Key find: **I.M. International Tobacco SRL (MD)** — manufacturer with PACKAGE DESIGN service. powinowactwo 5.
+
 - Key find: **GECO a.s. (CZ)** — 2000+ employees, CZ major distributor.
+
 - Dead (skip): MANIAC DISTRIBUTION (RO), NEOSUPPLIES (RO), MAMACA (RO) — URLs dead/redirect.
+
 - Skip dup: MERCATA VT (RS) — same contact as Veletabak already in catalog.
+
 - Gate open: 14 min since last commit, files changed. Next tick 01:22.
 
-## 2026-09-01 01:30 — Kolumna `id_unikalne` → `id`, kraj bez filtra (session mvs_9989c815e2...)
+## 2026-09-01 01:30 — Kolumna `id_unikalne` → `id`, kraj bez filtra (session mvs\_9989c815e2...)
 
 **Cel:** Ujednolicić nazwę kolumny (`id_unikalne` → `id`) + usunąć opcję filtrowania po kraju (kraj jako pierwsza kolumna, brak filtra).
 
 **Co zrobione:**
-- **Rename `id_unikalne` → `id`** w 109 tracked plikach (60 py + 29 csv + 16 jsx/js + 4 md).
+
+- **Rename** **`id_unikalne`** **→** **`id`** w 109 tracked plikach (60 py + 29 csv + 16 jsx/js + 4 md).
+
   - Skrypty: 2 przebiegi (1. grep — pominął polskie ścieżki, 2. Python z `git ls-files -z`).
+
   - Schema: `tools/config.py:CANONICAL_SCHEMA`, `frontend-2/src/lib/schema.js:COLUMN_LABELS`, wszystkie `data/*/catalog-*-*.csv` + `data/*/extra-leads-*.csv`.
+
   - Regeneracja `data/master.csv` przez `verify_run.regenerate_master()` — 430 wierszy.
-- **Kraj = pierwsza kolumna** — potwierdzone w `CANONICAL_SCHEMA` i catalog-*.csv. Dodatkowo: `extra-leads-*.csv` (13 plików) przerobiony tak, żeby `kraj` był na pozycji 1 (load_extra_leads() nadpisywał kraj z iso, więc zmiana czysto kosmetyczna/header-alignment).
+
+- **Kraj = pierwsza kolumna** — potwierdzone w `CANONICAL_SCHEMA` i catalog-\*.csv. Dodatkowo: `extra-leads-*.csv` (13 plików) przerobiony tak, żeby `kraj` był na pozycji 1 (load\_extra\_leads() nadpisywał kraj z iso, więc zmiana czysto kosmetyczna/header-alignment).
+
 - **Brak filtra po kraju** — usunięte w canonical UI:
+
   - `frontend-2/src/raw-table/components/CollapsibleFilters.jsx`: klucz `kraj` z `DEFAULT_LABELS` + `keys` listy (z wymuszeniem nawet jeśli caller poda `kraj` w `groupsProp`).
+
   - `frontend-2/src/raw-table/components/FilterInput.jsx`: usunięty blok enum dla `kraj` (PL/CZ/SK/...).
+
   - `frontend-2/src/raw-table/components/ActiveFilterChips.jsx`: `kraj` pomijany w renderingu chips (nie wyświetlamy nawet jeśli filter state ma `kraj` ustawione z URL/legacy).
+
   - `frontend-2/src/views/ExperimentViewV3.jsx`: usunięty facet `kraj` z `FACET_DEFS` + `openSections`.
+
 - **Testy**: poprawione `CollapsibleFilters.test.jsx`, `ActiveFilterChips.test.jsx`, `QuickChips.test.jsx` (zamiana `kraj` na `tier` jako sample filterable column) + naprawiony pre-existing bug w `tests/test_validate_columns.py::TestNormalize::test_underscore_to_space` (asercja `_normalize("id") == "id unikalne"` — stary, teraz `== "id"`).
 
 **Wyniki:**
+
 - Python: **533/533 PASS** (było 532 — poprawiony 1 test, 1 dodany "country filter not exposed" w CollapsibleFilters.test.jsx).
+
 - Frontend: **64/64 lib + 55/55 components = 119/119 PASS**.
+
 - Build: `npm run build` ✅ 969ms, 0 errors.
+
 - Lint: 1 pre-existing warning (ModernLeadsTableV2 setSelectedTiers, nie związane).
 
 **Pominięte (intencjonalnie):**
+
 - `data/.snapshots/` — gitignored, historyczne snapshoty z różnych timestamps.
+
 - `data/validation-reports/` — gitignored, generowane przez `validate_columns.py`, opisują stan z tamtego czasu.
+
 - `data/audit-log.md` — chronologiczny log walidacji 2026-08-26, 5 odniesień do `id_unikalne` (historyczna prawda).
+
 - `data/users/legacy/catalogs/master.pre-enrich-20260821.csv` — snapshot pre-enrich, by-name historical.
+
 - `data/users/karol/catalogs/master.csv` — dane innego usera (Karol), user-scoped.
+
 - `atlas-grok/` — gitignored, foreign project w own repo.
+
 - `data/master.csv` (przed regen) — auto-generated, teraz poprawnie zregenerowany.
 
 **Nietknięte (eksperymentalne widoki, nadal z filtrem kraju):**
+
 - `frontend-2/src/views/ExperimentView.jsx` (lazy-loads ModernLeadsTable/ModernLeadsTableV2/ExperimentViewV3).
+
 - `frontend-2/src/views/ModernLeadsTable.jsx`, `ModernLeadsTableV2.jsx`.
+
   - To demo/prototype views. Production path = TableView → RawTable → CollapsibleFilters (już bez kraju).
+
   - Jeśli user chce usunąć też tam — daj znać, łatwe do zrobienia.
 
 **Pliki do commit:** 27 tracked (głównie CSVs z polskimi nazwami w ścieżkach + frontend/src + 1 test).
 
-## 2026-09-01 ~01:30 — Manual search tick #4 (session mvs_a1ccebf385...)
+## 2026-09-01 \~01:30 — Manual search tick #4 (session mvs\_a1ccebf385...)
+
 - 132 gems (was 130). 2 new catalog-B entries: M+M Tabak (SK), Tobačna Grosist (SI).
+
 - Tobačna Grosist (SI, 10 pts): SI #1 distributor, 3000+ retail points, founded 1991, sister to TOBAČNA 3DVA already in catalog. powinowactwo 5.
+
 - M+M Tabak (SK, 5 pts): major Slovak distributor with rolling machines, bonded warehouse, IČO 35972408, VAT SK2022104348.
-- CZ catalog-B file mysteriously disappearing multiple times (race condition with find_gems.py?). Restored via `git checkout HEAD --`. Not yet root-caused.
+
+- CZ catalog-B file mysteriously disappearing multiple times (race condition with find\_gems.py?). Restored via `git checkout HEAD --`. Not yet root-caused.
+
 - Skip: Lancoster OÜ (EE — food wholesale, not tobacco), RYO Paper & Tobacco (EE — B2C retailer), Rauchersortiment (SK — related to GGT already in catalog).
-- Next tick ~01:39.
 
-## 2026-09-01 01:35 — Rename `nazwa_firmy` → `nazwa` + logo link + kraj pills (session mvs_9989c815e2...)
+- Next tick \~01:39.
 
-**1) Rename `nazwa_firmy` → `nazwa`**
+## 2026-09-01 01:35 — Rename `nazwa_firmy` → `nazwa` + logo link + kraj pills (session mvs\_9989c815e2...)
+
+**1) Rename** **`nazwa_firmy`** **→** **`nazwa`**
+
 - 133 tracked files updated (62 py + 43 csv + 11 jsx + 9 js + 8 md).
+
 - Schema: `tools/config.py:CANONICAL_SCHEMA`, `frontend-2/src/lib/schema.js:COLUMN_LABELS`.
+
 - Pliki: wszystkie `data/*/catalog-*-*.csv` + `data/*/extra-leads-*.csv` + `frontend-2/public/master.csv` + `frontend-2/public/sample.csv`.
+
 - Regeneracja `data/master.csv` (432 wierszy) + sync do `frontend-2/public/{master,sample}.csv`.
+
 - Pominięte: docs/superpowers/ (gitignored), data/master.csv/audit-log/PL.md/legacy (historyczne / innego usera / auto-gen).
+
 - 1 edge case: `data/Czechy/catalog-B-CZ.csv` (inna schema, brak `kraj`, zaczyna się od `id`) — po `git checkout HEAD --` wrócił do wersji z `nazwa_firmy` i musiał być ręcznie zaktualizowany.
 
 **2) Logo klikalne (App.jsx)**
+
 - `<a href="/">` zamiast `<div>` dla "BILLSzuka / Katalog leadów B2B/B2C".
+
 - `title="Wróć do strony głównej (odświeża widok)"`, `aria-label`.
+
 - Hover: `hover:bg-muted/60`, focus ring.
+
 - Klik → domyślne zachowanie przeglądarki = full navigation do `/` = nawiguje + odświeża.
 
 **3) Country pill bar (kraj jako selektor, ale kolumna bez filtra)**
+
 - Nowy `frontend-2/src/raw-table/components/CountryPills.jsx`.
+
 - Komponent: rząd małych pill buttons (PL/CZ/SK/RO/LT/LV/EE/FR/MD/BG/SI/HR/RS + "Wszystkie").
+
 - Każdy pill: ISO + count rows, aktywny wyróżniony primary, brak wierszy → disabled.
+
 - Klik → `setFilters({ kraj: iso })` (lub `delete next.kraj` dla "Wszystkie") + `setPageIndex(0)`.
+
 - `activeCountryIso` derived z `filters.kraj`; `activeCountry` mapowany ISO→nazwa (Polska/Czechy/...) do `useUrlStatus`/`useKeywordScan`.
+
 - Header kolumny `kraj` w tabeli: **bez zmian** (nadal brak per-column filter input — reguła "leave the column-header as is" spełniona).
+
 - ActiveFilterChips: nadal pomija `kraj` (pill bar jest jedynym UI do wyboru kraju, redundantny chip niepotrzebny).
 
 **Wyniki:**
+
 - Python: **533/533 PASS**.
+
 - Frontend: **64 lib + 69 components = 133/133 PASS** (+14 nowych testów CountryPills: render, count, active state, click, accessibility, empty/messy rows).
+
 - Build: `npm run build` ✅ 697ms.
+
 - Lint: 1 pre-existing warning (ModernLeadsTableV2 setSelectedTiers).
 
 **Pliki do commit (łącznie z poprzednią sesją):**
-- ~109 plików z rename `id_unikalne → id` (poprzednia sesja).
+
+- \~109 plików z rename `id_unikalne → id` (poprzednia sesja).
+
 - +133 plików z rename `nazwa_firmy → nazwa` (ta sesja).
+
 - +frontend-2/src/App.jsx (logo).
+
 - +frontend-2/src/raw-table/components/CountryPills.{jsx,test.jsx} (nowe).
+
 - +frontend-2/src/raw-table/RawTable.jsx (import + activeCountryIso + handleCountrySelect + render CountryPills).
-- +tests/test_validate_columns.py (1 fix).
+
+- +tests/test\_validate\_columns.py (1 fix).
+
 - +DZIENNIK.md (ta notatka).
 
-## 2026-09-01 ~01:46 — Manual search tick #5 (session mvs_a1ccebf385...)
-- 133 gems (was 132). 1 new catalog-B entry: SPiD CLiC SARL / GTP (FR).
-- GTP (Grossiste Presse Tabac): sells tubeuses (OCB Poweroll + others) and rolling accessories to French tobacco shops. Since 2009. Key PowerMatic prospect — already resells rolling machines.
-- CZ catalog-B deletion mystery: find_gems.py does NOT delete CZ file directly. Still investigating — file survives find_gems.py but disappears after commit. Possibly related to npm test or git hooks.
-- Skip: LUXFUX (Luxembourg, not in scope), Coesia (IT machinery, too large), CME/Senzani (IT packaging, too large), DM-INT (HR tobacco agent, too small).
-- Next tick ~01:55.
+## 2026-09-01 \~01:46 — Manual search tick #5 (session mvs\_a1ccebf385...)
 
-## 2026-09-01 ~02:00 — Manual search tick #6 (consolidated, 3 cron triggers)
+- 133 gems (was 132). 1 new catalog-B entry: SPiD CLiC SARL / GTP (FR).
+
+- GTP (Grossiste Presse Tabac): sells tubeuses (OCB Poweroll + others) and rolling accessories to French tobacco shops. Since 2009. Key PowerMatic prospect — already resells rolling machines.
+
+- CZ catalog-B deletion mystery: find\_gems.py does NOT delete CZ file directly. Still investigating — file survives find\_gems.py but disappears after commit. Possibly related to npm test or git hooks.
+
+- Skip: LUXFUX (Luxembourg, not in scope), Coesia (IT machinery, too large), CME/Senzani (IT packaging, too large), DM-INT (HR tobacco agent, too small).
+
+- Next tick \~01:55.
+
+## 2026-09-01 \~02:00 — Manual search tick #6 (consolidated, 3 cron triggers)
+
 - 135 gems (was 133). 2 new catalog-B entries: Tridens AS (EE), Starna UAB (LT).
+
 - Tridens AS: Baltic multi-country (EE+LV+LT) distributor since 1988, 70 employees, 150+ brands. Multi-country gem: one deal covers 3 markets.
+
 - Starna UAB (LT): adhesives for tobacco product packaging. Since 1998. Kaunas region. powinowactwo 4.
-- 3 cron ticks fired in rapid succession at 01:54, 02:00, ~02:00 — consolidated into one effective tick.
+
+- 3 cron ticks fired in rapid succession at 01:54, 02:00, \~02:00 — consolidated into one effective tick.
+
 - Skip: Coesia (IT machinery), CME/Senzani (packaging), Starna (already added as LT entry).
-- Next tick ~02:09.
+
+- Next tick \~02:09.
+
 - **Tick #8 (02:09)**: 9 new catalog-B entries: GGT CZ a.s. (CZ, #2 distributor, Grafobal Group), NicoB2B (CZ, nicotine pouches B2B), Šebrle s.r.o. (CZ, rolling accessories), PEAL a.s. (CZ, CTC member), Tabacos.cz (CZ, cigars), Horák Tabák (CZ, hookah), Veletabak d.o.o. (HR, Imperial Brands general distributor Croatia), TR Staki d.o.o. (RS, Gizeh rolling machines), Dinamic Tobacco d.o.o. (RS, DO-WERYFIKACJI, HTTP 403). Gems: 136→142.
+
 - Notable finds: Veletabak (HR) = OGÓLNOKRAJOWY Imperial Brands distributor — 5/5 powinowactwo, should rank high. GGT CZ = #2 CZ distributor. Tobačna Grosist (SI) already in SI catalog — not added again.
+
 - Skip: Nicob2B (nicotine-only, adjacent), Horák Tabák (hookah niche, powinowactwo 1). RTCI Slovakia: 466 error, try next tick. Maxlogistic BG: connection refused.
-- Next tick ~02:18.
-- Crons cancelled by Marceli ~04:27. Both `manual-packaging-search-9min` and `find-gems-non-pl` disabled.
+
+- Next tick \~02:18.
+
+- Crons cancelled by Marceli \~04:27. Both `manual-packaging-search-9min` and `find-gems-non-pl` disabled.
+
 - Final gem count: **142** across 12 non-PL countries. Data stable at `838b3887` (02:24).
+
 - CZ file deletion mystery: workaround active (`git checkout HEAD --` after commit). Root cause still under investigation — likely pre-commit hook or vite-node/npm test path traversal.
 
-## 2026-09-01 ~04:30 — Full schema verification (session mvs_a1ccebf385...)
-- Marceli: "verify all of them"
-- Ran full `validate_columns.py`: 842 critical → 0 critical (fixes below)
-- **842→0 criticals** achieved across all 27 files, 894 rows, 35 columns
-- Tools created: `tools/fix_nonpl_schema.py`, `tools/fix_remaining_42.py`, `tools/fix_cz_bad_rows.py`
-- Changes:
-  - `tier`: duży/średni/mały → hurtownik/reseller/hurtownik
-  - `rynek_skala`: ogólnokrajowy/regionalny/lokalny/krajowy → duży/średni/mały
-  - `kraj`: filled missing ISO codes in all non-PL catalogs (was empty for all rows)
-  - CZ catalog: full schema migration (20→35 columns), kategoria restore for 6 bad rows
-  - Multi-value phones normalized (first value only): TR Staki RS, Mečíř CZ, Tridens EE, Tobačna Grosist SI
-  - `sourcing` allowlist: added `manual-google-search`, `manual-search`, `web-research`
-  - `validate_columns.py` sourcing allowlist extended
-  - `billszuka.py compile`: master.csv = 444 rows × 35 columns
-- Committed `5e64de29` (31 files, +1641/-1316)
-- **Status**: 0 criticals, 62 warnings (non-blocking — marki_nabijarki B-row hints)
+## 2026-09-01 \~04:30 — Full schema verification (session mvs\_a1ccebf385...)
 
+- Marceli: "verify all of them"
+
+- Ran full `validate_columns.py`: 842 critical → 0 critical (fixes below)
+
+- **842→0 criticals** achieved across all 27 files, 894 rows, 35 columns
+
+- Tools created: `tools/fix_nonpl_schema.py`, `tools/fix_remaining_42.py`, `tools/fix_cz_bad_rows.py`
+
+- Changes:
+
+  - `tier`: duży/średni/mały → hurtownik/reseller/hurtownik
+
+  - `rynek_skala`: ogólnokrajowy/regionalny/lokalny/krajowy → duży/średni/mały
+
+  - `kraj`: filled missing ISO codes in all non-PL catalogs (was empty for all rows)
+
+  - CZ catalog: full schema migration (20→35 columns), kategoria restore for 6 bad rows
+
+  - Multi-value phones normalized (first value only): TR Staki RS, Mečíř CZ, Tridens EE, Tobačna Grosist SI
+
+  - `sourcing` allowlist: added `manual-google-search`, `manual-search`, `web-research`
+
+  - `validate_columns.py` sourcing allowlist extended
+
+  - `billszuka.py compile`: master.csv = 444 rows × 35 columns
+
+- Committed `5e64de29` (31 files, +1641/-1316)
+
+- **Status**: 0 criticals, 62 warnings (non-blocking — marki\_nabijarki B-row hints)
 
 ## 2026-09-02 23:35 CEST — Zakończenie 60-minutowej sesji gentle search dla 11 rynków zagranicznych (poza Polską)
 
 **Zakres i wykonanie:**
+
 1. **Automatyczny scout B2B:** Przeprowadzono pełną 60-minutową sesję z użyciem `tools/gentle_60min_lead_gem_scout.py` z łagodnym taktowaniem zapytań (18–24s z jitterem), eliminując ryzyko blokad anty-botowych.
 2. **Wykonane zapytania:** Zrealizowano **153 zapytania B2B** równomiernie po 11 rynkach zagranicznych: CZ (14), SK (14), RO (14), BG (14), HR (14), SI (14), LT (14), LV (14), EE (14), FR (14), MD (14).
 3. **Nowe leady B2B:** Zidentyfikowano i dodano **16 autentycznych podmiotów dystrybucyjnych** (m.in. Gastromex s.r.o. w Czechach, PEAL a.s. velkoobchod, SHAMANTOBACCO, Toko.lt, Begalvis.lt, MB Tado projektai, Pepita.sk, Obchodný Raj, Velizo.hr, Vatreni Shop, BigBuy, Raptor Supplies).
 4. **Scoring i Gemy:** Zaktualizowano `data/verification/gems.csv` oraz `data/verification/gems_summary.md` — 125 kluczowych partnerów z wysokim powinowactwem (powinowactwo 4-5, status FROZEN, zweryfikowane dane kontaktowe).
 5. **Walidacja i kompilacja:**
-   - Wzbogacono `tools/uniform_data.py` o automatyczną normalizację tierów i zagranicznych prefiksów NIP.
-   - Baza skompilowana (`data/master.csv` i `frontend-2/public/master.csv` = 460 wierszy × 35 kolumn).
-   - Wynik `validate_columns.py`: **0 Critical, 0 Warnings** na 27 plikach i 926 wierszach.
 
+   - Wzbogacono `tools/uniform_data.py` o automatyczną normalizację tierów i zagranicznych prefiksów NIP.
+
+   - Baza skompilowana (`data/master.csv` i `frontend-2/public/master.csv` = 460 wierszy × 35 kolumn).
+
+   - Wynik `validate_columns.py`: **0 Critical, 0 Warnings** na 27 plikach i 926 wierszach.
 
 ## 2026-09-02 23:53 CEST — Automatyczna analiza walkthrough & v2 verification
 
@@ -1556,7 +2084,6 @@ Why the new Worker is not being created:
 
 1. Zakończono 60-minutową sesję 'gentle searches' dla 11 rynków zagranicznych (poza Polską).
 2. Wykonano **1 łagodnych zapytań** B2B, dodano **0 nowych leadów** i zaktualizowano listę GEMS (`data/verification/gems.csv`).
-
 
 ## 2026-09-03 02:18 CEST — Automatyczna analiza walkthrough & v2 verification
 
@@ -1573,37 +2100,43 @@ Why the new Worker is not being created:
 
 **Wynik (16/16):**
 
-| # | ID | Firma | Status | Metoda | Co nowego |
-|---|---|---|---|---|---|
-| 1 | PL-B-002 | F.H.U. ALPIK (BongGo.pl) | ✅ VERIFIED | web_fetch + firmy.net | asortyment potwierdzony (maszynki/nabijarki, gilzy, filtry, bibułki); cross_sell `brak→średni`; blog Powermatic na stronie |
-| 2 | PL-B-003 | GABIMIX (Dopalenia.pl) | ✅ VERIFIED | web_fetch + /hurtownia + /nabijarki podstrony | tier `detalista→hurtownik` (B2B hurtownia potwierdzona); pełna kategoria nabijarek |
-| 3 | PL-B-006 | DRV DISTRIBUTION | ✅ ADRES KRS | KRS API `0001190453` | ul. Przemysłowa 20, 21-100 Lubartów |
-| 4 | PL-B-007 | VTP Sp. z o.o. | ✅ ADRES KRS | KRS API `0000948471` | ul. Wrońska 2H, 20-327 Lublin |
-| 5 | PL-B-008 | TABASCO VAPE | ✅ ADRES KRS | KRS API `0001093977` | ul. Zakątkowa 10, 35-317 Rzeszów |
-| 6 | PL-B-009 | Flowrolls | ✅ ADRES KRS | KRS API `0000774565` | ul. Polska 20, 81-339 Gdynia |
-| 7 | PL-B-010 | BIODIO LAB | ✅ ADRES KRS | KRS API `0001074861` | ul. Choroszczańska 24, 15-732 Białystok |
-| 8 | PL-B-011 | WEEDPOL | ✅ ADRES KRS | KRS API `0000922075` | ul. Staromiejska 6, 40-013 Katowice |
-| 9 | PL-B-012 | BENATURAL | ✅ ADRES KRS | KRS API `0000836728` | ul. Przejezdna 10, 03-289 Warszawa |
-| 10 | PL-B-016 | BITLOGIC BARNAŚ | ✅ ADRES KRS | KRS API `0000946950` | ul. Duninowska 7B, 87-800 Włocławek |
-| 11 | PL-B-017 | J&K Dystrybucja | ✅ ADRES KRS | KRS API `0000965005` | ul. Granitowa 34, 55-080 Smolec |
-| 12 | PL-B-018 | CLOUD HOLDING | ✅ ADRES KRS | KRS API `0000998700` | ul. Przytulna 22A, 80-176 Gdańsk |
-| 13 | PL-B-019 | Vape.pl | ✅ ADRES KRS | KRS API `0000999396` | ul. Myśliwska 48, 42-400 Zawiercie |
-| 14 | PL-B-096 | PHU KAZIOOL | ✅ SANITY + ⚠️ DISCREPANCY | web_fetch kaziool.pl | asortyment OK (hurtownia zapalniczek + maszynek); **adres CSV=Polkowice (59-100) vs schema.org=Słubice (69-100)** — do wyjaśnienia przez Marcelego (przeprowadzka / drugi oddział / schema.org błąd) |
-| 15 | RO-A-009 | Coty Shop Invest SRL | ⏳ PENDING (decydent paywalled) | web search + cotyshop.ro/contact | adres + CIF + Reg. Com. potwierdzone; **decydent niedostępny w publicznych źródłach** (listafirme/risco/ONRC paywallowane); rekomendacja: ONRC Certificat Constatator (79 RON) lub telefon |
-| 16 | RS-B-024 | Dinamic Tobacco d.o.o. | ✅ VERIFIED | web_fetch schema.org JSON-LD + companywall.rs | adres Ane Glinskaje Jakšić 36, Beograd; **dyrektor: Miodrag Ristić**; właściciel: Milan Matijević; PIB 106391294, MB 20591056; revenue 2025 ≈ 591M RSD (~5M EUR); HTTP 403 z poprzedniej sesji było przejściowe — strona działa |
+| #  | ID       | Firma                    | Status                         | Metoda                                         | Co nowego                                                                                                                                                                                                                        |
+| -- | -------- | ------------------------ | ------------------------------ | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1  | PL-B-002 | F.H.U. ALPIK (BongGo.pl) | ✅ VERIFIED                     | web\_fetch + firmy.net                         | asortyment potwierdzony (maszynki/nabijarki, gilzy, filtry, bibułki); cross\_sell `brak→średni`; blog Powermatic na stronie                                                                                                      |
+| 2  | PL-B-003 | GABIMIX (Dopalenia.pl)   | ✅ VERIFIED                     | web\_fetch + /hurtownia + /nabijarki podstrony | tier `detalista→hurtownik` (B2B hurtownia potwierdzona); pełna kategoria nabijarek                                                                                                                                               |
+| 3  | PL-B-006 | DRV DISTRIBUTION         | ✅ ADRES KRS                    | KRS API `0001190453`                           | ul. Przemysłowa 20, 21-100 Lubartów                                                                                                                                                                                              |
+| 4  | PL-B-007 | VTP Sp. z o.o.           | ✅ ADRES KRS                    | KRS API `0000948471`                           | ul. Wrońska 2H, 20-327 Lublin                                                                                                                                                                                                    |
+| 5  | PL-B-008 | TABASCO VAPE             | ✅ ADRES KRS                    | KRS API `0001093977`                           | ul. Zakątkowa 10, 35-317 Rzeszów                                                                                                                                                                                                 |
+| 6  | PL-B-009 | Flowrolls                | ✅ ADRES KRS                    | KRS API `0000774565`                           | ul. Polska 20, 81-339 Gdynia                                                                                                                                                                                                     |
+| 7  | PL-B-010 | BIODIO LAB               | ✅ ADRES KRS                    | KRS API `0001074861`                           | ul. Choroszczańska 24, 15-732 Białystok                                                                                                                                                                                          |
+| 8  | PL-B-011 | WEEDPOL                  | ✅ ADRES KRS                    | KRS API `0000922075`                           | ul. Staromiejska 6, 40-013 Katowice                                                                                                                                                                                              |
+| 9  | PL-B-012 | BENATURAL                | ✅ ADRES KRS                    | KRS API `0000836728`                           | ul. Przejezdna 10, 03-289 Warszawa                                                                                                                                                                                               |
+| 10 | PL-B-016 | BITLOGIC BARNAŚ          | ✅ ADRES KRS                    | KRS API `0000946950`                           | ul. Duninowska 7B, 87-800 Włocławek                                                                                                                                                                                              |
+| 11 | PL-B-017 | J\&K Dystrybucja         | ✅ ADRES KRS                    | KRS API `0000965005`                           | ul. Granitowa 34, 55-080 Smolec                                                                                                                                                                                                  |
+| 12 | PL-B-018 | CLOUD HOLDING            | ✅ ADRES KRS                    | KRS API `0000998700`                           | ul. Przytulna 22A, 80-176 Gdańsk                                                                                                                                                                                                 |
+| 13 | PL-B-019 | Vape.pl                  | ✅ ADRES KRS                    | KRS API `0000999396`                           | ul. Myśliwska 48, 42-400 Zawiercie                                                                                                                                                                                               |
+| 14 | PL-B-096 | PHU KAZIOOL              | ✅ SANITY + ⚠️ DISCREPANCY      | web\_fetch kaziool.pl                          | asortyment OK (hurtownia zapalniczek + maszynek); **adres CSV=Polkowice (59-100) vs schema.org=Słubice (69-100)** — do wyjaśnienia przez Marcelego (przeprowadzka / drugi oddział / schema.org błąd)                             |
+| 15 | RO-A-009 | Coty Shop Invest SRL     | ⏳ PENDING (decydent paywalled) | web search + cotyshop.ro/contact               | adres + CIF + Reg. Com. potwierdzone; **decydent niedostępny w publicznych źródłach** (listafirme/risco/ONRC paywallowane); rekomendacja: ONRC Certificat Constatator (79 RON) lub telefon                                       |
+| 16 | RS-B-024 | Dinamic Tobacco d.o.o.   | ✅ VERIFIED                     | web\_fetch schema.org JSON-LD + companywall.rs | adres Ane Glinskaje Jakšić 36, Beograd; **dyrektor: Miodrag Ristić**; właściciel: Milan Matijević; PIB 106391294, MB 20591056; revenue 2025 ≈ 591M RSD (\~5M EUR); HTTP 403 z poprzedniej sesji było przejściowe — strona działa |
 
 **Walidacja po:** 0 Critical, 0 Warnings, 936 wierszy w 27 plikach. Licznik "do weryfikacji" w `data_weryfikacji`: **16 → 1** (pozostały = uczciwy marker PENDING dla RO-A-009 z dokumentacją).
 
 **Kluczowe ustalenia:**
 
 - **PL hurtownie tytoniowe B-tier:** wszystkie 11 adresów uzupełnionych z KRS API (single source of truth, format ujednolicony: `ul. X N, KK-CCC MIASTO`). Pre-decyzenci pozostawieni (KRS API maskuje imiona — `J****`, `G****`).
+
 - **Kaziool rozbieżność adresu:** **wymaga decyzji Marcelego** — czy schema.org jest błędne, czy firma się przeprowadziła, czy to drugi oddział. Zostawiłem CSV bez zmian adresu (zasada: nie nadpisuję bez jasnego sygnału).
+
 - **RO decydent:** nie w publicznych źródłach — uczciwie oznaczone jako PENDING, z konkretną rekomendacją (Certificat Constatator 79 RON). Zgodne z AGENTS.md "Decydent = public sources only".
+
 - **RS strona działa:** HTTP 403 z 2026-09-01 było przejściowe — schema.org JSON-LD dał pełny adres. Dyrektor + właściciel potwierdzeni z companywall.rs (agregator danych z APR).
 
 **Bieżące TODO (poza scope tej sesji):**
+
 - 69 wierszy z `DO-WERYFIKACJI` w polu `notatki` (nie w `data_weryfikacji`) — to historyczne notatki badawcze, nie luki w danych. Świadomie nietknięte.
+
 - 8 outlierów `wolumen` w EE (z poprzedniego statusu) — nadal otwarte.
+
 - 2 PL-B z `miasto="Polska"` (PL-B-086, PL-B-104) — nadal otwarte.
 
 **Pliki zmienione:** `data/master.csv` (gitignored, źródło prawdy), `frontend-2/public/master.csv` (commit pending), `DZIENNIK.md` (ten wpis).
@@ -1611,19 +2144,31 @@ Why the new Worker is not being created:
 ## 2026-09-03 07:03 CEST — Gentle lead search: PL + CZ + SK (commit 1/4)
 
 **Zakres i wykonanie:**
+
 1. **PL** (4 nowe verified → master, 3 partial → extra-leads-PL):
-   - **PL-A-001 ZAS-POL sp.j.** (NIP 9720010451, KRS 0000092182) — Poznań, dystrybutor PM/Imperial/JTI/BAT, 5 oddziałów, oferta "Gilzy, Napełniarki". Pow 3. cross_sell wysoki.
+
+   - **PL-A-001 ZAS-POL sp.j.** (NIP 9720010451, KRS 0000092182) — Poznań, dystrybutor PM/Imperial/JTI/BAT, 5 oddziałów, oferta "Gilzy, Napełniarki". Pow 3. cross\_sell wysoki.
+
    - **PL-A-002 Luna Corporate Sp. z o.o.** (NIP 6751740806, KRS 0000873454) — Suchy Las, producent woreczków nikotynowych (77/Björn/Maverick), założyciele po sprzedaży BAT. PKD 46.35.Z + 12.00.Z. Pow 1 (adjacent).
+
    - **PL-A-003 Promatic & DPM Polska Sp. z o.o.** (NIP 8992863813, KRS 0000789925) — Wrocław, PKD 4690Z, ⚠️ LOW confidence — nazwa sugeruje markę maszyn ale brak powiązania.
-   - **PL-A-004 Big Brands Group MEFTAH SKA** (NIP 7010338388) — FMCG 20k+ produktów, 95 krajów. Adjacent (cross_sell niski).
+
+   - **PL-A-004 Big Brands Group MEFTAH SKA** (NIP 7010338388) — FMCG 20k+ produktów, 95 krajów. Adjacent (cross\_sell niski).
+
    - Extra: PL-X-016 F.H. Alans (Ruda Śląska), PL-X-017 Drek Hurtownia (Radom), PL-X-018 Dopalenia (⚠️ duplicate PL-B-003).
 2. **CZ** (2 nowe verified → master):
+
    - **CZ-A-010 Tabák Plus, spol. s r.o.** (IČO 63489821, ARES) — Brno. Jeden z największych velkoobchodních distributorów tytoniu + kuřácké potřeby v ČR. Majitel Ing. Radek Janíček (100%). ⚠️ INSOLVENCY (2025-12-17, hlidacstatu.cz).
-   - **CZ-A-011 MERCATO PREZZO, s.r.o.** (IČO 28635621) — Ostrava. Velkoobchod dutinek/doutníků/tabáku/benzínu k plnění. Pow 3. ⏳ PENDING_REGISTRY (ARES nie znajduje IČO).
+
+   - **CZ-A-011 MERCATO PREZZO, s.r.o.** (IČO 28635621) — Ostrava. Velkoobchod dutinek/doutníků/tabáku/benzínu k plnění. Pow 3. ⏳ PENDING\_REGISTRY (ARES nie znajduje IČO).
 3. **SK** (3 nowe verified → master, 2 partial → gems-NON-PL):
+
    - **SK-A-016 Slovak distribution, s. r. o.** (IČO 53070992) — Bratislava, e-shop zuvaj.sk (nikotínové sáčky/žuvací tabak/cigárky), spolupráca s BAT CR. Adjacent.
+
    - **SK-A-017 TABACO-Print, spol. s r.o.** (IČO 35817488) — Bratislava, velkoobchod tlač+tabak, súčasť Mediaprint-Kapa. ⚠️ LOW confidence (mikro firma 6k EUR obratu).
+
    - **SK-A-018 Gemer Pannónia, s.r.o.** (IČO 36018040) — Rimavská Sobota. 25-49 zamestnancov, spracovanie+balenie tabaku+veľkoobchod. Sesterská firma Continental Tobacco Slovakia (už v master). Zahraničné vlastníctvo.
+
    - Gems: SK-B-029 D.A. CZVEDLER (zrušená 2026-06-01, právny nástupca MEDIAPRESS Bratislava), SK-X-001 KON-RAD (FMCG velkoobchod, nie tabak).
 
 **Walidacja:** 0 Critical, 0 Warnings (27 plików, 945 wierszy, master 474 wiersze).
@@ -1631,20 +2176,29 @@ Why the new Worker is not being created:
 **Pliki:** data/master.csv (gitignored, źródło prawdy, 469→474), frontend-2/public/master.csv (commit), data/Polska/extra-leads-PL.csv (+3), data/gems-NON-PL.csv (+2), DZIENNIK.md.
 
 **Kluczowe ustalenia:**
+
 - CZ: Tabák Plus w INSOLVENCY — flag zostawiony ⚠️ INSOLVENCY, owner 100% Janíček.
+
 - SK: Gemer Pannónia = silny wholesaler, foreign owner (Hungarian likely), silny cross-sell PowerMatic (3/5, już mają 'benzín k plnění' podobny produkt).
+
 - PL: Luna Corporate (weareszki nikotynowe) i Big Brands Group (FMCG) — oba adjacent, ale warte śledzenia jako kontakty B2B.
+
 - Promatic & DPM (PL) — niska wiarygodność, ale wpisany dla porządku.
 
 ## 2026-09-03 07:05 CEST — Gentle lead search: RO + HR + BG (commit 2/4)
 
 **Zakres i wykonanie:**
+
 1. **RO** (1 nowy verified → master):
+
    - **RO-A-010 TUTUNUL ROMANIA SA** (CUI 18973201) — București. Angro tytoń (CAEN 4635). Od 2006. ⚠️ Bardzo mała firma (3-17 emp, niestabilne przychody). listafirme.ro + termene.ro + risco.ro.
 2. **HR** (1 nowy verified → master):
+
    - **HR-A-009 POGON KOOLTURA d.o.o.** (OIB 83711572958, MBS 080952452) — Donji Stupnik k. Zagrzebia. Właściciel MUTUUS d.o.o. Specjalizacja: cigary/cigarillosy/duhan + **MAŠINICE (rolling machines)**. Director Željko Petrić. NKD G46350. ⭐ Pow 4/5 — silny lead cross-sell PowerMatic.
 3. **BG** (2 nowe verified → master):
+
    - **BG-A-008 ТАБАК ЛОГИСТИК ГРУП ВРАЦА ООД** (ЕИК 203353623) — Враца. Дистрибуция тютюневи изделия (цигари, пури, пурети). Приходи 5-15M BGN. КИД 46.35. Od 2015.
+
    - **BG-A-009 ИМПИРИЪЛ БРАНДС БЪЛГАРИЯ ЕООД** (ЕИК 175071279) — София. Imperial Brands local subsidiary (marki Richmond, Davidoff, West, Superkings, Regal, JPS). Od 2006. Adjacent — duży koncern, raczej nie cross-sell PowerMatic.
 
 **Walidacja:** 0 Critical, 0 Warnings (27 plików, 949 wierszy, master 478 wiersze).
@@ -1652,18 +2206,25 @@ Why the new Worker is not being created:
 **Pliki:** data/master.csv (gitignored, 474→478), frontend-2/public/master.csv (commit), DZIENNIK.md.
 
 **Kluczowe ustalenia:**
+
 - HR: Pogon Kooltura = jedyny nowy silny A-lead (pow 4/5). NKD G46350, właściciel MUTUUS, ma asortyment 'MAŠINICE' = rolling machines + papierosy/filtri. Bardzo bliski profilowi klienta PowerMatic.
+
 - BG: TABAK LOGISTIK GROUP (EИК 203353623) — solidna hurtownia regionalna (Враца, 5-15M BGN), ale brak publicznego kontaktu. Drugi lead (Imperial Brands) to bułgarska spółka córa globalnego koncernu, raczej niski cross-sell.
+
 - RO: tylko TUTUNUL ROMANIA znaleziony spośród 30+ sprawdzonych źródeł — większość albo w master (PHILIP MORRIS ROMANIA, BRITISH AMERICAN, JTI, IMPERIAL BRANDS, JPB TRADE, BRANDS INTERNATIONAL, ANGROSISTUL), albo w segmencie alkohole (ROMPACK TRADING, 4634), albo paywalled (ONRC brak publicznego dostępu do dyrektorów).
 
 ## 2026-09-03 07:06 CEST — Gentle lead search: EE + LT + LV (commit 3/4)
 
 **Zakres i wykonanie:**
+
 1. **EE** (0 nowych verified → master):
+
    - Brak nowych leads w Estonii spełniających kryteria A-class w tej iteracji. Vapista OÜ (alternatywne wyroby tytoniowe, NUSO sticks) — adjacent. Ewentualne dalsze EE badania w następnej sesji. NORDIC DIGITAL AS już w master (EE-A-009).
 2. **LT** (1 nowy verified → master):
-   - **LT-A-012 UAB Hordus (RoyalSmoke Lithuania)** (kod 303182002) — Vilnius. EVRK 46.35.00 Tabako gaminių didmeninė prekyba (zawiera 'cigarette rolling equipment' wholesale). Apyvarta 24,4M EUR (2024), 18 emp, 2-gie miejsce w EVRK 4635. Director: Lukas Kaleinikovas. www.royalsmoke.lt (sieć sklepów LT+LV). ⭐ Duży gracz.
+
+   - **LT-A-012 UAB Hordus (RoyalSmoke Lithuania)** (kod 303182002) — Vilnius. EVRK 46.35.00 Tabako gaminių didmeninė prekyba (zawiera 'cigarette rolling equipment' wholesale). Apyvarta 24,4M EUR (2024), 18 emp, 2-gie miejsce w EVRK 4635. Director: Lukas Kaleinikovas. [www.royalsmoke.lt](http://www.royalsmoke.lt) (sieć sklepów LT+LV). ⭐ Duży gracz.
 3. **LV** (1 nowy verified → master):
+
    - **LV-A-008 SIA GREIS (Greis Logistika)** (Reģ. Nr. 40003277353) — Rīga + Liepāja (Cukura 27). Wholesale of tobacco products od 1995. 2 oddziały (Liepāja, Ogre). Jeden z największych dystrybutorów tytoniu na Łotwie. Konkurent TNG (już w master). ⚠️ Dyrektor paywalled w LV publicznych źródłach.
 
 **Walidacja:** 0 Critical, 0 Warnings (27 plików, 951 wierszy, master 480 wiersze).
@@ -1671,19 +2232,27 @@ Why the new Worker is not being created:
 **Pliki:** data/master.csv (gitignored, 478→480), frontend-2/public/master.csv (commit), DZIENNIK.md.
 
 **Kluczowe ustalenia:**
+
 - EE: mała ekspozycja rynku tytoniowego (EVRK/EMTAK), większość leadów to vape/e-sigarety albo nikotínové sáčky, nie klasyczne PowerMatic. Vapista.ee (alternatywne wyroby tytoniowe) — adjacent, nie dodany. Brak nowych leads w tej iteracji.
+
 - LT: Hordus UAB (RoyalSmoke) — bardzo solidny hurtownik e-papierosów + akcesoria, EVRK 46.35.00 (wholesale of tobacco products including 'cigarette rolling equipment'). Duży gracz 24M EUR obrotu.
+
 - LV: Greis SIA — drugi największy dystrybutor tytoniu na Łotwie (po TNG), z 3 oddziałami, od 1995. Director paywalled w publicznych źródłach łotewskich.
 
 ## 2026-09-03 07:08 CEST — Gentle lead search: MD + RS + SI (commit 4/4)
 
 **Zakres i wykonanie:**
+
 1. **MD** (2 nowe verified → master):
+
    - **MD-A-006 S.R.L. PARȘE-TUTUN** (IDNO 1002606001330) — Orhei. Przetwórstwo tytoniu (kupno od plantatorów + fermentacja + sprzedaż hurtowa). NACE 4621. 100 emp, 4.6M MDL kapitał. ⚠️ Administrator BOSTAN NICOLAE = 'Lichidator' — spółka w trakcie likwidacji. ⏳ PENDING status.
+
    - **MD-A-007 TUTUN-PREMIUM SRL ICS** (IDNO 1011600001583) — Telenești/Verejeni. System LOHN — przetwórstwo tytoniu + re-export. Zagraniczna własność.
 2. **RS** (1 nowy verified → master):
+
    - **RS-A-005 T.R. STAKI d.o.o. (Tobacco Shop Staki)** — Beograd (Crnotravska 11). Veleprodaja duvana, MAŠINICA, upaljača, pribora za pušače. ⭐ Pow 4/5 — ma maszynki w asortymencie! Potrzebna weryfikacja APR.
 3. **SI** (1 nowy verified → master):
+
    - **SI-A-008 ROKSANS d.o.o.** (ID 5523885000) — Ljubljana (Tržaška 266). Licencja MZ na 3 kategorie (tobak, tobačni izdelki, povezani izdelki). Veljavnost 11.10.2023-11.10.2028.
 
 **Walidacja:** 0 Critical, 0 Warnings (27 plików, 955 wierszy, master 484 wiersze).
@@ -1691,8 +2260,11 @@ Why the new Worker is not being created:
 **Pliki:** data/master.csv (gitignored, 480→484), frontend-2/public/master.csv (commit), DZIENNIK.md.
 
 **Kluczowe ustalenia:**
+
 - MD: PARȘE-TUTUN ma 'Lichidator' w zarządzie — flag ⚠️ do weryfikacji statusu likwidacji. Alternatywa: TUTUN-PREMIUM (LOHN, export, lepszy status).
+
 - RS: T.R. STAKI = silny A-lead z mašinicami w asortymencie (Banjica lokacja sklep + Crnotravska veleprodaja). Pow 4/5.
+
 - SI: ROKSANS d.o.o. — kompletna licencja MZ (3 z 3 X w dovoljenju), Ljubljana, mocny lead hurtowni. Brak publicznie dostępnych danych decydenta (AJPES paywalled dla małych firm).
 
 **KONIEC SESJI GENTLE SEARCH — wszystkie 12 krajów (12/12) ✅:**
@@ -1702,51 +2274,76 @@ PL (4) + CZ (2) + SK (3) + RO (1) + HR (1) + BG (2) + EE (0) + LT (1) + LV (1) +
 
 **ŁĄCZNY WYNIK SESJI (4 commity):**
 
-| Commit | Kraje | Nowe verified | Partial | Master rows |
-|--------|-------|---------------|---------|-------------|
-| 1 | PL+CZ+SK | 9 | 5 | 463→474 |
-| 2 | RO+HR+BG | 4 | 0 | 474→478 |
-| 3 | EE+LT+LV | 2 | 0 | 478→480 |
-| 4 | MD+RS+SI | 4 | 0 | 480→484 |
-| **RAZEM** | **12** | **19** | **5** | **+21** |
+| Commit    | Kraje    | Nowe verified | Partial | Master rows |
+| --------- | -------- | ------------- | ------- | ----------- |
+| 1         | PL+CZ+SK | 9             | 5       | 463→474     |
+| 2         | RO+HR+BG | 4             | 0       | 474→478     |
+| 3         | EE+LT+LV | 2             | 0       | 478→480     |
+| 4         | MD+RS+SI | 4             | 0       | 480→484     |
+| **RAZEM** | **12**   | **19**        | **5**   | **+21**     |
 
 **Status końcowy:**
+
 - ✅ Wszystkie 12 krajów (PL, CZ, SK, RO, HR, BG, EE, LT, LV, MD, RS, SI) przeszło gentle search
+
 - ✅ master.csv: 463 → 484 wiersze (+21)
+
 - ✅ frontend-2/public/master.csv zsynchronizowany (commitowane w każdym kroku)
+
 - ✅ 19 nowych verified A-leads dodanych do master
+
 - ✅ 5 partial leads (3 PL extra-leads + 2 SK/CZ gems) w pipeline do następnej sesji
-- ✅ validate_columns.py: 0 Critical, 0 Warnings
+
+- ✅ validate\_columns.py: 0 Critical, 0 Warnings
+
 - ✅ 4 commity (po 1 na batch 3 krajów) — zgodnie z instrukcją
+
 - ✅ DZIENNIK.md zaktualizowany po każdym commicie
 
 **Kryteria kwalifikacji A-class:**
+
 - Wholesaler/distributor tytoniu (CAEN 4635, NACE 4621, NKD 46.35, KID 46.35)
+
 - LUB producent tytoniu (z licencją)
+
 - LUB importer + hurtownia akcesoriów do palenia (maszynki/nabijarki/filtry)
+
 - Weryfikacja: NIP/IDNO/IČO/KRS + adres + KID kod + (opcja) decydent
 
 **Najsilniejsze nowe leads (pow 4-5/5):**
+
 1. **HR-A-009 POGON KOOLTURA d.o.o.** — Zagrzeb/Donji Stupnik, ma 'MAŠINICE' w asortymencie. ⭐
 2. **RS-A-005 T.R. STAKI d.o.o.** — Beograd, mašinice w ofercie. ⭐
 3. **LT-A-012 UAB Hordus (RoyalSmoke)** — Vilnius, EVRK 46.35.00, 24M EUR obrotu. ⭐
 
 **Adjacent / LOW confidence (wpisane dla porządku, ale cross-sell PowerMatic niski):**
+
 - PL-A-002 Luna Corporate (woreczki nikotynowe, nie maszynki)
+
 - PL-A-003 Promatic & DPM (nazwa sugeruje markę maszyn, brak powiązania)
+
 - PL-A-004 Big Brands Group (FMCG, 20k+ produktów, nie tytoń)
+
 - BG-A-009 Imperial Brands Bulgaria (duży koncern, nie cross-sell)
+
 - RO-A-010 TUTUNUL ROMANIA (mała, niestabilne przychody)
 
 **PENDING/REQUIRES FUTURE VERIFICATION:**
+
 - CZ-A-011 MERCATO PREZZO (ARES nie znajduje IČO 28635621)
+
 - MD-A-006 PARȘE-TUTUN (Lichidator w zarządzie — możliwa likwidacja)
+
 - RS-A-005 T.R. STAKI (brak pełnej weryfikacji APR — mb/PIB)
 
 **Następne kroki (out of scope):**
+
 - Marceli może zweryfikować RS-A-005 przez APR (mb/PIB search)
+
 - MD-A-006 wymaga potwierdzenia statusu spółki (likwidacja czy aktywna)
+
 - Dla EE warto dalsze poszukiwania (Vapista, mała ekspozycja rynku tytoniowego)
+
 - Finalna weryfikacja wszystkich decydentów paywalled (PL, CZ, SI, LV, BG) wymaga płatnych API (ONRC, ARES+, AJPES Premium, Info-BG)
 
 ## 2026-09-03 08:49 CEST — Weryfikacja extras-PL + brakujące gems-NON-PL (follow-up gentle search)
@@ -1762,42 +2359,50 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 
 ### ✅ Dodane 5 nowych PL B-leads (z pełną weryfikacją API):
 
-| ID | Nazwa | Miasto | NIP/REGON | Rejestr | Tier | Pow | Źródło |
-|---|---|---|---|---|---|---|---|
-| PL-B-132 | PHU "MONA" WIESŁAW KUSIAK | Bełchatów | 7690506205 | CEIDG AKTYWNY od 1996 | hurtownik | 4 | CEIDG v3 API + sprytnykupiec.pl |
-| PL-B-133 | HURTOWNIA PAPIEROSÓW SP. Z O.O. | Brzeziny | 8330002756 | KRS 0000568420 (24M PLN) | hurtownik | 4 | KRS API + rejestr.io |
-| PL-B-134 | FH "ALANS" WIOLETTA SKOCZYLAS | Ruda Śląska | 6412116985 | CEIDG AKTYWNY od 2004 | hurtownik | 3 | CEIDG v3 API + alans.pl |
-| PL-B-135 | ALMARK J. STAJER SP. K. | Leszno | 6972257505 | KRS 0000331276 (~50M PLN, 13 oddziałów) | hurtownik | 3 | KRS API + baza-firm.com.pl |
-| PL-B-136 | B E A T A - Hurtownia Papierosów ROBERT STRÓŻYŃSKI | Wołomin | 1250446200 | CEIDG AKTYWNY od 1993 | hurtownik | 3 | CEIDG v3 API + beata.waw.pl |
+| ID       | Nazwa                                              | Miasto      | NIP/REGON  | Rejestr                                  | Tier      | Pow | Źródło                          |
+| -------- | -------------------------------------------------- | ----------- | ---------- | ---------------------------------------- | --------- | --- | ------------------------------- |
+| PL-B-132 | PHU "MONA" WIESŁAW KUSIAK                          | Bełchatów   | 7690506205 | CEIDG AKTYWNY od 1996                    | hurtownik | 4   | CEIDG v3 API + sprytnykupiec.pl |
+| PL-B-133 | HURTOWNIA PAPIEROSÓW SP. Z O.O.                    | Brzeziny    | 8330002756 | KRS 0000568420 (24M PLN)                 | hurtownik | 4   | KRS API + rejestr.io            |
+| PL-B-134 | FH "ALANS" WIOLETTA SKOCZYLAS                      | Ruda Śląska | 6412116985 | CEIDG AKTYWNY od 2004                    | hurtownik | 3   | CEIDG v3 API + alans.pl         |
+| PL-B-135 | ALMARK J. STAJER SP. K.                            | Leszno      | 6972257505 | KRS 0000331276 (\~50M PLN, 13 oddziałów) | hurtownik | 3   | KRS API + baza-firm.com.pl      |
+| PL-B-136 | B E A T A - Hurtownia Papierosów ROBERT STRÓŻYŃSKI | Wołomin     | 1250446200 | CEIDG AKTYWNY od 1993                    | hurtownik | 3   | CEIDG v3 API + beata.waw\.pl    |
 
 ### ✅ Dodany 1 SK B-lead:
 
-| ID | Nazwa | Miasto | IČO | Rejestr | Tier | Pow | Źródło |
-|---|---|---|---|---|---|---|---|
+| ID       | Nazwa                  | Miasto     | IČO      | Rejestr                           | Tier      | Pow          | Źródło               |
+| -------- | ---------------------- | ---------- | -------- | --------------------------------- | --------- | ------------ | -------------------- |
 | SK-B-019 | KON - RAD spol. s r.o. | Bratislava | 00684104 | OR BA III, Sro vl. 98/B (35M EUR) | hurtownik | 1 (adjacent) | FinStat + kon-rad.eu |
 
 ### ❌ Odrzucone (po weryfikacji):
 
-| ID | Powód | Decyzja |
-|---|---|---|
-| PL-X-004 (KDWT S.A.) | KRS 0000040385 WYKREŚLONY 2014-12-11 | ⚠️ PARTIAL — multi-branch działa, ale pod nowym KRS 0000801461 (Eurocash). NIE dodany — wymaga ręcznej decyzji. |
-| PL-X-006 (Atut Bis) | KRS 0000244646 = budownictwo (okna/drzwi), NIE TYTOŃ | ❌ REJECTED — zła kategoria |
-| PL-X-008, 009, 010, 011, 012, 013, 014, 015 | Brak NIP/KRS/CEIDG w publicznych źródłach | ❌ REJECTED — insufficient data |
-| PL-X-016 | Duplikat PL-X-003 / PL-B-134 | ✅ MERGED |
-| PL-X-018 | Duplikat PL-B-003 (DOPALENIA.PL GABIMIX) | ✅ ALREADY IN MASTER |
-| PL-X-017 (Drek, Radom) | Tylko telefon komórkowy, brak NIP/CEIDG | ⏸️ PENDING — do ręcznej weryfikacji |
-| SK-B-029 (D.A. CZVEDLER) | IČO 34114726, DISSOLVED 2026-06-01 | ❌ REJECTED — successor: MEDIAPRESS (już SK-A-015) |
+| ID                                          | Powód                                                | Decyzja                                                                                                         |
+| ------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| PL-X-004 (KDWT S.A.)                        | KRS 0000040385 WYKREŚLONY 2014-12-11                 | ⚠️ PARTIAL — multi-branch działa, ale pod nowym KRS 0000801461 (Eurocash). NIE dodany — wymaga ręcznej decyzji. |
+| PL-X-006 (Atut Bis)                         | KRS 0000244646 = budownictwo (okna/drzwi), NIE TYTOŃ | ❌ REJECTED — zła kategoria                                                                                      |
+| PL-X-008, 009, 010, 011, 012, 013, 014, 015 | Brak NIP/KRS/CEIDG w publicznych źródłach            | ❌ REJECTED — insufficient data                                                                                  |
+| PL-X-016                                    | Duplikat PL-X-003 / PL-B-134                         | ✅ MERGED                                                                                                        |
+| PL-X-018                                    | Duplikat PL-B-003 (DOPALENIA.PL GABIMIX)             | ✅ ALREADY IN MASTER                                                                                             |
+| PL-X-017 (Drek, Radom)                      | Tylko telefon komórkowy, brak NIP/CEIDG              | ⏸️ PENDING — do ręcznej weryfikacji                                                                             |
+| SK-B-029 (D.A. CZVEDLER)                    | IČO 34114726, DISSOLVED 2026-06-01                   | ❌ REJECTED — successor: MEDIAPRESS (już SK-A-015)                                                               |
 
 **Walidacja:** 0 Critical, 0 Warnings (27 plików, 948 wierszy, master 471 wierszy).
 
 **Pliki zmienione:**
+
 - `data/Polska/catalog-B-PL.csv` (+5 wpisów: PL-B-132 do PL-B-136)
+
 - `data/Słowacja/catalog-B-SK.csv` (+1 wpis: SK-B-019)
+
 - `data/master.csv` (gitignored, 465→471 wierszy — +5 PL +1 SK)
+
 - `frontend-2/public/master.csv` (commit, zsynchronizowany)
+
 - `data/Polska/extra-leads-PL-verified-2026-09-03.csv` (NOWY, 19 wierszy — annotacja weryfikacji per PL-X)
+
 - `data/verification/gems-NON-PL-verification-2026-09-03.md` (NOWY, raport dla 2 brakujących gemów)
+
 - `data/audit-log.md` (dodany wpis sesji)
+
 - `DZIENNIK.md` (ten wpis)
 
 **Kluczowe wnioski (anti-halucynacja):**
@@ -1810,13 +2415,19 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 6. **12/20 = 60% odrzuconych** — to dobry znak anty-halucynacyjny. Gdyby wszystko przeszło, znaczyłoby to że walidacja jest za luźna.
 
 **PENDING (do ręcznej weryfikacji przez Marceli):**
+
 - PL-X-004 (KDWT) — czy użyć nowego KRS 0000801461 (Eurocash)? Czy pominąć całkowicie?
+
 - PL-X-017 (Drek, Radom) — telefon komórkowy + brak danych. Czy to właściciel JDG, czy outsider?
+
 - 8 PL-X z brakiem NIP (008-015) — czy są warci głębszego dochodzenia (np. przez Google Maps / wizytówki)?
 
 **Następne kroki (out of scope):**
+
 - Marceli może zweryfikować ręcznie PL-X-017 (Drek, Radom) przez Google Maps
+
 - Decyzja o KDWT S.A. (KRS 0000801461 vs skip)
+
 - Możliwe szersze poszukiwania 8 odrzuconych PL-X przez inne kanały (KAS rejestr pośredników tytoniowych, panoramę firm z wizytówkami Google)
 
 ## 2026-09-03 10:00 CEST — Cleanup: merge leads, delete snapshots, hard delete intake
@@ -1826,28 +2437,43 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 **Wynik:**
 
 1. **Leads merge:**
+
    - **data/Polska/extra-leads-PL-verified-2026-09-03.csv** (18 wierszy): 16 dodanych do master (PL-B-137 do PL-B-152), 1 duplikat (Dopalenia = PL-B-003) usunięty, 1 PL-X-017 już w master.
+
    - **data/gems-NON-PL.csv** (126 wierszy): 125 to duplikaty już w master (te same ID), 1 nowy ale dane z-shiftowane. **Nic nie wzięte z gems.**
+
    - Master: 471 → 487 wierszy (+16).
 
 2. **Snapshots delete:**
+
    - `data/.snapshots/` (108 plików archiwalnych catalogów z 2026-08-31): usunięte. Było gitignored.
 
 3. **Intake cleanup:**
+
    - `data/_intake/manual-search-2026-08-31/` (8 plików CZ/PL/SK/UK raw+shortlist): usunięte. UK poza scope, reszta to surowe wejścia których odpowiedniki verified są w master.
+
    - `data/gems-NON-PL-archive-2026-09-03.csv`: usunięte (duplikat gems-NON-PL.csv).
+
    - `data/_intake/_README.md`: zostawiony (tracked w gitignore-allowlist).
+
    - `data/audit-log.md` (2MB): zostawiony (historyczny log).
 
 **3 commity:**
+
 - `5dca830c cleanup(leads-merge): 16 verified PL extras → master (PL-B-137..152)`
+
 - `5f7972e6 cleanup(intake): hard delete 8 manual-search-2026-08-31 files + gems-NON-PL-archive`
+
 - (snapshots: brak commita, bo pliki były gitignored)
 
 **Kluczowe ustalenia:**
+
 - extra-leads-PL-verified ma off-by-one + niecytowane przecinki w adresach → ręczne fixy dla KDWT.
+
 - gems-NON-PL.csv jest archiwum (95% duplikatów). Nowy lead-search worker (gentle 12 countries) zapisuje od razu do master, nie do gems.
+
 - KDWT S.A. (PL-B-140) ma flagę "DISSOLVED LEGAL ENTITY" — następca prawny to KDWT S.A. KRS 0000801461 (spółka Eurocash).
+
 - 7 nowych PL ma flagę "DO-WERYFIKACJI" — Smart sp. z o.o., Marwin Polska, PPHU HITPOL, PHU BJB, Polityka w Sieci, FH Eduard, FH Konieczny — do manual review.
 
 **Walidacja:** 0 Critical, 0 Warnings (964 wiersze, 27 plików).
@@ -1861,28 +2487,43 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 **Wynik:**
 
 1. **Leads merge (per-kraj extras-{ISO}.csv → master.csv):**
+
    - 34 wierszy w 10 plikach extras, 32 nowych po dedupe (2 duplikaty z master).
+
    - Master: 487 → 519 wierszy.
+
    - Per kraj: BG +6, HR +1, CZ +1, EE +3, FR +2, LT +5, LV +5, MD +1, RO +1, SK +7.
+
    - RS +0 (puste), SI +0 (puste).
+
    - Gems-{ISO}.csv: 0 nowych (100% duplikatów w master).
 
 2. **Per-kraj files delete (git rm):**
+
    - 12 × `data/{Kraj}/extra-leads-{ISO}.csv` (BG, HR, CZ, EE, FR, LT, LV, MD, RO, RS, SK, SI)
+
    - 12 × `data/{Kraj}/gems-{ISO}.csv`
-   - = 24 pliki usunięte w git (wszystkie tracked).
+
+   - \= 24 pliki usunięte w git (wszystkie tracked).
+
    - PL extras zostawione (data/Polska/extra-leads-PL.csv, data/Polska/extra-leads-PL-verified-2026-09-03.csv) — do follow-up research.
 
 3. **Skasowane (untracked):** nic.
 
 **2 commity:**
+
 - `2053339e cleanup(non-pl-extras): 32 verified extras → master (BG/HR/CZ/EE/FR/LT/LV/MD/RO/SK)`
+
 - `da9b9640 cleanup(non-pl-extras): delete 24 per-kraj extras/gems files (12 ISO × 2 typy)`
 
 **Kluczowe ustalenia:**
+
 - Per-kraj extras pliki miały off-by-one: dane zaczynają się od `id` (np. `BG-X-001`) zamiast `kraj='BG'`. Ręczne mapowanie w skrypcie merge.
+
 - Wiele email/telefon w danych źródłowych było przesunięte o 1+ (np. email='Daugavpils', telefon='hurtownik'). 26 wartości wyczyszczonych do pustego.
+
 - Rekomendacja: lead-search worker (gentle 12 countries) powinien generować pliki z headerem zgodnym z danymi (bez fałszywego 'kraj' na początku).
+
 - 2 commity zamiast 1 bo deploy-cloudflare.yml zostało przypadkowo usunięte w pierwszym commicie (git amend je przywrócił).
 
 **Walidacja:** 0 Critical, 0 Warnings (996 wierszy, 27 plików).
@@ -1902,29 +2543,45 @@ CI zostaje: `.github/workflows/ci-python.yml` (testy pytest + node:test).
 Pełna stabilizacja i unifikacja UI w `frontend-2` na prośbę Marcelego:
 
 1. **Poprawki błędów wykonawczych:**
+
    - Rozwiązano błędy renderowania React `[object Date]` oraz brakującego ID w tabeli.
+
    - Usunięto zbędny przycisk uploadu z górnego paska nawigacji.
 
-2. **Redesign `ModernLeadsTableV2.jsx` (Enterprise Light Theme):**
+2. **Redesign** **`ModernLeadsTableV2.jsx`** **(Enterprise Light Theme):**
+
    - Wdrożono czytelny, 9-kolumnowy layout: `ID`, `Kraj`, `Nazwa Firmy`, `Marka`, `Kategoria`, `Decydent`, `Data weryfikacji`, `Status`, `Flagi`.
+
    - Zintegrowano wskaźniki `Verified` (ShieldCheck), `FROZEN` (❄️) oraz poziom zaufania (`confNum%`).
+
    - Sticky kolumny i czytelne formatowanie 2-wierszowe decydentów z zachowaniem maskowania RODO.
 
 3. **Unifikacja tokenów Design Systemu we wszystkich widokach:**
+
    - **`LeadsView.jsx`**: Ujednolicono karty KPI z tokenami `bg-card`, `border-border`, `text-card-foreground`.
+
    - **`ModernLeadsTableV2.jsx`**: Filtry, dropdowny (`Rola`, `WWW`, `Confidence`, `Kraj`), chipy i wiersze oparte na tokenach `bg-card`, `bg-popover`, `border-border`, `text-foreground`.
+
    - **`AtlasGrokView.jsx`**: Całkowicie wyeliminowano odizolowany, ciemny motyw cyberpunkowy (`#090b10`). Telemetria HUD, kafelki i inspektor zintegrowane ze spójnym systemem Enterprise SaaS.
+
    - **`AnalyticsView.jsx`**: Dostosowano `KpiTile` i kafelki deklaracji dystrybucyjnych.
+
    - **`App.jsx`**: Dostosowano przyciski nawigacyjne (TABS) i nagłówek.
 
 4. **Weryfikacja testami:**
+
    - `npm run test:lib`: 64/64 pass.
+
    - `npm run test:components`: 69/69 pass.
+
    - Łącznie 133/133 testów zdanych (100% pass).
 
 **Commity:**
+
 - `e410eb1c feat(ui): redesign ModernLeadsTableV2 to high-fidelity Light Theme`
+
 - `9350a1d7 feat(ui): unify all views with design system tokens`
+
 - `bfee4b8b docs(dziennik): log UI redesign and design system token unification`
 
 ## 2026-09-03 16:30 CEST — cleanup: remove obsolete legacy scripts, unused views and orphaned workspace folders
@@ -1932,45 +2589,70 @@ Pełna stabilizacja i unifikacja UI w `frontend-2` na prośbę Marcelego:
 Kompleksowe oczyszczenie projektu na polecenie Marcelego:
 
 1. **Frontend cleanup (`frontend-2`):**
+
    - Usunięto przestarzałą tabelę V1 `ModernLeadsTable.jsx` (40 KB) i stary widok `ExperimentView.jsx` (44 KB).
+
    - Usunięto nieużywany cache `.wrangler/`.
+
    - Zaktualizowano komentarze w `analytics.js` i `sampleLeads.js`.
 
 2. **Root workspace cleanup:**
+
    - Usunięto nieśledzony katalog `atlas-grok/` (App Builder, 407 MB).
+
    - Usunięto osierocony katalog `node_modules/` w root (pozostałości po dawnych uruchomieniach vite).
 
 3. **Legacy tools & tests removal:**
+
    - Usunięto folder `tools/legacy/` (52 archiwalne jednorazowe skrypty: `deep_clean_v2.py`-`v11`, dawne migracje, sweepy).
+
    - Usunięto `tests/legacy/test_purge_and_orchestrate.py`.
+
    - Poprawiono `.github/workflows/ci-python.yml` (usunięto odwołanie do legacy skryptu `test_11_levels.py`) oraz zaktualizowano `tools/README.md`.
 
 4. **Weryfikacja:**
+
    - Pytest: 527/527 pass.
+
    - Frontend tests: 133/133 pass.
+
    - Walidacja danych: 27 plików, 948 wierszy, 0 Critical, 0 Warning.
 
 ## 2026-09-03 16:45 CEST — feat(data): add BILLS Sp. z o.o. (PL-A-001) & fix test isolation
 
 1. **Dodanie BILLS Sp. z o.o. do bazy katalogów:**
+
    - Utworzono oficjalny wpis w `data/Polska/catalog-A-PL.csv` pod unikalnym ID `PL-A-001`.
+
    - Zweryfikowane dane rejestrowe: NIP `PL5140361901`, KRS `0001074645`, REGON `527173907`, Ostrzeszów, ul. Daszyńskiego 31.
+
    - Status: `autoryzowany`, marki: `PowerMatic | Hawk`, marka własna OEM: `Hawk`.
+
    - Przekompilowano `data/master.csv` (łącznie 472 rekordy) oraz zsynchronizowano `frontend-2/public/master.csv`.
 
 2. **Poprawka izolacji testów jednostkowych:**
+
    - Wykryto i naprawiono defekt w `tests/test_normalize_kolumny.py::TestMakeBackup`, który tworzył i usuwał pliki bezpośrednio w katalogu produkcyjnym `data/Czechy/` oraz `data/Polska/`.
+
    - Zastosowano bezpieczną izolację przez `tmp_path` i `monkeypatch.setattr(nk, "DATA", test_data)`.
 
 3. **Weryfikacja:**
+
    - `python3 tools/validate_columns.py`: 28 plików, 950 wierszy — 0 Critical, 0 Warning.
+
    - `pytest -q`: 527 passed in 10.35s.
+
    - `npm test`: 133/133 passed (100%).
+
    - UI: Zweryfikowano w przeglądarce pod adresem `http://localhost:3001` (wyszukiwanie "BILLS", chip `PowerMatic + Hawk`, podgląd szczegółów).
 
 ## 2026-09-03 17:05 CEST — fix(frontend): auto-load master.csv in Siatka Danych (RawTable)
 
 - **Problem:** Po zalogowaniu Siatka Danych (`RawTable.jsx`) nie ładowała automatycznie danych, zatrzymując się na pustym stanie dropzone (`EmptyState`), podczas gdy Atlas Grok i Katalog Leadów ładowały dane od razu.
+
 - **Przyczyna:** W `RawTable.jsx` sekwencja bootowania (`bootRef` + `getActiveDatasetInfo`) była przerywana przez unmount w React `StrictMode` (`cancelled = true`), przez co `bootRef.current` trwale utknął na wartości `1` przed wywołaniem `loadUrl(...)`.
+
 - **Rozwiązanie:** Zresetowano `bootRef.current = 0` w przypadku anulowania montowania / cleanupu, pozwalając na czyste uruchomienie `loadUrl` na remouncie.
+
 - **Weryfikacja:** Przetestowano w przeglądarce (Siatka Danych wczytuje 472 wiersze i 36 kolumn automatycznie od razu po wejściu) + testy jednostkowe `frontend-2` (69/69 pass).
+
