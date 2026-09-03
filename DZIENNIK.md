@@ -1418,3 +1418,22 @@ Why the new Worker is not being created:
 - HR: Pogon Kooltura = jedyny nowy silny A-lead (pow 4/5). NKD G46350, właściciel MUTUUS, ma asortyment 'MAŠINICE' = rolling machines + papierosy/filtri. Bardzo bliski profilowi klienta PowerMatic.
 - BG: TABAK LOGISTIK GROUP (EИК 203353623) — solidna hurtownia regionalna (Враца, 5-15M BGN), ale brak publicznego kontaktu. Drugi lead (Imperial Brands) to bułgarska spółka córa globalnego koncernu, raczej niski cross-sell.
 - RO: tylko TUTUNUL ROMANIA znaleziony spośród 30+ sprawdzonych źródeł — większość albo w master (PHILIP MORRIS ROMANIA, BRITISH AMERICAN, JTI, IMPERIAL BRANDS, JPB TRADE, BRANDS INTERNATIONAL, ANGROSISTUL), albo w segmencie alkohole (ROMPACK TRADING, 4634), albo paywalled (ONRC brak publicznego dostępu do dyrektorów).
+
+## 2026-09-03 07:06 CEST — Gentle lead search: EE + LT + LV (commit 3/4)
+
+**Zakres i wykonanie:**
+1. **EE** (0 nowych verified → master):
+   - Brak nowych leads w Estonii spełniających kryteria A-class w tej iteracji. Vapista OÜ (alternatywne wyroby tytoniowe, NUSO sticks) — adjacent. Ewentualne dalsze EE badania w następnej sesji. NORDIC DIGITAL AS już w master (EE-A-009).
+2. **LT** (1 nowy verified → master):
+   - **LT-A-012 UAB Hordus (RoyalSmoke Lithuania)** (kod 303182002) — Vilnius. EVRK 46.35.00 Tabako gaminių didmeninė prekyba (zawiera 'cigarette rolling equipment' wholesale). Apyvarta 24,4M EUR (2024), 18 emp, 2-gie miejsce w EVRK 4635. Director: Lukas Kaleinikovas. www.royalsmoke.lt (sieć sklepów LT+LV). ⭐ Duży gracz.
+3. **LV** (1 nowy verified → master):
+   - **LV-A-008 SIA GREIS (Greis Logistika)** (Reģ. Nr. 40003277353) — Rīga + Liepāja (Cukura 27). Wholesale of tobacco products od 1995. 2 oddziały (Liepāja, Ogre). Jeden z największych dystrybutorów tytoniu na Łotwie. Konkurent TNG (już w master). ⚠️ Dyrektor paywalled w LV publicznych źródłach.
+
+**Walidacja:** 0 Critical, 0 Warnings (27 plików, 951 wierszy, master 480 wiersze).
+
+**Pliki:** data/master.csv (gitignored, 478→480), frontend-2/public/master.csv (commit), DZIENNIK.md.
+
+**Kluczowe ustalenia:**
+- EE: mała ekspozycja rynku tytoniowego (EVRK/EMTAK), większość leadów to vape/e-sigarety albo nikotínové sáčky, nie klasyczne PowerMatic. Vapista.ee (alternatywne wyroby tytoniowe) — adjacent, nie dodany. Brak nowych leads w tej iteracji.
+- LT: Hordus UAB (RoyalSmoke) — bardzo solidny hurtownik e-papierosów + akcesoria, EVRK 46.35.00 (wholesale of tobacco products including 'cigarette rolling equipment'). Duży gracz 24M EUR obrotu.
+- LV: Greis SIA — drugi największy dystrybutor tytoniu na Łotwie (po TNG), z 3 oddziałami, od 1995. Director paywalled w publicznych źródłach łotewskich.
