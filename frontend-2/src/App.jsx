@@ -244,12 +244,12 @@ export default function App() {
                   className={cn(
                     "inline-flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all sm:px-3.5",
                     active
-                      ? "bg-white dark:bg-zinc-800 text-foreground shadow-sm shadow-black/5 dark:shadow-black/20"
+                      ? "bg-card text-foreground shadow-sm border border-border/60"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
                   )}
                   aria-pressed={active}
                 >
-                  <Icon className={cn("h-3.5 w-3.5", active ? "text-indigo-600 dark:text-indigo-400" : "opacity-70")} />
+                  <Icon className={cn("h-3.5 w-3.5", active ? "text-primary font-bold" : "opacity-70")} />
                   <span className="hidden sm:inline">{label}</span>
                 </button>
               );

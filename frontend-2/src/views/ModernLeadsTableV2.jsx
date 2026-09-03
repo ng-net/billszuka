@@ -684,12 +684,12 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 className={
                   "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all " +
                   (isOn
-                    ? "bg-slate-100 dark:bg-zinc-800 text-slate-900 dark:text-slate-100 shadow-inner"
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800/50")
+                    ? "bg-primary/10 text-primary font-semibold border border-primary/20 shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/60")
                 }
               >
                 {b.label}
-                <span className="ml-0.5 text-[10px] font-mono tabular-nums px-1.5 rounded-full bg-slate-200/70 dark:bg-zinc-700 text-slate-500 dark:text-slate-400">
+                <span className="ml-0.5 text-[10px] font-mono tabular-nums px-1.5 rounded-full bg-muted text-muted-foreground">
                   {b.count}
                 </span>
               </button>
@@ -698,20 +698,20 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         </div>
 
         {/* --- MODERN FILTER BAR --- */}
-        <div ref={filterBarRef} className="bg-white dark:bg-zinc-900 p-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-zinc-800 flex flex-wrap gap-2 items-center">
+        <div ref={filterBarRef} className="bg-card p-2.5 rounded-xl shadow-sm border border-border flex flex-wrap gap-2 items-center">
           <div className="relative flex-1 min-w-[280px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Szukaj po nazwie, NIP, decydencie, telefonie lub mieście..."
-              className="w-full pl-10 pr-20 py-2 bg-slate-50 dark:bg-zinc-800/80 border-none rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900/10 dark:focus:ring-indigo-500/20 outline-none transition-all"
+              className="w-full pl-10 pr-20 py-2 bg-muted/40 border border-input rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-1 focus:ring-primary/30 outline-none transition-all"
             />
             {!searchQuery && (
               <kbd
                 aria-label="Skrót klawiaturowy: Command lub Control + K"
-                className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400 bg-white dark:bg-zinc-700 border border-slate-200 dark:border-zinc-600 rounded shadow-sm pointer-events-none"
+                className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-muted-foreground bg-card border border-border rounded shadow-sm pointer-events-none"
               >
                 ⌘K
               </kbd>
@@ -721,14 +721,14 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 type="button"
                 onClick={() => setSearchQuery("")}
                 title="Wyczyść szukanie"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <X size={15} />
               </button>
             )}
           </div>
 
-          <div className="hidden sm:block h-7 w-px bg-slate-200 dark:bg-zinc-700 mx-1"></div>
+          <div className="hidden sm:block h-7 w-px bg-border mx-1"></div>
 
           {/* Filter Dropdowns */}
           <div className="relative">
@@ -742,20 +742,20 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 setUrlDropdownOpen(false);
                 setConfidenceDropdownOpen(false);
               }}
-              className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
+              className="flex items-center gap-2 px-3 py-2 bg-card hover:bg-muted/60 border border-border rounded-lg text-sm font-medium text-foreground transition-colors"
             >
-              <Globe size={16} className="text-slate-500 dark:text-slate-400" />
+              <Globe size={16} className="text-muted-foreground" />
               <span>Kraj: {selectedCountry}</span>
               {selectedCountries.length > 1 && (
-                <span className="ml-1 px-1.5 py-0.5 text-[10px] font-mono bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded">+{selectedCountries.length - 1}</span>
+                <span className="ml-1 px-1.5 py-0.5 text-[10px] font-mono bg-primary/10 text-primary rounded">+{selectedCountries.length - 1}</span>
               )}
-              <ChevronDown size={14} className="text-slate-400" />
+              <ChevronDown size={14} className="text-muted-foreground" />
             </button>
             <div
               role="listbox"
               aria-label="Wybór kraju (Multi-select: kliknij kilka aby zaznaczyć)"
               hidden={!countryDropdownOpen}
-              className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50 max-h-64 overflow-y-auto"
+              className="absolute top-full left-0 mt-2 w-64 bg-popover text-popover-foreground border border-border rounded-xl shadow-xl p-1.5 z-50 max-h-64 overflow-y-auto"
             >
                 <p className="px-3 py-1 text-[10px] uppercase tracking-wide font-semibold text-slate-400 dark:text-slate-500">Multi-select</p>
                 <button
@@ -811,14 +811,14 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 setCountryDropdownOpen(false);
                 setUrlDropdownOpen(false);
               }}
-              className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
+              className="flex items-center gap-2 px-3 py-2 bg-card hover:bg-muted/60 border border-border rounded-lg text-sm font-medium text-foreground transition-colors"
             >
-              <Building2 size={16} className="text-slate-500 dark:text-slate-400" />
+              <Building2 size={16} className="text-muted-foreground" />
               <span>Rola: {selectedTier}</span>
-              <ChevronDown size={14} className="text-slate-400" />
+              <ChevronDown size={14} className="text-muted-foreground" />
             </button>
             {tierDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-44 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
+              <div className="absolute top-full left-0 mt-2 w-44 bg-popover text-popover-foreground border border-border rounded-xl shadow-xl p-1.5 z-50">
                 {tierOptions.map((r) => (
                   <button
                     key={r}
@@ -828,8 +828,8 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                     }}
                     className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
                       selectedTier === r
-                        ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                        ? "bg-primary/10 text-primary font-semibold"
+                        : "text-foreground hover:bg-muted"
                     }`}
                   >
                     <span>{r}</span>
@@ -847,9 +847,9 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 setCountryDropdownOpen(false);
                 setTierDropdownOpen(false);
               }}
-              className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
+              className="flex items-center gap-2 px-3 py-2 bg-card hover:bg-muted/60 border border-border rounded-lg text-sm font-medium text-foreground transition-colors"
             >
-              <ExternalLink size={16} className="text-slate-500 dark:text-slate-400" />
+              <ExternalLink size={16} className="text-muted-foreground" />
               <span>
                 WWW:{" "}
                 {selectedUrlFilter === "ok"
@@ -864,10 +864,10 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                   ? "Brak/Nieznane"
                   : "Wszystkie"}
               </span>
-              <ChevronDown size={14} className="text-slate-400" />
+              <ChevronDown size={14} className="text-muted-foreground" />
             </button>
             {urlDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
+              <div className="absolute top-full left-0 mt-2 w-56 bg-popover text-popover-foreground border border-border rounded-xl shadow-xl p-1.5 z-50">
                 {[
                   { id: "Wszystkie", label: "Wszystkie WWW", icon: null },
                   { id: "ok", label: "Działające (200 OK)", icon: CheckCircle2 },
@@ -886,12 +886,12 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                       }}
                       className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
                         selectedUrlFilter === opt.id
-                          ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                          ? "bg-primary/10 text-primary font-semibold"
+                          : "text-foreground hover:bg-muted"
                       }`}
                     >
                       <span className="flex items-center gap-1.5">
-                        {Icon && <Icon size={13} className={opt.id === "red_high_kw" ? "text-amber-500" : "text-slate-400"} />}
+                        {Icon && <Icon size={13} className={opt.id === "red_high_kw" ? "text-amber-500" : "text-muted-foreground"} />}
                         {opt.label}
                       </span>
                       {selectedUrlFilter === opt.id && <Check size={14} />}
@@ -914,9 +914,9 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 setTierDropdownOpen(false);
                 setUrlDropdownOpen(false);
               }}
-              className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-700/80 border border-slate-200 dark:border-zinc-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors"
+              className="flex items-center gap-2 px-3 py-2 bg-card hover:bg-muted/60 border border-border rounded-lg text-sm font-medium text-foreground transition-colors"
             >
-              <Gauge size={16} className="text-slate-500 dark:text-slate-400" />
+              <Gauge size={16} className="text-muted-foreground" />
               <span>
                 Confidence:{" "}
                 {selectedConfidence === "green"
@@ -927,13 +927,13 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                   ? "brak"
                   : "wszystkie"}
               </span>
-              <ChevronDown size={14} className="text-slate-400" />
+              <ChevronDown size={14} className="text-muted-foreground" />
             </button>
             <div
               role="listbox"
               aria-label="Filtr confidence"
               hidden={!confidenceDropdownOpen}
-              className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50"
+              className="absolute top-full left-0 mt-2 w-56 bg-popover text-popover-foreground border border-border rounded-xl shadow-xl p-1.5 z-50"
             >
                 {[
                   { id: "all", label: "Wszystkie", icon: CircleDot },
@@ -954,12 +954,12 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                       }}
                       className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
                         selectedConfidence === opt.id
-                          ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
+                          ? "bg-primary/10 text-primary font-semibold"
+                          : "text-foreground hover:bg-muted"
                       }`}
                     >
                       <span className="flex items-center gap-1.5">
-                        <Icon size={13} className="text-slate-400" />
+                        <Icon size={13} className="text-muted-foreground" />
                         {opt.label}
                       </span>
                       {selectedConfidence === opt.id && <Check size={14} />}
@@ -973,21 +973,21 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
           {/* Active filter chips (V3 faceted-style with X) */}
           <div className="flex items-center gap-2 px-2 flex-wrap">
-            <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Aktywne:
             </span>
             {activeFilters.length === 0 && !searchQuery ? (
-              <span className="text-xs text-slate-400 italic">Wszystkie rekordy</span>
+              <span className="text-xs text-muted-foreground italic">Wszystkie rekordy</span>
             ) : (
               activeFilters.map((f) => (
                 <span
                   key={`${f.type}-${f.label}`}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 rounded-md text-xs font-medium border border-indigo-100 dark:border-indigo-800"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 text-primary rounded-md text-xs font-medium border border-primary/20"
                 >
                   {f.label}
                   <button
                     onClick={() => removeFilter(f)}
-                    className="hover:text-indigo-900 dark:hover:text-indigo-100"
+                    className="hover:opacity-75 transition-opacity"
                     title="Usuń filtr"
                   >
                     <X size={12} />
@@ -998,7 +998,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
             {(activeFilters.length > 0 || searchQuery) && (
               <button
                 onClick={resetAll}
-                className="text-xs text-rose-600 dark:text-rose-400 hover:underline ml-1"
+                className="text-xs text-destructive hover:underline ml-1 font-medium"
               >
                 Resetuj
               </button>
@@ -1008,51 +1008,50 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
       </div>
 
       {/* --- TABLE CONTAINER --- */}
-      <div className="max-w-[1600px] mx-auto bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-slate-200 dark:border-zinc-800 overflow-hidden">
+      <div className="max-w-[1600px] mx-auto bg-card rounded-xl border border-border shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/90 dark:bg-zinc-800/80 backdrop-blur-md border-b border-slate-200 dark:border-zinc-800 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold sticky top-0 z-20">
-                <th className="p-4 w-12 text-center" aria-label="Expand"></th>
-                <th className="p-4 min-w-[280px] sticky left-0 z-30 bg-slate-50 dark:bg-zinc-800 border-r border-slate-200 dark:border-zinc-700 shadow-[1px_0_3px_rgba(0,0,0,0.05)]">
-                  Firma &amp; ID
+              <tr className="bg-muted/60 border-b border-border text-xs uppercase tracking-wider text-muted-foreground font-semibold sticky top-0 z-20">
+                <th className="py-2.5 px-3 w-12 text-center" aria-label="Expand"></th>
+                <th className="py-2.5 px-3 min-w-[80px]">ID</th>
+                <th className="py-2.5 px-3 min-w-[100px]">Kraj</th>
+                <th className="py-2.5 px-3 min-w-[200px] sticky left-0 z-30 bg-card border-r border-border shadow-[1px_0_3px_rgba(0,0,0,0.05)]">
+                  Nazwa Firmy
                 </th>
-                <th className="p-4 min-w-[140px]">Kraj / Miasto</th>
-                <th className="p-4 min-w-[180px]">Wolumen</th>
-                <th className="p-4 min-w-[140px]">Potencjał</th>
-                <th className="p-4 min-w-[140px]">Rola</th>
-                <th className="p-4 min-w-[200px]">Kontakt</th>
-                <th className="p-4 min-w-[120px] text-right">Akcje</th>
+                <th className="py-2.5 px-3 min-w-[140px]">Marka</th>
+                <th className="py-2.5 px-3 min-w-[140px]">Kategoria</th>
+                <th className="py-2.5 px-3 min-w-[160px]">Decydent</th>
+                <th className="py-2.5 px-3 min-w-[120px]">Data weryfikacji</th>
+                <th className="py-2.5 px-3 min-w-[120px]">Status</th>
+                <th className="py-2.5 px-3 min-w-[100px] text-center">Flagi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
+            <tbody className="divide-y divide-border">
               {filteredLeads.length === 0 && (
                 <tr>
                   <td colSpan={100} className="p-12 text-center">
                     <div className="flex flex-col items-center gap-3 max-w-md mx-auto">
-                      <div className="p-3 bg-slate-100 dark:bg-zinc-800 rounded-full">
-                        <Search size={28} className="text-slate-400" />
+                      <div className="p-3 bg-muted rounded-full">
+                        <Search size={28} className="text-muted-foreground" />
                       </div>
-                      <h3 className="text-base font-semibold text-slate-700 dark:text-slate-200">
+                      <h3 className="text-base font-semibold text-foreground">
                         Brak wyników
                       </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                      <p className="text-sm text-muted-foreground">
                         Żaden lead nie pasuje do aktywnych filtrów. Spróbuj wyczyścić wszystkie filtry lub zawęzić szukanie.
                       </p>
-                      {(activeFilters.length > 0 || searchQuery || leads.length === 0) && (
-                        <button
-                          type="button"
-                          onClick={resetAll}
-                          className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors"
-                        >
-                          <X size={14} />
-                          Wyczyść wszystkie filtry
-                        </button>
-                      )}
+                      <button
+                        onClick={resetAll}
+                        className="px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+                      >
+                        Wyczyść wszystkie filtry
+                      </button>
                     </div>
                   </td>
                 </tr>
               )}
+
               {filteredLeads.map((lead) => {
                 const isExpanded = expandedRow === lead.id;
                 const brand = classifyBrand(lead.marki_nabijarki);
@@ -1063,215 +1062,160 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                   <React.Fragment key={lead.id}>
                     {/* Main Row */}
                     <tr
-                      className={`group hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer ${
-                        isExpanded ? "bg-slate-50/80 dark:bg-zinc-800/60" : ""
+                      className={`group hover:bg-muted/40 transition-colors cursor-pointer ${
+                        isExpanded ? "bg-muted/30 border-l-4 border-primary" : "border-l-4 border-transparent"
                       }`}
                       onClick={() => setExpandedRow(isExpanded ? null : lead.id)}
                     >
-                      <td className="p-4 border-r border-slate-100 dark:border-zinc-800/60 w-12 text-center">
+                      <td className="py-2.5 px-3 border-r border-border/60 w-12 text-center">
                         <div
-                          className={`w-5 h-5 mx-auto rounded-full border flex items-center justify-center transition-colors ${
+                          className={`w-5 h-5 mx-auto rounded flex items-center justify-center transition-colors ${
                             isExpanded
-                              ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600"
-                              : "border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-800"
+                              ? "bg-primary/10 text-primary font-bold"
+                              : "bg-muted text-muted-foreground group-hover:bg-muted/80"
                           }`}
                         >
                           {isExpanded ? (
-                            <ChevronDown size={12} className="text-white" />
+                            <ChevronDown size={14} />
                           ) : (
-                            <ChevronRight size={12} className="text-slate-400 dark:text-slate-400" />
+                            <ChevronRight size={14} />
                           )}
                         </div>
                       </td>
 
-                      {/* Sticky Left: Identity (sticky ID + Firma) */}
-                      <td className="p-4 sticky left-0 z-10 bg-white dark:bg-zinc-900 group-hover:bg-slate-50 dark:group-hover:bg-zinc-800/80 border-r border-slate-200 dark:border-zinc-700 transition-colors shadow-[1px_0_3px_rgba(0,0,0,0.03)]">
-                        <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-100 to-slate-200 dark:from-indigo-900/60 dark:to-zinc-800 flex items-center justify-center text-slate-700 dark:text-indigo-200 font-bold text-lg shadow-inner shrink-0">
+                      {/* ID */}
+                      <td className="py-2.5 px-3 font-mono text-[11px] text-muted-foreground whitespace-nowrap">
+                        <CopyableId value={lead.id} label="ID" />
+                      </td>
+
+                      {/* Kraj */}
+                      <td className="py-2.5 px-3">
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-foreground">
+                          <span className="text-base" role="img" aria-label={lead.kraj}>
+                            {lead.kraj === "Polska" || lead.kraj === "PL" ? "🇵🇱" : lead.kraj === "Czechy" || lead.kraj === "CZ" ? "🇨🇿" : lead.kraj === "Słowacja" || lead.kraj === "SK" ? "🇸🇰" : lead.kraj === "Wielka Brytania" || lead.kraj === "UK" ? "🇬🇧" : "🌍"}
+                          </span>
+                          <span className="uppercase text-[10px] tracking-wider text-muted-foreground font-mono">
+                            {lead.kraj === "Polska" ? "PL" : lead.kraj === "Czechy" ? "CZ" : lead.kraj === "Słowacja" ? "SK" : lead.kraj === "Wielka Brytania" ? "UK" : lead.kraj}
+                          </span>
+                        </div>
+                      </td>
+
+                      {/* Nazwa Firmy */}
+                      <td className="py-2.5 px-3 sticky left-0 z-10 bg-card group-hover:bg-muted/40 border-r border-border transition-colors shadow-[1px_0_3px_rgba(0,0,0,0.02)]">
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded bg-muted flex items-center justify-center text-foreground font-bold text-xs shrink-0 border border-border">
                             {initial}
                           </div>
                           <div className="min-w-0">
-                            <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm truncate">
+                            <div className="font-semibold text-foreground text-xs truncate">
                               {lead.nazwa}
                             </div>
-                            <div className="flex items-center gap-2 mt-1 flex-wrap">
-                              <CopyableId value={lead.id} label="ID" />
-                              {lead.flagi?.includes("Verified") && (
-                                <span className="flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
-                                  <ShieldCheck size={10} /> Zweryfikowany
-                                </span>
-                              )}
-                              <span
-                                className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold border ${BRAND_STYLES[brand]}`}
-                              >
-                                {brand}
-                              </span>
-                              {lead.www && (
-                                <span onClick={(e) => e.stopPropagation()}>
-                                  <UrlBadge
-                                    url={lead.www}
-                                    status={urlStatusById[lead.id]?.status || "unknown"}
-                                    state={urlStatusById[lead.id]?.state || "unknown"}
-                                    http_code={urlStatusById[lead.id]?.http_code}
-                                    error={urlStatusById[lead.id]?.error}
-                                    redirect_url={urlStatusById[lead.id]?.redirect_url}
-                                    checked_at={urlStatusById[lead.id]?.checked_at}
-                                    raw_status={lead.www_status}
-                                    keyword_score={keywordById[lead.id]?.score_pct}
-                                    keyword_hits={keywordById[lead.id]?.keywords_found}
-                                    showUrl={true}
-                                    compact={true}
-                                  />
-                                </span>
-                              )}
-                            </div>
+                            {lead.www && (
+                              <div className="mt-0.5" onClick={(e) => e.stopPropagation()}>
+                                <UrlBadge
+                                  url={lead.www}
+                                  status={urlStatusById[lead.id]?.status || "unknown"}
+                                  state={urlStatusById[lead.id]?.state || "unknown"}
+                                  http_code={urlStatusById[lead.id]?.http_code}
+                                  error={urlStatusById[lead.id]?.error}
+                                  redirect_url={urlStatusById[lead.id]?.redirect_url}
+                                  checked_at={urlStatusById[lead.id]?.checked_at}
+                                  raw_status={lead.www_status}
+                                  keyword_score={keywordById[lead.id]?.score_pct}
+                                  keyword_hits={keywordById[lead.id]?.keywords_found}
+                                  showUrl={true}
+                                  compact={true}
+                                />
+                              </div>
+                            )}
                           </div>
                         </div>
                       </td>
 
-                      {/* 2nd Data Column: Kraj / Miasto */}
-                      <td className="p-4 text-sm text-slate-600 dark:text-slate-300">
-                        <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-slate-100">
-                          <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-[11px] font-mono border border-slate-200 dark:border-zinc-700">
-                            {lead.kraj}
-                          </span>
-                          <span className="truncate">{lead.miasto}</span>
-                        </div>
+                      {/* Marka */}
+                      <td className="py-2.5 px-3 text-xs">
+                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold border ${BRAND_STYLES[brand]}`}>
+                          {brand}
+                        </span>
                       </td>
 
-                      {/* Volume with confidence bar (enhanced) */}
-                      <td className="p-4">
+                      {/* Kategoria */}
+                      <td className="py-2.5 px-3 text-[11px] text-muted-foreground font-medium">
+                        {lead.kategoria || "—"}
+                      </td>
+
+                      {/* Decydent */}
+                      <td className="py-2.5 px-3">
                         <div className="flex items-center gap-2">
-                          <div className="flex flex-col w-full">
-                            <div className="flex justify-between text-xs mb-1">
-                              <span className="font-medium text-slate-700 dark:text-slate-200">{lead.wolumen}</span>
-                              <span className="text-slate-400 text-[11px]">{confNum}%</span>
-                            </div>
-                            <div className="w-full bg-slate-100 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                              <div
-                                className={`h-full rounded-full ${
-                                  lead.wolumen?.toLowerCase().startsWith("duż")
-                                    ? "bg-emerald-500"
-                                    : lead.wolumen?.toLowerCase().startsWith("śred")
-                                    ? "bg-amber-400"
-                                    : "bg-slate-400 dark:bg-zinc-500"
-                                }`}
-                                style={{ width: `${confNum}%` }}
-                              ></div>
-                            </div>
-                          </div>
+                           <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-muted-foreground font-semibold text-xs border border-border shrink-0">
+                             {lead.decydent?.charAt(0) || "D"}
+                           </div>
+                           <div className="flex flex-col min-w-0">
+                             <span className="text-xs font-medium text-foreground truncate">
+                               {maskNames ? maskName(lead.decydent) : lead.decydent}
+                             </span>
+                             <span className="text-[10px] text-muted-foreground truncate">
+                               {lead.stanowisko || "—"}
+                             </span>
+                           </div>
                         </div>
                       </td>
 
-                      {/* Potential */}
-                      <td className="p-4">
-                        <div className="flex flex-col gap-1.5 items-start">
-                          <StatusBadge status={lead.cross_sell_potential} />
-                          {lead.powinowactwo_nabijarki?.toLowerCase() === "wysoki" && (
-                            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-0.5">
-                              �� Wysokie powinowactwo
+                      {/* Data weryfikacji */}
+                      <td className="py-2.5 px-3 text-[11px] font-mono text-muted-foreground">
+                        {fmtDate(lead.data_weryfikacji)}
+                      </td>
+
+                      {/* Status */}
+                      <td className="py-2.5 px-3">
+                        <div className="flex items-center gap-1.5">
+                          <StatusBadge status={lead.status || lead.tier} />
+                          {confNum != null && (
+                            <span className="text-[10px] text-muted-foreground font-mono" title={`Pewność: ${confNum}%`}>
+                              {confNum}%
                             </span>
                           )}
                         </div>
                       </td>
 
-                      {/* Tier */}
-                      <td className="p-4">
-                        <StatusBadge status={lead.tier} />
-                      </td>
-
-                      {/* Contact Preview with masking toggle */}
-                      <td className="p-4">
-                        <div className="flex items-center gap-2.5">
-                          <div className="group/contact relative">
-                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center text-slate-600 dark:text-slate-300 font-semibold text-xs border border-slate-200 dark:border-zinc-700">
-                              {lead.decydent?.charAt(0) || "D"}
-                            </div>
-                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-40 bg-slate-900 text-white text-xs rounded-md py-1 px-2 opacity-0 group-hover/contact:opacity-100 transition-opacity pointer-events-none text-center z-50 shadow-lg">
-                              <div className="font-semibold">{maskNames ? maskName(lead.decydent) : lead.decydent}</div>
-                              <div className="text-[10px] text-slate-300">{lead.stanowisko}</div>
-                              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
-                            </div>
-                          </div>
-                          <div className="flex flex-col min-w-0">
-                            <span className="text-xs font-medium text-slate-700 dark:text-slate-200 truncate">
-                              {maskNames ? maskName(lead.decydent) : lead.decydent}
-                            </span>
-                            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
-                              {lead.telefon}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Actions */}
-                      <td className="p-4 text-right" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <IconButton
-                            icon={Mail}
-                            color="blue"
-                            title={`Napisz: ${lead.email}`}
-                            stopPropagation
-                            onClick={() => (window.location.href = `mailto:${lead.email}`)}
-                          />
-                          <IconButton
-                            icon={Phone}
-                            color="green"
-                            title={`Zadzwoń: ${lead.telefon}`}
-                            stopPropagation
-                            onClick={() => (window.location.href = `tel:${lead.telefon}`)}
-                          />
-                          {lead.www && (
-                            <span onClick={(e) => e.stopPropagation()}>
-                              <UrlBadge
-                                url={lead.www}
-                                status={urlStatusById[lead.id]?.status || "unknown"}
-                                state={urlStatusById[lead.id]?.state || "unknown"}
-                                http_code={urlStatusById[lead.id]?.http_code}
-                                error={urlStatusById[lead.id]?.error}
-                                redirect_url={urlStatusById[lead.id]?.redirect_url}
-                                checked_at={urlStatusById[lead.id]?.checked_at}
-                                raw_status={lead.www_status}
-                                keyword_score={keywordById[lead.id]?.score_pct}
-                                keyword_hits={keywordById[lead.id]?.keywords_found}
-                                showUrl={false}
-                                compact={true}
-                              />
-                            </span>
+                      {/* Flagi */}
+                      <td className="py-2.5 px-3 text-center">
+                        <div className="flex justify-center items-center gap-1 text-muted-foreground">
+                          {lead.flagi?.includes("Verified") && (
+                            <ShieldCheck size={14} className="text-emerald-500" title="Zweryfikowany (Verified)" />
                           )}
-                          <IconButton
-                            icon={Copy}
-                            color="gray"
-                            title={`Kopiuj NIP: ${lead.nip_vat}`}
-                            stopPropagation
-                            onClick={() => handleCopy(lead.nip_vat, "NIP")}
-                          />
+                          {lead.flagi?.includes("FROZEN") && (
+                            <span className="text-sky-500 font-bold" title="Zamrożony (FROZEN)">❄️</span>
+                          )}
+                          {(!lead.flagi || (!lead.flagi.includes("Verified") && !lead.flagi.includes("FROZEN"))) && (
+                            <span className="text-muted-foreground/40">—</span>
+                          )}
                         </div>
                       </td>
                     </tr>
 
                     {/* --- EXPANDED DETAIL ROW (Progressive Disclosure) --- */}
                     {isExpanded && (
-                      <tr className="bg-slate-50/90 dark:bg-zinc-900/90 border-b border-slate-200 dark:border-zinc-800 transition-all">
-                        <td colSpan="8" className="p-0">
-                          <div className="p-5 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-5 bg-gradient-to-b from-slate-50/80 to-slate-100/50 dark:from-zinc-900/90 dark:to-zinc-950/80 border-t border-slate-200/70 dark:border-zinc-800/70">
+                      <tr className="bg-muted/20 border-b border-border transition-all">
+                        <td colSpan="10" className="p-0">
+                          <div className="p-5 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-5 bg-muted/20 border-t border-border">
                             {/* Column 1: Business Identity & Legal Data */}
                             <div className="space-y-3.5">
-                              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                <Building2 size={14} className="text-indigo-600 dark:text-indigo-400" />
+                              <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                <Building2 size={14} className="text-primary" />
                                 <span>Rejestr &amp; Adres</span>
                               </div>
 
-                              <div className="bg-white dark:bg-zinc-800/90 p-4 rounded-xl border border-slate-200/80 dark:border-zinc-700/80 shadow-sm space-y-3">
+                              <div className="bg-card p-4 rounded-xl border border-border shadow-sm space-y-3 text-card-foreground">
                                 <div>
-                                  <div className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Adres siedziby</div>
-                                  <div className="text-sm font-medium text-slate-800 dark:text-slate-100 flex items-start gap-2 mt-0.5">
-                                    <MapPin size={15} className="mt-0.5 text-indigo-500 shrink-0" />
+                                  <div className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">Adres siedziby</div>
+                                  <div className="text-sm font-medium text-foreground flex items-start gap-2 mt-0.5">
+                                    <MapPin size={15} className="mt-0.5 text-primary shrink-0" />
                                     <span>{lead.adres || `${lead.miasto}, ${lead.kraj}`}</span>
                                   </div>
                                   {lead.adres && (
                                     <button
-                                      className="mt-1.5 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 font-medium transition-colors"
+                                      className="mt-1.5 text-xs text-primary hover:underline flex items-center gap-1 font-medium transition-colors"
                                       onClick={(e) => {
                                         e.stopPropagation();
                                         handleCopy(lead.adres, "Adres");
@@ -1282,10 +1226,10 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                   )}
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-2.5 pt-2 border-t border-slate-100 dark:border-zinc-700/60">
-                                  <div className="bg-slate-50 dark:bg-zinc-900/60 p-2.5 rounded-lg border border-slate-200/60 dark:border-zinc-800">
-                                    <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase">NIP / VAT</div>
-                                    <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-0.5 truncate">
+                                <div className="grid grid-cols-2 gap-2.5 pt-2 border-t border-border">
+                                  <div className="bg-muted/40 p-2.5 rounded-lg border border-border">
+                                    <div className="text-[10px] font-medium text-muted-foreground uppercase">NIP / VAT</div>
+                                    <div className="text-xs font-mono font-bold text-foreground mt-0.5 truncate">
                                       {lead.nip_vat || "Brak NIP"}
                                     </div>
                                     {lead.nip_vat && (
@@ -1300,22 +1244,22 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                       </button>
                                     )}
                                   </div>
-                                  <div className="bg-slate-50 dark:bg-zinc-900/60 p-2.5 rounded-lg border border-slate-200/60 dark:border-zinc-800">
-                                    <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase">KRS / Rejestr</div>
-                                    <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-0.5 truncate">
+                                  <div className="bg-muted/40 p-2.5 rounded-lg border border-border">
+                                    <div className="text-[10px] font-medium text-muted-foreground uppercase">KRS / Rejestr</div>
+                                    <div className="text-xs font-mono font-bold text-foreground mt-0.5 truncate">
                                       {lead.rejestr_id || "Brak KRS"}
                                     </div>
                                   </div>
                                 </div>
 
                                 {lead.marki_nabijarki && (
-                                  <div className="pt-2 border-t border-slate-100 dark:border-zinc-700/60">
-                                    <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase mb-1.5">Wykryte Marki</div>
+                                  <div className="pt-2 border-t border-border">
+                                    <div className="text-[10px] font-medium text-muted-foreground uppercase mb-1.5">Wykryte Marki</div>
                                     <div className="flex flex-wrap gap-1.5">
                                       {splitBrands(lead.marki_nabijarki).map((m, i) => (
                                         <span
                                           key={i}
-                                          className="px-2 py-0.5 bg-indigo-50/70 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 rounded-md text-xs font-medium border border-indigo-100 dark:border-indigo-900/50"
+                                          className="px-2 py-0.5 bg-primary/10 text-primary rounded-md text-xs font-medium border border-primary/20"
                                         >
                                           {m}
                                         </span>
@@ -1328,62 +1272,62 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
                             {/* Column 2: Decydent, Direct Contacts & Social */}
                             <div className="space-y-3.5">
-                              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                <Sparkles size={14} className="text-emerald-600 dark:text-emerald-400" />
+                              <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                <Sparkles size={14} className="text-emerald-500" />
                                 <span>Decydent &amp; Kanały Kontaktu</span>
                               </div>
 
-                              <div className="bg-white dark:bg-zinc-800/90 p-4 rounded-xl border border-slate-200/80 dark:border-zinc-700/80 shadow-sm space-y-3">
+                              <div className="bg-card p-4 rounded-xl border border-border shadow-sm space-y-3 text-card-foreground">
                                 <div>
-                                  <div className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Osoba Decyzyjna</div>
-                                  <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5 flex items-center gap-2">
+                                  <div className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">Osoba Decyzyjna</div>
+                                  <div className="text-sm font-bold text-foreground mt-0.5 flex items-center gap-2">
                                     <span>{maskNames ? maskName(lead.decydent) : (lead.decydent || "Brak danych decydenta")}</span>
                                     {lead.stanowisko && (
-                                      <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-zinc-600">
+                                      <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
                                         {lead.stanowisko}
                                       </span>
                                     )}
                                   </div>
                                 </div>
 
-                                <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-zinc-700/60">
+                                <div className="space-y-1.5 pt-2 border-t border-border">
                                   {lead.telefon && (
                                     <a
                                       href={`tel:${lead.telefon}`}
                                       onClick={(e) => e.stopPropagation()}
-                                      className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-zinc-900/60 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-300 border border-slate-200/60 dark:border-zinc-800 transition-colors group"
+                                      className="flex items-center justify-between p-2 rounded-lg bg-muted/40 hover:bg-emerald-500/10 text-xs font-medium text-foreground hover:text-emerald-600 dark:hover:text-emerald-400 border border-border transition-colors group"
                                     >
                                       <div className="flex items-center gap-2">
-                                        <Phone size={13} className="text-emerald-600 dark:text-emerald-400" />
+                                        <Phone size={13} className="text-emerald-500" />
                                         <span className="font-mono">{lead.telefon}</span>
                                       </div>
-                                      <span className="text-[10px] text-slate-400 group-hover:text-emerald-600">Zadzwoń ↗</span>
+                                      <span className="text-[10px] text-muted-foreground group-hover:text-emerald-600">Zadzwoń ↗</span>
                                     </a>
                                   )}
                                   {lead.email_decydent && (
                                     <a
                                       href={`mailto:${lead.email_decydent}`}
                                       onClick={(e) => e.stopPropagation()}
-                                      className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-zinc-900/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-blue-700 dark:hover:text-blue-300 border border-slate-200/60 dark:border-zinc-800 transition-colors group"
+                                      className="flex items-center justify-between p-2 rounded-lg bg-muted/40 hover:bg-sky-500/10 text-xs font-medium text-foreground hover:text-sky-600 dark:hover:text-sky-400 border border-border transition-colors group"
                                     >
                                       <div className="flex items-center gap-2 truncate">
-                                        <Mail size={13} className="text-blue-600 dark:text-blue-400 shrink-0" />
+                                        <Mail size={13} className="text-sky-500 shrink-0" />
                                         <span className="truncate">{lead.email_decydent}</span>
                                       </div>
-                                      <span className="text-[10px] text-slate-400 group-hover:text-blue-600 shrink-0 ml-1">E-mail Decydenta ↗</span>
+                                      <span className="text-[10px] text-muted-foreground group-hover:text-sky-600 shrink-0 ml-1">E-mail Decydenta ↗</span>
                                     </a>
                                   )}
                                   {lead.email && lead.email !== lead.email_decydent && (
                                     <a
                                       href={`mailto:${lead.email}`}
                                       onClick={(e) => e.stopPropagation()}
-                                      className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-zinc-900/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-blue-700 dark:hover:text-blue-300 border border-slate-200/60 dark:border-zinc-800 transition-colors group"
+                                      className="flex items-center justify-between p-2 rounded-lg bg-muted/40 hover:bg-sky-500/10 text-xs font-medium text-foreground hover:text-sky-600 dark:hover:text-sky-400 border border-border transition-colors group"
                                     >
                                       <div className="flex items-center gap-2 truncate">
-                                        <Mail size={13} className="text-slate-400 shrink-0" />
+                                        <Mail size={13} className="text-muted-foreground shrink-0" />
                                         <span className="truncate">{lead.email}</span>
                                       </div>
-                                      <span className="text-[10px] text-slate-400 group-hover:text-blue-600 shrink-0 ml-1">E-mail Ogólny ↗</span>
+                                      <span className="text-[10px] text-muted-foreground group-hover:text-sky-600 shrink-0 ml-1">E-mail Ogólny ↗</span>
                                     </a>
                                   )}
                                 </div>
@@ -1446,8 +1390,8 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
                             {/* Column 3: Analytical Notes & Sourcing Metadata */}
                             <div className="space-y-3.5">
-                              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                <ShieldCheck size={14} className="text-amber-600 dark:text-amber-400" />
+                              <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                <ShieldCheck size={14} className="text-amber-500" />
                                 <span>Notatki Analityczne &amp; Źródło</span>
                               </div>
 

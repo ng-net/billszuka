@@ -150,32 +150,26 @@ export function AtlasGrokView() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-[#090b10] text-[#e2e8f0] font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* Glow Top Accent Bar */}
-      <div className="h-1 w-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-fuchsia-500 shadow-[0_0_20px_rgba(6,182,212,0.6)]" />
-
+    <div className="min-h-[calc(100vh-4rem)] bg-background text-foreground font-sans antialiased">
       {/* Main Container */}
       <div className="max-w-[1700px] mx-auto p-4 md:p-6 space-y-6">
         {/* Top Atlas HUD Header */}
-        <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl bg-[#0f141c]/90 border border-cyan-950/80 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl relative overflow-hidden">
-          {/* Subtle Cyber Grid Background overlay */}
-          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none" />
-
+        <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl bg-card border border-border shadow-sm relative overflow-hidden text-card-foreground">
           <div className="flex items-center gap-4 relative z-10">
-            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-cyan-500/20 via-indigo-500/20 to-fuchsia-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+            <div className="h-12 w-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-sm">
               <Compass className="h-6 w-6 animate-[spin_12s_linear_infinite]" />
             </div>
             <div>
               <div className="flex items-center gap-2.5">
-                <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-                  ATLAS <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">GROK</span>
+                <h1 className="text-xl font-black tracking-tight text-foreground flex items-center gap-1.5">
+                  ATLAS <span className="text-primary">GROK</span>
                 </h1>
-                <span className="px-2 py-0.5 rounded-full bg-cyan-950/80 text-cyan-400 border border-cyan-800/50 text-[10px] font-mono tracking-widest uppercase">
+                <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-[10px] font-mono tracking-widest uppercase font-semibold">
                   Telemetry v2.2
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 Global B2B Market Intelligence &amp; Lead Vector Engine
               </p>
             </div>
@@ -183,58 +177,58 @@ export function AtlasGrokView() {
 
           {/* Quick HUD Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 relative z-10 font-mono">
-            <div className="px-3.5 py-2 rounded-xl bg-[#141b26]/80 border border-slate-800">
-              <div className="text-[10px] uppercase text-slate-500 tracking-wider">Total Targets</div>
-              <div className="text-lg font-bold text-white flex items-center gap-1.5">
+            <div className="px-3.5 py-2 rounded-xl bg-muted/40 border border-border">
+              <div className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">Total Targets</div>
+              <div className="text-lg font-bold text-foreground flex items-center gap-1.5 tabular-nums mt-0.5">
                 {stats.total}
-                <Database size={13} className="text-cyan-400" />
+                <Database size={13} className="text-primary" />
               </div>
             </div>
-            <div className="px-3.5 py-2 rounded-xl bg-[#141b26]/80 border border-slate-800">
-              <div className="text-[10px] uppercase text-slate-500 tracking-wider">Active Markets</div>
-              <div className="text-lg font-bold text-cyan-400 flex items-center gap-1.5">
+            <div className="px-3.5 py-2 rounded-xl bg-muted/40 border border-border">
+              <div className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">Active Markets</div>
+              <div className="text-lg font-bold text-foreground flex items-center gap-1.5 tabular-nums mt-0.5">
                 {stats.countryCount}
-                <Globe2 size={13} className="text-cyan-400" />
+                <Globe2 size={13} className="text-sky-500" />
               </div>
             </div>
-            <div className="px-3.5 py-2 rounded-xl bg-[#141b26]/80 border border-slate-800">
-              <div className="text-[10px] uppercase text-slate-500 tracking-wider">PM &amp; Hawk Affinity</div>
-              <div className="text-lg font-bold text-indigo-400 flex items-center gap-1.5">
+            <div className="px-3.5 py-2 rounded-xl bg-muted/40 border border-border">
+              <div className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">PM &amp; Hawk Affinity</div>
+              <div className="text-lg font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 tabular-nums mt-0.5">
                 {stats.powermaticCount}
-                <Zap size={13} className="text-indigo-400" />
+                <Zap size={13} className="text-amber-500" />
               </div>
             </div>
-            <div className="px-3.5 py-2 rounded-xl bg-[#141b26]/80 border border-slate-800">
-              <div className="text-[10px] uppercase text-slate-500 tracking-wider">High Volume Tier</div>
-              <div className="text-lg font-bold text-fuchsia-400 flex items-center gap-1.5">
+            <div className="px-3.5 py-2 rounded-xl bg-muted/40 border border-border">
+              <div className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">High Volume Tier</div>
+              <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 tabular-nums mt-0.5">
                 {stats.highVol}
-                <TrendingUp size={13} className="text-fuchsia-400" />
+                <TrendingUp size={13} className="text-emerald-500" />
               </div>
             </div>
           </div>
         </header>
 
         {/* Command & Control Filter Strip */}
-        <section className="p-4 rounded-2xl bg-[#0f141c]/70 border border-slate-800/80 backdrop-blur-md flex flex-wrap items-center justify-between gap-4">
+        <section className="p-3.5 rounded-xl bg-card border border-border shadow-sm flex flex-wrap items-center justify-between gap-3 text-card-foreground">
           {/* Search Bar */}
           <div className="relative flex-1 min-w-[280px]">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Szybkie przeszukiwanie wektorów (Firma, NIP, Decydent, Notatki)..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#141b26] border border-slate-800 focus:border-cyan-500/70 focus:ring-1 focus:ring-cyan-500/50 text-xs text-white placeholder-slate-500 transition-all outline-none"
+              className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/40 border border-input focus:border-primary/60 focus:ring-1 focus:ring-primary/40 text-xs text-foreground placeholder:text-muted-foreground transition-all outline-none"
             />
           </div>
 
           {/* Quick Filters */}
-          <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
+          <div className="flex flex-wrap items-center gap-2 text-xs">
             {/* Country Selector */}
             <select
               value={selectedCountry}
               onChange={(e) => setSelectedCountry(e.target.value)}
-              className="px-3 py-2 rounded-xl bg-[#141b26] border border-slate-800 text-slate-200 text-xs focus:border-cyan-500 outline-none cursor-pointer"
+              className="px-3 py-2 rounded-lg bg-card border border-border text-foreground text-xs focus:border-primary outline-none cursor-pointer shadow-sm"
             >
               <option value="ALL">🌍 Wszystkie Rynki ({leads.length})</option>
               {countryList.map(([k, cnt]) => (
@@ -245,15 +239,15 @@ export function AtlasGrokView() {
             </select>
 
             {/* Brand Filter */}
-            <div className="flex bg-[#141b26] p-1 rounded-xl border border-slate-800">
+            <div className="flex bg-muted/50 p-1 rounded-lg border border-border">
               {["ALL", "PowerMatic", "Hawk"].map((b) => (
                 <button
                   key={b}
                   onClick={() => setSelectedBrand(b)}
-                  className={`px-3 py-1 rounded-lg transition-all ${
+                  className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                     selectedBrand === b
-                      ? "bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-card text-foreground font-semibold shadow-sm border border-border/60"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {b === "ALL" ? "Wszystkie Marki" : b}
@@ -264,10 +258,10 @@ export function AtlasGrokView() {
             {/* RODO Toggle */}
             <button
               onClick={() => setMaskRODO(!maskRODO)}
-              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-2 rounded-lg border transition-all flex items-center gap-1.5 text-xs font-medium shadow-sm ${
                 maskRODO
-                  ? "bg-slate-900 border-slate-700 text-slate-300"
-                  : "bg-emerald-950/60 border-emerald-700/60 text-emerald-300"
+                  ? "bg-card border-border text-muted-foreground hover:text-foreground"
+                  : "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
               }`}
             >
               <ShieldCheck size={14} />
@@ -280,9 +274,9 @@ export function AtlasGrokView() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column: Interactive Radar Grid (7 cols) */}
           <div className="lg:col-span-7 space-y-3">
-            <div className="flex items-center justify-between text-xs text-slate-400 px-1 font-mono">
+            <div className="flex items-center justify-between text-xs text-muted-foreground px-1 font-mono">
               <span>Zlokalizowano: {filtered.length} podmiotów</span>
-              <span className="text-cyan-400/80">Kliknij rekord, aby dokonać inspekcji</span>
+              <span className="text-primary font-medium">Kliknij rekord, aby dokonać inspekcji</span>
             </div>
 
             <div className="space-y-2.5 max-h-[750px] overflow-y-auto pr-1 custom-scrollbar">
@@ -295,58 +289,58 @@ export function AtlasGrokView() {
                   <motion.div
                     key={lead.id}
                     onClick={() => setSelectedLeadId(lead.id)}
-                    whileHover={{ scale: 1.008 }}
+                    whileHover={{ scale: 1.006 }}
                     transition={{ duration: 0.15 }}
                     className={`p-4 rounded-xl border transition-all cursor-pointer relative overflow-hidden ${
                       isSelected
-                        ? "bg-[#141f30] border-cyan-500/70 shadow-[0_0_20px_rgba(6,182,212,0.15)]"
-                        : "bg-[#0f141c]/90 border-slate-800/80 hover:border-slate-700 hover:bg-[#121822]"
+                        ? "bg-primary/5 border-primary shadow-sm"
+                        : "bg-card border-border hover:border-border hover:bg-muted/30 shadow-sm"
                     }`}
                   >
                     {/* Left Active Indicator Strip */}
                     {isSelected && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-indigo-500" />
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
                     )}
 
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px] border border-slate-700">
+                          <span className="px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-mono text-[10px] border border-border">
                             {lead.kraj || "EU"}
                           </span>
-                          <h3 className="text-sm font-bold text-white truncate group-hover:text-cyan-300">
+                          <h3 className="text-sm font-bold text-foreground truncate group-hover:text-primary">
                             {lead.nazwa}
                           </h3>
                           {lead.flagi?.includes("Verified") && (
-                            <span className="flex items-center gap-0.5 text-[10px] text-emerald-400 font-medium font-mono">
+                            <span className="flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">
                               <ShieldCheck size={11} /> VERIFIED
                             </span>
                           )}
                         </div>
 
-                        <div className="flex items-center gap-3 mt-1.5 text-xs text-slate-400 flex-wrap">
+                        <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground flex-wrap">
                           <span className="flex items-center gap-1">
-                            <MapPin size={12} className="text-slate-500" />
+                            <MapPin size={12} className="text-muted-foreground/70" />
                             {lead.miasto || "—"}
                           </span>
-                          <span className="text-slate-600">•</span>
-                          <span className="font-mono text-slate-300">NIP: {lead.nip_vat || "—"}</span>
-                          <span className="text-slate-600">•</span>
-                          <span className="text-indigo-300 font-medium">{lead.tier || "Dystrybutor"}</span>
+                          <span className="text-muted-foreground/40">•</span>
+                          <span className="font-mono text-foreground">NIP: {lead.nip_vat || "—"}</span>
+                          <span className="text-muted-foreground/40">•</span>
+                          <span className="text-primary font-medium">{lead.tier || "Dystrybutor"}</span>
                         </div>
                       </div>
 
                       {/* Right Telemetry Pill */}
                       <div className="flex flex-col items-end gap-1 shrink-0 font-mono">
-                        <span className="px-2 py-0.5 rounded-full text-[10px] bg-slate-800/90 text-slate-300 border border-slate-700">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] bg-muted text-muted-foreground border border-border">
                           {lead.wolumen || "Średni"}
                         </span>
                         {urlTelemetry?.status === "ok" ? (
-                          <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
                             <CheckCircle2 size={10} /> DOMENA OK
                           </span>
                         ) : (
-                          <span className="text-[10px] text-slate-500">DNS UNVERIFIED</span>
+                          <span className="text-[10px] text-muted-foreground/60">DNS UNVERIFIED</span>
                         )}
                       </div>
                     </div>
@@ -359,23 +353,23 @@ export function AtlasGrokView() {
           {/* Right Column: Deep Intel Inspector (5 cols) */}
           <div className="lg:col-span-5 sticky top-20">
             {activeLead ? (
-              <div className="rounded-2xl bg-[#0f141c]/95 border border-cyan-900/40 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl space-y-5">
+              <div className="rounded-2xl bg-card border border-border p-5 shadow-sm space-y-5 text-card-foreground">
                 {/* Header Profile */}
-                <div className="flex items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
+                <div className="flex items-start justify-between gap-3 border-b border-border pb-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800 font-mono text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20 font-mono text-[10px] font-bold">
                         {activeLead.id}
                       </span>
-                      <span className="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono text-[10px]">
+                      <span className="px-2 py-0.5 rounded-md bg-muted text-muted-foreground font-mono text-[10px] border border-border">
                         {activeLead.kraj}
                       </span>
                     </div>
-                    <h2 className="text-lg font-black text-white mt-1.5 leading-snug">
+                    <h2 className="text-lg font-bold text-foreground mt-1.5 leading-snug">
                       {activeLead.nazwa}
                     </h2>
-                    <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
-                      <MapPin size={12} className="text-cyan-500" />
+                    <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                      <MapPin size={12} className="text-primary" />
                       {activeLead.adres || `${activeLead.miasto}, ${activeLead.kraj}`}
                     </p>
                   </div>
@@ -385,7 +379,7 @@ export function AtlasGrokView() {
                       href={activeLead.www.startsWith("http") ? activeLead.www : `https://${activeLead.www}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 transition-all shadow-sm"
+                      className="p-2.5 rounded-xl bg-muted hover:bg-muted/80 text-foreground border border-border transition-all shadow-sm"
                       title="Otwórz stronę WWW"
                     >
                       <ArrowUpRight size={16} />
@@ -395,25 +389,25 @@ export function AtlasGrokView() {
 
                 {/* Key Legal Registry */}
                 <div className="grid grid-cols-2 gap-2.5 font-mono text-xs">
-                  <div className="p-3 rounded-xl bg-[#141b26] border border-slate-800/80">
-                    <div className="text-[10px] uppercase text-slate-500">NIP / VAT ID</div>
-                    <div className="text-white font-bold mt-0.5 truncate">{activeLead.nip_vat || "Brak"}</div>
+                  <div className="p-3 rounded-xl bg-muted/40 border border-border">
+                    <div className="text-[10px] uppercase text-muted-foreground font-semibold">NIP / VAT ID</div>
+                    <div className="text-foreground font-bold mt-0.5 truncate">{activeLead.nip_vat || "Brak"}</div>
                     {activeLead.nip_vat && (
                       <button
                         onClick={() => copyToClipboard(activeLead.nip_vat, "NIP")}
-                        className="text-[10px] text-cyan-400 hover:underline flex items-center gap-1 mt-1"
+                        className="text-[10px] text-primary hover:underline flex items-center gap-1 mt-1 font-sans font-medium"
                       >
                         <Copy size={10} /> Kopiuj NIP
                       </button>
                     )}
                   </div>
-                  <div className="p-3 rounded-xl bg-[#141b26] border border-slate-800/80">
-                    <div className="text-[10px] uppercase text-slate-500">KRS / Rejestr</div>
-                    <div className="text-white font-bold mt-0.5 truncate">{activeLead.rejestr_id || "Brak"}</div>
+                  <div className="p-3 rounded-xl bg-muted/40 border border-border">
+                    <div className="text-[10px] uppercase text-muted-foreground font-semibold">KRS / Rejestr</div>
+                    <div className="text-foreground font-bold mt-0.5 truncate">{activeLead.rejestr_id || "Brak"}</div>
                     {activeLead.rejestr_id && (
                       <button
                         onClick={() => copyToClipboard(activeLead.rejestr_id, "KRS")}
-                        className="text-[10px] text-cyan-400 hover:underline flex items-center gap-1 mt-1"
+                        className="text-[10px] text-primary hover:underline flex items-center gap-1 mt-1 font-sans font-medium"
                       >
                         <Copy size={10} /> Kopiuj KRS
                       </button>
@@ -422,66 +416,66 @@ export function AtlasGrokView() {
                 </div>
 
                 {/* Decision Maker & Channels */}
-                <div className="p-4 rounded-xl bg-[#141b26] border border-slate-800/80 space-y-3">
+                <div className="p-4 rounded-xl bg-muted/30 border border-border space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs uppercase tracking-wider text-slate-400 font-mono flex items-center gap-1.5">
-                      <Sparkles size={13} className="text-indigo-400" />
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                      <Sparkles size={13} className="text-primary" />
                       <span>Decydent &amp; Kanały</span>
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-sm font-bold text-white">
+                    <div className="text-sm font-bold text-foreground">
                       {maskRODO ? maskName(activeLead.decydent) : (activeLead.decydent || "Brak danych decydenta")}
                     </div>
-                    <div className="text-xs text-slate-400">{activeLead.stanowisko || "Zarząd / Właściciel"}</div>
+                    <div className="text-xs text-muted-foreground">{activeLead.stanowisko || "Zarząd / Właściciel"}</div>
                   </div>
 
-                  <div className="space-y-1.5 pt-2 border-t border-slate-800">
+                  <div className="space-y-1.5 pt-2 border-t border-border">
                     {activeLead.telefon && (
                       <a
                         href={`tel:${activeLead.telefon}`}
-                        className="flex items-center justify-between p-2 rounded-lg bg-[#0d121a] hover:bg-emerald-950/40 text-xs text-slate-200 hover:text-emerald-300 border border-slate-800 transition-colors"
+                        className="flex items-center justify-between p-2 rounded-lg bg-card hover:bg-emerald-500/10 text-xs text-foreground hover:text-emerald-600 dark:hover:text-emerald-400 border border-border transition-colors group"
                       >
                         <div className="flex items-center gap-2">
-                          <Phone size={13} className="text-emerald-400" />
+                          <Phone size={13} className="text-emerald-500" />
                           <span className="font-mono">{activeLead.telefon}</span>
                         </div>
-                        <span className="text-[10px] text-emerald-400 font-mono">Zadzwoń ↗</span>
+                        <span className="text-[10px] text-muted-foreground group-hover:text-emerald-600 font-mono">Zadzwoń ↗</span>
                       </a>
                     )}
                     {activeLead.email && (
                       <a
                         href={`mailto:${activeLead.email}`}
-                        className="flex items-center justify-between p-2 rounded-lg bg-[#0d121a] hover:bg-cyan-950/40 text-xs text-slate-200 hover:text-cyan-300 border border-slate-800 transition-colors"
+                        className="flex items-center justify-between p-2 rounded-lg bg-card hover:bg-sky-500/10 text-xs text-foreground hover:text-sky-600 dark:hover:text-sky-400 border border-border transition-colors group"
                       >
                         <div className="flex items-center gap-2 truncate">
-                          <Mail size={13} className="text-cyan-400 shrink-0" />
+                          <Mail size={13} className="text-sky-500 shrink-0" />
                           <span className="truncate">{activeLead.email}</span>
                         </div>
-                        <span className="text-[10px] text-cyan-400 font-mono shrink-0 ml-1">E-mail ↗</span>
+                        <span className="text-[10px] text-muted-foreground group-hover:text-sky-600 font-mono shrink-0 ml-1">E-mail ↗</span>
                       </a>
                     )}
                   </div>
                 </div>
 
                 {/* Analytical Notes */}
-                <div className="p-4 rounded-xl bg-gradient-to-b from-[#161c28] to-[#121620] border border-cyan-950/60 space-y-2">
-                  <div className="text-xs uppercase tracking-wider text-cyan-400 font-mono flex items-center gap-1.5">
+                <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 space-y-2">
+                  <div className="text-xs uppercase tracking-wider text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-1.5">
                     <Activity size={13} />
                     <span>Notatki Strategiczne &amp; Intel</span>
                   </div>
-                  <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                  <p className="text-xs text-foreground/90 leading-relaxed font-sans">
                     {activeLead.notatki || "Brak dodatkowych notatek analitycznych."}
                   </p>
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
+                  <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between text-[10px] font-mono text-muted-foreground">
                     <span>Źródło: {activeLead.zrodlo_danych || "Rejestry publiczne"}</span>
                     <span>Weryfikacja: {fmtDate(activeLead.data_weryfikacji)}</span>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="p-12 text-center rounded-2xl bg-[#0f141c]/50 border border-slate-800 text-slate-500 font-mono text-xs">
+              <div className="p-12 text-center rounded-2xl bg-card border border-border text-muted-foreground font-mono text-xs">
                 Wybierz podmiot z radaru, aby dokonać pełnej analizy wektorowej.
               </div>
             )}
