@@ -33,20 +33,28 @@ export default defineConfig({
     // everything else.
     rollupOptions: {
       output: {
+        // Content-hashed filenames → long-term browser cache re-use.
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]',
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
           if (id.includes('framer-motion')) return 'framer';
           if (id.includes('cmdk')) return 'cmdk';
           if (id.includes('@tanstack')) return 'tanstack';
           if (id.includes('react-dom') || id.includes('react/')) return 'react';
-          if (id.includes('lucide-react')) return 'lucide';
+          // Keep lucide-react in main bundle: icons are used everywhere
+          // (every drawer, every UI primitive). Splitting it gave us
+          // 200KB main + 200KB lucide chunk with worse cache reuse.
         },
       },
     },
     target: 'es2020',
     minify: 'oxc',
     cssMinify: true,
+    cssCodeSplit: true, // per-chunk CSS → smaller first paint + better cache reuse
     sourcemap: false,
     chunkSizeWarningLimit: 600,
+    reportCompressedSize: false, // skip gzip size logging for faster builds
   },
 })

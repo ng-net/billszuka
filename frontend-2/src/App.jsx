@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, lazy, Suspense } from "react";
 import {
   Table as TableIcon,
   BarChart3,
@@ -84,6 +84,9 @@ const TABS = [
 
 export default function App() {
   const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
+  // Read prefs once per profile change instead of every render.
+  // Old code called loadPrefs() 3x in JSX — every render hit localStorage + JSON.parse.
+  const prefs = useMemo(() => loadPrefs(activeProfile), [activeProfile]);
   const [activeTab, setActiveTab] = useState(() => loadPrefs(activeProfile)?.activeTab || "leads");
   const [snapshotsOpen, setSnapshotsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -341,7 +344,7 @@ export default function App() {
                   <Bookmark className="h-4 w-4 mr-2" />
                   <span className="flex-1">Zapisane widoki</span>
                   <span className="text-[10px] text-muted-foreground">
-                    {DEFAULT_VIEWS.length + ((loadPrefs(activeProfile).savedViews) || []).length}
+                    {DEFAULT_VIEWS.length + ((prefs.savedViews) || []).length}
                   </span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent className="max-h-80 overflow-auto">
@@ -355,7 +358,7 @@ export default function App() {
                     </DropdownMenuItem>
                   ))}
                   {(() => {
-                    const userViews = (loadPrefs(activeProfile).savedViews) || [];
+                    const userViews = (prefs.savedViews) || [];
                     if (!userViews.length) return null;
                     return (
                       <>
