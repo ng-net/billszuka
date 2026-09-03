@@ -411,18 +411,6 @@ export default function App() {
           >
             <FolderOpen className="h-4 w-4" />
           </Button>
-          <UploadButton
-            onFile={(file) => {
-              if (activeTab !== "table") handleTabChange("table");
-              tableRef.current?.loadFile(file);
-            }}
-            status={csvState.status}
-            progress={csvState.progress}
-            fileMeta={csvState.fileMeta}
-            onCancel={csvState.cancel}
-            label="Upload"
-            primary
-          />
         </div>
       </header>
 
