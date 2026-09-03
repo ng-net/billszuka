@@ -824,11 +824,12 @@ Narzędzia pomocnicze:
 ├── skills/
 │   └── verify-data/             # skill weryfikacji FROZEN/DO-WERYFIKACJI
 ├── tools/
-│   ├── verify_api.py            # live API verification (KRS, CEIDG, ARES, VIES)
-│   ├── verify_run.py            # batch verification + audit log
+│   ├── verify_api.py            # live API verification (KRS, CEIDG, ARES, VIES) + --retrofix FABRYKAT — single source of truth
+│   ├── verify_run.py            # hash diffing + snapshotting + audit log + regenerate_master() (delegates verification to verify_api)
 │   ├── krs_search.py            # PL KRS lookup chain (NIP/REGON → KRS)
 │   ├── vies_verify.py           # EU VIES VAT validation
-│   ├── verify_lead.py           # 2-tool check (web_search + whois + registry)
+│   ├── (verify_lead.py removed 2026-09-03 — stub, 2/3 tools returned PENDING)
+│   ├── (l0_preflight.py removed 2026-09-03 — FABRYKAT logic folded into verify_api --retrofix)
 │   ├── fix_data_quality.py      # clean NIP/KRS, fill regions
 │   ├── scrapers_registry.py     # web scrapers for non-API countries (SK/RO/LT/FR/EE/SI/HR)
 │   ├── orchestrate_11_levels.py # master orchestrator for 11 lead-gen methods

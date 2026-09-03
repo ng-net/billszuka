@@ -13,7 +13,7 @@ Side effect: may extract NIP/IČO/reg number from official sites (KRS, ARES, dou
 
 ### Tool 2: whois (domain validity)
 Query: `whois -h <TLD-server> <domain>`
-- ccTLD whois servers: see `WHOIS_SERVER` dict in `verify_lead.py`
+- ccTLD whois servers: see RIPE WHOIS database or tld-list.com per TLD
 - For .com/.net: `whois.verisign-grs.com`
 Pass: domain active, registered before, has working nameservers
 Fail: domain not registered, available for purchase, or hijacked
@@ -62,18 +62,20 @@ Only when NIP/IČO/reg number known:
 
 ## Re-run command
 
+Use `verify_api.py` for live registry verification. The legacy `verify_lead.py`
+script was retired on 2026-09-03 — its verification logic now lives in
+`verify_api.py` (registry) and the two-tool pattern is run by the agent
+(web_search + whois on demand).
+
 ```bash
-# Initial run for a country
-python3 tools/verify_lead.py --country CZ --limit 10
+# Live registry verification for one country
+python3 tools/verify_api.py --country PL
 
-# Continue from where left off
-python3 tools/verify_lead.py --country CZ --resume
+# Re-verify all FROZEN rows for FABRYKAT pattern
+python3 tools/verify_api.py --all --retrofix
 
-# Verify specific IDs
-python3 tools/verify_lead.py --ids PL-B-DS-001 PL-B-PK-001
-
-# Full sweep (resumable)
-python3 tools/verify_lead.py --all
+# Full sweep via billszuka CLI
+python3 tools/billszuka.py verify --all
 ```
 
 ## Skills to chain
@@ -90,8 +92,8 @@ python3 tools/verify_lead.py --all
 ## Notes
 
 - whois for .hr / .ro / .md often blocked or privacy-protected → fall back to web search as Tool 2
-- TLD whois server list in `WHOIS_SERVER` dict (verify_lead.py) — extend as needed
-- For new countries: add to WHOIS_SERVER before running
+- TLD whois server: query `whois.iana.org` for the right server, or check tld-list.com
+- For new countries: extend the ccTLD list as needed
 
 ## Cron
 
@@ -99,7 +101,7 @@ python3 tools/verify_lead.py --all
 mavis({ command: "cron create", args: {
   cron_name: "verify-billszuka-leads",
   schedule: "0 10 * * 1-5",  # weekdays 10am Warsaw
-  prompt: "Run cd /Volumes/MC-BRAIN/Dev-Ext/BILLSzuka && python3 tools/verify_lead.py --all --resume --limit 5. Report new FROZEN/CONCERN counts.",
+  prompt: "Run cd /Volumes/MC-BRAIN/Dev-Ext/BILLSzuka && python3 tools/verify_api.py --all. Report new FROZEN/DO-WERYFIKACJI counts.",
   session: { mode: "sessionId", session_id: "me" }
 } })
 ```
