@@ -54,7 +54,7 @@
 ## 2026-09-03 — Sesja 8: Skan porządkowy — dead-code, UX overlap, TODO (Audit Pass)
 
 - **CodeRabbit CLI:** zainstalowany, ale **nie zalogowany** (`coderabbit auth` wymagany przed `--review`). Odłożone — manualna sesja wystarcza na obecnym rozmiarze kodu.
-- **Nieużywane narzędzia (~12 szt.):** skan strukturalny wytypował m.in. `kimi_client.py`, `gen_icons.py`, `build_phrases_v3.py` itd. **Pozostawione** — część może być lazy-importowana w `verify_api.py` (np. providerzy LLM). Decyzja o usunięciu → osobna sesja z `grep` potwierdzającym brak referencji przed `git rm`.
+- **Nieużywane narzędzia:** follow-up sesja 2026-09-03 usunęła `kimi_client.py` (0 referencji w kodzie), `gen_icons.py` (0 referencji), `migrate_files.py` (one-shot, migracja zakończona). Pozostałe kandydatów (~9 szt. z oryginalnego skanu) wymaga osobnej analizy.
 - **UX overlap:** `frontend-2/src/views/AtlasGrokView.jsx` i `LeadsView.jsx` pokrywają się koncepcyjnie z `ModernLeadsTableV2`. To **decyzja produktowa**, nie code-quality — wytypować 1–2 z trzech i zdeprecjonować pozostałe z redirectem (`<Navigate>` w `App.jsx`).
 - **Stale TODO:** kilka komentarzy `TODO` w `tools/api_server.py` i `tools/verify_run.py` — flag do następnej sesji (nie krytyczne; funkcjonalność działająca).
 - **Brak zmian w kodzie / testach** w tej sesji. Czysty audit.
