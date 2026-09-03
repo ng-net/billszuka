@@ -1712,3 +1712,38 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 - Marceli może zweryfikować ręcznie PL-X-017 (Drek, Radom) przez Google Maps
 - Decyzja o KDWT S.A. (KRS 0000801461 vs skip)
 - Możliwe szersze poszukiwania 8 odrzuconych PL-X przez inne kanały (KAS rejestr pośredników tytoniowych, panoramę firm z wizytówkami Google)
+
+## 2026-09-03 10:00 CEST — Cleanup: merge leads, delete snapshots, hard delete intake
+
+**Cel:** Zgodnie z prośbą Marcelego — przenieść wszystkie leads do master, gems/pending zostawić jeśli dobre, usunąć jeśli śmieci. Wyczyścić projekty.
+
+**Wynik:**
+
+1. **Leads merge:**
+   - **data/Polska/extra-leads-PL-verified-2026-09-03.csv** (18 wierszy): 16 dodanych do master (PL-B-137 do PL-B-152), 1 duplikat (Dopalenia = PL-B-003) usunięty, 1 PL-X-017 już w master.
+   - **data/gems-NON-PL.csv** (126 wierszy): 125 to duplikaty już w master (te same ID), 1 nowy ale dane z-shiftowane. **Nic nie wzięte z gems.**
+   - Master: 471 → 487 wierszy (+16).
+
+2. **Snapshots delete:**
+   - `data/.snapshots/` (108 plików archiwalnych catalogów z 2026-08-31): usunięte. Było gitignored.
+
+3. **Intake cleanup:**
+   - `data/_intake/manual-search-2026-08-31/` (8 plików CZ/PL/SK/UK raw+shortlist): usunięte. UK poza scope, reszta to surowe wejścia których odpowiedniki verified są w master.
+   - `data/gems-NON-PL-archive-2026-09-03.csv`: usunięte (duplikat gems-NON-PL.csv).
+   - `data/_intake/_README.md`: zostawiony (tracked w gitignore-allowlist).
+   - `data/audit-log.md` (2MB): zostawiony (historyczny log).
+
+**3 commity:**
+- `5dca830c cleanup(leads-merge): 16 verified PL extras → master (PL-B-137..152)`
+- `5f7972e6 cleanup(intake): hard delete 8 manual-search-2026-08-31 files + gems-NON-PL-archive`
+- (snapshots: brak commita, bo pliki były gitignored)
+
+**Kluczowe ustalenia:**
+- extra-leads-PL-verified ma off-by-one + niecytowane przecinki w adresach → ręczne fixy dla KDWT.
+- gems-NON-PL.csv jest archiwum (95% duplikatów). Nowy lead-search worker (gentle 12 countries) zapisuje od razu do master, nie do gems.
+- KDWT S.A. (PL-B-140) ma flagę "DISSOLVED LEGAL ENTITY" — następca prawny to KDWT S.A. KRS 0000801461 (spółka Eurocash).
+- 7 nowych PL ma flagę "DO-WERYFIKACJI" — Smart sp. z o.o., Marwin Polska, PPHU HITPOL, PHU BJB, Polityka w Sieci, FH Eduard, FH Konieczny — do manual review.
+
+**Walidacja:** 0 Critical, 0 Warnings (964 wiersze, 27 plików).
+
+**Pliki:** master.csv (gitignored, 471→487), frontend-2/public/master.csv (commit), DZIENNIK.md.
