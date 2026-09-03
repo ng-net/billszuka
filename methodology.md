@@ -830,6 +830,9 @@ Narzędzia pomocnicze:
 │   ├── vies_verify.py           # EU VIES VAT validation
 │   ├── (verify_lead.py removed 2026-09-03 — stub, 2/3 tools returned PENDING)
 │   ├── (l0_preflight.py removed 2026-09-03 — FABRYKAT logic folded into verify_api --retrofix)
+│   ├── (kimi_client.py removed 2026-09-03 — no callers in repo)
+│   ├── (gen_icons.py removed 2026-09-03 — one-shot PNG generator, no callers)
+│   ├── (migrate_files.py removed 2026-09-03 — one-shot legacy migration, already done)
 │   ├── fix_data_quality.py      # clean NIP/KRS, fill regions
 │   ├── scrapers_registry.py     # web scrapers for non-API countries (SK/RO/LT/FR/EE/SI/HR)
 │   ├── orchestrate_11_levels.py # master orchestrator for 11 lead-gen methods
