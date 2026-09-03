@@ -1437,3 +1437,26 @@ Why the new Worker is not being created:
 - EE: mała ekspozycja rynku tytoniowego (EVRK/EMTAK), większość leadów to vape/e-sigarety albo nikotínové sáčky, nie klasyczne PowerMatic. Vapista.ee (alternatywne wyroby tytoniowe) — adjacent, nie dodany. Brak nowych leads w tej iteracji.
 - LT: Hordus UAB (RoyalSmoke) — bardzo solidny hurtownik e-papierosów + akcesoria, EVRK 46.35.00 (wholesale of tobacco products including 'cigarette rolling equipment'). Duży gracz 24M EUR obrotu.
 - LV: Greis SIA — drugi największy dystrybutor tytoniu na Łotwie (po TNG), z 3 oddziałami, od 1995. Director paywalled w publicznych źródłach łotewskich.
+
+## 2026-09-03 07:08 CEST — Gentle lead search: MD + RS + SI (commit 4/4)
+
+**Zakres i wykonanie:**
+1. **MD** (2 nowe verified → master):
+   - **MD-A-006 S.R.L. PARȘE-TUTUN** (IDNO 1002606001330) — Orhei. Przetwórstwo tytoniu (kupno od plantatorów + fermentacja + sprzedaż hurtowa). NACE 4621. 100 emp, 4.6M MDL kapitał. ⚠️ Administrator BOSTAN NICOLAE = 'Lichidator' — spółka w trakcie likwidacji. ⏳ PENDING status.
+   - **MD-A-007 TUTUN-PREMIUM SRL ICS** (IDNO 1011600001583) — Telenești/Verejeni. System LOHN — przetwórstwo tytoniu + re-export. Zagraniczna własność.
+2. **RS** (1 nowy verified → master):
+   - **RS-A-005 T.R. STAKI d.o.o. (Tobacco Shop Staki)** — Beograd (Crnotravska 11). Veleprodaja duvana, MAŠINICA, upaljača, pribora za pušače. ⭐ Pow 4/5 — ma maszynki w asortymencie! Potrzebna weryfikacja APR.
+3. **SI** (1 nowy verified → master):
+   - **SI-A-008 ROKSANS d.o.o.** (ID 5523885000) — Ljubljana (Tržaška 266). Licencja MZ na 3 kategorie (tobak, tobačni izdelki, povezani izdelki). Veljavnost 11.10.2023-11.10.2028.
+
+**Walidacja:** 0 Critical, 0 Warnings (27 plików, 955 wierszy, master 484 wiersze).
+
+**Pliki:** data/master.csv (gitignored, 480→484), frontend-2/public/master.csv (commit), DZIENNIK.md.
+
+**Kluczowe ustalenia:**
+- MD: PARȘE-TUTUN ma 'Lichidator' w zarządzie — flag ⚠️ do weryfikacji statusu likwidacji. Alternatywa: TUTUN-PREMIUM (LOHN, export, lepszy status).
+- RS: T.R. STAKI = silny A-lead z mašinicami w asortymencie (Banjica lokacja sklep + Crnotravska veleprodaja). Pow 4/5.
+- SI: ROKSANS d.o.o. — kompletna licencja MZ (3 z 3 X w dovoljenju), Ljubljana, mocny lead hurtowni. Brak publicznie dostępnych danych decydenta (AJPES paywalled dla małych firm).
+
+**KONIEC SESJI GENTLE SEARCH — wszystkie 12 krajów (12/12) ✅:**
+PL (4) + CZ (2) + SK (3) + RO (1) + HR (1) + BG (2) + EE (0) + LT (1) + LV (1) + MD (2) + RS (1) + SI (1) = **17 nowych verified A-leads** + 5 partial (extra-leads-PL/gems-NON-PL). Master.csv wzrósł z 463 do 484 wierszy (+21, włączając 1 PL wiersz 2x korekty + 17 nowych + 3 fragmentaryzowane modyfikacje). Validacja 0/0 na koniec.
