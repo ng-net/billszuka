@@ -204,43 +204,53 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-dvh flex-col bg-background text-foreground">
-      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-          {/* Top-left logo (product name) — always clickable.
-              Clicking reloads the page at "/" so the user lands on the
-              default index view with a clean state. Using a plain <a>
-              with href="/" is intentional: the browser's default behaviour
-              is a full navigation, which both "navigates to index" and
-              "refreshes" in one step. */}
+    <div className="flex h-dvh flex-col bg-background text-foreground selection:bg-indigo-500/20 selection:text-indigo-700 dark:selection:text-indigo-300">
+      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border/70 bg-background/85 px-3 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 sm:px-5 z-40 sticky top-0 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+        <div className="flex min-w-0 items-center gap-3 sm:gap-6">
+          {/* Top-left logo with glowing icon badge */}
           <a
             href="/"
             title="Wróć do strony głównej (odświeża widok)"
             aria-label="BILLSzuka — strona główna"
-            className="shrink-0 leading-tight rounded-md px-1 py-0.5 -mx-1 transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 cursor-pointer"
+            className="flex items-center gap-2.5 rounded-lg px-1.5 py-1 transition-all hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 cursor-pointer group"
           >
-            <div className="font-semibold tracking-tight">BILLSzuka</div>
-            <div className="hidden text-[10px] text-muted-foreground sm:block">Katalog leadów B2B/B2C</div>
+            <div className="h-7 w-7 rounded-lg bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xs shadow-sm group-hover:scale-105 transition-transform">
+              B
+            </div>
+            <div className="leading-none">
+              <div className="font-bold tracking-tight text-sm text-foreground flex items-center gap-1.5">
+                BILLSzuka
+                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
+                  v2.2
+                </span>
+              </div>
+              <div className="hidden text-[10px] text-muted-foreground sm:block mt-0.5 font-medium">Katalog leadów B2B/B2C</div>
+            </div>
           </a>
-          <nav className="flex items-center gap-1">
-            {TABS.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                onClick={() => handleTabChange(id)}
-                aria-label={label}
-                title={label}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors sm:px-3",
-                  activeTab === id
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
-                )}
-                aria-pressed={activeTab === id}
-              >
-                <Icon className="h-4 w-4" />
-                <span className="hidden sm:inline">{label}</span>
-              </button>
-            ))}
+
+          {/* Navigation tabs */}
+          <nav className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50">
+            {TABS.map(({ id, label, icon: Icon }) => {
+              const active = activeTab === id;
+              return (
+                <button
+                  key={id}
+                  onClick={() => handleTabChange(id)}
+                  aria-label={label}
+                  title={label}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all sm:px-3.5",
+                    active
+                      ? "bg-white dark:bg-zinc-800 text-foreground shadow-sm shadow-black/5 dark:shadow-black/20"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
+                  )}
+                  aria-pressed={active}
+                >
+                  <Icon className={cn("h-3.5 w-3.5", active ? "text-indigo-600 dark:text-indigo-400" : "opacity-70")} />
+                  <span className="hidden sm:inline">{label}</span>
+                </button>
+              );
+            })}
           </nav>
         </div>
         <div className="flex shrink-0 items-center gap-1 sm:gap-2">

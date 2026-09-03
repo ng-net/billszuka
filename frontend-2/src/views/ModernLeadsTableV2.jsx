@@ -82,6 +82,51 @@ function confidenceToNumber(c) {
   return Number.isFinite(n) ? n : null;
 }
 
+function formatCleanNotes(notatki, lead) {
+  if (!notatki || typeof notatki !== "string") return null;
+  let text = notatki.trim();
+  if (!text || text.toLowerCase() === "brak") return null;
+
+  // Split pipeline artifacts separated by "|"
+  const parts = text.split(/\s*\|\s*/);
+  const badges = [];
+  const cleanParts = [];
+
+  for (const part of parts) {
+    const p = part.trim();
+    if (!p) continue;
+    
+    // Extract phone cleanup notices
+    if (p.toLowerCase().startsWith("tel cleanup") || p.toLowerCase().startsWith("telefony dodatkowe")) {
+      badges.push({ type: "phone", text: p });
+      continue;
+    }
+    // Extract volume detail
+    if (p.toLowerCase().startsWith("wolumen detail:")) {
+      badges.push({ type: "volume", text: p.replace(/^wolumen detail:\s*/i, "") });
+      continue;
+    }
+    // Extract cf detail
+    if (p.toLowerCase().startsWith("cf detail:")) {
+      badges.push({ type: "detail", text: p.replace(/^cf detail:\s*/i, "") });
+      continue;
+    }
+    // Extract do weryfikacji / warnings
+    if (p.includes("DO-WERYFIKACJI") || p.includes("Weryfikacja:") || p.includes("⚠️")) {
+      badges.push({ type: "warning", text: p });
+      continue;
+    }
+    cleanParts.push(p);
+  }
+
+  const mainText = cleanParts.join(" • ");
+
+  return {
+    mainText: mainText || text,
+    badges,
+  };
+}
+
 // --- Social Icons ---
 const LinkedinIcon = ({ size = 16, className }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -280,16 +325,20 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
     const defaultList = ["Polska", "Czechy", "Słowacja", "Słowenia", "Chorwacja", "Bułgaria", "Rumunia", "Mołdawia", "Serbia", "Litwa", "Łotwa", "Estonia", "Francja"];
     const found = new Set(defaultList);
     for (const l of leads) {
-      if (l.kraj && String(l.kraj).trim()) found.add(String(l.kraj).trim());
+      if (l.kraj && String(l.kraj).trim() && String(l.kraj).trim().toLowerCase() !== "wszystkie") {
+        found.add(String(l.kraj).trim());
+      }
     }
-    return ["Wszystkie", ...Array.from(found)];
+    return Array.from(found);
   }, [leads]);
 
   const tierOptions = useMemo(() => {
     const defaultTiers = ["Producent", "hurtownik", "reseller", "detalista", "marketplace", "autoryzowany"];
     const found = new Set(defaultTiers);
     for (const l of leads) {
-      if (l.tier && String(l.tier).trim()) found.add(String(l.tier).trim());
+      if (l.tier && String(l.tier).trim() && String(l.tier).trim().toLowerCase() !== "wszystkie") {
+        found.add(String(l.tier).trim());
+      }
     }
     return ["Wszystkie", ...Array.from(found)];
   }, [leads]);
@@ -412,25 +461,46 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   // --- Active filter pills ---
   const activeFilters = useMemo(() => {
     const list = [];
-    if (selectedCountry !== "Wszystkie") list.push({ type: "country", label: `Kraj: ${selectedCountry}` });
+    if (selectedCountries.length > 0) {
+      list.push({ type: "countries", label: `Kraje (${selectedCountries.length})` });
+    } else if (selectedCountry !== "Wszystkie") {
+      list.push({ type: "country", label: `Kraj: ${selectedCountry}` });
+    }
     if (selectedTier !== "Wszystkie") list.push({ type: "tier", label: `Rola: ${selectedTier}` });
+    if (selectedConfidence !== "all") {
+      const confLabel =
+        selectedConfidence === "green"
+          ? "Confidence: 🟢 Tylko zweryfikowane"
+          : selectedConfidence === "green_yellow"
+          ? "Confidence: 🟢 + 🟡"
+          : "Confidence: Brak znacznika";
+      list.push({ type: "confidence", label: confLabel });
+    }
     if (selectedUrlFilter !== "Wszystkie") {
       const label =
         selectedUrlFilter === "ok"
           ? "WWW: Działające (200)"
           : selectedUrlFilter === "error"
-          ? "WWW: Błędy"
+          ? "WWW: Błędy (4xx/5xx)"
+          : selectedUrlFilter === "timeout"
+          ? "WWW: Timeouts / DNS"
+          : selectedUrlFilter === "red_high_kw"
+          ? "WWW: 🎯 Red + High KW"
           : "WWW: Brak/Nieznane";
       list.push({ type: "url", label });
     }
     for (const b of selectedBrands) list.push({ type: "brand", label: `Marka: ${b}`, value: b });
     if (searchQuery.trim()) list.push({ type: "search", label: `Szukaj: "${searchQuery.trim()}"` });
     return list;
-  }, [selectedCountry, selectedTier, selectedUrlFilter, selectedBrands, searchQuery]);
+  }, [selectedCountry, selectedCountries, selectedTier, selectedConfidence, selectedUrlFilter, selectedBrands, searchQuery]);
 
   const removeFilter = (f) => {
-    if (f.type === "country") setSelectedCountry("Wszystkie");
+    if (f.type === "country" || f.type === "countries") {
+      setSelectedCountry("Wszystkie");
+      setSelectedCountries([]);
+    }
     if (f.type === "tier") setSelectedTier("Wszystkie");
+    if (f.type === "confidence") setSelectedConfidence("all");
     if (f.type === "url") setSelectedUrlFilter("Wszystkie");
     if (f.type === "brand") setSelectedBrands((prev) => prev.filter((b) => b !== f.value));
     if (f.type === "search") setSearchQuery("");
@@ -438,7 +508,9 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
   const resetAll = () => {
     setSelectedCountry("Wszystkie");
+    setSelectedCountries([]);
     setSelectedTier("Wszystkie");
+    setSelectedConfidence("all");
     setSelectedUrlFilter("Wszystkie");
     setSelectedBrands([]);
     setSearchQuery("");
@@ -945,7 +1017,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                 <th className="p-4 min-w-[280px] sticky left-0 z-30 bg-slate-50 dark:bg-zinc-800 border-r border-slate-200 dark:border-zinc-700 shadow-[1px_0_3px_rgba(0,0,0,0.05)]">
                   Firma &amp; ID
                 </th>
-                <th className="p-4 min-w-[150px]">Lokalizacja</th>
+                <th className="p-4 min-w-[140px]">Kraj / Miasto</th>
                 <th className="p-4 min-w-[180px]">Wolumen</th>
                 <th className="p-4 min-w-[140px]">Potencjał</th>
                 <th className="p-4 min-w-[140px]">Rola</th>
@@ -1012,7 +1084,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                         </div>
                       </td>
 
-                      {/* Sticky Left: Identity (sticky ID + Firma from VideoGrid) */}
+                      {/* Sticky Left: Identity (sticky ID + Firma) */}
                       <td className="p-4 sticky left-0 z-10 bg-white dark:bg-zinc-900 group-hover:bg-slate-50 dark:group-hover:bg-zinc-800/80 border-r border-slate-200 dark:border-zinc-700 transition-colors shadow-[1px_0_3px_rgba(0,0,0,0.03)]">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-100 to-slate-200 dark:from-indigo-900/60 dark:to-zinc-800 flex items-center justify-center text-slate-700 dark:text-indigo-200 font-bold text-lg shadow-inner shrink-0">
@@ -1034,16 +1106,36 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                               >
                                 {brand}
                               </span>
+                              {lead.www && (
+                                <span onClick={(e) => e.stopPropagation()}>
+                                  <UrlBadge
+                                    url={lead.www}
+                                    status={urlStatusById[lead.id]?.status || "unknown"}
+                                    state={urlStatusById[lead.id]?.state || "unknown"}
+                                    http_code={urlStatusById[lead.id]?.http_code}
+                                    error={urlStatusById[lead.id]?.error}
+                                    redirect_url={urlStatusById[lead.id]?.redirect_url}
+                                    checked_at={urlStatusById[lead.id]?.checked_at}
+                                    raw_status={lead.www_status}
+                                    keyword_score={keywordById[lead.id]?.score_pct}
+                                    keyword_hits={keywordById[lead.id]?.keywords_found}
+                                    showUrl={true}
+                                    compact={true}
+                                  />
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>
                       </td>
 
-                      {/* Location */}
+                      {/* 2nd Data Column: Kraj / Miasto */}
                       <td className="p-4 text-sm text-slate-600 dark:text-slate-300">
-                        <div className="font-medium text-slate-900 dark:text-slate-100">{lead.miasto}</div>
-                        <div className="text-xs text-slate-400 dark:text-slate-400 flex items-center gap-1 mt-0.5">
-                          <Globe size={10} /> {lead.kraj}
+                        <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-slate-100">
+                          <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-[11px] font-mono border border-slate-200 dark:border-zinc-700">
+                            {lead.kraj}
+                          </span>
+                          <span className="truncate">{lead.miasto}</span>
                         </div>
                       </td>
 
@@ -1160,191 +1252,243 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
                     {/* --- EXPANDED DETAIL ROW (Progressive Disclosure) --- */}
                     {isExpanded && (
-                      <tr className="bg-slate-50/70 dark:bg-zinc-800/40 border-b border-slate-200 dark:border-zinc-800 transition-all">
+                      <tr className="bg-slate-50/90 dark:bg-zinc-900/90 border-b border-slate-200 dark:border-zinc-800 transition-all">
                         <td colSpan="8" className="p-0">
-                          <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-50/50 dark:bg-zinc-900/50">
-                            {/* Column 1: Business Details */}
-                            <div className="space-y-4">
-                              <h4 className="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">
-                                Dane Biznesowe
-                              </h4>
-
-                              <div className="bg-white dark:bg-zinc-800 p-3.5 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
-                                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Pełny Adres</div>
-                                <div className="text-sm font-medium text-slate-800 dark:text-slate-100 flex items-start gap-2">
-                                  <MapPin size={16} className="mt-0.5 text-slate-400 shrink-0" />
-                                  <span>{lead.adres}</span>
-                                </div>
-                                <button
-                                  className="mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-medium"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleCopy(lead.adres, "Adres");
-                                  }}
-                                >
-                                  <Copy size={12} /> Kopiuj adres
-                                </button>
+                          <div className="p-5 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-5 bg-gradient-to-b from-slate-50/80 to-slate-100/50 dark:from-zinc-900/90 dark:to-zinc-950/80 border-t border-slate-200/70 dark:border-zinc-800/70">
+                            {/* Column 1: Business Identity & Legal Data */}
+                            <div className="space-y-3.5">
+                              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                <Building2 size={14} className="text-indigo-600 dark:text-indigo-400" />
+                                <span>Rejestr &amp; Adres</span>
                               </div>
 
-                              <div className="grid grid-cols-2 gap-3">
-                                <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
-                                  <div className="text-xs text-slate-500 dark:text-slate-400">NIP / VAT</div>
-                                  <div className="text-sm font-mono font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
-                                    {lead.nip_vat}
+                              <div className="bg-white dark:bg-zinc-800/90 p-4 rounded-xl border border-slate-200/80 dark:border-zinc-700/80 shadow-sm space-y-3">
+                                <div>
+                                  <div className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Adres siedziby</div>
+                                  <div className="text-sm font-medium text-slate-800 dark:text-slate-100 flex items-start gap-2 mt-0.5">
+                                    <MapPin size={15} className="mt-0.5 text-indigo-500 shrink-0" />
+                                    <span>{lead.adres || `${lead.miasto}, ${lead.kraj}`}</span>
                                   </div>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      handleCopy(lead.nip_vat, "NIP");
-                                    }}
-                                    className="mt-1 text-[11px] text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-                                  >
-                                    <Copy size={10} /> Kopiuj
-                                  </button>
+                                  {lead.adres && (
+                                    <button
+                                      className="mt-1.5 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 font-medium transition-colors"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleCopy(lead.adres, "Adres");
+                                      }}
+                                    >
+                                      <Copy size={12} /> Kopiuj adres
+                                    </button>
+                                  )}
                                 </div>
-                                <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
-                                  <div className="text-xs text-slate-500 dark:text-slate-400">KRS</div>
-                                  <div className="text-sm font-mono font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
-                                    {lead.rejestr_id}
+
+                                <div className="grid grid-cols-2 gap-2.5 pt-2 border-t border-slate-100 dark:border-zinc-700/60">
+                                  <div className="bg-slate-50 dark:bg-zinc-900/60 p-2.5 rounded-lg border border-slate-200/60 dark:border-zinc-800">
+                                    <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase">NIP / VAT</div>
+                                    <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-0.5 truncate">
+                                      {lead.nip_vat || "Brak NIP"}
+                                    </div>
+                                    {lead.nip_vat && (
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleCopy(lead.nip_vat, "NIP");
+                                        }}
+                                        className="mt-1 text-[10px] text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-medium"
+                                      >
+                                        <Copy size={10} /> Kopiuj
+                                      </button>
+                                    )}
+                                  </div>
+                                  <div className="bg-slate-50 dark:bg-zinc-900/60 p-2.5 rounded-lg border border-slate-200/60 dark:border-zinc-800">
+                                    <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase">KRS / Rejestr</div>
+                                    <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-0.5 truncate">
+                                      {lead.rejestr_id || "Brak KRS"}
+                                    </div>
                                   </div>
                                 </div>
 
-                                {lead.www && (
-                                  <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
-                                    <div className="text-xs text-slate-500 dark:text-slate-400 mb-1.5">Strona WWW</div>
-                                    <UrlBadge
-                                      url={lead.www}
-                                      status={urlStatusById[lead.id]?.status || "unknown"}
-                                      state={urlStatusById[lead.id]?.state || "unknown"}
-                                      http_code={urlStatusById[lead.id]?.http_code}
-                                      error={urlStatusById[lead.id]?.error}
-                                      redirect_url={urlStatusById[lead.id]?.redirect_url}
-                                      checked_at={urlStatusById[lead.id]?.checked_at}
-                                      raw_status={lead.www_status}
-                                      keyword_score={keywordById[lead.id]?.score_pct}
-                                      keyword_hits={keywordById[lead.id]?.keywords_found}
-                                      showUrl={true}
-                                      compact={true}
-                                    />
+                                {lead.marki_nabijarki && (
+                                  <div className="pt-2 border-t border-slate-100 dark:border-zinc-700/60">
+                                    <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase mb-1.5">Wykryte Marki</div>
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {splitBrands(lead.marki_nabijarki).map((m, i) => (
+                                        <span
+                                          key={i}
+                                          className="px-2 py-0.5 bg-indigo-50/70 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 rounded-md text-xs font-medium border border-indigo-100 dark:border-indigo-900/50"
+                                        >
+                                          {m}
+                                        </span>
+                                      ))}
+                                    </div>
                                   </div>
                                 )}
                               </div>
+                            </div>
 
-                              <div className="bg-white dark:bg-zinc-800 p-3 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
-                                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1.5">Marki Maszynek</div>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {splitBrands(lead.marki_nabijarki).map((m, i) => (
-                                    <span
-                                      key={i}
-                                      className="px-2 py-0.5 bg-slate-100 dark:bg-zinc-700 text-slate-700 dark:text-slate-200 rounded text-xs font-medium border border-slate-200 dark:border-zinc-600"
+                            {/* Column 2: Decydent, Direct Contacts & Social */}
+                            <div className="space-y-3.5">
+                              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                <Sparkles size={14} className="text-emerald-600 dark:text-emerald-400" />
+                                <span>Decydent &amp; Kanały Kontaktu</span>
+                              </div>
+
+                              <div className="bg-white dark:bg-zinc-800/90 p-4 rounded-xl border border-slate-200/80 dark:border-zinc-700/80 shadow-sm space-y-3">
+                                <div>
+                                  <div className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Osoba Decyzyjna</div>
+                                  <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5 flex items-center gap-2">
+                                    <span>{maskNames ? maskName(lead.decydent) : (lead.decydent || "Brak danych decydenta")}</span>
+                                    {lead.stanowisko && (
+                                      <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-zinc-600">
+                                        {lead.stanowisko}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+
+                                <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-zinc-700/60">
+                                  {lead.telefon && (
+                                    <a
+                                      href={`tel:${lead.telefon}`}
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-zinc-900/60 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-300 border border-slate-200/60 dark:border-zinc-800 transition-colors group"
                                     >
-                                      {m}
-                                    </span>
-                                  ))}
+                                      <div className="flex items-center gap-2">
+                                        <Phone size={13} className="text-emerald-600 dark:text-emerald-400" />
+                                        <span className="font-mono">{lead.telefon}</span>
+                                      </div>
+                                      <span className="text-[10px] text-slate-400 group-hover:text-emerald-600">Zadzwoń ↗</span>
+                                    </a>
+                                  )}
+                                  {lead.email_decydent && (
+                                    <a
+                                      href={`mailto:${lead.email_decydent}`}
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-zinc-900/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-blue-700 dark:hover:text-blue-300 border border-slate-200/60 dark:border-zinc-800 transition-colors group"
+                                    >
+                                      <div className="flex items-center gap-2 truncate">
+                                        <Mail size={13} className="text-blue-600 dark:text-blue-400 shrink-0" />
+                                        <span className="truncate">{lead.email_decydent}</span>
+                                      </div>
+                                      <span className="text-[10px] text-slate-400 group-hover:text-blue-600 shrink-0 ml-1">E-mail Decydenta ↗</span>
+                                    </a>
+                                  )}
+                                  {lead.email && lead.email !== lead.email_decydent && (
+                                    <a
+                                      href={`mailto:${lead.email}`}
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-zinc-900/60 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-blue-700 dark:hover:text-blue-300 border border-slate-200/60 dark:border-zinc-800 transition-colors group"
+                                    >
+                                      <div className="flex items-center gap-2 truncate">
+                                        <Mail size={13} className="text-slate-400 shrink-0" />
+                                        <span className="truncate">{lead.email}</span>
+                                      </div>
+                                      <span className="text-[10px] text-slate-400 group-hover:text-blue-600 shrink-0 ml-1">E-mail Ogólny ↗</span>
+                                    </a>
+                                  )}
                                 </div>
+
+                                {(lead.linkedin || lead.facebook || lead.instagram || lead.tiktok) && (
+                                  <div className="pt-2 border-t border-slate-100 dark:border-zinc-700/60 flex items-center gap-2">
+                                    <span className="text-[10px] font-medium text-slate-400 uppercase mr-1">Social:</span>
+                                    {lead.linkedin && (
+                                      <a
+                                        href={lead.linkedin}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="p-1.5 bg-[#0077b5] text-white rounded-lg hover:opacity-90 transition-opacity"
+                                        title="LinkedIn"
+                                      >
+                                        <LinkedinIcon size={14} />
+                                      </a>
+                                    )}
+                                    {lead.facebook && (
+                                      <a
+                                        href={lead.facebook}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="p-1.5 bg-[#1877F2] text-white rounded-lg hover:opacity-90 transition-opacity"
+                                        title="Facebook"
+                                      >
+                                        <FacebookIcon size={14} />
+                                      </a>
+                                    )}
+                                    {lead.instagram && (
+                                      <a
+                                        href={lead.instagram}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="p-1.5 bg-gradient-to-tr from-yellow-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+                                        title="Instagram"
+                                      >
+                                        <InstagramIcon size={14} />
+                                      </a>
+                                    )}
+                                    {lead.tiktok && (
+                                      <a
+                                        href={lead.tiktok}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="p-1.5 bg-black text-white rounded-lg hover:opacity-90 transition-opacity border border-zinc-700"
+                                        title="TikTok"
+                                      >
+                                        <TikTokIcon size={14} />
+                                      </a>
+                                    )}
+                                  </div>
+                                )}
                               </div>
                             </div>
 
-                            {/* Column 2: Contact & Socials */}
-                            <div className="space-y-4">
-                              <h4 className="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">
-                                Kontakt & Social
-                              </h4>
+                            {/* Column 3: Analytical Notes & Sourcing Metadata */}
+                            <div className="space-y-3.5">
+                              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                <ShieldCheck size={14} className="text-amber-600 dark:text-amber-400" />
+                                <span>Notatki Analityczne &amp; Źródło</span>
+                              </div>
 
-                              <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm space-y-3">
-                                <div>
-                                  <div className="text-xs text-slate-500 dark:text-slate-400">Decydent</div>
-                                  <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                                    {maskNames ? maskName(lead.decydent) : lead.decydent}
+                              {(() => {
+                                const parsedNotes = formatCleanNotes(lead.notatki, lead);
+                                return (
+                                  <div className="bg-amber-50/70 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200/80 dark:border-amber-900/60 shadow-sm flex flex-col justify-between h-full gap-3">
+                                    <div>
+                                      {/* Clean main note text */}
+                                      <p className="text-xs text-amber-950 dark:text-amber-100 leading-relaxed font-sans">
+                                        {parsedNotes ? parsedNotes.mainText : (lead.notatki || "Brak dodatkowych notatek analitycznych dla tego rekordu.")}
+                                      </p>
+
+                                      {/* Badges / Structured alerts */}
+                                      {parsedNotes && parsedNotes.badges.length > 0 && (
+                                        <div className="mt-3 flex flex-wrap gap-1.5">
+                                          {parsedNotes.badges.map((b, i) => (
+                                            <span
+                                              key={i}
+                                              className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${
+                                                b.type === "warning"
+                                                  ? "bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800"
+                                                  : b.type === "volume"
+                                                  ? "bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 border-amber-300 dark:border-amber-700"
+                                                  : "bg-white/80 dark:bg-zinc-800/80 text-amber-900 dark:text-amber-200 border-amber-200 dark:border-amber-800"
+                                              }`}
+                                            >
+                                              {b.text}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      )}
+                                    </div>
+
+                                    <div className="pt-3 border-t border-amber-200/60 dark:border-amber-800/40 flex justify-between items-center text-[11px] text-amber-800 dark:text-amber-400">
+                                      <span className="truncate max-w-[55%]">Źródło: {lead.zrodlo_danych || "Rejestry publiczne"}</span>
+                                      <span className="shrink-0 font-mono">Weryfikacja: {fmtDate(lead.data_weryfikacji)}</span>
+                                    </div>
                                   </div>
-                                  <div className="text-xs text-slate-500 dark:text-slate-400">{lead.stanowisko}</div>
-                                </div>
-                                <hr className="border-slate-100 dark:border-zinc-700" />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                  <a
-                                    href={`mailto:${lead.email_decydent}`}
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                  >
-                                    <Mail size={13} /> Email Decydenta
-                                  </a>
-                                  <a
-                                    href={`mailto:${lead.email}`}
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                  >
-                                    <Mail size={13} /> Email Ogólny
-                                  </a>
-                                </div>
-                              </div>
-
-                              <div className="bg-white dark:bg-zinc-800 p-3.5 rounded-lg border border-slate-200 dark:border-zinc-700 shadow-sm">
-                                <div className="text-xs text-slate-500 dark:text-slate-400 mb-2">Social Media</div>
-                                <div className="flex gap-2">
-                                  <a
-                                    href={lead.linkedin}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="p-2 bg-[#0077b5] text-white rounded hover:opacity-90 transition-opacity"
-                                    title="LinkedIn"
-                                  >
-                                    <LinkedinIcon size={16} />
-                                  </a>
-                                  <a
-                                    href={lead.facebook}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="p-2 bg-[#1877F2] text-white rounded hover:opacity-90 transition-opacity"
-                                    title="Facebook"
-                                  >
-                                    <FacebookIcon size={16} />
-                                  </a>
-                                  <a
-                                    href={lead.instagram}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="p-2 bg-gradient-to-tr from-yellow-500 to-purple-600 text-white rounded hover:opacity-90 transition-opacity"
-                                    title="Instagram"
-                                  >
-                                    <InstagramIcon size={16} />
-                                  </a>
-                                  <a
-                                    href={lead.tiktok}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="p-2 bg-black text-white rounded hover:opacity-90 transition-opacity border border-zinc-700"
-                                    title="TikTok"
-                                  >
-                                    <TikTokIcon size={16} />
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Column 3: Notes & Meta (amber card) */}
-                            <div className="space-y-4">
-                              <h4 className="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">
-                                Notatki & Źródło
-                              </h4>
-
-                              <div className="bg-amber-50/80 dark:bg-amber-950/30 p-4 rounded-lg border border-amber-200/80 dark:border-amber-900/50 shadow-sm flex flex-col justify-between h-full">
-                                <div>
-                                  <div className="text-xs font-bold text-amber-900 dark:text-amber-300 mb-2 flex items-center gap-1.5">
-                                    <ShieldCheck size={15} /> Notatki Wewnętrzne
-                                  </div>
-                                  <p className="text-xs text-amber-950 dark:text-amber-200 leading-relaxed">
-                                    {lead.notatki}
-                                  </p>
-                                </div>
-                                <div className="mt-4 pt-3 border-t border-amber-200/60 dark:border-amber-800/40 flex justify-between items-center text-[11px] text-amber-800 dark:text-amber-400">
-                                  <span>Źródło: {lead.zrodlo_danych}</span>
-                                  <span>Weryfikacja: {fmtDate(lead.data_weryfikacji)}</span>
-                                </div>
-                              </div>
+                                );
+                              })()}
                             </div>
                           </div>
                         </td>
