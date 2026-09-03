@@ -7,7 +7,7 @@ Automated verification of per-country catalog CSVs against official registries a
 `python3 tools/billszuka.py` is the unified CLI wrapper for all lead operations:
 
 ```bash
-# Validate schemas across all 24 catalogs and rebuild data/master.csv (35 columns)
+# Validate schemas across all 24 catalogs and rebuild data/master.csv (36 columns)
 python3 tools/billszuka.py compile
 
 # Run automated verification loop, update row hashes, flag status, and rebuild master
@@ -15,9 +15,6 @@ python3 tools/billszuka.py verify [--init | --all | --dry-run]
 
 # Normalize raw intake leads from data/_intake/{ISO}/
 python3 tools/billszuka.py intake --iso CZ
-
-# Execute 11-level search strategy or view search options for a country
-python3 tools/billszuka.py search --country SK [--level L1]
 ```
 
 ---
@@ -26,9 +23,11 @@ python3 tools/billszuka.py search --country SK [--level L1]
 
 ### Core Pipeline & Orchestration
 - **`billszuka.py`**: Unified Master CLI entrypoint.
-- **`config.py`**: Central configuration (35-column canonical schema, country maps, auto AppleDouble `._*` cleanup).
-- **`orchestrate_11_levels.py`**: 11-level search strategy runner and manual lead adder.
-- **`map_intake.py`**: Standardized intake normalizer (maps raw 35-col intake CSVs → 35-col master schema).
+- **`config.py`**: Central configuration (36-column canonical schema, country maps, auto AppleDouble `._*` cleanup).
+- **`validate_columns.py`**: Strict 36-column canonical schema validator.
+- **`check_urls.py`**: Asynchronous HTTP scanner for domain/URL health and live status recording.
+- **`inject_www_status.py`**: Injects live URL health and response time status (`www_status`) into catalogs.
+- **`map_intake.py`**: Standardized intake normalizer (maps raw intake CSVs → 36-col master schema).
 - **`validate_intake.py`**: Intake validation & hallucination detection.
 - **`extract_intel.py`**: Automated strategic insight extractor for `DZIENNIK.md` and `INTEL.md`.
 
@@ -40,18 +39,17 @@ python3 tools/billszuka.py search --country SK [--level L1]
 - **`l0_preflight.py`**: Pre-flight validation (NIP checksum mod 11 + KRS/ARES name match).
 - **`scrapers_registry.py`**: Web scrapers for non-API countries (SK, RO, LT, FR).
 - **`krs_search.py`**: KRS registry lookup.
-- **`ee_ariregister.py`**: Estonia e-Äriregister API/web lookup.
-- **`lt_open_data.py`**: Lithuania JAR open data lookup.
-- **`fr_recherche.py`**: France Pappers / Recherche lookup.
 - **`vies_verify.py`**: EU VIES VAT validation.
 - **`gmaps_search.py`**: Places API search tool for tobacco distributor leads.
 
-### Enrichment, Testing & Diagnostics
+### Enrichment, Backend & Server
 - **`auto_enrich.py`**: Multi-source lead enrichment.
 - **`apollo_enrich.py`**: Apollo.io fallback enricher for non-EU markets (e.g. MD).
 - **`api_server.py`**: FastAPI backend server for local dashboard interface.
-- **`test_tokens.py`**: API keys & tokens validator (.env).
-- **`test_11_levels.py`**: Strict assertions test runner for 11 lead generation levels.
+- **`auth.py`**: User authentication & permissions.
+- **`db.py`**: SQLite database interface for fast local state (`billszuka.db`).
+- **`faq.py` & `faq_build_session.py`**: Knowledge base and FAQ management.
+- **`md_corpus.py`**: Permanent markdown corpus parser and indexer.
 - **`run_verify_cron.sh`**: Verification cron trigger script.
 
 ---
@@ -59,17 +57,9 @@ python3 tools/billszuka.py search --country SK [--level L1]
 ## Archival & One-Off Scripts (`tools/legacy/`)
 
 Historical, completed migration, or experimental one-off scripts are archived under `tools/legacy/`:
-- `clean_and_rebuild_verified_catalogs.py`: Full catalog audit and purge pass (executed 2026-08-14).
-- `fix_catalog_quality.py`: Historical one-shot catalog cleaner (superceded by `billszuka.py`).
-- `fix_data_quality.py`: Historical region-based deduplication and scoring script.
-- `gmaps_clean_and_verify.py`: Historical post-sweep cleanup helper.
-- `gmaps_sweep_7min.py`, `gmaps_20min_underrepresented_sweep.py`, `gmaps_45min_sweep.py`, `gmaps_retry_si_lt_ro.py`: Historical targeted sweep sessions.
-- `rescue_intake_leads.py`: One-shot intake rescue pass (2026-08-14).
-- `freeze_baseline_sk.py`: SK intake freeze baseline updater (2026-08-12).
-- `drop_region_columns.py`: Schema migration script.
-- `migrate_strip_regions.py`: Region field stripping & ID re-indexing migration.
-- `refresh_row_hashes.py`: Replaced by `verify_run.py --init`.
-- `clean_backups.py`: Backup CSV cleaner.
-- `clean_macos_metadata.sh`: Superceded by `config.py:clean_apple_double()`.
-- `poc_dow_resolver.py` & `enrich_pl_dow.py`: Experimental DOW proof-of-concept scripts.
-- `normalize_PL.py`: One-off PL normalizer (superceded by `map_intake.py`).
+- `fix_cz_bad_rows.py`, `fix_remaining_42.py`, `fix_nonpl_schema.py`, `fix_validation_criticals.py`
+- `deep_clean_and_deduplicate.py`, `clean_and_realign_columns.py`, `clean_notatki.py`, `dedup_notatki.py`
+- `gentle_60min_lead_gem_scout.py`, `gentle_enrich_and_verify.py`, `autonomous_20min_verifier.py`
+- `purge_hallucinations_and_normalize.py`, `uniform_data.py`, `finalize_and_freeze_all.py`
+- `orchestrate_11_levels.py`, `test_11_levels.py`, `test_tokens.py`
+- Full archive of earlier sweep and catalog cleanup helpers.

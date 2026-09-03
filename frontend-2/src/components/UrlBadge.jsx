@@ -10,6 +10,44 @@ import {
 } from "lucide-react";
 
 /**
+ * parseWwwStatus — interpretuje string z kolumny www_status w CSV (np. "green|200|12ms", "red|404", "red|timeout").
+ */
+export function parseWwwStatus(rawStatus) {
+  if (!rawStatus || typeof rawStatus !== "string") return null;
+  const parts = rawStatus.trim().split("|");
+  const color = parts[0]?.toLowerCase();
+  if (color === "green") {
+    const http_code = parts[1] ? Number(parts[1]) : 200;
+    const response_time = parts[2] || null;
+    return {
+      status: "green",
+      state: http_code >= 300 && http_code < 400 ? "redirect" : "ok",
+      http_code,
+      response_time,
+    };
+  }
+  if (color === "red") {
+    const detail = parts[1] || "";
+    if (detail === "timeout") return { status: "red", state: "timeout", error: "Timeout" };
+    if (detail === "dns") return { status: "red", state: "dns", error: "DNS Error" };
+    if (detail === "ssl") return { status: "red", state: "ssl", error: "SSL Error" };
+    const code = Number(detail);
+    if (!isNaN(code) && code > 0) {
+      return {
+        status: "red",
+        state: code >= 500 ? "5xx" : code >= 400 ? "4xx" : "error",
+        http_code: code,
+      };
+    }
+    return { status: "red", state: "error", error: detail || "Connection error" };
+  }
+  if (color === "unknown" || color === "nieznane") {
+    return { status: "unknown", state: "unknown" };
+  }
+  return null;
+}
+
+/**
  * UrlBadge — URL z pigułką statusu (4 stany + unknown).
  *
  * Stany i kolory:
@@ -24,17 +62,19 @@ import {
  *
  * Props:
  *   url, status (high-level), state (szczegółowy), http_code, error, redirect_url, checked_at
+ *   raw_status: string — opcjonalny string z kolumny www_status w CSV (np. "green|200|12ms")
  *   showUrl: bool — czy pokazywać URL tekst obok pill (default true)
  *   compact: bool — krótszy URL (32 znaki) + mniejsza pill
  */
 export function UrlBadge({
   url,
-  _status = "unknown",
-  state = "unknown",
-  http_code,
-  error,
+  status: statusProp,
+  state: stateProp,
+  http_code: httpCodeProp,
+  error: errorProp,
   redirect_url,
   checked_at,
+  raw_status,
   showUrl = true,
   compact = false,
   keyword_score,        // 0-100, opcjonalny
@@ -43,6 +83,12 @@ export function UrlBadge({
   if (!url) {
     return showUrl ? <span className="text-xs text-gray-400">—</span> : null;
   }
+
+  // Fallback to parsed raw_status if props are missing/unknown
+  const parsed = (!stateProp || stateProp === "unknown") && raw_status ? parseWwwStatus(raw_status) : null;
+  const state = stateProp && stateProp !== "unknown" ? stateProp : (parsed?.state || "unknown");
+  const http_code = httpCodeProp !== undefined ? httpCodeProp : parsed?.http_code;
+  const error = errorProp !== undefined ? errorProp : parsed?.error;
 
   const palette = {
     ok:       { bg: "#dcfce7", text: "#166534", Icon: Check },

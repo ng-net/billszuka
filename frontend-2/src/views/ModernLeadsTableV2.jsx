@@ -23,9 +23,11 @@ import {
   CircleDot,
   CircleDashed,
   Gauge,
+  Timer,
+  Flame,
 } from "lucide-react";
 import { toast } from "sonner";
-import { UrlBadge } from "../components/UrlBadge";
+import { UrlBadge, parseWwwStatus } from "../components/UrlBadge";
 import { useUrlStatus } from "../hooks/useUrlStatus";
 import { useKeywordScan } from "../hooks/useKeywordScan";
 
@@ -352,19 +354,30 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         if (selectedConfidence === "none" && (hasGreen || hasYellow || hasRed)) return false;
       }
 
-      // URL scanner state filter
-      if (selectedUrlFilter === "ok") {
+      // URL scanner state filter (reads from SQLite endpoint or fallback to lead.www_status)
+      if (selectedUrlFilter !== "Wszystkie") {
         const u = urlStatusById[lead.id];
-        if (u?.state !== "ok") return false;
-      } else if (selectedUrlFilter === "error") {
-        const u = urlStatusById[lead.id];
-        if (!u || !["4xx", "5xx", "timeout", "ssl", "dns", "error"].includes(u.state)) return false;
-      } else if (selectedUrlFilter === "none") {
-        const u = urlStatusById[lead.id];
+        const parsedCsvStatus = (!u || u.state === "unknown") && lead.www_status ? parseWwwStatus(lead.www_status) : null;
+        const resolvedState = u?.state && u.state !== "unknown" ? u.state : (parsedCsvStatus?.state || "unknown");
+        const resolvedStatus = u?.status && u.status !== "unknown" ? u.status : (parsedCsvStatus?.status || "unknown");
+
         const rawWww = String(lead.www || "").trim().toLowerCase();
         const hasNoUrl = !rawWww || ["brak", "-", "n/a", "nie dotyczy", "brak www"].includes(rawWww);
-        const isUnknown = !u || !u.state || u.state === "unknown";
-        if (!hasNoUrl && !isUnknown) return false;
+
+        if (selectedUrlFilter === "ok") {
+          if (resolvedState !== "ok" && resolvedStatus !== "green") return false;
+        } else if (selectedUrlFilter === "error") {
+          if (!["4xx", "5xx", "timeout", "ssl", "dns", "error"].includes(resolvedState) && resolvedStatus !== "red") return false;
+        } else if (selectedUrlFilter === "timeout") {
+          if (resolvedState !== "timeout" && resolvedState !== "dns" && resolvedState !== "ssl") return false;
+        } else if (selectedUrlFilter === "red_high_kw") {
+          const isRed = ["4xx", "5xx", "timeout", "ssl", "dns", "error"].includes(resolvedState) || resolvedStatus === "red";
+          const kwScore = keywordById[lead.id]?.score_pct ?? (lead.keyword_score ? Number(lead.keyword_score) : 0);
+          if (!isRed || kwScore < 20) return false;
+        } else if (selectedUrlFilter === "none") {
+          const isUnknown = resolvedState === "unknown" && resolvedStatus === "unknown";
+          if (!hasNoUrl && !isUnknown) return false;
+        }
       }
 
       // Global search: search across multiple relevant fields
@@ -771,6 +784,10 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                   ? "200 OK"
                   : selectedUrlFilter === "error"
                   ? "Błędy"
+                  : selectedUrlFilter === "timeout"
+                  ? "Timeouts"
+                  : selectedUrlFilter === "red_high_kw"
+                  ? "🎯 Red + High KW"
                   : selectedUrlFilter === "none"
                   ? "Brak/Nieznane"
                   : "Wszystkie"}
@@ -778,11 +795,13 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               <ChevronDown size={14} className="text-slate-400" />
             </button>
             {urlDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
+              <div className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl p-1.5 z-50">
                 {[
                   { id: "Wszystkie", label: "Wszystkie WWW", icon: null },
                   { id: "ok", label: "Działające (200 OK)", icon: CheckCircle2 },
-                  { id: "error", label: "Błędy (4xx/5xx/DNS)", icon: X },
+                  { id: "error", label: "Błędy (4xx/5xx/Red)", icon: X },
+                  { id: "timeout", label: "Timeouts / DNS / SSL", icon: Timer },
+                  { id: "red_high_kw", label: "🎯 Red + High KW (>20%)", icon: Flame },
                   { id: "none", label: "Brak / Nieznane", icon: CircleDashed },
                 ].map((opt) => {
                   const Icon = opt.icon;
@@ -800,7 +819,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                       }`}
                     >
                       <span className="flex items-center gap-1.5">
-                        {Icon && <Icon size={13} className="text-slate-400" />}
+                        {Icon && <Icon size={13} className={opt.id === "red_high_kw" ? "text-amber-500" : "text-slate-400"} />}
                         {opt.label}
                       </span>
                       {selectedUrlFilter === opt.id && <Check size={14} />}
@@ -1120,6 +1139,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                 error={urlStatusById[lead.id]?.error}
                                 redirect_url={urlStatusById[lead.id]?.redirect_url}
                                 checked_at={urlStatusById[lead.id]?.checked_at}
+                                raw_status={lead.www_status}
                                 keyword_score={keywordById[lead.id]?.score_pct}
                                 keyword_hits={keywordById[lead.id]?.keywords_found}
                                 showUrl={false}
@@ -1200,6 +1220,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
                                       error={urlStatusById[lead.id]?.error}
                                       redirect_url={urlStatusById[lead.id]?.redirect_url}
                                       checked_at={urlStatusById[lead.id]?.checked_at}
+                                      raw_status={lead.www_status}
                                       keyword_score={keywordById[lead.id]?.score_pct}
                                       keyword_hits={keywordById[lead.id]?.keywords_found}
                                       showUrl={true}
