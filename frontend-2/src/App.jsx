@@ -69,19 +69,19 @@ import { cn } from "@/lib/utils";
  * (Recharts in AnalyticsView is ~100KB and only loads on the Analityka tab).
  */
 
+const LeadsView = lazy(() => import("@/views/LeadsView").then((m) => ({ default: m.LeadsView })));
 const TableView = lazy(() => import("@/views/TableView").then((m) => ({ default: m.TableView })));
 const AnalyticsView = lazy(() => import("@/views/AnalyticsView").then((m) => ({ default: m.AnalyticsView })));
-const ExperimentView = lazy(() => import("@/views/ExperimentView").then((m) => ({ default: m.ExperimentView })));
 
 const TABS = [
-  { id: "table", label: "Katalog", icon: TableIcon, View: TableView },
-  { id: "analytics", label: "Analityka", icon: BarChart3, View: AnalyticsView },
-  { id: "experiment", label: "Eksperyment", icon: Sparkles, View: ExperimentView },
+  { id: "leads", label: "Katalog Leadów", icon: Sparkles, View: LeadsView },
+  { id: "table", label: "Siatka Danych (36 col)", icon: TableIcon, View: TableView },
+  { id: "analytics", label: "Analityka Rynku", icon: BarChart3, View: AnalyticsView },
 ];
 
 export default function App() {
   const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
-  const [activeTab, setActiveTab] = useState(() => loadPrefs(activeProfile)?.activeTab || "table");
+  const [activeTab, setActiveTab] = useState(() => loadPrefs(activeProfile)?.activeTab || "leads");
   const [snapshotsOpen, setSnapshotsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [filesOpen, setFilesOpen] = useState(false);
