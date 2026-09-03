@@ -1782,3 +1782,11 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 **Walidacja:** 0 Critical, 0 Warnings (996 wierszy, 27 plików).
 
 **Pliki:** master.csv (gitignored, 487→519), frontend-2/public/master.csv (commit), 24 per-kraj CSV usunięte, DZIENNIK.md (ten wpis).
+
+## 2026-09-03 10:09 CEST — chore: drop obsolete deploy-cloudflare.yml
+
+Na prośbę Marcelego — usunięty workflow `.github/workflows/deploy-cloudflare.yml`. Deploy do Cloudflare Pages nie jest już używany (prawdopodobnie ręczny deploy z `tools/api_server.py` + `frontend-2/`).
+
+CI zostaje: `.github/workflows/ci-python.yml` (testy pytest + node:test).
+
+**Commit:** `5b1ce5a0 chore: drop obsolete deploy-cloudflare.yml`
