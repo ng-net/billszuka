@@ -1790,3 +1790,33 @@ Na prośbę Marcelego — usunięty workflow `.github/workflows/deploy-cloudflar
 CI zostaje: `.github/workflows/ci-python.yml` (testy pytest + node:test).
 
 **Commit:** `5b1ce5a0 chore: drop obsolete deploy-cloudflare.yml`
+
+## 2026-09-03 16:15 CEST — feat(ui): redesign ModernLeadsTableV2 & unify all views with design system tokens
+
+Pełna stabilizacja i unifikacja UI w `frontend-2` na prośbę Marcelego:
+
+1. **Poprawki błędów wykonawczych:**
+   - Rozwiązano błędy renderowania React `[object Date]` oraz brakującego ID w tabeli.
+   - Usunięto zbędny przycisk uploadu z górnego paska nawigacji.
+
+2. **Redesign `ModernLeadsTableV2.jsx` (Enterprise Light Theme):**
+   - Wdrożono czytelny, 9-kolumnowy layout: `ID`, `Kraj`, `Nazwa Firmy`, `Marka`, `Kategoria`, `Decydent`, `Data weryfikacji`, `Status`, `Flagi`.
+   - Zintegrowano wskaźniki `Verified` (ShieldCheck), `FROZEN` (❄️) oraz poziom zaufania (`confNum%`).
+   - Sticky kolumny i czytelne formatowanie 2-wierszowe decydentów z zachowaniem maskowania RODO.
+
+3. **Unifikacja tokenów Design Systemu we wszystkich widokach:**
+   - **`LeadsView.jsx`**: Ujednolicono karty KPI z tokenami `bg-card`, `border-border`, `text-card-foreground`.
+   - **`ModernLeadsTableV2.jsx`**: Filtry, dropdowny (`Rola`, `WWW`, `Confidence`, `Kraj`), chipy i wiersze oparte na tokenach `bg-card`, `bg-popover`, `border-border`, `text-foreground`.
+   - **`AtlasGrokView.jsx`**: Całkowicie wyeliminowano odizolowany, ciemny motyw cyberpunkowy (`#090b10`). Telemetria HUD, kafelki i inspektor zintegrowane ze spójnym systemem Enterprise SaaS.
+   - **`AnalyticsView.jsx`**: Dostosowano `KpiTile` i kafelki deklaracji dystrybucyjnych.
+   - **`App.jsx`**: Dostosowano przyciski nawigacyjne (TABS) i nagłówek.
+
+4. **Weryfikacja testami:**
+   - `npm run test:lib`: 64/64 pass.
+   - `npm run test:components`: 69/69 pass.
+   - Łącznie 133/133 testów zdanych (100% pass).
+
+**Commity:**
+- `e410eb1c feat(ui): redesign ModernLeadsTableV2 to high-fidelity Light Theme`
+- `9350a1d7 feat(ui): unify all views with design system tokens`
+
