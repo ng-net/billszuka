@@ -18,7 +18,9 @@ const isTransientChunkError = (error) => {
 export class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null, copied: false, retried: false };
+    this._reloadTimer = null;
+    this._countdownInterval = null;
+    this.state = { hasError: false, error: null, copied: false, retried: false, countdownMs: 0 };
   }
 
   static getDerivedStateFromError(error) {
@@ -55,6 +57,7 @@ export class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       const autoRecovering = this.state.retried && isTransientChunkError(this.state.error);
+      const secs = (this.state.countdownMs / 1000).toFixed(1);
       return (
         <div className="flex h-full w-full items-center justify-center p-6 bg-background text-foreground">
           <div className="max-w-md w-full rounded-xl border border-destructive/30 bg-destructive/5 p-6 text-center shadow-lg space-y-4">
@@ -67,7 +70,7 @@ export class ErrorBoundary extends Component {
               </h2>
               <p className="mt-1 text-xs text-muted-foreground">
                 {autoRecovering
-                  ? "Strona odświeży się automatycznie za chwilę. To normalne przy pierwszym załadowaniu po zmianie konfiguracji."
+                  ? `Strona odświeży się automatycznie za ${secs}s. To normalne przy pierwszym załadowaniu po zmianie konfiguracji.`
                   : "Aplikacja napotkała problem podczas renderowania. Dane nie zostały utracone."}
               </p>
             </div>
