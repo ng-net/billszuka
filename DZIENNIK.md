@@ -1606,3 +1606,73 @@ PL (4) + CZ (2) + SK (3) + RO (1) + HR (1) + BG (2) + EE (0) + LT (1) + LV (1) +
 - MD-A-006 wymaga potwierdzenia statusu spółki (likwidacja czy aktywna)
 - Dla EE warto dalsze poszukiwania (Vapista, mała ekspozycja rynku tytoniowego)
 - Finalna weryfikacja wszystkich decydentów paywalled (PL, CZ, SI, LV, BG) wymaga płatnych API (ONRC, ARES+, AJPES Premium, Info-BG)
+
+## 2026-09-03 08:49 CEST — Weryfikacja extras-PL + brakujące gems-NON-PL (follow-up gentle search)
+
+**Zakres i wykonanie:**
+
+Marceli poprosił: "start processing alol extras, and gems to be added to mater.csv and be verified, avoid hallucynations"
+(interpretacja: **all extras** = pełna weryfikacja wszystkich 18 PL-X + 2 brakujących gem-NON-PL).
+
+Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybrał tę opcję zamiast "Dodaj wszystko DO-WERYFIKACJI" czy "Wyrzuć".
+
+**Wyniki:**
+
+### ✅ Dodane 5 nowych PL B-leads (z pełną weryfikacją API):
+
+| ID | Nazwa | Miasto | NIP/REGON | Rejestr | Tier | Pow | Źródło |
+|---|---|---|---|---|---|---|---|
+| PL-B-132 | PHU "MONA" WIESŁAW KUSIAK | Bełchatów | 7690506205 | CEIDG AKTYWNY od 1996 | hurtownik | 4 | CEIDG v3 API + sprytnykupiec.pl |
+| PL-B-133 | HURTOWNIA PAPIEROSÓW SP. Z O.O. | Brzeziny | 8330002756 | KRS 0000568420 (24M PLN) | hurtownik | 4 | KRS API + rejestr.io |
+| PL-B-134 | FH "ALANS" WIOLETTA SKOCZYLAS | Ruda Śląska | 6412116985 | CEIDG AKTYWNY od 2004 | hurtownik | 3 | CEIDG v3 API + alans.pl |
+| PL-B-135 | ALMARK J. STAJER SP. K. | Leszno | 6972257505 | KRS 0000331276 (~50M PLN, 13 oddziałów) | hurtownik | 3 | KRS API + baza-firm.com.pl |
+| PL-B-136 | B E A T A - Hurtownia Papierosów ROBERT STRÓŻYŃSKI | Wołomin | 1250446200 | CEIDG AKTYWNY od 1993 | hurtownik | 3 | CEIDG v3 API + beata.waw.pl |
+
+### ✅ Dodany 1 SK B-lead:
+
+| ID | Nazwa | Miasto | IČO | Rejestr | Tier | Pow | Źródło |
+|---|---|---|---|---|---|---|---|
+| SK-B-019 | KON - RAD spol. s r.o. | Bratislava | 00684104 | OR BA III, Sro vl. 98/B (35M EUR) | hurtownik | 1 (adjacent) | FinStat + kon-rad.eu |
+
+### ❌ Odrzucone (po weryfikacji):
+
+| ID | Powód | Decyzja |
+|---|---|---|
+| PL-X-004 (KDWT S.A.) | KRS 0000040385 WYKREŚLONY 2014-12-11 | ⚠️ PARTIAL — multi-branch działa, ale pod nowym KRS 0000801461 (Eurocash). NIE dodany — wymaga ręcznej decyzji. |
+| PL-X-006 (Atut Bis) | KRS 0000244646 = budownictwo (okna/drzwi), NIE TYTOŃ | ❌ REJECTED — zła kategoria |
+| PL-X-008, 009, 010, 011, 012, 013, 014, 015 | Brak NIP/KRS/CEIDG w publicznych źródłach | ❌ REJECTED — insufficient data |
+| PL-X-016 | Duplikat PL-X-003 / PL-B-134 | ✅ MERGED |
+| PL-X-018 | Duplikat PL-B-003 (DOPALENIA.PL GABIMIX) | ✅ ALREADY IN MASTER |
+| PL-X-017 (Drek, Radom) | Tylko telefon komórkowy, brak NIP/CEIDG | ⏸️ PENDING — do ręcznej weryfikacji |
+| SK-B-029 (D.A. CZVEDLER) | IČO 34114726, DISSOLVED 2026-06-01 | ❌ REJECTED — successor: MEDIAPRESS (już SK-A-015) |
+
+**Walidacja:** 0 Critical, 0 Warnings (27 plików, 948 wierszy, master 471 wierszy).
+
+**Pliki zmienione:**
+- `data/Polska/catalog-B-PL.csv` (+5 wpisów: PL-B-132 do PL-B-136)
+- `data/Słowacja/catalog-B-SK.csv` (+1 wpis: SK-B-019)
+- `data/master.csv` (gitignored, 465→471 wierszy — +5 PL +1 SK)
+- `frontend-2/public/master.csv` (commit, zsynchronizowany)
+- `data/Polska/extra-leads-PL-verified-2026-09-03.csv` (NOWY, 19 wierszy — annotacja weryfikacji per PL-X)
+- `data/verification/gems-NON-PL-verification-2026-09-03.md` (NOWY, raport dla 2 brakujących gemów)
+- `data/audit-log.md` (dodany wpis sesji)
+- `DZIENNIK.md` (ten wpis)
+
+**Kluczowe wnioski (anti-halucynacja):**
+
+1. **CEIDG v3 API + KRS API + FinStat** = niezawodne źródła do PL/SK. NIGDY nie dodawać do master tylko na podstawie web search.
+2. **Atut Bis (KRS 0000244646)** — to budowlanka. Oryginalna klasyfikacja jako tytoń była błędna — wykryta przez weryfikację KRS API.
+3. **KDWT S.A. (KRS 0000040385)** — spółka-matka wykreślona z KRS 2014-12-11. Multi-branch (Opole, Olsztyn, Lębork, Zgorzelec) działa, ale pod nowym KRS 0000801461 (Eurocash Group). NIE dodany automatycznie — sukcesja korporacyjna wymaga ręcznej decyzji.
+4. **D.A. CZVEDLER (SK)** — sukcesja prawna (MEDIAPRESS), ważne żeby nie dublować wpisów.
+5. **KON-RAD** — adjacent FMCG (pow 1/5) ale zweryfikowany, więc OK jako cross-sell lead.
+6. **12/20 = 60% odrzuconych** — to dobry znak anty-halucynacyjny. Gdyby wszystko przeszło, znaczyłoby to że walidacja jest za luźna.
+
+**PENDING (do ręcznej weryfikacji przez Marceli):**
+- PL-X-004 (KDWT) — czy użyć nowego KRS 0000801461 (Eurocash)? Czy pominąć całkowicie?
+- PL-X-017 (Drek, Radom) — telefon komórkowy + brak danych. Czy to właściciel JDG, czy outsider?
+- 8 PL-X z brakiem NIP (008-015) — czy są warci głębszego dochodzenia (np. przez Google Maps / wizytówki)?
+
+**Następne kroki (out of scope):**
+- Marceli może zweryfikować ręcznie PL-X-017 (Drek, Radom) przez Google Maps
+- Decyzja o KDWT S.A. (KRS 0000801461 vs skip)
+- Możliwe szersze poszukiwania 8 odrzuconych PL-X przez inne kanały (KAS rejestr pośredników tytoniowych, panoramę firm z wizytówkami Google)
