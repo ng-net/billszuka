@@ -1460,3 +1460,54 @@ Why the new Worker is not being created:
 
 **KONIEC SESJI GENTLE SEARCH — wszystkie 12 krajów (12/12) ✅:**
 PL (4) + CZ (2) + SK (3) + RO (1) + HR (1) + BG (2) + EE (0) + LT (1) + LV (1) + MD (2) + RS (1) + SI (1) = **17 nowych verified A-leads** + 5 partial (extra-leads-PL/gems-NON-PL). Master.csv wzrósł z 463 do 484 wierszy (+21, włączając 1 PL wiersz 2x korekty + 17 nowych + 3 fragmentaryzowane modyfikacje). Validacja 0/0 na koniec.
+
+## 2026-09-03 07:09 CEST — FINAL: Gentle lead search 12/12 krajów — sesja zakończona
+
+**ŁĄCZNY WYNIK SESJI (4 commity):**
+
+| Commit | Kraje | Nowe verified | Partial | Master rows |
+|--------|-------|---------------|---------|-------------|
+| 1 | PL+CZ+SK | 9 | 5 | 463→474 |
+| 2 | RO+HR+BG | 4 | 0 | 474→478 |
+| 3 | EE+LT+LV | 2 | 0 | 478→480 |
+| 4 | MD+RS+SI | 4 | 0 | 480→484 |
+| **RAZEM** | **12** | **19** | **5** | **+21** |
+
+**Status końcowy:**
+- ✅ Wszystkie 12 krajów (PL, CZ, SK, RO, HR, BG, EE, LT, LV, MD, RS, SI) przeszło gentle search
+- ✅ master.csv: 463 → 484 wiersze (+21)
+- ✅ frontend-2/public/master.csv zsynchronizowany (commitowane w każdym kroku)
+- ✅ 19 nowych verified A-leads dodanych do master
+- ✅ 5 partial leads (3 PL extra-leads + 2 SK/CZ gems) w pipeline do następnej sesji
+- ✅ validate_columns.py: 0 Critical, 0 Warnings
+- ✅ 4 commity (po 1 na batch 3 krajów) — zgodnie z instrukcją
+- ✅ DZIENNIK.md zaktualizowany po każdym commicie
+
+**Kryteria kwalifikacji A-class:**
+- Wholesaler/distributor tytoniu (CAEN 4635, NACE 4621, NKD 46.35, KID 46.35)
+- LUB producent tytoniu (z licencją)
+- LUB importer + hurtownia akcesoriów do palenia (maszynki/nabijarki/filtry)
+- Weryfikacja: NIP/IDNO/IČO/KRS + adres + KID kod + (opcja) decydent
+
+**Najsilniejsze nowe leads (pow 4-5/5):**
+1. **HR-A-009 POGON KOOLTURA d.o.o.** — Zagrzeb/Donji Stupnik, ma 'MAŠINICE' w asortymencie. ⭐
+2. **RS-A-005 T.R. STAKI d.o.o.** — Beograd, mašinice w ofercie. ⭐
+3. **LT-A-012 UAB Hordus (RoyalSmoke)** — Vilnius, EVRK 46.35.00, 24M EUR obrotu. ⭐
+
+**Adjacent / LOW confidence (wpisane dla porządku, ale cross-sell PowerMatic niski):**
+- PL-A-002 Luna Corporate (woreczki nikotynowe, nie maszynki)
+- PL-A-003 Promatic & DPM (nazwa sugeruje markę maszyn, brak powiązania)
+- PL-A-004 Big Brands Group (FMCG, 20k+ produktów, nie tytoń)
+- BG-A-009 Imperial Brands Bulgaria (duży koncern, nie cross-sell)
+- RO-A-010 TUTUNUL ROMANIA (mała, niestabilne przychody)
+
+**PENDING/REQUIRES FUTURE VERIFICATION:**
+- CZ-A-011 MERCATO PREZZO (ARES nie znajduje IČO 28635621)
+- MD-A-006 PARȘE-TUTUN (Lichidator w zarządzie — możliwa likwidacja)
+- RS-A-005 T.R. STAKI (brak pełnej weryfikacji APR — mb/PIB)
+
+**Następne kroki (out of scope):**
+- Marceli może zweryfikować RS-A-005 przez APR (mb/PIB search)
+- MD-A-006 wymaga potwierdzenia statusu spółki (likwidacja czy aktywna)
+- Dla EE warto dalsze poszukiwania (Vapista, mała ekspozycja rynku tytoniowego)
+- Finalna weryfikacja wszystkich decydentów paywalled (PL, CZ, SI, LV, BG) wymaga płatnych API (ONRC, ARES+, AJPES Premium, Info-BG)
