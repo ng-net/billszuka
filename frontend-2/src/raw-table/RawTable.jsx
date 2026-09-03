@@ -31,7 +31,7 @@ import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { useUndoRedo } from "@/lib/useUndoRedo";
 import { debounce } from "@/lib/utils";
 import { classifyBrand } from "@/lib/brand";
-import { toggleFilterValue } from "@/lib/views";
+import { toggleFilterValue, bestLeadsPerCountry } from "@/lib/views";
 
 import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
@@ -62,6 +62,17 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 // columnOrder or columnVisibility — keeping it out of the display path is
 // what makes it "filterable but invisible".
 const SYNTHETIC_BRAND_COL = "__brand";
+
+// Synthetic column id for the "best leads per country" view selector.
+// Lives in `filters` as `__bestInCountry` with value "PL" | "CZ" | "SK" |
+// "OTHER". DataTable uses it as a real column for TanStack filter matching.
+// Rows are augmented once with their country code (or "OTHER" for anything
+// not in {PL, CZ, SK}) so equality matching just works.
+const SYNTHETIC_BEST_IN_COUNTRY_COL = "__bestInCountry";
+
+// Country codes that get their own "Best" view. Anything else collapses
+// into "OTHER" so the synth column has a small, finite value set.
+const PRIMARY_BEST_COUNTRIES = new Set(["PL", "CZ", "SK"]);
 
 // Per-row brand cache keyed on id. Module-scoped so it survives
 // every RawTable mount/unmount cycle within a session: snapshot restore,
@@ -125,10 +136,16 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         let hasCache = false;
         try {
           const activeInfo = await getActiveDatasetInfo();
-          if (cancelled) return;
+          if (cancelled) {
+            bootRef.current = 0;
+            return;
+          }
           if (activeInfo?.type === "custom") {
             const stored = await getCustomDataset();
-            if (cancelled) return;
+            if (cancelled) {
+              bootRef.current = 0;
+              return;
+            }
             if (stored && stored.rows && stored.rows.length > 0) {
               loadParsedDataRef.current(stored);
               bootRef.current = 2;
@@ -140,13 +157,20 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
           // background fetch lands. Boot remains "pending" so the network
           // load still fires below.
           const masterCached = await getMasterCache();
-          if (cancelled) return;
+          if (cancelled) {
+            bootRef.current = 0;
+            return;
+          }
           if (masterCached && masterCached.rows && masterCached.rows.length > 0) {
             loadParsedDataRef.current(masterCached);
             hasCache = true;
           }
         } catch {
           // fall through to master.csv
+        }
+        if (cancelled) {
+          bootRef.current = 0;
+          return;
         }
         loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0, { background: hasCache });
       } else if (bootRef.current === 1 && csv.status === "error") {
@@ -159,6 +183,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     boot();
     return () => {
       cancelled = true;
+      if (bootRef.current === 1) {
+        bootRef.current = 0;
+      }
     };
   }, [csv.status]);
 
@@ -277,19 +304,45 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // id, so snapshot restores / custom-upload rehydrates / view
   // switches skip re-classification after the first pass. Memoized on
   // csv.rows so filter/sort/prefs changes don't re-allocate the array.
+  //
+  // Also stamps __bestInCountry per row. The "Best PL" / "Best CZ" /
+  // "Best SK" / "Best Other" views work by setting a simple equality
+  // filter on this column: rows that are in the top-N for their country
+  // get their country code stamped here; everyone else gets "". This
+  // keeps the filter shape uniform with __brand (no custom filterFn
+  // needed) and makes the saved view definition trivially serializable.
   const rowsWithBrand = useMemo(() => {
     if (!csv.rows || csv.rows.length === 0) return csv.rows;
+    const topByCountry = {
+      PL: new Set(bestLeadsPerCountry(csv.rows, "PL", 25).map((r) => r.id)),
+      CZ: new Set(bestLeadsPerCountry(csv.rows, "CZ", 25).map((r) => r.id)),
+      SK: new Set(bestLeadsPerCountry(csv.rows, "SK", 25).map((r) => r.id)),
+      OTHER: new Set(bestLeadsPerCountry(csv.rows, "OTHER", 25).map((r) => r.id)),
+    };
     return csv.rows.map((r) => {
-      if (r && r[SYNTHETIC_BRAND_COL] !== undefined) return r;
-      return { ...r, [SYNTHETIC_BRAND_COL]: classifyRowCached(r) };
+      if (r && r[SYNTHETIC_BRAND_COL] !== undefined && r[SYNTHETIC_BEST_IN_COUNTRY_COL] !== undefined) {
+        return r;
+      }
+      const k = String(r?.kraj || "").toUpperCase();
+      const bucket = k ? (PRIMARY_BEST_COUNTRIES.has(k) ? k : "OTHER") : "";
+      const bestBucket = bucket && topByCountry[bucket]?.has(r?.id) ? bucket : "";
+      return {
+        ...r,
+        [SYNTHETIC_BRAND_COL]: classifyRowCached(r),
+        [SYNTHETIC_BEST_IN_COUNTRY_COL]: bestBucket,
+      };
     });
   }, [csv.rows]);
 
-  // Columns the DataTable declares — csv.columns plus __brand. The
-  // synthetic entry is what lets saved views (which store
-  // filters: { __brand: "PowerMatic" }) actually narrow the table.
+  // Columns the DataTable declares — csv.columns plus the synthetic
+  // __brand and __bestInCountry columns. The synthetic entries are what
+  // let saved views (which store filters like { __brand: "PowerMatic" }
+  // or { __bestInCountry: "PL" }) actually narrow the table.
   const tableColumnsList = useMemo(
-    () => (csv.columns.length > 0 ? [...csv.columns, SYNTHETIC_BRAND_COL] : csv.columns),
+    () =>
+      csv.columns.length > 0
+        ? [...csv.columns, SYNTHETIC_BRAND_COL, SYNTHETIC_BEST_IN_COUNTRY_COL]
+        : csv.columns,
     [csv.columns]
   );
   // Filter out sort/filter entries that point to columns no longer in the CSV.
@@ -301,15 +354,19 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.sortStack, csv.columns]
   );
-  // Keep `__brand` filter entries (synthetic column) alongside real
-  // CSV columns. The CSV-column sanitizer stays for everything else so
-  // stale filters don't sneak through after a schema change.
+  // Keep `__brand` and `__bestInCountry` filter entries (synthetic
+  // columns) alongside real CSV columns. The CSV-column sanitizer stays
+  // for everything else so stale filters don't sneak through after a
+  // schema change.
   const filters = useMemo(
     () => {
       if (!csv.columns || csv.columns.length === 0) return prefs.filters || {};
       return Object.fromEntries(
         Object.entries(prefs.filters || {}).filter(
-          ([k]) => k === SYNTHETIC_BRAND_COL || csv.columns.includes(k)
+          ([k]) =>
+            k === SYNTHETIC_BRAND_COL ||
+            k === SYNTHETIC_BEST_IN_COUNTRY_COL ||
+            csv.columns.includes(k)
         )
       );
     },
@@ -666,20 +723,21 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       <div className="h-14 flex items-center gap-2 sm:gap-3 px-3 sm:px-4">
         {csv.status === "ready" && (
           <>
-            <div className="relative flex-1 max-w-md min-w-0">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+            <div className="relative flex-1 min-w-0 max-w-md">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 pointer-events-none" />
               <Input
                 value={globalSearch}
                 onChange={(e) => onGlobalSearchChange(e.target.value)}
                 placeholder="Szukaj we wszystkich kolumnach…"
-                className="h-8 pl-8 pr-7 text-sm"
+                className="h-10 sm:h-8 pl-9 pr-9 text-sm"
               />
               {globalSearch && (
                 <button
                   onClick={() => onGlobalSearchChange("")}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 sm:h-7 sm:w-7 items-center justify-center rounded-md text-muted-foreground/50 hover:text-foreground hover:bg-muted/60 transition-colors"
+                  aria-label="Wyczyść wyszukiwanie"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                 </button>
               )}
             </div>
@@ -699,11 +757,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 setFacetsOpen(next);
                 setPrefs((p) => ({ ...p, facetsOpen: next }));
               }}
-              className="h-8 gap-1.5 text-xs hidden sm:inline-flex"
+              className="hidden sm:inline-flex"
               title={facetsOpen ? "Ukryj panel fasad" : "Pokaż panel fasad"}
             >
               <PanelLeft className="h-3.5 w-3.5" />
-              <span>Fasady</span>
+              <span className="hidden lg:inline">Fasady</span>
             </Button>
 
             <Button
@@ -714,18 +772,16 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 setMaskDecydenci(next);
                 toast.info(next ? "Włączono maskowanie decydentów (RODO)" : "Odkryto pełne nazwiska decydentów", { duration: 1200 });
               }}
-              className="h-8 gap-1.5 text-xs"
               title={maskDecydenci ? "Odkryj pełne nazwiska decydentów" : "Maskuj nazwiska (RODO)"}
             >
-              {maskDecydenci ? <Eye className="h-3.5 w-3.5 text-muted-foreground" /> : <EyeOff className="h-3.5 w-3.5 text-primary" />}
+              {maskDecydenci ? <Eye className="h-3.5 w-3.5 text-muted-foreground" /> : <EyeOff className="h-3.5 w-3.5 text-brand" />}
               <span className="hidden md:inline">{maskDecydenci ? "Maskuj" : "Odkryj"}</span>
             </Button>
 
             <div className="flex items-center gap-1">
               <Button
                 variant="outline"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 disabled={!history.canUndo}
                 onClick={() => {
                   history.undo();
@@ -738,8 +794,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               </Button>
               <Button
                 variant="outline"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 disabled={!history.canRedo}
                 onClick={() => {
                   history.redo();
@@ -756,8 +811,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  size="icon"
-                  className="h-8 w-8 hidden sm:inline-flex"
+                  size="icon-sm"
+                  className="hidden sm:inline-flex"
                   aria-label="Gęstość"
                   title="Gęstość"
                 >
@@ -779,7 +834,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       </div>
 
       {csv.status === "ready" && (
-        <div className="border-t border-border/40 bg-card/40 px-3 sm:px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 overflow-x-auto">
+        <div className="border-t border-border/40 bg-card/40 px-3 sm:px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 overflow-x-auto touch-scroll-x">
           <BrandQuickBar
             rows={rowsWithBrand}
             activeBrand={effectiveFilters.__brand}
@@ -880,7 +935,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
             <>
               <div className="flex-1 min-h-0 relative flex overflow-hidden">
                 {facetsOpen && (
-                  <aside className="w-72 md:w-80 border-r bg-card/40 overflow-y-auto p-3 shrink-0 hidden sm:block animate-in slide-in-from-left-2 duration-150">
+                  <aside className="w-full sm:w-72 md:w-80 border-r bg-card/40 overflow-y-auto p-3 shrink-0 animate-in slide-in-from-left-2 duration-150 sm:block">
                     <CollapsibleFilters
                       rows={rowsWithBrand}
                       filters={effectiveFilters}

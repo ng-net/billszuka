@@ -27,6 +27,7 @@
 | # | Odkrycie | Wpływ |
 |---|---|---|
 | 🐋 | **Sanitex group (LT/LV/EE)** = 1 partner otwiera rynek bałtycki (~7M konsumentów, 3 kraje) | Strategiczny |
+| 🛠️ | **Rynek serwisu nabijarek PL — luka i szansa B2B**: Tanie maszynki manualne są jednorazowe; tylko elektryczne (Powermatic II, III+, IV, Hawk, Gerui) generują popyt na serwis i części (tłoki, noże, silniki, PCB). BILLS jako jedyny oficjalny serwis (plomby B/BL) odrzuca nieautoryzowany import (seriale LB, H), co wykreowało niezależny rynek: **PRIMA-TECH (nabijarka.pl / primarket.pl)** z infolinią serwisową (+48 884 606 604) oraz **TREZO Sp. z o.o.** (producent i serwis w Sosnowcu). To kluczowi odbiorcy hurtowi części OEM i kandydaci na autoryzowane punkty regionalne. | Strategiczny / Partnerzy |
 | 🇸🇰 | **SK — ORSR + VIES workflow działa** (2026-09-03 batch 4/4 s.r.o. FROZEN: Domenico Cigar, AHILOK, P3Com, KON-RAD). Cross-check z catalogiem wykazał brak duplikatów — rynek SK jeszcze nie wyczerpany. | Pipeline |
 | 🇭🇷 | **Veletabak d.o.o. (HR) = Imperial Brands generalni distributer** dla HR + EU (vlasnik MERCATA VT Novi Sad). Asortyment: Rizla, papirčki za zvijanje, filtri, duhanski pribor. NKD 46350. Temeljni kapital €1.49M. | Partner kanałowy |
 | 💡 | **Rynek PL jest płytki**: 30 produktów "Nabijarki" na Ceneo, średnia 121 zł — miejsce na nowe marki | Szanse |

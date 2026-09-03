@@ -24,25 +24,38 @@ export function parseWwwStatus(rawStatus) {
       state: http_code >= 300 && http_code < 400 ? "redirect" : "ok",
       http_code,
       response_time,
+      label: "200 OK",
     };
   }
   if (color === "red") {
     const detail = parts[1] || "";
-    if (detail === "timeout") return { status: "red", state: "timeout", error: "Timeout" };
-    if (detail === "dns") return { status: "red", state: "dns", error: "DNS Error" };
-    if (detail === "ssl") return { status: "red", state: "ssl", error: "SSL Error" };
+    if (detail === "timeout") return { status: "red", state: "timeout", error: "Timeout", label: "Timeout" };
+    if (detail === "dns") return { status: "red", state: "dns", error: "DNS Error", label: "DNS Error" };
+    if (detail === "ssl") return { status: "red", state: "ssl", error: "SSL Error", label: "SSL Error" };
     const code = Number(detail);
     if (!isNaN(code) && code > 0) {
+      const errName =
+        code === 404 ? "404 Not Found" :
+        code === 403 ? "403 Forbidden" :
+        code === 402 ? "402 Payment" :
+        code === 405 ? "405 Method" :
+        code === 429 ? "429 Rate Limit" :
+        code === 500 ? "500 Server Error" :
+        code === 503 ? "503 Unavailable" :
+        code >= 500 ? `${code} Server Error` :
+        `${code} Error`;
       return {
         status: "red",
         state: code >= 500 ? "5xx" : code >= 400 ? "4xx" : "error",
         http_code: code,
+        error: errName,
+        label: errName,
       };
     }
-    return { status: "red", state: "error", error: detail || "Connection error" };
+    return { status: "red", state: "error", error: detail || "Błąd połączenia", label: detail || "Błąd" };
   }
   if (color === "unknown" || color === "nieznane") {
-    return { status: "unknown", state: "unknown" };
+    return { status: "unknown", state: "unknown", label: "Nieznany" };
   }
   return null;
 }
@@ -68,7 +81,6 @@ export function parseWwwStatus(rawStatus) {
  */
 export function UrlBadge({
   url,
-  status: statusProp,
   state: stateProp,
   http_code: httpCodeProp,
   error: errorProp,
@@ -103,7 +115,7 @@ export function UrlBadge({
   const c = palette[state] || palette.unknown;
   const Icon = c.Icon;
 
-  // Tekst w pill: kod HTTP + state label (np. "4xx 404", "5xx 500")
+  // Tekst w pill: kod HTTP + state label (np. "404", "SSL", "Timeout")
   let pillText;
   if (http_code && state !== "unknown") {
     if (state === "redirect") {
@@ -111,16 +123,16 @@ export function UrlBadge({
     } else if (state === "ok") {
       pillText = compact ? "OK" : "200 OK";
     } else if (state === "4xx") {
-      pillText = compact ? `4xx ${http_code}` : `4xx ${http_code}`;
+      pillText = compact ? `${http_code}` : (error || `${http_code} Error`);
     } else if (state === "5xx") {
-      pillText = compact ? `5xx ${http_code}` : `5xx ${http_code}`;
+      pillText = compact ? `${http_code}` : (error || `${http_code} Server Error`);
     } else {
       pillText = `${http_code}`;
     }
-  } else if (state === "timeout") pillText = "timeout";
-  else if (state === "ssl")      pillText = "SSL";
-  else if (state === "dns")      pillText = "DNS";
-  else                            pillText = "—";
+  } else if (state === "timeout") pillText = "Timeout";
+  else if (state === "ssl")      pillText = compact ? "SSL" : "SSL Error";
+  else if (state === "dns")      pillText = compact ? "DNS" : "DNS Error";
+  else                            pillText = error || "—";
 
   const displayUrl = (() => {
     let s = url.replace(/^https?:\/\//, "").replace(/^www\./, "");
@@ -229,6 +241,89 @@ export function UrlBadge({
       >
         <ExternalLink size={compact ? 10 : 12} />
       </a>
+    </span>
+  );
+}
+
+/**
+ * WwwStatusPill — mini pill for displaying www_status with clean label and error inside.
+ *
+ * Visual tokens:
+ *   200 OK           → emerald pill: [✓ 200 OK (234ms)]
+ *   404 / 403 / 4xx  → amber pill:   [⚠ 404 Not Found] / [⚠ 403 Forbidden]
+ *   500 / 5xx        → rose pill:    [✕ 500 Server Error]
+ *   timeout          → rose pill:    [⏱ Timeout]
+ *   ssl              → rose pill:    [🔒 SSL Error]
+ *   dns              → rose pill:    [? DNS Error]
+ *   unknown          → slate pill:   [—]
+ */
+export function WwwStatusPill({ rawStatus, compact = false, className = "" }) {
+  if (!rawStatus || typeof rawStatus !== "string" || !rawStatus.trim()) {
+    return <span className="text-xs text-muted-foreground">—</span>;
+  }
+  const parsed = parseWwwStatus(rawStatus);
+  if (!parsed) {
+    return <span className="text-xs text-muted-foreground">{rawStatus}</span>;
+  }
+
+  const { status, state, http_code, error, response_time, label } = parsed;
+
+  const isOk = status === "green";
+  const is4xx = state === "4xx";
+  const isTimeout = state === "timeout";
+  const isSsl = state === "ssl";
+  const isDns = state === "dns";
+
+  let pillClasses = "bg-slate-50 text-slate-700 border-slate-200 dark:bg-zinc-800 dark:text-slate-300 dark:border-zinc-700";
+  let Icon = HelpCircle;
+
+  if (isOk) {
+    pillClasses = "bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60";
+    Icon = Check;
+  } else if (is4xx) {
+    pillClasses = "bg-amber-50 text-amber-700 border-amber-200/80 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/60";
+    Icon = AlertCircle;
+  } else if (isTimeout) {
+    pillClasses = "bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/60";
+    Icon = Timer;
+  } else if (isSsl) {
+    pillClasses = "bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/60";
+    Icon = Lock;
+  } else if (isDns) {
+    pillClasses = "bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/60";
+    Icon = HelpCircle;
+  } else {
+    // 5xx or generic error
+    pillClasses = "bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/60";
+    Icon = XCircle;
+  }
+
+  let displayLabel = label || error || (http_code ? `HTTP ${http_code}` : isOk ? "200 OK" : "Błąd");
+  if (compact) {
+    if (displayLabel === "404 Not Found") displayLabel = "404";
+    else if (displayLabel === "403 Forbidden") displayLabel = "403";
+    else if (displayLabel === "500 Server Error") displayLabel = "500";
+    else if (displayLabel === "SSL Error") displayLabel = "SSL";
+    else if (displayLabel === "DNS Error") displayLabel = "DNS";
+    else if (displayLabel === "200 OK") displayLabel = "OK";
+  }
+
+  const tooltip = isOk
+    ? `Dostępny: 200 OK${response_time ? ` (czas: ${response_time})` : ""} | Raw: ${rawStatus}`
+    : `Błąd strony: ${label || error} | Raw: ${rawStatus}`;
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border shadow-xs transition-colors whitespace-nowrap select-none ${pillClasses} ${className}`}
+      title={tooltip}
+    >
+      <Icon size={10} strokeWidth={2.5} className="shrink-0" />
+      <span>{displayLabel}</span>
+      {response_time && !compact && (
+        <span className="opacity-60 text-[9px] font-normal font-mono border-l border-current/25 pl-1 ml-0.5">
+          {response_time}
+        </span>
+      )}
     </span>
   );
 }

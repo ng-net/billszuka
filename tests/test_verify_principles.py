@@ -64,13 +64,18 @@ class TestPlNipMod11:
 class TestCzIco:
     """CZ IČO = 8 cyfr z mod-11 checksum (wagi 8,7,6,5,4,3,2 na cyfrach 1-7).
 
-    Per VERIFICATION-RULES.md §CZ: pewność wysoka. Live test: 8/9 real IČO
-    z naszych katalogów przechodzą. Edge case: G8 point IČO 06941281 (real
-    firma w ARES) nie przechodzi — prawdopodobnie IČO z prefixem 0 ma inny
-    edge case w FRSR.
+    Per ČSÚ standard i VERIFICATION-RULES.md §CZ: pewność wysoka.
+    Live test: 9/9 (100%) real IČO z naszych katalogów przechodzą,
+    włącznie z G8 point s.r.o. (IČO 06941281, gdzie s=10 mod 11 => 11-10=1).
     """
 
-    @pytest.mark.parametrize("ico", ["25775634", "64509923", "45410003"])
+    @pytest.mark.parametrize("ico", [
+        "25775634",
+        "64509923",
+        "45410003",
+        "00000060",  # s=1 mod 11 => check digit 0
+        "06941281",  # G8 point s.r.o. (s=10 mod 11 => 11-10=1)
+    ])
     def test_valid(self, ico):
         valid, code = vp.is_valid_cz_ico(ico)
         assert valid is True, f"CZ IČO {ico} should be valid: {code}"
@@ -92,14 +97,14 @@ class TestCzIco:
         assert valid is False, f"CZ IČO {ico} ({reason}) should fail"
         assert code == vp.INVALID_CHECKSUM
 
-    def test_known_edge_case_g8_point(self):
-        # G8 point s.r.o. (ARES potwierdza) — IČO 06941281 nie przechodzi mod-11
-        # Per VERIFICATION-RULES.md §CZ: akceptujemy ten edge case jako
-        # acceptable false-positive (1 z 9 = 11% error rate jest OK dla
-        # 89% accuracy na real data).
+    def test_g8_point_passes_as_valid(self):
+        # G8 point s.r.o. (ARES potwierdza) — IČO 06941281:
+        # Suma ważona = 142, 142 % 11 = 10.
+        # Wzór ČSÚ: dla s w [2..10], cyfra kontrolna = 11 - s = 11 - 10 = 1.
+        # Ostatnia cyfra to 1 -> 100% zgodności.
         valid, code = vp.is_valid_cz_ico("06941281")
-        assert valid is False  # G8 point fails — known edge case
-        assert code == vp.INVALID_CHECKSUM
+        assert valid is True
+        assert code == "OK"
 
 
 class TestHrOibMod1110:
@@ -306,3 +311,18 @@ class TestPlRowHallucinationGate:
         )
         assert status == "FROZEN"
         assert "BILLS" in reason
+
+    def test_exhausted_registries_returns_not_found_anywhere(self, monkeypatch):
+        # NIP has valid mod-11 checksum, but neither KRS nor CEIDG has records
+        va = _load("verify_api")
+        monkeypatch.setattr(
+            va, "ceidg_lookup",
+            lambda nip, token: {"error": "Brak aktywnej firmy dla tego NIP"},
+        )
+        status, reason = va.verify_pl_row(
+            self._row("PL5140361901", "", "Nieistniejąca"),
+            ""
+        )
+        assert status == "DO-WERYFIKACJI"
+        assert vp.NOT_FOUND_ANYWHERE in reason
+

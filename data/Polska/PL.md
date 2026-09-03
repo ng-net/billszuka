@@ -136,25 +136,29 @@ następna fala pracy — najpierw enrich A1/A2 (~163 firm), potem B1.
 
 #### 🟢 P2 — schema i tooling (audyt 18:41)
 - **A6. (NOT for me — for producer)** Atomiczne CSV writes w 6 skryptach
-  (verify_api.py ×3, verify_run.py ×1, l0_preflight.py ×1,
-  fix_data_quality.py ×1, extract_intel.py ×1). Wzorzec: tmp → os.replace
+  (verify_api.py ×3, verify_run.py ×1, ~~l0_preflight.py ×1~~ — usunięty
+  2026-09-03, fix_data_quality.py ×1, extract_intel.py ×1). Wzorzec: tmp → os.replace
   (jak `regenerate_master()` w verify_run.py:387-397). Kill mid-write
   obecnie może uciąć CSV i stracić dane.
-- **A7. (NOT for me — for producer)** `tools/verify_lead.py` jest
+- **A7. ~~(NOT for me — for producer)~~ DONE 2026-09-03** `tools/verify_lead.py`
   strukturalnie niekompletny — 2/3 tools zwracają zawsze PENDING.
+  Rozwiązane: skrypt usunięty, logika dwu-narzędziowa przeniesiona do
+  agenta (web_search + whois on demand).
   Albo zaimplementować prawdziwy web_search backend albo zdowngradować
   log line żeby nie wprowadzał w błąd. Checkpoint write też powinien
   być atomiczny.
-- **A8. (NOT for me — for producer)** `l0_preflight.py:289` ma hardcoded
-  `"2026-08-10"` — zamienić na `datetime.now().strftime("%Y-%m-%d")`.
-  Po 2026-08-10 narzędzie będzie kłamać o dacie weryfikacji.
-- **A9. (NOT for me — for producer)** Hardcoded `/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka`
-  w `l0_preflight.py:37` + `run_verify_cron.sh:6` — zamienić na
-  `Path(__file__).resolve().parent.parent` (l0) i `$(dirname "$0")/..`
-  (cron). Inaczej nie przeniesiesz projektu na inny mount bez edycji.
-- **A10. (NOT for me — for producer)** Dead code w `l0_preflight.py`
-  (linie 267-268, 274-276, 329-333) — usunąć albo udokumentować dlaczego
-  zostawione.
+- **A8. ~~(NOT for me — for producer)~~ DONE 2026-09-03** `l0_preflight.py:289`
+  hardcoded `"2026-08-10"`. Rozwiązane: skrypt usunięty (Session 2 planu
+  verify-consolidation), logika przeniesiona do `verify_api.py --retrofix`.
+- **A9. (NOT for me — for producer)** Hardcoded
+  `/Volumes/MC-BRAIN/Dev-Ext/BILLSzuka` w `l0_preflight.py:37` +
+  `run_verify_cron.sh:6` — zamienić na `Path(__file__).resolve().parent.parent`
+  (l0) i `$(dirname "$0")/..` (cron). Inaczej nie przeniesiesz projektu
+  na inny mount bez edycji. (Częściowo rozwiązane: `l0_preflight.py`
+  usunięty, ale `run_verify_cron.sh` wciąż ma hardcoded path.)
+- **A10. ~~(NOT for me — for producer)~~ DONE 2026-09-03** Dead code
+  w `l0_preflight.py` (linie 267-268, 274-276, 329-333). Rozwiązane:
+  skrypt usunięty, cały martwy kod zniknął razem z nim.
 
 #### ⚪ P3 — nice to have
 - **A11. Cross-reference** BILLSzuka PL catalog z dwoma master katalogami —

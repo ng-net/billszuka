@@ -72,22 +72,19 @@ function Bar({ value, max, color, label, count, sub }) {
   );
 }
 
-function KpiTile({ label, value, hint, icon: Icon, accent }) {
-  const accentCls = accent === "violet"
-    ? "bg-violet-50/40 dark:bg-violet-950/20 border-violet-200/60 dark:border-violet-900/40"
-    : "";
+function KpiTile({ label, value, hint, icon: Icon }) {
   return (
-    <Card className={accentCls}>
-      <CardContent className="p-5">
-        <div className="flex items-start justify-between gap-2">
+    <Card className="rounded-xl border border-border bg-card shadow-sm hover:shadow-md transition-all">
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-xs uppercase tracking-wider text-muted-foreground">{label}</div>
-            <div className="mt-2 text-3xl font-bold tabular-nums">{value}</div>
-            {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold truncate">{label}</div>
+            <div className="mt-1 text-2xl font-bold tracking-tight text-foreground tabular-nums">{value}</div>
+            {hint && <div className="mt-0.5 text-xs text-muted-foreground truncate">{hint}</div>}
           </div>
           {Icon && (
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted">
-              <Icon className="h-4 w-4 text-muted-foreground" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
+              <Icon className="h-5 w-5" />
             </div>
           )}
         </div>
@@ -883,10 +880,10 @@ export function AnalyticsView() {
           </CardContent>
         </Card>
 
-        <Card className="border-amber-200/60 dark:border-amber-900/40 bg-amber-50/30 dark:bg-amber-950/20">
+        <Card className="border-border bg-card shadow-sm">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500/20 text-amber-600">★</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400">★</span>
               Twierdzą że są dystrybutorami
               <span className="ml-auto text-xs font-mono tabular-nums text-muted-foreground font-normal">
                 {tiles.claims.length} z {tiles.total}
@@ -901,13 +898,13 @@ export function AnalyticsView() {
                 {tiles.claims.map((r) => (
                   <div
                     key={r.id}
-                    className="flex items-center gap-3 px-3 py-2 rounded-md bg-white dark:bg-card border border-amber-200 dark:border-amber-900/40"
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg bg-muted/40 border border-border"
                   >
-                    <span className="text-[10px] font-mono font-bold tabular-nums text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/60 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-mono font-bold tabular-nums text-amber-600 dark:text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">
                       {r.kraj}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate">{r.nazwa}</div>
+                      <div className="text-sm font-medium truncate text-foreground">{r.nazwa}</div>
                       <div className="text-[11px] text-muted-foreground truncate">
                         {r.tier} · {r.miasto || "—"} · dopasowanie: „{r.match_term}"
                       </div>

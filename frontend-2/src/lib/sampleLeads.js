@@ -1,7 +1,7 @@
-// Hardcoded 120 leads for ExperimentView demos.
+// Hardcoded 120 leads for fallback demos.
 // Mix of PL / CZ / SK / DE / UK, real-looking distributors, hurtownie,
 // marketplace fishes, and PowerMatic / Hawk / Inna brands.
-// Used by ExperimentView and ModernLeadsTable so demos always have rich data.
+// Used by LeadsView and ModernLeadsTableV2 so demos always have rich data.
 
 const CITIES = {
   PL: ["Warszawa", "Kraków", "Wrocław", "Gdańsk", "Poznań", "Łódź", "Katowice", "Bydgoszcz", "Lublin", "Szczecin"],

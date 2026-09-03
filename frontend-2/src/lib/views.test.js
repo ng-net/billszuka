@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { DEFAULT_VIEWS, topValues } from "./views.js";
+import { DEFAULT_VIEWS, topValues, bestLeadsPerCountry, scoreRow } from "./views.js";
 import fs from "fs";
 import path from "path";
 import Papa from "papaparse";
@@ -39,6 +39,15 @@ import { classifyBrand } from "./brand.js";
 function applyViewFilters(view, sourceRows) {
   const filters = view.filters || {};
   const brandFilter = filters.__brand;
+  const bestCountry = filters.__bestInCountry;
+  // __bestInCountry is a synthetic top-N selector — match by joining the
+  // row's id against the ranked id set produced by bestLeadsPerCountry.
+  let bestIdSet = null;
+  if (bestCountry) {
+    bestIdSet = new Set(
+      bestLeadsPerCountry(sourceRows, bestCountry, 25).map((r) => r.id),
+    );
+  }
   return sourceRows.filter((row) => {
     if (brandFilter) {
       const b = classifyBrand(row);
@@ -46,8 +55,11 @@ function applyViewFilters(view, sourceRows) {
         return false;
       }
     }
+    if (bestCountry) {
+      if (!row.id || !bestIdSet.has(row.id)) return false;
+    }
     for (const [key, val] of Object.entries(filters)) {
-      if (key === "__brand") continue;
+      if (key === "__brand" || key === "__bestInCountry") continue;
       const cell = row[key];
       if (Array.isArray(val)) {
         if (!val.includes(cell)) return false;
@@ -137,4 +149,69 @@ test("toggleFilterValue: array remove a value collapses to scalar", () => {
 
 test("toggleFilterValue: array remove last value returns undefined", () => {
   assert.equal(toggleFilterValue(["PL"], "PL"), undefined);
+});
+
+test("best-per-country views exist for PL/CZ/SK and OTHER", () => {
+  for (const id of ["view-best-pl", "view-best-cz", "view-best-sk", "view-best-other"]) {
+    const v = DEFAULT_VIEWS.find((x) => x.id === id);
+    assert.ok(v, `missing default view ${id}`);
+    assert.ok(v.filters.__bestInCountry, `${id} should declare __bestInCountry`);
+  }
+});
+
+test("best-per-country views: each returns rows when data exists for that country", () => {
+  for (const code of ["PL", "CZ", "SK"]) {
+    const v = DEFAULT_VIEWS.find((x) => x.id === `view-best-${code.toLowerCase()}`);
+    const matched = applyViewFilters(v, rows);
+    assert.ok(matched.length > 0, `Best ${code} returned 0 rows`);
+    assert.ok(matched.length <= 25, `Best ${code} exceeded cap: ${matched.length}`);
+    for (const r of matched) {
+      assert.equal(r.kraj, code, `row ${r.id} has kraj=${r.kraj}, expected ${code}`);
+      assert.ok(scoreRow(r) > 0, `row ${r.id} has non-positive score`);
+    }
+  }
+});
+
+test("bestLeadsPerCountry: excludes marketplace and detalista rows by score", () => {
+  const data = [
+    { id: "a", kraj: "PL", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢", powinowactwo_nabijarki: "wysoki" },
+    { id: "b", kraj: "PL", tier: "marketplace", wolumen: "duży" },
+    { id: "c", kraj: "PL", tier: "detalista" },
+    { id: "d", kraj: "PL", tier: "producent", wolumen: "średni" },
+  ];
+  const best = bestLeadsPerCountry(data, "PL", 25);
+  const ids = best.map((r) => r.id);
+  assert.deepEqual(ids.sort(), ["a", "d"].sort());
+});
+
+test("bestLeadsPerCountry: OTHER bucket = non-PL/CZ/SK", () => {
+  const data = [
+    { id: "1", kraj: "PL", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
+    { id: "2", kraj: "DE", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
+    { id: "3", kraj: "UK", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
+    { id: "4", kraj: "CZ", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
+  ];
+  const best = bestLeadsPerCountry(data, "OTHER", 25);
+  const ids = best.map((r) => r.id).sort();
+  assert.deepEqual(ids, ["2", "3"]);
+});
+
+test("bestLeadsPerCountry: respects limit", () => {
+  const data = Array.from({ length: 10 }, (_, i) => ({
+    id: `x${i}`,
+    kraj: "PL",
+    tier: "hurtownik",
+    wolumen: "duży",
+    cross_sell_potential: "High",
+    confidence_wolumen: "🟢",
+    powinowactwo_nabijarki: "wysoki",
+  }));
+  const best = bestLeadsPerCountry(data, "PL", 3);
+  assert.equal(best.length, 3);
+});
+
+test("scoreRow: returns 0 for empty / unknown / marketplace-heavy row", () => {
+  assert.equal(scoreRow({}), 0);
+  assert.equal(scoreRow(null), 0);
+  assert.equal(scoreRow({ kraj: "PL", tier: "marketplace", wolumen: "duży" }), 0);
 });

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Loader2, Building2, Flame, ShieldCheck, Globe } from "lucide-react";
 import { useCsv } from "@/hooks/useCsv";
 import { ModernLeadsTableV2 } from "./ModernLeadsTableV2";
-import { Card, CardContent } from "@/components/ui/card";
 
 const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
@@ -79,28 +78,28 @@ export function LeadsView() {
     >
       {/* Top KPI Metric Cards */}
       <div className="max-w-[1600px] mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-        <div className="relative overflow-hidden rounded-2xl bg-white/70 dark:bg-zinc-900/70 p-4 backdrop-blur-xl border border-slate-200/80 dark:border-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-indigo-300/60 dark:hover:border-indigo-700/60 transition-all group">
+        <div className="relative overflow-hidden rounded-xl bg-card p-4 border border-border shadow-sm hover:shadow-md transition-all group">
           <div className="flex items-center gap-3.5">
-            <div className="h-11 w-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-100 dark:border-indigo-900/50 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20 group-hover:scale-105 transition-transform">
               <Building2 className="h-5 w-5" />
             </div>
-            <div>
-              <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Wszystkie Leady</div>
-              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5">
+            <div className="min-w-0">
+              <div className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider truncate">Wszystkie Leady</div>
+              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5 tabular-nums">
                 {kpis.total > 0 ? kpis.total : "50 (Demo)"}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-white/70 dark:bg-zinc-900/70 p-4 backdrop-blur-xl border border-slate-200/80 dark:border-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-amber-300/60 dark:hover:border-amber-700/60 transition-all group">
+        <div className="relative overflow-hidden rounded-xl bg-card p-4 border border-border shadow-sm hover:shadow-md transition-all group">
           <div className="flex items-center gap-3.5">
-            <div className="h-11 w-11 rounded-xl bg-amber-50 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-100 dark:border-amber-900/50 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20 group-hover:scale-105 transition-transform">
               <Flame className="h-5 w-5" />
             </div>
-            <div>
-              <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">PowerMatic / Hawk</div>
-              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5">
+            <div className="min-w-0">
+              <div className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider truncate">PowerMatic / Hawk</div>
+              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5 tabular-nums">
                 {kpis.total > 0 ? `${kpis.pmCount} ` : "24 "}
                 <span className="text-xs font-medium text-amber-600 dark:text-amber-400 font-mono">
                   ({kpis.total > 0 ? kpis.pmPct : 48}%)
@@ -110,14 +109,14 @@ export function LeadsView() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-white/70 dark:bg-zinc-900/70 p-4 backdrop-blur-xl border border-slate-200/80 dark:border-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-emerald-300/60 dark:hover:border-emerald-700/60 transition-all group">
+        <div className="relative overflow-hidden rounded-xl bg-card p-4 border border-border shadow-sm hover:shadow-md transition-all group">
           <div className="flex items-center gap-3.5">
-            <div className="h-11 w-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-900/50 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:scale-105 transition-transform">
               <ShieldCheck className="h-5 w-5" />
             </div>
-            <div>
-              <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Zweryfikowane Rejestry</div>
-              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5">
+            <div className="min-w-0">
+              <div className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider truncate">Zweryfikowane Rejestry</div>
+              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5 tabular-nums">
                 {kpis.total > 0 ? `${kpis.verifiedCount} ` : "42 "}
                 <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 font-mono">
                   ({kpis.total > 0 ? kpis.verifiedPct : 84}%)
@@ -127,16 +126,16 @@ export function LeadsView() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-white/70 dark:bg-zinc-900/70 p-4 backdrop-blur-xl border border-slate-200/80 dark:border-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-blue-300/60 dark:hover:border-blue-700/60 transition-all group">
+        <div className="relative overflow-hidden rounded-xl bg-card p-4 border border-border shadow-sm hover:shadow-md transition-all group">
           <div className="flex items-center gap-3.5">
-            <div className="h-11 w-11 rounded-xl bg-blue-50 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/50 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 border border-sky-500/20 group-hover:scale-105 transition-transform">
               <Globe className="h-5 w-5" />
             </div>
-            <div>
-              <div className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Działające Strony</div>
-              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5">
+            <div className="min-w-0">
+              <div className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider truncate">Działające Strony</div>
+              <div className="text-2xl font-bold tracking-tight text-foreground mt-0.5 tabular-nums">
                 {kpis.total > 0 ? kpis.webOkCount : "38"}
-                <span className="text-xs font-medium text-blue-600 dark:text-blue-400 ml-1.5 text-[11px] font-mono">
+                <span className="text-xs font-medium text-sky-600 dark:text-sky-400 ml-1.5 text-[11px] font-mono">
                   200 OK
                 </span>
               </div>

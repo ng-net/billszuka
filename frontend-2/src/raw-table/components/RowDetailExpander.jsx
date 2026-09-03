@@ -160,6 +160,7 @@ export function RowDetailExpander({
                 error={urlStatus?.error}
                 redirect_url={urlStatus?.redirect_url}
                 checked_at={urlStatus?.checked_at}
+                raw_status={lead.www_status}
                 keyword_score={keywordScan?.score_pct}
                 keyword_hits={keywordScan?.keywords_found}
                 showUrl={true}

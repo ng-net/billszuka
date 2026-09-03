@@ -156,8 +156,7 @@ def is_verified_allowlisted(identifier: str) -> bool:
     return norm in VERIFIED_ALLOWLIST
 
 
-# === Kimi K3 ===
-KIMI_API_KEY  = os.getenv("KIMI_API_KEY", "")
-KIMI_BASE_URL = "https://api.moonshot.ai/v1"
-KIMI_MODEL    = "kimi-k3"
-KIMI_MAX_TOKENS = 8192
+# === Kimi K3 (removed 2026-09-03) ===
+# The thin client at tools/kimi_client.py was deleted as part of the dead-
+# file cleanup. KIMI_* constants moved here with it. Re-add both if a
+# future provider routes through Moonshot.

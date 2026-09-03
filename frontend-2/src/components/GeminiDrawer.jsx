@@ -154,7 +154,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
             transition={{ delay: 0.4, type: "spring", stiffness: 260, damping: 22 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="fixed right-6 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg hover:shadow-xl transition-shadow"
+            className="fab-offset fixed z-40 flex h-14 w-14 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-rose text-brand-foreground shadow-lg hover:shadow-xl transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             aria-label={`Otwórz ${botName} — twój skowronek`}
             title={`${botName} — twój skowronek`}
           >
@@ -166,19 +166,18 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
           showCloseButton={false}
           className="w-full sm:max-w-md p-0 flex flex-col gap-0"
         >
-          <SheetHeader className="px-5 pt-5 pb-3 border-b">
-            <div className="flex items-center justify-between">
-              <SheetTitle className="flex items-center gap-2">
-                <Bird className="h-5 w-5 text-violet-500" />
-                <span>
-                  {botName} <span className="text-muted-foreground font-normal text-sm">— twój skowronek</span>
+          <SheetHeader className="px-4 sm:px-5 pt-4 sm:pt-5 pb-3 border-b">
+            <div className="flex items-center justify-between gap-2">
+              <SheetTitle className="flex items-center gap-2 min-w-0">
+                <Bird className="h-5 w-5 text-brand shrink-0" />
+                <span className="truncate">
+                  {botName} <span className="text-muted-foreground font-normal text-xs sm:text-sm">— twój skowronek</span>
                 </span>
               </SheetTitle>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5 shrink-0">
                 <Button
                   variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
+                  size="icon-sm"
                   onClick={() => {
                     setOpen(false);
                     onOpenSettings?.();
@@ -190,8 +189,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                 </Button>
                 <Button
                   variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
+                  size="icon-sm"
                   onClick={() => setOpen(false)}
                   aria-label="Zamknij"
                 >
@@ -199,13 +197,13 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                 </Button>
               </div>
             </div>
-            <SheetDescription>
+            <SheetDescription className="text-xs sm:text-sm">
               Pytaj o dane w master.csv albo załączone pliki. Gills ćwierka
               konkretami z bazy wiedzy.
             </SheetDescription>
           </SheetHeader>
 
-          <div className="flex-1 overflow-y-auto px-5 py-3" ref={scrollRef}>
+          <div className="flex-1 overflow-y-auto px-4 sm:px-5 py-3 touch-scroll-y" ref={scrollRef}>
             {messages.length === 0 ? (
               <EmptyState onPick={sendQuery} />
             ) : (
@@ -225,7 +223,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
 
           <QuickPrompts onPick={sendQuery} disabled={busy} />
 
-          <div className="border-t p-3 flex gap-2 items-end">
+          <div className="border-t p-3 flex gap-2 items-end safe-bottom">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -236,7 +234,7 @@ export function GeminiDrawer({ onOpenSettings, activeDataset, knowledgeIds = [] 
                 }
               }}
               placeholder="Albo wpisz własne pytanie…"
-              className="flex-1"
+              className="flex-1 min-w-0"
               disabled={busy}
             />
             <Button

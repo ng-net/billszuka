@@ -424,7 +424,10 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
       4. Fuzzy match NIP + name
       5. FROZEN only if all 3 conditions met (per §5)
     """
-    from verify_principles import is_valid_pl_nip, INVALID_CHECKSUM, INVALID_ID, MISMATCH_REGISTRY, FROZEN
+    from verify_principles import (
+        is_valid_pl_nip, INVALID_CHECKSUM, INVALID_ID,
+        MISMATCH_REGISTRY, NOT_FOUND_ANYWHERE, FROZEN
+    )
 
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
@@ -470,7 +473,7 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
 
     # === Fall back to CEIDG (for JDG / sole proprietors) ===
     if not nip:
-        return "DO-WERYFIKACJI", "Brak nip_vat i brak KRS"
+        return "DO-WERYFIKACJI", f"{NOT_FOUND_ANYWHERE}: Brak nip_vat i brak KRS"
     result = ceidg_lookup(nip, token)
     if not result or "error" in result:
         err = result.get("error", "brak") if result else "brak"
@@ -480,7 +483,9 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
         # CEIDG timeout / 401 = PENDING_API (we'll retry)
         if "401" in err or "Request failed" in err:
             return PENDING_API, f"CEIDG: {err}"
-        return "DO-WERYFIKACJI", f"CEIDG: {err}"
+        if "Brak aktywnej firmy" in err or "nie znaleziono" in err:
+            return "DO-WERYFIKACJI", f"{NOT_FOUND_ANYWHERE}: CEIDG {err} (sprawdź KRS / rejestr)"
+        return "DO-WERYFIKACJI", f"{NOT_FOUND_ANYWHERE}: CEIDG: {err}"
 
     # CEIDG returns "imie nazwisko" for JDG — looser check: at least one key token from CSV must appear in API
     csv_nazwa = normalize(csv_nazwa_raw)
@@ -502,6 +507,31 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
                 return "DO-WERYFIKACJI", f"{MISMATCH_REGISTRY}: CEIDG ani NIP ani nazwa nie pasują (CSV='{csv_nazwa[:30]}' API='{api_nazwa[:30]}')"
 
     return FROZEN, f"CEIDG live: {result.get('nazwa', '')[:40]} (REGON {result.get('regon', '')})"
+
+
+def verify_pl_row_retrofix(row: dict, token: str) -> tuple[str, str]:
+    """Re-verify an already-FROZEN PL row to catch FABRYKAT pattern.
+
+    FABRYKAT = KRS/NIP points to a real registry entity but the name
+    doesn't match the CSV (e.g. PL-B-048 had KRS 0000203325 pointing
+    to a 404 because the original KRS came from a hallucinated
+    source). Per AGENTS.md, any PL row that fails live name match
+    after being FROZEN is a FABRYKAT until proven otherwise.
+
+    Replaces the legacy `tools/l0_preflight.py --retrofix` flow.
+    Logic is identical: re-run verify_pl_row (which already does
+    mod-11 + KRS live + name Jaccard) and label DO-WERYFIKACJI
+    results with the FABRYKAT marker so the user can spot them
+    at a glance in the flagi column.
+
+    Returns:
+        ("FROZEN", "<reason>") — row still checks out
+        ("DO-WERYFIKACJI", "🔴 FABRYKAT: <reason>") — row was wrong
+    """
+    status, reason = verify_pl_row(row, token)
+    if status == "FROZEN":
+        return status, reason
+    return "DO-WERYFIKACJI", f"🔴 FABRYKAT: {reason}"
 
 
 def verify_cz_row(row: dict) -> tuple[str, str]:
@@ -999,63 +1029,18 @@ def verify_lt_row(row: dict) -> tuple[str, str]:
 lt_enrichments: dict[str, dict] = {}
 
 
-def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
-    """Back-fill nip_vat / rejestr_id for LT rows from JAR result.
+def apply_lt_enrichments(csv_path, enrichments):
+    """Re-export of csv_backfill.backfill_placeholder_cells() for LT enrichment.
 
-    Only overwrites cells that are currently placeholders (do weryfikacji /
-    do ustalenia / brak / empty) — never clobbers a value the user set
-    manually. Address is NOT back-filled (SAU API doesn't expose the
-    address text). Returns count of cells written.
+    Back-fills nip_vat / rejestr_id from JAR result. Address is NOT
+    back-filled (SAU API doesn't expose address text). Thin wrapper added
+    in the 2026-09-03 seam extraction — real implementation in
+    tools/csv_backfill.py.
     """
-    if not enrichments:
-        return 0
-    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
-    with open(csv_path, encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
-    n_cols = len(header)
-    if "id" not in header:
-        return 0
-    id_idx = header.index("id")
-    field_map = {
-        "nip_vat": "nip_vat",
-        "rejestr_id": "rejestr_id",
-    }
-    field_idxs = {col: header.index(col) for col in field_map if col in header}
-    n = 0
-    for i, row in enumerate(rows):
-        if len(row) == 0:
-            continue
-        if len(row) < n_cols:
-            row += [""] * (n_cols - len(row))
-        id_ = row[id_idx]
-        if id_ not in enrichments:
-            continue
-        data = enrichments[id_]
-        for col, key in field_map.items():
-            if key not in field_idxs:
-                continue
-            idx = field_idxs[key]
-            current = (row[idx] or "").strip()
-            new = data.get(key, "")
-            if new and current.lower() in placeholders:
-                row[idx] = new
-                n += 1
-    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
-    try:
-        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-        os.replace(tmp_path, csv_path)
-    except OSError as e:
-        log(f"  → {csv_path.name}: atomic write failed ({e})")
-        if tmp_path.exists():
-            try: tmp_path.unlink()
-            except OSError: pass
-        raise
-    return n
+    return _backfill_placeholder_cells(
+        csv_path, enrichments,
+        field_map={"nip_vat": "nip_vat", "rejestr_id": "rejestr_id"},
+    )
 
 
 # Side-channel: verify_ee_row() populates this when it returns FROZEN so
@@ -1071,123 +1056,39 @@ ee_enrichments: dict[str, dict] = {}
 apollo_enrichments: dict[str, dict] = {}
 
 
-def apply_apollo_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
-    """Back-fill telefon / linkedin / miasto / email_decydent from Apollo.
+def apply_apollo_enrichments(csv_path, enrichments):
+    """Re-export of csv_backfill.backfill_placeholder_cells() for Apollo enrichment.
 
-    Only overwrites cells that are currently placeholders (do weryfikacji /
-    do ustalenia / brak / empty) — never clobbers a value the user set
-    manually. Returns count of cells written.
+    Back-fills telefon / linkedin / miasto / email_decydent. Thin wrapper
+    added in the 2026-09-03 seam extraction — real implementation in
+    tools/csv_backfill.py.
     """
-    if not enrichments:
-        return 0
-    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
-    with open(csv_path, encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
-    n_cols = len(header)
-    if "id" not in header:
-        return 0
-    id_idx = header.index("id")
-    field_map = {
-        "telefon": "telefon",
-        "linkedin": "linkedin",
-        "miasto": "miasto",
-        "email_decydent": "email_decydent",
-    }
-    field_idxs = {col: header.index(col) for col in field_map if col in header}
-    n = 0
-    for i, row in enumerate(rows):
-        if len(row) == 0:
-            continue
-        if len(row) < n_cols:
-            row += [""] * (n_cols - len(row))
-        id_ = row[id_idx]
-        if id_ not in enrichments:
-            continue
-        data = enrichments[id_]
-        for col, key in field_map.items():
-            if key not in field_idxs:
-                continue
-            idx = field_idxs[key]
-            current = (row[idx] or "").strip()
-            new = data.get(key, "")
-            if new and current.lower() in placeholders:
-                row[idx] = new
-                n += 1
-    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
-    try:
-        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-        os.replace(tmp_path, csv_path)
-    except OSError as e:
-        log(f"  → {csv_path.name}: atomic write failed ({e})")
-        if tmp_path.exists():
-            try: tmp_path.unlink()
-            except OSError: pass
-        raise
-    return n
+    return _backfill_placeholder_cells(
+        csv_path, enrichments,
+        field_map={
+            "telefon": "telefon",
+            "linkedin": "linkedin",
+            "miasto": "miasto",
+            "email_decydent": "email_decydent",
+        },
+    )
 
 
 def apply_ee_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
-    """Back-fill nip_vat / rejestr_id / adres for EE rows from API result.
+    """Re-export of csv_backfill.backfill_placeholder_cells() for EE enrichment.
 
-    Only overwrites cells that are currently placeholders (do weryfikacji /
-    do ustalenia / brak / empty) — never clobbers a value the user set
-    manually. Returns count of cells written.
+    Back-fills nip_vat / rejestr_id / adres from EMTA/ARIREG result. Thin
+    wrapper added in the 2026-09-03 seam extraction — real implementation
+    in tools/csv_backfill.py.
     """
-    if not enrichments:
-        return 0
-    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
-    with open(csv_path, encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
-    n_cols = len(header)
-    if "id" not in header:
-        return 0
-    id_idx = header.index("id")
-    field_map = {
-        "nip_vat": "nip_vat",
-        "rejestr_id": "rejestr_id",
-        "adres": "adres",
-    }
-    field_idxs = {col: header.index(col) for col in field_map if col in header}
-    n = 0
-    for i, row in enumerate(rows):
-        if len(row) == 0:
-            continue
-        if len(row) < n_cols:
-            row += [""] * (n_cols - len(row))
-        id_ = row[id_idx]
-        if id_ not in enrichments:
-            continue
-        data = enrichments[id_]
-        for col, key in field_map.items():
-            if key not in field_idxs:
-                continue
-            idx = field_idxs[key]
-            current = (row[idx] or "").strip()
-            new = data.get(key, "")
-            if new and current.lower() in placeholders:
-                row[idx] = new
-                n += 1
-    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
-    try:
-        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-        os.replace(tmp_path, csv_path)
-    except OSError as e:
-        log(f"  → {csv_path.name}: atomic write failed ({e})")
-        if tmp_path.exists():
-            try: tmp_path.unlink()
-            except OSError: pass
-        raise
-    return n
+    return _backfill_placeholder_cells(
+        csv_path, enrichments,
+        field_map={
+            "nip_vat": "nip_vat",
+            "rejestr_id": "rejestr_id",
+            "adres": "adres",
+        },
+    )
 
 
 def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> int:
@@ -1263,6 +1164,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Live registry verification for BILLSzuka")
     ap.add_argument("--country", help="Limit to one country code (e.g. PL, CZ)")
     ap.add_argument("--all", action="store_true", help="Verify all rows in all countries")
+    ap.add_argument("--force", action="store_true", help="Force re-verification of already FROZEN rows (default: skip FROZEN)")
+    ap.add_argument("--retrofix", action="store_true",
+                    help="Re-verify rows already marked FROZEN (API) — "
+                         "catches FABRYKAT pattern (KRS/NIP points to wrong entity). "
+                         "PL-only.")
     ap.add_argument("--dry-run", action="store_true", help="Show what would be verified, write nothing")
     args = ap.parse_args()
 
@@ -1281,6 +1187,7 @@ def main() -> int:
     total_frozen = 0
     total_dov = 0
     total_pending = 0
+    total_skipped = 0
 
     for csv_path in csv_files:
         with open(csv_path, encoding="utf-8") as f:
@@ -1298,10 +1205,27 @@ def main() -> int:
             if not id_:
                 continue
 
+            flagi = (row.get("flagi") or "").strip()
+            is_frozen = "FROZEN" in flagi
+            is_retrofix_target = (
+                is_frozen
+                and getattr(args, "retrofix", False)
+                and country == "PL"
+            )
+            # Zasada 1: Bezwzględnie pomijamy rekordy FROZEN bez jawnej flagi --force
+            # (--retrofix for PL is the one explicit exception).
+            if is_frozen and not is_retrofix_target and not getattr(args, "force", False):
+                total_frozen += 1
+                total_skipped += 1
+                continue
+
             if country == "PL":
                 if not ceidg_token:
                     continue
-                status, reason = verify_pl_row(row, ceidg_token)
+                if is_retrofix_target:
+                    status, reason = verify_pl_row_retrofix(row, ceidg_token)
+                else:
+                    status, reason = verify_pl_row(row, ceidg_token)
             elif country == "CZ":
                 status, reason = verify_cz_row(row)
             elif country == "FR":
@@ -1394,11 +1318,16 @@ def main() -> int:
                 apollo_enrichments.clear()
 
     log(
-        f"\nTotal: {total_verified} verified — "
+        f"\nTotal: {total_verified} verified ({total_skipped} skipped because already FROZEN) — "
         f"{total_frozen} FROZEN, {total_dov} DO-WERYFIKACJI, "
         f"{total_pending} PENDING_API"
     )
     return 0
+
+
+# Backwards-compat alias for the 3 thin re-export wrappers above.
+# Defined at module bottom so the wrappers are visible in source order.
+from csv_backfill import backfill_placeholder_cells as _backfill_placeholder_cells  # noqa: E402
 
 
 if __name__ == "__main__":

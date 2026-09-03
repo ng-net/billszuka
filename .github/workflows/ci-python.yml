@@ -39,12 +39,6 @@ jobs:
         run: |
           pytest tests/ -v
 
-      - name: Smoke-test the 11-level harness
-        run: |
-          # Verify test_11_levels.py still reports its 3-state outcome
-          # correctly (most levels will be SKIP without API keys; that's
-          # expected and not a failure).
-          python3 tools/test_11_levels.py 2>&1 | tail -10
 
       - name: Smoke-test master.csv regen
         run: |

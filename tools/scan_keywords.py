@@ -195,13 +195,14 @@ def collect_urls_for_country(country: str) -> list[dict]:
                     for row in csv.DictReader(f):
                         uid = (row.get("id") or "").strip()
                         url = (row.get("www") or row.get("url") or "").strip()
+                        flagi = (row.get("flagi") or "").strip()
                         if not uid or not _is_http_url(url):
                             continue
                         key = (uid, url)
                         if key in seen:
                             continue
                         seen.add(key)
-                        out.append({"id": uid, "kraj": iso, "url": url})
+                        out.append({"id": uid, "kraj": iso, "url": url, "flagi": flagi})
             except Exception as e:
                 print(f"  ! skip {csv_path.name}: {e}", file=sys.stderr)
 
@@ -212,13 +213,14 @@ def collect_urls_for_country(country: str) -> list[dict]:
                 for row in csv.DictReader(f):
                     uid = (row.get("id_a") or row.get("id") or "").strip()
                     url = (row.get("url") or row.get("www") or "").strip()
+                    flagi = (row.get("flagi") or "").strip()
                     if not uid.startswith(f"{iso}-") or not _is_http_url(url):
                         continue
                     key = (uid, url)
                     if key in seen:
                         continue
                     seen.add(key)
-                    out.append({"id": uid, "kraj": iso, "url": url})
+                    out.append({"id": uid, "kraj": iso, "url": url, "flagi": flagi})
         except Exception as e:
             print(f"  ! skip relationships.csv: {e}", file=sys.stderr)
     return out
@@ -231,10 +233,10 @@ def save_scan(conn: sqlite3.Connection, item: dict, hits: list[str],
     conn.execute(
         """
         INSERT INTO keyword_scan (
-          id, kraj, url, keywords_found, keywords_total,
+          id_unikalne, kraj, url, keywords_found, keywords_total,
           score_pct, http_code, html_size, error, scanned_at
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
-        ON CONFLICT(id, url) DO UPDATE SET
+        ON CONFLICT(id_unikalne, url) DO UPDATE SET
           keywords_found=excluded.keywords_found,
           keywords_total=excluded.keywords_total,
           score_pct=excluded.score_pct,
@@ -252,10 +254,9 @@ def save_scan(conn: sqlite3.Connection, item: dict, hits: list[str],
 
 
 def run(country: str | None, delay: float, timeout: int, max_bytes: int,
-        ids_filter: set[str] | None) -> dict:
-    """Główna pętla."""
+        ids_filter: set[str] | None, force: bool = False) -> dict:
+    """Główna pętla z kaskadą url_status i trybem inkrementalnym."""
     # Upewnij się, że schema (z migracjami) jest zaaplikowana.
-    # url-check w tle może trzymać lock (WAL) — retry z backoff.
     for attempt in range(30):
         try:
             db.init()
@@ -278,7 +279,31 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
             if (DATA / folder).exists()
         ]
 
-    grand = {"scanned": 0, "hit_any": 0, "errors": 0, "kw_total_avg": 0}
+    # Kaskada: wczytaj statusy z url_status aby nie odpytywać martwych domen (404, DNS, SSL, timeout)
+    url_statuses = {}
+    already_scanned = set()
+    with db.connect() as conn:
+        cur = conn.cursor()
+        try:
+            cur.execute("SELECT id_unikalne, url, status, state, http_code, error FROM url_status")
+            for r in cur.fetchall():
+                url_statuses[(r[0], r[1])] = {
+                    "status": r[2], "state": r[3], "http_code": r[4], "error": r[5]
+                }
+        except sqlite3.OperationalError:
+            pass
+
+        try:
+            cur.execute("SELECT id_unikalne, url FROM keyword_scan")
+            for r in cur.fetchall():
+                already_scanned.add((r[0], r[1]))
+        except sqlite3.OperationalError:
+            pass
+
+    grand = {
+        "scanned": 0, "hit_any": 0, "errors": 0, "kw_total_avg": 0,
+        "skipped_dead": 0, "skipped_cached": 0
+    }
     grand_kw_sum = 0
     t0 = time.time()
 
@@ -296,15 +321,36 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
         if not keywords:
             print(f"[{c_iso}] no SŁOWNIK at {slownik_path}, skipping")
             continue
-        print(f"[{c_iso}] {len(items)} URLs, {len(keywords)} keywords, "
-              f"~{int(len(items) * delay)}s")
 
-        c_stats = {"scanned": 0, "hit_any": 0, "errors": 0}
+        c_stats = {"scanned": 0, "hit_any": 0, "errors": 0, "skipped_dead": 0, "skipped_cached": 0}
         c_kw_sum = 0
         c_started = time.time()
 
         with db.connect() as conn:
             for idx, item in enumerate(items, 1):
+                key = (item["id"], item["url"])
+
+                # Tryb inkrementalny: pomiń jeśli już przeskanowane i nie wymuszono --force
+                if not force and key in already_scanned:
+                    c_stats["skipped_cached"] += 1
+                    grand["skipped_cached"] += 1
+                    continue
+
+                # Kaskada: jeśli url_status wykazał stan 'red' (404, DNS, SSL, timeout) -> SKIP 0s!
+                u_stat = url_statuses.get(key)
+                if u_stat and u_stat["status"] == "red":
+                    state = u_stat["state"] or "dead"
+                    code = u_stat["http_code"]
+                    err_msg = f"Skipped: dead URL in url_status ({state})"
+                    save_scan(conn, item, [], len(keywords), code, 0, err_msg)
+                    c_stats["skipped_dead"] += 1
+                    grand["skipped_dead"] += 1
+                    print(
+                        f"  [{idx:>3}/{len(items)}] ⏭️  SKIP dead ({state:<8}) {item['id']:<14} "
+                        f"{item['url'][:50]:<50} (0s)"
+                    )
+                    continue
+
                 raw, code, err, size = fetch_page(
                     item["url"], max_bytes=max_bytes, timeout=timeout,
                 )
@@ -321,7 +367,7 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
                     c_stats["errors"] += 1
                 c_kw_sum += len(hits)
                 elapsed = time.time() - c_started
-                avg = elapsed / idx
+                avg = elapsed / max(1, (idx - c_stats["skipped_cached"]))
                 eta = avg * (len(items) - idx)
                 score = round(100 * len(hits) / total) if total else 0
                 tag = "🎯" if score >= 30 else "·" if score >= 10 else "—"
@@ -339,13 +385,14 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
         grand_kw_sum += c_kw_sum
         grand["kw_total_avg"] = round(grand_kw_sum / max(1, grand["scanned"]), 1)
         print(
-            f"[{c_iso}] DONE: {c_stats['hit_any']}/{c_stats['scanned']} "
-            f"have keywords, {c_stats['errors']} errors, "
-            f"{int(time.time() - c_started)}s"
+            f"[{c_iso}] DONE: {c_stats['scanned']} scanned ({c_stats['hit_any']} hit keywords, "
+            f"{c_stats['skipped_dead']} skipped dead, {c_stats['skipped_cached']} cached), "
+            f"{c_stats['errors']} errors in {int(time.time() - c_started)}s"
         )
 
     print(
-        f"\n=== ALL DONE: {grand['scanned']} scans in {int(time.time() - t0)}s ==="
+        f"\n=== ALL DONE: {grand['scanned']} scanned in {int(time.time() - t0)}s "
+        f"({grand['skipped_dead']} dead skipped via cascade, {grand['skipped_cached']} cached) ==="
     )
     print(
         f"  With keywords (≥1 hit): {grand['hit_any']}/{grand['scanned']}"
@@ -356,9 +403,10 @@ def run(country: str | None, delay: float, timeout: int, max_bytes: int,
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Keyword scanner dla BILLSzuka")
+    p = argparse.ArgumentParser(description="Keyword scanner z kaskadą dla BILLSzuka")
     p.add_argument("--country", default=None, help="np. PL, CZ (lub 'all')")
     p.add_argument("--all", action="store_true", help="skanuj wszystkie kraje")
+    p.add_argument("--force", action="store_true", help="wymuś pełny re-skan (ignoruj cache i kaskadę)")
     p.add_argument("--delay", type=float, default=7.0, help="sekundy między requestami")
     p.add_argument("--timeout", type=int, default=8, help="curl --max-time")
     p.add_argument("--max-bytes", type=int, default=50000, help="max body do pobrania")
@@ -366,7 +414,7 @@ def main() -> None:
     args = p.parse_args()
     ids_filter = set(args.ids) if args.ids else None
     country = "all" if args.all else args.country
-    run(country, args.delay, args.timeout, args.max_bytes, ids_filter)
+    run(country, args.delay, args.timeout, args.max_bytes, ids_filter, force=args.force)
 
 
 if __name__ == "__main__":

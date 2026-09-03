@@ -16,69 +16,42 @@ Usage:
 """
 
 import argparse
-import csv
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT))
 
-from config import CANONICAL_SCHEMA, COUNTRY_MAP, DATA_DIR
+from config import DATA_DIR
 
 
 def cmd_compile(args: argparse.Namespace) -> int:
-    """Validate all catalog schemas and atomically rebuild data/master.csv."""
+    """Validate all catalog schemas and atomically rebuild data/master.csv.
+
+    Uses pipeline.regenerate_master_csv() with strict_schema=True. This
+    matches the original billszuka behavior (warn on schema drift, return
+    false). Schema validation happens inside the helper.
+    """
     print("🚀 [BILLSzuka] Compiling data/master.csv from per-kraj catalog CSVs...")
-    all_rows = []
-    file_count = 0
-    schema_errors = 0
 
-    for iso, country_dir_name in COUNTRY_MAP.items():
-        cdir = DATA_DIR / country_dir_name
-        if not cdir.is_dir():
-            continue
-
-        for cat_type in ["A", "B"]:
-            cfile = cdir / f"catalog-{cat_type}-{iso}.csv"
-            if not cfile.exists():
-                continue
-
-            file_count += 1
-            with cfile.open("r", encoding="utf-8", newline="") as f:
-                reader = csv.DictReader(f)
-                if reader.fieldnames != CANONICAL_SCHEMA:
-                    diff = set(CANONICAL_SCHEMA) ^ set(reader.fieldnames or [])
-                    print(f"  ⚠️ Schema mismatch in {cfile.relative_to(DATA_DIR)}: diff={diff}")
-                    schema_errors += 1
-
-                for row in reader:
-                    if any(v.strip() for v in row.values()):
-                        # Standardize row keys to CANONICAL_SCHEMA
-                        clean_row = {col: row.get(col, "").strip() for col in CANONICAL_SCHEMA}
-                        all_rows.append(clean_row)
-
-    master_file = DATA_DIR / "master.csv"
-    tmp_master = master_file.with_suffix(".csv.tmp")
-    with tmp_master.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=CANONICAL_SCHEMA)
-        writer.writeheader()
-        writer.writerows(all_rows)
-
-    tmp_master.replace(master_file)
+    from tools.pipeline import regenerate_master_csv
+    ok, total = regenerate_master_csv(DATA_DIR, atomic=True, strict_schema=True)
 
     # Sync static copies into frontend-2/public/ for instant UI access
-    public_dir = ROOT / "frontend-2" / "public"
-    if public_dir.is_dir():
-        import shutil
-        shutil.copy2(master_file, public_dir / "master.csv")
-        shutil.copy2(master_file, public_dir / "sample.csv")
+    master_file = DATA_DIR / "master.csv"
+    if master_file.exists():
+        public_dir = ROOT / "frontend-2" / "public"
+        if public_dir.is_dir():
+            import shutil
+            shutil.copy2(master_file, public_dir / "master.csv")
+            shutil.copy2(master_file, public_dir / "sample.csv")
 
     print(f"✅ Compilation complete!")
-    print(f"   Catalogs processed: {file_count}/{len(COUNTRY_MAP) * 2}")
-    print(f"   Total master rows:  {len(all_rows)}")
-    print(f"   Schema columns:     {len(CANONICAL_SCHEMA)}")
-    if schema_errors:
-        print(f"   ⚠️ Schema warnings:   {schema_errors} file(s) auto-corrected")
+    print(f"   Total master rows:  {total}")
+    if not ok:
+        print(f"   ⚠️ Schema warnings: 1+ file(s) had schema drift (compile failed)")
+        return 1
     return 0
 
 

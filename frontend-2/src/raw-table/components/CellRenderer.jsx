@@ -7,7 +7,7 @@ import { formatDate, truncate, formatNumber, cn } from "@/lib/utils";
 import { highlightKeywords } from "@/lib/brand";
 import { Mail, Phone, ExternalLink, Copy, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
-import { UrlBadge, parseWwwStatus } from "@/components/UrlBadge";
+import { UrlBadge, WwwStatusPill } from "@/components/UrlBadge";
 
 const KEYWORD_CLASS = {
   tyton: "bg-amber-200/70 dark:bg-amber-900/60 text-foreground",
@@ -219,24 +219,9 @@ export const CellRenderer = memo(function CellRenderer({
     toast.success("Skopiowano do schowka", { duration: 1200 });
     onCopy?.(display);
   };
-  // Special handling for www_status column: render compact pill
+  // Special handling for www_status column: render mini pill with label with error inside
   if (columnId === "www_status" && display.trim()) {
-    const rawStatus = display.trim();
-    const parsed = parseWwwStatus(rawStatus);
-    if (!parsed) {
-      return <span className="text-xs text-muted-foreground">{rawStatus}</span>;
-    }
-    const isOk = parsed.status === "green";
-    const isErr = parsed.status === "red";
-    const pillBg = isOk ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800"
-      : isErr ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800"
-      : "bg-slate-50 text-slate-700 border-slate-200 dark:bg-zinc-800 dark:text-slate-300 dark:border-zinc-700";
-    return (
-      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border ${pillBg}`}>
-        <span className={`h-1.5 w-1.5 rounded-full ${isOk ? "bg-emerald-500" : isErr ? "bg-rose-500" : "bg-slate-400"}`} />
-        {rawStatus}
-      </span>
-    );
+    return <WwwStatusPill rawStatus={display.trim()} />;
   }
 
   // Special handling for www column: render live status badge from SQLite or fallback to raw_status

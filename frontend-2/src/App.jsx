@@ -32,7 +32,6 @@ import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
 import { FilesDrawer } from "@/components/FilesDrawer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { UploadButton } from "@/raw-table/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -210,23 +209,23 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-dvh flex-col bg-background text-foreground selection:bg-indigo-500/20 selection:text-indigo-700 dark:selection:text-indigo-300">
-      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border/70 bg-background/85 px-3 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 sm:px-5 z-40 sticky top-0 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
-        <div className="flex min-w-0 items-center gap-3 sm:gap-6">
+    <div className="flex h-dvh flex-col bg-background text-foreground selection:bg-brand/20 selection:text-brand-muted-foreground dark:selection:text-brand">
+      <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border/70 bg-background/85 px-3 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 safe-top sm:px-5 z-40 sticky top-0 shadow-xs">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
           {/* Top-left logo with glowing icon badge */}
           <a
             href="/"
             title="Wróć do strony głównej (odświeża widok)"
             aria-label="BILLSzuka — strona główna"
-            className="flex items-center gap-2.5 rounded-lg px-1.5 py-1 transition-all hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 cursor-pointer group"
+            className="flex items-center gap-2.5 rounded-lg p-1.5 transition-all hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 cursor-pointer group"
           >
-            <div className="h-7 w-7 rounded-lg bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xs shadow-sm group-hover:scale-105 transition-transform">
+            <div className="h-7 w-7 rounded-lg bg-gradient-to-tr from-brand via-brand-indigo to-brand-rose flex items-center justify-center text-brand-foreground font-bold text-xs shadow-sm group-hover:scale-105 transition-transform">
               B
             </div>
             <div className="leading-none">
               <div className="font-bold tracking-tight text-sm text-foreground flex items-center gap-1.5">
                 BILLSzuka
-                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-brand-muted text-brand-muted-foreground border border-brand-muted-foreground/20">
                   v2.2
                 </span>
               </div>
@@ -235,7 +234,7 @@ export default function App() {
           </a>
 
           {/* Navigation tabs */}
-          <nav className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50">
+          <nav className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50" aria-label="Widoki">
             {TABS.map(({ id, label, icon: Icon }) => {
               const active = activeTab === id;
               return (
@@ -245,15 +244,16 @@ export default function App() {
                   aria-label={label}
                   title={label}
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all sm:px-3.5",
+                    "inline-flex items-center justify-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold transition-all min-h-[36px] sm:px-3 sm:gap-2",
                     active
-                      ? "bg-white dark:bg-zinc-800 text-foreground shadow-sm shadow-black/5 dark:shadow-black/20"
+                      ? "bg-card text-foreground shadow-sm border border-border/60"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/60",
                   )}
                   aria-pressed={active}
+                  aria-current={active ? "page" : undefined}
                 >
-                  <Icon className={cn("h-3.5 w-3.5", active ? "text-indigo-600 dark:text-indigo-400" : "opacity-70")} />
-                  <span className="hidden sm:inline">{label}</span>
+                  <Icon className={cn("h-4 w-4 shrink-0", active ? "text-brand font-bold" : "opacity-70")} />
+                  <span className="hidden sm:inline truncate">{label}</span>
                 </button>
               );
             })}
@@ -266,6 +266,7 @@ export default function App() {
             onClick={() => setShortcutsOpen(true)}
             aria-label="Skróty klawiszowe"
             title="Skróty klawiszowe (?)"
+            className="hidden sm:inline-flex"
           >
             <Keyboard className="h-4 w-4" />
           </Button>
@@ -306,14 +307,14 @@ export default function App() {
               >
                 <User className="h-4 w-4" />
                 {knowledgeIds.length > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-background" />
+                  <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-success ring-2 ring-background" />
                 )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-[16rem]">
               <DropdownMenuLabel className="flex flex-col gap-0.5">
                 <span className="text-xs font-normal text-muted-foreground">Zalogowany jako</span>
-                <span className="font-semibold">{activeProfile}</span>
+                <span className="font-semibold truncate">{activeProfile}</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setSettingsOpen(true)}>
@@ -329,7 +330,7 @@ export default function App() {
                 <Library className="h-4 w-4 mr-2" />
                 <span className="flex-1">Baza wiedzy</span>
                 {knowledgeIds.length > 0 && (
-                  <span className="text-[10px] text-emerald-600 font-medium">
+                  <span className="text-[10px] text-success font-medium">
                     {knowledgeIds.length} aktywnych
                   </span>
                 )}
@@ -337,7 +338,7 @@ export default function App() {
               <DropdownMenuItem onClick={() => setSnapshotsOpen(true)}>
                 <History className="h-4 w-4 mr-2" />
                 <span className="flex-1">Historia sesji</span>
-                <span className="text-[10px] text-muted-foreground">Zrzuty + logowania</span>
+                <span className="text-[10px] text-muted-foreground hidden sm:inline">Zrzuty + logowania</span>
               </DropdownMenuItem>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
@@ -368,7 +369,7 @@ export default function App() {
                         </DropdownMenuLabel>
                         {userViews.map((v) => (
                           <DropdownMenuItem key={v.id} onClick={() => handleApplyView(v)}>
-                            <Bookmark className="h-3.5 w-3.5 mr-2 text-emerald-600" />
+                            <Bookmark className="h-3.5 w-3.5 mr-2 text-success" />
                             {v.name}
                           </DropdownMenuItem>
                         ))}
@@ -383,7 +384,6 @@ export default function App() {
                 Zapisz zrzut tabeli
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => {
-                // Auto-save snapshot on logout if possible
                 tableRef.current?.saveSnapshot?.();
                 setActiveProfile(null);
                 setActiveProfileState(null);
@@ -401,6 +401,7 @@ export default function App() {
               onClick={() => tableRef.current?.openCommandPalette()}
               aria-label="Polecenia (⌘K)"
               title="Polecenia (⌘K)"
+              className="hidden sm:inline-flex"
             >
               <CommandIcon className="h-4 w-4" />
             </Button>
@@ -465,9 +466,9 @@ export default function App() {
               ["Esc", "Wyczyść fokus / zamknij"],
               ["?", "Pokaż te skróty"],
             ].map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between">
+              <div key={k} className="flex items-center justify-between gap-3 py-1">
                 <span className="text-muted-foreground">{v}</span>
-                <kbd className="px-2 py-0.5 rounded bg-muted text-xs font-mono">{k}</kbd>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono min-w-[3rem] text-center">{k}</kbd>
               </div>
             ))}
           </div>
@@ -488,9 +489,7 @@ export default function App() {
         open={snapshotsOpen}
         onOpenChange={setSnapshotsOpen}
         onRestore={() => {
-           // On restore, simply reload the preferences and refresh
            setActiveTab(loadPrefs(activeProfile)?.activeTab || "table");
-           // the dataset will be loaded by RawTable's boot function on mount since it's now in customDataset
         }}
       />
       <FilesDrawer open={filesOpen} onOpenChange={setFilesOpen} />
@@ -505,10 +504,9 @@ export default function App() {
  * Falls back to "OFFLINE" badge if the API is unreachable.
  */
 function HealthBadge({ vault, error }) {
-  // Minimal badge — no clutter. Only shows status, not key counts or chains.
   if (error && !vault) {
     return (
-      <Badge variant="outline" className="text-[10px] border-red-300 bg-red-50 text-red-700">
+      <Badge variant="error" size="sm" className="hidden sm:inline-flex">
         <AlertCircle className="h-3 w-3 mr-1" />
         OFFLINE
       </Badge>
@@ -516,17 +514,14 @@ function HealthBadge({ vault, error }) {
   }
   if (!vault) {
     return (
-      <Badge variant="outline" className="text-[10px]">
+      <Badge variant="outline" size="sm" className="hidden sm:inline-flex">
         <Loader2 className="h-3 w-3 mr-1 animate-spin" />
         Ładowanie…
       </Badge>
     );
   }
   return (
-    <Badge
-      variant="outline"
-      className="text-[10px] border-green-300 bg-green-50 text-green-700"
-    >
+    <Badge variant="success" size="sm" className="hidden sm:inline-flex">
       <CheckCircle2 className="h-3 w-3 mr-1" />
       OK
     </Badge>

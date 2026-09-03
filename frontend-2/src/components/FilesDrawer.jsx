@@ -79,17 +79,16 @@ export function FilesDrawer({ open, onOpenChange }) {
         showCloseButton={false}
         className="w-full sm:max-w-md p-0 flex flex-col gap-0"
       >
-        <SheetHeader className="px-5 pt-5 pb-3 border-b">
+        <SheetHeader className="px-4 sm:px-5 pt-4 sm:pt-5 pb-3 border-b">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-2">
-              <FolderOpen className="h-5 w-5 text-indigo-500" />
+              <FolderOpen className="h-5 w-5 text-brand" />
               Moje Pliki
             </SheetTitle>
             <div className="flex items-center gap-1">
               <Button
                 variant="ghost"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 onClick={() => onOpenChange(false)}
                 aria-label="Zamknij"
               >
@@ -102,7 +101,7 @@ export function FilesDrawer({ open, onOpenChange }) {
           </SheetDescription>
         </SheetHeader>
 
-        <div className="px-5 py-4 border-b bg-muted/30">
+        <div className="px-4 sm:px-5 py-3 sm:py-4 border-b bg-muted/30">
           <div className="flex items-center justify-between text-xs mb-1.5 font-medium">
             <span>Zużycie miejsca</span>
             <span>{formatBytes(totalBytes)} / {formatBytes(quotaBytes)}</span>
@@ -111,7 +110,7 @@ export function FilesDrawer({ open, onOpenChange }) {
         </div>
 
         <ScrollArea className="flex-1">
-          <div className="p-5 space-y-2">
+          <div className="p-4 sm:p-5 space-y-2">
             {loading && files.length === 0 ? (
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground py-8">
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -140,15 +139,15 @@ export function FilesDrawer({ open, onOpenChange }) {
 
 function FileItem({ file, onRemove, isDeleting }) {
   const isCatalog = file.type === "catalog";
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-lg border bg-card p-3 flex items-start gap-3"
+      className="rounded-lg border border-border bg-card p-3 flex items-start gap-3"
     >
       <div className="shrink-0 mt-0.5 text-muted-foreground">
-        {isCatalog ? <Database className="h-5 w-5 text-blue-500" /> : <FileText className="h-5 w-5 text-emerald-500" />}
+        {isCatalog ? <Database className="h-5 w-5 text-brand-indigo" /> : <FileText className="h-5 w-5 text-success-muted-foreground" />}
       </div>
 
       <div className="flex-1 min-w-0">
@@ -168,13 +167,14 @@ function FileItem({ file, onRemove, isDeleting }) {
 
       <Button
         variant="ghost"
-        size="icon"
-        className="h-7 w-7 shrink-0 text-muted-foreground hover:text-destructive"
+        size="icon-sm"
+        className="shrink-0 text-muted-foreground hover:text-error"
         onClick={onRemove}
         disabled={isDeleting}
         title="Usuń"
+        aria-label={`Usuń ${file.filename}`}
       >
-        {isDeleting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
+        {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
       </Button>
     </motion.div>
   );

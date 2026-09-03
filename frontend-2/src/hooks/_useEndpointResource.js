@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
  * and the loading/error lifecycle consistent without copy-paste.
  */
 
+const _urlStatusCache = new Map();
+const _keywordScanCache = new Map();
+
 // Folder name (PL frontend) → ISO kod (backend)
 const COUNTRY_TO_ISO = {
   "Polska": "PL", "Czechy": "CZ", "Słowacja": "SK", "Słowenia": "SI",
@@ -15,15 +18,11 @@ const COUNTRY_TO_ISO = {
   "Francja": "FR",
 };
 
-// One cache per base path. Map order is irrelevant; we just look up by endpoint.
-const _urlStatusCache = new Map();
-const _keywordScanCache = new Map();
-
 /**
- * @param {string} basePath   "/api/url-status" or "/api/keyword-scan"
- * @param {string} country    "Polska" / "PL" / "Wszystkie" / ""
- * @param {number} refreshKey  bump to force a refetch
- * @param {(item: any) => any} mapItem  per-item shape (e.g. url-status vs keyword fields)
+ * @param {string} basePath  "/api/url-status" or "/api/keyword-scan"
+ * @param {string} country   "Polska" / "PL" / "Wszystkie" / ""
+ * @param {number} refreshKey
+ * @param {(item: any) => any} mapItem   per-item shape (e.g. url-status vs keyword fields)
  */
 export function useEndpointResource(basePath, country, refreshKey, mapItem) {
   const isAll = !country || country === "Wszystkie";
@@ -65,7 +64,7 @@ export function useEndpointResource(basePath, country, refreshKey, mapItem) {
     return () => {
       cancelled = true;
     };
-  }, [endpoint, refreshKey]); // mapItem is stable by convention; cache is module-scoped
+  }, [endpoint, refreshKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { ...data, loading, error };
 }

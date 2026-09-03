@@ -188,17 +188,16 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
         showCloseButton={false}
         className="w-full sm:max-w-md p-0 flex flex-col gap-0"
       >
-        <SheetHeader className="px-5 pt-5 pb-3 border-b">
+        <SheetHeader className="px-4 sm:px-5 pt-4 sm:pt-5 pb-3 border-b">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-emerald-500" />
+              <BookOpen className="h-5 w-5 text-success" />
               Baza wiedzy
             </SheetTitle>
             <div className="flex items-center gap-1">
               <Button
                 variant="ghost"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 onClick={load}
                 disabled={loading}
                 title="Odśwież"
@@ -207,8 +206,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
               </Button>
               <Button
                 variant="ghost"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 onClick={() => onOpenChange(false)}
                 aria-label="Zamknij"
               >
@@ -222,16 +220,16 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
         </SheetHeader>
 
         {/* Drop zone */}
-        <div className="px-5 pt-4">
+        <div className="px-4 sm:px-5 pt-4">
           <div
             onDrop={onDrop}
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
             onClick={() => fileInputRef.current?.click()}
             className={cn(
-              "rounded-xl border-2 border-dashed p-5 text-center cursor-pointer transition-colors",
+              "rounded-xl border-2 border-dashed p-4 sm:p-5 text-center cursor-pointer transition-colors min-h-[100px] flex flex-col items-center justify-center",
               isDragging
-                ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30"
+                ? "border-success bg-success-muted"
                 : "border-muted-foreground/30 hover:border-muted-foreground/60",
               uploading && "pointer-events-none opacity-60"
             )}
@@ -263,7 +261,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
 
         {/* File list */}
         <ScrollArea className="flex-1 mt-4">
-          <div className="px-5 pb-5 space-y-2">
+          <div className="px-4 sm:px-5 pb-5 space-y-2">
             {loading && items.length === 0 ? (
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground py-8">
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -290,7 +288,7 @@ export function KnowledgeDrawer({ open, onOpenChange, onSelectionChange }) {
         </ScrollArea>
 
         {items.length > 0 && (
-          <div className="px-5 py-3 border-t text-xs text-muted-foreground">
+          <div className="px-4 sm:px-5 py-3 border-t text-xs text-muted-foreground safe-bottom">
             {selected.size} z {items.length} wybranych dołączanych do czatu
           </div>
         )}
@@ -310,23 +308,25 @@ function KnowledgeItem({ item, selected, onToggle, onRemove, onRefresh, refreshi
       className={cn(
         "rounded-lg border p-3 flex items-start gap-3",
         selected && isReady
-          ? "border-emerald-300 bg-emerald-50/40 dark:bg-emerald-950/20"
-          : "bg-card"
+          ? "border-success bg-success-muted"
+          : "bg-card border-border"
       )}
     >
       <button
         onClick={onToggle}
         disabled={!isReady}
         className={cn(
-          "shrink-0 mt-0.5 h-4 w-4 rounded border flex items-center justify-center transition-colors",
+          "shrink-0 mt-0.5 inline-flex h-7 w-7 sm:h-6 sm:w-6 items-center justify-center rounded border-2 transition-colors min-h-[32px] min-w-[32px] sm:min-h-0 sm:min-w-0",
           selected && isReady
-            ? "bg-emerald-500 border-emerald-500 text-white"
+            ? "bg-success border-success text-success-foreground"
             : "border-muted-foreground/40 bg-background",
           !isReady && "opacity-40 cursor-not-allowed"
         )}
         title={isReady ? "Dołącz do czatu" : "Plik nie jest jeszcze gotowy"}
+        aria-label={isReady ? "Dołącz do czatu" : "Plik nie jest jeszcze gotowy"}
+        aria-pressed={selected && isReady}
       >
-        {selected && isReady && <CheckCircle2 className="h-3 w-3" />}
+        {selected && isReady && <CheckCircle2 className="h-3.5 w-3.5" />}
       </button>
 
       <FileText className="h-5 w-5 shrink-0 mt-0.5 text-muted-foreground" />
@@ -341,17 +341,17 @@ function KnowledgeItem({ item, selected, onToggle, onRemove, onRefresh, refreshi
             <span className="text-muted-foreground/60">· {item.mime_type.replace("application/", "")}</span>
           )}
           {isFailed ? (
-            <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-red-300 text-red-700">
+            <Badge variant="error" size="sm">
               <AlertCircle className="h-2.5 w-2.5 mr-0.5" />
               błąd
             </Badge>
           ) : isReady ? (
-            <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-emerald-300 text-emerald-700">
+            <Badge variant="success" size="sm">
               <CheckCircle2 className="h-2.5 w-2.5 mr-0.5" />
               gotowy
             </Badge>
           ) : (
-            <Badge variant="outline" className="text-[10px] py-0 px-1.5">
+            <Badge variant="outline" size="sm">
               <Loader2 className="h-2.5 w-2.5 mr-0.5 animate-spin" />
               {item.status || "przetwarzanie"}
             </Badge>
@@ -361,26 +361,28 @@ function KnowledgeItem({ item, selected, onToggle, onRemove, onRefresh, refreshi
 
       <Button
         variant="ghost"
-        size="icon"
-        className="h-7 w-7 shrink-0 text-muted-foreground hover:text-emerald-600"
+        size="icon-sm"
+        className="shrink-0 text-muted-foreground hover:text-success"
         onClick={onRefresh}
         disabled={refreshing}
-        title="Wyślij ponownie do Gemini (po wygaśnięciu pliku w Gemini Files API)"
+        title="Wyślij ponownie do Gemini"
+        aria-label="Odśwież plik w Gemini"
       >
         {refreshing ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
-          <RotateCw className="h-3.5 w-3.5" />
+          <RotateCw className="h-4 w-4" />
         )}
       </Button>
       <Button
         variant="ghost"
-        size="icon"
-        className="h-7 w-7 shrink-0 text-muted-foreground hover:text-destructive"
+        size="icon-sm"
+        className="shrink-0 text-muted-foreground hover:text-error"
         onClick={onRemove}
         title="Usuń"
+        aria-label={`Usuń ${item.filename}`}
       >
-        <Trash2 className="h-3.5 w-3.5" />
+        <Trash2 className="h-4 w-4" />
       </Button>
     </motion.div>
   );
