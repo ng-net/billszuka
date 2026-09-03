@@ -97,6 +97,31 @@
 - **Master.csv:** 488 → 492 wierszy (35 kol).
 - **Validation:** 0 Critical / 0 Warning.
 
+## 2026-09-03 — Sesja 5: Real search v2 (SI+PL+RS+LT batch)
+
+- **Web search drill:** potwierdzone dane rejestrowe + wyniki finansowe.
+- **Dodane do master.csv (4 nowe wiersze):**
+  - **SI-B-007 Tobačna Grosist, d.o.o.** (Ljubljana Črnuče, MŠ 5462959000,
+    DŠ SI31627528, 1991, hčerinska družba Tobačna Ljubljana / Imperial
+    Brands, prihodki 2024 = **€396M**, 76 zaposlených, AJPES potvrdil
+    bonitetnu ocenu A+, eden največjih veletrgovcev v SI; kategoria B8,
+    pow=3).
+  - **PL-A-005 Gabimix Sp. z o.o. (Wicik24 + dopalenia.pl)** (Konstantynów
+    Łódzki, NIP 7311693836, marka własna WICIK — gilzy Standard / Slim /
+    Mentol / Długi filtr + NABIJARKI + bibułki + tytoń; kategoria A5).
+  - **RS-B-006 Infumo d.o.o.** (Gizeh online shop Srbija, kompletan
+    pribor: papirići + filteri + ROLERICE + PUNILICE + black rolls +
+    GIZEH FINE MAGNET, dostava 24-48h cele Srbije; kategoria B3,
+    pow=4; PIB/MB treba APR proveriti).
+  - **LT-B-014 UAB MV GROUP Distribution LT** (Vilnius, JAR 121702328,
+    founded 1992-11-05, PVM LT217023219, wiodąca hurtownia w bałtyckich
+    krajach, 300+ brandów, specjalizacja alkoholiniai gėrimai +
+    tabako gaminiai + FMCG; 6 filiāle w LT + LV + EE; kategoria B8,
+    pow=2).
+- **Master.csv:** 492 → 496 wierszy (35 kol).
+- **Validation:** 0 Critical / 0 Warning.
+- **Tooling:** AJPES, get.data.gov.lt (JAR) live API, infumo.rs.
+
 ## 2026-09-03 — Unified Authentication, UI Performance Optimization, Catalog Consolidation & Deploy Prep
 
 - **Unifikacja sesji logowania (Single-Step Login):**
