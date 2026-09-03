@@ -7,7 +7,7 @@ import { formatDate, truncate, formatNumber, cn } from "@/lib/utils";
 import { highlightKeywords } from "@/lib/brand";
 import { Mail, Phone, ExternalLink, Copy, Maximize2 } from "lucide-react";
 import { toast } from "sonner";
-import { UrlBadge, parseWwwStatus, WwwStatusPill } from "@/components/UrlBadge";
+import { UrlBadge, WwwStatusPill } from "@/components/UrlBadge";
 
 const KEYWORD_CLASS = {
   tyton: "bg-amber-200/70 dark:bg-amber-900/60 text-foreground",

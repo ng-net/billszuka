@@ -72,7 +72,7 @@ function Bar({ value, max, color, label, count, sub }) {
   );
 }
 
-function KpiTile({ label, value, hint, icon: Icon, accent }) {
+function KpiTile({ label, value, hint, icon: Icon }) {
   return (
     <Card className="rounded-xl border border-border bg-card shadow-sm hover:shadow-md transition-all">
       <CardContent className="p-4">

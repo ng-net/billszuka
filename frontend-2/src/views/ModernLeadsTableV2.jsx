@@ -82,7 +82,7 @@ function confidenceToNumber(c) {
   return Number.isFinite(n) ? n : null;
 }
 
-function formatCleanNotes(notatki, lead) {
+function formatCleanNotes(notatki, _lead) {
   if (!notatki || typeof notatki !== "string") return null;
   let text = notatki.trim();
   if (!text || text.toLowerCase() === "brak") return null;
@@ -456,7 +456,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
 
       return true;
     });
-  }, [leads, searchQuery, selectedCountry, selectedCountries, selectedTier, selectedTiers, selectedBrands, selectedConfidence, selectedUrlFilter, urlStatusById]);
+  }, [leads, searchQuery, selectedCountry, selectedCountries, selectedTier, selectedTiers, selectedBrands, selectedConfidence, selectedUrlFilter, urlStatusById, keywordById]);
 
   // --- Active filter pills ---
   const activeFilters = useMemo(() => {
@@ -592,26 +592,6 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
       >
         <span className="truncate">{value}</span>
         {copied ? <Check size={11} className="text-emerald-500 shrink-0" /> : <Copy size={11} className="shrink-0" />}
-      </button>
-    );
-  };
-
-  const IconButton = ({ icon: Icon, onClick, color = "gray", title, stopPropagation = false }) => {
-    const colors = {
-      gray: "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800",
-      blue: "text-blue-500 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/50",
-      green: "text-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/50",
-    };
-    return (
-      <button
-        onClick={(e) => {
-          if (stopPropagation) e.stopPropagation();
-          onClick?.(e);
-        }}
-        title={title}
-        className={`p-2 rounded-lg transition-all ${colors[color]}`}
-      >
-        <Icon size={16} />
       </button>
     );
   };

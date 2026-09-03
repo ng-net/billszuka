@@ -32,7 +32,6 @@ import { KnowledgeDrawer } from "@/components/KnowledgeDrawer";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
 import { FilesDrawer } from "@/components/FilesDrawer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { UploadButton } from "@/raw-table/components/UploadButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {

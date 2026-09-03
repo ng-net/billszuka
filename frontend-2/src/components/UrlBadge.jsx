@@ -81,7 +81,6 @@ export function parseWwwStatus(rawStatus) {
  */
 export function UrlBadge({
   url,
-  status: statusProp,
   state: stateProp,
   http_code: httpCodeProp,
   error: errorProp,

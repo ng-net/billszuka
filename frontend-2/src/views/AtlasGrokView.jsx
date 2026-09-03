@@ -1,32 +1,24 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Search,
   Compass,
   Zap,
   Globe2,
   ShieldCheck,
-  Building2,
   TrendingUp,
   MapPin,
   Mail,
   Phone,
-  ExternalLink,
   Copy,
-  ChevronDown,
-  ChevronRight,
-  Filter,
   Sparkles,
-  Terminal,
   Activity,
-  Layers,
   Database,
   ArrowUpRight,
   CheckCircle2,
 } from "lucide-react";
 import { useCsv } from "@/hooks/useCsv";
 import { useUrlStatus } from "@/hooks/useUrlStatus";
-import { useKeywordScan } from "@/hooks/useKeywordScan";
 import { toast } from "sonner";
 
 const MASTER_URL = "/api/master.csv";
@@ -57,14 +49,12 @@ export function AtlasGrokView() {
   const [search, setSearch] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [selectedBrand, setSelectedBrand] = useState("ALL");
-  const [selectedTier, setSelectedTier] = useState("ALL");
+  const [selectedTier] = useState("ALL");
   const [selectedLeadId, setSelectedLeadId] = useState(null);
   const [maskRODO, setMaskRODO] = useState(true);
-  const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'stream'
 
   // Fetch URL and Keyword statuses for live radar telemetry
   const { byId: urlStatusById = {} } = useUrlStatus(null);
-  const { byId: keywordById = {} } = useKeywordScan(null);
 
   useEffect(() => {
     if (status === "idle") {
@@ -283,7 +273,6 @@ export function AtlasGrokView() {
               {filtered.map((lead) => {
                 const isSelected = activeLead?.id === lead.id;
                 const urlTelemetry = urlStatusById[lead.id];
-                const keywordData = keywordById[lead.id];
 
                 return (
                   <motion.div

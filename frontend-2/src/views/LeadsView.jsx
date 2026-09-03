@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Loader2, Building2, Flame, ShieldCheck, Globe } from "lucide-react";
 import { useCsv } from "@/hooks/useCsv";
 import { ModernLeadsTableV2 } from "./ModernLeadsTableV2";
-import { Card, CardContent } from "@/components/ui/card";
 
 const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
