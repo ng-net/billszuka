@@ -15,6 +15,32 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // Pre-bundle heavy vendor deps at dev-start so the optimizer hash is
+  // stable. Without this, Vite discovers deps lazily — the first request
+  // for, say, papaparse triggers an in-flight reoptimize, the browser's
+  // cached chunk URL (?v=OLD) returns ERR_ABORTED, and ErrorBoundary has
+  // to reload the page. Listing deps here makes that invisible.
+  optimizeDeps: {
+    include: [
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "framer-motion",
+      "lucide-react",
+      "papaparse",
+      "@tanstack/react-table",
+      "@tanstack/react-virtual",
+      "@dnd-kit/core",
+      "@dnd-kit/sortable",
+      "@dnd-kit/modifiers",
+      "cmdk",
+      "sonner",
+      "clsx",
+      "tailwind-merge",
+      "class-variance-authority",
+      "radix-ui",
+    ],
+  },
   server: {
     port: 3001,
     host: true,
