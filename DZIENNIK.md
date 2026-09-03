@@ -1858,9 +1858,13 @@ Kompleksowe oczyszczenie projektu na polecenie Marcelego:
 
 3. **Weryfikacja:**
    - `python3 tools/validate_columns.py`: 28 plików, 950 wierszy — 0 Critical, 0 Warning.
-   - `pytest tests/`: 527/527 passed (100%).
+   - `pytest -q`: 527 passed in 10.35s.
    - `npm test`: 133/133 passed (100%).
    - UI: Zweryfikowano w przeglądarce pod adresem `http://localhost:3001` (wyszukiwanie "BILLS", chip `PowerMatic + Hawk`, podgląd szczegółów).
 
+## 2026-09-03 17:05 CEST — fix(frontend): auto-load master.csv in Siatka Danych (RawTable)
 
-
+- **Problem:** Po zalogowaniu Siatka Danych (`RawTable.jsx`) nie ładowała automatycznie danych, zatrzymując się na pustym stanie dropzone (`EmptyState`), podczas gdy Atlas Grok i Katalog Leadów ładowały dane od razu.
+- **Przyczyna:** W `RawTable.jsx` sekwencja bootowania (`bootRef` + `getActiveDatasetInfo`) była przerywana przez unmount w React `StrictMode` (`cancelled = true`), przez co `bootRef.current` trwale utknął na wartości `1` przed wywołaniem `loadUrl(...)`.
+- **Rozwiązanie:** Zresetowano `bootRef.current = 0` w przypadku anulowania montowania / cleanupu, pozwalając na czyste uruchomienie `loadUrl` na remouncie.
+- **Weryfikacja:** Przetestowano w przeglądarce (Siatka Danych wczytuje 472 wiersze i 36 kolumn automatycznie od razu po wejściu) + testy jednostkowe `frontend-2` (69/69 pass).

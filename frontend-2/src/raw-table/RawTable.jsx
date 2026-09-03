@@ -125,10 +125,16 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
         let hasCache = false;
         try {
           const activeInfo = await getActiveDatasetInfo();
-          if (cancelled) return;
+          if (cancelled) {
+            bootRef.current = 0;
+            return;
+          }
           if (activeInfo?.type === "custom") {
             const stored = await getCustomDataset();
-            if (cancelled) return;
+            if (cancelled) {
+              bootRef.current = 0;
+              return;
+            }
             if (stored && stored.rows && stored.rows.length > 0) {
               loadParsedDataRef.current(stored);
               bootRef.current = 2;
@@ -140,13 +146,20 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
           // background fetch lands. Boot remains "pending" so the network
           // load still fires below.
           const masterCached = await getMasterCache();
-          if (cancelled) return;
+          if (cancelled) {
+            bootRef.current = 0;
+            return;
+          }
           if (masterCached && masterCached.rows && masterCached.rows.length > 0) {
             loadParsedDataRef.current(masterCached);
             hasCache = true;
           }
         } catch {
           // fall through to master.csv
+        }
+        if (cancelled) {
+          bootRef.current = 0;
+          return;
         }
         loadUrlRef.current(withCacheBuster(MASTER_URL), "master.csv", 0, { background: hasCache });
       } else if (bootRef.current === 1 && csv.status === "error") {
@@ -159,6 +172,9 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     boot();
     return () => {
       cancelled = true;
+      if (bootRef.current === 1) {
+        bootRef.current = 0;
+      }
     };
   }, [csv.status]);
 
