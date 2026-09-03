@@ -191,7 +191,7 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
     "wolumen": {"type": "enum", "values": ["mały", "średni", "duży"],
                 "allow_empty": True},
     "confidence_wolumen": {"type": "enum",
-                           "values": ["🟢", "🟡", "🔴", ""],
+                           "values": ["Jest NIP", "www bez NIP", "brak kontaktu", ""],
                            "allow_empty": True},
     "kanal_sprzedaży": {"type": "enum_loose",
                         "values": [

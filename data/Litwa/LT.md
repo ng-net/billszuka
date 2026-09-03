@@ -2,7 +2,25 @@
 
 > **Status:** ✅ ZWERYFIKOWANE & ZSYNCHRONIZOWANE (Dane w `master.csv`)  
 > **Katalogi:** `catalog-A-LT.csv` (16 firm) + `catalog-B-LT.csv` (10 firm)  
-> **Kluczowe podmioty 🐋:** UAB Sanitex, UAB Skonis ir kvapas, UAB MV GROUP Distribution LT, Philip Morris Baltic UAB, UAB Vingės Terminalas, UAB Europos tabakas, UAB Alternatyvus tabakas, Xdalys LT UAB (xprekes.lt)  
+> **Kluczowe podmioty 🐋:** UAB Sanitex, UAB Skonis ir kvapas, UAB MV GROUP Distribution LT, Philip Morris Baltic UAB, UAB Vingės Terminalas, UAB Europos tabakas, UAB Alternatyvus tabakas, Xdalys LT UAB (xprekes.lt)
+
+## Rynek — wolumen wyszukiwań (szac. 2026-09-04)
+
+> **Auto-gen 2026-09-04** z `SŁOWNIK-LT.md`. Wolumeny szacunkowe (szac.) — nie real-time Keyword Planner. Weryfikuj w Ahrefs/Senuto/Google Trends przed kampanią. Populacja: 2.8M.
+
+### Top kategorie (suma top-3 fraz)
+
+| Kategoria | Top frazy | Wolumen (suma top-3, szac./mies.) |
+|---|---|---|
+| Nabijarki | `cigarečių pildymo mašinėlė`, `rūkymo reikmenys`, `"cigarečių" + "pildymo" + "mašinėlė"` | 900 |
+| Sklepy | `tabako prekių parduotuvė`, `elektroninių cigarečių parduotuvė`, `vape parduotuvė` | 900 |
+| Marketplace | `skelbiu.lt "tabakas"`, `skelbiu.lt "cigarečių pildymo mašinėlė"`, `skelbiu.lt "pildiklis"` | 500 |
+| Sektory (Katalog B) | `didmeninė kaljanų`, `didmeninė e-cigarečių`, `didmeninė CBD` | 300 |
+| Hurtownie / dystrybutorzy | `"didmeninė prekyba" + "tabakas"`, `didmeninė tabako prekyba`, `didmeninė rūkymo prekių prekyba` | 200 |
+
+### Wniosek dla BILLSzuka
+
+🇱🇹 Mały rynek bałtycki. Pozytyw: silna cyfryzacja, łatwa dystrybucja e-commerce przez Baltics. Negatyw: restrykcje liquidów smakowych.
 
 ## Reżim regulacyjny (2024-2025)
 - Akcyza EU (VMI / AIS)

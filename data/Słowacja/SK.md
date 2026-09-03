@@ -3,6 +3,24 @@
 **Data ostatniego update:** 2026-08-17 13:06 CEST  
 **Status:** ✅ Zweryfikowane — 30 wierszy w katalogach (15 A + 15 B), 100% zwalidowane z danymi rejestrowymi ORSR, FinStat i Colný úrad / Finančná správa SR.
 
+## Rynek — wolumen wyszukiwań (szac. 2026-09-04)
+
+> **Auto-gen 2026-09-04** z `SŁOWNIK-SK.md`. Wolumeny szacunkowe (szac.) — nie real-time Keyword Planner. Weryfikuj w Ahrefs/Senuto/Google Trends przed kampanią. Populacja: 5.4M.
+
+### Top kategorie (suma top-3 fraz)
+
+| Kategoria | Top frazy | Wolumen (suma top-3, szac./mies.) |
+|---|---|---|
+| Nabijarki | `ručná plnička cigariet`, `plnička tabaku`, `"ručná plnička" + "cigariet"` | 3.5k |
+| Sklepy | `predajňa tabakových potrieb`, `tabaková predajňa`, `vape obchod` | 1.5k |
+| Marketplace | `alza.sk "plnička"`, `heureka.sk "ručná plnička"`, `bazos.sk "tabak"` | 1.5k |
+| Hurtownie / dystrybutorzy | `veľkoobchod tabak`, `"veľkoobchod" + "tabak"`, `veľkoobchod fajčiarskych potrieb` | 800 |
+| Sektory (Katalog B) | `veľkoobchod e-cigariet`, `veľkoobchod CBD`, `veľkoobchod cigaretových papierikov` | 700 |
+
+### Wniosek dla BILLSzuka
+
+🇸🇰 Mały rynek, blisko CZ — dystrybucja via Fortis-DB/PEAL pokrywa 70%. Potencjał w cross-border e-commerce (alza.sk).
+
 ## Reżim regulacyjny (2025-2026)
 - **Akcyza EU & Colná správa:** Finančná správa SR zarządza rejestrem podmiotów akcyzowych dla wyrobów tytoniowych (zákon č. 106/2004 Z. z. o spotrebnej dani z tabakových výrobkov).
 - **Track & Trace:** Wdrożony i aktywny dla dystrybutorów hurtowych (np. ABAR SK s.r.o., GGT a.s., M+M s.r.o.).

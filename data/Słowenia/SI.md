@@ -3,6 +3,24 @@
 **Data ostatniego update:** 2026-08-17 13:13 CEST  
 **Status:** ✅ Zweryfikowane — 16 wierszy w katalogach (7 A + 9 B), 100% zwalidowane z danymi rejestrowymi AJPES, Bizi.si oraz FURS (Finančna uprava Republike Slovenije).
 
+## Rynek — wolumen wyszukiwań (szac. 2026-09-04)
+
+> **Auto-gen 2026-09-04** z `SŁOWNIK-SI.md`. Wolumeny szacunkowe (szac.) — nie real-time Keyword Planner. Weryfikuj w Ahrefs/Senuto/Google Trends przed kampanią. Populacja: 2.1M.
+
+### Top kategorie (suma top-3 fraz)
+
+| Kategoria | Top frazy | Wolumen (suma top-3, szac./mies.) |
+|---|---|---|
+| Sklepy | `trafika`, `vape trgovina`, `prodajalna tobačnih izdelkov` | 600 |
+| Marketplace | `bolha.com "tobak"`, `bolha.com "polnjenje cigaret"`, `bolha.com "polnilnik"` | 500 |
+| Nabijarki | `stroj za polnjenje cigaret`, `pripomočki za kadilce`, `"stroj za polnjenje" + "cigaret"` | 300 |
+| Sektory (Katalog B) | `veleprodaja e-cigaret`, `veleprodaja CBD`, `veleprodaja vodnih pip` | 250 |
+| Hurtownie / dystrybutorzy | `"veleprodaja" + "tobak"`, `"distribucija" + "tobačni izdelki"` | 100 |
+
+### Wniosek dla BILLSzuka
+
+🇸🇮 Mały rynek, tradycja 'trafika'. Powiązanie z HR (wspólny bałkański kanał). Brak autoryzowanego dystrybutora PM.
+
 ## Reżim regulacyjny (2025-2026)
 - **Akcyza & FURS Carina:** FURS zarządza rejestrem podmiotów akcyzowych dla wyrobów tytoniowych (*trošarine na tobačne izdelke*) oraz składów podatkowych (*trošarinsko skladišče*).
 - **Nabijarki i akcesoria RYO/MYO:** Brak barier akcyzowych na urządzenia (*strojčki za polnjenje cigaret*) i akcesoria; obrót regulowany standardowymi przepisami celno-podatkowymi UE (EORI SI).

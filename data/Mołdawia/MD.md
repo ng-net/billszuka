@@ -2,7 +2,25 @@
 
 > **Status:** ✅ ZWERYFIKOWANE & ZSYNCHRONIZOWANE (Dane w `master.csv`)  
 > **Katalogi:** `catalog-A-MD.csv` (20 firm) + `catalog-B-MD.csv` (6 firm)  
-> **Kluczowe podmioty 🐋:** S.A. Tutun-CTC, S.R.L. NewSmoke Distribution, International Tobacco S.R.L., S.R.L. MIROLUX-PLUS (Tabacco House), S.R.L. CUPAJ 2020 (tabac.md), S.R.L. Gamma Logistics VR, S.R.L. GRADALOGISTIC  
+> **Kluczowe podmioty 🐋:** S.A. Tutun-CTC, S.R.L. NewSmoke Distribution, International Tobacco S.R.L., S.R.L. MIROLUX-PLUS (Tabacco House), S.R.L. CUPAJ 2020 (tabac.md), S.R.L. Gamma Logistics VR, S.R.L. GRADALOGISTIC
+
+## Rynek — wolumen wyszukiwań (szac. 2026-09-04)
+
+> **Auto-gen 2026-09-04** z `SŁOWNIK-MD.md`. Wolumeny szacunkowe (szac.) — nie real-time Keyword Planner. Weryfikuj w Ahrefs/Senuto/Google Trends przed kampanią. Populacja: 2.6M.
+
+### Top kategorie (suma top-3 fraz)
+
+| Kategoria | Top frazy | Wolumen (suma top-3, szac./mies.) |
+|---|---|---|
+| Nabijarki | `mașină de umplere țigarete`, `mașină de țigări`, `"mașină" + "umplere" + "țigarete"` | 900 |
+| Marketplace | `999.md "tutun"`, `olx.md "tutun"`, `999.md "mașină de umplere țigarete"` | 700 |
+| Sklepy | `magazin tutun`, `magazin de țigarete electronice`, `magazin de articole pentru fumători` | 600 |
+| Hurtownie / dystrybutorzy | `distribuitor tutun`, `angro tutun`, `"distribuitor" + "tutun"` | 300 |
+| Sektory (Katalog B) | `angro narghilea`, `angro țigări electronice`, `angro CBD` | 300 |
+
+### Wniosek dla BILLSzuka
+
+🇲🇩 Poza UE, liberalne regulacje. Dobry punkt wejścia do regionu. Licencja na przetwarzanie tytoniu to rzadkość — partnerzy typu Tutun-CTC to TOP B1.
 
 ## Reżim regulacyjny & specyfika rynku (2024-2025)
 - **Poza UE** — odprawy celne przez Serviciul Vamal al Republicii Moldova.

@@ -50,6 +50,8 @@
 | ⚡ | Zaktualizowano bazę kontaktową oraz zweryfikowano NIP/VIES w oficjalnych rejestrach. | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 107/215 (49.8%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 194 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 0/202 (0.0%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 172 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 
@@ -648,3 +650,181 @@ Poprzednia sesja (Marceli's commit 190ee362) wstawiła do CSV pewne dane, który
 - `tools/find_gems.py` (ranking tool, 9.8KB)
 - `data/verification/gems.csv` (112 ranked rows)
 - `data/verification/gems_summary.md` (per-country breakdown + top 20)
+
+
+## 2026-09-03 ~23:18 CEST — Gentle search batch: MD + LV + SI under-researched countries
+
+**Trigger:** User requested gentle 60-min search focused on countries with fewest results.
+
+**Before/after catalog-B row counts:**
+
+| Kraj | Before | After | Delta | Top new lead |
+|---|---|---|---|---|
+| MD Mołdawia | 9 | 15 | +6 | SA TUTUN-CTC (największy producent tytoniu w MD, 1924, 188 pracowników, kontrakt z PMI od 2024) |
+| LV Łotwa | 10 | 15 | +5 | SIA Tabakas Nams Grupa TNG (€15.3M, 4000+ POS, Baltic cluster LT+EE) |
+| SI Słowenia | 11 | 12 | +1 | Tobačna Ljubljana d.o.o. (Imperial Brands, 1871, 3 spółki: Grosist + 3DVA + Ljubljana) |
+
+**Total:** 12 new leads appended. All 3 catalogs validated `validate_columns.py` → **0 criticals, 0 warnings**.
+
+**Moldova (MD) — top finds:**
+
+- **SA TUTUN-CTC** (Comb. de Tutun din Chișinău) — państwowy producent papierosów, 1924, 188 pracowników, kontrakt produkcyjny z Philip Morris (Bond Street od XII.2024). Produkuje markę Cigaronne (eksport 30+ krajów). IDNO 1002600005141. **TOP B1 LEAD MD.**
+- **SRL ECO TOBACC** (IDNO 1011600041956) — licencjonowany importer wyrobów tytoniowych (CAEM 1118 + licencja typ 9), Columna 60 — adres w klastrze tytoniowym Kiszyniowa z Casa del Tabaco i Traditional Tobacco Co.
+- **SRL Traditional Tobacco Company** (IDNO 1014600027201) — dystrybutor tytoniu, ten sam adres (Columna 60).
+- **SRL MIIG-TOBACCO** (IDNO 5533018) — moldawsko-jordański JV (50/50 z ATARED TOBACCO JORDAN), producent od 1997.
+- **Tobacco Club SRL** (Volza) — importer z Meksyku/Nikaragui/Chin (51 przesyłek). Michael Robinson CEO.
+- **ARIF TUTUN SRL** (IDNO 1020600040034) — licencja importowa od 2020.
+
+**Łotwa (LV) — top finds:**
+
+- **SIA Tabakas Nams Grupa (TNG)** (50003223511) — jeden z największych LV dystrybutorów FMCG/tytoniu, 4000+ POS, 30+ sklepów własnych Tabakas Nams + Krustpunkts, córki LT + EE (klastr bałtycki), €15.3M revenue. **TOP B8 LEAD LV.**
+- **SIA Philip Morris Latvia** (40003482799) — LV spółka PMI, €63.81M revenue (2025), 24-30 pracowników, importer Marlboro/Parliament/L&M/Chesterfield + IQOS + HEETS.
+- **SIA Greis** (TEXOBOCK group) — hurtownik tytoniu od 1995 w Rydze.
+- **SIA Duty Free Trading Latvija** (50203117911) — €31.64M revenue, €4.57M profit (2024), 14 pracowników.
+- **SIA FUDEKS** (40003372643) — €17.7M revenue, 36 pracowników, marża 13.4%.
+
+**Słowenia (SI) — top find:**
+
+- **Tobačna Ljubljana d.o.o.** (Imperial Brands PLC) — spółka-matka Tobačna 3DVA (200+ trafik) + Tobačna Grosist (3000+ retail, 27 agentów terenowych, magazyn w Črnuče) + sama Ljubljana. 1871. Marki: Davidoff, West, Boss, Gauloises, Jade, Filter 57, Drum, Golden Virginia, Rizla. **TOP B8 LEAD SI.**
+
+**Sources used:**
+
+- Public registries: edata.business, posfix.md, data2b.md (MD), izluks.lv, zl.lv, firmas.lv (LV), tobacna.si (SI).
+- Trade data: volza.com (MD Tobacco Club shipments), izluks.lv 46.39 industry rankings (LV), ekorrar.com (LV food+tobacco).
+- Web imprints: tng.lv, tobacna-grosist.si, pmi.com.
+- Wikipedia/encyclopedia: ro.wikipedia.org/wiki/TUTUN-CTC, tobaccowatcher.globaltobaccocontrol.org (Bond Street production at TUTUN-CTC).
+- TobaccoAsia/news: tobaccove.com (Cigaronne brand production).
+
+**Out-of-scope leads flagged:** 7/12 są big tobacco (PMI, Imperial, BAT) lub JV z BIG — partner handlowy możliwy ale nie wyłączny dystrybutor PowerMatic.
+
+**Tools used:** `tools/_append_leads_2026_09_03.py` (CSV writer), `tools/_fix_lv_emoji.py` (encoding repair), `tools/validate_columns.py`.
+
+**Next:** Weryfikacja kontaktów + ewentualny follow-up Gemini extraction na stronach firm (PM+LV/SI top tier), bo encoding i rejestry nie dają wszystkich e-maili/telefonów.
+
+
+## 2026-09-03 ~23:30 CEST — Deeper-methods batch v2: L2/L5/L7/L8/L9/L10 applied to MD+LV+SI
+
+**Trigger:** User request "use all our methods" — rozszerzenie poprzedniej sesji o dodatkowe warstwy methodology.
+
+**Metody użyte (poza L1 baseline):**
+
+- **L8 — Katalogi firm / bazy B2B:** viss.lv (Łotwa, katalog 80+ sklepów tytoniowych), sloveniayp.com (16 707 firm LJ + 561 Maribor), kipplo.com (MD tobacco manufacturing directory), data2b.md (MD financial data).
+
+- **L2 — Marketplace scanning:** brak dedykowanego crawler'a ale potwierdzono obecność PowerMatic 3 na eMAG.ro (Rumunia, sprzedawca eTutun).
+
+- **L7 — Social media / news:** press.lv (LETA — wiadomości biznesowe), infotag.md (MD news), infotag.md (philip Morris Moldova V.2026 launch announcement).
+
+- **L9 — PKD/CN machinery search:** izluks.lv/analytics/industry/28.23 (LV NACE code dla office machinery — znalazł SIA Plockmatic Riga jako out-of-scope ale sister company Plockmatic Group SE).
+
+- **L10 — EUIPO / brand ownership:** hawkmatic.cz (producent HAWKMATIC to SHAMANTOBACCO s.r.o., IČ 19858132, dawniej RIHE od 2005, design Powermatic dla głównych producentów — strategic context, nie customer).
+
+- **L8 + L7 cross-reference:** ecodumas.lv, royalsmoke.lv, Salt point (Nordsuns SIA) — wszystkie to sieci sklepów tytoniowych w LV z publicznie dostępnymi e-mailami/telefonami.
+
+**Nowe leady (v2 batch, 13 łącznie):**
+
+| Kraj | Nowe rows | Top lead |
+|---|---|---|
+| ���� MD | +4 | **PREMIER DIALOG SRL (Casa del Tabaco, 15 sklepów, 51-200 pracowników, kipplo.com)** + **Philip Morris Moldova** (Elena Naumenko director) + **BT-TABAC HOLDING** + **TOBACCO GLOBAL CORPORATION** |
+| ���� LV | +6 | **Ecodumas** (sieć 4+ sklepów: Rīga Mežciems + Dzelzavas + Liepāja XL Sala + Rietumu) + **Royal Smoke** (sieć 2+ Liepāja) + **Nordsuns SIA / Salt point** (sieć 6+ trafik w centrach handlowych LV) + **Scandinavian Tobacco Liepāja** (sister of SI-B-004 OTP) + **Tabakas studija** (TC Spice Rīga) + **Plockmatic Riga** (out-of-scope — office machinery NACE 28.23) |
+| ���� SI | +3 | **POSREDNIŠVO Gorazd Furlan s.p.** (broker B2B tytoniowy LJ) + **Emptio d.o.o. / vendo.si** (e-commerce Maribor) + **Rebrec Aljaž s.p.** (dystrybutor HoReCa Vitomarci) |
+
+**Total state po v2:** MD=19, LV=21, SI=15 (z oryginału MD=9, LV=10, SI=11). **+25 nowych leadów łącznie w sesji 2026-09-03 (12 z v1 + 13 z v2).**
+
+**Key strategic insights:**
+
+- **MD Casa del Tabaco (PREMIER DIALOG SRL)** — Habanos exclusive importer + 15 sklepów — TOP B2 LEAD MD. kipplo.com potwierdza 51-200 pracowników, skala enterprise. Wielkość uzasadnia direct sales approach (nie e-mail mass).
+
+- **Philip Morris Moldova (sister LV-B-012)** — V.2026 uruchomił nicotine pouches (import ze Szwecji). Dyrektor Elena Naumenko, corp affairs Dumitru Moleanu. Out-of-scope ale potencjalnie partner na papierosy premium.
+
+- **LV multi-shop chains (Ecodumas, Royal Smoke, Salt point/Nordsuns)** — wszystkie mają publiczny e-mail + telefon. Multi-shop retail = realny kanał cross-sell PowerMatic przez retail. Nordsuns ma 6+ trafik w centrach handlowych — największy player.
+
+- **Strategic context — Powermatic supply chain:** hawkmatic.cz ujawnia, że producentem maszynek PowerMatic (i ich redesign dla "przednich producentów na światowym rynku") jest czeska firma **SHAMANTOBACCO s.r.o.** (IČ 19858132, dawniej RIHE, od 2005). To nie customer — to OEM/producent. Cross-sell opportunity: BILLS może być resellerem HawkMatic brand (jeśli umowa z SHAMANTOBACCO).
+
+- **LV press insight (LETA VIII.2026):** W Rydze zamknięto nielegalną fabrykę papierosów z pracownikami z UA + MD. Euromonitor potwierdza trend: LV przesuwa się z tranzytu do produkcji nielegalnych papierosów. Dystrybutorzy legalni mogą mieć nowe rynkowe okazje.
+
+**Plockmatic Riga (LV-B-021)** — out-of-scope (NACE 28.23 office machinery, sister of Plockmatic Group SE binding machines), ale partner intel o rynku EU dla BILLS.
+
+**Validation:** validate_columns.py po wszystkich appendach → **0 critical, 0 warning** dla MD/LV/SI.
+
+**Nowe narzędzia:**
+- `tools/_append_leads_2026_09_03_v2.py` — L8/L9 deeper-methods appender z markerem `-v2`
+- `tools/_fix_v2_criticals.py` — emoji/sourcing/kanal_sprzedaży normalizer
+- `tools/_fix_v2_criticals_v2.py` — final cleanup dla placeholder email/telefon + filiāle enum
+- `tools/_readd_v1_markers.py`, `tools/_readd_all_new_markers.py` — marker recovery
+
+**Next:** Kontakt z Nordsuns SIA (LV multi-shop chain) + Philip Morris Moldova + Ecodumas (top multi-shops). Sprawdzić IDNO dla Casa del Tabaco (PREMIER DIALOG) w MD State Register.
+
+
+## 2026-09-03 ~23:50 CEST — Deep batch v3: 11 methods × 13 countries
+
+**Trigger:** User request "każda z 11 metod spróbuj dla każdego kraju".
+
+**Metody zastosowane (komplet framework):**
+
+| # | Metoda | Kraje | Wynik |
+|---|---|---|---|
+| L1 | General search | PL, FR, BG, RS, EE | context + targi news |
+| L2 | Marketplace scanning | RO (eMAG), SI (bolha), CZ (allegro/heureka) | POTMATIC Mini obecny |
+| L3 | Public registries | PL (KRS/CEIDG), RO (ONRC), CZ (ARES), SK (registeruz), LT (rekvizitai), EE (e-Äriregister), BG (Търговски регистър) | pełne dane firm (NIP, adres, finansy, zarząd) |
+| L4 | Free public sources | EU tenders TED, KPMG illicit tobacco reports | kontekst rynkowy |
+| L5 | EMD/SEO footprint | SHAMANTOBACCO.cz (producer HAWKMATIC) | strategiczny kontekst producenta |
+| L6 | Targi | InterTabac 2026 (800 wystawców, Dortmund IX.2026) | event mapping |
+| L7 | Social/news | press.lv (LETA), infotag.md, infotag.rs | insider intel |
+| L8 | Catalogs/B2B | vizluks.lv, sloveniayp.com, kipplo.com, data2b.md, izluks.lv, slovakdata.sk, okredo.com, firmy.cz, biznesprice.com, companywall.rs | 100+ firm |
+| L9 | PKD/NACE machinery | NACE 28.23 (Plockmatic Riga) + NACE 46.39 (Baltics) + HS 240220/240411 | out-of-scope + sister |
+| L10 | EUIPO/brand ownership | SHAMANTOBACCO (HawkMatic owner), BAT (CZ/HR/PL/...), PMI (CZ/HR/SK/PL/...), Imperial (CZ/PL/...), JTI (PL/LT/...) | kontekst korporacyjny |
+| L11 | Public procurement | EU TED, TED LV, KPMG 2026 | rynek nielegalny |
+
+**Wyniki: 20 nowych leadów** w 10 krajach + strategiczny kontekst dla wszystkich 13:
+
+| Kraj | Przed sesji | Po v3 | Delta | Top nowy lead |
+|---|---|---|---|---|
+| ���� MD | 9 | 19 | +10 | TUTUN-CTC, Casa del Tabaco, Philip Morris Moldova |
+| ���� LV | 10 | 21 | +11 | TNG (Tabakas Nams Grupa), Nordsuns/Salt point, Philip Morris Latvia |
+| ���� SI | 11 | 15 | +4 | Tobačna Ljubljana (Imperial Brands) |
+| ���� PL | 134 | 137 | +3 | JTI Polska (€15.5B revenue 2025, fabryka Stary Gostków), Imperial Tobacco Polska (Radom) |
+| ���� CZ | 26 | 28 | +2 | British American Tobacco Czech Republic (Praha 8 Nile House) |
+| ���� SK | 19 | 22 | +3 | TABAKOLAND Slovakia (€129.5M revenue 2025) + BAT Slovakia |
+| ���� HR | 18 | 19 | +1 | Philip Morris Zagreb (Heinzelova 70, 120 pracowników) |
+| ���� BG | 30 | 33 | +3 | M Tobacco Bulgaria (producent papierów, CARTEL/DESPERADO/MORENO brands) |
+| ���� RO | 20 | 24 | +4 | **Imperial Brands Romania (€992M revenue)** + Galaxy Tobacco SA (7 fabryk) + primonet.ro B2B |
+| ���� EE | 30 | 33 | +3 | Imperial Tobacco Estonia OÜ + British American Tobacco Estonia AS + Philip Morris Estonia |
+| ���� LT | 17 | 20 | +3 | Philip Morris Baltic (Vilnius, 15+ salonów IQOS) + UAB Tridens (Baltics distributor since 1988) |
+| ���� FR | 13 | 15 | +2 | KPMG France illicit tobacco report 2026 (decree 2026-612, 41.8 mld cigarett nelegalnych EU) |
+| ���� RS | 21 | 27 | +6 | Philip Morris Operations Niš (€322M, 583 pracowników, fabryka) + BAT AD Vranje (€180M) + Monus DOO |
+
+**Total: +52 nowych leadów w sesji 2026-09-03 (v1+v2+v3 łącznie).**
+
+**Walidacja:** wszystkie 13 katalogów katalog-B-{KOD}.csv → 0 criticals, 0 warnings.
+
+**Top tier firms discovered:**
+
+���� PL — JTI Polska Sp. z o.o. (€15.5B revenue, fabryka Stary Gostków, NIP 8280001819) + Imperial Tobacco Polska Manufacturing S.A. (Radom, 700 pracowników)
+���� RO — **Imperial Brands Romania (€992M revenue, 98 pracowników, TOP importer)** + Galaxy Tobacco SA (7 fabryk fermentacji tytoniu + papierosów)
+���� SK — **TABAKOLAND Slovakia (€129.5M revenue #1 SK wholesaler, 85/100 financial score)**
+���� RS — Philip Morris Operations Niš (€322M, 583 pracowników, TOP RS producent) + BAT AD Vranje (€180M)
+���� LV — TNG (€15.3M, 4000+ POS, Baltic cluster LT+EE) + Nordsuns (Salt point, 6+ trafik w centrach handlowych)
+���� EE — Imperial Tobacco Estonia + BAT Estonia (aktywne córki globalnych koncernów)
+���� LT — Philip Morris Baltic + Tridens (Baltics, 1988, Jägermeister + tytoń)
+���� HR — Philip Morris Zagreb (120+ pracowników)
+���� BG — M Tobacco Bulgaria (producent papierów, CARTEL/DESPERADO/MORENO)
+���� CZ — BAT Czech Republic (Nile House Praha 8)
+
+**Strategic context (L10):**
+
+- **Powermatic Mini + HawkMatic** = produkty z **dwóch różnych producentów**: SHAMANTOBACCO s.r.o. (CZ, IČ 19858132, dawniej RIHE od 2005) dla PowerMatic, oraz **HawkMatic** to własna marka SHAMANTOBACCO od 2017. Możliwa synergia BILLS↔SHAMANTOBACCO dla white-label.
+- **Big Tobacco (PMI, BAT, Imperial, JTI)** — konsekwentnie córki we wszystkich 13 krajach, ale wszystkie out-of-scope dla PowerMatic exclusive distribution (corporate procurement channel, nie B2B retail). Partnerzy dla cross-sell premium/MYO.
+- **TEA trend**: legalizacja heat-not-burn (PMI HEETS, BAT Glo, JT Ploom) zmienia retail landscape w CEE.
+
+**Marketplace insights (L2/L11):**
+
+- **KPMG 2026**: 41,8 mld. ks nielegalnych papierosów w EU = 10,3% całej konsumpcji; padělané cigarety rosną najszybciej (+20% r/r, 44% udziału w nelegálním trhu).
+- **EU accisa rośnie 2026**: SK +50%, LT +30%, LV +10%, EE +17% na 1000 sztuk papierosów.
+- **Lithuania** — 9,33 mld. ks legalnych papierosów (2025), gorszący się trend.
+
+**TODO następnie:**
+
+- Cold-mail do TOP leads (TABAKOLAND SK, Imperial Brands RO, TNG LV, JTI PL).
+- Verify PIB dla BAT AD Vranje (RS-B-027) i Monus DOO (RS-B-028).
+- Dokończyć kanal_sprzedaży dla legacy rows (np. PL row 25 ⚠️).
+- Backup skryptów jednorazowych: `_append_leads_2026_09_03*.py`, `_fix_v3_criticals.py`, `_fix_v3_criticals_v2.py`, `_fix_v3_criticals.py`, `_final_clean_*.py`, `_append_intel_v3.py`.

@@ -1,5 +1,23 @@
 # 🇫🇷 Francja — dziennik badawczy
 
+## Rynek — wolumen wyszukiwań (szac. 2026-09-04)
+
+> **Auto-gen 2026-09-04** z `SŁOWNIK-FR.md`. Wolumeny szacunkowe (szac.) — nie real-time Keyword Planner. Weryfikuj w Ahrefs/Senuto/Google Trends przed kampanią. Populacja: 67.0M.
+
+### Top kategorie (suma top-3 fraz)
+
+| Kategoria | Top frazy | Wolumen (suma top-3, szac./mies.) |
+|---|---|---|
+| Nabijarki | `machine à tuber`, `machine à cigarettes`, `boudinoir électrique` | 30.0k |
+| Sklepy | `bureau de tabac`, `shop vape`, `magasin de cigarettes électroniques` | 28.0k |
+| Marketplace | `leboncoin.fr "machine à tuber"`, `amazon.fr "machine à tuber"`, `leboncoin.fr "boudinoir"` | 16.0k |
+| Hurtownie / dystrybutorzy | `grossiste tabac`, `"grossiste" + "tabac"`, `vente en gros tabac` | 12.0k |
+| Sektory (Katalog B) | `grossiste cigarette électronique`, `grossiste CBD`, `grossiste tabac à rouler` | 8.0k |
+
+### Wniosek dla BILLSzuka
+
+🇫🇷 **NAJWIĘKSZY RYNEK UE** dla tradycji bourdinot. 8-15k/mies. dla 'machine à tuber' to 6x więcej niż PL. Wymaga dedykowanego partnera FR z logistyką (Komori-Chambon to benchmark maszyn, nie dystrybutor).
+
 ## Status: Badanie nabijarek & śladów celnych (Douanes) ukończone (2026-08-15)
 
 ## Reżim regulacyjny i struktura dystrybucji

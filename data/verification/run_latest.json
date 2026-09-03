@@ -1,1085 +1,1019 @@
 {
-  "timestamp": "2026-09-03T00:18:30.329145+00:00",
-  "added": 21,
-  "modified": 194,
+  "timestamp": "2026-09-03T21:23:24.394583+00:00",
+  "added": 30,
+  "modified": 172,
   "removed": 0,
-  "frozen": 107,
-  "do_weryfikacji": 108,
   "results": [
     {
+      "id": "BG-A-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "BG-A-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
       "id": "BG-B-031",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-013",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-024",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-023",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-029",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
-    },
-    {
-      "id": "BG-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-022",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-011",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "BG-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-028",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "BG-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "BG-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-025",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-014",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (Trade Register BG EIK 200434116 | izamar.bg), format NIP OK"
-    },
-    {
-      "id": "BG-B-020",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-026",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "BG-B-027",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "BG-B-030",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "BG-B-010",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "BG-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-017",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-019",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "BG-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "BG-B-012",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "HR-B-017",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "id": "BG-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "HR-B-018",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "HR-B-016",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "id": "HR-B-017",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "HR-B-015",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "HR-B-014",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "HR-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "HR-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "HR-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "HR-B-010",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-012",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "HR-B-013",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "HR-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (VIES Live API + Sudski Registar HR 2026-08-15), format NIP OK"
-    },
-    {
-      "id": "HR-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "CZ-A-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-09-01), format NIP OK"
+      "id": "HR-B-016",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "CZ-B-027",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "CZ-B-026",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "CZ-B-024",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "CZ-B-023",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: GentleScout; Gemini 2.5"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "CZ-B-025",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "CZ-B-003",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "CZ-B-002",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "CZ-B-006",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "CZ-B-005",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "CZ-B-009",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "CZ-B-008",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "CZ-B-001",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-004",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "CZ-B-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-021",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "CZ-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "CZ-B-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "CZ-B-024",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "CZ-B-007",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-019",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "CZ-B-023",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-010",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "CZ-B-026",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-016",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "CZ-B-009",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-011",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "CZ-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-018",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "EE-A-007",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-022",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "EE-A-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-020",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "EE-A-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-013",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: zrodlo_danych"
+      "id": "EE-A-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-012",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: zrodlo_danych"
+      "id": "EE-A-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-017",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "EE-A-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "CZ-B-014",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: zrodlo_danych"
-    },
-    {
-      "id": "CZ-B-015",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: zrodlo_danych"
-    },
-    {
-      "id": "EE-B-031",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: zrodlo_danych"
-    },
-    {
-      "id": "EE-B-020",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-024",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (e-Äriregister 10588558 | KMKR EE100569797 | rrk.ee), format NIP OK"
+      "id": "EE-A-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "EE-B-010",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; e-krediidiinfo.ee + teatmik.ee (public) 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-028",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "EE-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18; inforegister.ee (public) 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-019",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-021",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-023",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-027",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "EE-B-026",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-018",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-26), format NIP OK"
-    },
-    {
-      "id": "EE-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-030",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
-    },
-    {
-      "id": "EE-B-025",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "EE-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "EE-B-017",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (https://ariregister.rik.ee/eng/company/10004677/Aktsiaselts-Ekspress-Grupp (e-Äriregister / RIK public, reg 10004677)), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "EE-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "EE-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "EE-B-031",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-020",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-018",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-021",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-009",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "EE-B-019",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "EE-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "EE-B-029",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "EE-B-027",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "EE-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-010",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "EE-B-022",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "EE-B-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "FR-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "EE-B-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "FR-B-014",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "LT-A-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "LT-A-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "LT-A-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "LT-A-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "LT-A-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "FR-B-013",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id"
+      "id": "LT-A-007",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LT-A-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LT-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LT-B-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "LT-B-016",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "LT-B-017",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "LT-B-018",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "LT-B-019",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "LT-B-015",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LT-B-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "LT-B-020",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: GentleScout (\"elektrinė cigarečių kimšimo m); Gemini 2.5"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18 | rekvizitai.vz.lt + web search), format NIP OK"
+      "id": "LT-B-017",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-013",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "LT-B-018",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-014",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: zrodlo_danych"
+      "id": "LT-B-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-011",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "LT-B-019",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "LT-B-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-012",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "MD-B-017",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "MD-B-019",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "MD-B-016",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LT-B-010",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-26), format NIP OK"
+      "id": "MD-B-018",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "MD-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600007603) | re-konfirmacja: newsmoke.md (newsmoke działa, 2026-08-31)), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "MD-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (State Register of Legal Entities MD (IDNO: 1003600017637) | re-konfirmacja: newsmoke.md (newsmoke działa, 2026-08-31)), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-004",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-A-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-009",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "PL-A-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-008",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-A-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-003",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-A-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-006",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-A-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-005",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-B-134",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "MD-B-007",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-B-136",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-135",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-133",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-132",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-018",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-118",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "PL-B-131",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-105",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-016",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-106",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-017",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-116",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-097",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-102",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-011",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-023",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-015",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-112",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-108",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-123",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "PL-B-130",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "PL-B-062",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "id": "PL-B-014",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-101",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-109",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-124",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-121",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-100",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-022",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-122",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-111",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-120",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-086",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-007",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-013",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-119",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-114",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-099",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-012",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "PL-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10 | VIES confirmed 2026-08-11T00:18:52.103Z | KRS API 0000396744), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-015",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-B-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-020",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "PL-B-025",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "PL-B-024",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-017",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "PL-B-113",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-098",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-110",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-104",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-009",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-115",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-103",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-010",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-019",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-107",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-117",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-069",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "PL-B-020",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-A-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-A-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-A-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-A-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-A-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-A-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-B-009",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-B-007",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-B-011",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "RO-B-010",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "RO-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "RO-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "RO-B-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "RO-B-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RO-B-018",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "RO-B-019",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "RO-B-016",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "RS-A-004",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-A-002",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-A-003",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: duvan.gov.rs (2026-08-19, registar uvoznika srodnih proizvoda, PIB 101634135, Marka Miljanova 18 Novi Sad) + tamaris.co.rs (2026-08-19, uvoz-veleprodaja-distribucija, mašinice za uvijanje i punjenje cigareta, FMCG) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-006",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: duvan.gov.rs (2026-08-19, PIB 107508093, Meljak Ibarški put 68) + planplus.rs (2026-08-19, Inhalika 3 lokale Beograd, +381 64 8278-163) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-003",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-001",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: duvan.gov.rs (2026-08-19, registar uvoznika srodnih proizvoda, PIB 106851710) + umbrellashop.rs (2026-08-19, regionalni lider Flavour Art 15 lokali) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-020",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
-    },
-    {
-      "id": "RS-B-018",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "RS-B-022",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
-    },
-    {
-      "id": "RS-B-007",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: duvan.gov.rs (2026-08-19, PIB 112483638, Bulevar Mihajla Pupina 10v Novi Beograd) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-013",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-005",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: nargilashopbeograd.rs/kontakt/ (2026-08-19, Yala Habibi d.o.o. Kneginje Zorke 41, PIB 108828706, MB 21075728, delatnost 4639) + linkedin.com/company/el-nil-company (2026-08-19, EL NIL COMPANY 2007; Yala Habibi spin-off 2015) + nargilashopbeograd.rs (2026-08-19, Aladin; Nakhla; Al Fakher; distributer za Srbję i BiH) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-021",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, zrodlo_danych"
+      "id": "RO-B-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "RS-B-016",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RS-B-008",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: duvan.gov.rs (2026-08-19, PIB 100000065, Bulevar Milutina Milankovića 1ž Novi Beograd) | OUT-OF-SCOPE: Serbia"
+      "id": "SK-A-016",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "RS-B-012",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-024",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id"
-    },
-    {
-      "id": "RS-B-019",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "RS-B-014",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-011",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: poslovi.infostud.com/poslodavac/grafart/10874 (2026-08-19, Zrenjaninski put 84c Beograd, PIB 105459276, MB 20385944; sieć trafik; mašinice za uvijanje) + trafika.online (2026-08-19, e-commerce, rezani duvan + prazne cigarete) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-015",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-010",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-002",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: linkedin.com/company/vape-shop-doo (2026-08-19, vape shop doo osnovana sredinom 2022, 1700+ objekata) + duvan.gov.rs (2026-08-19, PIB 113161960) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-004",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat"
-    },
-    {
-      "id": "RS-B-009",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Źródło nieoficjalne: duvan.gov.rs (2026-08-19, PIB 113192580, Doktora Rusa 13 Mladenovac) | OUT-OF-SCOPE: Serbia"
-    },
-    {
-      "id": "RS-B-023",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id"
-    },
-    {
-      "id": "RS-B-017",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "SK-B-019",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "SK-B-017",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "SK-B-018",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
-    },
-    {
-      "id": "SK-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SK-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SK-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SK-B-013",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SK-B-014",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "SK-B-016",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (orsr.sk IČO 35972408 (Slovak Commercial Register) https://www.orsr.sk/vypis.asp?ID=68256&SID=9&P=0), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "SK-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "SK-B-018",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "SK-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "id": "SI-B-014",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "SK-B-011",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "id": "SI-B-013",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "SK-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SK-B-015",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SK-B-012",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SK-B-010",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SK-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SK-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SK-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
-    },
-    {
-      "id": "SI-B-011",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: rejestr_id, zrodlo_danych"
-    },
-    {
-      "id": "SI-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "SI-B-007",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (AJPES 1833286000 | VIES SI54717647 | bat.com), format NIP OK"
-    },
-    {
-      "id": "SI-B-008",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (AJPES 7041772000 | VIES SI48939223 | qvapehouse.com), format NIP OK"
-    },
-    {
-      "id": "SI-B-009",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (AJPES 6734127000 | VIES SI87241285 | vape-zp.si), format NIP OK"
-    },
-    {
-      "id": "SI-B-010",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "SI-B-006",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "id": "SI-B-015",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "SI-B-005",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-009",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-011",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-007",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "SI-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "SI-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LV-B-010",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres"
+      "id": "SI-B-006",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LV-B-007",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "LV-A-002",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LV-B-008",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "LV-A-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LV-B-006",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "LV-A-005",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LV-B-005",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
+      "id": "LV-B-012",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
-      "id": "LV-B-003",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "id": "LV-B-015",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-017",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-019",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-021",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-016",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-020",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-014",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-018",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-013",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-011",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "LV-B-009",
-      "status": "DO-WERYFIKACJI",
-      "reason": "Brak pól: nip_vat, rejestr_id, adres, zrodlo_danych"
-    },
-    {
-      "id": "LV-B-004",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-18), format NIP OK"
-    },
-    {
-      "id": "LV-B-001",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-10), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     },
     {
       "id": "LV-B-002",
-      "status": "FROZEN",
-      "reason": "Źródło oficjalne (KRS API / CEIDG API + web search 2026-08-17), format NIP OK"
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-010",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-008",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-004",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-001",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
+    },
+    {
+      "id": "LV-B-003",
+      "status": "PENDING_API",
+      "reason": "see verify_api output"
     }
-  ]
+  ],
+  "note": "FROZEN/DO-W counts are populated by verify_api — see its output above"
 }

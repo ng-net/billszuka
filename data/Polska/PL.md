@@ -2,9 +2,25 @@
 
 > **Status:** ✅ ZWERYFIKOWANE & ZSYNCHRONIZOWANE (Dane w `master.csv`)  
 > **Katalog:** 237 firm PL (`catalog-A-PL.csv` 31 firm + `catalog-B-PL.csv` 206 firm)  
-> **Kluczowe podmioty 🐋:** BILLS Sp. z o.o., BISTA Standard, Polski Tytoń SA, Polska Grupa Tytoniowa, CK Complex, ZOLTA Trade, PRIMA-TECH, P&P Cigarro, JAS-FBG S.A., ROHLIG SUUS Logistics S.A.  
+> **Kluczowe podmioty 🐋:** BILLS Sp. z o.o., BISTA Standard, Polski Tytoń SA, Polska Grupa Tytoniowa, CK Complex, ZOLTA Trade, PRIMA-TECH, P&P Cigarro, JAS-FBG S.A., ROHLIG SUUS Logistics S.A.
 
+## Rynek — wolumen wyszukiwań (szac. 2026-09-04)
 
+> **Auto-gen 2026-09-04** z `SŁOWNIK-PL.md`. Wolumeny szacunkowe (szac.) — nie real-time Keyword Planner. Weryfikuj w Ahrefs/Senuto/Google Trends przed kampanią. Populacja: 38.0M.
+
+### Top kategorie (suma top-3 fraz)
+
+| Kategoria | Top frazy | Wolumen (suma top-3, szac./mies.) |
+|---|---|---|
+| Nabijarki / maszynki do tytoniu | `nabijarka do tytoniu`, `nabijarka papierosów`, `maszynka do skręcania papierosów` | 19.0k |
+| Sklepy stacjonarne / online | `sklep tytoniowy`, `"sklep vape"`, `sklep z akcesoriami do papierosów` | 9.0k |
+| Marketplace (Allegro, OLX, Ceneo, InPost Buy, Erli, Kaufland) | `allegro "nabijarka do tytoniu"`, `allegro "powerMatic"`, `allegro "maszynka do skręcania"` | 8.0k |
+| Hurtownie / dystrybutorzy | `hurtownia tytoniowa`, `hurtownia tytoniu`, `hurtownia akcesoriów tytoniowych` | 6.0k |
+| Sektory (Katalog B) | `hurtownia e-papierosów`, `hurtownia CBD`, `hurtownia jednorazówek` | 3.0k |
+
+### Wniosek dla BILLSzuka
+
+🇵🇱 Rynek macierzysty. Najwyższy wolumen 'nabijarka do tytoniu' w regionie, marketplace Allegro w pełni rozwinięty. BILLS jako exclusive importer PM ma silną pozycję do zagospodarowania 100% polskiego rynku.
 
 ## Reżim regulacyjny (stan: 2024-2025)
 - Akcyza na tytoń — wysoka, rosnąca

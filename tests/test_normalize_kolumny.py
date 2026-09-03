@@ -84,7 +84,7 @@ class TestApplyFixesOnPL:
             "email_decydent,zrodlo_danych,data_weryfikacji,flagi,notatki,rynek_skala\n"
             ",2023,PL-A-999,A1,Test Firma,PL,Warsaw,ul. X 1,PL1234567890,KRS 0000123456,"
             "https://example.com,brak,test@example.com,+48 22 000 00 00,,,,,wyłączność,"
-            "PowerMatic,nie,Polska,duży,🟢,bills.pl,,,właściciel/CEO,,KRS API,2026-08-25,"
+            "PowerMatic,nie,Polska,duży,Jest NIP,bills.pl,,,właściciel/CEO,,KRS API,2026-08-25,"
             "✅ FROZEN,Test,duży\n",
             encoding="utf-8"
         )
@@ -117,7 +117,7 @@ class TestApplyFixesOnPL:
             "email_decydent,zrodlo_danych,data_weryfikacji,flagi,notatki,rynek_skala\n"
             ",2005,PL-B-999,B8,Test Firma,PL,Warsaw,ul. X 1,PL1234567890,KRS 0000123456,"
             "https://example.com,brak,test@example.com,+48 22 000 00 00,,,,,hurtownik,"
-            ",,Europa,duży,🟢,3,,,właściciel,owner,,KRS API,2026-08-25,✅ FROZEN,Test,duży\n",
+            ",,Europa,duży,Jest NIP,3,,,właściciel,owner,,KRS API,2026-08-25,✅ FROZEN,Test,duży\n",
             encoding="utf-8"
         )
         actions = nk.apply_fixes(real_path)
@@ -146,7 +146,7 @@ class TestApplyFixesOnPL:
         #   cols 20-21 = marki/oem (2 empty)
         #   col 22 = sourcing (Europa)
         #   col 23 = wolumen (duży)
-        #   col 24 = confidence (🟢)
+        #   col 24 = confidence (Jest NIP)
         #   col 25 = kanal (`3` — target for fix B)
         #   cols 26-27 = pow/cross_sell (2 empty)
         #   col 28 = decydent (Owner)
@@ -165,11 +165,11 @@ class TestApplyFixesOnPL:
             "powinowactwo_nabijarki,cross_sell_potential,decydent,stanowisko,"
             "email_decydent,zrodlo_danych,data_weryfikacji,flagi,notatki,rynek_skala\n"
             # 1 empty, 2-13 values, 14-18 empty (5 commas), 19=hurtownik,
-            # 20-21 empty (2 commas), 22=Europa, 23=duży, 24=🟢, 25=3,
+            # 20-21 empty (2 commas), 22=Europa, 23=duży, 24=Jest NIP, 25=3,
             # 26-27 empty (2 commas), 28=Owner, 29=owner, 30 empty (1 comma),
             # 31=KRS API, 32=2026-08-25, 33 empty (1 comma), 34=Test, 35=duży
             ",2005,PL-B-001,B8,Test,PL,City,addr,PL1234567890,KRS,,brak,test@x.com,,,,,"
-            "hurtownik,,,Europa,duży,🟢,3,,,Owner,owner,,KRS API,2026-08-25,,Test,duży\n",
+            "hurtownik,,,Europa,duży,Jest NIP,3,,,Owner,owner,,KRS API,2026-08-25,,Test,duży\n",
             encoding="utf-8"
         )
         actions1 = nk.apply_fixes(real_path)
@@ -192,7 +192,7 @@ class TestApplyFixesOnPL:
             "powinowactwo_nabijarki,cross_sell_potential,decydent,stanowisko,"
             "email_decydent,zrodlo_danych,data_weryfikacji,flagi,notatki,rynek_skala\n"
             ",2001,CZ-B-001,B8,Test,CZ,Praha,addr,CZ12345678,IČO,,info@x.cz,,,"
-            ",,,hurtownik,,wyroby,,duży,🟢,3,,,Director,CEO,,ARES,2026-08-25,,Test,duży\n",
+            ",,,hurtownik,,wyroby,,duży,Jest NIP,3,,,Director,CEO,,ARES,2026-08-25,,Test,duży\n",
             encoding="utf-8"
         )
         # Even though CZ-B-001 has "3" in kanal_sprzedaży, the fix is PL-only.
@@ -280,13 +280,13 @@ class TestApplyFixesOnPLABCrossContamination:
             "powinowactwo_nabijarki,cross_sell_potential,decydent,stanowisko,"
             "email_decydent,zrodlo_danych,data_weryfikacji,flagi,notatki,rynek_skala\n"
             # 1 empty, 2-13 values, 14-18 empty (5 commas), 19=hurtownik,
-            # 20-21 empty (2 commas), 22=Europa, 23=duży, 24=🟢, 25=B2B only,
+            # 20-21 empty (2 commas), 22=Europa, 23=duży, 24=Jest NIP, 25=B2B only,
             # 26-27 empty (2 commas, B-only fields to be cleared by FixC),
             # 28=wysoki (decydent), 29=Owner (stanowisko), 30=owner (email_decydent),
             # 31 empty (1 comma), 32=KRS API (zrodlo_danych), 33=2026-08-25 (data_weryfikacji),
             # 34=✅ FROZEN (flagi), 35=Test (rynek_skala)  — 35 fields, no trailing `,duży`
             ",2023,PL-A-999,A1,Test,PL,City,addr,PL1234567890,KRS,,brak,test@x.com,,,,,"
-            "hurtownik,,Europa,duży,🟢,B2B only,,wysoki,Owner,owner,,KRS API,"
+            "hurtownik,,Europa,duży,Jest NIP,B2B only,,wysoki,Owner,owner,,KRS API,"
             "2026-08-25,✅ FROZEN,Test\n",
             encoding="utf-8"
         )
@@ -308,7 +308,7 @@ class TestApplyFixesOnPLABCrossContamination:
             # marka_wlasna_oem (cols 20, 21) are A-only fields that FixD
             # will clear on B rows.
             ",2005,PL-B-999,B8,Test,PL,City,addr,PL1234567890,KRS,,brak,test@x.com,,,,,"
-            "hurtownik,,Europa,duży,🟢,B2B only,,wysoki,Owner,owner,,KRS API,"
+            "hurtownik,,Europa,duży,Jest NIP,B2B only,,wysoki,Owner,owner,,KRS API,"
             "2026-08-25,✅ FROZEN,Test\n",
             encoding="utf-8"
         )
