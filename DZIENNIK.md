@@ -1747,3 +1747,38 @@ Wybór trybu: **Pełna weryfikacja API** (KRS + CEIDG + ORSR) — Marceli wybra�
 **Walidacja:** 0 Critical, 0 Warnings (964 wiersze, 27 plików).
 
 **Pliki:** master.csv (gitignored, 471→487), frontend-2/public/master.csv (commit), DZIENNIK.md.
+
+## 2026-09-03 10:08 CEST — Cleanup: non-PL extras merge + per-kraj extras/gems delete
+
+**Cel:** Marceli — "posprzątaj non-pl". 12 krajów poza PL, każdy ma 4 pliki: catalog-A (w master), catalog-B (w master), extra-leads (do master), gems (archiwum).
+
+**Wynik:**
+
+1. **Leads merge (per-kraj extras-{ISO}.csv → master.csv):**
+   - 34 wierszy w 10 plikach extras, 32 nowych po dedupe (2 duplikaty z master).
+   - Master: 487 → 519 wierszy.
+   - Per kraj: BG +6, HR +1, CZ +1, EE +3, FR +2, LT +5, LV +5, MD +1, RO +1, SK +7.
+   - RS +0 (puste), SI +0 (puste).
+   - Gems-{ISO}.csv: 0 nowych (100% duplikatów w master).
+
+2. **Per-kraj files delete (git rm):**
+   - 12 × `data/{Kraj}/extra-leads-{ISO}.csv` (BG, HR, CZ, EE, FR, LT, LV, MD, RO, RS, SK, SI)
+   - 12 × `data/{Kraj}/gems-{ISO}.csv`
+   - = 24 pliki usunięte w git (wszystkie tracked).
+   - PL extras zostawione (data/Polska/extra-leads-PL.csv, data/Polska/extra-leads-PL-verified-2026-09-03.csv) — do follow-up research.
+
+3. **Skasowane (untracked):** nic.
+
+**2 commity:**
+- `2053339e cleanup(non-pl-extras): 32 verified extras → master (BG/HR/CZ/EE/FR/LT/LV/MD/RO/SK)`
+- `da9b9640 cleanup(non-pl-extras): delete 24 per-kraj extras/gems files (12 ISO × 2 typy)`
+
+**Kluczowe ustalenia:**
+- Per-kraj extras pliki miały off-by-one: dane zaczynają się od `id` (np. `BG-X-001`) zamiast `kraj='BG'`. Ręczne mapowanie w skrypcie merge.
+- Wiele email/telefon w danych źródłowych było przesunięte o 1+ (np. email='Daugavpils', telefon='hurtownik'). 26 wartości wyczyszczonych do pustego.
+- Rekomendacja: lead-search worker (gentle 12 countries) powinien generować pliki z headerem zgodnym z danymi (bez fałszywego 'kraj' na początku).
+- 2 commity zamiast 1 bo deploy-cloudflare.yml zostało przypadkowo usunięte w pierwszym commicie (git amend je przywrócił).
+
+**Walidacja:** 0 Critical, 0 Warnings (996 wierszy, 27 plików).
+
+**Pliki:** master.csv (gitignored, 487→519), frontend-2/public/master.csv (commit), 24 per-kraj CSV usunięte, DZIENNIK.md (ten wpis).
