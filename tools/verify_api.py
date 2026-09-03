@@ -1029,63 +1029,18 @@ def verify_lt_row(row: dict) -> tuple[str, str]:
 lt_enrichments: dict[str, dict] = {}
 
 
-def apply_lt_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
-    """Back-fill nip_vat / rejestr_id for LT rows from JAR result.
+def apply_lt_enrichments(csv_path, enrichments):
+    """Re-export of csv_backfill.backfill_placeholder_cells() for LT enrichment.
 
-    Only overwrites cells that are currently placeholders (do weryfikacji /
-    do ustalenia / brak / empty) — never clobbers a value the user set
-    manually. Address is NOT back-filled (SAU API doesn't expose the
-    address text). Returns count of cells written.
+    Back-fills nip_vat / rejestr_id from JAR result. Address is NOT
+    back-filled (SAU API doesn't expose address text). Thin wrapper added
+    in the 2026-09-03 seam extraction — real implementation in
+    tools/csv_backfill.py.
     """
-    if not enrichments:
-        return 0
-    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
-    with open(csv_path, encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
-    n_cols = len(header)
-    if "id" not in header:
-        return 0
-    id_idx = header.index("id")
-    field_map = {
-        "nip_vat": "nip_vat",
-        "rejestr_id": "rejestr_id",
-    }
-    field_idxs = {col: header.index(col) for col in field_map if col in header}
-    n = 0
-    for i, row in enumerate(rows):
-        if len(row) == 0:
-            continue
-        if len(row) < n_cols:
-            row += [""] * (n_cols - len(row))
-        id_ = row[id_idx]
-        if id_ not in enrichments:
-            continue
-        data = enrichments[id_]
-        for col, key in field_map.items():
-            if key not in field_idxs:
-                continue
-            idx = field_idxs[key]
-            current = (row[idx] or "").strip()
-            new = data.get(key, "")
-            if new and current.lower() in placeholders:
-                row[idx] = new
-                n += 1
-    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
-    try:
-        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-        os.replace(tmp_path, csv_path)
-    except OSError as e:
-        log(f"  → {csv_path.name}: atomic write failed ({e})")
-        if tmp_path.exists():
-            try: tmp_path.unlink()
-            except OSError: pass
-        raise
-    return n
+    return _backfill_placeholder_cells(
+        csv_path, enrichments,
+        field_map={"nip_vat": "nip_vat", "rejestr_id": "rejestr_id"},
+    )
 
 
 # Side-channel: verify_ee_row() populates this when it returns FROZEN so
@@ -1101,123 +1056,39 @@ ee_enrichments: dict[str, dict] = {}
 apollo_enrichments: dict[str, dict] = {}
 
 
-def apply_apollo_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
-    """Back-fill telefon / linkedin / miasto / email_decydent from Apollo.
+def apply_apollo_enrichments(csv_path, enrichments):
+    """Re-export of csv_backfill.backfill_placeholder_cells() for Apollo enrichment.
 
-    Only overwrites cells that are currently placeholders (do weryfikacji /
-    do ustalenia / brak / empty) — never clobbers a value the user set
-    manually. Returns count of cells written.
+    Back-fills telefon / linkedin / miasto / email_decydent. Thin wrapper
+    added in the 2026-09-03 seam extraction — real implementation in
+    tools/csv_backfill.py.
     """
-    if not enrichments:
-        return 0
-    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
-    with open(csv_path, encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
-    n_cols = len(header)
-    if "id" not in header:
-        return 0
-    id_idx = header.index("id")
-    field_map = {
-        "telefon": "telefon",
-        "linkedin": "linkedin",
-        "miasto": "miasto",
-        "email_decydent": "email_decydent",
-    }
-    field_idxs = {col: header.index(col) for col in field_map if col in header}
-    n = 0
-    for i, row in enumerate(rows):
-        if len(row) == 0:
-            continue
-        if len(row) < n_cols:
-            row += [""] * (n_cols - len(row))
-        id_ = row[id_idx]
-        if id_ not in enrichments:
-            continue
-        data = enrichments[id_]
-        for col, key in field_map.items():
-            if key not in field_idxs:
-                continue
-            idx = field_idxs[key]
-            current = (row[idx] or "").strip()
-            new = data.get(key, "")
-            if new and current.lower() in placeholders:
-                row[idx] = new
-                n += 1
-    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
-    try:
-        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-        os.replace(tmp_path, csv_path)
-    except OSError as e:
-        log(f"  → {csv_path.name}: atomic write failed ({e})")
-        if tmp_path.exists():
-            try: tmp_path.unlink()
-            except OSError: pass
-        raise
-    return n
+    return _backfill_placeholder_cells(
+        csv_path, enrichments,
+        field_map={
+            "telefon": "telefon",
+            "linkedin": "linkedin",
+            "miasto": "miasto",
+            "email_decydent": "email_decydent",
+        },
+    )
 
 
 def apply_ee_enrichments(csv_path: Path, enrichments: dict[str, dict]) -> int:
-    """Back-fill nip_vat / rejestr_id / adres for EE rows from API result.
+    """Re-export of csv_backfill.backfill_placeholder_cells() for EE enrichment.
 
-    Only overwrites cells that are currently placeholders (do weryfikacji /
-    do ustalenia / brak / empty) — never clobbers a value the user set
-    manually. Returns count of cells written.
+    Back-fills nip_vat / rejestr_id / adres from EMTA/ARIREG result. Thin
+    wrapper added in the 2026-09-03 seam extraction — real implementation
+    in tools/csv_backfill.py.
     """
-    if not enrichments:
-        return 0
-    placeholders = {"", "brak", "brak danych", "do weryfikacji", "do ustalenia", "n/a", "—"}
-    with open(csv_path, encoding="utf-8") as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
-    n_cols = len(header)
-    if "id" not in header:
-        return 0
-    id_idx = header.index("id")
-    field_map = {
-        "nip_vat": "nip_vat",
-        "rejestr_id": "rejestr_id",
-        "adres": "adres",
-    }
-    field_idxs = {col: header.index(col) for col in field_map if col in header}
-    n = 0
-    for i, row in enumerate(rows):
-        if len(row) == 0:
-            continue
-        if len(row) < n_cols:
-            row += [""] * (n_cols - len(row))
-        id_ = row[id_idx]
-        if id_ not in enrichments:
-            continue
-        data = enrichments[id_]
-        for col, key in field_map.items():
-            if key not in field_idxs:
-                continue
-            idx = field_idxs[key]
-            current = (row[idx] or "").strip()
-            new = data.get(key, "")
-            if new and current.lower() in placeholders:
-                row[idx] = new
-                n += 1
-    tmp_path = csv_path.with_suffix(csv_path.suffix + ".tmp")
-    try:
-        with open(tmp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-        os.replace(tmp_path, csv_path)
-    except OSError as e:
-        log(f"  → {csv_path.name}: atomic write failed ({e})")
-        if tmp_path.exists():
-            try: tmp_path.unlink()
-            except OSError: pass
-        raise
-    return n
+    return _backfill_placeholder_cells(
+        csv_path, enrichments,
+        field_map={
+            "nip_vat": "nip_vat",
+            "rejestr_id": "rejestr_id",
+            "adres": "adres",
+        },
+    )
 
 
 def update_row_status(csv_path: Path, updates: dict[str, tuple[str, str]]) -> int:
@@ -1452,6 +1323,11 @@ def main() -> int:
         f"{total_pending} PENDING_API"
     )
     return 0
+
+
+# Backwards-compat alias for the 3 thin re-export wrappers above.
+# Defined at module bottom so the wrappers are visible in source order.
+from csv_backfill import backfill_placeholder_cells as _backfill_placeholder_cells  # noqa: E402
 
 
 if __name__ == "__main__":
