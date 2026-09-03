@@ -322,34 +322,28 @@ class TestApplyFixesOnPLABCrossContamination:
 # ---------------------------------------------------------------------------
 
 class TestMakeBackup:
-    def test_copies_modified_files_only(self, tmp_path):
-        # build files under a path that is INSIDE the real DATA tree,
-        # because make_backup uses rel = src.relative_to(DATA).
-        DATA = nk.DATA
-        poland = DATA / "Polska"
+    def test_copies_modified_files_only(self, tmp_path, monkeypatch):
+        # build files under a temporary DATA tree isolated in tmp_path,
+        # avoiding any risk of mutating or unlinking live catalog files.
+        test_data = tmp_path / "data"
+        test_data.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setattr(nk, "DATA", test_data)
+
+        poland = test_data / "Polska"
         poland.mkdir(parents=True, exist_ok=True)
         f1 = poland / "catalog-A-PL.csv"
         f1.write_text("header\na,b,c\n", encoding="utf-8")
-        czech = DATA / "Czechy"
+        czech = test_data / "Czechy"
         czech.mkdir(parents=True, exist_ok=True)
         f2 = czech / "catalog-B-CZ.csv"
         f2.write_text("header\nx,y,z\n", encoding="utf-8")
 
-        try:
-            backup_dir = DATA / ".test-backup-tmp"
-            nk.make_backup([f1, f2], backup_dir)
+        backup_dir = test_data / ".test-backup-tmp"
+        nk.make_backup([f1, f2], backup_dir)
 
-            assert (backup_dir / "Polska" / "catalog-A-PL.csv").exists()
-            assert (backup_dir / "Czechy" / "catalog-B-CZ.csv").exists()
-            # Original dirs not affected
-            assert f1.read_text(encoding="utf-8") == "header\na,b,c\n"
-            assert f2.read_text(encoding="utf-8") == "header\nx,y,z\n"
-        finally:
-            # Cleanup
-            import shutil
-            if backup_dir.exists():
-                shutil.rmtree(backup_dir)
-            if f1.exists():
-                f1.unlink()
-            if f2.exists():
-                f2.unlink()
+        assert (backup_dir / "Polska" / "catalog-A-PL.csv").exists()
+        assert (backup_dir / "Czechy" / "catalog-B-CZ.csv").exists()
+        # Original dirs not affected
+        assert f1.read_text(encoding="utf-8") == "header\na,b,c\n"
+        assert f2.read_text(encoding="utf-8") == "header\nx,y,z\n"
+

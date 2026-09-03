@@ -1844,4 +1844,23 @@ Kompleksowe oczyszczenie projektu na polecenie Marcelego:
    - Frontend tests: 133/133 pass.
    - Walidacja danych: 27 plików, 948 wierszy, 0 Critical, 0 Warning.
 
+## 2026-09-03 16:45 CEST — feat(data): add BILLS Sp. z o.o. (PL-A-001) & fix test isolation
+
+1. **Dodanie BILLS Sp. z o.o. do bazy katalogów:**
+   - Utworzono oficjalny wpis w `data/Polska/catalog-A-PL.csv` pod unikalnym ID `PL-A-001`.
+   - Zweryfikowane dane rejestrowe: NIP `PL5140361901`, KRS `0001074645`, REGON `527173907`, Ostrzeszów, ul. Daszyńskiego 31.
+   - Status: `autoryzowany`, marki: `PowerMatic | Hawk`, marka własna OEM: `Hawk`.
+   - Przekompilowano `data/master.csv` (łącznie 472 rekordy) oraz zsynchronizowano `frontend-2/public/master.csv`.
+
+2. **Poprawka izolacji testów jednostkowych:**
+   - Wykryto i naprawiono defekt w `tests/test_normalize_kolumny.py::TestMakeBackup`, który tworzył i usuwał pliki bezpośrednio w katalogu produkcyjnym `data/Czechy/` oraz `data/Polska/`.
+   - Zastosowano bezpieczną izolację przez `tmp_path` i `monkeypatch.setattr(nk, "DATA", test_data)`.
+
+3. **Weryfikacja:**
+   - `python3 tools/validate_columns.py`: 28 plików, 950 wierszy — 0 Critical, 0 Warning.
+   - `pytest tests/`: 527/527 passed (100%).
+   - `npm test`: 133/133 passed (100%).
+   - UI: Zweryfikowano w przeglądarce pod adresem `http://localhost:3001` (wyszukiwanie "BILLS", chip `PowerMatic + Hawk`, podgląd szczegółów).
+
+
 
