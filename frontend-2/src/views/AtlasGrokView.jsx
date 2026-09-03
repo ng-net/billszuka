@@ -32,6 +32,16 @@ import { toast } from "sonner";
 const MASTER_URL = "/api/master.csv";
 const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
+function fmtDate(val) {
+  if (!val) return "—";
+  if (val instanceof Date) {
+    if (isNaN(val.getTime())) return "—";
+    return val.toISOString().slice(0, 10);
+  }
+  const s = String(val).trim();
+  return s.length >= 10 ? s.slice(0, 10) : s || "—";
+}
+
 function maskName(str) {
   if (!str) return "—";
   const parts = str.trim().split(/\s+/);
@@ -466,7 +476,7 @@ export function AtlasGrokView() {
                   </p>
                   <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
                     <span>Źródło: {activeLead.zrodlo_danych || "Rejestry publiczne"}</span>
-                    <span>Weryfikacja: {activeLead.data_weryfikacji || "2026-08"}</span>
+                    <span>Weryfikacja: {fmtDate(activeLead.data_weryfikacji)}</span>
                   </div>
                 </div>
               </div>
