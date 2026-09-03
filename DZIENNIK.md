@@ -5,13 +5,13 @@
 
 ---
 
-## Status snapshot (2026-08-31)
+## Status snapshot (2026-09-03)
 
 | Metryka | Wartość |
 |---|---|
-| Git | `main` @ ng-net/billszuka, clean |
-| Tests | 557/557 PASS (460 pytest + 97 node:test) |
-| master.csv | 376 wierszy × 35 kolumn, 12 krajów |
+| Git | `main` @ ng-net/billszuka |
+| Tests | 530/530 pytest PASS |
+| master.csv | 477 wierszy × 36 kolumn, 12 krajów |
 | FROZEN | 323 (86.1%) |
 | DO-WERYFIKACJI | 52 (13.9%) — głównie halucynowane NIP/KRS z poprzednich enrichment passes |
 | Frontend | `frontend-2/` (React 19 + Vite) — canonical. `frontend/` DEPRECATED. |
@@ -26,6 +26,71 @@
 - 2 PL-B z `miasto="Polska"` (PL-B-086, PL-B-104) → manual fix
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
+
+## 2026-09-03 — Sesja 7: Eliminacja bloatu i optymalizacja narzędzi skanujących (Anti-Bloat & Performance)
+
+- **Problem:**
+  - Narzędzia sieciowe (`check_urls.py`, `scan_keywords.py`, `verify_api.py`) domyślnie iterowały po 100% rekordów z twardymi opóźnieniami (`delay=4s..7s`), skanując w kółko rekordy `FROZEN` i uderzając w martwe domeny (81 domen `red` z 8-sekundowym timeoutem każda). Pełen przebieg zajmował łącznie ponad **75 minut**.
+- **Wdrożone zasady i poprawki:**
+  1. **Zasada pomijania `FROZEN` w `check_urls.py`:**
+     - Domyślny tryb pracy stał się **inkrementalny**: URL-e firm oznaczonych jako `FROZEN` sprawdzone w ciągu ostatnich 30 dni oraz stabilne `green` są natychmiast pomijane.
+     - Wynik: czas przebiegu `python3 tools/check_urls.py --all` spadł z **1975 sekund (~33 min)** do **0 sekund** (394 pominięte) w stanie aktualnym lub ~70 sekund przy sprawdzaniu nowych/nietrwałych adresów.
+     - Dodano flagę `--force` dla jawnego re-skanowania.
+  2. **Kaskada w `scan_keywords.py`:**
+     - Przed wywołaniem sieciowym `fetch_page` skrypt odczytuje `url_status` z SQLite. Jeśli domena ma status `red` (404, DNS error, SSL error, timeout) — następuje **natychmiastowy skip (0.00s)** bez czekania na timeout `curl` i bez opóźnienia `delay`. Oszczędność: ~20 minut bezczynnego czekania na martwych domenach.
+     - Dodano buforowanie wyników w `keyword_scan` (pomijanie wcześniej zbadanych stron bez flagi `--force`).
+     - Naprawiono odwołania do kolumny `id_unikalne` w schemacie tabeli `keyword_scan`.
+  3. **Pomijanie `FROZEN` w `verify_api.py`:**
+     - W pętli głównej skrypt pomija rekordy z flagą `FROZEN` (chyba że podano `--force`).
+     - Przykład: weryfikacja CZ skróciła się z kilkudziesięciu sekund do **4 sekund** (28 z 36 firm pominiętych, odpytano tylko 8 nowych/niepewnych).
+  4. **Stabilizacja hashowania w `verify_run.py`:**
+     - Wykluczono kolumnę `www_status` z `hash_row()`, zapobiegając unieważnieniu hashy dla 100% bazy przy wstrzykiwaniu statusów stron.
+- **Weryfikacja:**
+  - `pytest -q` → **530/530 PASS**
+  - `npm test` (`frontend-2`) → **78/78 PASS**
+  - `npm run build` → **0 błędów (723ms)**
+  - `tools/validate_columns.py` → **0 Critical, 0 Warning**
+
+## 2026-09-03 — Sesja 6: Utwardzenie reguł weryfikacji NIP/KRS/VAT i silnika verify_api (Rules & Engine Hardening)
+
+- **Audyt i przegląd reguł (`VERIFICATION-RULES.md`):**
+  - **Ujednolicenie taksonomii:** Rozdzielono pole statusu (`status` ∈ `{FROZEN, DO-WERYFIKACJI, PENDING_API}`) od kodów powodów (`reason_code` ∈ `{INVALID_CHECKSUM, INVALID_ID, MISMATCH_REGISTRY, ADDRESS_MISMATCH, NOT_FOUND_ANYWHERE}`).
+  - **Usunięcie ad-hoc `INVALID_KRS`:** Zastąpiono kanonicznym `INVALID_ID` w §1.3 i w logice obsługi 404 z KRS.
+  - **Uściślenie bramki fuzzy-match:** Zastąpiono niejednoznaczne „np. Jaccard ≥ 0.5 lub substring” pojedynczą kanoniczną metodą: Token Jaccard na znormalizowanych tokenach z odcięciem form prawnych (`LEGAL_TOKENS`), z progiem **Jaccard ≥ 0.80** (`NAME_JACCARD_THRESHOLD = 0.8`). Bezwzględny zakaz prostego dopasowania substringowego (eliminacja wektora FABRYKAT np. PEAL vs PEAL Real Estate).
+  - **Naprawa formuły IČO CZ i rozwiązanie casusu G8 point:**
+    - Wykryto i usunięto martwą klauzulę `(a 10 → 0)` w §6 oraz błąd implementacji w `tools/verify_principles.py` (gdzie reszta $s=1$ była traktowana jako nielegalna, a reszta $s=10$ była mapowana na oczekiwaną cyfrę kontrolną 0 zamiast $11 - 10 = 1$).
+    - Wzór ČSÚ: dla $s=1 \implies 0$, dla $s \in [2..10] \implies 11 - s$.
+    - G8 point s.r.o. (`06941281`): suma ważona $142 \equiv 10 \pmod{11} \implies 11 - 10 = 1$ — ostatnia cyfra to 1, numer jest w 100% poprawny. Pass rate CZ wzrósł do **9/9 (100%)**.
+  - **Korekta statusu CUI RO (§6, §7):** Obniżono etykietę pewności z „średnia-wysoka” do `niepewna / nieprzetestowana (untested — theoretical only)` ze względu na brak empirycznego pokrycia w danych katalogowych (wszystkie rekordy RO w bazie mają 2–8 cyfr).
+  - **Terminalny kod `NOT_FOUND_ANYWHERE`:** Wprowadzono formalny kod powodu dla sytuacji, gdy suma kontrolna przechodzi, ale rejestry (CEIDG i KRS) nie zwracają żadnego aktywnego rekordu.
+- **Implementacja w kodzie:**
+  - `tools/verify_principles.py`: dodano `NOT_FOUND_ANYWHERE`, naprawiono `is_valid_cz_ico()`.
+  - `tools/verify_api.py`: import i obsługa `NOT_FOUND_ANYWHERE` w `verify_pl_row()`.
+  - `tests/test_verify_principles.py`: dodano testy dla reszt $s=1$ i $s=10$, zweryfikowano poprawność G8 point oraz test fallbacku `NOT_FOUND_ANYWHERE` (67/67 PASS).
+  - `tests/test_verify_api.py`: 87/87 PASS.
+- **Testy globalne:** `pytest` → **530/530 PASS** (0 błędów).
+
+## 2026-09-03 — Sesja 5: Zakończenie skanowania i klasyfikacji URL-i (URL scan complete)
+
+- **Poprawki w `tools/check_urls.py`:**
+  - Dodano flagę `-S` do `curl` oraz obsługę kodów wyjścia / kodu HTTP `000` (wcześniej curl zwracał kod 0 przy błędach DNS, SSL i resetach połączeń, co powodowało stan `unknown` bez komunikatu błędu).
+  - Rozszerzono `_classify_state()` o wykrywanie problemów z DNS (`nodename`, `could not resolve host`), certyfikatów SSL oraz resetów połączeń / zerwanych strumieni (`recv failure`, `connection reset`, `empty reply`, `stream`).
+  - Dodano flagę `--missing-only` pozwalającą na szybkie dogrywanie niesprawdzonych URL-i lub ponawianie nieudanych bez konieczności czekania na pełen skan całego projektu.
+- **Skanowanie i weryfikacja:**
+  - Przeskanowano 100% aktywnych URL-i ze wszystkich katalogów (394 adresy www).
+  - Dograno statusy dla nowo dodanych podmiotów (`PL-A-001..005`, `SK-A-016`) — m.in. `bills.pl` (200 OK, 234ms), `nabijarka.pl` (200 OK, 786ms), `trezo.com.pl` (200 OK, 808ms), `donmarco.pl` (200 OK, 413ms), `tifantex.sk` (200 OK, 936ms).
+  - Rozwiązano wszystkie 44 wpisy o stanie `unknown`, przypisując precyzyjną diagnostykę: DNS / SSL / timeout / 4xx.
+  - Końcowy rozkład 394 aktywnych URL-i: **313 green (ok 2xx/3xx)** oraz **81 red** (40 `4xx`, 18 `dns`, 11 `ssl`, 8 `timeout`, 4 `5xx`), 0 niesklasyfikowanych (`unknown: 0`).
+- **Frontend UI (`frontend-2`):**
+  - Dodano komponent `WwwStatusPill` w `src/components/UrlBadge.jsx` renderujący mini pigułkę z czytelnym komunikatem błędu wewnątrz (zamiast surowych ciągów `red|404` czy `red|timeout`).
+  - Etykiety błędów: `404 Not Found`, `403 Forbidden`, `DNS Error`, `SSL Error`, `Timeout`, `500 Server Error`, itp. wraz z dedykowaną ikoną (Lucide: `AlertCircle`, `Lock`, `Timer`, `HelpCircle`, `XCircle`) oraz dopasowaną paletą kolorów (bursztynowa dla 4xx, różano-czerwona dla awarii/SSL/DNS, szmaragdowa dla 200 OK).
+  - Wdrożono `WwwStatusPill` w kolumnie `www_status` tabeli danych (`CellRenderer.jsx`) oraz przekazano `raw_status` do `RowDetailExpander.jsx`.
+  - Dodano testy jednostkowe `UrlBadge.test.jsx` (78/78 testów komponentowych PASS) oraz zweryfikowano poprawność kompilacji produkcyjnej `npm run build` (0 błędów).
+- **Synchronizacja i kompilacja:**
+  - Uruchomiono `tools/inject_www_status.py` — 100% wierszy z www (788 instancji we wszystkich katalogach) posiada aktualny `www_status`.
+  - `python3 tools/billszuka.py compile` → `master.csv` (477 wierszy × 36 kolumn) zaktualizowany i zsynchronizowany z `frontend-2/public/`.
+  - Walidacja: `python3 tools/validate_columns.py` → **0 Critical, 0 Warning** ✅
+  - Testy: `pytest -q` → **527/527 PASS** ✅
 
 ## 2026-09-03 — Sesja 4: Enrichment danych, hurtownicy i serwisanci nabijarek
 

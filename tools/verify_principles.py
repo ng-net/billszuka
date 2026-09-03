@@ -16,28 +16,37 @@ Użycie:
         is_valid_vat_format, pl_nip_mod11_ok,
     )
 
-Kody statusu (per dokumentacja Zasady weryfikacji):
-    INVALID_CHECKSUM  - format/checksum NIP nie przechodzi offline
-    INVALID_ID        - API 400/404 na poprawnym formacie (numer nie istnieje)
-    MISMATCH_REGISTRY - API 200, ale nazwa/adres nie pasują do CSV
-    ADDRESS_MISMATCH  - identyfikator+nazwa OK, ale adres inny (CZ živnostník etc.)
-    FROZEN            - identyfikator+nazwa+adres matchują (≥ próg fuzzy match)
+Taksonomia (per VERIFICATION-RULES.md):
+    Status:
+        FROZEN         - identyfikator+nazwa+adres matchują (≥ próg fuzzy match Jaccard 0.80)
+        DO-WERYFIKACJI - cokolwiek niepewne, błąd lub niezgodność
+        PENDING_API    - oczekuje na integrację API lub ponowienie sieciowe
 
-Te kody trafiają do `verify_row()` jako część `reason` (np. "INVALID_CHECKSUM:
+    Kody powodów (reason_code — przy DO-WERYFIKACJI):
+        INVALID_CHECKSUM   - format/checksum NIP/IČO nie przechodzi offline
+        INVALID_ID         - API 400/404 na poprawnym formacie (numer nie istnieje w rejestrze)
+        MISMATCH_REGISTRY  - API 200, ale nazwa/NIP/KRS nie pasują do CSV
+        ADDRESS_MISMATCH   - identyfikator+nazwa OK, ale adres inny (CZ živnostník etc.)
+        NOT_FOUND_ANYWHERE - wyczerpano wszystkie rejestry (np. brak w CEIDG i brak w KRS)
+
+Te kody trafiają do `verify_row()` jako prefix `reason` (np. "INVALID_CHECKSUM:
 NIP 7792223933 nie przechodzi mod-11").
 """
 
 import re
 
 
-# === Kody statusu (re-eksportowane do użycia w verify_api.py) ===
+# === Statusy główne ===
+FROZEN = "FROZEN"
+DO_WERYFIKACJI = "DO-WERYFIKACJI"
+PENDING_API = "PENDING_API"
+
+# === Kody powodów (reason_code przy DO-WERYFIKACJI) ===
 INVALID_CHECKSUM = "INVALID_CHECKSUM"
 INVALID_ID = "INVALID_ID"
 MISMATCH_REGISTRY = "MISMATCH_REGISTRY"
 ADDRESS_MISMATCH = "ADDRESS_MISMATCH"
-FROZEN = "FROZEN"
-DO_WERYFIKACJI = "DO-WERYFIKACJI"
-PENDING_API = "PENDING_API"
+NOT_FOUND_ANYWHERE = "NOT_FOUND_ANYWHERE"
 
 
 # === Polska — NIP mod-11 ===
@@ -70,9 +79,13 @@ def is_valid_pl_nip(nip: str) -> tuple[bool, str]:
 def is_valid_cz_ico(ico: str) -> tuple[bool, str]:
     """CZ IČO = 8 cyfr z mod-11 checksum (wagi 8,7,6,5,4,3,2 na cyfrach 1-7).
 
-    Per VERIFICATION-RULES.md §CZ (pewność: wysoka — przetestowane na 9 real
-    IČO z naszych katalogów, 8/9 przechodzą. Wyjątek: IČO z prefixem `0`
-    mogą mieć inny edge case w FRSR).
+    Per ČSÚ standard i VERIFICATION-RULES.md §CZ (pewność: wysoka):
+      s = suma(cyfra_i * waga_i) mod 11
+      - s == 0 -> cyfra kontrolna 1
+      - s == 1 -> cyfra kontrolna 0
+      - s w [2..10] -> cyfra kontrolna 11 - s (np. dla s=10 -> 11 - 10 = 1)
+
+    Poprawnie waliduje m.in. G8 point s.r.o. (IČO 06941281: s=10, last=1).
     Returns (is_valid, code). Code: 'OK' | 'INVALID_FORMAT' | INVALID_CHECKSUM."""
     ico_clean = re.sub(r"\D", "", ico)
     if not (ico_clean.isdigit() and len(ico_clean) == 8):
@@ -82,9 +95,6 @@ def is_valid_cz_ico(ico: str) -> tuple[bool, str]:
     if s == 0:
         expected = 1
     elif s == 1:
-        # s=1 jest nielegalny dla IČO (nie ma poprawnej cyfry kontrolnej)
-        return False, INVALID_CHECKSUM
-    elif s == 10:
         expected = 0
     else:
         expected = 11 - s

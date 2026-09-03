@@ -96,7 +96,7 @@ def log(msg: str) -> None:
 def hash_row(row: dict) -> str:
     """Stable hash of a row, excluding verification metadata columns."""
     h = hashlib.sha256()
-    skip = {"flagi", "data_weryfikacji", None, ""}
+    skip = {"flagi", "data_weryfikacji", "www_status", None, ""}
     for k in sorted((k_ for k_ in row.keys() if k_ not in skip), key=lambda x: x or ""):
         h.update((k or "").encode())
         h.update(b"=")

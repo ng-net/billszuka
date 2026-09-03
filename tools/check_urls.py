@@ -94,15 +94,15 @@ def _classify(http_code: int | None) -> str:
 
 def _classify_state(http_code: int | None, error: str | None) -> str:
     """Szczegółowa klasyfikacja: ok | redirect | 4xx | 5xx | timeout | ssl | dns | empty | unknown"""
-    if http_code is None:
+    if http_code is None or http_code == 0:
         e = (error or "").lower()
         if "timeout" in e or "timed out" in e:
             return "timeout"
         if "ssl" in e or "certificate" in e or "handshake" in e:
             return "ssl"
-        if "dns" in e or "name or service" in e or "resolve" in e or "nodename" in e:
+        if "dns" in e or "name or service" in e or "resolve" in e or "nodename" in e or "host" in e:
             return "dns"
-        if "no response" in e or "connection refused" in e or "couldn't connect" in e:
+        if "no response" in e or "connection refused" in e or "couldn't connect" in e or "failed to connect" in e or "reset" in e or "recv failure" in e or "empty reply" in e or "stream" in e:
             return "timeout"  # traktujemy jako unreachable
         return "unknown"
     if 200 <= http_code < 300:
@@ -145,13 +145,14 @@ def collect_urls_for_country(country: str) -> list[dict]:
                     for row in reader:
                         uid = (row.get("id") or "").strip()
                         url = (row.get("www") or row.get("url") or "").strip()
+                        flagi = (row.get("flagi") or "").strip()
                         if not uid or not _is_http_url(url):
                             continue
                         key = (uid, url)
                         if key in seen:
                             continue
                         seen.add(key)
-                        out.append({"id": uid, "kraj": iso, "url": url})
+                        out.append({"id": uid, "kraj": iso, "url": url, "flagi": flagi})
             except Exception as e:
                 print(f"  ! skip {csv_path.name}: {e}", file=sys.stderr)
 
@@ -164,13 +165,14 @@ def collect_urls_for_country(country: str) -> list[dict]:
                 for row in reader:
                     uid = (row.get("id_a") or row.get("id") or "").strip()
                     url = (row.get("url") or row.get("www") or "").strip()
+                    flagi = (row.get("flagi") or "").strip()
                     if not uid.startswith(f"{iso}-") or not _is_http_url(url):
                         continue
                     key = (uid, url)
                     if key in seen:
                         continue
                     seen.add(key)
-                    out.append({"id": uid, "kraj": iso, "url": url})
+                    out.append({"id": uid, "kraj": iso, "url": url, "flagi": flagi})
         except Exception as e:
             print(f"  ! skip relationships.csv: {e}", file=sys.stderr)
 
@@ -186,6 +188,7 @@ def check_one(url: str, timeout: int = 8) -> tuple[int | None, str | None, str |
                 "curl",
                 "-I",                  # HEAD
                 "-s",                  # silent
+                "-S",                  # show error if fails
                 "-o", "/dev/null",     # nie wypisuj body
                 "-w", "%{http_code}|%{redirect_url}|%{time_total}",
                 "-L",                  # follow redirects
@@ -205,9 +208,9 @@ def check_one(url: str, timeout: int = 8) -> tuple[int | None, str | None, str |
         redirect_url = parts[1] if len(parts) >= 2 and parts[1] else None
         time_str = parts[2] if len(parts) >= 3 else ""
         response_ms = int(float(time_str) * 1000) if time_str.replace(".", "").isdigit() else None
-        if not code_str or not code_str.isdigit():
-            err = (result.stderr or "").strip()[:200] or "no response"
-            return None, err, None, response_ms
+        err = (result.stderr or "").strip()[:200]
+        if result.returncode != 0 or not code_str or not code_str.isdigit() or int(code_str) == 0:
+            return None, err or "no response", None, response_ms
         return int(code_str), None, redirect_url, response_ms
     except subprocess.TimeoutExpired:
         return None, "timeout", None, None
@@ -248,8 +251,13 @@ def save_result(conn: sqlite3.Connection, item: dict, status: str, state: str,
 
 
 def run(country: str | None, delay: float, timeout: int,
-        ids_filter: set[str] | None) -> dict:
-    """Główna pętla. Zwraca statystyki."""
+        ids_filter: set[str] | None, missing_only: bool = False, force: bool = False) -> dict:
+    """Główna pętla. Zwraca statystyki.
+    
+    Tryb domyślny: INKREMENTALNY (skipuje FROZEN sprawdzone w ciągu ostatnich 30 dni
+    oraz wcześniej zweryfikowane zielone/stabilne).
+    Flaga --force wymusza pełny re-skan od zera.
+    """
     ensure_schema()
 
     if country and country.lower() != "all":
@@ -267,14 +275,73 @@ def run(country: str | None, delay: float, timeout: int,
     grand_total = {"green": 0, "red": 0, "skipped": 0, "checked": 0}
     eta_started = time.time()
 
+    known_status = {}
+    with db.connect() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT id_unikalne, url, status, state, http_code, checked_at FROM url_status")
+        for r in cur.fetchall():
+            known_status[(r[0], r[1])] = (r[2], r[3], r[4], r[5])
+
+    now_ts = time.time()
+    thirty_days_s = 30 * 86400
+
     for c_iso, c_folder in countries:
         items = collect_urls_for_country(c_iso)
         if ids_filter:
             items = [i for i in items if i["id"] in ids_filter]
+
+        if not force:
+            filtered = []
+            for item in items:
+                key = (item["id"], item["url"])
+                is_frozen = "FROZEN" in item.get("flagi", "")
+
+                if key not in known_status:
+                    # Nowy URL — musi zostać sprawdzony
+                    filtered.append(item)
+                    continue
+
+                st, state, code, chk_at = known_status[key]
+
+                # Sprawdź wiek ostatniego skanu
+                chk_age_s = 999999999
+                if chk_at:
+                    try:
+                        # obsługa formatów "YYYY-MM-DD HH:MM:SS" lub ISO
+                        t_parsed = time.mktime(time.strptime(str(chk_at)[:19].replace("T", " "), "%Y-%m-%d %H:%M:%S"))
+                        chk_age_s = now_ts - t_parsed
+                    except Exception:
+                        pass
+
+                if is_frozen:
+                    # Zasada 1: FROZEN nie ruszamy, jeśli stan znany i zbadany <30 dni
+                    if chk_age_s < thirty_days_s and state != "unknown":
+                        grand_total["skipped"] += 1
+                        continue
+                    if state == "unknown":
+                        filtered.append(item)
+                    else:
+                        grand_total["skipped"] += 1
+                        continue
+                else:
+                    # Rekordy niefrozen: skipuj jeśli stan jest znany i zbadany <30 dni
+                    if missing_only:
+                        if st == "green" or (state != "unknown" and chk_age_s < thirty_days_s):
+                            grand_total["skipped"] += 1
+                            continue
+                        filtered.append(item)
+                    else:
+                        if state != "unknown" and chk_age_s < thirty_days_s:
+                            grand_total["skipped"] += 1
+                            continue
+                        filtered.append(item)
+
+            items = filtered
+
         if not items:
-            print(f"[{c_iso}] no URLs to check")
+            print(f"[{c_iso}] no URLs to check (all skipped or up to date)")
             continue
-        print(f"[{c_iso}] {len(items)} URLs (~{int(len(items) * delay)}s)")
+        print(f"[{c_iso}] {len(items)} URLs to scan (~{int(len(items) * delay)}s)")
         c_stats = {"green": 0, "red": 0, "checked": 0}
         c_started = time.time()
 
@@ -321,23 +388,25 @@ def run(country: str | None, delay: float, timeout: int,
 
     total_time = int(time.time() - eta_started)
     print(
-        f"\n=== ALL DONE: {grand_total['checked']} URLs in {total_time}s "
-        f"({grand_total['green']} green / {grand_total['red']} red) ==="
+        f"\n=== ALL DONE: {grand_total['checked']} URLs checked in {total_time}s "
+        f"({grand_total['green']} green / {grand_total['red']} red / {grand_total['skipped']} skipped) ==="
     )
     return grand_total
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Delikatny URL checker dla BILLSzuka")
+    p = argparse.ArgumentParser(description="Delikatny inkrementalny URL checker dla BILLSzuka")
     p.add_argument("--country", default=None, help="np. PL, CZ (lub 'all')")
     p.add_argument("--all", action="store_true", help="sprawdź wszystkie kraje")
+    p.add_argument("--force", action="store_true", help="wymuś pełny re-skan (ignoruj status FROZEN i wiek)")
+    p.add_argument("--missing-only", action="store_true", help="sprawdź tylko brakujące lub z błędem/timeoutem")
     p.add_argument("--delay", type=float, default=4.0, help="sekundy między requestami")
     p.add_argument("--timeout", type=int, default=8, help="curl --max-time")
     p.add_argument("--ids", nargs="*", default=None, help="tylko te id")
     args = p.parse_args()
     ids_filter = set(args.ids) if args.ids else None
     country = "all" if args.all else args.country
-    run(country, args.delay, args.timeout, ids_filter)
+    run(country, args.delay, args.timeout, ids_filter, missing_only=args.missing_only, force=args.force)
 
 
 if __name__ == "__main__":

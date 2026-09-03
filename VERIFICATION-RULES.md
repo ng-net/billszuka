@@ -9,9 +9,12 @@
 
 1. **Walidacja formatu/checksumy — offline, przed jakimkolwiek API call.**
 2. Zapytanie do rejestru podstawowego (CEIDG / KRS / ARES / etc.).
-3. Porównanie nazwy + adresu z API vs to co jest w CSV (fuzzy match).
+3. Porównanie nazwy + adresu z API vs to co jest w CSV (fuzzy match, token Jaccard ≥ 0.80).
 4. VAT/VIES — jako potwierdzenie dodatkowe, nie wymóg.
-5. Klasyfikacja: `FROZEN` / `DO-WERYFIKACJI` / `INVALID_*`.
+5. Klasyfikacja wyniku:
+   - **Status główny (`status`)**: `FROZEN` | `DO-WERYFIKACJI` | `PENDING_API`
+   - **Kod powodu (`reason_code`)** — dołączany jako prefiks powodu przy statusie `DO-WERYFIKACJI`:
+     `INVALID_CHECKSUM` | `INVALID_ID` | `MISMATCH_REGISTRY` | `ADDRESS_MISMATCH` | `NOT_FOUND_ANYWHERE`
 
 **Zasada żelazna:** brak odpowiedzi lub błąd API nigdy nie oznacza "prawdopodobnie
 OK". Domyślny status przy niepewności to zawsze `DO-WERYFIKACJI`, nigdy `FROZEN`.
@@ -36,9 +39,9 @@ def is_valid_nip(nip: str) -> bool:
 ```
 
 - **Checksum fail → NIP to gwarantowana halucynacja/literówka.** Nie wołaj API
-  w ogóle. Flaguj od razu `INVALID_CHECKSUM`.
+  w ogóle. Status: `DO-WERYFIKACJI`, kod powodu: `INVALID_CHECKSUM`.
 - **Checksum OK, ale API zwraca inną firmę** → to inny typ błędu ("zły
-  identyfikator", nie "fałszywy identyfikator"). Flaguj `MISMATCH_REGISTRY`,
+  identyfikator", nie "fałszywy identyfikator"). Status: `DO-WERYFIKACJI`, kod powodu: `MISMATCH_REGISTRY`,
   nigdy `FROZEN`.
 
 ### 1.2 CEIDG (tylko JDG i spółki cywilne)
@@ -46,26 +49,32 @@ def is_valid_nip(nip: str) -> bool:
 - CEIDG **nie ma** sp. z o.o. / S.A. / sp.k. / sp.j. — brak wyniku dla
   poprawnego checksumu ≠ "firma nie istnieje", tylko "sprawdź KRS".
 - HTTP 400 z `NIEPOPRAWNY_NUMER_NIP` = **numer nie istnieje**, nie "brak
-  danych". Zawsze `DO-WERYFIKACJI`, nigdy `FROZEN`.
+  danych". Zawsze status `DO-WERYFIKACJI`, kod powodu `INVALID_ID`, nigdy `FROZEN`.
 
 ### 1.3 KRS (spółki)
 
 - KRS API = **lookup po numerze, nigdy search po nazwie/NIP**.
 - HTTP 404 na lookup = **numer KRS nie istnieje w rejestrze** — realny sygnał
-  błędu, nie "spróbuj ponownie". Flaguj `INVALID_KRS`.
+  błędu, nie "spróbuj ponownie". Status: `DO-WERYFIKACJI`, kod powodu: `INVALID_ID`
+  (nie twórz ad-hoc osobnego kodu `INVALID_KRS` — wszystkie nieistniejące identyfikatory
+  zwrócone przez API mapują na kanoniczny `INVALID_ID`).
 - **Nigdy nie ufaj `rejestr_id` z CSV bez potwierdzenia HTTP 200 + zgodności
   nazwy.** Wypełnione pole ≠ poprawny numer.
 - KRS istnieje, ale nazwa nie pasuje → `MISMATCH_REGISTRY`, nigdy `FROZEN`.
 
 ### 1.4 Tabela klasyfikacji wyniku (implementować w `verify_api.py`)
 
-| Sytuacja | Status | Nie rób |
-|---|---|---|
-| Checksum fail | `INVALID_CHECKSUM` | Nie wołaj API |
-| API 400/404 na poprawnym formacie | `INVALID_ID` | Nie ustawiaj `FROZEN` |
-| API 200, nazwa/adres nie pasuje | `MISMATCH_REGISTRY` | Nie ustawiaj `FROZEN` |
-| API 200, nazwa+adres pasują (≥ próg fuzzy match) | `FROZEN` | — |
-| Brak wyniku mimo poprawnego checksumu (np. sp. z o.o. w CEIDG) | przejdź do kolejnego rejestru | Nie kończ na "brak danych" |
+Rozdzielamy jednoznacznie pole statusu (`status`) od kodu powodu (`reason_code`):
+
+| Sytuacja | Status | Kod powodu (`reason_code`) | Reguła wykonawcza |
+|---|---|---|---|
+| Format/checksum offline fail | `DO-WERYFIKACJI` | `INVALID_CHECKSUM` | Nie wołaj API w ogóle |
+| API 400/404 na poprawnym formacie (np. CEIDG 400 `NIEPOPRAWNY_NUMER_NIP`, KRS 404) | `DO-WERYFIKACJI` | `INVALID_ID` | Numer nie istnieje w rejestrze. Nie ustawiaj `FROZEN` |
+| API 200, ale nazwa lub cross-check NIP/KRS nie pasuje | `DO-WERYFIKACJI` | `MISMATCH_REGISTRY` | Rozbieżność tożsamości. Nie ustawiaj `FROZEN` |
+| API 200, NIP i nazwa pasują, ale adres jest inny (np. CZ živnostník) | `DO-WERYFIKACJI` (lub conditional `FROZEN` z notatką) | `ADDRESS_MISMATCH` | Patrz §3 — dopuszczalny `FROZEN` z flagą tylko przy 100% zgodności NIP+nazwy |
+| Wyczerpano wszystkie rejestry bez błędu i bez trafienia (np. sp. z o.o. w CEIDG i brak/404 w KRS) | `DO-WERYFIKACJI` | `NOT_FOUND_ANYWHERE` | Sprawdzono CEIDG i KRS, podmiot nieodnaleziony; nigdy nie ustawiaj `FROZEN` |
+| API 200, nazwa i NIP/rejestr pasują (Jaccard ≥ 0.80) | `FROZEN` | `VERIFIED_REGISTRY` | Wszystkie warunki bramki spełnione |
+| Błąd sieciowy / timeout / HTTP 5xx / brak tokenu | `PENDING_API` | `API_ERROR` / `TIMEOUT` | Stan tymczasowy; ponów w kolejnym uruchomieniu |
 
 ---
 
@@ -120,18 +129,24 @@ automatyzacja opłaca się szybciej).
 
 `FROZEN` wolno ustawić **tylko** gdy wszystkie trzy warunki są spełnione:
 
-1. Checksum/format lokalny przeszedł (jeśli dotyczy, np. PL NIP).
-2. Zapytanie do oficjalnego rejestru zwróciła HTTP 200 z realnymi danymi
-   (nie pustym wynikiem, nie błędem interpretowanym jako "OK").
-3. Nazwa firmy z rejestru fuzzy-matchuje nazwę z CSV (ustalony próg
-   podobieństwa, np. Jaccard ≥ 0.5 lub zawieranie substring).
+1. **Checksum/format lokalny przeszedł offline** (jeśli dotyczy danego kraju, np. PL NIP, CZ IČO, HR OIB, FR SIREN).
+2. **Zapytanie do oficjalnego rejestru zwróciło HTTP 200 z realnymi danymi** (nie pustym wynikiem, nie błędem interpretowanym jako "OK").
+3. **Nazwa firmy z rejestru i nazwa z CSV spełniają kanoniczny warunek podobieństwa:**
+   - **Metoda:** Token Jaccard similarity po luźnej normalizacji (usunięcie polskich/czeskich/francuskich znaków diakrytycznych, usunięcie znaków interpunkcyjnych, konwersja do uppercase).
+   - **Legal form stripping:** Ze zbioru tokenów przed obliczeniem Jaccarda bezwzględnie usuwamy tokeny form prawnych (`SP`, `ZOO`, `OO`, `SRO`, `AS`, `SC`, `SPJ`, `FHU`, `SPOL`, `POL`, `KOM`, `SA`, `AG`, `GMBH`). Zapobiega to sztucznemu zawyżaniu podobieństwa przez samą formę prawną.
+   - **Próg akceptacji:** **Jaccard $\ge 0.80$** (`NAME_JACCARD_THRESHOLD = 0.8` w `tools/verify_api.py`). Poniżej tego progu wpis traktowany jest jako ryzyko FABRYKATU.
+   - **Zakaz zawierania substring (Substring Match BANNED):** Bezwzględny zakaz uznawania dopasowania na podstawie prostego zawierania substringu. Substring match to główny wektor podatności na halucynacje LLM (np. "PEAL" vs "PEAL Real Estate" czy "GECO" vs "GECO KLEMPIZOL" współdzielą jeden token i przy substring match dałyby fałszywe `FROZEN`).
+   - **Wyjątek dla CEIDG (JDG):** W CEIDG dla jednoosobowych działalności nazwa w rejestrze to często imię i nazwisko właściciela, a w CSV nazwa handlowa firmy. W tym przypadku, jeśli token Jaccard < 0.80, akceptujemy dopasowanie **wyłącznie pod warunkiem ścisłej zgodności NIP i REGON** zwróconych przez CEIDG z numerami w CSV.
 
-VIES / adres to potwierdzenia dodatkowe — ich brak nie blokuje `FROZEN`, ale
-ich **niezgodność z NIP/KRS/IČO** blokuje zawsze.
+VIES / adres to potwierdzenia dodatkowe — ich brak nie blokuje `FROZEN`, ale ich **niezgodność z NIP/KRS/IČO** blokuje zawsze.
 
 Jeśli którykolwiek z warunków 1–3 zawiedzie → **nigdy `FROZEN`**, zawsze
-`DO-WERYFIKACJI` z konkretnym kodem powodu: `INVALID_CHECKSUM` /
-`INVALID_ID` / `MISMATCH_REGISTRY` / `ADDRESS_MISMATCH`.
+`DO-WERYFIKACJI` z konkretnym kodem powodu:
+- `INVALID_CHECKSUM` — błąd formatu/sumy kontrolnej offline
+- `INVALID_ID` — numer nie istnieje w rejestrze (HTTP 400/404)
+- `MISMATCH_REGISTRY` — rejestr zwrócił inną firmę lub Jaccard < 0.80
+- `ADDRESS_MISMATCH` — identyfikator i nazwa pasują, ale adres jest inny
+- `NOT_FOUND_ANYWHERE` — wyczerpano wszystkie rejestry bez odnalezienia aktywnej firmy
 
 **Zakaz:** interpretować brak odpowiedzi lub błąd API jako "prawdopodobnie OK"
 i domyślnie ustawiać `FROZEN`. Domyślny stan przy niepewności = zawsze
@@ -156,10 +171,13 @@ na poprawnych numerach.
 
 ### 🇨🇿 CZ / 🇸🇰 SK — IČO (8 cyfr)
 
-- **Checksum (pewność: wysoka dla CZ, średnia dla SK — sprawdź na przykładzie):**
-  wagi `8,7,6,5,4,3,2` na cyfrach 1-7, `suma mod 11` → jeśli reszta `0` to
-  cyfra kontrolna `1`; jeśli `1` to `0`; inaczej `11 - reszta` (a `10` → `0`).
-  Ostatnia cyfra IČO musi się zgadzać.
+- **Checksum CZ (pewność: wysoka — standard ČSÚ / ČSN):**
+  Wagi `8,7,6,5,4,3,2` na cyfrach 1–7. Obliczamy sumę ważoną $S = \sum_{i=1}^7 d_i \times w_i$ oraz resztę $R = S \pmod{11}$.
+  - Jeśli $R = 0 \implies$ cyfra kontrolna to **1**.
+  - Jeśli $R = 1 \implies$ cyfra kontrolna to **0**.
+  - Jeśli $R \in [2, 10] \implies$ cyfra kontrolna to **$11 - R$** (dla $R=10 \implies 11 - 10 = 1$; dla $R=2 \implies 11 - 2 = 9$; wartość 10 nigdy tu nie występuje).
+  Ostatnia (8.) cyfra IČO musi być identyczna z obliczoną cyfrą kontrolną.
+  *Weryfikacja:* G8 point s.r.o. (`06941281`) ma $S = 142 \implies R = 10 \implies 11 - 10 = 1$, co dokładnie zgadza się z ostatnią cyfrą 1. Numer jest w 100% poprawny (poprzednie fałszywe odrzucenie wynikało z błędu w kodzie).
 - Rejestr podstawowy: ARES (CZ, no-auth, zwraca też finanční údaje) / ORSR (SK,
   tylko HTML formularz, brak JSON).
 - **CZ-specific:** ARES zwraca dane dla żywnostników pod adresem "místo
@@ -167,13 +185,13 @@ na poprawnych numerach.
   nie `INVALID_ID` (patrz §3).
 - **SK-specific:** brak API do lookup po nazwie — IČO trzeba najpierw znaleźć
   przez web_search, więc `INVALID_CHECKSUM` łap **przed** web_searchem, żeby
-  nie tracić czasu na szukanie numeru, który i tak jest fabrykatem.
+  nie tracić czasu na szukanie numeru, który i tak jest fabrykatem. (Dla SK nie stosujemy wzoru CZ — patrz §7).
 
 ### 🇷🇴 RO — CUI
 
-- **Checksum (pewność: średnia-wysoka):** klucz `7,5,3,2,1,7,5,3,2` mnożony
-  przez cyfry CUI (bez cyfry kontrolnej), suma mod 11 → jeśli `10` cyfra
-  kontrolna `0`, inaczej równa resztek.
+- **Checksum (pewność: niepewna / nieprzetestowana empirycznie — untested, theoretical only):**
+  Klucz `7,5,3,2,1,7,5,3,2` mnożony przez cyfry CUI (bez cyfry kontrolnej), suma mod 11 → jeśli `10` to cyfra kontrolna `0`, inaczej równa reszcie.
+  *Zastrzeżenie krytyczne:* W katalogu BILLSzuka wszystkie rekordy RO mają 2–8 cyfr (osoby fizyczne, PFA, mniejsze podmioty), dla których 9-wagowa formuła nie ma zastosowania. W kodzie zaimplementowano warunek `len >= 10`, jednak wzór nie posiada żadnego empirycznego potwierdzenia w naszych danych produkcyjnych (N/A) — traktować jako nieprzetestowaną teorię, nie stawiać na równi z PL/HR/CZ/FR.
 - Rejestr: ONRC jest płatny (8 lei/odpis) — **nie traktuj braku dostępu do
   ONRC jako `INVALID_ID`.** Użyj darmowych agregatorów (termene.ro,
   listafirme.ro) do potwierdzenia nazwy+adresu, ale oznacz wynik jako
@@ -268,10 +286,10 @@ na poprawnych numerach.
 | Kraj | Formalny checksum offline | Pewność wzoru | Live test (% pass) | Decyzja implementacji |
 |---|---|---|---|---|
 | PL | ✅ mod-11 NIP (wagi 6-7) | wysoka | 8/8 (100%) | ✅ Zaimplementowany, przetestowany |
-| CZ | ✅ mod-11 IČO (wagi 8-2) | wysoka | 8/9 (89%) | ✅ Zaimplementowany, 1 znany edge case: G8 point s.r.o. (IČO 06941281, ARES potwierdza firmę ale mod-11 fail) |
+| CZ | ✅ mod-11 IČO (wagi 8-2) | wysoka | 9/9 (100%) | ✅ Zaimplementowany, przetestowany (włącznie z G8 point s.r.o. 06941281: s=10 mod 11 => 11-10=1) |
 | HR | ✅ ISO 7064 MOD 11,10 | wysoka | 11/11 (100%) | ✅ Zaimplementowany, przetestowany (10 real OIB + python-stdnum example) |
 | FR | ✅ Luhn (wyjątek La Poste `356000000`) | wysoka | 3/3 (100%) | ✅ Zaimplementowany, La Poste bypass dodany |
-| RO | ✅ klucz 7-5-3-2-1-7-5-3-2 | średnia-wysoka | N/A (wszystkie RO w katalogu mają 2-8 cyfr) | ⚠️ Zaimplementowany warunkowo (tylko 9+ cyfr; krótsze = format-check only) |
+| RO | ❓ klucz 7-5-3-2-1-7-5-3-2 | niepewna / nieprzetestowana (untested — theoretical only) | N/A (wszystkie RO w katalogu mają 2-8 cyfr) | ⚠️ Zaimplementowany warunkowo (tylko 9+ cyfr; brak pokrycia w danych, nie traktować na równi z PL/HR/CZ/FR) |
 | SK | ❌ NIE implementujemy (wzór CZ-owy daje 3/26 = 12% pass) | — | 3/26 (12%) | ❌ Tylko format-check — 23/26 real IČ DPH failują mod-11 w stylu CZ, więc wzór jest inny niż CZ. Zostawiamy sprawdzenie w VIES |
 | SI | ❌ NIE implementujemy (wzór CZ-owy daje 13/16 = 81% pass ale DELO PRODAJA + MOMBLY fail) | — | 13/16 (81%) | ❌ Tylko format-check — DELO PRODAJA (duża real firma) i MOMBLY d.o.o. nie przechodzą mod-11 w stylu CZ. Wzór SI davčna jest inny niż CZ. Zostawiamy AJPES |
 | BG | ❌ NIE implementujemy (algorytm dwupasmowy mod-11, złożony) | — | — | ❌ Tylko format-check + `portal.justice.bg` lookup |
@@ -295,8 +313,8 @@ rate (3/26), SI ma 81% ale realne duże firmy (DELO PRODAJA, MOMBLY) fail.
 Dla tych krajów lepiej jest polegać na cross-check z rejestrem
 (`MISMATCH_REGISTRY` / `FROZEN`) niż na niestabilnym offline checksum.
 Zasada: **nie implementuj checksumu dopóki nie masz 100% pass rate na min.
-3 znanych, real numerach** — i to wciąż nie gwarantuje, że nie złapie false
-positive (jak G8 point w CZ), więc dla SK/SI/BG/etc. wolimy nie ryzykować.
+3 znanych, real numerach** — i upewnij się, że wzór jest przetestowany przeciwko
+oficjalnym specyfikacjom krajowym (tak jak naprawiono CZ IČO dla reszt 1 i 10).
 
 ---
 
@@ -306,4 +324,5 @@ positive (jak G8 point w CZ), więc dla SK/SI/BG/etc. wolimy nie ryzykować.
 |---|---|
 | 2026-08-31 | v1 — spisano po incydencie 19 hallucinated NIP w PL-B + bug w `verify_api.py` (błędna klasyfikacja `NIEPOPRAWNY_NUMER_NIP` jako `FROZEN`) |
 | 2026-08-31 | v2 — dodano zasady dla CZ/SK/RO/BG/HR/SI/RS/LT/LV/EE/FR/MD + tabela pewności checksumów |
-| 2026-08-31 | v3 — live test na real numerach (Mavis): PL/HR/CZ/FR zaimplementowane, RO warunkowo, SK/SI/BG/EE/LV/LT/MD/RS świadomie tylko format-check. Tabela §7 zaktualizowana z % pass rate. Nowe testy: `tests/test_verify_principles.py` (65 testów), `tests/test_verify_run_hallucination.py` (19 testów). Edge case: G8 point s.r.o. (ARES potwierdza firmę ale IČO 06941281 fail mod-11) udokumentowany |
+| 2026-08-31 | v3 — live test na real numerach (Mavis): PL/HR/CZ/FR zaimplementowane, RO warunkowo, SK/SI/BG/EE/LV/LT/MD/RS świadomie tylko format-check. Tabela §7 zaktualizowana z % pass rate. Nowe testy: `tests/test_verify_principles.py` (65 testów), `tests/test_verify_run_hallucination.py` (19 testów) |
+| 2026-09-03 | v4 — ujednolicenie taksonomii (status ∈ {FROZEN, DO-WERYFIKACJI, PENDING_API}, kody powodów ∈ {INVALID_CHECKSUM, INVALID_ID, MISMATCH_REGISTRY, ADDRESS_MISMATCH, NOT_FOUND_ANYWHERE}), usunięcie ad-hoc INVALID_KRS -> INVALID_ID; uściślenie progu fuzzy-match (Token Jaccard ≥ 0.80, zakaz substring match); usunięcie martwej klauzuli w IČO CZ i naprawienie błędu dla reszt 1 i 10 (G8 point 06941281 staje się 100% poprawny, pass rate CZ wzrasta do 9/9 = 100%); obniżenie statusu pewności CUI RO do 'nieprzetestowana (theoretical only)'; dodanie terminalnego kodu NOT_FOUND_ANYWHERE |

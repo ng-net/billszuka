@@ -424,7 +424,10 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
       4. Fuzzy match NIP + name
       5. FROZEN only if all 3 conditions met (per §5)
     """
-    from verify_principles import is_valid_pl_nip, INVALID_CHECKSUM, INVALID_ID, MISMATCH_REGISTRY, FROZEN
+    from verify_principles import (
+        is_valid_pl_nip, INVALID_CHECKSUM, INVALID_ID,
+        MISMATCH_REGISTRY, NOT_FOUND_ANYWHERE, FROZEN
+    )
 
     nip = (row.get("nip_vat") or "").strip()
     rejestr = (row.get("rejestr_id") or "").strip()
@@ -470,7 +473,7 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
 
     # === Fall back to CEIDG (for JDG / sole proprietors) ===
     if not nip:
-        return "DO-WERYFIKACJI", "Brak nip_vat i brak KRS"
+        return "DO-WERYFIKACJI", f"{NOT_FOUND_ANYWHERE}: Brak nip_vat i brak KRS"
     result = ceidg_lookup(nip, token)
     if not result or "error" in result:
         err = result.get("error", "brak") if result else "brak"
@@ -480,7 +483,9 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
         # CEIDG timeout / 401 = PENDING_API (we'll retry)
         if "401" in err or "Request failed" in err:
             return PENDING_API, f"CEIDG: {err}"
-        return "DO-WERYFIKACJI", f"CEIDG: {err}"
+        if "Brak aktywnej firmy" in err or "nie znaleziono" in err:
+            return "DO-WERYFIKACJI", f"{NOT_FOUND_ANYWHERE}: CEIDG {err} (sprawdź KRS / rejestr)"
+        return "DO-WERYFIKACJI", f"{NOT_FOUND_ANYWHERE}: CEIDG: {err}"
 
     # CEIDG returns "imie nazwisko" for JDG — looser check: at least one key token from CSV must appear in API
     csv_nazwa = normalize(csv_nazwa_raw)
@@ -1263,6 +1268,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Live registry verification for BILLSzuka")
     ap.add_argument("--country", help="Limit to one country code (e.g. PL, CZ)")
     ap.add_argument("--all", action="store_true", help="Verify all rows in all countries")
+    ap.add_argument("--force", action="store_true", help="Force re-verification of already FROZEN rows (default: skip FROZEN)")
     ap.add_argument("--dry-run", action="store_true", help="Show what would be verified, write nothing")
     args = ap.parse_args()
 
@@ -1281,6 +1287,7 @@ def main() -> int:
     total_frozen = 0
     total_dov = 0
     total_pending = 0
+    total_skipped = 0
 
     for csv_path in csv_files:
         with open(csv_path, encoding="utf-8") as f:
@@ -1296,6 +1303,13 @@ def main() -> int:
 
             id_ = (row.get("id") or "").strip()
             if not id_:
+                continue
+
+            flagi = (row.get("flagi") or "").strip()
+            # Zasada 1: Bezwzględnie pomijamy rekordy FROZEN bez jawnej flagi --force
+            if not getattr(args, "force", False) and "FROZEN" in flagi:
+                total_frozen += 1
+                total_skipped += 1
                 continue
 
             if country == "PL":
@@ -1394,7 +1408,7 @@ def main() -> int:
                 apollo_enrichments.clear()
 
     log(
-        f"\nTotal: {total_verified} verified — "
+        f"\nTotal: {total_verified} verified ({total_skipped} skipped because already FROZEN) — "
         f"{total_frozen} FROZEN, {total_dov} DO-WERYFIKACJI, "
         f"{total_pending} PENDING_API"
     )
