@@ -53,8 +53,8 @@ export function AtlasGrokView() {
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'stream'
 
   // Fetch URL and Keyword statuses for live radar telemetry
-  const { statusById: urlStatusById } = useUrlStatus(null);
-  const { scanById: keywordById } = useKeywordScan(null);
+  const { byId: urlStatusById = {} } = useUrlStatus(null);
+  const { byId: keywordById = {} } = useKeywordScan(null);
 
   useEffect(() => {
     if (status === "idle") {
