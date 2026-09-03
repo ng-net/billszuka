@@ -31,7 +31,7 @@ import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { useUndoRedo } from "@/lib/useUndoRedo";
 import { debounce } from "@/lib/utils";
 import { classifyBrand } from "@/lib/brand";
-import { toggleFilterValue } from "@/lib/views";
+import { toggleFilterValue, bestLeadsPerCountry } from "@/lib/views";
 
 import { EmptyState } from "./components/EmptyState";
 import { DataTable } from "./components/DataTable";
@@ -62,6 +62,17 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 // columnOrder or columnVisibility — keeping it out of the display path is
 // what makes it "filterable but invisible".
 const SYNTHETIC_BRAND_COL = "__brand";
+
+// Synthetic column id for the "best leads per country" view selector.
+// Lives in `filters` as `__bestInCountry` with value "PL" | "CZ" | "SK" |
+// "OTHER". DataTable uses it as a real column for TanStack filter matching.
+// Rows are augmented once with their country code (or "OTHER" for anything
+// not in {PL, CZ, SK}) so equality matching just works.
+const SYNTHETIC_BEST_IN_COUNTRY_COL = "__bestInCountry";
+
+// Country codes that get their own "Best" view. Anything else collapses
+// into "OTHER" so the synth column has a small, finite value set.
+const PRIMARY_BEST_COUNTRIES = new Set(["PL", "CZ", "SK"]);
 
 // Per-row brand cache keyed on id. Module-scoped so it survives
 // every RawTable mount/unmount cycle within a session: snapshot restore,
@@ -293,19 +304,45 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // id, so snapshot restores / custom-upload rehydrates / view
   // switches skip re-classification after the first pass. Memoized on
   // csv.rows so filter/sort/prefs changes don't re-allocate the array.
+  //
+  // Also stamps __bestInCountry per row. The "Best PL" / "Best CZ" /
+  // "Best SK" / "Best Other" views work by setting a simple equality
+  // filter on this column: rows that are in the top-N for their country
+  // get their country code stamped here; everyone else gets "". This
+  // keeps the filter shape uniform with __brand (no custom filterFn
+  // needed) and makes the saved view definition trivially serializable.
   const rowsWithBrand = useMemo(() => {
     if (!csv.rows || csv.rows.length === 0) return csv.rows;
+    const topByCountry = {
+      PL: new Set(bestLeadsPerCountry(csv.rows, "PL", 25).map((r) => r.id)),
+      CZ: new Set(bestLeadsPerCountry(csv.rows, "CZ", 25).map((r) => r.id)),
+      SK: new Set(bestLeadsPerCountry(csv.rows, "SK", 25).map((r) => r.id)),
+      OTHER: new Set(bestLeadsPerCountry(csv.rows, "OTHER", 25).map((r) => r.id)),
+    };
     return csv.rows.map((r) => {
-      if (r && r[SYNTHETIC_BRAND_COL] !== undefined) return r;
-      return { ...r, [SYNTHETIC_BRAND_COL]: classifyRowCached(r) };
+      if (r && r[SYNTHETIC_BRAND_COL] !== undefined && r[SYNTHETIC_BEST_IN_COUNTRY_COL] !== undefined) {
+        return r;
+      }
+      const k = String(r?.kraj || "").toUpperCase();
+      const bucket = k ? (PRIMARY_BEST_COUNTRIES.has(k) ? k : "OTHER") : "";
+      const bestBucket = bucket && topByCountry[bucket]?.has(r?.id) ? bucket : "";
+      return {
+        ...r,
+        [SYNTHETIC_BRAND_COL]: classifyRowCached(r),
+        [SYNTHETIC_BEST_IN_COUNTRY_COL]: bestBucket,
+      };
     });
   }, [csv.rows]);
 
-  // Columns the DataTable declares — csv.columns plus __brand. The
-  // synthetic entry is what lets saved views (which store
-  // filters: { __brand: "PowerMatic" }) actually narrow the table.
+  // Columns the DataTable declares — csv.columns plus the synthetic
+  // __brand and __bestInCountry columns. The synthetic entries are what
+  // let saved views (which store filters like { __brand: "PowerMatic" }
+  // or { __bestInCountry: "PL" }) actually narrow the table.
   const tableColumnsList = useMemo(
-    () => (csv.columns.length > 0 ? [...csv.columns, SYNTHETIC_BRAND_COL] : csv.columns),
+    () =>
+      csv.columns.length > 0
+        ? [...csv.columns, SYNTHETIC_BRAND_COL, SYNTHETIC_BEST_IN_COUNTRY_COL]
+        : csv.columns,
     [csv.columns]
   );
   // Filter out sort/filter entries that point to columns no longer in the CSV.
@@ -317,15 +354,19 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prefs.sortStack, csv.columns]
   );
-  // Keep `__brand` filter entries (synthetic column) alongside real
-  // CSV columns. The CSV-column sanitizer stays for everything else so
-  // stale filters don't sneak through after a schema change.
+  // Keep `__brand` and `__bestInCountry` filter entries (synthetic
+  // columns) alongside real CSV columns. The CSV-column sanitizer stays
+  // for everything else so stale filters don't sneak through after a
+  // schema change.
   const filters = useMemo(
     () => {
       if (!csv.columns || csv.columns.length === 0) return prefs.filters || {};
       return Object.fromEntries(
         Object.entries(prefs.filters || {}).filter(
-          ([k]) => k === SYNTHETIC_BRAND_COL || csv.columns.includes(k)
+          ([k]) =>
+            k === SYNTHETIC_BRAND_COL ||
+            k === SYNTHETIC_BEST_IN_COUNTRY_COL ||
+            csv.columns.includes(k)
         )
       );
     },

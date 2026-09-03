@@ -51,6 +51,24 @@
   - `npm run build` → **0 błędów (723ms)**
   - `tools/validate_columns.py` → **0 Critical, 0 Warning**
 
+## 2026-09-03 — Sesja 8: Skan porządkowy — dead-code, UX overlap, TODO (Audit Pass)
+
+- **CodeRabbit CLI:** zainstalowany, ale **nie zalogowany** (`coderabbit auth` wymagany przed `--review`). Odłożone — manualna sesja wystarcza na obecnym rozmiarze kodu.
+- **Nieużywane narzędzia (~12 szt.):** skan strukturalny wytypował m.in. `kimi_client.py`, `gen_icons.py`, `build_phrases_v3.py` itd. **Pozostawione** — część może być lazy-importowana w `verify_api.py` (np. providerzy LLM). Decyzja o usunięciu → osobna sesja z `grep` potwierdzającym brak referencji przed `git rm`.
+- **UX overlap:** `frontend-2/src/views/AtlasGrokView.jsx` i `LeadsView.jsx` pokrywają się koncepcyjnie z `ModernLeadsTableV2`. To **decyzja produktowa**, nie code-quality — wytypować 1–2 z trzech i zdeprecjonować pozostałe z redirectem (`<Navigate>` w `App.jsx`).
+- **Stale TODO:** kilka komentarzy `TODO` w `tools/api_server.py` i `tools/verify_run.py` — flag do następnej sesji (nie krytyczne; funkcjonalność działająca).
+- **Brak zmian w kodzie / testach** w tej sesji. Czysty audit.
+
+## 2026-09-03 — Sesja 9: Best-leads-per-country views w tabeli (UX improvement)
+
+- **Cel:** szybki dostęp do najlepszych leadów dla każdego kraju bez ręcznego ustawiania filtrów tier+wolumen+cross-sell.
+- **Implementacja:**
+  - `frontend-2/src/lib/views.js`: nowe `scoreRow()` (sygnały: tier autoryzowany/producent/hurtownik +3, reseller +1, marketplace -3, detalista -1; wolumen duży +3, średni +1; cross_sell High +2, Medium +1; 🟢 +1; powinowactwo wysoki +2, średni +1) oraz `bestLeadsPerCountry(rows, code, limit=25)` zwracające top-N z `score > 0`. Sortowane malejąco.
+  - 4 nowe DEFAULT_VIEWS: `Best PL`, `Best CZ`, `Best SK`, `Best Other` (każdy = `{__bestInCountry: "PL/CZ/SK/OTHER"}`). Bucket `OTHER` = wszystko poza PL/CZ/SK (DE, UK, FR, BG, RO, HR, LT, LV, EE, SI, MD, RS).
+  - `frontend-2/src/raw-table/RawTable.jsx`: nowa syntetyczna kolumna `__bestInCountry` przepuszczona przez `tableColumnsList`, filter sanitizer `filters`, oraz augmentację `rowsWithBrand`. Wiersze z top-25 dla danego kraju dostają `__bestInCountry=<bucket>`, reszta `""` — dzięki temu equality filter w TanStack działa bez custom `filterFn`.
+- **Testy:** `views.test.js` — 6 nowych testów (existence, real-data, marketplace exclusion, OTHER bucket, limit, scoreRow edge cases). Łącznie 70/70 PASS lib + 78/78 PASS components.
+- **Lint:** `oxlint` na 3 zmienionych plikach — 0 warnings, 0 errors.
+
 ## 2026-09-03 — Sesja 6: Utwardzenie reguł weryfikacji NIP/KRS/VAT i silnika verify_api (Rules & Engine Hardening)
 
 - **Audyt i przegląd reguł (`VERIFICATION-RULES.md`):**
