@@ -1398,3 +1398,23 @@ Why the new Worker is not being created:
 - SK: Gemer Pannónia = silny wholesaler, foreign owner (Hungarian likely), silny cross-sell PowerMatic (3/5, już mają 'benzín k plnění' podobny produkt).
 - PL: Luna Corporate (weareszki nikotynowe) i Big Brands Group (FMCG) — oba adjacent, ale warte śledzenia jako kontakty B2B.
 - Promatic & DPM (PL) — niska wiarygodność, ale wpisany dla porządku.
+
+## 2026-09-03 07:05 CEST — Gentle lead search: RO + HR + BG (commit 2/4)
+
+**Zakres i wykonanie:**
+1. **RO** (1 nowy verified → master):
+   - **RO-A-010 TUTUNUL ROMANIA SA** (CUI 18973201) — București. Angro tytoń (CAEN 4635). Od 2006. ⚠️ Bardzo mała firma (3-17 emp, niestabilne przychody). listafirme.ro + termene.ro + risco.ro.
+2. **HR** (1 nowy verified → master):
+   - **HR-A-009 POGON KOOLTURA d.o.o.** (OIB 83711572958, MBS 080952452) — Donji Stupnik k. Zagrzebia. Właściciel MUTUUS d.o.o. Specjalizacja: cigary/cigarillosy/duhan + **MAŠINICE (rolling machines)**. Director Željko Petrić. NKD G46350. ⭐ Pow 4/5 — silny lead cross-sell PowerMatic.
+3. **BG** (2 nowe verified → master):
+   - **BG-A-008 ТАБАК ЛОГИСТИК ГРУП ВРАЦА ООД** (ЕИК 203353623) — Враца. Дистрибуция тютюневи изделия (цигари, пури, пурети). Приходи 5-15M BGN. КИД 46.35. Od 2015.
+   - **BG-A-009 ИМПИРИЪЛ БРАНДС БЪЛГАРИЯ ЕООД** (ЕИК 175071279) — София. Imperial Brands local subsidiary (marki Richmond, Davidoff, West, Superkings, Regal, JPS). Od 2006. Adjacent — duży koncern, raczej nie cross-sell PowerMatic.
+
+**Walidacja:** 0 Critical, 0 Warnings (27 plików, 949 wierszy, master 478 wiersze).
+
+**Pliki:** data/master.csv (gitignored, 474→478), frontend-2/public/master.csv (commit), DZIENNIK.md.
+
+**Kluczowe ustalenia:**
+- HR: Pogon Kooltura = jedyny nowy silny A-lead (pow 4/5). NKD G46350, właściciel MUTUUS, ma asortyment 'MAŠINICE' = rolling machines + papierosy/filtri. Bardzo bliski profilowi klienta PowerMatic.
+- BG: TABAK LOGISTIK GROUP (EИК 203353623) — solidna hurtownia regionalna (Враца, 5-15M BGN), ale brak publicznego kontaktu. Drugi lead (Imperial Brands) to bułgarska spółka córa globalnego koncernu, raczej niski cross-sell.
+- RO: tylko TUTUNUL ROMANIA znaleziony spośród 30+ sprawdzonych źródeł — większość albo w master (PHILIP MORRIS ROMANIA, BRITISH AMERICAN, JTI, IMPERIAL BRANDS, JPB TRADE, BRANDS INTERNATIONAL, ANGROSISTUL), albo w segmencie alkohole (ROMPACK TRADING, 4634), albo paywalled (ONRC brak publicznego dostępu do dyrektorów).
