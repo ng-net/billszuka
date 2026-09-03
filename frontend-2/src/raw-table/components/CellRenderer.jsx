@@ -44,11 +44,16 @@ function HighlightedText({ text, className }) {
 
 const TIER_COLORS = {
   "wyłączność": "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/20",
-  "duży 🟢": "bg-green-500/15 text-green-700 dark:text-green-300 border-green-500/20",
   "duży": "bg-green-500/15 text-green-700 dark:text-green-300 border-green-500/20",
-  "średni 🟡": "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20",
   "średni": "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20",
   "mały": "bg-zinc-500/15 text-zinc-700 dark:text-zinc-300 border-zinc-500/20",
+};
+
+// Confidence (confidence_wolumen) — categorical
+const CONFIDENCE_COLORS = {
+  "Jest NIP": "bg-green-500/15 text-green-700 dark:text-green-300 border-green-500/20",
+  "www bez NIP": "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20",
+  "brak kontaktu": "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/20",
 };
 
 // Affinity to rolling-machine (powinowactwo_nabijarki) — categorical
@@ -73,7 +78,137 @@ const ROLE_COLORS = {
 // Free-text columns where truncation/wrapping is common (notatki, adres,
 // etc.) — hoisted to module scope so the regex compiles once, not on every
 // cell render (this runs thousands of times per table paint).
-const LONG_TEXT_COLUMNS = /^(notatki|adres|marki_nabijarki|marka_wlasna_oem|sourcing|kanal_sprzedaży|zrodlo_danych|decydent|stanowisko|email_decydent|kanal_zamiennik|flagi|cross_sell_potential|wolumen|confidence_wolumen|notatki)$/i;
+const LONG_TEXT_COLUMNS = /^(notatki|adres|marka_wlasna_oem|sourcing|kanal_sprzedaży|zrodlo_danych|decydent|stanowisko|email_decydent|kanal_zamiennik|flagi|cross_sell_potential|wolumen|confidence_wolumen|notatki)$/i;
+
+// Separator dla wielu wartości w jednej komórce (marki_nabijarki, flagi,
+// kanały, sourcing, related_to, zrodlo_danych). Akceptuje
+// "PowerMatic | Hawk", "PowerMatic,Hawk", "PowerMatic; Hawk", itd.
+// Trailing whitespace ucinamy; puste wpisy pomijamy.
+const MULTI_VALUE_SPLIT_RE = /\s*[|,;\/]\s*/;
+
+// Rozwija skróconą listę modeli jednej marki do pełnych nazw.
+// "PowerMatic I, II+, III+, IV, V" → ["PowerMatic I", "PowerMatic II+",
+// "PowerMatic III+", "PowerMatic IV", "PowerMatic V"]
+// "Hawk HK-1, HK-2, HK-3" → ["Hawk HK-1", "Hawk HK-2", "Hawk HK-3"]
+// Dopasowuje marki: PowerMatic / Powermatic (case-insensitive)
+// oraz Hawk / Gerui / Shark / Mascotte / OCB / Gizeh / Korona / Cartel /
+// Don Pealo. Każda marka ma własny wzorzec; nierozpoznane fragmenty
+// zostają jak są (jeden chunk → jeden pill).
+const BRAND_MODEL_EXPANDERS = [
+  // PowerMatic — warianty modeli: 1+ | 2+ | 3+ | 4 | 5 | V | Mini
+  {
+    test: /^PowerMatic\b/i,
+    tokens: ["Mini", "I", "II+", "II", "III+", "III", "IV", "V", "V+", "1+", "2", "3", "3+", "4"],
+  },
+  // Hawk — warianty: HK-1, HK-2, HK-3, Mini, Pro
+  {
+    test: /^Hawk\b/i,
+    tokens: ["HK-1", "HK-2", "HK-3", "Mini", "Pro", "X"],
+  },
+];
+
+/**
+ * Dzieli wartość komórki marki_nabijarki na listę pełnych nazw modeli.
+ * Obsługuje zarówno separator "|" (inne marki), jak i przecinki w liście
+ * modeli jednej marki ("PowerMatic I, II+, III+").
+ */
+function expandMarkiNabijarki(value) {
+  if (!value) return [];
+  // 1. Najpierw rozbij po "|", ";" albo "/" — to rozdziela różne marki.
+  //    Przecinek zostawiamy na później, bo listy modeli go używają.
+  const brandChunks = String(value)
+    .split(/\s*[|;\/]\s*/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const result = [];
+  for (const chunk of brandChunks) {
+    // 2. Jeśli chunk zaczyna się od rozpoznanej marki i dalej ma
+    //    przecinki → rozbij po przecinkach i rozwiń do pełnych nazw.
+    const expander = BRAND_MODEL_EXPANDERS.find((e) => e.test.test(chunk));
+    if (expander && chunk.includes(",")) {
+      // "PowerMatic I, II+, III+" → ["I", "II+", "III+"] → ["PowerMatic I", ...]
+      const rest = chunk.replace(expander.test, "").trim();
+      const tokens = rest
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const brand = chunk.match(expander.test)[0]; // oryginalna nazwa marki
+      for (const t of tokens) {
+        // Jeśli token sam wygląda jak pełna nazwa (np. "PowerMatic Mini"),
+        // nie doklejaj marki drugi raz.
+        if (/^[A-Z]/.test(t) && !expander.tokens.includes(t)) {
+          result.push(t);
+        } else {
+          result.push(`${brand} ${t}`);
+        }
+      }
+    } else {
+      result.push(chunk);
+    }
+  }
+  return result;
+}
+
+/**
+ * Sprawdza czy wartość wygląda na listę wielu pozycji (zawiera separator
+ * z MULTI_VALUE_SPLIT_RE). Służy do decyzji czy renderować listę pilli
+ * czy pojedynczy element.
+ */
+function looksLikeList(value) {
+  if (!value) return false;
+  return MULTI_VALUE_SPLIT_RE.test(String(value));
+}
+
+/**
+ * Renderuje jeden lub więcej elementów jako pilli (Badge). Bez labelu
+ * kolumny. Klik kopiuje dany element.
+ *
+ * - 0 elementów → null
+ * - 1 element    → pojedynczy Badge
+ * - N elementów  → flex-wrap listy Badge
+ */
+function PillsList({ items, titlePrefix = "" }) {
+  if (!items || items.length === 0) return null;
+  if (items.length === 1) {
+    const single = items[0];
+    return (
+      <Badge
+        variant="outline"
+        title={titlePrefix ? `${titlePrefix}: ${single}` : `${single} — kliknij, żeby skopiować`}
+        onClick={(e) => {
+          e.stopPropagation();
+          copyToClipboard(single);
+          toast.success(`Skopiowano: ${single}`, { duration: 1200 });
+        }}
+        className="font-normal text-xs cursor-pointer hover:bg-accent"
+      >
+        {single}
+      </Badge>
+    );
+  }
+  return (
+    <span
+      className="inline-flex flex-wrap gap-1 max-w-full"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {items.map((m, i) => (
+        <Badge
+          key={`${m}-${i}`}
+          variant="outline"
+          title={titlePrefix ? `${titlePrefix}: ${m}` : `${m} — kliknij, żeby skopiować`}
+          onClick={() => {
+            copyToClipboard(m);
+            toast.success(`Skopiowano: ${m}`, { duration: 1200 });
+          }}
+          className="font-normal text-xs cursor-pointer hover:bg-accent"
+        >
+          {m}
+        </Badge>
+      ))}
+    </span>
+  );
+}
 
 function copyToClipboard(text) {
   if (navigator.clipboard?.writeText) {
@@ -344,6 +479,20 @@ export const CellRenderer = memo(function CellRenderer({
     );
   }
 
+  // Confidence (confidence_wolumen) — categorical badge
+  if (columnId === "confidence_wolumen" && CONFIDENCE_COLORS[display]) {
+    return (
+      <Badge
+        variant="outline"
+        title="Pewność wolumenu — kliknij, żeby skopiować"
+        onClick={handleClick}
+        className={`${CONFIDENCE_COLORS[display]} font-normal text-xs cursor-pointer`}
+      >
+        {display}
+      </Badge>
+    );
+  }
+
   // Affinity (powinowactwo_nabijarki) — categorical badge
   if (AFFINITY_COLORS[display]) {
     return (
@@ -397,8 +546,32 @@ export const CellRenderer = memo(function CellRenderer({
     );
   }
 
+  // Kolumny-asortyment: wiele wartości w jednej komórce rozdzielonych
+  // "|", ",", ";", "/" — każda renderowana jako osobny pill (Badge).
+  // Pojedyncza wartość → też pill (spójność wizualna). notatki celowo
+  // pominięte — to akapity, nie assety.
+  const PILLIFY_COLUMNS = new Set([
+    "marki_nabijarki",
+    "flagi",
+    "kanal_sprzedaży",
+    "kanal_zamiennik",
+    "marka_wlasna_oem",
+    "sourcing",
+    "related_to",
+    "zrodlo_danych",
+  ]);
+  if (PILLIFY_COLUMNS.has(columnId) && looksLikeList(display)) {
+    // marki_nabijarki ma własny splitter — rozwija "PowerMatic I, II+, III+"
+    // na osobne pilli per model.
+    const items =
+      columnId === "marki_nabijarki"
+        ? expandMarkiNabijarki(display)
+        : display.split(MULTI_VALUE_SPLIT_RE).map((s) => s.trim()).filter(Boolean);
+    return <PillsList items={items} />;
+  }
+
   // Long text → popover with full content. Threshold: 30 chars OR a free-text
-  // type column (where truncation is common: notatki, adres, marki_nabijarki, etc.)
+  // type column (where truncation is common: notatki, adres, marka_wlasna_oem, etc.)
   const isLong = display.length > 30 || LONG_TEXT_COLUMNS.test(columnId);
   if (isLong) {
     return (

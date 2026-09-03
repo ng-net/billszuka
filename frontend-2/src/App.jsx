@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   AlertCircle,
   Command as CommandIcon,
-  Keyboard,
   Sun,
   Moon,
   Monitor,
@@ -59,7 +58,7 @@ import { cn } from "@/lib/utils";
  *
  * 3-pane layout:
  *   - Header (sticky): product name, Katalog/Analityka tabs, Skróty, Motyw,
- *     HealthBadge (fallback chain + #kluczy), Baza wiedzy, Command palette (⌘K),
+ *     HealthBadge (fallback chain + #kluczy), Baza wiedzy, Command palette,
  *     Settings gear, Upload button.
  *   - Active view (Katalog = RawTable CSV viewer, Analityka = dashboards).
  *   - Gemini FAB (chat panel, bottom-right).
@@ -91,7 +90,6 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [filesOpen, setFilesOpen] = useState(false);
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
-  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [theme, setTheme] = useState(() => loadPrefs().theme || "system");
   const [vault, setVault] = useState(null); // redacted vault snapshot
   const [vaultError, setVaultError] = useState(null);
@@ -134,20 +132,6 @@ export default function App() {
     setTheme(t);
     const prefs = loadPrefs();
     savePrefs({ ...prefs, theme: t });
-  }, []);
-
-  // Global shortcut listeners (? for help)
-  useEffect(() => {
-    const handler = (e) => {
-      const tag = e.target.tagName?.toLowerCase();
-      const isInput = tag === "input" || tag === "textarea" || e.target.isContentEditable;
-      if (e.key === "?" && !isInput) {
-        e.preventDefault();
-        setShortcutsOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   // Ref to the active TableView, used to trigger its command palette
@@ -260,42 +244,6 @@ export default function App() {
           </nav>
         </div>
         <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setShortcutsOpen(true)}
-            aria-label="Skróty klawiszowe"
-            title="Skróty klawiszowe (?)"
-            className="hidden sm:inline-flex"
-          >
-            <Keyboard className="h-4 w-4" />
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Motyw"
-                title="Motyw"
-              >
-                {theme === "light" && <Sun className="h-4 w-4" />}
-                {theme === "dark" && <Moon className="h-4 w-4" />}
-                {theme === "system" && <Monitor className="h-4 w-4" />}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Motyw</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleThemeChange("light")}>
-                <Sun className="h-4 w-4 mr-2" /> Jasny {theme === "light" && "✓"}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
-                <Moon className="h-4 w-4 mr-2" /> Ciemny {theme === "dark" && "✓"}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleThemeChange("system")}>
-                <Monitor className="h-4 w-4 mr-2" /> Systemowy {theme === "system" && "✓"}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -340,6 +288,26 @@ export default function App() {
                 <span className="flex-1">Historia sesji</span>
                 <span className="text-[10px] text-muted-foreground hidden sm:inline">Zrzuty + logowania</span>
               </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  {theme === "light" && <Sun className="h-4 w-4 mr-2" />}
+                  {theme === "dark" && <Moon className="h-4 w-4 mr-2" />}
+                  {theme === "system" && <Monitor className="h-4 w-4 mr-2" />}
+                  <span className="flex-1">Motyw</span>
+                  <span className="text-[10px] text-muted-foreground capitalize">{theme}</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem onClick={() => handleThemeChange("light")}>
+                    <Sun className="h-4 w-4 mr-2" /> Jasny {theme === "light" && "✓"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
+                    <Moon className="h-4 w-4 mr-2" /> Ciemny {theme === "dark" && "✓"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleThemeChange("system")}>
+                    <Monitor className="h-4 w-4 mr-2" /> Systemowy {theme === "system" && "✓"}
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <Bookmark className="h-4 w-4 mr-2" />
@@ -399,8 +367,8 @@ export default function App() {
               variant="ghost"
               size="icon"
               onClick={() => tableRef.current?.openCommandPalette()}
-              aria-label="Polecenia (⌘K)"
-              title="Polecenia (⌘K)"
+              aria-label="Polecenia"
+              title="Polecenia"
               className="hidden sm:inline-flex"
             >
               <CommandIcon className="h-4 w-4" />
@@ -448,32 +416,6 @@ export default function App() {
           </Suspense>
         </ErrorBoundary>
       </main>
-
-      <Dialog open={shortcutsOpen} onOpenChange={setShortcutsOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Skróty klawiszowe</DialogTitle>
-            <DialogDescription>Szybsze nawigowanie po katalogu</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3 text-sm">
-            {[
-              ["⌘K", "Polecenia"],
-              ["⌘O", "Upload CSV"],
-              ["⌘F", "Fokus na filtr kolumny"],
-              ["D", "Zmień gęstość"],
-              ["R", "Wyczyść filtry i sortowanie"],
-              ["↑ ↓", "Nawigacja po wierszach"],
-              ["Esc", "Wyczyść fokus / zamknij"],
-              ["?", "Pokaż te skróty"],
-            ].map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between gap-3 py-1">
-                <span className="text-muted-foreground">{v}</span>
-                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono min-w-[3rem] text-center">{k}</kbd>
-              </div>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
 
       <GeminiDrawer
         onOpenSettings={() => setSettingsOpen(true)}

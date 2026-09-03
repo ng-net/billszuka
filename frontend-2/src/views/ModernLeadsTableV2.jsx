@@ -269,7 +269,6 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   const [maskNames, setMaskNames] = useState(true);
 
   const filterBarRef = useRef(null);
-  const searchInputRef = useRef(null);
 
   // useUrlStatus/useKeywordScan: pass null/empty so the hook loads all rows
   // once (the per-row filtering happens in JS). This keeps the multi-country
@@ -280,22 +279,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   const { byId: urlStatusById } = useUrlStatus(urlCountryArg);
   const { byId: keywordById } = useKeywordScan(urlCountryArg);
 
-  // ⌘K / Ctrl+K to focus the search input
-  useEffect(() => {
-    const onKey = (e) => {
-      const isK = e.key === "k" || e.key === "K";
-      const meta = e.metaKey || e.ctrlKey;
-      if (isK && meta) {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-        searchInputRef.current?.select?.();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  // Close dropdowns on click outside or Escape
+  // Close dropdowns on click outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (filterBarRef.current && !filterBarRef.current.contains(e.target)) {
@@ -305,19 +289,9 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
         setConfidenceDropdownOpen(false);
       }
     };
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setCountryDropdownOpen(false);
-        setTierDropdownOpen(false);
-        setUrlDropdownOpen(false);
-        setConfidenceDropdownOpen(false);
-      }
-    };
     document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -686,16 +660,8 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Szukaj po nazwie, NIP, decydencie, telefonie lub mieście..."
-              className="w-full pl-10 pr-20 py-2 bg-muted/40 border border-input rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-1 focus:ring-primary/30 outline-none transition-all"
+              className="w-full pl-10 pr-10 py-2 bg-muted/40 border border-input rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-1 focus:ring-primary/30 outline-none transition-all"
             />
-            {!searchQuery && (
-              <kbd
-                aria-label="Skrót klawiaturowy: Command lub Control + K"
-                className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-muted-foreground bg-card border border-border rounded shadow-sm pointer-events-none"
-              >
-                ⌘K
-              </kbd>
-            )}
             {searchQuery && (
               <button
                 type="button"

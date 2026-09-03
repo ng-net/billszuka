@@ -190,12 +190,10 @@ test("ModernLeadsTableV2: correctly computes brand counters for dual brand lead"
 // filter, ⌘K shortcut, Lucide icons in URL dropdown, empty state
 // ---------------------------------------------------------------------------
 
-test("ModernLeadsTableV2: shows ⌘K hint in search input", () => {
+test("ModernLeadsTableV2: search input has no keyboard hint", () => {
   const html = renderToStaticMarkup(<ModernLeadsTableV2 leads={sampleLeads} />);
-  // The kbd element with class hinting at ⌘K
-  assert.match(html, /⌘K|cmdK|cmdk/i);
-  // Should be inside a kbd element (semantic)
-  assert.match(html, /<kbd/);
+  // Keyboard shortcuts were removed — ⌘K hint should no longer be present
+  assert.doesNotMatch(html, /⌘K/);
 });
 
 test("ModernLeadsTableV2: has confidence filter dropdown", () => {

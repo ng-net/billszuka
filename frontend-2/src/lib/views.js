@@ -99,7 +99,7 @@ export const DEFAULT_VIEWS = [
  *   - wolumen == "średni"                              → +1
  *   - cross_sell_potential == "High"                  → +2
  *   - cross_sell_potential == "Medium"                → +1
- *   - confidence_wolumen is "🟢"                       → +1
+ *   - confidence_wolumen is "Jest NIP"                → +1
  *   - powinowactwo_nabijarki == "wysoki"              → +2
  *   - powinowactwo_nabijarki == "średni"              → +1
  *   - tier == "marketplace"                           → -3  (excluded by default)
@@ -126,7 +126,7 @@ export function scoreRow(row) {
   if (cs === "high") score += 2;
   else if (cs === "medium") score += 1;
 
-  if (String(row.confidence_wolumen || "").trim() === "🟢") score += 1;
+  if (String(row.confidence_wolumen || "").trim() === "Jest NIP") score += 1;
 
   const pow = String(row.powinowactwo_nabijarki || "").toLowerCase();
   if (pow === "wysoki") score += 2;

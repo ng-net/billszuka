@@ -10,7 +10,6 @@ import {
 import {
   DndContext,
   PointerSensor,
-  KeyboardSensor,
   useSensor,
   useSensors,
   closestCenter,
@@ -75,8 +74,7 @@ export function DataTable({
   );
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
-    useSensor(KeyboardSensor)
+    useSensor(PointerSensor, { activationConstraint: { distance: 4 } })
   );
 
   const tableContainerRef = useRef(null);
@@ -383,6 +381,10 @@ export function DataTable({
                   const enumVals = enumValuesByColumn[column.id];
                   const stickyLeft = j < STICKY_COLS_MOBILE ? stickyLeftOffsets[j] : null;
                   const isDivider = DIVIDER_AFTER_COLS.includes(column.id);
+                  // Kraju nie filtrujemy per-kolumna — służy do tego
+                  // CountryPills nad tabelą. Pusta komórka zachowuje
+                  // sticky/width/divider jak inne kolumny.
+                  const showFilter = column.id !== "kraj";
                   return (
                     <th
                       key={column.id}
@@ -397,14 +399,16 @@ export function DataTable({
                         stickyLeft != null && "sticky z-20 bg-muted/30 md:static"
                       )}
                     >
-                      <FilterInput
-                        columnId={column.id}
-                        type={colType}
-                        value={filters[column.id]}
-                        onChange={(v) => updateColumnFilter(column.id, v)}
-                        enumValues={enumVals}
-                        placeholder={`Filtruj ${column.id.replace(/_/g, " ")}…`}
-                      />
+                      {showFilter && (
+                        <FilterInput
+                          columnId={column.id}
+                          type={colType}
+                          value={filters[column.id]}
+                          onChange={(v) => updateColumnFilter(column.id, v)}
+                          enumValues={enumVals}
+                          placeholder={`Filtruj ${column.id.replace(/_/g, " ")}…`}
+                        />
+                      )}
                     </th>
                   );
                 })}

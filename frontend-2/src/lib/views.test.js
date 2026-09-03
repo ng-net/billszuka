@@ -174,7 +174,7 @@ test("best-per-country views: each returns rows when data exists for that countr
 
 test("bestLeadsPerCountry: excludes marketplace and detalista rows by score", () => {
   const data = [
-    { id: "a", kraj: "PL", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢", powinowactwo_nabijarki: "wysoki" },
+    { id: "a", kraj: "PL", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "Jest NIP", powinowactwo_nabijarki: "wysoki" },
     { id: "b", kraj: "PL", tier: "marketplace", wolumen: "duży" },
     { id: "c", kraj: "PL", tier: "detalista" },
     { id: "d", kraj: "PL", tier: "producent", wolumen: "średni" },
@@ -186,10 +186,10 @@ test("bestLeadsPerCountry: excludes marketplace and detalista rows by score", ()
 
 test("bestLeadsPerCountry: OTHER bucket = non-PL/CZ/SK", () => {
   const data = [
-    { id: "1", kraj: "PL", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
-    { id: "2", kraj: "DE", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
-    { id: "3", kraj: "UK", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
-    { id: "4", kraj: "CZ", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "🟢" },
+    { id: "1", kraj: "PL", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "Jest NIP" },
+    { id: "2", kraj: "DE", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "Jest NIP" },
+    { id: "3", kraj: "UK", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "Jest NIP" },
+    { id: "4", kraj: "CZ", tier: "hurtownik", wolumen: "duży", cross_sell_potential: "High", confidence_wolumen: "Jest NIP" },
   ];
   const best = bestLeadsPerCountry(data, "OTHER", 25);
   const ids = best.map((r) => r.id).sort();
@@ -203,7 +203,7 @@ test("bestLeadsPerCountry: respects limit", () => {
     tier: "hurtownik",
     wolumen: "duży",
     cross_sell_potential: "High",
-    confidence_wolumen: "🟢",
+    confidence_wolumen: "Jest NIP",
     powinowactwo_nabijarki: "wysoki",
   }));
   const best = bestLeadsPerCountry(data, "PL", 3);

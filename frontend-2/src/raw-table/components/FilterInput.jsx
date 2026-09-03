@@ -63,9 +63,9 @@ const ENUM_DESCRIPTIONS = {
     mały: "Mniejsza skala / detal",
   },
   confidence_wolumen: {
-    "🟢": "Wysoka pewność (zweryfikowane)",
-    "🟡": "Średnia pewność (szacunki)",
-    "🔴": "Niska pewność (do weryfikacji)",
+    "Jest NIP": "Wysoka pewność (zweryfikowane)",
+    "www bez NIP": "Średnia pewność (szacunki)",
+    "brak kontaktu": "Niska pewność (do weryfikacji)",
   },
   rynek_skala: {
     duży: "Duży rynek (PL, CZ, FR)",

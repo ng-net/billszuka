@@ -7,8 +7,8 @@ import { RawTable } from "@/raw-table/RawTable";
  * App-level shell can render alongside. Keeps its own CSV loading state —
  * the RawTable already manages dropzone + sample.csv loading.
  *
- * Forwards an imperative handle so the App-level navbar (e.g. ⌘K button
- * next to the gear) can open the command palette without prop-drilling
+ * Forwards an imperative handle so the App-level navbar (the command
+ * palette button next to the gear) can open it without prop-drilling
  * its visibility state through here. RawTable is already behind
  * React.lazy() + Suspense at the App level, so no local mount gate is
  * needed here — by the time this renders, the chunk is loaded.

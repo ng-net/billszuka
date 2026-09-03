@@ -20,6 +20,12 @@ const COLUMN_LABELS = {
   zrodlo_danych: "Źródło",
 };
 
+const CONFIDENCE_COLORS = {
+  "Jest NIP": "bg-green-500/15 text-green-700 dark:text-green-300 border-green-500/20 hover:border-green-500/30",
+  "www bez NIP": "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20 hover:border-amber-500/30",
+  "brak kontaktu": "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/20 hover:border-rose-500/30",
+};
+
 export function ActiveFilterChips({
   filters = {},
   globalSearch = "",
@@ -114,26 +120,41 @@ export function ActiveFilterChips({
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5">
-        {chips.map((chip) => (
-          <span
-            key={chip.id}
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-brand-muted text-brand-muted-foreground border border-brand-muted-foreground/20 hover:border-brand-muted-foreground/30 transition-colors"
-          >
-            <span className="opacity-70 text-[10.5px] uppercase font-semibold truncate max-w-[8rem]">
-              {chip.label}:
-            </span>
-            <span className="font-semibold truncate max-w-[10rem]">{chip.display}</span>
-            <button
-              type="button"
-              onClick={chip.onRemove}
-              aria-label={`Usuń filtr ${chip.label}: ${chip.display}`}
-              title={`Usuń filtr ${chip.label}: ${chip.display}`}
-              className="ml-0.5 inline-flex h-7 w-7 sm:h-6 sm:w-6 items-center justify-center rounded hover:bg-brand-muted-foreground/20 text-brand transition-colors cursor-pointer"
+        {chips.map((chip) => {
+          const isConfidenceWolumen = chip.colId === "confidence_wolumen";
+          const pillClass = isConfidenceWolumen ? CONFIDENCE_COLORS[chip.display] : null;
+
+          return (
+            <span
+              key={chip.id}
+              className={cn(
+                "inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium border transition-colors",
+                pillClass
+                  ? pillClass
+                  : "bg-brand-muted text-brand-muted-foreground border-brand-muted-foreground/20 hover:border-brand-muted-foreground/30"
+              )}
             >
-              <X size={12} />
-            </button>
-          </span>
-        ))}
+              <span className="opacity-70 text-[10.5px] uppercase font-semibold truncate max-w-[8rem]">
+                {chip.label}:
+              </span>
+              <span className="font-semibold truncate max-w-[10rem]">{chip.display}</span>
+              <button
+                type="button"
+                onClick={chip.onRemove}
+                aria-label={`Usuń filtr ${chip.label}: ${chip.display}`}
+                title={`Usuń filtr ${chip.label}: ${chip.display}`}
+                className={cn(
+                  "ml-0.5 inline-flex h-7 w-7 sm:h-6 sm:w-6 items-center justify-center rounded transition-colors cursor-pointer",
+                  pillClass
+                    ? "hover:bg-current/10 text-current"
+                    : "hover:bg-brand-muted-foreground/20 text-brand"
+                )}
+              >
+                <X size={12} />
+              </button>
+            </span>
+          );
+        })}
 
         <button
           type="button"

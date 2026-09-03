@@ -284,17 +284,17 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [prefs]);
 
   // Initialize column order from CSV columns when loaded.
-  // Move id and nazwa to the front (sticky on mobile).
-  // We derive from prefs + csv.columns instead of mirroring into prefs —
-  // this is a one-time migration done on the fly, and avoids the
-  // setState-in-effect antipattern.
+  // Pin id, kraj, nazwa to the front (id pierwsze jako identyfikator,
+  // potem kraj dla grupowania, na końcu nazwa do szybkiego skanowania)
+  // — nawet gdy użytkownik ma stary columnOrder w localStorage sprzed
+  // tej reguły. Migracja na locie, bez setState-in-effect.
   const rawColumnOrder = prefs.columnOrder;
   const columnOrder = useMemo(() => {
     if (!csv.columns || csv.columns.length === 0) return rawColumnOrder || [];
     const base = rawColumnOrder && rawColumnOrder.length > 0 && rawColumnOrder.every((c) => csv.columns.includes(c))
       ? rawColumnOrder
       : csv.columns;
-    const pinned = ["id", "nazwa"].filter((c) => base.includes(c));
+    const pinned = ["id", "kraj", "nazwa"].filter((c) => base.includes(c));
     const rest = base.filter((c) => !pinned.includes(c));
     return [...pinned, ...rest];
   }, [rawColumnOrder, csv.columns]);
@@ -537,68 +537,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [csv.status]);
 
-  // Keyboard shortcuts
-  useEffect(() => {
-    const handler = (e) => {
-      // ignore if typing in input
-      const tag = e.target.tagName?.toLowerCase();
-      const isInput = tag === "input" || tag === "textarea" || e.target.isContentEditable;
-      const mod = e.metaKey || e.ctrlKey;
-
-      if (mod && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setPaletteOpen(true);
-        return;
-      }
-      if (mod && e.key.toLowerCase() === "o") {
-        e.preventDefault();
-        document.querySelector('input[type="file"]')?.click();
-        return;
-      }
-      if (mod && e.key.toLowerCase() === "f" && !isInput) {
-        e.preventDefault();
-        if (focusedColumn) {
-          // focus the filter for the focused column
-          const el = document.querySelector(`[data-col-filter="${focusedColumn}"] input`);
-          el?.focus();
-        }
-        return;
-      }
-      if (e.key === "Escape") {
-        if (paletteOpen) setPaletteOpen(false);
-        else if (globalSearch) onGlobalSearchChange("");
-        return;
-      }
-      if (isInput) return;
-      if (e.key.toLowerCase() === "d") {
-        e.preventDefault();
-        setDensity(prefs.density === "compact" ? "comfortable" : "compact");
-        toast.success(`Gęstość: ${prefs.density === "compact" ? "wygodna" : "kompaktowa"}`, { duration: 1000 });
-        return;
-      }
-      if (e.key.toLowerCase() === "r" && !mod) {
-        e.preventDefault();
-        setFilters({});
-        setSortStack([]);
-        setGlobalFilter("");
-        setGlobalSearch("");
-        toast.success("Wyczyszczono filtry i sortowanie", { duration: 1000 });
-        return;
-      }
-      // Arrow keys for row nav
-      if (e.key === "ArrowDown" && csv.status === "ready") {
-        e.preventDefault();
-        setSelectedRowIndex((i) => Math.min(i + 1, csv.rows.length - 1));
-      } else if (e.key === "ArrowUp" && csv.status === "ready") {
-        e.preventDefault();
-        setSelectedRowIndex((i) => Math.max(i - 1, 0));
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [prefs.density, paletteOpen, focusedColumn, globalSearch, csv.status, csv.rows.length, setDensity, setFilters, setSortStack]);
-
-  // Expose methods for App-level controls (⌘K, Upload, etc.)
+  // Expose methods for App-level controls (command palette, Upload, etc.)
   useImperativeHandle(ref, () => ({
     openCommandPalette: () => setPaletteOpen(true),
     loadFile: (file) => csv.loadFile(file),
