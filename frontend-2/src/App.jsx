@@ -19,6 +19,7 @@ import {
   History,
   Bookmark,
   Library,
+  Compass,
 } from "lucide-react";
 import { getActiveProfile, setActiveProfile } from "@/lib/auth";
 import { ProfileSelector } from "@/components/ProfileSelector";
