@@ -27,6 +27,8 @@
 | # | Odkrycie | Wpływ |
 |---|---|---|
 | 🐋 | **Sanitex group (LT/LV/EE)** = 1 partner otwiera rynek bałtycki (~7M konsumentów, 3 kraje) | Strategiczny |
+| 🇸🇰 | **SK — ORSR + VIES workflow działa** (2026-09-03 batch 4/4 s.r.o. FROZEN: Domenico Cigar, AHILOK, P3Com, KON-RAD). Cross-check z catalogiem wykazał brak duplikatów — rynek SK jeszcze nie wyczerpany. | Pipeline |
+| 🇭🇷 | **Veletabak d.o.o. (HR) = Imperial Brands generalni distributer** dla HR + EU (vlasnik MERCATA VT Novi Sad). Asortyment: Rizla, papirčki za zvijanje, filtri, duhanski pribor. NKD 46350. Temeljni kapital €1.49M. | Partner kanałowy |
 | 💡 | **Rynek PL jest płytki**: 30 produktów "Nabijarki" na Ceneo, średnia 121 zł — miejsce na nowe marki | Szanse |
 | ⚠️ | **PowerMatic** = 2 opinie 2.5/5 na Ceneo = otwarta pozycja do budowy zaufania | Pozycja |
 | 💡 | **#tiktokpolska** = 18.6k wyświetleń/post (najwyższy engagement w polskim TikToku) | Kanał |

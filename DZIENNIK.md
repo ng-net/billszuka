@@ -27,6 +27,52 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-09-03 — Sesja 2: SK świeże leady + weryfikacja ORSR/VIES
+
+- **Web search batch (web_search tool):** znaleziono 6 nowych leadów SK
+  (Tabako Komárno, Domenico Cigar, AHILOK/SmokeShop, P3Com/SmokeCentrum,
+  KON-RAD, RNDr. Funka Pezinok). Cross-check z istniejącym SK katalogiem
+  potwierdził, że są nowe (GGT, M+M, DL Lauko, Geco, TTI, Continental,
+  Tabak Invest, Noba-Smoker, DanCzek, Crazy Shopping już w katalogu).
+- **Weryfikacja rejestrowa (ORSR fetch_all.py + VIES):**
+  - SK-B-019 Domenico Cigar s.r.o. (IČO 43827861) — ORSR ✅, VIES ✅
+  - SK-B-020 AHILOK s.r.o. (IČO 46402306) — ORSR ✅, VIES ❌ (brak rejestracji VAT-EU)
+  - SK-B-021 P3Com s.r.o. (IČO 36812188) — ORSR ✅, VIES ✅
+  - SK-B-022 KON-RAD spol. s r.o. (IČO 00684104) — ORSR ✅, VIES ✅, RegisterUZ ✅
+  - SK-B-023 RNDr. Igor Funka (IČO 33499993) — živnosť, ORSR brak (poprawka statusu)
+  - SK-B-024 Tabako Komárno — brak IČO, web down, ORSR no match → DO-WERYFIKACJI
+- **Output:** zapisane do `data/Słowacja/extra-leads-SK.csv` (8 wierszy:
+  2 istniejące SK-X-001/002 + 6 nowych SK-B-019..024).
+- **Notatka operacyjna:** ORSR wyszukiwanie po nazwie wymaga
+  POST z `typ_hladania=zaciatok` (formularz). Skrypt `fetch_all.py`
+  w wersji single-lookup (`lookup <IČO>`) działa poprawnie, ale
+  wyszukiwanie po nazwie nie jest zaimplementowane w CLI — trzeba
+  najpierw znaleźć IČO przez FinStat/web, potem ORSR.
+
+## 2026-09-03 — Sesja 3: Real search v2 (HR+LV+BG batch)
+
+- **Narzędzia użyte:** `dedup_check.py` (fuzzy wstęp), `registry_lookup.py`
+  (EE ARIREGISTER live, CZ/LT manual via web), `score_powinowactwo.py`
+  (deterministyczny 1-5), `validate_columns.py` (0/0 przed commitem).
+- **Web search batch 1 (6 rynków):** HR/LV/MD/BG/SI/PL — 12 kandydatów
+  z sygnałem ROLLER/NACE 4635.
+- **Web search batch 2 (EE/LT/CZ/SK/RO/RS):** kolejne 15 kandydatów.
+- **Dodane do master.csv (4 nowe wiersze):**
+  - **HR-B-019 VELETABAK d.o.o.** (Zagreb, OIB 22051418553, NKD 46350,
+    Imperial Brands generalni distributer za HR i EU, vlasnik MERCATA VT
+    iz Novog Sada, temeljni kapital €1.489.250, pow=3, kategoria B8).
+  - **HR-B-020 Nostri Maris d.o.o.** (Nečujam/Šolta + skladište Samobor,
+    veleprodajni distributer duhanskog pribora, 1000+ artikala, 2014+,
+    pow=3, kategoria B4).
+  - **LV-B-011 SIA RASTA 1** (Rīga, 25+ let wholesale tobacco + aksesuāri,
+    pow=3, kategoria B8).
+  - **BG-A-010 ТАБАКО ТРЕЙД ВАРНА ООД** (PROMOCJA z B-017 → A-010:
+    NACE 4635 explicit, 1992, krajowy hurtownik + importer, marki
+    Rizla/Smoking/OCB/Mascotte/Gizeh, pow=4, kategoria A4).
+- **Master.csv:** 484 → 488 wierszy (35 kol).
+- **Validation:** 0 Critical / 0 Warning.
+- **Commit:** `real search v2: HR+LV+BG — 4 verified leads (3 B-tier + 1 A promotion)`.
+
 ## 2026-09-03 — Unified Authentication, UI Performance Optimization, Catalog Consolidation & Deploy Prep
 
 - **Unifikacja sesji logowania (Single-Step Login):**
