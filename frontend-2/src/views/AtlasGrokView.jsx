@@ -43,6 +43,7 @@ function maskName(str) {
 
 export function AtlasGrokView() {
   const csv = useCsv();
+  const { status, loadUrl } = csv;
   const [search, setSearch] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [selectedBrand, setSelectedBrand] = useState("ALL");
@@ -56,12 +57,12 @@ export function AtlasGrokView() {
   const { scanById: keywordById } = useKeywordScan(null);
 
   useEffect(() => {
-    if (csv.status === "idle") {
-      csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
-    } else if (csv.status === "error") {
-      csv.loadUrl(withCacheBuster("/master.csv"), "master.csv", 0);
+    if (status === "idle") {
+      loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
+    } else if (status === "error") {
+      loadUrl(withCacheBuster("/master.csv"), "master.csv", 0);
     }
-  }, [csv]);
+  }, [status, loadUrl]);
 
   const leads = useMemo(() => csv.rows || [], [csv.rows]);
 

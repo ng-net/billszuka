@@ -10,15 +10,16 @@ const withCacheBuster = (url) => `${url}?v=${Date.now()}`;
 
 export function LeadsView() {
   const csv = useCsv();
+  const { status, loadUrl } = csv;
 
   useEffect(() => {
-    if (csv.status === "idle") {
-      csv.loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
-    } else if (csv.status === "error") {
+    if (status === "idle") {
+      loadUrl(withCacheBuster(MASTER_URL), "master.csv", 0);
+    } else if (status === "error") {
       // Standalone web hosting fallback (Vercel / GitHub Pages without Python FastAPI backend)
-      csv.loadUrl(withCacheBuster("/master.csv"), "master.csv", 0);
+      loadUrl(withCacheBuster("/master.csv"), "master.csv", 0);
     }
-  }, [csv]);
+  }, [status, loadUrl]);
 
   const leads = useMemo(() => {
     if (csv.rows && csv.rows.length > 0) {
