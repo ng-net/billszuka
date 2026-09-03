@@ -73,6 +73,30 @@
 - **Validation:** 0 Critical / 0 Warning.
 - **Commit:** `real search v2: HR+LV+BG — 4 verified leads (3 B-tier + 1 A promotion)`.
 
+## 2026-09-03 — Sesja 4: Real search v2 (CZ+SK+RO+EE batch)
+
+- **Web search drill:** potwierdzone rejestrowe dane dla kandydatów
+  z batch 1 (GGT CZ IČ 26293609, GECO IČO 35782587, SC LUXURYGIFTS
+  CUI RO35063974 = Smoking Romania, AKROTIRI GRUPP OÜ KMKR 10620656).
+- **Dodane do master.csv (4 nowe wiersze):**
+  - **CZ-A-012 GGT CZ, a.s.** (Jihlava, IČ 26293609, 12 składów w ČR,
+    2. největší velkoobchodní distributor tabákových výrobků v ČR;
+    ma pełny asortyment łącznie z PLNIČKAMI DUTINEK; kategoria A4).
+  - **SK-B-025 GECO, s. r. o.** (Bratislava, IČO 35782587, ORSR BA III
+    vložka 21187/B, základné imanie 1 000 000 €, jeden z największych
+    importerów tabak+fajčiarskych potrieb v SR, sieć TABAK-TLAČ;
+    kategoria B8, pow=3).
+  - **RO-A-011 SC LUXURYGIFTS SRL** (Bragadiru/Ilfov, CUI RO35063974,
+    J23/3319/2018, CAEN 4635, importator UNIC Smoking+SMK+Abadie,
+    najszersza gama z aparate de injectat, dystrybucja do Carrefour,
+    Auchan, Metro, Inmedio, OMV/Petrom/MOL; **TOP 1 Bragadiru CAEN
+    4635**; kategoria A4).
+  - **EE-B-004 AKROTIRI GRUPP OÜ** (Tallinn, Narva mnt 10, KMKR
+    10620656, ARIREGISTER live API; wholesale+retail tubakatoodete +
+    alkoholjookide; marka Havanas.ee; kategoria B8, pow=2).
+- **Master.csv:** 488 → 492 wierszy (35 kol).
+- **Validation:** 0 Critical / 0 Warning.
+
 ## 2026-09-03 — Unified Authentication, UI Performance Optimization, Catalog Consolidation & Deploy Prep
 
 - **Unifikacja sesji logowania (Single-Step Login):**
