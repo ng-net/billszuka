@@ -723,20 +723,21 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       <div className="h-14 flex items-center gap-2 sm:gap-3 px-3 sm:px-4">
         {csv.status === "ready" && (
           <>
-            <div className="relative flex-1 max-w-md min-w-0">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+            <div className="relative flex-1 min-w-0 max-w-md">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 pointer-events-none" />
               <Input
                 value={globalSearch}
                 onChange={(e) => onGlobalSearchChange(e.target.value)}
                 placeholder="Szukaj we wszystkich kolumnach…"
-                className="h-8 pl-8 pr-7 text-sm"
+                className="h-10 sm:h-8 pl-9 pr-9 text-sm"
               />
               {globalSearch && (
                 <button
                   onClick={() => onGlobalSearchChange("")}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 sm:h-7 sm:w-7 items-center justify-center rounded-md text-muted-foreground/50 hover:text-foreground hover:bg-muted/60 transition-colors"
+                  aria-label="Wyczyść wyszukiwanie"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                 </button>
               )}
             </div>
@@ -756,11 +757,11 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 setFacetsOpen(next);
                 setPrefs((p) => ({ ...p, facetsOpen: next }));
               }}
-              className="h-8 gap-1.5 text-xs hidden sm:inline-flex"
+              className="hidden sm:inline-flex"
               title={facetsOpen ? "Ukryj panel fasad" : "Pokaż panel fasad"}
             >
               <PanelLeft className="h-3.5 w-3.5" />
-              <span>Fasady</span>
+              <span className="hidden lg:inline">Fasady</span>
             </Button>
 
             <Button
@@ -771,18 +772,16 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
                 setMaskDecydenci(next);
                 toast.info(next ? "Włączono maskowanie decydentów (RODO)" : "Odkryto pełne nazwiska decydentów", { duration: 1200 });
               }}
-              className="h-8 gap-1.5 text-xs"
               title={maskDecydenci ? "Odkryj pełne nazwiska decydentów" : "Maskuj nazwiska (RODO)"}
             >
-              {maskDecydenci ? <Eye className="h-3.5 w-3.5 text-muted-foreground" /> : <EyeOff className="h-3.5 w-3.5 text-primary" />}
+              {maskDecydenci ? <Eye className="h-3.5 w-3.5 text-muted-foreground" /> : <EyeOff className="h-3.5 w-3.5 text-brand" />}
               <span className="hidden md:inline">{maskDecydenci ? "Maskuj" : "Odkryj"}</span>
             </Button>
 
             <div className="flex items-center gap-1">
               <Button
                 variant="outline"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 disabled={!history.canUndo}
                 onClick={() => {
                   history.undo();
@@ -795,8 +794,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               </Button>
               <Button
                 variant="outline"
-                size="icon"
-                className="h-8 w-8"
+                size="icon-sm"
                 disabled={!history.canRedo}
                 onClick={() => {
                   history.redo();
@@ -813,8 +811,8 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  size="icon"
-                  className="h-8 w-8 hidden sm:inline-flex"
+                  size="icon-sm"
+                  className="hidden sm:inline-flex"
                   aria-label="Gęstość"
                   title="Gęstość"
                 >
@@ -836,7 +834,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
       </div>
 
       {csv.status === "ready" && (
-        <div className="border-t border-border/40 bg-card/40 px-3 sm:px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 overflow-x-auto">
+        <div className="border-t border-border/40 bg-card/40 px-3 sm:px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 overflow-x-auto touch-scroll-x">
           <BrandQuickBar
             rows={rowsWithBrand}
             activeBrand={effectiveFilters.__brand}
@@ -937,7 +935,7 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
             <>
               <div className="flex-1 min-h-0 relative flex overflow-hidden">
                 {facetsOpen && (
-                  <aside className="w-72 md:w-80 border-r bg-card/40 overflow-y-auto p-3 shrink-0 hidden sm:block animate-in slide-in-from-left-2 duration-150">
+                  <aside className="w-full sm:w-72 md:w-80 border-r bg-card/40 overflow-y-auto p-3 shrink-0 animate-in slide-in-from-left-2 duration-150 sm:block">
                     <CollapsibleFilters
                       rows={rowsWithBrand}
                       filters={effectiveFilters}

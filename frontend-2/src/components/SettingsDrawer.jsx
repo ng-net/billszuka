@@ -129,16 +129,15 @@ export function SettingsDrawer({ open, onOpenChange, onVaultChange }) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" showCloseButton={false} className="w-full sm:max-w-lg p-0 flex flex-col gap-0">
-        <SheetHeader className="px-5 pt-5 pb-3 border-b">
+        <SheetHeader className="px-4 sm:px-5 pt-4 sm:pt-5 pb-3 border-b">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-2">
-              <KeyRound className="h-5 w-5" />
+              <KeyRound className="h-5 w-5 text-brand" />
               Klucze API
             </SheetTitle>
             <Button
               variant="ghost"
-              size="icon"
-              className="h-8 w-8"
+              size="icon-sm"
               onClick={() => onOpenChange(false)}
               aria-label="Zamknij"
             >

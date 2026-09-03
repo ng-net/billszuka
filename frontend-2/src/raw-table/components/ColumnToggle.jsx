@@ -45,7 +45,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1.5">
+        <Button variant="outline" size="sm" className="gap-1.5 min-h-[36px] sm:min-h-[36px]">
           <Columns3 className="h-4 w-4" />
           <span className="hidden md:inline">Kolumny</span>
           <span className="text-xs text-muted-foreground tabular-nums">
@@ -53,13 +53,13 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[min(18rem,calc(100vw-2rem))] p-0" align="end">
-        <div className="p-3 border-b space-y-2">
+      <PopoverContent className="w-[min(20rem,calc(100vw-1.5rem))] p-0" align="end">
+        <div className="p-3 border-b border-border space-y-2">
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium">Widoczne kolumny</p>
             <button
               onClick={showAll}
-              className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
+              className="inline-flex items-center gap-1 min-h-[32px] px-1 text-xs text-muted-foreground hover:text-foreground"
               title="Reset do wszystkich"
             >
               <RotateCcw className="h-3 w-3" />
@@ -67,22 +67,22 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
             </button>
           </div>
           <div className="relative">
-            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground/50" />
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 pointer-events-none" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Szukaj kolumny…"
-              className="h-7 pl-7 text-xs"
+              className="h-9 sm:h-8 pl-8 text-sm"
             />
           </div>
-          <div className="flex items-center gap-1.5 text-xs">
-            <button onClick={showAll} className="text-primary hover:underline">
+          <div className="flex items-center gap-2 text-xs">
+            <button onClick={showAll} className="inline-flex items-center min-h-[28px] px-1 text-brand hover:underline">
               Pokaż wszystkie
             </button>
             <span className="text-muted-foreground/50">·</span>
             <button
               onClick={hideAll}
-              className="text-muted-foreground hover:text-foreground"
+              className="inline-flex items-center min-h-[28px] px-1 text-muted-foreground hover:text-foreground"
             >
               Ukryj wszystkie
             </button>
@@ -103,7 +103,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.1 }}
                     className={cn(
-                      "flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer hover:bg-muted/50 text-sm",
+                      "flex items-center gap-2 px-2 py-2 rounded cursor-pointer hover:bg-muted/50 text-sm min-h-[40px]",
                       !isVisible && "opacity-60"
                     )}
                   >
@@ -116,7 +116,7 @@ export function ColumnToggle({ columns, visibility, onChange, schema }) {
                       <span className="truncate text-[10px] text-muted-foreground/60 font-mono">{col}</span>
                     </div>
                     {type && type !== "text" && (
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide">
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide shrink-0">
                         {type}
                       </span>
                     )}

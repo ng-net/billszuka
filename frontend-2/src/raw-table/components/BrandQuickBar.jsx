@@ -43,7 +43,7 @@ export function BrandQuickBar({ rows = [], activeBrand, onSelectBrand, className
       )}
     >
       <div className="flex items-center gap-1.5 px-2 text-muted-foreground font-semibold uppercase tracking-wider text-[10.5px] shrink-0">
-        <Sparkles size={12} className="text-indigo-500 shrink-0" />
+        <Sparkles size={12} className="text-brand shrink-0" />
         <span>Marka</span>
       </div>
 
@@ -66,25 +66,26 @@ export function BrandQuickBar({ rows = [], activeBrand, onSelectBrand, className
                 }
               }}
               className={cn(
-                "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
+                "inline-flex items-center gap-1.5 min-h-[36px] sm:min-h-[28px] px-3 sm:px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
                 isActive
                   ? "bg-primary text-primary-foreground shadow-sm font-semibold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
               )}
+              aria-pressed={isActive}
             >
               {seg.color === "indigo" && !isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-indigo shrink-0" />
               )}
               {seg.color === "rose" && !isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-rose shrink-0" />
               )}
               {seg.color === "gradient" && !isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-rose-500 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-brand-indigo to-brand-rose shrink-0" />
               )}
-              <span>{seg.label}</span>
+              <span className="truncate">{seg.label}</span>
               <span
                 className={cn(
-                  "font-mono text-[10px] tabular-nums px-1.5 py-0.2 rounded-full",
+                  "font-mono text-[10px] tabular-nums px-1.5 py-0.5 rounded-full",
                   isActive
                     ? "bg-primary-foreground/20 text-primary-foreground font-bold"
                     : "bg-muted text-muted-foreground"

@@ -54,12 +54,13 @@ export function QuickChips({ columnId, rows, filter, onToggle, limit = 6, label 
               whileTap={{ scale: 0.96 }}
               onClick={() => onToggle?.(value)}
               className={cn(
-                "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors",
+                "inline-flex items-center gap-1 rounded-full border px-3 sm:px-2.5 py-1 text-xs font-medium transition-colors min-h-[32px]",
                 isActive
-                  ? "bg-primary text-primary-foreground border-primary"
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
                   : "bg-background text-muted-foreground hover:bg-accent hover:text-foreground"
               )}
               title={isActive ? `Wyłącz filtr: ${value}` : `Filtruj: ${value} (${count})`}
+              aria-pressed={isActive}
             >
               <span className="truncate max-w-[7rem]">{value}</span>
               <span className="text-[10px] tabular-nums opacity-60">{count}</span>

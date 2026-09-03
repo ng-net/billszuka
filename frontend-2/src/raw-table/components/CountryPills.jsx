@@ -57,13 +57,13 @@ export function CountryPills({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-1.5 px-3 py-2 border-b border-border/60 bg-muted/20",
+        "flex flex-wrap items-center gap-1.5 px-3 py-2 border-b border-border/60 bg-muted/20 touch-scroll-x",
         className
       )}
       role="toolbar"
       aria-label="Wybór kraju"
     >
-      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mr-1.5 select-none">
+      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mr-1.5 select-none shrink-0">
         Kraj:
       </span>
 
@@ -74,7 +74,7 @@ export function CountryPills({
         aria-pressed={!activeIso}
         title="Pokaż wszystkie kraje (wyczyść filtr kraju)"
         className={cn(
-          "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border transition-colors cursor-pointer",
+          "inline-flex items-center justify-center gap-1 min-h-[36px] sm:min-h-[28px] px-3 sm:px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors cursor-pointer",
           !activeIso
             ? "bg-primary text-primary-foreground border-primary shadow-sm"
             : "bg-card text-card-foreground border-border hover:bg-muted/70"
@@ -83,7 +83,7 @@ export function CountryPills({
         <span>Wszystkie</span>
         <span
           className={cn(
-            "font-mono text-[10px] tabular-nums px-1 py-px rounded-full",
+            "font-mono text-[10px] tabular-nums px-1.5 py-px rounded-full",
             !activeIso ? "bg-primary-foreground/20 text-primary-foreground" : "text-muted-foreground opacity-70"
           )}
         >
@@ -105,7 +105,7 @@ export function CountryPills({
             title={name}
             data-iso={iso}
             className={cn(
-              "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border transition-colors",
+              "inline-flex items-center justify-center gap-1 min-h-[36px] sm:min-h-[28px] px-3 sm:px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors",
               on
                 ? "bg-primary text-primary-foreground border-primary shadow-sm cursor-pointer"
                 : hasRows
@@ -117,7 +117,7 @@ export function CountryPills({
             {count > 0 && (
               <span
                 className={cn(
-                  "font-mono text-[10px] tabular-nums px-1 py-px rounded-full",
+                  "font-mono text-[10px] tabular-nums px-1.5 py-px rounded-full",
                   on ? "bg-primary-foreground/20 text-primary-foreground" : "text-muted-foreground opacity-70"
                 )}
               >

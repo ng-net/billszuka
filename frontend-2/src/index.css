@@ -36,6 +36,70 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --success: oklch(0.623 0.188 145);
+  --success-foreground: oklch(1 0 0);
+  --success-muted: oklch(0.982 0.0176 149);
+  --success-muted-foreground: oklch(0.462 0.163 148);
+  --warning: oklch(0.755 0.176 84);
+  --warning-foreground: oklch(0.279 0.075 62);
+  --warning-muted: oklch(0.986 0.053 98);
+  --warning-muted-foreground: oklch(0.561 0.127 76);
+  --error: oklch(0.577 0.245 27.325);
+  --error-foreground: oklch(0.985 0 0);
+  --error-muted: oklch(0.99 0.012 25);
+  --error-muted-foreground: oklch(0.577 0.245 27.325);
+  --brand: oklch(0.537 0.23 277);
+  --brand-foreground: oklch(1 0 0);
+  --brand-muted: oklch(0.97 0.023 278);
+  --brand-muted-foreground: oklch(0.477 0.203 272);
+  --brand-rose: oklch(0.636 0.207 17);
+  --brand-rose-muted: oklch(0.968 0.029 16);
+  --brand-indigo: oklch(0.585 0.233 277);
+  --brand-indigo-muted: oklch(0.962 0.047 282);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+
+  --shadow-xs: 0 1px 1px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 1px 3px -2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+
+  --space-0: 0;
+  --space-half: 0.125rem;
+  --space-1: 0.25rem;
+  --space-1-half: 0.375rem;
+  --space-2: 0.5rem;
+  --space-2-half: 0.625rem;
+  --space-3: 0.75rem;
+  --space-3-half: 0.875rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --touch-target: 48px;
+  --touch-target-sm: 40px;
+
+  --header-height: 56px;
+  --header-height-mobile: 52px;
+  --statusbar-height: 36px;
+  --toolbar-height: 56px;
+
+  --z-header: 40;
+  --z-drawer: 50;
+  --z-modal: 50;
+  --z-toast: 100;
+  --z-fab: 40;
 }
 
 .dark {
@@ -71,6 +135,27 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  --success: oklch(0.673 0.182 148);
+  --success-foreground: oklch(0.145 0 0);
+  --success-muted: oklch(0.258 0.061 152);
+  --success-muted-foreground: oklch(0.752 0.188 149);
+  --warning: oklch(0.814 0.179 88);
+  --warning-foreground: oklch(0.279 0.075 62);
+  --warning-muted: oklch(0.329 0.077 81);
+  --warning-muted-foreground: oklch(0.849 0.168 89);
+  --error: oklch(0.704 0.191 22.216);
+  --error-foreground: oklch(0.145 0 0);
+  --error-muted: oklch(0.338 0.102 24);
+  --error-muted-foreground: oklch(0.731 0.205 24);
+  --brand: oklch(0.702 0.24 282);
+  --brand-foreground: oklch(0.145 0 0);
+  --brand-muted: oklch(0.302 0.116 283);
+  --brand-muted-foreground: oklch(0.781 0.219 293);
+  --brand-rose: oklch(0.692 0.211 19);
+  --brand-rose-muted: oklch(0.297 0.084 17);
+  --brand-indigo: oklch(0.641 0.236 283);
+  --brand-indigo-muted: oklch(0.288 0.102 281);
 }
 
 @theme inline {
@@ -110,6 +195,38 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-muted: var(--success-muted);
+  --color-success-muted-foreground: var(--success-muted-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-muted: var(--warning-muted);
+  --color-warning-muted-foreground: var(--warning-muted-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-error-muted: var(--error-muted);
+  --color-error-muted-foreground: var(--error-muted-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-muted-foreground: var(--brand-muted-foreground);
+  --color-brand-rose: var(--brand-rose);
+  --color-brand-rose-muted: var(--brand-rose-muted);
+  --color-brand-indigo: var(--brand-indigo);
+  --color-brand-indigo-muted: var(--brand-indigo-muted);
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --breakpoint-xs: 360px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
 }
 
 @layer base {
@@ -118,25 +235,45 @@
   }
   html, body, #root {
     height: 100%;
-    /* Use dvh (dynamic viewport height) so iOS Safari's address-bar
-       show/hide doesn't collapse fixed/full-height layouts. Falls back
-       to 100% for browsers without dvh support (Chrome <108). */
     min-height: 100dvh;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-sans);
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Prevent iOS Safari overscroll bounce on the body — individual
-       scroll containers handle their own overscroll. */
     overscroll-behavior: none;
+    text-rendering: optimizeLegibility;
+  }
+  @media (max-width: 639px) {
+    body {
+      font-size: 0.875rem;
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+  }
+  button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+  }
+  img, svg, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
 
-/* Custom thin scrollbars */
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
@@ -158,6 +295,12 @@
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     opacity: 0.7;
   }
+  @media (max-width: 639px) {
+    .scrollbar-thin::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+  }
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
@@ -168,27 +311,124 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
-  /* Momentum / kinetic scroll for horizontal table wrappers on iOS.
-     Without -webkit-overflow-scrolling: touch the table feels sticky
-     on Safari/iOS — one finger drag stops the moment you lift. */
   .touch-scroll-x {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    /* Lock axis so the gesture doesn't accidentally trigger page pull-to-refresh. */
     touch-action: pan-x;
-    /* Contain overscroll so it doesn't bubble up to the page body. */
     overscroll-behavior-x: contain;
   }
-
-  /* Full-height containers that respect iOS dynamic viewport height.
-     Use on anything that should fill the viewport without being
-     squashed by the iOS address bar appearing/disappearing. */
+  .touch-scroll-y {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
+  }
   .h-dvh {
     height: 100dvh;
   }
   .min-h-dvh {
     min-height: 100dvh;
+  }
+
+  .touch-target {
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+    padding: 0 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .touch-target-sm {
+    min-width: var(--touch-target-sm);
+    min-height: var(--touch-target-sm);
+    padding: 0 0.375rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-touch {
+    width: var(--touch-target-sm);
+    height: var(--touch-target-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+  @media (max-width: 639px) {
+    .icon-touch {
+      width: var(--touch-target);
+      height: var(--touch-target);
+    }
+  }
+
+  .safe-top {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  .safe-bottom {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+  .safe-left {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+  }
+  .safe-right {
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+  }
+  .safe-x {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+  }
+  .safe-y {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+  .fab-offset {
+    bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom)));
+    right: max(1rem, calc(1rem + env(safe-area-inset-right)));
+  }
+
+  .hide-scrollbars {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbars::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .grid-cols-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  @media (max-width: 639px) {
+    .grid-cols-auto-fit {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  .text-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .text-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .text-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 

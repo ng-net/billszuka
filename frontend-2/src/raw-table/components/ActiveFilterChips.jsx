@@ -108,8 +108,8 @@ export function ActiveFilterChips({
         className
       )}
     >
-      <div className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mr-1">
-        <Filter size={11} className="text-primary" />
+      <div className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mr-1 shrink-0">
+        <Filter size={11} className="text-brand" />
         <span>Aktywne ({chips.length}):</span>
       </div>
 
@@ -117,18 +117,18 @@ export function ActiveFilterChips({
         {chips.map((chip) => (
           <span
             key={chip.id}
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:border-primary/30 transition-colors"
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-brand-muted text-brand-muted-foreground border border-brand-muted-foreground/20 hover:border-brand-muted-foreground/30 transition-colors"
           >
-            <span className="opacity-70 text-[10.5px] uppercase font-semibold">
+            <span className="opacity-70 text-[10.5px] uppercase font-semibold truncate max-w-[8rem]">
               {chip.label}:
             </span>
-            <span className="font-semibold">{chip.display}</span>
+            <span className="font-semibold truncate max-w-[10rem]">{chip.display}</span>
             <button
               type="button"
               onClick={chip.onRemove}
               aria-label={`Usuń filtr ${chip.label}: ${chip.display}`}
               title={`Usuń filtr ${chip.label}: ${chip.display}`}
-              className="ml-0.5 p-0.5 rounded hover:bg-primary/20 text-primary transition-colors cursor-pointer"
+              className="ml-0.5 inline-flex h-7 w-7 sm:h-6 sm:w-6 items-center justify-center rounded hover:bg-brand-muted-foreground/20 text-brand transition-colors cursor-pointer"
             >
               <X size={12} />
             </button>
@@ -138,7 +138,7 @@ export function ActiveFilterChips({
         <button
           type="button"
           onClick={onResetAll}
-          className="inline-flex items-center gap-1 text-[11px] text-destructive hover:underline ml-1.5 px-1.5 py-0.5 rounded hover:bg-destructive/10 transition-colors cursor-pointer font-medium"
+          className="inline-flex items-center justify-center gap-1 min-h-[32px] sm:min-h-[28px] text-[11px] text-error-muted-foreground hover:underline ml-1.5 px-2 sm:px-1.5 py-1 sm:py-0.5 rounded hover:bg-error-muted transition-colors cursor-pointer font-medium"
           title="Wyczyść wszystkie nałożone filtry"
         >
           <RotateCcw size={11} />
