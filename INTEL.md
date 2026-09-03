@@ -45,6 +45,8 @@
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 348 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 | ⚡ | Sesja gentle search (60m): przeskanowano rynki CZ, SK, RO, BG, HR, SI, LT, LV, EE, FR, MD pod kąt... | Pipeline |
 | ⚡ | Zaktualizowano bazę kontaktową oraz zweryfikowano NIP/VIES w oficjalnych rejestrach. | Pipeline |
+| ⚡ | Weryfikacja automatyczna: 107/215 (49.8%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
+| ⚡ | Auto-cleaning & Quality Scoring przetworzył 194 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 
 ---
 

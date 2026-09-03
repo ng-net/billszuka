@@ -1,5 +1,4 @@
 import { useState, memo } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -95,64 +94,59 @@ function LongTextCell({ value, display, columnId, truncated }) {
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <PopoverTrigger asChild>
-            <span
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpen(true);
-              }}
-              className="cursor-pointer hover:text-primary"
-              title={value}
-            >
-              <HighlightedText text={display} />
-              {truncated && (
-                <Maximize2 className="inline h-2.5 w-2.5 ml-1 opacity-0 group-hover:opacity-50" />
-              )}
+      <PopoverTrigger asChild>
+        <span
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen((prev) => !prev);
+          }}
+          className="cursor-pointer hover:text-primary inline-flex items-center gap-1"
+          title={value}
+        >
+          <HighlightedText text={display} />
+          {truncated && (
+            <Maximize2 className="inline h-2.5 w-2.5 ml-1 opacity-0 group-hover:opacity-50 shrink-0" />
+          )}
+        </span>
+      </PopoverTrigger>
+      {open && (
+        <PopoverContent
+          className="w-[min(560px,calc(100vw-2rem))] p-0"
+          align="start"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="px-3 py-2 border-b flex items-center justify-between">
+            <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-mono">
+              {columnId}
             </span>
-          </PopoverTrigger>
-        </TooltipTrigger>
-        <TooltipContent side="top" className="max-w-md break-words">
-          <p className="text-xs">{truncated ? `${value.substring(0, 200)}${value.length > 200 ? "…" : ""}` : value}</p>
-        </TooltipContent>
-      </Tooltip>
-      <PopoverContent
-        className="w-[min(560px,calc(100vw-2rem))] p-0"
-        align="start"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="px-3 py-2 border-b flex items-center justify-between">
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-mono">
-            {columnId}
-          </span>
-          <span className="text-[10px] text-muted-foreground tabular-nums">
-            {value.length} znaków
-          </span>
-        </div>
-        <ScrollArea className="max-h-80 px-3 py-2">
-          <div className="text-sm whitespace-pre-wrap break-words leading-relaxed">
-            <HighlightedText text={value} />
+            <span className="text-[10px] text-muted-foreground tabular-nums">
+              {value.length} znaków
+            </span>
           </div>
-        </ScrollArea>
-        <div className="px-3 py-2 border-t flex items-center justify-end gap-2">
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={handleCopy}
-            className="h-7 text-xs"
-          >
-            <Copy className="h-3 w-3 mr-1" /> Kopiuj
-          </Button>
-        </div>
-      </PopoverContent>
+          <ScrollArea className="max-h-80 px-3 py-2">
+            <div className="text-sm whitespace-pre-wrap break-words leading-relaxed">
+              <HighlightedText text={value} />
+            </div>
+          </ScrollArea>
+          <div className="px-3 py-2 border-t flex items-center justify-end gap-2">
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={handleCopy}
+              className="h-7 text-xs"
+            >
+              <Copy className="h-3 w-3 mr-1" /> Kopiuj
+            </Button>
+          </div>
+        </PopoverContent>
+      )}
     </Popover>
   );
 }
 
 /**
- * Short cell with hover tooltip (full value) + click copy.
- * No popover — full value is already visible.
+ * Short cell with native title tooltip (full value) + click copy.
+ * Zero Radix Tooltip overhead — instant renders.
  */
 function ShortTextCell({ value, display }) {
   const handleClick = (e) => {
@@ -161,20 +155,13 @@ function ShortTextCell({ value, display }) {
     toast.success("Skopiowano do schowka", { duration: 1200 });
   };
   return (
-    <Tooltip delayDuration={300}>
-      <TooltipTrigger asChild>
-        <span
-          onClick={handleClick}
-          className="cursor-pointer hover:text-primary"
-          title={value}
-        >
-          {display}
-        </span>
-      </TooltipTrigger>
-      <TooltipContent side="top">
-        <p className="text-xs max-w-xs break-words">{value}</p>
-      </TooltipContent>
-    </Tooltip>
+    <span
+      onClick={handleClick}
+      className="cursor-pointer hover:text-primary"
+      title={value}
+    >
+      {display}
+    </span>
   );
 }
 
@@ -266,44 +253,32 @@ export const CellRenderer = memo(function CellRenderer({
     const href = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
     const cleanDisplay = rawUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1 text-primary hover:underline font-mono text-xs"
-          >
-            <span className="truncate max-w-[200px]">{cleanDisplay}</span>
-            <ExternalLink className="h-3 w-3 shrink-0 opacity-60" />
-          </a>
-        </TooltipTrigger>
-        <TooltipContent side="top" className="max-w-md">
-          <p className="text-xs break-all">{href}</p>
-        </TooltipContent>
-      </Tooltip>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => e.stopPropagation()}
+        title={href}
+        className="inline-flex items-center gap-1 text-primary hover:underline font-mono text-xs"
+      >
+        <span className="truncate max-w-[200px]">{cleanDisplay}</span>
+        <ExternalLink className="h-3 w-3 shrink-0 opacity-60" />
+      </a>
     );
   }
 
   // Email
   if (type === "email" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(display)) {
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <a
-            href={`mailto:${display}`}
-            onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1 text-primary hover:underline"
-          >
-            <Mail className="h-3 w-3 opacity-60" />
-            <span className="truncate max-w-[200px]">{display}</span>
-          </a>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs">{display}</p>
-        </TooltipContent>
-      </Tooltip>
+      <a
+        href={`mailto:${display}`}
+        onClick={(e) => e.stopPropagation()}
+        title={display}
+        className="inline-flex items-center gap-1 text-primary hover:underline"
+      >
+        <Mail className="h-3 w-3 opacity-60" />
+        <span className="truncate max-w-[200px]">{display}</span>
+      </a>
     );
   }
 
@@ -311,21 +286,15 @@ export const CellRenderer = memo(function CellRenderer({
   if (type === "phone") {
     const digits = display.replace(/[^\d+]/g, "");
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <a
-            href={`tel:${digits}`}
-            onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1 tabular-nums hover:text-primary"
-          >
-            <Phone className="h-3 w-3 opacity-60" />
-            {display}
-          </a>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs tabular-nums">Kliknij, żeby zadzwonić</p>
-        </TooltipContent>
-      </Tooltip>
+      <a
+        href={`tel:${digits}`}
+        onClick={(e) => e.stopPropagation()}
+        title="Kliknij, żeby zadzwonić"
+        className="inline-flex items-center gap-1 tabular-nums hover:text-primary"
+      >
+        <Phone className="h-3 w-3 opacity-60" />
+        {display}
+      </a>
     );
   }
 
@@ -334,16 +303,12 @@ export const CellRenderer = memo(function CellRenderer({
     const d = value instanceof Date ? value : new Date(display);
     if (!isNaN(d.getTime())) {
       return (
-        <Tooltip delayDuration={250}>
-          <TooltipTrigger asChild>
-            <span className="tabular-nums text-muted-foreground text-xs cursor-default">
-              {formatDate(d)}
-            </span>
-          </TooltipTrigger>
-          <TooltipContent side="top">
-            <p className="text-xs tabular-nums">{d.toISOString().slice(0, 10)}</p>
-          </TooltipContent>
-        </Tooltip>
+        <span
+          title={d.toISOString().slice(0, 10)}
+          className="tabular-nums text-muted-foreground text-xs cursor-default"
+        >
+          {formatDate(d)}
+        </span>
       );
     }
   }
@@ -351,64 +316,55 @@ export const CellRenderer = memo(function CellRenderer({
   // Number
   if (type === "number" && typeof value === "number") {
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <span onClick={handleClick} className="cursor-pointer tabular-nums">
-            {formatNumber(value)}
-          </span>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs">Kliknij, żeby skopiować: <span className="font-mono">{value}</span></p>
-        </TooltipContent>
-      </Tooltip>
+      <span
+        onClick={handleClick}
+        title={`Kliknij, żeby skopiować: ${value}`}
+        className="cursor-pointer tabular-nums"
+      >
+        {formatNumber(value)}
+      </span>
     );
   }
 
   // Enum / tier
   if (type === "enum" && TIER_COLORS[display]) {
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <Badge variant="outline" className={`${TIER_COLORS[display]} font-normal text-xs cursor-default`}>
-            {display}
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs">Kliknij, żeby skopiować</p>
-        </TooltipContent>
-      </Tooltip>
+      <Badge
+        variant="outline"
+        title="Kliknij, żeby skopiować"
+        onClick={handleClick}
+        className={`${TIER_COLORS[display]} font-normal text-xs cursor-pointer`}
+      >
+        {display}
+      </Badge>
     );
   }
 
   // Affinity (powinowactwo_nabijarki) — categorical badge
   if (AFFINITY_COLORS[display]) {
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <Badge variant="outline" className={`${AFFINITY_COLORS[display]} font-normal text-xs cursor-default`}>
-            {display}
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs">Powinowactwo do nabijarek — kliknij, żeby skopiować</p>
-        </TooltipContent>
-      </Tooltip>
+      <Badge
+        variant="outline"
+        title="Powinowactwo do nabijarek — kliknij, żeby skopiować"
+        onClick={handleClick}
+        className={`${AFFINITY_COLORS[display]} font-normal text-xs cursor-pointer`}
+      >
+        {display}
+      </Badge>
     );
   }
 
   // Role (tier) — categorical badge
   if (ROLE_COLORS[display]) {
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <Badge variant="outline" className={`${ROLE_COLORS[display]} font-normal text-xs cursor-default`}>
-            {display}
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs">Rola w kanale — kliknij, żeby skopiować</p>
-        </TooltipContent>
-      </Tooltip>
+      <Badge
+        variant="outline"
+        title="Rola w kanale — kliknij, żeby skopiować"
+        onClick={handleClick}
+        className={`${ROLE_COLORS[display]} font-normal text-xs cursor-pointer`}
+      >
+        {display}
+      </Badge>
     );
   }
 
@@ -416,20 +372,14 @@ export const CellRenderer = memo(function CellRenderer({
   // — all enum with potentially 1-15 unique values. Render as muted outline badge.
   if (type === "enum") {
     return (
-      <Tooltip delayDuration={250}>
-        <TooltipTrigger asChild>
-          <Badge
-            variant="outline"
-            className="font-normal text-xs cursor-pointer hover:bg-accent"
-            onClick={(e) => { e.stopPropagation(); copyToClipboard(display); toast.success("Skopiowano do schowka", { duration: 1200 }); }}
-          >
-            {display}
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          <p className="text-xs">Kliknij, żeby skopiować</p>
-        </TooltipContent>
-      </Tooltip>
+      <Badge
+        variant="outline"
+        title="Kliknij, żeby skopiować"
+        className="font-normal text-xs cursor-pointer hover:bg-accent"
+        onClick={handleClick}
+      >
+        {display}
+      </Badge>
     );
   }
 

@@ -8,6 +8,8 @@ const COUNTRY_TO_ISO = {
   "Francja": "FR",
 };
 
+const _urlStatusCache = new Map();
+
 /**
  * useUrlStatus(country) — pobiera mapę {id: statusObj} z /api/url-status.
  *
@@ -17,16 +19,22 @@ const COUNTRY_TO_ISO = {
  * Returns: { byId, summary, loading, error }
  */
 export function useUrlStatus(country, refreshKey = 0) {
-  const [data, setData] = useState({ byId: {}, summary: null });
+  const isAll = !country || country === "Wszystkie";
+  const iso = isAll ? null : (COUNTRY_TO_ISO[country] || country);
+  const endpoint = isAll
+    ? "/api/url-status"
+    : `/api/url-status?country=${encodeURIComponent(iso)}`;
+
+  const cached = refreshKey === 0 ? _urlStatusCache.get(endpoint) : null;
+  const [data, setData] = useState(() => cached || { byId: {}, summary: null });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const isAll = !country || country === "Wszystkie";
-    const iso = isAll ? null : (COUNTRY_TO_ISO[country] || country);
-    const endpoint = isAll
-      ? "/api/url-status"
-      : `/api/url-status?country=${encodeURIComponent(iso)}`;
+    if (refreshKey === 0 && _urlStatusCache.has(endpoint)) {
+      setData(_urlStatusCache.get(endpoint));
+      return;
+    }
 
     let cancelled = false;
     setLoading(true);
@@ -50,7 +58,9 @@ export function useUrlStatus(country, refreshKey = 0) {
             };
           }
         }
-        setData({ byId, summary: json.summary || null });
+        const result = { byId, summary: json.summary || null };
+        _urlStatusCache.set(endpoint, result);
+        setData(result);
       })
       .catch((e) => !cancelled && setError(String(e)))
       .finally(() => !cancelled && setLoading(false));
@@ -58,7 +68,7 @@ export function useUrlStatus(country, refreshKey = 0) {
     return () => {
       cancelled = true;
     };
-  }, [country, refreshKey]);
+  }, [endpoint, refreshKey]);
 
   return { ...data, loading, error };
 }

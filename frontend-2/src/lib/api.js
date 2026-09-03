@@ -11,3 +11,15 @@ export function getAuthHeader() {
   const profile = getActiveProfile();
   return profile ? { "X-Billszuka-User": profile } : {};
 }
+
+export function authFetch(url, options = {}) {
+  const headers = {
+    ...getAuthHeader(),
+    ...(options.headers || {}),
+  };
+  return fetch(apiUrl(url), {
+    credentials: "include",
+    ...options,
+    headers,
+  });
+}

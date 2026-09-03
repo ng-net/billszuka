@@ -8,6 +8,8 @@ const COUNTRY_TO_ISO = {
   "Francja": "FR",
 };
 
+const _keywordScanCache = new Map();
+
 /**
  * useKeywordScan(country) — pobiera mapę {id: scanObj} z /api/keyword-scan.
  *
@@ -16,16 +18,22 @@ const COUNTRY_TO_ISO = {
  * scanObj: { score_pct, keywords_found, keywords_total, scanned_at, http_code, html_size }
  */
 export function useKeywordScan(country, refreshKey = 0) {
-  const [data, setData] = useState({ byId: {}, summary: null });
+  const isAll = !country || country === "Wszystkie";
+  const iso = isAll ? null : (COUNTRY_TO_ISO[country] || country);
+  const endpoint = isAll
+    ? "/api/keyword-scan"
+    : `/api/keyword-scan?country=${encodeURIComponent(iso)}`;
+
+  const cached = refreshKey === 0 ? _keywordScanCache.get(endpoint) : null;
+  const [data, setData] = useState(() => cached || { byId: {}, summary: null });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const isAll = !country || country === "Wszystkie";
-    const iso = isAll ? null : (COUNTRY_TO_ISO[country] || country);
-    const endpoint = isAll
-      ? "/api/keyword-scan"
-      : `/api/keyword-scan?country=${encodeURIComponent(iso)}`;
+    if (refreshKey === 0 && _keywordScanCache.has(endpoint)) {
+      setData(_keywordScanCache.get(endpoint));
+      return;
+    }
 
     let cancelled = false;
     setLoading(true);
@@ -47,7 +55,9 @@ export function useKeywordScan(country, refreshKey = 0) {
             };
           }
         }
-        setData({ byId, summary: json.summary || null });
+        const result = { byId, summary: json.summary || null };
+        _keywordScanCache.set(endpoint, result);
+        setData(result);
       })
       .catch((e) => !cancelled && setError(String(e)))
       .finally(() => !cancelled && setLoading(false));
@@ -55,7 +65,7 @@ export function useKeywordScan(country, refreshKey = 0) {
     return () => {
       cancelled = true;
     };
-  }, [country, refreshKey]);
+  }, [endpoint, refreshKey]);
 
   return { ...data, loading, error };
 }

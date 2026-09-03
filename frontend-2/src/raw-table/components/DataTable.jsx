@@ -133,19 +133,19 @@ export function DataTable({
         filterFn,
         size: width,
         meta: { type: colType, width, align: colType === "number" ? "right" : "left" },
-        cell: ({ getValue, row }) => (
+        cell: ({ getValue, row, table }) => (
           <CellRenderer
             value={getValue()}
             type={colType}
             columnId={colId}
-            maskDecydenci={maskDecydenci}
-            urlStatus={urlStatusById?.[row.original?.id]}
-            keywordScan={keywordById?.[row.original?.id]}
+            maskDecydenci={table.options.meta?.maskDecydenci}
+            urlStatus={table.options.meta?.urlStatusById?.[row.original?.id]}
+            keywordScan={table.options.meta?.keywordById?.[row.original?.id]}
           />
         ),
       };
     });
-  }, [columns, schema, maskDecydenci, urlStatusById, keywordById]);
+  }, [columns, schema]);
 
   // Total table width (for horizontal scroll)
   const totalTableWidth = useMemo(
@@ -198,6 +198,11 @@ export function DataTable({
         : {}),
     },
     autoResetPageIndex: false,
+    meta: {
+      maskDecydenci,
+      urlStatusById,
+      keywordById,
+    },
     getRowId,
     onColumnOrderChange: setColumnOrder,
     onColumnVisibilityChange: setColumnVisibility,

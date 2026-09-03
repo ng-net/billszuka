@@ -72,8 +72,8 @@ def get_or_create_user(conn: sqlite3.Connection, username: str) -> dict:
             raise PermissionError("user is disabled")
         return dict(row)
     cur = conn.execute(
-        "INSERT INTO users (username, display_name, role, created_at) "
-        "VALUES (?, ?, 'member', ?)",
+        "INSERT INTO users (username, display_name, invite_code_hash, role, created_at) "
+        "VALUES (?, ?, '', 'member', ?)",
         (u, u, _now()),
     )
     return {

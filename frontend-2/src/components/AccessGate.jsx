@@ -32,6 +32,18 @@ export function AccessGate({ children }) {
   const dissolveTimeoutRef = useRef(null);
 
   useEffect(() => {
+    // Check if user already has an active authenticated session on the backend
+    fetch(apiUrl("/api/me"), { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.user?.username) {
+          grant(data.user.username);
+          setActiveProfile(data.user.username);
+          setGranted(true);
+        }
+      })
+      .catch(() => {});
+
     return () => {
       if (dissolveTimeoutRef.current) clearTimeout(dissolveTimeoutRef.current);
     };
@@ -61,11 +73,23 @@ export function AccessGate({ children }) {
         }
         grant(userName);
         setActiveProfile(userName);
-        fetch(apiUrl("/api/auth/login"), {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user: userName, company: v }),
-        }).catch((err) => console.warn("Failed to record login:", err));
+        try {
+          const res = await fetch(apiUrl("/api/auth/login"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ user: userName, company: v }),
+          });
+          if (res.ok) {
+            const data = await res.json().catch(() => ({}));
+            if (data?.user?.username) {
+              grant(data.user.username);
+              setActiveProfile(data.user.username);
+            }
+          }
+        } catch (err) {
+          console.warn("Failed to record login:", err);
+        }
         setGranted(true);
       }
     } catch (err) {
@@ -77,6 +101,11 @@ export function AccessGate({ children }) {
 
   async function handleLogout() {
     try {
+      fetch(apiUrl("/api/auth/logout"), {
+        method: "POST",
+        credentials: "include",
+      }).catch((err) => console.warn("Error logging out session:", err));
+
       const currentProf = getActiveProfile();
       if (currentProf) {
         clearPrefs(currentProf);

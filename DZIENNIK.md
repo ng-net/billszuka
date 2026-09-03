@@ -27,18 +27,25 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
-## 2026-09-03 — Ingest remaining leads from _intake & Project Cleanup
+## 2026-09-03 — Unified Authentication, UI Performance Optimization, Catalog Consolidation & Deploy Prep
 
-- **Ingest kandydatów z `_intake/manual-search-2026-08-31` i `extra-leads`:**
-  - Dodano `PL-B-130`: SmokyHub (`https://smokyhub.pl`, `sklep@smokyhub.pl`) — operator PLIMPERIA, sklep tytoniowy / PM.
-  - Dodano `PL-B-131`: Smoker (Erli) (`https://erli.pl/sklep/Smoker/32424`) — sprzedawca Erli-PRO, nabijarki PM + akcesoria.
-  - Dodano `HR-B-018`: Bazinga Shop d.o.o. (`https://bazinga-shop.eu`, Osijek) — sieć 4 sklepów Tobacco Shop Bazinga.
-  - Pozostałe kandydatury z manual-search (Shaman Tobacco CZ, Plnicky-Powermatic CZ, Project Web FR, Medėja LT, Nicorex EE, Sibis RO, Motivs LV) były już zweryfikowane i zamrożone w A/B katalogach.
-- **Konsolidacja i czystość repozytorium:**
+- **Unifikacja sesji logowania (Single-Step Login):**
+  - Połączono frontendowy gate (`AccessGate.jsx`) z backendowym menedżerem tożsamości (`tools/auth.py`) i `BillsAuthMiddleware`.
+  - `POST /api/auth/login` weryfikuje użytkownika przeciwko allowliście (`access.json` / `TEAM_USERS`), rejestruje event w `user_logins`, pobiera/tworzy rekord w tabeli `users`, generuje sesję w `sessions` i ustawia ciasteczko `bsz_sid` (`HttpOnly`, `SameSite=Lax`).
+  - `BillsAuthMiddleware` w `tools/api_server.py` przepuszcza żądania z poprawnym ciasteczkiem `bsz_sid` bez wywoływania HTTP Basic Auth prompta, zachowując kompatybilność z nagłówkiem `Authorization: Basic ...` dla skryptów / Rendera.
+  - `AccessGate.jsx` przy starcie weryfikuje aktywność sesji przez `GET /api/me`, automatycznie autoryzując użytkownika po odświeżeniu strony.
+  - Naprawiono constraint `invite_code_hash NOT NULL` dla legacy bazy w `tools/auth.py`.
+- **Eliminacja lagów UI i naprawa błędu inicjalizacji:**
+  - Naprawiono `ReferenceError: Cannot access 'setFilters' before initialization` w `RawTable.jsx`.
+  - Usunięto wąskie gardło ~15 000 instancji Radix `<Tooltip>` w `CellRenderer.jsx`, zastępując je natywnymi atrybutami HTML `title`.
+  - W `useUrlStatus` i `useKeywordScan` wprowadzono modułowy cache w pamięci (`Map`), eliminując ponowne zapytania sieciowe i czyszczenie stanu przy zmianie filtrów.
+  - W `DataTable.jsx` odpięto dynamiczne mapy statusów od definicji kolumn (przekazując je przez `meta`), zapobiegając unieważnianiu drzewa TanStack Table.
+  - Domyślny `pageSize` w `RawTable.jsx` ustawiono na 100, redukując natychmiastowe obciążenie DOM.
+- **Konsolidacja katalogów i czystość repozytorium:**
   - Zrekompilowano `data/master.csv` i zsynchronizowano `frontend-2/public/master.csv` (465 wierszy × 35 kolumn).
   - Wykonano pełną weryfikację kolumn: 27 plików / 936 wierszy — **0 Critical, 0 Warning**.
-  - 139 top partner gems zaktualizowanych w `data/verification/gems.csv`.
-  - Usunięto zbędne pliki tymczasowe, stan drzewa roboczego czysty.
+  - Zbudowano produkcyjny bundle `frontend-2` (vite build: 820ms, czyste chunki).
+  - Testy: **537/537 PASS w pytest**, **133/133 PASS w frontend-2**, **0 błędów w oxlint**.
 
 ## 2026-08-31 — Naprawa retencji stanu tabeli przy odświeżeniu (F5 / Page Reload) i commit do Git
 
@@ -1312,3 +1319,11 @@ Why the new Worker is not being created:
 
 1. Zakończono 60-minutową sesję 'gentle searches' dla 11 rynków zagranicznych (poza Polską).
 2. Wykonano **1 łagodnych zapytań** B2B, dodano **0 nowych leadów** i zaktualizowano listę GEMS (`data/verification/gems.csv`).
+
+
+## 2026-09-03 02:18 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Weryfikacja automatyczna: **107/215 (49.8%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
+2. Auto-cleaning & Quality Scoring przetworzył **194 wierszy** we wszystkich katalogach regionalnych.

@@ -596,3 +596,155 @@ class TestChatVaultIsolation:
         assert r.status_code == 200
         data = r.json()
         assert data["provider"] == "mock"
+
+
+# ---------------------------------------------------------------------------
+# BillsAuthMiddleware — HTTP Basic Auth gate
+# ---------------------------------------------------------------------------
+
+class TestBillsAuthMiddleware:
+    """Verifies that BillsAuthMiddleware can be instantiated and properly
+    enforces basic auth when BILLSZUKA_PASSWORD is set, while allowing
+    public endpoints like /ping to pass through."""
+
+    def test_basic_auth_enforcement_and_bypass(self, monkeypatch):
+        import base64
+        import api_server
+        from fastapi import FastAPI
+        from fastapi.testclient import TestClient
+
+        test_app = FastAPI()
+        test_app.add_middleware(api_server.BillsAuthMiddleware)
+
+        @test_app.get("/ping")
+        def ping_ep():
+            return {"ok": "pong"}
+
+        @test_app.get("/api/protected")
+        def protected_ep():
+            return {"secret": "data"}
+
+        tc = TestClient(test_app)
+
+        # Without BILLSZUKA_PASSWORD, requests pass through
+        monkeypatch.delenv("BILLSZUKA_PASSWORD", raising=False)
+        r = tc.get("/api/protected")
+        assert r.status_code == 200
+
+        # With BILLSZUKA_PASSWORD set:
+        monkeypatch.setenv("BILLSZUKA_PASSWORD", "secret123")
+
+        # Public path bypasses auth
+        r = tc.get("/ping")
+        assert r.status_code == 200
+
+        # Protected path without auth is 401
+        r = tc.get("/api/protected")
+        assert r.status_code == 401
+
+        # Protected path with wrong auth is 401
+        bad_token = base64.b64encode(b"wrong").decode()
+        r = tc.get("/api/protected", headers={"Authorization": f"Basic {bad_token}"})
+        assert r.status_code == 401
+
+        # Protected path with direct password is 200
+        good_token = base64.b64encode(b"secret123").decode()
+        r = tc.get("/api/protected", headers={"Authorization": f"Basic {good_token}"})
+        assert r.status_code == 200
+
+        # Protected path with user:password (Render style) is 200
+        render_token = base64.b64encode(b"admin:secret123").decode()
+        r = tc.get("/api/protected", headers={"Authorization": f"Basic {render_token}"})
+        assert r.status_code == 200
+
+        # Public auth routes bypass Basic Auth
+        for path in ("/api/auth/login", "/api/auth/session-login", "/api/auth/logout", "/api/me", "/access.json"):
+            # Should not be blocked by Basic Auth (may be 404 or 405 on test_app without handler, but not 401)
+            res = tc.get(path)
+            assert res.status_code != 401
+
+    def test_session_cookie_bypasses_basic_auth(self, monkeypatch):
+        import api_server
+        from fastapi import FastAPI
+        from fastapi.testclient import TestClient
+
+        test_app = FastAPI()
+        test_app.add_middleware(api_server.BillsAuthMiddleware)
+
+        @test_app.get("/api/protected")
+        def protected_ep():
+            return {"secret": "data"}
+
+        tc = TestClient(test_app)
+        monkeypatch.setenv("BILLSZUKA_PASSWORD", "secret123")
+
+        # Mock lookup_session to return a valid session for "valid-token"
+        monkeypatch.setattr(api_server._auth, "lookup_session", lambda token: {"user_id": 1} if token == "valid-token" else None)
+
+        # Without cookie -> 401
+        r = tc.get("/api/protected")
+        assert r.status_code == 401
+
+        # With invalid cookie -> 401
+        r = tc.get("/api/protected", cookies={"bsz_sid": "bad-token"})
+        assert r.status_code == 401
+
+        # With valid cookie -> 200
+        r = tc.get("/api/protected", cookies={"bsz_sid": "valid-token"})
+        assert r.status_code == 200
+
+
+class TestUnifiedAuthLogin:
+    """Tests for unified /api/auth/login endpoint."""
+
+    def test_unified_login_success(self, monkeypatch, tmp_path):
+        import api_server
+        import db
+        from fastapi.testclient import TestClient
+
+        db_path = tmp_path / "billszuka.db"
+        monkeypatch.setattr(db, "DB_PATH", db_path)
+        monkeypatch.setattr(api_server, "DATA", tmp_path)
+        db.init(db_path)
+        client = TestClient(api_server.app)
+
+        # Allow user marceli
+        monkeypatch.setattr(api_server, "_verified_user", lambda name: "marceli" if name == "marceli" else None)
+
+        # Login
+        r = client.post("/api/auth/login", json={"user": "marceli", "company": "bills"})
+        assert r.status_code == 200
+        data = r.json()
+        assert data["status"] == "ok"
+        assert data["user"]["username"] == "marceli"
+        assert "bsz_sid" in r.cookies
+
+        # Verify /api/me with returned cookie
+        r_me = client.get("/api/me", cookies={"bsz_sid": r.cookies["bsz_sid"]})
+        assert r_me.status_code == 200
+        me_data = r_me.json()
+        assert me_data["user"]["username"] == "marceli"
+
+        # Logout
+        r_logout = client.post("/api/auth/logout", cookies={"bsz_sid": r.cookies["bsz_sid"]})
+        assert r_logout.status_code == 200
+
+    def test_unified_login_invalid_user(self, monkeypatch, tmp_path):
+        import api_server
+        import db
+        from fastapi.testclient import TestClient
+
+        db_path = tmp_path / "billszuka.db"
+        monkeypatch.setattr(db, "DB_PATH", db_path)
+        monkeypatch.setattr(api_server, "DATA", tmp_path)
+        db.init(db_path)
+        client = TestClient(api_server.app)
+
+        # No verified user
+        monkeypatch.setattr(api_server, "_verified_user", lambda name: None)
+        monkeypatch.setattr(api_server._auth, "is_allowed", lambda name: False)
+
+        r = client.post("/api/auth/login", json={"user": "hacker", "company": "fake"})
+        assert r.status_code == 403
+
+

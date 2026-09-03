@@ -345,26 +345,6 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   const { byId: urlStatusById } = useUrlStatus(activeCountry);
   const { byId: keywordById } = useKeywordScan(activeCountry);
 
-  // When a country pill is clicked: update the underlying `kraj` filter.
-  // Passing null clears the filter (CountryPills "Wszystkie" button).
-  // We go through the same setFilters path so the change persists in
-  // prefs and composes with reset / saved state.
-  const handleCountrySelect = useCallback(
-    (iso) => {
-      setFilters((prev) => {
-        const next = { ...prev };
-        if (iso == null) {
-          delete next.kraj;
-        } else {
-          next.kraj = iso;
-        }
-        return next;
-      });
-      setPageIndex(0);
-    },
-    [setFilters]
-  );
-
   // Toast on parse complete. The message references row count and parse
   // time, so the effect re-fires when those change (i.e. on a fresh
   // CSV load) — that's the intended behavior, not a cascading render.
@@ -393,10 +373,10 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   // Effective column visibility — whatever the user last set in localStorage.
   const columnVisibility = prefs.columnVisibility || {};
   const [pageIndex, setPageIndex] = useState(() => (typeof prefs.pageIndex === "number" ? prefs.pageIndex : 0));
-  const pageSize = typeof prefs.pageSize === "number" ? prefs.pageSize : 0;
+  const pageSize = typeof prefs.pageSize === "number" ? prefs.pageSize : 100;
   const pagination = useMemo(() => ({
     pageIndex: typeof pageIndex === "number" ? pageIndex : 0,
-    pageSize: typeof pageSize === "number" ? pageSize : 0,
+    pageSize: typeof pageSize === "number" ? pageSize : 100,
   }), [pageIndex, pageSize]);
 
   const onPaginationChange = useCallback((updater) => {
@@ -439,6 +419,26 @@ export const RawTable = forwardRef(function RawTable(_props, ref) {
   }, [setPrefs]);
   const setDensity = useCallback((d) => setPrefs((p) => ({ ...p, density: d })), [setPrefs]);
   const setTheme = useCallback((t) => setPrefs((p) => ({ ...p, theme: t })), [setPrefs]);
+
+  // When a country pill is clicked: update the underlying `kraj` filter.
+  // Passing null clears the filter (CountryPills "Wszystkie" button).
+  // We go through the same setFilters path so the change persists in
+  // prefs and composes with reset / saved state.
+  const handleCountrySelect = useCallback(
+    (iso) => {
+      setFilters((prev) => {
+        const next = { ...prev };
+        if (iso == null) {
+          delete next.kraj;
+        } else {
+          next.kraj = iso;
+        }
+        return next;
+      });
+      setPageIndex(0);
+    },
+    [setFilters]
+  );
 
   // Global filter (across all visible cells) — debounced
   const [globalSearch, setGlobalSearch] = useState(() => prefs.globalSearch || "");

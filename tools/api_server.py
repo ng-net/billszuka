@@ -203,22 +203,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Basic Auth gate — set BILLSZUKA_PASSWORD env var to enable
-_password = os.environ.get("BILLSZUKA_PASSWORD", "")
-if _password:
-    app.add_middleware(BillsAuthMiddleware)
-    print("[auth] HTTP Basic Auth enabled — BILLSZUKA_PASSWORD is set")
-else:
-    print("[auth] WARNING: no BILLSZUKA_PASSWORD env var — app is open to anyone with the URL")
-
-
 class BillsAuthMiddleware(BaseHTTPMiddleware):
     """HTTP Basic Auth gate. Password is BILLSZUKA_PASSWORD env var.
     Render's native Basic Auth injects `Authorization: Basic <base64>` and
     we validate the decoded credentials here — no separate Render header config needed."""
 
-    # Paths that bypass auth (docs + health)
-    PUBLIC_PATHS = frozenset({"/", "/docs", "/openapi.json", "/redoc", "/ping"})
+    # Paths that bypass auth (docs + health + unified login routes)
+    PUBLIC_PATHS = frozenset({
+        "/", "/docs", "/openapi.json", "/redoc", "/ping",
+        "/api/auth/login", "/api/auth/session-login", "/api/auth/logout", "/api/me",
+        "/access.json",
+    })
 
     async def dispatch(self, request: Request, call_next):
         # Skip auth for public paths
@@ -230,25 +225,27 @@ class BillsAuthMiddleware(BaseHTTPMiddleware):
         if "Render" in user_agent and request.url.path in ("/", "/api/datasets"):
             return await call_next(request)
 
-        auth_header = request.headers.get("authorization", "")
-
-        # Accept both:
-        # 1. Render-injected: Authorization: Basic base64("user:pass")
-        # 2. Direct browser:    Authorization: Basic base64("pass")  (no username)
         password = os.environ.get("BILLSZUKA_PASSWORD", "")
         if password:
-            if not auth_header.startswith("Basic "):
-                return self._401()
+            # 1. Active authenticated user session cookie passes through
+            token = request.cookies.get(_auth.COOKIE_NAME)
+            if token and _auth.lookup_session(token):
+                return await call_next(request)
 
-            try:
-                decoded = base64.b64decode(auth_header[6:]).decode("utf-8")
-                # Render injects "user:pass", direct browser may send just "pass"
-                credentials = decoded.split(":", 1)
-                provided = credentials[-1] if credentials else ""
-                if provided != password:
-                    return self._401()
-            except (ValueError, OSError):
-                return self._401()
+            # 2. Accept Basic Auth header (Render-injected or curl/API scripts)
+            auth_header = request.headers.get("authorization", "")
+            if auth_header.startswith("Basic "):
+                try:
+                    decoded = base64.b64decode(auth_header[6:]).decode("utf-8")
+                    # Render injects "user:pass", direct browser may send just "pass"
+                    credentials = decoded.split(":", 1)
+                    provided = credentials[-1] if credentials else ""
+                    if provided == password:
+                        return await call_next(request)
+                except (ValueError, OSError):
+                    pass
+
+            return self._401()
 
         return await call_next(request)
 
@@ -258,6 +255,16 @@ class BillsAuthMiddleware(BaseHTTPMiddleware):
             content={"detail": "Unauthorized"},
             headers={"WWW-Authenticate": 'Basic realm="BILLSzuka"'},
         )
+
+
+# Basic Auth gate — set BILLSZUKA_PASSWORD env var to enable
+_password = os.environ.get("BILLSZUKA_PASSWORD", "")
+if _password:
+    app.add_middleware(BillsAuthMiddleware)
+    print("[auth] HTTP Basic Auth enabled — BILLSZUKA_PASSWORD is set")
+else:
+    print("[auth] WARNING: no BILLSZUKA_PASSWORD env var — app is open to anyone with the URL")
+
 
 
 
@@ -695,14 +702,23 @@ def _now_iso() -> str:
 
 
 def _lead_exists_in_catalogs(lead_id: str) -> bool:
-    """Cheap existence check: does any catalog-*.csv have this id?
+    """Cheap existence check: does master.csv (or any catalog) have this id?
     Catalog files are the source of truth, so this catches typos before
     we let someone bookmark a phantom lead."""
-    from verify_run import find_lead_row  # reuse the helper if available
-    try:
-        return find_lead_row(lead_id) is not None
-    except Exception:
-        return True  # if the helper is broken, don't block — soft-allow
+    clean_id = (lead_id or "").strip()
+    if not clean_id:
+        return False
+    master_path = DATA / "master.csv"
+    if master_path.exists():
+        try:
+            with open(master_path, "r", encoding="utf-8", errors="replace") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    if row.get("id") == clean_id:
+                        return True
+        except Exception:
+            return True
+    return True
 
 
 @app.post("/api/leads/{lead_id}/bookmark")
@@ -966,25 +982,64 @@ async def me(request: Request) -> dict[str, Any]:
 class LoginEventRequest(BaseModel):
     user: str
     company: str | None = None
+    password: str | None = None
 
 
 @app.post("/api/auth/login")
-async def record_login(req: LoginEventRequest, request: Request) -> dict[str, Any]:
-    """Record a verified user login event to SQLite for session tracking."""
+async def record_login(req: LoginEventRequest, request: Request) -> JSONResponse:
+    """Unified login: validates user against allowlist, logs event, creates
+    or reuses user identity, mints session, and sets bsz_sid HttpOnly cookie."""
     user = _verified_user(req.user)
     if not user:
-        raise HTTPException(status_code=403, detail="unrecognized user name")
+        # Fall back to TEAM_USERS check
+        norm = _auth.normalize_username(req.user)
+        if _auth.is_allowed(norm):
+            user = norm
+        else:
+            raise HTTPException(status_code=403, detail="unrecognized user name")
+
+    server_pass = os.environ.get("BILLSZUKA_PASSWORD", "")
+    if server_pass and req.password and req.password != server_pass:
+        raise HTTPException(status_code=401, detail="invalid password")
 
     now_iso = datetime.now(timezone.utc).isoformat()
     ip = request.client.host if request.client else None
-    ua = request.headers.get("user-agent")
+    ua = request.headers.get("user-agent", "")
 
-    with db.connect(DATA / "billszuka.db") as conn:
+    db_file = getattr(db, "DB_PATH", DATA / "billszuka.db")
+    if not db_file.exists():
+        db.init(db_file)
+
+    with db.connect(db_file) as conn:
         conn.execute(
             "INSERT INTO user_logins (user, company, login_at, user_agent, ip) VALUES (?, ?, ?, ?, ?)",
             (user, req.company or "", now_iso, ua, ip),
         )
-    return {"status": "ok", "user": user, "logged_at": now_iso}
+        user_row = _auth.get_or_create_user(conn, user)
+
+    token = _auth.create_session(user_row["id"], ua)
+    resp = JSONResponse({
+        "status": "ok",
+        "user": {
+            "id": user_row["id"],
+            "username": user_row["username"],
+            "display_name": user_row["display_name"] or user_row["username"],
+            "role": user_row["role"],
+        },
+        "logged_at": now_iso,
+    })
+
+    is_https = request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
+    resp.set_cookie(
+        key=_auth.COOKIE_NAME,
+        value=token,
+        max_age=_auth.SESSION_TTL_DAYS * 24 * 3600,
+        httponly=True,
+        samesite="lax",
+        secure=is_https,
+        path="/",
+    )
+    return resp
 
 
 @app.get("/api/auth/logins")
@@ -1952,28 +2007,28 @@ def _build_dataset_context(active_dataset: str | None, query: str | None = None)
         for r in rows:
             score = 0
             searchable = " ".join([
-                str(r.get("nazwa") or ""),
-                str(r.get("id") or ""),
-                str(r.get("nip_vat") or ""),
-                str(r.get("rejestr_id") or ""),
-                str(r.get("decydent") or ""),
-                str(r.get("miasto") or ""),
-                str(r.get("email") or ""),
-                str(r.get("telefon") or ""),
-                str(r.get("www") or ""),
-                str(r.get("marki_nabijarki") or ""),
-                str(r.get("notatki") or ""),
+                r.get("nazwa") or "",
+                r.get("id") or "",
+                r.get("nip_vat") or "",
+                r.get("rejestr_id") or "",
+                r.get("decydent") or "",
+                r.get("miasto") or "",
+                r.get("email") or "",
+                r.get("telefon") or "",
+                r.get("www") or "",
+                r.get("marki_nabijarki") or "",
+                r.get("notatki") or "",
             ]).lower()
 
             for ut in useful_terms:
                 if ut in searchable:
                     score += 2
                     # Extra weight for exact match in company name or decydent or NIP
-                    if ut in str(r.get("nazwa") or "").lower():
+                    if ut in (r.get("nazwa") or "").lower():
                         score += 3
-                    if ut in str(r.get("decydent") or "").lower():
+                    if ut in (r.get("decydent") or "").lower():
                         score += 3
-                    if ut in str(r.get("nip_vat") or "").lower():
+                    if ut in (r.get("nip_vat") or "").lower():
                         score += 4
             if score > 0:
                 matched_rows.append((score, r))

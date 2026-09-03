@@ -210,7 +210,7 @@ export function ModernLeadsTableV2({ leads: leadsProp }) {
   // if `selectedCountry` (string) is set, single-select still works.
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("Wszystkie");
-  const [selectedTiers, setSelectedTiers] = useState([]);
+  const [selectedTiers, _setSelectedTiers] = useState([]);
   const [selectedTier, setSelectedTier] = useState("Wszystkie");
   const [selectedConfidence, setSelectedConfidence] = useState("all"); // all | green | green_yellow | none
   const [selectedBrands, setSelectedBrands] = useState([]);
