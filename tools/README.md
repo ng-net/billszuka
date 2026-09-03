@@ -52,14 +52,3 @@ python3 tools/billszuka.py intake --iso CZ
 - **`md_corpus.py`**: Permanent markdown corpus parser and indexer.
 - **`run_verify_cron.sh`**: Verification cron trigger script.
 
----
-
-## Archival & One-Off Scripts (`tools/legacy/`)
-
-Historical, completed migration, or experimental one-off scripts are archived under `tools/legacy/`:
-- `fix_cz_bad_rows.py`, `fix_remaining_42.py`, `fix_nonpl_schema.py`, `fix_validation_criticals.py`
-- `deep_clean_and_deduplicate.py`, `clean_and_realign_columns.py`, `clean_notatki.py`, `dedup_notatki.py`
-- `gentle_60min_lead_gem_scout.py`, `gentle_enrich_and_verify.py`, `autonomous_20min_verifier.py`
-- `purge_hallucinations_and_normalize.py`, `uniform_data.py`, `finalize_and_freeze_all.py`
-- `orchestrate_11_levels.py`, `test_11_levels.py`, `test_tokens.py`
-- Full archive of earlier sweep and catalog cleanup helpers.

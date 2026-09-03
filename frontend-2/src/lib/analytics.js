@@ -9,8 +9,7 @@
  * Coerce a possibly-Date value to a YYYY-MM-DD string, or "" if unparseable.
  * Required because useCsv's applySchema() turns `data_weryfikacji` into a
  * Date instance — calling `.trim()` on it would throw "trim is not a function".
- * Mirrors the Date/string fallback already in ModernLeadsTable.jsx,
- * ExperimentView.jsx, and ModernLeadsTableV2.jsx's `fmtDate`.
+ * Mirrors the Date/string fallback in ModernLeadsTableV2.jsx's `fmtDate`.
  */
 function toIsoDate(v) {
   if (v == null || v === "") return "";

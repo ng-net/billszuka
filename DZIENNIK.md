@@ -1819,4 +1819,29 @@ Pełna stabilizacja i unifikacja UI w `frontend-2` na prośbę Marcelego:
 **Commity:**
 - `e410eb1c feat(ui): redesign ModernLeadsTableV2 to high-fidelity Light Theme`
 - `9350a1d7 feat(ui): unify all views with design system tokens`
+- `bfee4b8b docs(dziennik): log UI redesign and design system token unification`
+
+## 2026-09-03 16:30 CEST — cleanup: remove obsolete legacy scripts, unused views and orphaned workspace folders
+
+Kompleksowe oczyszczenie projektu na polecenie Marcelego:
+
+1. **Frontend cleanup (`frontend-2`):**
+   - Usunięto przestarzałą tabelę V1 `ModernLeadsTable.jsx` (40 KB) i stary widok `ExperimentView.jsx` (44 KB).
+   - Usunięto nieużywany cache `.wrangler/`.
+   - Zaktualizowano komentarze w `analytics.js` i `sampleLeads.js`.
+
+2. **Root workspace cleanup:**
+   - Usunięto nieśledzony katalog `atlas-grok/` (App Builder, 407 MB).
+   - Usunięto osierocony katalog `node_modules/` w root (pozostałości po dawnych uruchomieniach vite).
+
+3. **Legacy tools & tests removal:**
+   - Usunięto folder `tools/legacy/` (52 archiwalne jednorazowe skrypty: `deep_clean_v2.py`-`v11`, dawne migracje, sweepy).
+   - Usunięto `tests/legacy/test_purge_and_orchestrate.py`.
+   - Poprawiono `.github/workflows/ci-python.yml` (usunięto odwołanie do legacy skryptu `test_11_levels.py`) oraz zaktualizowano `tools/README.md`.
+
+4. **Weryfikacja:**
+   - Pytest: 527/527 pass.
+   - Frontend tests: 133/133 pass.
+   - Walidacja danych: 27 plików, 948 wierszy, 0 Critical, 0 Warning.
+
 
