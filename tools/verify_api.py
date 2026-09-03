@@ -509,6 +509,31 @@ def verify_pl_row(row: dict, token: str) -> tuple[str, str]:
     return FROZEN, f"CEIDG live: {result.get('nazwa', '')[:40]} (REGON {result.get('regon', '')})"
 
 
+def verify_pl_row_retrofix(row: dict, token: str) -> tuple[str, str]:
+    """Re-verify an already-FROZEN PL row to catch FABRYKAT pattern.
+
+    FABRYKAT = KRS/NIP points to a real registry entity but the name
+    doesn't match the CSV (e.g. PL-B-048 had KRS 0000203325 pointing
+    to a 404 because the original KRS came from a hallucinated
+    source). Per AGENTS.md, any PL row that fails live name match
+    after being FROZEN is a FABRYKAT until proven otherwise.
+
+    Replaces the legacy `tools/l0_preflight.py --retrofix` flow.
+    Logic is identical: re-run verify_pl_row (which already does
+    mod-11 + KRS live + name Jaccard) and label DO-WERYFIKACJI
+    results with the FABRYKAT marker so the user can spot them
+    at a glance in the flagi column.
+
+    Returns:
+        ("FROZEN", "<reason>") — row still checks out
+        ("DO-WERYFIKACJI", "🔴 FABRYKAT: <reason>") — row was wrong
+    """
+    status, reason = verify_pl_row(row, token)
+    if status == "FROZEN":
+        return status, reason
+    return "DO-WERYFIKACJI", f"🔴 FABRYKAT: {reason}"
+
+
 def verify_cz_row(row: dict) -> tuple[str, str]:
     """Verify CZ row via ARES. Falls back to name search if IČO missing.
     Per Zasady: format -> API -> fuzzy match -> FROZEN.
@@ -1269,6 +1294,10 @@ def main() -> int:
     ap.add_argument("--country", help="Limit to one country code (e.g. PL, CZ)")
     ap.add_argument("--all", action="store_true", help="Verify all rows in all countries")
     ap.add_argument("--force", action="store_true", help="Force re-verification of already FROZEN rows (default: skip FROZEN)")
+    ap.add_argument("--retrofix", action="store_true",
+                    help="Re-verify rows already marked FROZEN (API) — "
+                         "catches FABRYKAT pattern (KRS/NIP points to wrong entity). "
+                         "PL-only.")
     ap.add_argument("--dry-run", action="store_true", help="Show what would be verified, write nothing")
     args = ap.parse_args()
 
@@ -1306,8 +1335,15 @@ def main() -> int:
                 continue
 
             flagi = (row.get("flagi") or "").strip()
+            is_frozen = "FROZEN" in flagi
+            is_retrofix_target = (
+                is_frozen
+                and getattr(args, "retrofix", False)
+                and country == "PL"
+            )
             # Zasada 1: Bezwzględnie pomijamy rekordy FROZEN bez jawnej flagi --force
-            if not getattr(args, "force", False) and "FROZEN" in flagi:
+            # (--retrofix for PL is the one explicit exception).
+            if is_frozen and not is_retrofix_target and not getattr(args, "force", False):
                 total_frozen += 1
                 total_skipped += 1
                 continue
@@ -1315,7 +1351,10 @@ def main() -> int:
             if country == "PL":
                 if not ceidg_token:
                     continue
-                status, reason = verify_pl_row(row, ceidg_token)
+                if is_retrofix_target:
+                    status, reason = verify_pl_row_retrofix(row, ceidg_token)
+                else:
+                    status, reason = verify_pl_row(row, ceidg_token)
             elif country == "CZ":
                 status, reason = verify_cz_row(row)
             elif country == "FR":

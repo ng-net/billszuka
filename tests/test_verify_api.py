@@ -1140,3 +1140,131 @@ class TestVerifyApolloRow:
         status, reason = verify_api.verify_apollo_row(row)
         assert status == verify_api.PENDING_API
         assert "nazwy" in reason.lower() or "nazwa" in reason.lower()
+
+
+class TestPlRetrofix:
+    """verify_pl_row_retrofix() — FABRYKAT re-detection on FROZEN rows.
+
+    Replaces the legacy `tools/l0_preflight.py --retrofix` flow.
+    """
+
+    def _row(self, nip, krs="", name="TEST", flagi="2026-08-01 ✅ FROZEN (API)"):
+        return {"nip_vat": nip, "rejestr_id": krs, "nazwa": name, "flagi": flagi}
+
+    def test_real_nip_with_real_krs_stays_frozen(self, monkeypatch):
+        # BILLS: KRS 0001074645 → NIP 5140361901, name "BILLS"
+        monkeypatch.setattr(verify_api, "krs_lookup",
+            lambda krs: {"nazwa": "BILLS", "nip": "5140361901", "regon": "020089511"})
+        status, reason = verify_api.verify_pl_row_retrofix(
+            self._row("PL5140361901", "KRS 0001074645", "BILLS"), ""
+        )
+        assert status == "FROZEN"
+        assert "BILLS" in reason
+
+    def test_name_mismatch_labeled_fabrykat(self, monkeypatch):
+        """KRS exists but points to a different entity → FABRYKAT.
+
+        Real KRS 0000108390 → PIEKARNIA REHLIS (NIP 6510000539).
+        If a CSV row claims to be a different company with this KRS,
+        it's a FABRYKAT. This is the original 2026-08-24 incident
+        pattern.
+        """
+        monkeypatch.setattr(verify_api, "krs_lookup",
+            lambda krs: {"nazwa": "PIEKARNIA REHLIS", "nip": "6510000539", "regon": "00352424100000"})
+        status, reason = verify_api.verify_pl_row_retrofix(
+            self._row("PL6510000539", "KRS 0000108390", "CARMEN POLSKA"), ""
+        )
+        assert status == "DO-WERYFIKACJI"
+        assert "FABRYKAT" in reason
+        assert "MISMATCH_REGISTRY" in reason or "mismatch" in reason.lower()
+
+    def test_hallucinated_nip_labeled_fabrykat(self):
+        """PL-B-048 case: NIP fails mod-11 → already-DO-W, now FABRYKAT-labelled."""
+        status, reason = verify_api.verify_pl_row_retrofix(
+            self._row("PL7792223933", "", "Selgros"), ""
+        )
+        assert status == "DO-WERYFIKACJI"
+        assert "FABRYKAT" in reason
+        assert "INVALID_CHECKSUM" in reason
+
+    def test_frozen_status_passes_through(self, monkeypatch):
+        """FROZEN results get passed through unchanged (no FABRYKAT label)."""
+        monkeypatch.setattr(verify_api, "krs_lookup",
+            lambda krs: {"nazwa": "BILLS", "nip": "5140361901", "regon": "020089511"})
+        status, reason = verify_api.verify_pl_row_retrofix(
+            self._row("PL5140361901", "KRS 0001074645", "BILLS"), ""
+        )
+        assert status == "FROZEN"
+        assert "FABRYKAT" not in reason
+
+
+# ---------------------------------------------------------------------------
+# Hallucination regression tests — moved from test_verify_run_hallucination.py
+# on 2026-09-03. The PL NIP mod-11 + KRS pre-flight gate that lived in
+# verify_run.verify_row() now lives in verify_api.verify_pl_row(). These tests
+# pin the bug fix from 2026-08-31 (19/129 PL-B rows with hallucinated NIPs
+# had passed as FROZEN before).
+# ---------------------------------------------------------------------------
+
+
+class TestPlRowMod11Gate:
+    """verify_pl_row() must catch PL NIP mod-11 hallucination as DO-WERYFIKACJI."""
+
+    def _row(self, nip, krs="KRS 0001074645", zrodlo="KRS API 0001074645", name="TEST FIRMA SP. Z O.O."):
+        return {
+            "kraj": "PL",
+            "id": "PL-TEST",
+            "nazwa": name,
+            "nip_vat": nip,
+            "rejestr_id": krs,
+            "zrodlo_danych": zrodlo,
+        }
+
+    def test_hallucinated_nip_becomes_do_weryfikacji(self):
+        status, reason = verify_api.verify_pl_row(self._row("7792223933"), "")
+        assert status == "DO-WERYFIKACJI"
+        assert "mod-11 invalid" in reason
+        assert "HALUCYNACJA" in reason
+
+    def test_valid_nip_passes_mod11_check(self, monkeypatch):
+        # BILLS real NIP + BILLS real KRS → mod-11 passes; KRS lookup will succeed
+        monkeypatch.setattr(verify_api, "krs_lookup",
+            lambda krs: {"nazwa": "BILLS", "nip": "5140361901", "regon": "020089511"})
+        row = self._row("5140361901", krs="KRS 0001074645")
+        status, reason = verify_api.verify_pl_row(row, "")
+        # Either FROZEN (KRS+name match) or DO-W (some other reason),
+        # but NEVER "mod-11 invalid"
+        assert "mod-11 invalid" not in reason
+
+
+class TestPlRowKrsGate:
+    """verify_pl_row() must catch KRS hallucination as DO-WERYFIKACJI."""
+
+    def _row(self, nip, krs, name):
+        return {
+            "kraj": "PL",
+            "id": "PL-TEST",
+            "nazwa": name,
+            "nip_vat": nip,
+            "rejestr_id": krs,
+            "zrodlo_danych": f"{krs} | {name[:20]}",
+        }
+
+    def test_hallucinated_krs_becomes_do_weryfikacji(self, monkeypatch):
+        # KRS 0000181515 → API NIP 5213266960 (FABRYKA ZNAKÓW) per historical data.
+        # CSV claims to be "WEST TRADING" with NIP 9552074426 — that's a mismatch.
+        monkeypatch.setattr(verify_api, "krs_lookup",
+            lambda krs: {"nazwa": "FABRYKA ZNAKÓW", "nip": "5213266960", "regon": "012345678"})
+        row = self._row("9552074426", "KRS 0000181515", "WEST TRADING SPÓŁKA Z OGRANICZONĄ")
+        status, reason = verify_api.verify_pl_row(row, "")
+        assert status == "DO-WERYFIKACJI"
+        assert "KRS" in reason
+
+    def test_real_krs_with_real_nip_passes_krs_check(self, monkeypatch):
+        # BILLS: real KRS + real NIP → no KRS HALUCYNACJA
+        monkeypatch.setattr(verify_api, "krs_lookup",
+            lambda krs: {"nazwa": "BILLS", "nip": "5140361901", "regon": "020089511"})
+        row = self._row("5140361901", "KRS 0001074645", "BILLS")
+        status, reason = verify_api.verify_pl_row(row, "")
+        assert "KRS HALUCYNACJA" not in reason
+        assert "KRS lookup failed" not in reason
