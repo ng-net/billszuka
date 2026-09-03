@@ -1370,3 +1370,31 @@ Why the new Worker is not being created:
 - 2 PL-B z `miasto="Polska"` (PL-B-086, PL-B-104) — nadal otwarte.
 
 **Pliki zmienione:** `data/master.csv` (gitignored, źródło prawdy), `frontend-2/public/master.csv` (commit pending), `DZIENNIK.md` (ten wpis).
+
+## 2026-09-03 07:03 CEST — Gentle lead search: PL + CZ + SK (commit 1/4)
+
+**Zakres i wykonanie:**
+1. **PL** (4 nowe verified → master, 3 partial → extra-leads-PL):
+   - **PL-A-001 ZAS-POL sp.j.** (NIP 9720010451, KRS 0000092182) — Poznań, dystrybutor PM/Imperial/JTI/BAT, 5 oddziałów, oferta "Gilzy, Napełniarki". Pow 3. cross_sell wysoki.
+   - **PL-A-002 Luna Corporate Sp. z o.o.** (NIP 6751740806, KRS 0000873454) — Suchy Las, producent woreczków nikotynowych (77/Björn/Maverick), założyciele po sprzedaży BAT. PKD 46.35.Z + 12.00.Z. Pow 1 (adjacent).
+   - **PL-A-003 Promatic & DPM Polska Sp. z o.o.** (NIP 8992863813, KRS 0000789925) — Wrocław, PKD 4690Z, ⚠️ LOW confidence — nazwa sugeruje markę maszyn ale brak powiązania.
+   - **PL-A-004 Big Brands Group MEFTAH SKA** (NIP 7010338388) — FMCG 20k+ produktów, 95 krajów. Adjacent (cross_sell niski).
+   - Extra: PL-X-016 F.H. Alans (Ruda Śląska), PL-X-017 Drek Hurtownia (Radom), PL-X-018 Dopalenia (⚠️ duplicate PL-B-003).
+2. **CZ** (2 nowe verified → master):
+   - **CZ-A-010 Tabák Plus, spol. s r.o.** (IČO 63489821, ARES) — Brno. Jeden z największych velkoobchodních distributorów tytoniu + kuřácké potřeby v ČR. Majitel Ing. Radek Janíček (100%). ⚠️ INSOLVENCY (2025-12-17, hlidacstatu.cz).
+   - **CZ-A-011 MERCATO PREZZO, s.r.o.** (IČO 28635621) — Ostrava. Velkoobchod dutinek/doutníků/tabáku/benzínu k plnění. Pow 3. ⏳ PENDING_REGISTRY (ARES nie znajduje IČO).
+3. **SK** (3 nowe verified → master, 2 partial → gems-NON-PL):
+   - **SK-A-016 Slovak distribution, s. r. o.** (IČO 53070992) — Bratislava, e-shop zuvaj.sk (nikotínové sáčky/žuvací tabak/cigárky), spolupráca s BAT CR. Adjacent.
+   - **SK-A-017 TABACO-Print, spol. s r.o.** (IČO 35817488) — Bratislava, velkoobchod tlač+tabak, súčasť Mediaprint-Kapa. ⚠️ LOW confidence (mikro firma 6k EUR obratu).
+   - **SK-A-018 Gemer Pannónia, s.r.o.** (IČO 36018040) — Rimavská Sobota. 25-49 zamestnancov, spracovanie+balenie tabaku+veľkoobchod. Sesterská firma Continental Tobacco Slovakia (už v master). Zahraničné vlastníctvo.
+   - Gems: SK-B-029 D.A. CZVEDLER (zrušená 2026-06-01, právny nástupca MEDIAPRESS Bratislava), SK-X-001 KON-RAD (FMCG velkoobchod, nie tabak).
+
+**Walidacja:** 0 Critical, 0 Warnings (27 plików, 945 wierszy, master 474 wiersze).
+
+**Pliki:** data/master.csv (gitignored, źródło prawdy, 469→474), frontend-2/public/master.csv (commit), data/Polska/extra-leads-PL.csv (+3), data/gems-NON-PL.csv (+2), DZIENNIK.md.
+
+**Kluczowe ustalenia:**
+- CZ: Tabák Plus w INSOLVENCY — flag zostawiony ⚠️ INSOLVENCY, owner 100% Janíček.
+- SK: Gemer Pannónia = silny wholesaler, foreign owner (Hungarian likely), silny cross-sell PowerMatic (3/5, już mają 'benzín k plnění' podobny produkt).
+- PL: Luna Corporate (weareszki nikotynowe) i Big Brands Group (FMCG) — oba adjacent, ale warte śledzenia jako kontakty B2B.
+- Promatic & DPM (PL) — niska wiarygodność, ale wpisany dla porządku.
