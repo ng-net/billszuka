@@ -27,6 +27,42 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-09-03 — Sesja 3: Migracja schematu 35→36 + www_status + URL scan fix
+
+- **Migracja schematu:** dodana kolumna `www_status` na pozycji 6
+  (bezpośrednio po `www`) w `tools/config.py:CANONICAL_SCHEMA` (35→36)
+  oraz w `tools/validate_columns.py:CANONICAL_COLUMNS` (mirror).
+  Aliasy: `www status`, `url status`, `site status`, `url health`, `www health`.
+  Rule: text, allow_empty, pattern `^[^,\r\n]*$` (chroni CSV przed złamaniem).
+- **Skrypt `tools/inject_www_status.py`:** czyta `url_status` table
+  z `billszuka.db` (schema z `tools/db.py`), wstawia status obok www
+  w każdym catalog-*.csv, extra-leads-*.csv, gems-*.csv, master.csv.
+  Idempotentny (nadpisuje www_status zamiast duplikować kolumnę).
+  Filtruje `.snapshots/`, `_intake/`, `users/`, `knowledge/`,
+  `verification/`, `validation-reports/`. Pomija snapshot files.
+- **Iniekcja wykonana:** 1138 wierszy w 52 plikach, **568 (49.9%)**
+  z wypełnionym statusem (green|200|578ms / red|404 / red|timeout).
+  Pozostałe 192 = brak www, 378 = www bez skanu.
+- **Bug fix `check_urls.py`:** stary `URL_STATUS_SCHEMA` używał `id`,
+  produkcyjna tabela ma `id_unikalne`. `save_result()` SQL też używał `id`.
+  Zsync. 2026-09-03. Po fixie check_urls.py działa poprawnie.
+- **Master recompile:** `python3 tools/billszuka.py compile` →
+  master.csv 471 wierszy × 36 kolumn.
+- **Walidacja:** `python3 tools/validate_columns.py` → **0 Critical, 0 Warning** ✅
+- **URL scan (background):** `python3 tools/check_urls.py --all` —
+  zakończony: 388 URL-i w 1975s, **307 green / 81 red**.
+  Re-inject → **877/1138 (77.1%) wierszy** z www_status wypełnionym.
+  Walidacja: **0 Critical, 0 Warning** ✅
+- **SK rescan:** `python3 tools/check_urls.py --country SK --delay 1` —
+  złapał nowe SK-B-019..024 (Domenico, AHILOK, P3Com, KON-RAD, Tabako).
+  SK-B-021 (smokecentrum.sk) timeout → retry później.
+- **Bug fix extra-leads-SK.csv:** moja wcześniejsza write miała przesunięte
+  kolumny (miasto='SK' zamiast 'Bratislava'). Poprawiłem wszystkie 6 nowych
+  SK-B-019..024 rows. Walidacja nadal 0 Critical.
+- **master.csv:** 471 rows × 36 columns. SK: 15 A-tier + 19 B-tier.
+  Nowe leads: KON-RAD (SK-B-019) auto-promowany do catalog-B-SK;
+  SK-B-020..024 zostają w extra-leads-SK (do ręcznej promocji).
+
 ## 2026-09-03 — Sesja 2: SK świeże leady + weryfikacja ORSR/VIES
 
 - **Web search batch (web_search tool):** znaleziono 6 nowych leadów SK

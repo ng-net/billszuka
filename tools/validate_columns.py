@@ -43,7 +43,7 @@ from typing import Any
 CANONICAL_COLUMNS: list[str] = [
     "related_to", "rok_zalozenia", "id", "kategoria", "nazwa",
     "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
-    "www", "kanal_zamiennik", "email", "telefon", "linkedin",
+    "www", "www_status", "kanal_zamiennik", "email", "telefon", "linkedin",
     "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
     "marka_wlasna_oem", "sourcing", "wolumen", "confidence_wolumen", "kanal_sprzedaży",
     "powinowactwo_nabijarki", "cross_sell_potential", "decydent", "stanowisko", "email_decydent",
@@ -82,6 +82,9 @@ DEFAULT_ALIASES: dict[str, list[str]] = {
                    "registration number", "obchodny rejstrik"],
     "www": ["www", "website", "web", "url", "strona www", "strona", "site",
             "homepage", "webseite", "site web", "sito web"],
+    "www_status": ["www status", "www_status", "url status", "url_status",
+                   "website status", "site status", "url health", "www health",
+                   "site health"],
     "kanal_zamiennik": ["kanal zamiennik", "channel replacement", "alt channel",
                         "alternate web", "zastepczy kanal", "in channel"],
     "email": ["email", "e mail", "e-mail", "mail", "adres email", "courriel",
@@ -154,6 +157,10 @@ COLUMN_RULES: dict[str, dict[str, Any]] = {
     "nip_vat": {"type": "nip_per_kraj", "allow_empty": True},
     "rejestr_id": {"type": "text", "allow_empty": True},
     "www": {"type": "url_or_empty", "allow_empty": True},
+    "www_status": {"type": "text", "allow_empty": True,
+                   # Format: "green|200|400ms" | "red|404" | "red|timeout" | "unknown" | ""
+                   # Just sanity-check it doesn't contain newlines/commas (would break CSV)
+                   "pattern": r"^[^,\r\n]*$"},
     "kanal_zamiennik": {"type": "text", "allow_empty": True},
     "email": {"type": "email_or_empty", "allow_empty": True},
     "telefon": {"type": "phone_or_empty", "allow_empty": True},

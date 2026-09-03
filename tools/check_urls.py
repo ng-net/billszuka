@@ -45,16 +45,20 @@ ISO_TO_FOLDER = {
 }
 
 # Schema migration: dodaj tabelę url_status jeśli nie istnieje
+# Production schema (id_unikalne not id) per tools/db.py — synced 2026-09-03.
 URL_STATUS_SCHEMA = """
 CREATE TABLE IF NOT EXISTS url_status (
-  id TEXT NOT NULL,
+  id_unikalne TEXT NOT NULL,
   kraj TEXT NOT NULL,
   url TEXT NOT NULL,
-  status TEXT NOT NULL,        -- 'green' | 'red' | 'unknown'
+  status TEXT NOT NULL,
   http_code INTEGER,
   error TEXT,
   checked_at TEXT NOT NULL,
-  PRIMARY KEY (id, url)
+  state TEXT NOT NULL DEFAULT 'unknown',
+  redirect_url TEXT,
+  response_ms INTEGER,
+  PRIMARY KEY (id_unikalne, url)
 );
 CREATE INDEX IF NOT EXISTS idx_url_status_kraj ON url_status(kraj);
 CREATE INDEX IF NOT EXISTS idx_url_status_status ON url_status(status);
@@ -219,10 +223,10 @@ def save_result(conn: sqlite3.Connection, item: dict, status: str, state: str,
             conn.execute(
                 """
                 INSERT INTO url_status (
-                  id, kraj, url, status, state, http_code,
+                  id_unikalne, kraj, url, status, state, http_code,
                   redirect_url, response_ms, error, checked_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
-                ON CONFLICT(id, url) DO UPDATE SET
+                ON CONFLICT(id_unikalne, url) DO UPDATE SET
                   status=excluded.status,
                   state=excluded.state,
                   http_code=excluded.http_code,

@@ -39,7 +39,7 @@ def clean_apple_double(target_dir: Path = ROOT_DIR) -> int:
 _cleaned = clean_apple_double(ROOT_DIR)
 
 
-# Canonical 35-column schema (Region fields completely removed)
+# Canonical 36-column schema (Region fields completely removed; 2026-09-03 +www_status)
 CANONICAL_SCHEMA = [
     "kraj",
     "id",
@@ -47,6 +47,7 @@ CANONICAL_SCHEMA = [
     "miasto",
     "adres",
     "www",
+    "www_status",
     "wolumen",
     "confidence_wolumen",
     "rejestr_id",
