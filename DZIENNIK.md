@@ -1327,3 +1327,46 @@ Why the new Worker is not being created:
 
 1. Weryfikacja automatyczna: **107/215 (49.8%)** firm zweryfikowanych i oznaczonych jako `FROZEN (API)`.
 2. Auto-cleaning & Quality Scoring przetworzył **194 wierszy** we wszystkich katalogach regionalnych.
+
+## 2026-09-03 06:17 CEST — Gentle verification: 16 records "do weryfikacji" w master.csv
+
+**Zadanie:** Zgodnie z prośbą Marcelego — zweryfikować wszystkie 16 rekordów z `data_weryfikacji = "do weryfikacji"` w `data/master.csv` i upewnić się, że plik jest aktualny. Tryb: **gently one after another** (potwierdzone przez użytkownika).
+
+**Baseline:** `validate_columns.py` → 0 Critical, 0 Warnings. `master.csv` i `frontend-2/public/master.csv` byte-identical, 465 wierszy, ostatnia modyfikacja 2026-09-03 02:23.
+
+**Wynik (16/16):**
+
+| # | ID | Firma | Status | Metoda | Co nowego |
+|---|---|---|---|---|---|
+| 1 | PL-B-002 | F.H.U. ALPIK (BongGo.pl) | ✅ VERIFIED | web_fetch + firmy.net | asortyment potwierdzony (maszynki/nabijarki, gilzy, filtry, bibułki); cross_sell `brak→średni`; blog Powermatic na stronie |
+| 2 | PL-B-003 | GABIMIX (Dopalenia.pl) | ✅ VERIFIED | web_fetch + /hurtownia + /nabijarki podstrony | tier `detalista→hurtownik` (B2B hurtownia potwierdzona); pełna kategoria nabijarek |
+| 3 | PL-B-006 | DRV DISTRIBUTION | ✅ ADRES KRS | KRS API `0001190453` | ul. Przemysłowa 20, 21-100 Lubartów |
+| 4 | PL-B-007 | VTP Sp. z o.o. | ✅ ADRES KRS | KRS API `0000948471` | ul. Wrońska 2H, 20-327 Lublin |
+| 5 | PL-B-008 | TABASCO VAPE | ✅ ADRES KRS | KRS API `0001093977` | ul. Zakątkowa 10, 35-317 Rzeszów |
+| 6 | PL-B-009 | Flowrolls | ✅ ADRES KRS | KRS API `0000774565` | ul. Polska 20, 81-339 Gdynia |
+| 7 | PL-B-010 | BIODIO LAB | ✅ ADRES KRS | KRS API `0001074861` | ul. Choroszczańska 24, 15-732 Białystok |
+| 8 | PL-B-011 | WEEDPOL | ✅ ADRES KRS | KRS API `0000922075` | ul. Staromiejska 6, 40-013 Katowice |
+| 9 | PL-B-012 | BENATURAL | ✅ ADRES KRS | KRS API `0000836728` | ul. Przejezdna 10, 03-289 Warszawa |
+| 10 | PL-B-016 | BITLOGIC BARNAŚ | ✅ ADRES KRS | KRS API `0000946950` | ul. Duninowska 7B, 87-800 Włocławek |
+| 11 | PL-B-017 | J&K Dystrybucja | ✅ ADRES KRS | KRS API `0000965005` | ul. Granitowa 34, 55-080 Smolec |
+| 12 | PL-B-018 | CLOUD HOLDING | ✅ ADRES KRS | KRS API `0000998700` | ul. Przytulna 22A, 80-176 Gdańsk |
+| 13 | PL-B-019 | Vape.pl | ✅ ADRES KRS | KRS API `0000999396` | ul. Myśliwska 48, 42-400 Zawiercie |
+| 14 | PL-B-096 | PHU KAZIOOL | ✅ SANITY + ⚠️ DISCREPANCY | web_fetch kaziool.pl | asortyment OK (hurtownia zapalniczek + maszynek); **adres CSV=Polkowice (59-100) vs schema.org=Słubice (69-100)** — do wyjaśnienia przez Marcelego (przeprowadzka / drugi oddział / schema.org błąd) |
+| 15 | RO-A-009 | Coty Shop Invest SRL | ⏳ PENDING (decydent paywalled) | web search + cotyshop.ro/contact | adres + CIF + Reg. Com. potwierdzone; **decydent niedostępny w publicznych źródłach** (listafirme/risco/ONRC paywallowane); rekomendacja: ONRC Certificat Constatator (79 RON) lub telefon |
+| 16 | RS-B-024 | Dinamic Tobacco d.o.o. | ✅ VERIFIED | web_fetch schema.org JSON-LD + companywall.rs | adres Ane Glinskaje Jakšić 36, Beograd; **dyrektor: Miodrag Ristić**; właściciel: Milan Matijević; PIB 106391294, MB 20591056; revenue 2025 ≈ 591M RSD (~5M EUR); HTTP 403 z poprzedniej sesji było przejściowe — strona działa |
+
+**Walidacja po:** 0 Critical, 0 Warnings, 936 wierszy w 27 plikach. Licznik "do weryfikacji" w `data_weryfikacji`: **16 → 1** (pozostały = uczciwy marker PENDING dla RO-A-009 z dokumentacją).
+
+**Kluczowe ustalenia:**
+
+- **PL hurtownie tytoniowe B-tier:** wszystkie 11 adresów uzupełnionych z KRS API (single source of truth, format ujednolicony: `ul. X N, KK-CCC MIASTO`). Pre-decyzenci pozostawieni (KRS API maskuje imiona — `J****`, `G****`).
+- **Kaziool rozbieżność adresu:** **wymaga decyzji Marcelego** — czy schema.org jest błędne, czy firma się przeprowadziła, czy to drugi oddział. Zostawiłem CSV bez zmian adresu (zasada: nie nadpisuję bez jasnego sygnału).
+- **RO decydent:** nie w publicznych źródłach — uczciwie oznaczone jako PENDING, z konkretną rekomendacją (Certificat Constatator 79 RON). Zgodne z AGENTS.md "Decydent = public sources only".
+- **RS strona działa:** HTTP 403 z 2026-09-01 było przejściowe — schema.org JSON-LD dał pełny adres. Dyrektor + właściciel potwierdzeni z companywall.rs (agregator danych z APR).
+
+**Bieżące TODO (poza scope tej sesji):**
+- 69 wierszy z `DO-WERYFIKACJI` w polu `notatki` (nie w `data_weryfikacji`) — to historyczne notatki badawcze, nie luki w danych. Świadomie nietknięte.
+- 8 outlierów `wolumen` w EE (z poprzedniego statusu) — nadal otwarte.
+- 2 PL-B z `miasto="Polska"` (PL-B-086, PL-B-104) — nadal otwarte.
+
+**Pliki zmienione:** `data/master.csv` (gitignored, źródło prawdy), `frontend-2/public/master.csv` (commit pending), `DZIENNIK.md` (ten wpis).
