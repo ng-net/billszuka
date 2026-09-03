@@ -27,6 +27,29 @@
 - Vape-frazy do SŁOWNIK-XX.md (słowniki tytoniowe → 0% dla firm vape)
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-09-03 — Sesja 4: Enrichment danych, hurtownicy i serwisanci nabijarek
+
+- **Narzędzie `tools/score_powinowactwo.py`:**
+  - Dodano obsługę `SERVICE_TOKENS` (serwis, naprawa, części zamienne, regeneracja, oprava, náhradní díly, repair, spare parts) z regułą `ROLLER_SERVICE` (score=5).
+  - Bugfix token normalization w `has_any()`: tokeny z diakrytykami (plnička, mašinica, części) są teraz normalizowane do porównania z tekstem bez diakrytyków, co naprawiło wykrywanie wielojęzycznych fraz maszynkowych.
+- **Wyszukiwanie i kwalifikacja serwisantów oraz hurtowników:**
+  - Zidentyfikowano kluczową cechę rynku nabijarek: tanie maszynki manualne są traktowane jak jednorazówki; rynek serwisowy i popyt na części dotyczy wyłącznie nabijarek elektrycznych (PowerMatic, Hawk, Gerui).
+  - Wykryto i zweryfikowano w rejestrach (KRS, CEIDG, VIES) 5 nowych podmiotów:
+    1. `PL-A-002`: **PRIMA-TECH JERZY ROTT, SANDRA ROTT S.C.** (Kolonia Poczesna, NIP 9491922250, REGON 240040924) — operator `nabijarka.pl` i `primarket.pl`, dystrybutor nabijarek i części z dedykowaną linią serwisu (+48 884 606 604). Flaga `BILLS-LIKE`.
+    2. `PL-A-003`: **TREZO SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ** (Sosnowiec, KRS 0000554050, NIP 6443510536) — producent i eksporter maszyn tytoniowych oraz nabijarek do gilz, dział serwisu (+48 514 281 573). Flaga `BILLS-LIKE`.
+    3. `PL-A-004`: **DON MARCO INTERNATIONAL SP. Z O.O.** (Gdańsk, KRS 0000289524, NIP 5833000423) — wiodący importer i dystrybutor akcesoriów dla palaczy, zwijarek i nabijarek. Magazyn Gdańsk.
+    4. `PL-A-005`: **P.W. KENTDRUK Zbigniew Sroczyński** (Kęty, NIP 5490000925, CEIDG) — producent gilz GoldenTube i MCT oraz dystrybutor nabijarek do tytoniu.
+    5. `SK-A-016`: **TifanTEX, s.r.o.** (Lehota, IČO 45955824, VIES SK2023161525) — dystrybutor elektrycznych nabijarek Gerui, e-commerce i hurt.
+- **Enrichment istniejących wpisów PL:**
+  - `PL-B-013` (Tabak Grupa sp. z o.o., Kalisz, skleptytoniowy.pl): uzupełniono decydenta (Emil Strapagiel — Prezes Zarządu), adres, telefon i profil ogólnopolskiej internetowej hurtowni nabijarek.
+  - `PL-B-069` (Drek Hurtownia Gilz, Radom): uzupełniono decydenta (Beata Czyż — właścicielka JDG), telefon, adres i notatki o asortymencie maszynek elektrycznych i tłokowych.
+- **Czyszczenie plików pomocniczych:**
+  - Zweryfikowano `data/Polska/extra-leads-PL.csv` oraz `data/Polska/extra-leads-PL-verified-2026-09-03.csv`: wszystkie zweryfikowane podmioty (PL-B-132..136) są w pełni zintegrowane w `catalog-B-PL.csv` i `master.csv`, a pozostałe zostały sklasyfikowane jako duplikaty/odrzucone. Oba pliki stagingowe zostały bezpiecznie usunięte.
+- **Walidacja i kompilacja:**
+  - `python3 tools/billszuka.py compile` → master.csv zaktualizowany do 477 wierszy × 36 kolumn.
+  - `python3 tools/validate_columns.py` → **0 Critical, 0 Warning** na 28 plikach / 960 wierszach ✅
+  - `pytest -q` → 527/527 PASS ✅
+
 ## 2026-09-03 — Sesja 3: Migracja schematu 35→36 + www_status + URL scan fix
 
 - **Migracja schematu:** dodana kolumna `www_status` na pozycji 6

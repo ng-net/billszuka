@@ -104,6 +104,27 @@ ACCESSORY_TOKENS = [
     "filtru", "filtru de țigări", "țigări", "tigari",
 ]
 
+# Service / Repair tokens for rolling machines (nabijarki / plničky / injectors)
+SERVICE_TOKENS = [
+    # PL
+    "serwis", "naprawa", "naprawy", "części", "czesci", "części zamienne",
+    "czesci zamienne", "regeneracja", "wymiana noża", "wymiana noza",
+    "wymiana silnika", "naprawa maszynek", "serwis maszynek",
+    "serwis nabijarek", "naprawa nabijarek", "serwis powermatic",
+    # CZ
+    "oprava", "opravy", "servis", "náhradní díly", "nahradni dily",
+    "servis plniček", "oprava plničky",
+    # SK
+    "oprava", "opravy", "servis", "náhradné diely", "nahradne diely",
+    "servis plničiek", "oprava plničky",
+    # EN
+    "repair", "repairs", "service", "servicing", "spare parts",
+    "replacement parts", "maintenance",
+    # DE (for reference)
+    "reparatur", "ersatzteile", "service", "wartung",
+]
+
+
 
 def norm(s: str) -> str:
     if not s:
@@ -148,8 +169,11 @@ def has_any(text: str, tokens: list) -> list:
     sentences = re.split(r"(?<=[.!?;])\s+|\.\s+|\n", n)
     hits = []
     for t in tokens:
+        t_norm = norm(t)
+        if not t_norm:
+            continue
         for sent in sentences:
-            if t in sent:
+            if t_norm in sent:
                 # Check if this sentence has negative context
                 if any(re.search(p, sent) for p in NEGATIVE_PATTERNS):
                     continue
@@ -175,6 +199,11 @@ def score_lead(name: str = "", text: str = "", nace: str = "",
     # product token, NOT a meta-reference.
     roller_hits = has_any(marki_only, ROLLER_TOKENS)
     accessory_hits = has_any(full, ACCESSORY_TOKENS)
+    service_hits = has_any(full, SERVICE_TOKENS)
+    # Check if service is specifically tied to rolling machines / powermatic
+    roller_in_text = has_any(full, ROLLER_TOKENS)
+    is_roller_service = bool(service_hits and (roller_hits or roller_in_text))
+
     # NACE/CAEN detection — for "3" score
     nace_hits = []
     # Combine explicit nace arg with any NACE/CAEN text found in the body
@@ -208,12 +237,16 @@ def score_lead(name: str = "", text: str = "", nace: str = "",
     # in the "no tobacco" branch (if FMCG is the dominant keyword, score 1).
     adjacent_hits = has_any(full, adjacent_tokens)
     # Scoring (priority order)
+    if is_roller_service:
+        return {"score": 5, "rule": "ROLLER_SERVICE", "roller_hits": roller_hits or roller_in_text,
+                "accessory_hits": accessory_hits, "service_hits": service_hits, "nace_hits": nace_hits}
     if roller_hits and accessory_hits:
         return {"score": 4, "rule": "ROLLER+ACCESSORY", "roller_hits": roller_hits,
-                "accessory_hits": accessory_hits, "nace_hits": nace_hits}
+                "accessory_hits": accessory_hits, "service_hits": service_hits, "nace_hits": nace_hits}
     if roller_hits:
         return {"score": 5, "rule": "ROLLER", "roller_hits": roller_hits,
-                "accessory_hits": accessory_hits, "nace_hits": nace_hits}
+                "accessory_hits": accessory_hits, "service_hits": service_hits, "nace_hits": nace_hits}
+
     # Adjacent: e-cig/snus wholesale OR NACE 12 (tobacco manufacturing) of adjacent
     if adjacent_hits and "4635_wholesale_tobacco" in nace_hits:
         return {"score": 1, "rule": "ADJACENT_VAPE_SNUS_FMCG",
@@ -278,6 +311,8 @@ def main():
             print(f"  roller_hits: {r['roller_hits']}")
         if r['accessory_hits']:
             print(f"  accessory_hits: {r['accessory_hits']}")
+        if r.get('service_hits'):
+            print(f"  service_hits: {r['service_hits']}")
         if r['nace_hits']:
             print(f"  nace_hits: {r['nace_hits']}")
     sys.exit(0)
