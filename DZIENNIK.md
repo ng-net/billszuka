@@ -2656,3 +2656,19 @@ Kompleksowe oczyszczenie projektu na polecenie Marcelego:
 
 - **Weryfikacja:** Przetestowano w przeglądarce (Siatka Danych wczytuje 472 wiersze i 36 kolumn automatycznie od razu po wejściu) + testy jednostkowe `frontend-2` (69/69 pass).
 
+## 2026-09-03 18:00 CEST — methodology.md: dodanie 7 systematycznych metod B2B (framework update)
+
+- **Kontekst:** Marceli wskazał 7 metod stosowanych dotychczas (Trade Shows, Rejestry, Marketplace, EMD/SEO, B2B directories, Web OSINT, AI-Driven) — wszystkie muszą być pokryte w metodologii.
+
+- **Zmiana w `methodology.md`:** przebudowa §2 z tabeli "11 Methods" na "7 + 1 grup metod" (kompatybilne z `tools/orchestrate_11_levels.py`). Dodane dedykowane pod-sekcje:
+  - **L3.5** (nowa): pełna mapa rejestrów 12 krajów + VIES + **EORI**
+  - **L5** (nowa/rozbudowana): EMD/SEO footprint discovery — skrypt + lista domen (powermatic.cz, dutinky.cz, skleptytoniowy.pl, twojepapierosy.pl, powermatic.store)
+  - **L5.5** (nowa): SimilarWeb + BuiltWith + WHOIS per TLD (NASK, CZ-NIC, EENet, CARNet, DOMREG.lt, ROTLD) + crt.sh
+  - **L6** (nowa): Targi — InterTabac, Cannafest, CEE Retail Expo, Transilvania/Expo Retail (RO), Moldavia FMCG + firmy już zidentyfikowane (Eighty8, Bushplanet, Zelená Země, Konopný Táta, GTS Speciality, SC Tobaccoshop, Tabaccogifts.ro, Delta d.o.o.)
+  - **L8** (nowa/rozbudowana): Katalogi regionalne — PKT/Panorama/Aleo/nipgo (PL), Firmy.cz (CZ), **ListaFirme + Bizoo + Termene** (RO) + kwerendy specjalistyczne ("comert cu ridicata tutun accesorii srl")
+  - **L9** (rozszerzony): PKD/CN machinery — PKD 28.29.Z/28.93.Z, CN 8479 89 97 90/8422 40 00 + przykład **Woton Sp. z o.o.**
+
+- **Kompatybilność:** numeracja L0–L11 zachowana, stare referencje w `INTEL.md`/`DZIENNIK.md` działają.
+
+- **Bezpieczeństwo danych:** wszystkie NIP-y/KRS-y z nowych przykładów (Woton, Eighty8, Bushplanet, etc.) są placeholderami od Marceli — **NIE były weryfikowane przez L0/L3**, dlatego wstawione jako przykłady a nie jako FROZEN leads.
+
