@@ -73,7 +73,9 @@ def load_all():
                              r.get("nazwa", ""), r.get("nip_vat", ""),
                              "master.csv"))
     # gems-NON-PL.csv
-    p = DATA / "gems-NON-PL.csv"
+    p = DATA / "verification" / "gems-NON-PL.csv"
+    if not p.exists():
+        p = DATA / "gems-NON-PL.csv"
     if p.exists():
         with p.open(encoding="utf-8") as f:
             for r in csv.DictReader(f):

@@ -32,6 +32,199 @@
 
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-09-04 — Sesja 17: Pełna weryfikacja wszystkich leadów DO-WERYFIKACJI i wzbogacenie danych (Enrichment)
+
+- **Cel:** Likwidacja wszystkich sentineli `DO-WERYFIKACJI` w bazie, weryfikacja danych rejestrowych (NIP, IČO, CUI, PVN, IDNO, OIB, EIK) z oficjalnych rejestrów urzędowych (VIES, ARES, AJPES, Lursoft, ASP, ONRC, CEIDG/KRS) oraz konwersja zweryfikowanych leadów do statusu `FROZEN`.
+- **Zweryfikowane i zaktualizowane rekordy:**
+  - 🇷🇴 **Rumunia (`RO-B-015` do `RO-B-018`):**
+    - `RO-B-015` **AQUILA PART PROD COM S.A.** (Ploiești, CUI `6484554`, VIES active, Malu Roșu 105A, www.aquila.ro) $\rightarrow$ `FROZEN (API)`.
+    - `RO-B-016` **Interbrands Orbico S.R.L.** (București, CUI `4656608`, Str. Sergent Nuțu Ion 44, www.orbico.ro) $\rightarrow$ `FROZEN (API)`.
+    - `RO-B-017` **Punctual Comimpex S.R.L.** (Cluj-Napoca, CUI `4535310`, Str. Răsăritului 95, www.punctual.ro) $\rightarrow$ `FROZEN (API)`.
+    - `RO-B-018` **Simba Invest S.R.L.** (Bacău, CUI `9187373`, Str. Chimiei 2, www.simbainvest.ro) $\rightarrow$ `FROZEN (API)`.
+  - 🇨🇿 **Czechy (`CZ-B-014`, `CZ-B-016`, `CZ-B-023`, `CZ-A-011`):**
+    - `CZ-B-014` **ATILA POCHOP s.r.o.** (Nová Paka, IČO `25950584`, DIČ `CZ25950584`, ARES) $\rightarrow$ `FROZEN (API)`.
+    - `CZ-B-016` **Magasin s.r.o.** (Kutná Hora, IČO `27112683`, DIČ `CZ27112683`, ARES) $\rightarrow$ `FROZEN (API)`.
+    - `CZ-B-023` **GASTROMEX s.r.o.** (Kly, IČO `28988043`, DIČ `CZ28988043`, ARES) $\rightarrow$ `FROZEN (API)`.
+    - `CZ-A-011` **SHAMAN TOBACCO s.r.o.** (Praha 5, IČO `19858132`, DIČ `CZ19858132`, ARES) $\rightarrow$ `FROZEN (API)`.
+  - 🇸🇮 **Słowenia (`SI-B-010`):**
+    - `SI-B-010` **AONIS d.o.o.** (Ljubljana, MŠ `9048120000`, ID za DDV `SI63742381`, VIES active: Parmova ulica 53) $\rightarrow$ `FROZEN (API)`.
+  - 🇧🇬 **Bułgaria (`BG-B-030`):**
+    - `BG-B-030` **М ТАБАКО - ООД (M Tobacco)** (Plovdiv, EIK `160075421`, BG160075421, VIES active, ul. Mladezhka 26) $\rightarrow$ `FROZEN (API)`.
+  - 🇭🇷 **Chorwacja (`HR-B-029`):**
+    - `HR-B-029` **ISTOK ZAPAD d.o.o.** (Osijek, OIB `90179126950`, Šokačka ulica 10) $\rightarrow$ `FROZEN`.
+  - 🇪🇪 **Estonia (`EE-B-030`):**
+    - `EE-B-030` **VitaStyle OÜ** $\rightarrow$ oznaczono jako `FROZEN (INVALID/SHELL)` po potwierdzeniu braku podmiotu w e-Äriregister.
+  - 🇷🇸 **Serbia (`RS-B-021`, `RS-B-022`, `RS-B-024`):**
+    - `RS-B-021` **DIREKTNA TRGOVINA d.o.o.** (MB `17252941`, PIB `101727608`) $\rightarrow$ oznaczono `FROZEN (DISSOLVED / STEČAJ)`.
+    - `RS-B-022` **B.M.D. d.o.o.** (MB `06898998`, PIB `100822666`, Tošin bunar 188) $\rightarrow$ `FROZEN (APR)`.
+    - `RS-B-024` **DINAMIC TOBACCO D.O.O.** (MB `20591056`, PIB `106391294`, Ane Glinskaje Jakšić 36) $\rightarrow$ `FROZEN (APR)`.
+  - 🇱🇻 **Łotwa (`LV-B-005`, `LV-B-006`, `LV-B-007`):**
+    - `LV-B-005` **SIA Amber Distribution Latvia** (Reģ. nr. `40003396995`, VIES active: Daugavgrīvas iela 7B, Rīga) $\rightarrow$ `FROZEN (API)`.
+    - `LV-B-006` **SIA Baltstor** (Reģ. nr. `40003672928`, VIES active: Krustpils iela 12, Rīga) $\rightarrow$ `FROZEN (API)`.
+    - `LV-B-007` **British American Tobacco Latvia SIA** (Reģ. nr. `40003103940`, VIES active: Mūkusalas iela 101, Rīga) $\rightarrow$ `FROZEN (API)`.
+  - 🇲🇩 **Mołdawia (`MD-B-003`, `MD-B-005`, `MD-B-006`, `MD-B-007`, `MD-B-008`, `MD-B-028`):**
+    - `MD-B-003` **Lemi Invest S.R.L. (Casa del Tabaco)** (IDNO `1013600021303`, Str. Arborilor 21) $\rightarrow$ `FROZEN (ASP)`.
+    - `MD-B-005` **Î.C.S. TUTUN-PREMIUM S.R.L.** (IDNO `1011600001583`) $\rightarrow$ `FROZEN (ASP)`.
+    - `MD-B-006` **S.R.L. PARȘE-TUTUN** (IDNO `1002606001330`) $\rightarrow$ `FROZEN (ASP)`.
+    - `MD-B-007` **S.R.L. TABACCO TRADE** (IDNO `1016611002882`, Tvardița) $\rightarrow$ `FROZEN (ASP)`.
+    - `MD-B-008` **DFM S.R.L. (Duty Free)** (IDNO `1015600037999`, Bd. Moscova 21) $\rightarrow$ `FROZEN (ASP)`.
+    - `MD-B-028` **S.R.L. ZEUS-GROUP** (IDNO `1020608000461`, Căușeni) $\rightarrow$ `FROZEN (ASP)`.
+  - 🇵🇱 **Polska (`catalog-B-PL.csv`):**
+    - Potwierdzono w VIES i CEIDG/KRS 12 aktywnych podmiotów i zamrożono do `FROZEN (VIES/KRS)`: `PL-B-038` (UNIKAT), `PL-B-059` (EUROCASH S.A.), `PL-B-061` (CARMEN POLSKA), `PL-B-065` (ANIA Sp. z o.o.), `PL-B-106` (NOVIS Sp.j.), `PL-B-107` (BESTMAR Sp.j.), `PL-B-108` (TORA VAPE Sp.k.), `PL-B-109` (IGUANA Sp.k.), `PL-B-110` (WEST TRADING Sp. z o.o.), `PL-B-112` (NAPO Sp. z o.o.), `PL-B-118` (TRAFIKA Sp.k.), `PL-B-119` (SKLEPY TABAK Sp.j.).
+    - Uzupełniono dane dla podmiotów z Wave 4: `PL-B-143` (KDWT S.A., KRS `0000040385`, NIP `7772304755`), `PL-B-144` (TABAK GDAŃSKI, REGON `383744206`, NIP `9570857392`), `PL-B-145` (PHU BJB Sp. z o.o., KRS `0000121182`, NIP `6692127776`).
+    - Skorygowano i zamrożono wpisy pozabranżowe (HVAC Powrmatic): `PL-B-140` (Techno Heat), `PL-B-141` (Exeltec FR), `PL-B-142` (Thermad-Brink BE) oraz konta e-commerce `PL-B-128`, `PL-B-130`, `PL-B-131`.
+- **Wyniki:**
+  - Liczba leadów `DO-WERYFIKACJI` w projekcie: **0 (0.0%)**.
+  - `python3 tools/billszuka.py compile`: Zaktualizowano `data/master.csv` i `frontend-2/public/master.csv` (577 wierszy).
+  - `python3 tools/validate_columns.py`: **0 criticals, 0 warnings** na 28 plikach.
+  - `pytest -q`: **517/517 PASS**.
+
+## 2026-09-04 — Sesja 16: Czyszczenie bazy z duplikatów i halucynacji rejestrowych
+
+- **Cel:** Odnalezienie i usunięcie zduplikowanych rekordów w katalogach krajowych oraz usunięcie/skorygowanie halucynacji rejestrowych (nieistniejące NIP-y i błędne numery KRS podpięte pod cudze spółki).
+- **Zrealizowane działania:**
+  - **Duplikaty katalogowe:**
+    - `catalog-B-PL.csv`: Usunięto uboższy rekord `PL-B-034` (zastąpiony przez pełny wpis `PL-B-135` dla *ALMARK J. STAJER SPÓŁKA KOMANDYTOWA*).
+    - `catalog-B-CZ.csv`: Usunięto zduplikowane, niekompletne rekordy ze scrapingu (`CZ-B-004`, `CZ-B-007`, `CZ-B-008`, `CZ-B-010`) na rzecz zweryfikowanych wpisów (`CZ-B-022`, `CZ-B-015` z IČO i DIČ, `CZ-B-021`, `CZ-B-019`).
+    - `catalog-A-HR.csv`: Usunięto zdublowany rekord `HR-A-010` (*Veletabak d.o.o.*), zachowano i wzbogacono `HR-A-001`. Zaktualizowano powiązanie w `data/relationships.csv`.
+    - `catalog-A-SK.csv`: Połączono wpisy *TifanTEX, s.r.o.* — usunięto dubel `SK-A-016`, wzbogacając główny rekord `SK-A-010`.
+    - `catalog-B-EE.csv`: Usunięto zdublowany wpis `EE-B-029` (*Eugesta Eesti OÜ*), scalając dane w `EE-B-005`.
+    - `catalog-A-RS.csv` & `catalog-B-RS.csv`: Usunięto zduplikowane wpisy `RS-A-002` (*TR STAKI*) oraz `RS-B-016` (*Julieta D.O.O.*), zachowując kompletne rekordy `RS-A-006` i `RS-B-020`.
+  - **Halucynacje rejestrowe (PL-B):**
+    - Skorygowano rekord `PL-B-048` (*Transgourmet Polska / Selgros*) do rzeczywistych danych rejestrowych: NIP `PL7811011998`, KRS `0000045597`.
+    - Usunięto 18 potwierdzonych halucynacji ze starych iteracji enrichmentu, w których NIP nie spełniał sumy kontrolnej mod-11 i/lub KRS odnosił się do obcych podmiotów (`PL-B-050`, `PL-B-052`, `PL-B-055`, `PL-B-057`, `PL-B-058`, `PL-B-070`, `PL-B-075`, `PL-B-076`, `PL-B-077`, `PL-B-078`, `PL-B-079`, `PL-B-080`, `PL-B-082`, `PL-B-091`, `PL-B-092`, `PL-B-094`, `PL-B-125`, `PL-B-126`).
+    - Wyczyszczono omyłkowo wypełnione pola B-only w rekordach katalogu A (`CZ-A-013`, `CZ-A-014`, `SK-A-018`).
+- **Weryfikacja i kompilacja:**
+  - `python3 tools/billszuka.py compile`: Skompilowano `data/master.csv` i `frontend-2/public/master.csv` (577 wierszy).
+  - `python3 tools/validate_columns.py`: **Critical: 0, Warning: 0** na 28 plikach.
+  - `python3 tools/verify_hallucinations.py`: **0 confirmed hallucinations**.
+  - Testy pytest: **517/517 PASS**.
+
+## 2026-09-04 — Sesja 15: Ekstensywna identyfikacja podmiotów "BILLS-like" (maszynki elektryczne + serwis SAV + magazyn części OEM) na rynkach europejskich
+
+- **Cel:** Kompleksowa identyfikacja i weryfikacja europejskich podmiotów działających w modelu analogicznym do **BILLS Sp. z o.o.** (dedykowany import maszynek Powermatic/Hawkmatic, autoryzowany lub niezależny serwis naprawczy SAV, magazyn oryginalnych części zamiennych: noże, igły, silniki, płytki PCB).
+- **Zidentyfikowani gracze BILLS-like w Europie:**
+  - 🇷🇸 **Serbia (`RS-A-001`): `GOLDEN MARKET d.o.o.`** (Beograd, APR MB: `20825634`, PIB: `RS107554579`, Direktor: Dušan Samočeta, adres: Kovačeva 46). Czołowy serbski dystrybutor maszynek Powermatic (I+, 2+, 3+, 4, Mini) i operator powiązanej platformy `kupijeftino.rs`. Prowadzi dedykowaną sekcję i magazyn części zamiennych (*Rezervni delovi za Powermatic 1 i 2*: ramovi, opruge, držači). Zaktualizowano wpis w `data/Serbia/catalog-A-RS.csv` i oznaczono flagą `"Verified, FROZEN, BILLS-LIKE"`.
+  - 🇳🇱 **Holandia / DACH / Benelux: `Databits B.V.`** (Maastricht, KvK: `81445393`, BTW: `NL862095426B01`, Kruisdonk 51). Operator platform `stopfmaschineshop.com` oraz `powermaticstopfmaschine.com`. Największy w Europie Zachodniej specjalistyczny dystrybutor Powermatic (5, 4, 3+, 2+) oraz Hawkmatic (HK-2, HK-3+, HK-6) z własnym warsztatem naprawczym i pełnym asortymentem części zamiennych (silniki, noże, elektronika).
+  - 🇳🇱 **Holandia: `VDW Internet Solutions`** (Drachten, KvK: `01122062`, BTW: `NL106739578B01`, Oud Ambacht 104). Operator `sigarettenmakenshop.nl` / `sigarettenmaker.nl`. Prowadzi dedykowany serwis pogwarancyjny maszynek Powermatic (*reparatieservice*) oraz sprzedaż akcesoriów i podzespołów eksploatacyjnych.
+  - 🇪🇸 **Hiszpania: `MicroRolls, S.L.`** (Griñón / Fuenlabrada, CIF: `B-87461885`, Administrador: Javier Sánchez Muñoz). Operator portalu `rodillosypeines.es`. Specjalistyczny hiszpański dystrybutor pełnej gamy Powermatic (Mini, I, 2+, 3+, 4) z wydzieloną sekcją części zamiennych (*recambios para entubadoras*).
+  - 🇨🇭 **Szwajcaria: `Tabac Trends AG`** (Burgdorf, UID: `CHE-115.467.726`, CH-ID: `CH-036.3.046.883-2`, Samuel Krieg). Dystrybutor maszynek Powermatic (Mini do IV) z fizycznym salonem w Burgdorfie oraz ofertą części zamiennych i serwisu maszynek elektrycznych.
+- **Konsolidacja i weryfikacja projektu:**
+  - Zaktualizowano `INTEL.md` o pełną siatkę partnerów BILLS-like w Europie.
+  - Przeprowadzono czyszczenie sentinelów w `data/Polska/catalog-B-PL.csv`, `data/Estonia/catalog-B-EE.csv`, `data/Bułgaria/catalog-B-BG.csv` oraz sformatowano numer telefonu w `RS-B-030`.
+  - Wykonano pełną kompilację `python3 tools/billszuka.py compile` (synchronizacja `data/master.csv` i `frontend-2/public/master.csv`: 605 wierszy).
+  - `python3 tools/validate_columns.py`: **0 błędów krytycznych (Critical: 0)** na 28 plikach.
+
+## 2026-09-04 — Sesja 14: Targetowane "Big Fishes" z nabijarkami (rolling/filling machines) w SK, LT, SI, MD, CZ, RO
+
+- **Cel:** Odnalezienie, weryfikacja i skatalogowanie największych graczy B2B („Big Fishes” / Whales) oferujących lub dystrybuujących **maszynki do nabijania gilz / zwijania papierosów (dowolnej marki: Powermatic, Hawk, OCB, Mascotte, Gizeh, Gerui itp.)** na kluczowych rynkach: **SK, LT, SI, MD, CZ, RO**.
+- **Wprowadzone podmioty i aktualizacje (Kategoria A):**
+  - 🇷🇴 **`RO-A-012` | PRIMONET RO SRL (TuburiAparate.ro)** (Satu Mare, CUI: `RO29972252`, J20/1200/206300):
+    - Obroty >141M RON (~28M EUR), 38 pracowników, lider CAEN 4726 w Satu Mare.
+    - Operator wiodących platform e-commerce i hurtowych: `TuburiAparate.ro` i `primonet.ro`. Kompletna linia Powermatic (Mini, 1+ Elite, 2, 3+, 4) oraz maszynki manualne/elektryczne.
+    - Powiązano jako `dual_business` z `RO-B-008`.
+  - 🇨🇿 **`CZ-A-014` | VALMONT CR, spol. s r.o. (Tabák Valmont)** (Brno, IČO: `05340977`, DIČ: `CZ05340977`):
+    - Ogromna sieć ponad 180 salonów prasowo-tytoniowych w całej Republice Czeskiej (część Grupy Grafobal z ponad 500 punktami w CZ i SK).
+    - Dystrybucja i sprzedaż hurtowo-detaliczna akcesoriów RYO/MYO, dutinek i plniček cigaret (OCB, Mascotte, Atomic). Decydenci: Tomáš Kmotrík / Mgr. Josef Hloušek (Jednatelia).
+    - Powiązano jako `dual_business` z `CZ-B-039`.
+  - 🇸🇮 **`SI-A-009` | DACADO d.o.o. (HeadShop.si)** (Maribor, Matična št.: `2192012000`, ID za DDV: `SI33182477`):
+    - Sieć salonów w Mariborze i Celju oraz wiodący słoweński e-commerce i dystrybutor akcesoriów tytoniowych ze stałą ofertą maszynek do napełniania gilz i skręcania (Elements, RAW, OCB, Champ). Decydent: Tadej Lešnik (Direktor).
+  - 🇲🇩 **`MD-A-007` | S.R.L. PROLOGISTIC-COM** (Chișinău, IDNO: `1008600021815`):
+    - Narodowy dystrybutor FMCG i wyrobów tytoniowych w Mołdawii z zasięgiem do ponad 4 000 aktywnych punktów sprzedaży detalicznej w całym kraju. Dystrybucja tubów tytoniowych i aparatów do napełniania gilz.
+    - Powiązano jako `dual_business` z `MD-B-029`.
+  - 🇸🇰 **`SK-A-016` / `SK-A-018`**: TifanTEX s.r.o. (IČO 45955824, hurtownik elektrycznych nabijarek Gerui) oraz HANDYMAN s.r.o. / PRESSPOINT (IČO 35833629, ogólnokrajowa sieć trafík i hurt plničiek).
+  - 🇱🇹 **`LT-A-008` / `LT-A-011` / `LT-A-012`**: Skonis ir kvapas (50+ salonów, Mascotte/OCB/Gizeh), Medėja (Plungė, Powermatic Mini/2/4, Mascotte) oraz UAB Sanitex.
+- **Aktualizacje w bazach i powiązaniach:**
+  - Zaktualizowano `data/relationships.csv` o nowe powiązania `dual_business` (`RO-A-012` ↔ `RO-B-008`, `CZ-A-014` ↔ `CZ-B-039`, `MD-A-007` ↔ `MD-B-029`).
+  - Wyczyszczono sentinele w `data/Czechy/catalog-B-CZ.csv` i `data/Rumunia/catalog-B-RO.csv`.
+  - Przeprowadzono pełną kompilację `billszuka.py compile`: **605 wierszy w `data/master.csv`** i w frontend-2.
+  - Walidacja `tools/validate_columns.py`: **0 critical errors**.
+
+## 2026-09-04 — Sesja 13: Odkrycie i walidacja nowych "Big Fishes" w SK, LT, SI, MD, CZ, RO
+
+- **Cel:** Pozyskanie i weryfikacja kluczowych wielorybów dystrybucyjnych (Tier 1 Whales: duży wolumen, sieci sklepów, autoryzowany hurt, zaopatrzenie tysięcy punktów detalicznych) w rynkach CEE o strategicznym znaczeniu dla ekspansji PowerMatic i Hawk (SK, LT, SI, MD, CZ, RO).
+- **Dodane podmioty (Tier 1 Whales):**
+  - 🇨🇿 **`CZ-A-013` | VELTA PLUS EU, s.r.o. (Karlovy Vary)**:
+    - IČO: `26368978`, DIČ: `CZ26368978`, Decydent: **Dang Khoa Vu** (Jednatel).
+    - Zaopatrzeniowiec sieci trafík, sklepów i stacji benzynowych w Czechach (kompletny asortyment akcesoriów tytoniowych, bibułek, gilz, nabijarek i tytoniu).
+  - 🇸🇰 **`SK-A-018` | HANDYMAN s.r.o. / PRESSPOINT (Bratislava)**:
+    - IČO: `35833629`, IČ DPH: `SK2020285117`, Decydent: **Mgr. Ing. Juraj Opoldus** (Konateľ).
+    - Operator ogólnokrajowej sieci punktów sprzedaży prasy i wyrobów tytoniowych PRESSPOINT oraz bezpośredni hurtownik maszynek do napełniania gilz i akcesoriów dla palaczy.
+  - 🇸🇰 **`SK-B-027` | Mirage Distribution SK, s.r.o. (Košice)**:
+    - IČO: `47783745`, IČ DPH: `SK2024097483`, Decydenci: **Petr Jeřábek / Peter Slimák** (Konatelia).
+    - Duży hurtownik wyrobów tytoniowych i akcesoriów (SK NACE 46350) zaopatrujący wschodnią i centralną Słowację.
+  - 🇷🇴 **`RO-A-011` | BOGMAD TRADING & DISTRIBUTION SRL / Tutungeriile Yanna (Ploiești)**:
+    - CUI: `RO34094670`, Reg. Com: `J20/1500/207292`, obrót >24.9M RON (~5M EUR).
+    - Duży dystrybutor akcesoriów tytoniowych (tuburi de tigari, aparate de injectat) z własną siecią tutungerii i dedykowanym portalem hurtowym B2B (`tutungerieyannab2b.ro`).
+  - 🇱🇹 **`LT-B-025` | UAB Alternatyvus tabakas (Vilnius)**:
+    - Įmonės kodas: `305844604`, PVM: `LT100014389912`, Decydent: **Luka Bareikytė** (Vadovė).
+    - Licencjonowany przez NTAKD hurtownik wyrobów tytoniowych i alternatywnych akcesoriów nikotynowych na Litwie.
+  - 🇱🇹 **`LT-B-026` | UAB Litradė / Royal Smoke (Vilnius)**:
+    - Įmonės kodas: `303182002`, PVM: `LT100008166914`, Decydent: **Lukas Kaleinikovas** (Generalinis direktorius).
+    - Ogólnokrajowy hurtownik i operator sieci salonów specialty vape & smoking accessories „Royal Smoke” (m.in. w centrach Akropolis) na Litwie.
+  - 🇸🇮 **`SI-B-021` | IUSTITIA d.o.o. (Ljubljana)**:
+    - Matična št.: `2247275000`, ID za DDV: `SI89576110`, Decydent: **Matej Munih** (Direktor).
+    - Ugruntowany słoweński hurtownik tytoniowy (SKD G46.350, 20-49 pracowników, stabilny rating AJPES).
+  - 🇲🇩 **`MD-B-029` | S.R.L. PROLOGISTIC-COM (Chișinău)**:
+    - IDNO: `1008600021815`, Decydent: **Ganușceac Oleg** (Administrator).
+    - Narodowy dystrybutor wyrobów tytoniowych i FMCG w Mołdawii — ponad 4 000 aktywnych punktów sprzedaży detalicznej na terenie całego kraju.
+- **Kompilacja i jakość:**
+  - Wszystkie pliki przeszły walidację `validate_columns.py` (**0 criticals, 0 warnings**).
+  - `billszuka.py compile`: **601 wierszy w master.csv** (zaktualizowano lustrzane pliki w frontend-2).
+
+- **Cel:** Kontynuacja wyszukiwania dystrybutorów i hurtowników tytoniowych z wykorzystaniem 11 poziomów metodologii (L0 Pre-flight, L3/L3.5 Rejestry państwowe, L4 Dane podatkowe/VIES, L5/L5.5 Web OSINT, L8 Katalogi branżowe), ze szczególnym naciskiem na kraje z najmniejszą liczbą leadów (Słowenia, Mołdawia, Francja, Chorwacja, Łotwa).
+- **Zastosowane metody i źródła:**
+  - **🇸🇮 Słowenia (SI)**: AJPES + Bizi.si + CompanyWall.si + Web OSINT (`gothia.si`, `trojashisha.si`). Dodano 4 zweryfikowane podmioty z NIP i numerem rejestrowym:
+    - `SI-B-017`: **GOTHIA, kavarna in veleprodaja, d.o.o.** (MŚ 9808540000, SI10688005, Decydent: Maja Sterle - Direktorica in lastnica)
+    - `SI-B-018`: **CAMELOT d.o.o.** (MŚ 2249944000, SI34523189, Decydent: Alen Kosanović - Direktor, NACE 46.350)
+    - `SI-B-019`: **ADALYA - TROJA, d.o.o.** (MŚ 8530050000, SI51893487, Decydent: Tairi Driton - Direktor, trojashisha.si)
+    - `SI-B-020`: **ALFA SI, trgovina s tobačnimi izdelki, d.o.o.** (MŚ 9188045000, SI97021814, NACE 46.350 Portorož)
+  - **🇲🇩 Mołdawia (MD)**: Camera Înregistrării de Stat + Indice.md + Data2b.md + Web OSINT (`fanfan.md`, `e-cigarette.md`). Dodano 4 podmioty z IDNO:
+    - `MD-B-025`: **Î.C.S. ELITE TOBACCO S.R.L.** (IDNO 1011600020337, Decydent: Paparone Raffaele - Administrator)
+    - `MD-B-026`: **S.R.L. FAN-FAN (FanFan Vape Shop)** (IDNO 1013600029769, Decydent: Balan Alexandru - Administrator, sieć sklepów Chișinău)
+    - `MD-B-027`: **S.R.L. JELEZNEAC-COM (E-cigarette.md)** (IDNO 1011600017025, Decydent: Oleg Jelezneac - Administrator)
+    - `MD-B-028`: **S.R.L. ZEUS-GROUP** (IDNO 1020608000461, produkcja/hurt tutun Căușeni)
+  - **🇫🇷 Francja (FR)**: RCS / SIRENE + Pappers + Societe.com + Web OSINT (`nozadis.com`, `bea-francetabac.fr`). Dodano 2 czołowych dostawców dla buralistów:
+    - `FR-B-025`: **NOZA DISTRIBUTION (S-Factory / Nozadis)** (SIREN 502160591, FR05502160591, Decydent: Stephen Chojnacki - Président et Fondateur, hurtownik akcesoriów tytoniowych i maszynek)
+    - `FR-B-026`: **SAS BEA (L'Instant Zen / BEA France Tabac)** (SIREN 908000078, FR908000078, Saint-Avé / Theix-Noyalo, dostawca dla buralistów)
+  - **🇭🇷 Chorwacja (HR)**: Sudski Registar HR + CompanyWall.hr (NKD 46.35 — Trgovina na veliko duhanskim proizvodima). Dodano 3 hurtownie z OIB:
+    - `HR-B-027`: **MANI TOBACCO d.o.o.** (OIB 26798614618, MBS 060519146, Decydent: Anto Batinić - Vlasnik i član uprave)
+    - `HR-B-028`: **KECUR d.o.o.** (OIB 58267738288, MBS 080262735, Decydent: Željko Kecur - Vlasnik i direktor)
+    - `HR-B-029`: **ISTOK ZAPAD d.o.o.** (OIB 90179126950, uvoz/veleprodaja duhana Zagreb)
+  - **🇱🇻 Łotwa (LV)**: Uzņēmumu Reģistrs + Firmas.lv + Lursoft (NACE 46.35). Dodano 3 hurtownie z PVN:
+    - `LV-B-022`: **SIA LATLIQ (HIGS / Airplus)** (Reģ. nr. 40103986857, LV40103986857, Decydent: Ruslans Romanovs - Vadība)
+    - `LV-B-023`: **SIA CZESLA CIGARS** (Reģ. nr. 50103873641, LV50103873641)
+    - `LV-B-024`: **SIA HUMIDI** (Reģ. nr. 40103937175, LV40103937175)
+- **Walidacja i kompilacja:**
+  - `python3 tools/validate_columns.py`: **0 criticals, 0 warnings** na wszystkich modyfikowanych plikach katalogowych.
+  - `python3 tools/billszuka.py compile`: **Kompilacja master.csv sukces — 593 unikalne rekordy** (+16 nowych leadów).
+  - Synchronizacja z `frontend-2/public/master.csv` i `sample.csv`.
+
+## 2026-09-04 — Sesja 11: Rozbudowa i standaryzacja Katalogu A (podmioty z nabijarkami) we wszystkich 13 krajach
+
+- **Cel:** Rozszerzenie Katalogu A (firmy oferujące nabijarki tłokowe/elektryczne, gilzy, akcesoria RYO/MYO, marki własne i multi-brand) we wszystkich 13 krajach projektu (PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR, RS).
+- **Zasada integracji (Dual-Business BISTA/PEAL Pattern):**
+  - Wyselekcjonowano 27 kluczowych, zweryfikowanych podmiotów z potwierdzoną sprzedażą maszynek, gilz i marek (m.in. PowerMatic, Hawk, OCB, Mascotte, Gizeh, Gerui, Golden Filter, Korona, Dark Horse).
+  - Skonfigurowano unikalne ID (`{KRAJ}-A-{ID}`) oraz powiązania `related_to` z wpisami w Katalogu B.
+  - Zsynchronizowano bazę relacji w `data/relationships.csv` (+27 relacji `dual_business`).
+- **Wyniki per kraj (nowe stany Katalogu A):**
+  - 🇵🇱 Polska (PL): +4 leady (Total: 9) — m.in. Skleptytoniowy.pl (Tabak Grupa), BongGo.pl (ALPIK), Drek Radom, Kaziool.
+  - 🇨🇿 Czechy (CZ): +3 leady (Total: 12) — m.in. Šebrle s.r.o. (Golden Filter), SHAMAN TOBACCO (HawkMatic), Weedshop B2B.
+  - 🇸🇰 Słowacja (SK): +1 lead (Total: 17) — GECO s.r.o.
+  - 🇷🇴 Rumunia (RO): +1 lead (Total: 10) — SC LUXURYGIFTS SRL (Powermatic II/III).
+  - 🇱🇹 Litwa (LT): +1 lead (Total: 12) — UAB SANITEX.
+  - 🇱🇻 Łotwa (LV): +2 leady (Total: 9) — SIA SANITEX, SIA Leversa.
+  - 🇪🇪 Estonia (EE): +2 leady (Total: 10) — OÜ SANITEX, RYO Paper & Tobacco OÜ.
+  - 🇫🇷 Francja (FR): +3 leady (Total: 12) — Royal Distribution (Mistersmoke), SPI D CLIC (tubeuse-cigarette-electrique.fr), Grossiste Presse Tabac.
+  - 🇲🇩 Mołdawia (MD): +1 lead (Total: 6) — SRL TOBACCO GLOBAL CORPORATION.
+  - 🇧🇬 Bułgaria (BG): +3 leady (Total: 10) — IZAMAR EOOD (rejestr maszyn tytoniowych), Lights Ultra Ltd, Radulov - M Ltd.
+  - 🇸🇮 Słowenia (SI): +1 lead (Total: 8) — TOBAČNA 3DVA d.o.o. (sieć 200+ saloników).
+  - 🇭🇷 Chorwacja (HR): +3 leady (Total: 11) — TISAK PLUS d.o.o., Veletabak d.o.o., Velizo.hr.
+  - 🇷🇸 Serbia (RS): +2 leady (Total: 6) — GrafArt d.o.o. (trafika.online), TR Staki d.o.o. (Gizeh masinice).
+- **Walidacja & Kompilacja:**
+  - `python3 tools/validate_columns.py --csv data/<Kraj>/catalog-A-<Kraj>.csv`: **0 criticals, 0 warnings we wszystkich 13 plikach Katalogu A**.
+  - `python3 tools/billszuka.py compile`: **577 wierszy w master.csv** (kompilacja PASS).
+
 ## 2026-09-04 — Sesja 10: Integracja Google Maps Places API i weryfikacja rejestrowa dla 13 krajów
 
 - **Cel:** Przetestowanie Google Maps Places API we wszystkich 13 rynkach (PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR, RS), eliminacja ryzyka halucynacji oraz wdrożenie bezpiecznego fallbacku OpenRouter/DeepSeek przy limitach Gemini API.
@@ -2835,6 +3028,9 @@ Kompleksowe oczyszczenie projektu na polecenie Marcelego:
   - `tools/_final_cleanup_2026_09_03.py` — finalny strip U+FFFD + sourcing map
   - `tools/_final_clean_v3.py`, `_final_clean_v4.py` — ostateczne fixes (PL legacy ⚠️, RS PIB fix)
   - `tools/_verify_all_2026_09_03.py` — multi-catalog validator runner
+  - `tools/_append_leads_2026_09_04_v3.py` — wave 3 (39 leads z poprzedniej sesji 2026-09-04 ~01:00)
+  - `tools/_append_leads_2026_09_04_v4.py` — wave 4 pierwsza próba (25 leads, problem z formatowaniem)
+  - `tools/_append_leads_2026_09_04_v5.py` — wave 4 poprawiony (57 leads combined wave 3+4, prawidłowy schemat kolumn)
 
 - **Problem napotkany:** SHEL heredoc escape bug powodował "zsh: unmatched" w interaktywnych komendach. Fix: wszystkie skrypty zapisane jako pliki `tools/_*.py` i uruchamiane bezpośrednio.
 
@@ -2855,6 +3051,45 @@ Kompleksowe oczyszczenie projektu na polecenie Marcelego:
 - **Walidacja:** `validate_columns.py` → 1095 wierszy, 0 błędów formatu (tylko placeholdery `do weryfikacji`).
 - **Narzędzia:** `tools/_append_leads_2026_09_04_v3.py` (appender dla wave 3).
 - **Status:** Wave 3 zakończona pomyślnie. Rozpoczynam Wave 4.
+
+## 2026-09-04 ~03:00 CEST — Wave 4 Deep Batch Search + Fix (Combined Wave 3+4) — completion
+
+- **Polecenie:** "schedule another search like this during next 30 min" (powtórzenie).
+- **Źródła:** Zlatestranky.cz (CZ trafiki), PMI affiliate pages, FMCG distributors DB, market reports.
+- **Nowe leady wave 4:** 25 dodatkowych (PL-143/144/145, CZ-039/040/041, SK-027, HR-024/025/026, BG-037/038/039, RO-030/031/032, EE-041, LT-029, LV-016, SI-016, MD-024, FR-023/024, RS-032/033).
+- **Problem napotkany:** Pierwszy appender (`_v4.py`) używał złego CANONICAL_COLUMNS (zaczynał się od `related_to`), przez co wszystkie 25 wierszy wave 4 miało puste początkowe kolumny. `awk` cleaning usunął te wadliwe wiersze + uszkodził też część wcześniejszych.
+- **Fix:** Przywrócono wszystkie 13 catalogów ze snapshotów 2026-09-03 23:23, naprawiono appender w `_v5.py` (czyta rzeczywisty schemat catalogu i używa go jako fieldnames), uruchomiono ponownie z combined wave 3+4 = 64 leady.
+- **Wynik:** 57 nowych leadów dodanych (7 duplikatów w LV/SI zostało pominiętych).
+- **Walidacja:** `validate_columns.py` → 1077 wierszy, 292 criticals (placeholdery `do weryfikacji`, nie błędy formatu), 0 warnings.
+- **Narzędzia:**
+  - `tools/_append_leads_2026_09_04_v5.py` — poprawiony appender (używa rzeczywistego schematu catalogu)
+- **TOP discoveries z wave 4:**
+  - **PMI subsidiaries** w 7 krajach: PL (JTI Polska), BG (PMI Bulgaria), RO (PMI Romania), EE/LT/LV/SI (PMI Baltics + Ljubljana), MD (PMI Moldova), RS (PMI Niš PIB 101859529).
+  - **BAT subsidiaries**: HR (BAT Hrvatska Kanfanar + TDR Rovinj), BG (BAT Bulgaria), RO (BAT Romania), RS (BAT Vranje).
+  - **Nowe hurtownie CZ**: Tabák Valmont ČR (sieć trafik), Marcela Kadlíková, ELEKTRO-TABÁK RYS JOSEF.
+  - **Nowe hurtownie PL**: Konsorcjum Dystrybutorów Tytoniu, Tabak Gdański, BJB Kościerzyna.
+- **TODO następnie:**
+  - Verify PIB dla nowych leadów RS (BAT Vranje, PMI Niš).
+  - Cleanup skryptów jednorazowych: `_v2.py`, `_v3.py`, `_v4.py` (będą usunięte przy następnym cleanupie, zostaje tylko `_v5.py`).
+  - Verify Exeltec FR (potwierdzony partner Powrmatic per francuska strona) — kluczowy partner kanałowy dla PL/CEE.
+
+## 2026-09-04 ~05:00 CEST — Ujednolicenie schematu kolumn we wszystkich narzędziach
+
+- **Problem:** Po zmianie kolejności kolumn w catalogach (z `related_to/rok_zalozenia/id/kategoria/nazwa/...` na `kraj/id/nazwa/miasto/adres/...`), trzy narzędzia w `tools/` nadal miały hardcoded stary schemat:
+  - `tools/validate_columns.py:CANONICAL_COLUMNS` — zaczynał się od `related_to`
+  - `tools/normalize_kolumny.py:CANONICAL_COLUMNS` — zaczynał się od `related_to`
+  - `tools/_append_leads_2026_09_04_v4.py:CANONICAL_COLUMNS` — zaczynał się od `related_to`
+  - `tools/enrich_gmaps_rows.py:SCHEMA_COLUMNS` — zaczynał się od `related_to`
+  - `tools/audit_gmaps_quality.py:SCHEMA_COLUMNS` — zaczynał się od `related_to`
+
+- **Fix:** Wszystkie 5 plików zaktualizowane na nowy schemat (36 kolumn, zaczyna się od `kraj`, kończy na `related_to`). Schemat spójny z:
+  - `tools/config.py:CANONICAL_SCHEMA` (już był poprawny)
+  - Wszystkimi 13 catalogami regionalnymi (`data/{KRAJ}/catalog-{A|B}-{KOD}.csv`)
+  - Wszystkimi 13 catalogami A (master.csv też)
+
+- **Walidacja po fixie:** `validate_columns.py` → 28 plików, **1187 wierszy**, **48 criticals** (vs 292 wcześniej), 0 warnings. Większość criticals (24) to historyczne wpisy w master.csv z `⚠️ DO-WERYFIKACJI` w polu `kanal_sprzedaży`. Wave 3+4 leady są czyste (placeholdery `do weryfikacji` są akceptowane przez KNOWN_NON_VALUE sentinel).
+
+- **Narzędzia:** Żadne nowe pliki.
 
 
 

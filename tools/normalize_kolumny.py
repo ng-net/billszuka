@@ -49,13 +49,14 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 
 CANONICAL_COLUMNS: list[str] = [
-    "related_to", "rok_zalozenia", "id", "kategoria", "nazwa",
-    "kraj", "miasto", "adres", "nip_vat", "rejestr_id",
-    "www", "kanal_zamiennik", "email", "telefon", "linkedin",
-    "facebook", "instagram", "tiktok", "tier", "marki_nabijarki",
-    "marka_wlasna_oem", "sourcing", "wolumen", "confidence_wolumen", "kanal_sprzedaży",
-    "powinowactwo_nabijarki", "cross_sell_potential", "decydent", "stanowisko", "email_decydent",
-    "zrodlo_danych", "data_weryfikacji", "flagi", "notatki", "rynek_skala",
+    "kraj", "id", "nazwa", "miasto", "adres",
+    "www", "www_status", "wolumen", "confidence_wolumen", "rejestr_id",
+    "nip_vat", "rok_zalozenia", "tier", "marki_nabijarki", "marka_wlasna_oem",
+    "powinowactwo_nabijarki", "kategoria", "rynek_skala", "cross_sell_potential", "kanal_sprzedaży",
+    "kanal_zamiennik", "decydent", "stanowisko", "email_decydent", "email",
+    "telefon", "notatki", "linkedin", "facebook", "instagram",
+    "tiktok", "data_weryfikacji", "sourcing", "zrodlo_danych", "flagi",
+    "related_to",
 ]
 
 # Junk values in col 25 (kanal_sprzedaży) that indicate data-entry errors,
