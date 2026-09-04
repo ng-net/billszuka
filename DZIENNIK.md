@@ -32,6 +32,50 @@
 
 - UI: filtr po "red URL" + "high keyword score"
 
+## 2026-09-04 — Sesja 10: Integracja Google Maps Places API i weryfikacja rejestrowa dla 13 krajów
+
+- **Cel:** Przetestowanie Google Maps Places API we wszystkich 13 rynkach (PL, CZ, SK, RO, LT, LV, EE, FR, MD, BG, SI, HR, RS), eliminacja ryzyka halucynacji oraz wdrożenie bezpiecznego fallbacku OpenRouter/DeepSeek przy limitach Gemini API.
+- **Wdrożone i zweryfikowane usprawnienia:**
+  1. **Odporność na limity (429 Fallback w `tools/scrapegraph_enricher.py`):** Dodano automatyczny fallback z `google_genai/gemini-2.5-flash` na `openai/deepseek/deepseek-chat` (OpenRouter) w przypadku wyczerpania darmowej puli requestów Gemini.
+  2. **Test Places API we wszystkich 13 krajach:** Równoległe kwerendy zwróciły łącznie ponad 200 fizycznych obiektów dystrybucyjnych/tytoniowych (PL 20, CZ 20, SK 20, EE 20, BG 20, HR 19, FR 18, MD 16, SI 16, RS 15, LV 15, RO 10, LT 1-5).
+  3. **Nowy zakwalifikowany lead (Łotwa, LV-B-022):**
+     - **SIA AVALONS (Tabakeria / Tabakeria.lv)**, Ryga.
+     - Fizyczny sklep i dystrybutor (Google Maps) -> weryfikacja w Komercreģistrs / Latvijas Vēstnesis (reģ. nr 40003545929, PVN LV40003545929, NACE 47.26). Decydent: Aivars Romanovskis (Rīkotājdirektors).
+  4. **Walidacja katalogów i kompilacja:**
+     - `validate_columns.py`: **0 criticals, 0 warnings**.
+     - `master.csv`: 521 wierszy (kompilacja PASS).
+
+## 2026-09-04 — Sesja 9: Integracja ScrapeGraphAI w workflow i metodykę BILLSzuka
+
+- **Cel:** Wdrożenie biblioteki `scrapegraphai` (ScrapeGraphAI) jako inteligentnego scrapera stron WWW dystrybutorów, hurtowni oraz profili rejestrowych.
+- **Wdrożone komponenty:**
+  1. **Narzędzie `tools/scrapegraph_enricher.py`:**
+     - Wrapper na `SmartScraperGraph` z predefiniowanymi schematami Pydantic: `CompanyContactSchema` (kontakty, decydent, NIP/IČO), `AssortmentSchema` (nabijarki, marki, oferta), `LeadEnrichmentResult`.
+     - Obsługa autoryzacji LLM w priorytecie projektu: `google_genai/gemini-2.5-flash` → `openai/deepseek/deepseek-chat` (OpenRouter) → local Ollama.
+     - Pełny self-test CLI (`--test`) pomyślnie zwalidowany z modelem Gemini.
+  2. **Integracja z CLI (`tools/billszuka.py`):**
+     - Nowa komenda `python3 tools/billszuka.py scrape --url <URL> --type [company|assortment|full]`.
+     - Poprawiona komenda `search` delegująca do orchestratora.
+  3. **Integracja z `tools/non_pl_agent_orchestrator.py`:**
+     - `WebEnricher` w Kroku 1 używa ScrapeGraphAI do ekstrakcji decydentów i kontaktów ze stron firmowych przed fallbackiem do regexów i DDG.
+  4. **Aktualizacja dokumentacji:**
+     - `methodology.md`: opis w Sekcji L5.5 i L9.
+     - `tools/README.md` oraz `tools/SEARCH-TOOLS-README.md`: dokumentacja i przykłady wywołań.
+- **Weryfikacja:** `python3 tools/billszuka.py compile` -> 520 wierszy master PASS. Self-test `scrapegraph_enricher.py` -> PASS.
+
+## 2026-09-04 — Sesja 8: Precyzyjny research leadów w krajach o najniższej liczbie wyników (Gentle Search)
+
+- **Cel:** Pozyskanie realnych, zweryfikowanych leadów B2B w krajach o najniższej reprezentacji: Słowenia (22), Mołdawia (24), Francja (24), Chorwacja (27).
+- **Zasada:** Publiczne rejestry urzędowe (AJPES, ASP MD, SIRENE/Infogreffe, Sudski Registar RH), pełna zgodność z 35-kolumnowym schematem, 0 halucynacji, 0 błędów critical w `validate_columns.py`.
+- **Dodane podmioty (6 nowych kwalifikowanych leadów B8):**
+  1. **Słowenia (SI-B-016):** CAMELOT d.o.o. (Havana Cigar Point), Ljubljana — hurtownia akcesoriów i cygar, AJPES Matična št. 2249944, SI34523189, Alen Kosanović (Direktor).
+  2. **Słowenia (SI-B-017):** Mombly d.o.o., Ljubljana — hurtownia tytoniowa (SKD 46.350), Matična št. 8303533000, SI35894571, Darko Kovačič (Direktor).
+  3. **Słowenia (SI-B-018):** MB TOBAK trgovina in tobak d.o.o., Maribor — dystrybucja i hurtownia tytoniowa, Matična št. 6274811000, SI74422936, Zoran Hrovatin (Direktor).
+  4. **Mołdawia (MD-B-020):** CAZACU HOUSE SRL (Tabacco House), Chișinău — ogólnokrajowa sieć salonów tytoniowych i import akcesoriów, ASP IDNO 1016600021498, Dmitrii Cazacu (Administrator).
+  5. **Francja (FR-B-015):** NOZA DISTRIBUTION SAS (S-Factory / Nozadis), Dainville — czołowy francuski hurtownik B2B dedykowany dla buralistów (akcesoria RYO/MYO, maszynki), SIREN 502160591, FR42502160591, Stephen Chojnacki (PDG).
+  6. **Chorwacja (HR-B-021):** NLK trgovina i distribucija d.o.o., Zagreb — ogólnokrajowa hurtownia i dystrybucja tytoniowa + osprzęt (pribor za pušače, punilice), Sudski Registar RH OIB 19391820383, Željko Petrić (Direktor).
+- **Walidacja:** `validate_columns.py` dla wszystkich edytowanych katalogów zwraca `Critical: 0 | Warning: 0`.
+
 ## 2026-09-03 — Sesja 7: Eliminacja bloatu i optymalizacja narzędzi skanujących (Anti-Bloat & Performance)
 
 - **Problem:**
@@ -2801,3 +2845,22 @@ Kompleksowe oczyszczenie projektu na polecenie Marcelego:
   - Verify PIB BAT Vranje (RS-B-027) — prawdopodobnie 100+ mln RSD revenue = ~6-cyfrowy PIB.
   - Verify PIB Monus DOO (RS-B-028) — nieduży gracz.
   - Backup skryptów jednorazowych w `tools/_2*2026_09_03*.py` (będą usunięte przy następnym cleanupie).
+
+## 2026-09-04 ~01:15 CEST — Wave 3 Deep Batch Search (11 metod × 13 krajów) — completion
+
+- **Polecenie:** "schedule another search like this during next 30 min".
+- **Zakres:** 13 krajów (PL/CZ/SK/HR/BG/RO/EE/LT/LV/SI/MD/FR/RS).
+- **Metody:** L1-L11 (kompletna metodologia).
+- **Nowe leady:** 39 nowych leadów dodanych do 13 katalogów regionalnych.
+- **Walidacja:** `validate_columns.py` → 1095 wierszy, 0 błędów formatu (tylko placeholdery `do weryfikacji`).
+- **Narzędzia:** `tools/_append_leads_2026_09_04_v3.py` (appender dla wave 3).
+- **Status:** Wave 3 zakończona pomyślnie. Rozpoczynam Wave 4.
+
+
+
+## 2026-09-04 02:06 CEST — Automatyczna analiza walkthrough & v2 verification
+
+**Automatyczne kluczowe wnioski z walkthrough / pipeline run:**
+
+1. Autonomiczny agent Non-PL zakończył cykl wzbogacania decydentów i odkrywania dystrybutorów w 11 rynkach docelowych.
+2. Zsynchronizowano katalogi 11 krajów ze standardem 35 kolumn oraz zaktualizowano master.csv.

@@ -114,13 +114,24 @@ python3 tools/dedup_check.py --name "$FIRMA" --nip "$NIP" --country "$CC"
 python3 tools/registry_lookup.py --country "$CC" --id "$NIP"
 # (returns full name/address/NACE for CZ/EE/LT)
 
-# Step 3: web_search for assortment
-# (looking for "MAŠINICE" / "nabijarka" / "plnička" / "rolling machine")
+# Step 3: web_search & AI extraction for assortment / decision-makers
+# Use ScrapeGraphAI to extract contacts, directors, or brands sold from the website:
+python3 tools/billszuka.py scrape --url "$URL" --type company
+python3 tools/billszuka.py scrape --url "$URL" --type assortment
 
 # Step 4: score
 python3 tools/score_powinowactwo.py --name "$FIRMA" --text "$TEXT" --nace "$NACE" --marki "$MARKI"
 
 # Step 5: append to master.csv + frontend mirror
+```
+
+## 5. `scrapegraph_enricher.py` — Intelligent Web Scraping via ScrapeGraphAI
+
+Scrapes arbitrary distributor websites, supplier portals, and registry profiles without fragile regexes or manual selectors. Returns Pydantic-validated dictionaries matching BILLSzuka canonical fields (`nazwa`, `nip_vat`, `adres`, `miasto`, `email`, `telefon`, `decydent`, `stanowisko`, `marki_nabijarki`).
+
+```bash
+python3 tools/billszuka.py scrape --url "https://tabakbohemia.cz/kontakt" --type company
+python3 tools/billszuka.py scrape --url "https://plnickacigaret.cz" --type assortment
 ```
 
 ## Remaining gaps

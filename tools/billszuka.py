@@ -82,15 +82,36 @@ def cmd_intake(args: argparse.Namespace) -> int:
 
 
 def cmd_search(args: argparse.Namespace) -> int:
-    """Run 11-level strategy search or registry scrapers."""
+    """Run lead discovery search or registry scrapers."""
     country = getattr(args, "country", None)
     if not country:
         print("Error: --country is required for search (e.g. --country SK)")
         return 1
 
-    import orchestrate_11_levels
-    sys.argv = [sys.argv[0], "--country", country]
-    orchestrate_11_levels.main()
+    try:
+        import non_pl_agent_orchestrator
+        res = non_pl_agent_orchestrator.run_discovery_wave(country_filter=country, max_new_leads=10)
+        print(f"✅ Search completed: {res}")
+        return 0
+    except Exception as e:
+        print(f"⚠️ Search failed: {e}")
+        return 1
+
+
+def cmd_scrape(args: argparse.Namespace) -> int:
+    """Run ScrapeGraphAI on a target website to extract structured lead/assortment details."""
+    url = getattr(args, "url", None)
+    if not url:
+        print("Error: --url is required for scraping")
+        return 1
+
+    import scrapegraph_enricher
+    schema_type = getattr(args, "type", "company")
+    prompt = getattr(args, "prompt", None)
+    
+    print(f"🚀 [ScrapeGraphAI] Scraping {url} (schema: {schema_type})...")
+    result = scrapegraph_enricher.scrape_url(url, prompt=prompt, schema_type=schema_type)
+    print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0
 
 
@@ -134,6 +155,14 @@ def main():
     p_search = subparsers.add_parser("search", help="Run 11-level lead discovery strategy")
     p_search.add_argument("--country", required=True, help="2-letter country code (e.g. PL, CZ, SK)")
     p_search.set_defaults(func=cmd_search)
+
+    # Scrape (ScrapeGraphAI)
+    p_scrape = subparsers.add_parser("scrape", help="Extract structured company & product details using ScrapeGraphAI")
+    p_scrape.add_argument("--url", required=True, help="Target URL to scrape")
+    p_scrape.add_argument("--type", choices=["company", "assortment", "full", "custom"], default="company",
+                          help="Extraction schema type (default: company)")
+    p_scrape.add_argument("--prompt", help="Custom extraction prompt override")
+    p_scrape.set_defaults(func=cmd_scrape)
 
     # Sync
     p_sync = subparsers.add_parser("sync", help="Verify 1:1 consistency between regional catalogs and master.csv")

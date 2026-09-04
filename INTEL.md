@@ -52,6 +52,8 @@
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 194 wierszy we wszystkich katalogach regionalnych. | Pipeline |
 | ⚡ | Weryfikacja automatyczna: 0/202 (0.0%) firm zweryfikowanych i oznaczonych jako FROZEN (API). | Pipeline |
 | ⚡ | Auto-cleaning & Quality Scoring przetworzył 172 wierszy we wszystkich katalogach regionalnych. | Pipeline |
+| ⚡ | **Wave 3 (2026-09-04)** — 11 metod × 13 krajów, 39 nowych leadów (PL-B-140/141/142, CZ-B-036/037/038, SK-B-024/025/026, HR-B-021/022/023, BG-B-034/035/036, RO-B-027/028/029, EE-B-038/039/040, LT-B-026/027/028, LV-B-013/014/015, SI-B-013/014/015, MD-B-021/022/023, FR-B-020/021/022, RS-B-029/030/031) | Pipeline |
+| ⚡ | Wzbogacono decydentów B2B oraz zweryfikowano NIP/rejestry dla kluczowych podmiotów tytoniowych w ... | Pipeline |
 
 ---
 

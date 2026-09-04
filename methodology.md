@@ -356,6 +356,12 @@ def discover_emd(country):
 
 - **Bonus:** znajdź staging/dev domeny (`staging.example.cz`, `dev.example.cz`) — czasem leakują strukturę firmy
 
+**Intelligent Web Scraping via ScrapeGraphAI:**
+
+- **Narzędzie:** `tools/scrapegraph_enricher.py` (CLI: `python3 tools/billszuka.py scrape --url <URL> --type [company|assortment|full]`)
+- **Cel:** Automatyczna ekstrakcja strukturyzowanych metadanych B2B (nazwa, NIP/IČO, adres, telefon, decydent, asortyment nabijarek) bezpośrednio z dynamicznych stron sklepów i hurtowni za pomocą grafów LLM (`SmartScraperGraph`).
+- **Zaleta:** Eliminuje ręczne parsowanie HTML i selektory CSS; odporny na zmiany layoutu portali dystrybutorów.
+
 ***
 
 #### L6 — Targi i audyty wystawców

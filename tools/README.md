@@ -57,6 +57,8 @@ python3 tools/billszuka.py intake --iso CZ
 
 ### Enrichment, Backend & Server
 
+- **`scrapegraph_enricher.py`**: Intelligent AI-driven web scraper (ScrapeGraphAI) for structured company and assortment extraction from dynamic websites.
+
 - **`auto_enrich.py`**: Multi-source lead enrichment.
 
 - **`apollo_enrich.py`**: Apollo.io fallback enricher for non-EU markets (e.g. MD).
